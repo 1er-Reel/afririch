@@ -246,7 +246,7 @@ fn html_balances(chain: &Blockchain) -> String {
 }
 
 fn html_wallet(new_addr: Option<&str>, check_addr: Option<&str>, chain: &Blockchain) -> String {
-    let mut html = String::from(r#"<!DOCTYPE html><html lang="fr"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>👛 Wallet AfriRich</title><style>
+    let mut html = String::from(r##"<!DOCTYPE html><html lang="fr"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>👛 Wallet AfriRich</title><link rel="manifest" href="/manifest.json"><meta name="theme-color" content="#1a3d2e"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="AfriRich"><link rel="apple-touch-icon" href="/icon.svg"><style>
 body{font-family:sans-serif;background:linear-gradient(135deg,#1a3d2e,#0d1f17);color:#f5e9d4;padding:20px;}
 h1{color:#d4a437;text-align:center;}
 a{color:#d4a437;}
@@ -262,7 +262,7 @@ label{color:#a8c5a8;display:block;margin-top:8px;}
 <body>
 <h1>👛 Wallet AfriRich</h1>
 <p style="text-align:center;"><a href="/">← Retour</a></p>
-"#);
+"##);
 
     // Section: Create new wallet
     html.push_str(r#"<div class="card"><h2>🆕 Créer un wallet</h2><p>Clique pour générer une nouvelle adresse AfriRich :</p><a href="/wallet/new"><button>⚡ Générer mon adresse</button></a></div>"#);
@@ -300,6 +300,7 @@ label{color:#a8c5a8;display:block;margin-top:8px;}
     // Section: Mine pending transactions
     html.push_str(r#"<div class="card"><h2>⛏️ Miner les transactions en attente</h2><form action="/wallet/mine" method="post"><label>Adresse du mineur :</label><input name="miner" placeholder="Afri..." /><button type="submit">⛏️ Miner !</button></form></div>"#);
 
+    html.push_str(r#"<script>if('serviceWorker' in navigator){navigator.serviceWorker.register('/sw.js')}</script>"#);
     html.push_str("</body></html>");
     html
 }
@@ -401,6 +402,18 @@ async fn main() -> std::io::Result<()> {
                 let chain = d.lock().unwrap();
                 let json = format!(r#"{{"name":"AfriChain","blocks":{},"valid":{},"token":"AFR","version":"0.4"}}"#, chain.blocks.len(), chain.is_valid());
                 HttpResponse::Ok().content_type("application/json").body(json)
+            }))
+            .route("/manifest.json", web::get().to(|| async move {
+                let manifest = r##"{"name":"AfriRich Wallet","short_name":"AfriRich","description":"🦁 Wallet AfriChain — La crypto 100% africaine","start_url":"/wallet","display":"standalone","background_color":"#0d1f17","theme_color":"#1a3d2e","icons":[{"src":"/icon.svg","sizes":"any","type":"image/svg+xml","purpose":"any maskable"}]}"##;
+                HttpResponse::Ok().content_type("application/json").body(manifest)
+            }))
+            .route("/icon.svg", web::get().to(|| async move {
+                let svg = r##"<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><rect width="512" height="512" rx="80" fill="#1a3d2e"/><text x="256" y="360" font-size="320" text-anchor="middle">🦁</text></svg>"##;
+                HttpResponse::Ok().content_type("image/svg+xml").body(svg)
+            }))
+            .route("/sw.js", web::get().to(|| async move {
+                let sw = "const C='afri-v0.4';self.addEventListener('install',e=>{e.waitUntil(caches.open(C).then(c=>c.addAll(['/wallet','/manifest.json','/icon.svg'])))});self.addEventListener('fetch',e=>{e.respondWith(caches.match(e.request).then(r=>r||fetch(e.request)))});";
+                HttpResponse::Ok().content_type("application/javascript").body(sw)
             }))
     })
     .bind("0.0.0.0:8080")?
