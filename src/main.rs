@@ -2,6 +2,7 @@ use serde::{Deserialize, Serialize};
 use sha2::{Digest, Sha256};
 use chrono::Utc;
 use std::sync::Mutex;
+use std::time::{SystemTime, UNIX_EPOCH};
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 struct Transaction {
@@ -124,6 +125,17 @@ impl Blockchain {
         true
     }
 
+    fn balance_of(&self, addr: &str) -> i64 {
+        let mut bal: i64 = 0;
+        for block in &self.blocks {
+            for tx in &block.transactions {
+                if tx.from == addr { bal -= tx.amount as i64; }
+                if tx.to == addr { bal += tx.amount as i64; }
+            }
+        }
+        bal
+    }
+
     fn balances(&self) -> std::collections::HashMap<String, i64> {
         let mut map = std::collections::HashMap::new();
         for block in &self.blocks {
@@ -134,6 +146,33 @@ impl Blockchain {
         }
         map
     }
+
+    fn tx_history(&self, addr: &str) -> Vec<&Transaction> {
+        let mut hist = Vec::new();
+        for block in &self.blocks {
+            for tx in &block.transactions {
+                if tx.from == addr || tx.to == addr {
+                    hist.push(tx);
+                }
+            }
+        }
+        hist
+    }
+}
+
+fn generate_wallet_address() -> String {
+    let seed = format!(
+        "{}{}",
+        SystemTime::now()
+            .duration_since(UNIX_EPOCH)
+            .unwrap()
+            .as_nanos(),
+        Utc::now().timestamp_nanos_opt().unwrap_or(0)
+    );
+    let mut hasher = Sha256::new();
+    hasher.update(seed.as_bytes());
+    let hash = hex::encode(hasher.finalize());
+    format!("Afri{}", &hash[..32])
 }
 
 fn html_home() -> String {
@@ -160,7 +199,7 @@ footer {{ text-align:center; margin-top:40px; color:#a8c5a8; }}
 <header>
 <h1>🦁 AfriChain Explorer</h1>
 <p>La blockchain 100% africaine 💚</p>
-<p style="margin-top:10px;"><a href="/blocks">📊 Blocs</a> | <a href="/balances">💰 Soldes</a> | <a href="/api/status">🔌 API</a></p>
+<p style="margin-top:10px;"><a href="/blocks">📊 Blocs</a> | <a href="/balances">💰 Soldes</a> | <a href="/wallet">👛 Wallet</a> | <a href="/api/status">🔌 API</a></p>
 </header>
 <div class="cards">
 <div class="card">
@@ -206,11 +245,84 @@ fn html_balances(chain: &Blockchain) -> String {
     html
 }
 
+fn html_wallet(new_addr: Option<&str>, check_addr: Option<&str>, chain: &Blockchain) -> String {
+    let mut html = String::from(r#"<!DOCTYPE html><html lang="fr"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>👛 Wallet AfriRich</title><style>
+body{font-family:sans-serif;background:linear-gradient(135deg,#1a3d2e,#0d1f17);color:#f5e9d4;padding:20px;}
+h1{color:#d4a437;text-align:center;}
+a{color:#d4a437;}
+.card{background:rgba(212,164,55,0.1);border:1px solid #d4a437;border-radius:12px;padding:20px;margin:15px auto;max-width:600px;}
+input,button{width:100%;padding:12px;margin:6px 0;border:1px solid #d4a437;border-radius:8px;background:rgba(0,0,0,0.3);color:#f5e9d4;font-size:1em;box-sizing:border-box;}
+button{background:#d4a437;color:#1a3d2e;font-weight:bold;cursor:pointer;border:none;}
+button:hover{background:#e8b547;}
+.addr{font-family:monospace;font-size:1.1em;color:#7fcf7f;word-break:break-all;background:rgba(0,0,0,0.3);padding:12px;border-radius:8px;border:1px solid #d4a437;text-align:center;}
+.bal{font-size:2em;color:#7fcf7f;text-align:center;font-weight:bold;}
+.tx{background:rgba(0,0,0,0.3);padding:8px;margin:6px 0;border-radius:6px;font-size:0.9em;}
+label{color:#a8c5a8;display:block;margin-top:8px;}
+</style></head>
+<body>
+<h1>👛 Wallet AfriRich</h1>
+<p style="text-align:center;"><a href="/">← Retour</a></p>
+"#);
+
+    // Section: Create new wallet
+    html.push_str(r#"<div class="card"><h2>🆕 Créer un wallet</h2><p>Clique pour générer une nouvelle adresse AfriRich :</p><a href="/wallet/new"><button>⚡ Générer mon adresse</button></a></div>"#);
+
+    // Show generated address
+    if let Some(addr) = new_addr {
+        html.push_str(&format!(r#"<div class="card"><h2>✨ Votre nouvelle adresse</h2><div class="addr">{}</div><p style="text-align:center;color:#a8c5a8;margin-top:10px;">💡 Gardez cette adresse précieusement !</p></div>"#, addr));
+    }
+
+    // Section: Check balance
+    html.push_str(r#"<div class="card"><h2>💰 Voir mon solde</h2><form action="/wallet/balance" method="get"><label>Votre adresse Afri :</label><input name="addr" placeholder="Afri..." /><button type="submit">🔍 Voir le solde</button></form></div>"#);
+
+    // Show balance result
+    if let Some(addr) = check_addr {
+        let bal = chain.balance_of(addr);
+        let history = chain.tx_history(addr);
+        html.push_str(&format!(r#"<div class="card"><h2>💰 Solde de {}</h2><div class="bal">{} AFR</div>"#, addr, bal));
+        if history.is_empty() {
+            html.push_str(r#"<p style="text-align:center;color:#a8c5a8;">Aucune transaction pour cette adresse.</p>"#);
+        } else {
+            html.push_str("<h3>📜 Historique</h3>");
+            for tx in &history {
+                let arrow = if tx.from == addr { "📤" } else { "📥" };
+                let other = if tx.from == addr { &tx.to[..] } else { &tx.from[..] };
+                let sign = if tx.from == addr { "-" } else { "+" };
+                html.push_str(&format!(r#"<div class="tx">{} {} <b>{}</b> : {}{} AFR <i>({})</i></div>"#, arrow, if tx.from == addr { "→" } else { "←" }, other, sign, tx.amount, tx.memo));
+            }
+        }
+        html.push_str("</div>");
+    }
+
+    // Section: Send AFR
+    html.push_str(r#"<div class="card"><h2>💸 Envoyer des AFR</h2><form action="/wallet/send" method="post"><label>De (votre adresse) :</label><input name="from" placeholder="Afri..." /><label>À (adresse destinataire) :</label><input name="to" placeholder="Afri..." /><label>Montant (AFR) :</label><input name="amount" type="number" placeholder="50" /><label>Memo (optionnel) :</label><input name="memo" placeholder="Paiement 💚" /><button type="submit">📤 Envoyer</button></form></div>"#);
+
+    // Section: Mine pending transactions
+    html.push_str(r#"<div class="card"><h2>⛏️ Miner les transactions en attente</h2><form action="/wallet/mine" method="post"><label>Adresse du mineur :</label><input name="miner" placeholder="Afri..." /><button type="submit">⛏️ Miner !</button></form></div>"#);
+
+    html.push_str("</body></html>");
+    html
+}
+
+// Form structs for POST handlers
+#[derive(Deserialize)]
+struct SendForm {
+    from: String,
+    to: String,
+    amount: u64,
+    memo: String,
+}
+
+#[derive(Deserialize)]
+struct MineForm {
+    miner: String,
+}
+
 use actix_web::{web, App, HttpServer, HttpResponse};
 
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
-    println!("🦁 AfriChain v0.3 — Démarrage");
+    println!("🦁 AfriChain v0.4 — Wallet Edition");
     println!("💚 L'Afrique n'a pas besoin de permission");
 
     let mut chain = Blockchain::new();
@@ -230,11 +342,12 @@ async fn main() -> std::io::Result<()> {
     let chain_data = web::Data::new(Mutex::new(chain));
 
     println!("\n🌐 Serveur sur http://localhost:8080");
+    println!("👛 Wallet sur http://localhost:8080/wallet");
     HttpServer::new(move || {
         let chain_data = chain_data.clone();
         App::new()
             .app_data(chain_data)
-            .route("/", web::get().to(|d: web::Data<Mutex<Blockchain>>| async move {
+            .route("/", web::get().to(|_d: web::Data<Mutex<Blockchain>>| async move {
                 HttpResponse::Ok().content_type("text/html").body(html_home())
             }))
             .route("/blocks", web::get().to(|d: web::Data<Mutex<Blockchain>>| async move {
@@ -245,13 +358,48 @@ async fn main() -> std::io::Result<()> {
                 let chain = d.lock().unwrap();
                 HttpResponse::Ok().content_type("text/html").body(html_balances(&chain))
             }))
+            .route("/wallet", web::get().to(|d: web::Data<Mutex<Blockchain>>, q: web::Query<std::collections::HashMap<String, String>>| async move {
+                let chain = d.lock().unwrap();
+                let new_addr = q.get("new").map(|s| s.as_str());
+                let check_addr = q.get("addr").map(|s| s.as_str());
+                HttpResponse::Ok().content_type("text/html").body(html_wallet(new_addr, check_addr, &chain))
+            }))
+            .route("/wallet/new", web::get().to(|| async move {
+                let addr = generate_wallet_address();
+                HttpResponse::Found()
+                    .append_header(("Location", format!("/wallet?new={}", addr)))
+                    .finish()
+            }))
+            .route("/wallet/balance", web::get().to(|_d: web::Data<Mutex<Blockchain>>, q: web::Query<std::collections::HashMap<String, String>>| async move {
+                let addr = q.get("addr").cloned().unwrap_or_default();
+                HttpResponse::Found()
+                    .append_header(("Location", format!("/wallet?addr={}", addr)))
+                    .finish()
+            }))
+            .route("/wallet/send", web::post().to(|d: web::Data<Mutex<Blockchain>>, form: web::Form<SendForm>| async move {
+                let tx = Transaction::new(&form.from, &form.to, form.amount, &form.memo);
+                let mut chain = d.lock().unwrap();
+                chain.add_transaction(tx);
+                println!("💸 Transaction en attente : {} → {} ({} AFR)", form.from, form.to, form.amount);
+                HttpResponse::Found()
+                    .append_header(("Location", "/wallet"))
+                    .finish()
+            }))
+            .route("/wallet/mine", web::post().to(|d: web::Data<Mutex<Blockchain>>, form: web::Form<MineForm>| async move {
+                let mut chain = d.lock().unwrap();
+                chain.mine_pending(&form.miner);
+                println!("⛏️ Bloc miné pour {}", form.miner);
+                HttpResponse::Found()
+                    .append_header(("Location", "/wallet"))
+                    .finish()
+            }))
             .route("/api/blocks", web::get().to(|d: web::Data<Mutex<Blockchain>>| async move {
                 let chain = d.lock().unwrap();
                 HttpResponse::Ok().json(&chain.blocks)
             }))
             .route("/api/status", web::get().to(|d: web::Data<Mutex<Blockchain>>| async move {
                 let chain = d.lock().unwrap();
-                let json = format!(r#"{{"name":"AfriChain","blocks":{},"valid":{},"token":"AFR"}}"#, chain.blocks.len(), chain.is_valid());
+                let json = format!(r#"{{"name":"AfriChain","blocks":{},"valid":{},"token":"AFR","version":"0.4"}}"#, chain.blocks.len(), chain.is_valid());
                 HttpResponse::Ok().content_type("application/json").body(json)
             }))
     })
@@ -259,6 +407,3 @@ async fn main() -> std::io::Result<()> {
     .run()
     .await
 }
-
-
-
