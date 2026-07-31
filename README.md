@@ -10,9 +10,11 @@ Blockchain indépendante codée from scratch en Rust. **Pas de fork Bitcoin. Pas
 
 - ⛏️ **Proof of Work** — minage avec SHA256
 - 🔐 **Signatures Ed25519** — transactions signées et vérifiées cryptographiquement
+- 👤 **Comptes utilisateurs** — inscription + connexion (username + mot de passe)
+- 📈 **Dashboard** — graphiques en temps réel (blocs, transactions, soldes)
 - 🌐 **Web Explorer** — visualise les blocs, soldes et API
 - 👛 **Wallet** — crée une adresse Ed25519, consulte ton solde, envoie des AFR signées
-- 💾 **Persistance** — blockchain sauvegardée dans `blockchain.json`
+- 💾 **Persistance** — blockchain + wallets + utilisateurs sauvegardés
 - 📱 **PWA** — installable comme app sur Android (écran d'accueil, icône 🦁)
 - ✅ **Validation** — chaîne vérifiée cryptographiquement
 - 📱 **Mobile-first** — pensé pour Android/Termux
@@ -38,19 +40,23 @@ Puis ouvre **http://localhost:8080** dans ton navigateur.
 | URL | Description |
 |-----|-------------|
 | `/` | Page d'accueil — vue d'ensemble |
+| `/register` | Inscription — créer un compte + wallet |
+| `/login` | Connexion — accéder à son wallet |
+| `/dashboard` | Tableau de bord — graphiques et stats |
 | `/blocks` | Tous les blocs minés |
 | `/balances` | Soldes de tous les wallets |
-| `/wallet` | Ton wallet — créer, consulter, envoyer, miner |
+| `/wallet` | Wallet — créer, consulter, envoyer, miner |
 | `/api/status` | API JSON — statut de la chaîne |
 | `/api/blocks` | API JSON — tous les blocs |
 
 ## 🏗️ Architecture
 
 ```
-src/main.rs        — Tout le code (blockchain + serveur web + wallet)
+src/main.rs        — Tout le code (blockchain + serveur web + wallet + comptes)
 Cargo.toml         — Dépendances (serde, sha2, ed25519-dalek, actix-web)
 blockchain.json    — État de la blockchain (auto-généré)
 wallets.json       — Clés privées des wallets (auto-généré)
+users.json         — Comptes utilisateurs (auto-généré)
 ```
 
 ## 🔐 Sécurité Ed25519

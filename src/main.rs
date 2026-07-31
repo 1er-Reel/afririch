@@ -48,14 +48,14 @@ impl Transaction {
 
     fn verify(&self) -> bool {
         if self.from == "SYSTEM" { return true; }
-        if self.signature.is_empty() { return true; } // backward compat
+        if self.signature.is_empty() { return true; }
         let addr_hex = match self.from.strip_prefix("Afri") {
             Some(h) => h,
-            None => return true, // old-style addresses (Alice, Bob, etc.)
+            None => return true,
         };
         let pub_bytes = match hex::decode(addr_hex) {
             Ok(b) if b.len() == 32 => b,
-            _ => return true, // not an Ed25519 address, skip verification
+            _ => return true,
         };
         let pub_arr: [u8; 32] = pub_bytes.try_into().unwrap();
         let verifying_key = match VerifyingKey::from_bytes(&pub_arr) {
@@ -150,7 +150,6 @@ impl Blockchain {
     }
 
     fn mine_pending(&mut self, miner: &str) {
-        // Verify all pending transactions
         for tx in &self.pending_transactions {
             if !tx.verify() {
                 println!("⚠️  Transaction invalide rejetée : {} → {}", tx.from, tx.to);
@@ -231,6 +230,14 @@ impl Blockchain {
         }
         hist
     }
+
+    fn total_transactions(&self) -> usize {
+        self.blocks.iter().map(|b| b.transactions.len()).sum()
+    }
+
+    fn total_supply(&self) -> i64 {
+        self.balances().values().filter(|&&v| v > 0).sum()
+    }
 }
 
 // ===== WALLET STORE =====
@@ -271,18 +278,101 @@ impl WalletStore {
     }
 }
 
+// ===== USER STORE =====
+#[derive(Debug, Clone, Serialize, Deserialize)]
+struct UserAccount {
+    username: String,
+    password_hash: String,
+    address: String,
+    created_at: i64,
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize)]
+struct UserStore {
+    users: Vec<UserAccount>,
+}
+
+impl UserStore {
+    fn load() -> Self {
+        match std::fs::read_to_string("users.json") {
+            Ok(data) => serde_json::from_str(&data).unwrap_or(UserStore { users: Vec::new() }),
+            Err(_) => UserStore { users: Vec::new() },
+        }
+    }
+
+    fn save(&self) {
+        let data = serde_json::to_string_pretty(self).unwrap_or_default();
+        std::fs::write("users.json", data).ok();
+    }
+
+    fn hash_password(password: &str) -> String {
+        let mut hasher = Sha256::new();
+        hasher.update(format!("afririch_salt_{}", password).as_bytes());
+        hex::encode(hasher.finalize())
+    }
+
+    fn register(&mut self, username: &str, password: &str, wallets: &mut WalletStore) -> Result<UserAccount, String> {
+        if self.users.iter().any(|u| u.username == username) {
+            return Err("Ce nom d'utilisateur existe déjà".to_string());
+        }
+        if username.len() < 3 {
+            return Err("Le nom doit faire au moins 3 caractères".to_string());
+        }
+        if password.len() < 4 {
+            return Err("Le mot de passe doit faire au moins 4 caractères".to_string());
+        }
+        let (address, _priv) = wallets.create_wallet();
+        let user = UserAccount {
+            username: username.to_string(),
+            password_hash: Self::hash_password(password),
+            address,
+            created_at: Utc::now().timestamp(),
+        };
+        println!("🆕 Utilisateur inscrit : {} → {}", user.username, user.address);
+        self.users.push(user.clone());
+        self.save();
+        Ok(user)
+    }
+
+    fn login(&self, username: &str, password: &str) -> Option<&UserAccount> {
+        let hash = Self::hash_password(password);
+        self.users.iter().find(|u| u.username == username && u.password_hash == hash)
+    }
+
+    fn count(&self) -> usize {
+        self.users.len()
+    }
+}
+
+// ===== HTML: SHARED STYLE =====
+const STYLE: &str = r##"<style>body{font-family:sans-serif;background:linear-gradient(135deg,#1a3d2e,#0d1f17);color:#f5e9d4;padding:20px;margin:0;}h1{color:#d4a437;text-align:center;}a{color:#d4a437;}.card{background:rgba(212,164,55,0.1);border:1px solid #d4a437;border-radius:12px;padding:20px;margin:15px auto;max-width:600px;}input,button{width:100%;padding:12px;margin:6px 0;border:1px solid #d4a437;border-radius:8px;background:rgba(0,0,0,0.3);color:#f5e9d4;font-size:1em;box-sizing:border-box;}button{background:#d4a437;color:#1a3d2e;font-weight:bold;cursor:pointer;border:none;}button:hover{background:#e8b547;}.addr{font-family:monospace;font-size:1.1em;color:#7fcf7f;word-break:break-all;background:rgba(0,0,0,0.3);padding:12px;border-radius:8px;border:1px solid #d4a437;text-align:center;}.priv{font-family:monospace;font-size:0.9em;color:#cf7f7f;word-break:break-all;background:rgba(0,0,0,0.3);padding:12px;border-radius:8px;border:1px solid #cf7f7f;text-align:center;}.bal{font-size:2em;color:#7fcf7f;text-align:center;font-weight:bold;}.tx{background:rgba(0,0,0,0.3);padding:8px;margin:6px 0;border-radius:6px;font-size:0.9em;}label{color:#a8c5a8;display:block;margin-top:8px;}.msg{background:rgba(127,207,127,0.2);border:1px solid #7fcf7f;border-radius:8px;padding:12px;margin:10px 0;text-align:center;color:#7fcf7f;}.err{background:rgba(207,127,127,0.2);border:1px solid #cf7f7f;border-radius:8px;padding:12px;margin:10px 0;text-align:center;color:#cf7f7f;}.nav{text-align:center;padding:10px;}.nav a{margin:0 8px;}.stat-box{display:inline-block;background:rgba(212,164,55,0.15);border:1px solid #d4a437;border-radius:12px;padding:15px 20px;margin:8px;text-align:center;min-width:120px;}.stat-num{font-size:2em;color:#d4a437;font-weight:bold;}.stat-label{color:#a8c5a8;font-size:0.85em;}.bar{height:30px;background:#d4a437;border-radius:4px;display:flex;align-items:center;justify-content:center;color:#1a3d2e;font-weight:bold;margin:4px 0;}</style>"##;
+
+fn html_head(title: &str) -> String {
+    format!(r##"<html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>{}</title><link rel="manifest" href="/manifest.json"><meta name="theme-color" content="#1a3d2e"><meta name="apple-mobile-web-app-capable" content="yes"><link rel="apple-touch-icon" href="/icon.svg">{}</head><body>"##, title, STYLE)
+}
+
 // ===== HTML PAGES =====
-fn html_home() -> String {
-    format!(r#"<html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>🦁 AfriChain</title><style>body{{font-family:sans-serif;background:linear-gradient(135deg,#1a3d2e,#0d1f17);color:#f5e9d4;padding:20px;}}h1{{color:#d4a437;text-align:center;}}a{{color:#d4a437;}}.card{{background:rgba(212,164,55,0.1);border:1px solid #d4a437;border-radius:12px;padding:20px;margin:15px auto;max-width:800px;}}.stat{{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);}}.label{{color:#a8c5a8;}}.value{{color:#f5e9d4;font-weight:bold;}}footer{{text-align:center;margin-top:40px;color:#a8c5a8;}}</style></head><body><h1>🦁 AfriChain Explorer</h1><p style="text-align:center;">La blockchain 100% africaine 💚</p><p style="text-align:center;"><a href="/blocks">📊 Blocs</a> | <a href="/balances">💰 Soldes</a> | <a href="/wallet">👛 Wallet</a> | <a href="/api/status">🔌 API</a></p><div class="card"><div class="stat"><span class="label">🪙 Token</span><span class="value">AfriRich (AFR)</span></div><div class="stat"><span class="label">🌍 Lien</span><span class="value">Monnaie AES</span></div><div class="stat"><span class="label">🛡️ Statut</span><span class="value">Souveraine 💚</span></div><div class="stat"><span class="label">🔐 Crypto</span><span class="value">Ed25519</span></div></div><footer>🦁 Codée from scratch par Machine-senpai</footer></body></html>"#)
+fn html_home(chain: &Blockchain, users: &UserStore) -> String {
+    let mut html = html_head("🦁 AfriChain");
+    html.push_str(&format!(r#"<h1>🦁 AfriChain</h1><p style="text-align:center;">La blockchain 100% africaine 💚</p><div class="nav"><a href="/blocks">📊 Blocs</a> | <a href="/balances">💰 Soldes</a> | <a href="/wallet">👛 Wallet</a> | <a href="/dashboard">📈 Dashboard</a> | <a href="/register">🆕 S'inscrire</a> | <a href="/login">🔑 Connexion</a> | <a href="/api/status">🔌 API</a></div><div style="text-align:center;"><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Blocs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Transactions</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Utilisateurs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">AFR en circulation</div></div></div><div class="card"><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🪙 Token</span><b>AfriRich (AFR)</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🌍 Lien</span><b>Monnaie AES</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🛡️ Statut</span><b>Souveraine 💚</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;"><span style="color:#a8c5a8;">🔐 Crypto</span><b>Ed25519</b></div></div><footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🦁 Codée from scratch par Machine-senpai</footer>"#,
+        chain.blocks.len(),
+        chain.total_transactions(),
+        users.count(),
+        chain.total_supply(),
+    ));
+    html.push_str("</body></html>");
+    html
 }
 
 fn html_blocks(chain: &Blockchain) -> String {
-    let mut html = String::from(r#"<html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>📊 Blocs</title><style>body{font-family:sans-serif;background:linear-gradient(135deg,#1a3d2e,#0d1f17);color:#f5e9d4;padding:20px;}h1{color:#d4a437;text-align:center;}a{color:#d4a437;}.block{background:rgba(212,164,55,0.1);border:1px solid #d4a437;border-radius:12px;padding:15px;margin:15px auto;max-width:800px;}.hash{font-family:monospace;font-size:0.85em;color:#a8c5a8;word-break:break-all;}.badge{display:inline-block;background:#d4a437;color:#1a3d2e;padding:3px 10px;border-radius:12px;font-size:0.8em;margin-right:5px;}.tx{background:rgba(0,0,0,0.3);padding:8px;margin:6px 0;border-radius:6px;font-size:0.9em;}</style></head><body><h1>📊 Tous les blocs</h1><p style="text-align:center;"><a href="/">← Retour</a></p>"#);
+    let mut html = html_head("📊 Blocs");
+    html.push_str(r#"<h1>📊 Tous les blocs</h1><div class="nav"><a href="/">← Retour</a></div>"#);
     for block in &chain.blocks {
-        html.push_str(&format!(r#"<div class="block"><h2>🧱 Bloc #{}</h2><p><span class="badge">nonce {}</span><span class="badge">{} tx</span></p><p><b>Hash:</b> <span class="hash">{}</span></p><p><b>Préc.:</b> <span class="hash">{}</span></p>"#, block.index, block.nonce, block.transactions.len(), block.hash, block.previous_hash));
+        html.push_str(&format!(r#"<div class="card"><h2>🧱 Bloc #{}</h2><p><b>Nonce:</b> {} | <b>TX:</b> {}</p><p style="font-family:monospace;font-size:0.85em;color:#a8c5a8;word-break:break-all;"><b>Hash:</b> {}</p><p style="font-family:monospace;font-size:0.85em;color:#a8c5a8;word-break:break-all;"><b>Préc.:</b> {}</p>"#,
+            block.index, block.nonce, block.transactions.len(), block.hash, block.previous_hash));
         for tx in &block.transactions {
             let sig_icon = if tx.signature.is_empty() { "🔓" } else { "🔐" };
-            html.push_str(&format!(r#"<div class="tx">{} 💸 <b>{}</b> → <b>{}</b> : {} AFR <i>({})</i></div>"#, sig_icon, tx.from, tx.to, tx.amount, tx.memo));
+            html.push_str(&format!(r#"<div class="tx">{} <b>{}</b> → <b>{}</b> : {} AFR <i>({})</i></div>"#, sig_icon, tx.from, tx.to, tx.amount, tx.memo));
         }
         html.push_str("</div>");
     }
@@ -292,15 +382,20 @@ fn html_blocks(chain: &Blockchain) -> String {
 
 fn html_balances(chain: &Blockchain) -> String {
     let balances = chain.balances();
-    let mut html = String::from(r#"<html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>💰 Soldes</title><style>body{font-family:sans-serif;background:linear-gradient(135deg,#1a3d2e,#0d1f17);color:#f5e9d4;padding:20px;}h1{color:#d4a437;text-align:center;}a{color:#d4a437;}.card{background:rgba(212,164,55,0.1);border:1px solid #d4a437;border-radius:12px;padding:15px;margin:10px auto;max-width:600px;}.pos{color:#7fcf7f;font-weight:bold;font-size:1.3em;}.neg{color:#cf7f7f;}</style></head><body><h1>💰 Soldes</h1><p style="text-align:center;"><a href="/">← Retour</a></p>"#);
+    let mut html = html_head("💰 Soldes");
+    html.push_str(r#"<h1>💰 Soldes</h1><div class="nav"><a href="/">← Retour</a></div>"#);
     if balances.is_empty() {
         html.push_str(r#"<p style="text-align:center;color:#a8c5a8;">Aucun wallet.</p>"#);
     } else {
         let mut entries: Vec<_> = balances.iter().collect();
         entries.sort_by(|a, b| b.1.cmp(a.1));
+        let max_bal = entries.iter().map(|(_, v)| v.abs()).max().unwrap_or(1).max(1);
         for (name, bal) in entries {
             let cls = if *bal >= 0 { "pos" } else { "neg" };
-            html.push_str(&format!(r#"<div class="card">👛 <b>{}</b> : <span class="{}">{} AFR</span></div>"#, name, cls, bal));
+            let pct = ((*bal as f64) / (max_bal as f64)).abs() * 100.0;
+            let short_name = if name.len() > 20 { format!("{}...", &name[..17]) } else { name.clone() };
+            html.push_str(&format!(r#"<div class="card"><div style="display:flex;justify-content:space-between;align-items:center;"><span>👛 <b>{}</b></span><span class="{}" style="font-size:1.3em;font-weight:bold;">{} AFR</span></div><div style="background:rgba(0,0,0,0.3);border-radius:4px;margin-top:8px;height:8px;"><div style="background:{};height:8px;border-radius:4px;width:{}%;"></div></div></div>"#,
+                short_name, cls, bal, if *bal >= 0 { "#7fcf7f" } else { "#cf7f7f" }, pct as u32));
         }
     }
     html.push_str("</body></html>");
@@ -308,7 +403,8 @@ fn html_balances(chain: &Blockchain) -> String {
 }
 
 fn html_wallet(new_addr: Option<&str>, new_priv: Option<&str>, check_addr: Option<&str>, msg: Option<&str>, chain: &Blockchain) -> String {
-    let mut html = String::from(r##"<html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>👛 Wallet AfriRich</title><link rel="manifest" href="/manifest.json"><meta name="theme-color" content="#1a3d2e"><meta name="apple-mobile-web-app-capable" content="yes"><link rel="apple-touch-icon" href="/icon.svg"><style>body{font-family:sans-serif;background:linear-gradient(135deg,#1a3d2e,#0d1f17);color:#f5e9d4;padding:20px;}h1{color:#d4a437;text-align:center;}a{color:#d4a437;}.card{background:rgba(212,164,55,0.1);border:1px solid #d4a437;border-radius:12px;padding:20px;margin:15px auto;max-width:600px;}input,button{width:100%;padding:12px;margin:6px 0;border:1px solid #d4a437;border-radius:8px;background:rgba(0,0,0,0.3);color:#f5e9d4;font-size:1em;box-sizing:border-box;}button{background:#d4a437;color:#1a3d2e;font-weight:bold;cursor:pointer;border:none;}button:hover{background:#e8b547;}.addr{font-family:monospace;font-size:1.1em;color:#7fcf7f;word-break:break-all;background:rgba(0,0,0,0.3);padding:12px;border-radius:8px;border:1px solid #d4a437;text-align:center;}.priv{font-family:monospace;font-size:0.9em;color:#cf7f7f;word-break:break-all;background:rgba(0,0,0,0.3);padding:12px;border-radius:8px;border:1px solid #cf7f7f;text-align:center;}.bal{font-size:2em;color:#7fcf7f;text-align:center;font-weight:bold;}.tx{background:rgba(0,0,0,0.3);padding:8px;margin:6px 0;border-radius:6px;font-size:0.9em;}label{color:#a8c5a8;display:block;margin-top:8px;}.msg{background:rgba(127,207,127,0.2);border:1px solid #7fcf7f;border-radius:8px;padding:12px;margin:10px 0;text-align:center;color:#7fcf7f;}</style></head><body><h1>👛 Wallet AfriRich</h1><p style="text-align:center;"><a href="/">← Retour</a></p>"##);
+    let mut html = html_head("👛 Wallet AfriRich");
+    html.push_str(r#"<h1>👛 Wallet AfriRich</h1><div class="nav"><a href="/">← Retour</a> | <a href="/register">🆕 S'inscrire</a> | <a href="/login">🔑 Connexion</a></div>"#);
 
     if let Some(m) = msg {
         html.push_str(&format!(r#"<div class="msg">{}</div>"#, m));
@@ -351,11 +447,147 @@ fn html_wallet(new_addr: Option<&str>, new_priv: Option<&str>, check_addr: Optio
     html
 }
 
+fn html_register(msg: Option<&str>) -> String {
+    let mut html = html_head("🆕 Inscription AfriRich");
+    html.push_str(r#"<h1>🆕 Inscription</h1><div class="nav"><a href="/">← Retour</a></div>"#);
+    if let Some(m) = msg {
+        html.push_str(&format!(r#"<div class="err">{}</div>"#, m));
+    }
+    html.push_str(r#"<div class="card"><h2>Créer ton compte AfriRich</h2><p>Choisis un nom d'utilisateur et un mot de passe. Un wallet Ed25519 sera créé automatiquement !</p><form action="/register" method="post"><label>Nom d'utilisateur :</label><input name="username" placeholder="Ex: machine" /><label>Mot de passe :</label><input name="password" type="password" placeholder="••••••" /><button type="submit">✨ S'inscrire</button></form><p style="text-align:center;margin-top:15px;"><a href="/login">Déjà inscrit ? 🔑 Connexion</a></p></div>"#);
+    html.push_str("</body></html>");
+    html
+}
+
+fn html_login(msg: Option<&str>) -> String {
+    let mut html = html_head("🔑 Connexion AfriRich");
+    html.push_str(r#"<h1>🔑 Connexion</h1><div class="nav"><a href="/">← Retour</a></div>"#);
+    if let Some(m) = msg {
+        html.push_str(&format!(r#"<div class="err">{}</div>"#, m));
+    }
+    html.push_str(r#"<div class="card"><h2>Connecte-toi</h2><form action="/login" method="post"><label>Nom d'utilisateur :</label><input name="username" placeholder="Ex: machine" /><label>Mot de passe :</label><input name="password" type="password" placeholder="••••••" /><button type="submit">🔑 Se connecter</button></form><p style="text-align:center;margin-top:15px;"><a href="/register">Pas encore inscrit ? 🆕 S'inscrire</a></p></div>"#);
+    html.push_str("</body></html>");
+    html
+}
+
+fn html_account(user: &UserAccount, chain: &Blockchain, msg: Option<&str>) -> String {
+    let mut html = html_head("Mon compte AfriRich");
+    let bal = chain.balance_of(&user.address);
+    let history = chain.tx_history(&user.address);
+    html.push_str(&format!(r#"<h1>👋 Bonjour {}</h1><div class="nav"><a href="/">← Accueil</a> | <a href="/blocks">📊 Blocs</a> | <a href="/balances">💰 Soldes</a> | <a href="/dashboard">📈 Dashboard</a></div>"#, user.username));
+
+    if let Some(m) = msg {
+        html.push_str(&format!(r#"<div class="msg">{}</div>"#, m));
+    }
+
+    html.push_str(&format!(r#"<div class="card"><h2>👛 Mon Wallet</h2><label>Adresse :</label><div class="addr">{}</div><div class="bal">{} AFR</div></div>"#, user.address, bal));
+
+    if !history.is_empty() {
+        html.push_str(r#"<div class="card"><h2>📜 Mes transactions</h2>"#);
+        for tx in &history {
+            let arrow = if tx.from == user.address { "📤" } else { "📥" };
+            let other = if tx.from == user.address { &tx.to[..] } else { &tx.from[..] };
+            let sign = if tx.from == user.address { "-" } else { "+" };
+            let sig_icon = if tx.signature.is_empty() { "🔓" } else { "🔐" };
+            html.push_str(&format!(r#"<div class="tx">{} {} <b>{}</b> : {}{} AFR <i>({})</i></div>"#, sig_icon, arrow, other, sign, tx.amount, tx.memo));
+        }
+        html.push_str("</div>");
+    } else {
+        html.push_str(r#"<div class="card"><p style="text-align:center;color:#a8c5a8;">Aucune transaction. Mine pour gagner des AFR ! ⛏️</p></div>"#);
+    }
+
+    html.push_str(r#"<div class="card"><h2>💸 Envoyer des AFR</h2><form action="/account/send" method="post"><input type="hidden" name="from" value=""#);
+    html.push_str(&user.address);
+    html.push_str(r#"" /><label>À (adresse destinataire) :</label><input name="to" placeholder="Afri..." /><label>Montant (AFR) :</label><input name="amount" type="number" placeholder="50" /><label>Memo :</label><input name="memo" placeholder="Paiement 💚" /><button type="submit">📤 Envoyer (signé 🔐)</button></form></div>"#);
+
+    html.push_str(r#"<div class="card"><h2>⛏️ Miner</h2><form action="/account/mine" method="post"><input type="hidden" name="miner" value=""#);
+    html.push_str(&user.address);
+    html.push_str(r#"" /><button type="submit">⛏️ Miner ! (+100 AFR)</button></form></div>"#);
+
+    html.push_str("</body></html>");
+    html
+}
+
+fn html_dashboard(chain: &Blockchain, users: &UserStore) -> String {
+    let mut html = html_head("📈 Dashboard AfriChain");
+    let balances = chain.balances();
+    let total_tx = chain.total_transactions();
+    let total_supply = chain.total_supply();
+    let num_wallets = balances.len();
+    let num_users = users.count();
+
+    html.push_str(r#"<h1>📈 Dashboard</h1><div class="nav"><a href="/">← Retour</a></div>"#);
+
+    // Stats boxes
+    html.push_str(&format!(r#"<div style="text-align:center;"><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">🧱 Blocs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">💸 Transactions</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">👛 Wallets</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">👥 Utilisateurs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">🪙 AFR total</div></div></div>"#,
+        chain.blocks.len(), total_tx, num_wallets, num_users, total_supply));
+
+    // Chart: Blocks per day
+    html.push_str(r#"<div class="card"><h2>📊 Blocs minés</h2>"#);
+    let max_tx = chain.blocks.iter().map(|b| b.transactions.len()).max().unwrap_or(1).max(1);
+    for block in &chain.blocks {
+        let tx_count = block.transactions.len();
+        let pct = (tx_count as f64 / max_tx as f64) * 100.0;
+        let date = chrono::DateTime::from_timestamp(block.timestamp, 0)
+            .map(|d| d.format("%d/%m %H:%M").to_string())
+            .unwrap_or_else(|| block.timestamp.to_string());
+        html.push_str(&format!(r#"<div style="margin:4px 0;"><span style="color:#a8c5a8;font-size:0.85em;">Bloc #{} — {}</span><div style="background:rgba(0,0,0,0.3);border-radius:4px;height:24px;margin-top:2px;"><div class="bar" style="width:{}%;height:24px;border-radius:4px;font-size:0.8em;">{} tx</div></div></div>"#,
+            block.index, date, pct as u32, tx_count));
+    }
+    html.push_str("</div>");
+
+    // Chart: Top balances
+    html.push_str(r#"<div class="card"><h2>💰 Top Wallets</h2>"#);
+    let mut entries: Vec<_> = balances.iter().collect();
+    entries.sort_by(|a, b| b.1.cmp(a.1));
+    entries.truncate(10);
+    let max_bal = entries.iter().map(|(_, v)| v.abs()).max().unwrap_or(1).max(1);
+    for (name, bal) in &entries {
+        let pct = ((bal.abs() as f64) / (max_bal as f64)) * 100.0;
+        let short = if name.len() > 20 { format!("{}...", &name[..17]) } else { name.to_string() };
+        let color = if **bal >= 0 { "#7fcf7f" } else { "#cf7f7f" };
+        html.push_str(&format!(r#"<div style="margin:4px 0;"><span style="color:#a8c5a8;font-size:0.85em;">👛 {}</span><div style="background:rgba(0,0,0,0.3);border-radius:4px;height:24px;margin-top:2px;"><div style="background:{};height:24px;border-radius:4px;width:{}%;display:flex;align-items:center;justify-content:center;color:#1a3d2e;font-weight:bold;font-size:0.8em;">{} AFR</div></div></div>"#,
+            short, color, pct as u32, bal));
+    }
+    html.push_str("</div>");
+
+    // Chart: Transaction flow
+    html.push_str(r#"<div class="card"><h2>💸 Flux des transactions</h2>"#);
+    for block in &chain.blocks {
+        for tx in &block.transactions {
+            let from_short = if tx.from.len() > 15 { format!("{}...", &tx.from[..12]) } else { tx.from.clone() };
+            let to_short = if tx.to.len() > 15 { format!("{}...", &tx.to[..12]) } else { tx.to.clone() };
+            let sig = if tx.signature.is_empty() { "🔓" } else { "🔐" };
+            html.push_str(&format!(r#"<div class="tx">{} {} → {} : <b>{} AFR</b> <i>({})</i></div>"#, sig, from_short, to_short, tx.amount, tx.memo));
+        }
+    }
+    html.push_str("</div>");
+
+    // Users list
+    if num_users > 0 {
+        html.push_str(r#"<div class="card"><h2>👥 Utilisateurs inscrits</h2>"#);
+        for user in &users.users {
+            let date = chrono::DateTime::from_timestamp(user.created_at, 0)
+                .map(|d| d.format("%d/%m/%Y").to_string())
+                .unwrap_or_else(|| user.created_at.to_string());
+            let bal = chain.balance_of(&user.address);
+            html.push_str(&format!(r#"<div class="tx">👤 <b>{}</b> — {} AFR <span style="color:#a8c5a8;font-size:0.8em;">(inscrit le {})</span></div>"#, user.username, bal, date));
+        }
+        html.push_str("</div>");
+    }
+
+    html.push_str("</body></html>");
+    html
+}
+
 // ===== FORMS =====
 #[derive(Deserialize)]
 struct SendForm { from: String, to: String, amount: u64, memo: String }
 #[derive(Deserialize)]
 struct MineForm { miner: String }
+#[derive(Deserialize)]
+struct RegisterForm { username: String, password: String }
+#[derive(Deserialize)]
+struct LoginForm { username: String, password: String }
 
 // ===== SERVER =====
 use actix_web::{web, App, HttpServer, HttpResponse};
@@ -363,11 +595,12 @@ use actix_web::{web, App, HttpServer, HttpResponse};
 struct AppState {
     chain: Mutex<Blockchain>,
     wallets: Mutex<WalletStore>,
+    users: Mutex<UserStore>,
 }
 
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
-    println!("🦁 AfriChain v0.5 — Ed25519 Security Edition");
+    println!("🦁 AfriChain v0.6 — Accounts + Dashboard");
     println!("💚 L'Afrique n'a pas besoin de permission");
 
     let chain = match Blockchain::load_from_file() {
@@ -386,20 +619,28 @@ async fn main() -> std::io::Result<()> {
     println!("✅ Valide : {}", chain.is_valid());
 
     let wallets = WalletStore::load();
+    let users = UserStore::load();
+    println!("👥 {} utilisateurs inscrits", users.count());
+
     let state = web::Data::new(AppState {
         chain: Mutex::new(chain),
         wallets: Mutex::new(wallets),
+        users: Mutex::new(users),
     });
 
     println!("\n🌐 Serveur sur http://localhost:8080");
     println!("👛 Wallet sur http://localhost:8080/wallet");
+    println!("🆕 Inscription sur http://localhost:8080/register");
+    println!("📈 Dashboard sur http://localhost:8080/dashboard");
 
     HttpServer::new(move || {
         let state = state.clone();
         App::new()
             .app_data(state)
-            .route("/", web::get().to(|_s: web::Data<AppState>| async move {
-                HttpResponse::Ok().content_type("text/html").body(html_home())
+            .route("/", web::get().to(|s: web::Data<AppState>| async move {
+                let chain = s.chain.lock().unwrap();
+                let users = s.users.lock().unwrap();
+                HttpResponse::Ok().content_type("text/html").body(html_home(&chain, &users))
             }))
             .route("/blocks", web::get().to(|s: web::Data<AppState>| async move {
                 let chain = s.chain.lock().unwrap();
@@ -443,7 +684,6 @@ async fn main() -> std::io::Result<()> {
                         .append_header(("Location", "/wallet?msg=✅ Transaction signée et ajoutée !"))
                         .finish()
                 } else {
-                    println!("⚠️ Wallet non trouvé : {}", form.from);
                     HttpResponse::Found()
                         .append_header(("Location", "/wallet?msg=⚠️ Adresse non trouvée dans ce wallet"))
                         .finish()
@@ -457,15 +697,106 @@ async fn main() -> std::io::Result<()> {
                     .append_header(("Location", "/wallet?msg=⛏️ Bloc miné ! +100 AFR pour le mineur"))
                     .finish()
             }))
+            // ===== REGISTER =====
+            .route("/register", web::get().to(|_s: web::Data<AppState>, q: web::Query<std::collections::HashMap<String, String>>| async move {
+                let msg = q.get("err").map(|s| s.as_str());
+                HttpResponse::Ok().content_type("text/html").body(html_register(msg))
+            }))
+            .route("/register", web::post().to(|s: web::Data<AppState>, form: web::Form<RegisterForm>| async move {
+                let mut wallets = s.wallets.lock().unwrap();
+                let mut users = s.users.lock().unwrap();
+                match users.register(&form.username, &form.password, &mut wallets) {
+                    Ok(user) => {
+                        HttpResponse::Found()
+                            .append_header(("Location", format!("/account?user={}", user.username)))
+                            .finish()
+                    }
+                    Err(e) => {
+                        HttpResponse::Found()
+                            .append_header(("Location", format!("/register?err={}", e)))
+                            .finish()
+                    }
+                }
+            }))
+            // ===== LOGIN =====
+            .route("/login", web::get().to(|_s: web::Data<AppState>, q: web::Query<std::collections::HashMap<String, String>>| async move {
+                let msg = q.get("err").map(|s| s.as_str());
+                HttpResponse::Ok().content_type("text/html").body(html_login(msg))
+            }))
+            .route("/login", web::post().to(|s: web::Data<AppState>, form: web::Form<LoginForm>| async move {
+                let users = s.users.lock().unwrap();
+                match users.login(&form.username, &form.password) {
+                    Some(user) => {
+                        HttpResponse::Found()
+                            .append_header(("Location", format!("/account?user={}", user.username)))
+                            .finish()
+                    }
+                    None => {
+                        HttpResponse::Found()
+                            .append_header(("Location", "/login?err=Nom d'utilisateur ou mot de passe incorrect"))
+                            .finish()
+                    }
+                }
+            }))
+            // ===== ACCOUNT =====
+            .route("/account", web::get().to(|s: web::Data<AppState>, q: web::Query<std::collections::HashMap<String, String>>| async move {
+                let username = q.get("user").cloned().unwrap_or_default();
+                let users = s.users.lock().unwrap();
+                let chain = s.chain.lock().unwrap();
+                let msg = q.get("msg").map(|s| s.as_str());
+                match users.users.iter().find(|u| u.username == username) {
+                    Some(user) => HttpResponse::Ok().content_type("text/html").body(html_account(user, &chain, msg)),
+                    None => HttpResponse::Found().append_header(("Location", "/login")).finish(),
+                }
+            }))
+            .route("/account/send", web::post().to(|s: web::Data<AppState>, form: web::Form<SendForm>| async move {
+                let wallets = s.wallets.lock().unwrap();
+                let mut chain = s.chain.lock().unwrap();
+                let users = s.users.lock().unwrap();
+                let user = users.users.iter().find(|u| u.address == form.from);
+                let username = user.map(|u| u.username.clone()).unwrap_or_default();
+                let mut tx = Transaction::new(&form.from, &form.to, form.amount, &form.memo);
+                if let Some(sk) = wallets.get_signing_key(&form.from) {
+                    tx.sign(&sk);
+                    chain.add_transaction(tx);
+                    HttpResponse::Found()
+                        .append_header(("Location", format!("/account?user={}&msg=✅ Envoyé ! {} AFR signés", username, form.amount)))
+                        .finish()
+                } else {
+                    HttpResponse::Found()
+                        .append_header(("Location", format!("/account?user={}&msg=⚠️ Clé privée introuvable", username)))
+                        .finish()
+                }
+            }))
+            .route("/account/mine", web::post().to(|s: web::Data<AppState>, form: web::Form<MineForm>| async move {
+                let mut chain = s.chain.lock().unwrap();
+                let users = s.users.lock().unwrap();
+                let user = users.users.iter().find(|u| u.address == form.miner);
+                let username = user.map(|u| u.username.clone()).unwrap_or_default();
+                chain.mine_pending(&form.miner);
+                HttpResponse::Found()
+                    .append_header(("Location", format!("/account?user={}&msg=⛏️ Miné ! +100 AFR", username)))
+                    .finish()
+            }))
+            // ===== DASHBOARD =====
+            .route("/dashboard", web::get().to(|s: web::Data<AppState>| async move {
+                let chain = s.chain.lock().unwrap();
+                let users = s.users.lock().unwrap();
+                HttpResponse::Ok().content_type("text/html").body(html_dashboard(&chain, &users))
+            }))
+            // ===== API =====
             .route("/api/blocks", web::get().to(|s: web::Data<AppState>| async move {
                 let chain = s.chain.lock().unwrap();
                 HttpResponse::Ok().json(&chain.blocks)
             }))
             .route("/api/status", web::get().to(|s: web::Data<AppState>| async move {
                 let chain = s.chain.lock().unwrap();
-                let json = format!(r#"{{"name":"AfriChain","blocks":{},"valid":{},"token":"AFR","version":"0.5","crypto":"Ed25519"}}"#, chain.blocks.len(), chain.is_valid());
+                let users = s.users.lock().unwrap();
+                let json = format!(r#"{{"name":"AfriChain","blocks":{},"transactions":{},"users":{},"valid":{},"token":"AFR","version":"0.6","crypto":"Ed25519","supply":{}}}"#,
+                    chain.blocks.len(), chain.total_transactions(), users.count(), chain.is_valid(), chain.total_supply());
                 HttpResponse::Ok().content_type("application/json").body(json)
             }))
+            // ===== PWA =====
             .route("/manifest.json", web::get().to(|| async move {
                 let manifest = r##"{"name":"AfriRich Wallet","short_name":"AfriRich","start_url":"/wallet","display":"standalone","background_color":"#0d1f17","theme_color":"#1a3d2e","icons":[{"src":"/icon.svg","sizes":"any","type":"image/svg+xml","purpose":"any maskable"}]}"##;
                 HttpResponse::Ok().content_type("application/json").body(manifest)
@@ -475,7 +806,7 @@ async fn main() -> std::io::Result<()> {
                 HttpResponse::Ok().content_type("image/svg+xml").body(svg)
             }))
             .route("/sw.js", web::get().to(|| async move {
-                let sw = "const C='afri-v0.5';self.addEventListener('install',e=>{e.waitUntil(caches.open(C).then(c=>c.addAll(['/wallet','/manifest.json','/icon.svg'])))});self.addEventListener('fetch',e=>{e.respondWith(caches.match(e.request).then(r=>r||fetch(e.request)))});";
+                let sw = "const C='afri-v0.6';self.addEventListener('install',e=>{e.waitUntil(caches.open(C).then(c=>c.addAll(['/wallet','/manifest.json','/icon.svg'])))});self.addEventListener('fetch',e=>{e.respondWith(caches.match(e.request).then(r=>r||fetch(e.request)))});";
                 HttpResponse::Ok().content_type("application/javascript").body(sw)
             }))
     })
