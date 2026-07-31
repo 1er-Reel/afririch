@@ -344,6 +344,9 @@ impl UserStore {
     }
 }
 
+// ===== ADMIN PASSWORD =====
+const ADMIN_PASSWORD: &str = "africhain2026";
+
 // ===== HTML: SHARED STYLE =====
 const STYLE: &str = r##"<style>body{font-family:sans-serif;background:linear-gradient(135deg,#1a3d2e,#0d1f17);color:#f5e9d4;padding:20px;margin:0;}h1{color:#d4a437;text-align:center;}a{color:#d4a437;}.card{background:rgba(212,164,55,0.1);border:1px solid #d4a437;border-radius:12px;padding:20px;margin:15px auto;max-width:600px;}input,button{width:100%;padding:12px;margin:6px 0;border:1px solid #d4a437;border-radius:8px;background:rgba(0,0,0,0.3);color:#f5e9d4;font-size:1em;box-sizing:border-box;}button{background:#d4a437;color:#1a3d2e;font-weight:bold;cursor:pointer;border:none;}button:hover{background:#e8b547;}.addr{font-family:monospace;font-size:1.1em;color:#7fcf7f;word-break:break-all;background:rgba(0,0,0,0.3);padding:12px;border-radius:8px;border:1px solid #d4a437;text-align:center;}.priv{font-family:monospace;font-size:0.9em;color:#cf7f7f;word-break:break-all;background:rgba(0,0,0,0.3);padding:12px;border-radius:8px;border:1px solid #cf7f7f;text-align:center;}.bal{font-size:2em;color:#7fcf7f;text-align:center;font-weight:bold;}.tx{background:rgba(0,0,0,0.3);padding:8px;margin:6px 0;border-radius:6px;font-size:0.9em;}label{color:#a8c5a8;display:block;margin-top:8px;}.msg{background:rgba(127,207,127,0.2);border:1px solid #7fcf7f;border-radius:8px;padding:12px;margin:10px 0;text-align:center;color:#7fcf7f;}.err{background:rgba(207,127,127,0.2);border:1px solid #cf7f7f;border-radius:8px;padding:12px;margin:10px 0;text-align:center;color:#cf7f7f;}.nav{text-align:center;padding:10px;}.nav a{margin:0 8px;}.stat-box{display:inline-block;background:rgba(212,164,55,0.15);border:1px solid #d4a437;border-radius:12px;padding:15px 20px;margin:8px;text-align:center;min-width:120px;}.stat-num{font-size:2em;color:#d4a437;font-weight:bold;}.stat-label{color:#a8c5a8;font-size:0.85em;}.bar{height:30px;background:#d4a437;border-radius:4px;display:flex;align-items:center;justify-content:center;color:#1a3d2e;font-weight:bold;margin:4px 0;}</style>"##;
 
@@ -354,7 +357,7 @@ fn html_head(title: &str) -> String {
 // ===== HTML PAGES =====
 fn html_home(chain: &Blockchain, users: &UserStore) -> String {
     let mut html = html_head("🦁 AfriChain");
-    html.push_str(&format!(r#"<h1>🦁 AfriChain</h1><p style="text-align:center;">La blockchain 100% africaine 💚</p><div class="nav"><a href="/blocks">📊 Blocs</a> | <a href="/balances">💰 Soldes</a> | <a href="/wallet">👛 Wallet</a> | <a href="/dashboard">📈 Dashboard</a> | <a href="/register">🆕 S'inscrire</a> | <a href="/login">🔑 Connexion</a> | <a href="/api/status">🔌 API</a></div><div style="text-align:center;"><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Blocs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Transactions</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Utilisateurs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">AFR en circulation</div></div></div><div class="card"><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🪙 Token</span><b>AfriRich (AFR)</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🌍 Lien</span><b>Monnaie AES</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🛡️ Statut</span><b>Souveraine 💚</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;"><span style="color:#a8c5a8;">🔐 Crypto</span><b>Ed25519</b></div></div><footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🦁 Codée from scratch par Machine-senpai</footer>"#,
+    html.push_str(&format!(r#"<h1>🦁 AfriChain</h1><p style="text-align:center;">La blockchain 100% africaine 💚</p><div class="nav\"><a href="/register">🆕 S'inscrire</a> | <a href="/login">🔑 Connexion</a> | <a href="/wallet">👛 Wallet</a> | <a href="/admin">🔐 Admin</a> | <a href="/api/status">🔌 API</a></div><div style="text-align:center;\"><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Blocs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Transactions</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Utilisateurs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">AFR en circulation</div></div></div><div class="card"><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);\"><span style="color:#a8c5a8;\">🪙 Token</span><b>AfriRich (AFR)</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);\"><span style="color:#a8c5a8;\">🌍 Lien</span><b>Monnaie AES</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);\"><span style="color:#a8c5a8;\">🛡️ Statut</span><b>Souveraine 💚</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;\"><span style="color:#a8c5a8;\">🔐 Crypto</span><b>Ed25519</b></div></div><footer style="text-align:center;margin-top:40px;color:#a8c5a8;\">🦁 Codée from scratch par Machine-senpai</footer>"#,
         chain.blocks.len(),
         chain.total_transactions(),
         users.count(),
@@ -366,7 +369,7 @@ fn html_home(chain: &Blockchain, users: &UserStore) -> String {
 
 fn html_blocks(chain: &Blockchain) -> String {
     let mut html = html_head("📊 Blocs");
-    html.push_str(r#"<h1>📊 Tous les blocs</h1><div class="nav"><a href="/">← Retour</a></div>"#);
+    html.push_str(r#"<h1>📊 Tous les blocs</h1><div class="nav"><a href="/dashboard">← Dashboard</a> | <a href="/balances">💰 Soldes</a></div>"#);
     for block in &chain.blocks {
         html.push_str(&format!(r#"<div class="card"><h2>🧱 Bloc #{}</h2><p><b>Nonce:</b> {} | <b>TX:</b> {}</p><p style="font-family:monospace;font-size:0.85em;color:#a8c5a8;word-break:break-all;"><b>Hash:</b> {}</p><p style="font-family:monospace;font-size:0.85em;color:#a8c5a8;word-break:break-all;"><b>Préc.:</b> {}</p>"#,
             block.index, block.nonce, block.transactions.len(), block.hash, block.previous_hash));
@@ -383,7 +386,7 @@ fn html_blocks(chain: &Blockchain) -> String {
 fn html_balances(chain: &Blockchain) -> String {
     let balances = chain.balances();
     let mut html = html_head("💰 Soldes");
-    html.push_str(r#"<h1>💰 Soldes</h1><div class="nav"><a href="/">← Retour</a></div>"#);
+    html.push_str(r#"<h1>💰 Soldes</h1><div class="nav"><a href="/dashboard">← Dashboard</a> | <a href="/blocks">📊 Blocs</a></div>"#);
     if balances.is_empty() {
         html.push_str(r#"<p style="text-align:center;color:#a8c5a8;">Aucun wallet.</p>"#);
     } else {
@@ -469,11 +472,22 @@ fn html_login(msg: Option<&str>) -> String {
     html
 }
 
+fn html_admin_login(err: Option<&str>) -> String {
+    let mut html = html_head("🔐 Admin AfriChain");
+    html.push_str(r#"<h1>🔐 Administration</h1><div class="nav"><a href="/">← Accueil</a></div>"#);
+    if let Some(e) = err {
+        html.push_str(&format!(r#"<div class="err">{}</div>"#, e));
+    }
+    html.push_str(r#"<div class="card"><h2>🔑 Connexion Admin</h2><p>Réservé à l'administrateur de AfriChain.</p><form action="/admin" method="post"><label>Mot de passe admin :</label><input name="password" type="password" placeholder="••••••••" /><button type="submit">🔐 Se connecter</button></form></div>"#);
+    html.push_str("</body></html>");
+    html
+}
+
 fn html_account(user: &UserAccount, chain: &Blockchain, msg: Option<&str>) -> String {
     let mut html = html_head("Mon compte AfriRich");
     let bal = chain.balance_of(&user.address);
     let history = chain.tx_history(&user.address);
-    html.push_str(&format!(r#"<h1>👋 Bonjour {}</h1><div class="nav"><a href="/">← Accueil</a> | <a href="/blocks">📊 Blocs</a> | <a href="/balances">💰 Soldes</a> | <a href="/dashboard">📈 Dashboard</a></div>"#, user.username));
+    html.push_str(&format!(r#"<h1>👋 Bonjour {}</h1><div class="nav"><a href="/">← Accueil</a> | <a href="/logout">🚪 Déconnexion</a></div>"#, user.username));
 
     if let Some(m) = msg {
         html.push_str(&format!(r#"<div class="msg">{}</div>"#, m));
@@ -515,7 +529,7 @@ fn html_dashboard(chain: &Blockchain, users: &UserStore) -> String {
     let num_wallets = balances.len();
     let num_users = users.count();
 
-    html.push_str(r#"<h1>📈 Dashboard</h1><div class="nav"><a href="/">← Retour</a></div>"#);
+    html.push_str(r#"<h1>📈 Dashboard Admin</h1><div class="nav"><a href="/">← Accueil</a> | <a href="/blocks">📊 Blocs</a> | <a href="/balances">💰 Soldes</a> | <a href="/logout">🚪 Déconnexion</a></div>"#);
 
     // Stats boxes
     html.push_str(&format!(r#"<div style="text-align:center;"><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">🧱 Blocs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">💸 Transactions</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">👛 Wallets</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">👥 Utilisateurs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">🪙 AFR total</div></div></div>"#,
@@ -588,6 +602,8 @@ struct MineForm { miner: String }
 struct RegisterForm { username: String, password: String }
 #[derive(Deserialize)]
 struct LoginForm { username: String, password: String }
+#[derive(Deserialize)]
+struct AdminForm { password: String }
 
 // ===== SERVER =====
 use actix_web::{web, App, HttpServer, HttpResponse};
@@ -642,11 +658,17 @@ async fn main() -> std::io::Result<()> {
                 let users = s.users.lock().unwrap();
                 HttpResponse::Ok().content_type("text/html").body(html_home(&chain, &users))
             }))
-            .route("/blocks", web::get().to(|s: web::Data<AppState>| async move {
+            .route("/blocks", web::get().to(|s: web::Data<AppState>, req: actix_web::HttpRequest| async move {
+                if req.cookie("afri_admin").map(|c| c.value().to_string()) != Some("1".to_string()) {
+                    return HttpResponse::Found().append_header(("Location", "/admin")).finish();
+                }
                 let chain = s.chain.lock().unwrap();
                 HttpResponse::Ok().content_type("text/html").body(html_blocks(&chain))
             }))
-            .route("/balances", web::get().to(|s: web::Data<AppState>| async move {
+            .route("/balances", web::get().to(|s: web::Data<AppState>, req: actix_web::HttpRequest| async move {
+                if req.cookie("afri_admin").map(|c| c.value().to_string()) != Some("1".to_string()) {
+                    return HttpResponse::Found().append_header(("Location", "/admin")).finish();
+                }
                 let chain = s.chain.lock().unwrap();
                 HttpResponse::Ok().content_type("text/html").body(html_balances(&chain))
             }))
@@ -778,8 +800,34 @@ async fn main() -> std::io::Result<()> {
                     .append_header(("Location", format!("/account?user={}&msg=⛏️ Miné ! +100 AFR", username)))
                     .finish()
             }))
-            // ===== DASHBOARD =====
-            .route("/dashboard", web::get().to(|s: web::Data<AppState>| async move {
+            // ===== ADMIN =====
+            .route("/admin", web::get().to(|_s: web::Data<AppState>, q: web::Query<std::collections::HashMap<String, String>>| async move {
+                let err = q.get("err").map(|s| s.as_str());
+                HttpResponse::Ok().content_type("text/html").body(html_admin_login(err))
+            }))
+            .route("/admin", web::post().to(|_s: web::Data<AppState>, form: web::Form<AdminForm>| async move {
+                if form.password == ADMIN_PASSWORD {
+                    HttpResponse::Found()
+                        .cookie(actix_web::cookie::Cookie::build("afri_admin", "1").path("/").finish())
+                        .append_header(("Location", "/dashboard"))
+                        .finish()
+                } else {
+                    HttpResponse::Found()
+                        .append_header(("Location", "/admin?err=Mot de passe incorrect"))
+                        .finish()
+                }
+            }))
+            .route("/logout", web::get().to(|| async move {
+                HttpResponse::Found()
+                    .cookie(actix_web::cookie::Cookie::build("afri_admin", "").path("/").max_age(actix_web::cookie::time::Duration::seconds(0)).finish())
+                    .append_header(("Location", "/"))
+                    .finish()
+            }))
+            // ===== DASHBOARD (ADMIN ONLY) =====
+            .route("/dashboard", web::get().to(|s: web::Data<AppState>, req: actix_web::HttpRequest| async move {
+                if req.cookie("afri_admin").map(|c| c.value().to_string()) != Some("1".to_string()) {
+                    return HttpResponse::Found().append_header(("Location", "/admin")).finish();
+                }
                 let chain = s.chain.lock().unwrap();
                 let users = s.users.lock().unwrap();
                 HttpResponse::Ok().content_type("text/html").body(html_dashboard(&chain, &users))
