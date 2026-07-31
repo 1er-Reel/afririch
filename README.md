@@ -81,4 +81,36 @@ MIT — Libre d'utilisation, de modification et de distribution.
 
 ---
 
+## 📡 AfriMesh v0.2 — Réseau Mesh Africain
+
+Le réseau décentralisé qui fait tourner AfriChain. **Pas de fibre. Pas de tours. Juste des noeuds solaires.**
+
+### ✨ Fonctionnalités AfriMesh
+
+- 📡 **Découverte automatique** — UDP broadcast, les noeuds se trouvent tout seuls
+- 🔁 **Relay TCP** — les messages sautent de noeud en noeud (TTL = 5 hops)
+- ☀️ **Solaire** — chaque noeud peut être alimenté par panneau solaire
+- 🌍 **Régions** — Mali, Burkina, Niger, Afrique
+- 🛡️ **Déduplication** — anti-boucle (chaque message a un ID unique)
+- 🌐 **Interface web** — tout sur un seul port (mesh + web = même port!)
+- 📋 **CLI** — commandes: nodes, ping, send, status, help, quit
+
+### 🚀 Démarrage AfriMesh
+
+```bash
+cd afrimesh
+cargo run -- --port 8090 --region "Niamey" --solar
+```
+
+Puis ouvre **http://localhost:8090** — mesh + web sur le même port!
+
+### 🏗️ Architecture AfriMesh
+
+```
+afrimesh/src/main.rs  — Mesh protocol + TCP relay + web UI (un seul fichier)
+afrimesh/Cargo.toml   — Dépendances (serde, sha2, hex, chrono)
+```
+
+---
+
 🦁 *L'Afrique est le continent le plus riche. Aucune crypto ne peut la dépasser, même pas BTC.* 💚
