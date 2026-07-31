@@ -1,3 +1,7 @@
 target/
 Cargo.lock
 *.sol
+blockchain.json
+wallets.json
+cache/
+out/
