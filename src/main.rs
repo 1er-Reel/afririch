@@ -1,10 +1,16 @@
 use serde::{Deserialize, Serialize};
 use sha2::{Digest, Sha256};
 use chrono::Utc;
-use std::sync::Mutex;
+use std::sync::{Arc, Mutex};
 
 use ed25519_dalek::{SigningKey, VerifyingKey, Signer, Verifier, Signature};
 use rand::rngs::OsRng;
+
+use std::net::{UdpSocket, TcpListener, TcpStream, SocketAddr};
+use std::thread;
+use std::io::{Read, Write};
+use std::collections::HashMap;
+use std::time::{Duration, Instant};
 
 // ===== TRANSACTION =====
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -121,6 +127,10 @@ impl Block {
             }
             self.nonce += 1;
         }
+    }
+
+    fn verify_hash(&self) -> bool {
+        self.hash == self.calculate_hash()
     }
 }
 
@@ -347,6 +357,230 @@ impl UserStore {
 // ===== ADMIN PASSWORD =====
 const ADMIN_PASSWORD: &str = "africhain2026";
 
+// ===== MESH NETWORKING =====
+#[derive(Debug, Clone, Serialize, Deserialize)]
+struct MeshMessage {
+    msg_type: String,
+    node_id: String,
+    payload: String,
+    timestamp: i64,
+    ttl: u32,
+    msg_id: String,
+}
+
+impl MeshMessage {
+    fn new(msg_type: &str, node_id: &str, payload: &str, ttl: u32) -> Self {
+        let mut hasher = Sha256::new();
+        hasher.update(format!("{}-{}-{}", node_id, msg_type, Utc::now().timestamp_nanos_opt().unwrap_or(0)).as_bytes());
+        MeshMessage {
+            msg_type: msg_type.to_string(),
+            node_id: node_id.to_string(),
+            payload: payload.to_string(),
+            timestamp: Utc::now().timestamp(),
+            ttl,
+            msg_id: hex::encode(&hasher.finalize()[..16]),
+        }
+    }
+
+    fn to_bytes(&self) -> Vec<u8> {
+        serde_json::to_vec(self).unwrap_or_default()
+    }
+
+    fn from_bytes(data: &[u8]) -> Option<Self> {
+        serde_json::from_slice(data).ok()
+    }
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize)]
+struct NodeInfo {
+    node_id: String,
+    address: String,
+    last_seen: i64,
+    solar_powered: bool,
+    region: String,
+}
+
+struct NodeRegistry {
+    nodes: HashMap<String, NodeInfo>,
+    seen_messages: HashMap<String, Instant>,
+    my_id: String,
+    my_port: u16,
+    solar: bool,
+    region: String,
+}
+
+impl NodeRegistry {
+    fn new(my_id: String, my_port: u16, solar: bool, region: String) -> Self {
+        NodeRegistry {
+            nodes: HashMap::new(),
+            seen_messages: HashMap::new(),
+            my_id, my_port, solar, region,
+        }
+    }
+
+    fn add_or_update(&mut self, node_id: String, address: String, solar: bool, region: String) {
+        let info = NodeInfo {
+            node_id: node_id.clone(), address, last_seen: Utc::now().timestamp(),
+            solar_powered: solar, region,
+        };
+        self.nodes.insert(node_id, info);
+    }
+
+    fn cleanup_stale(&mut self) {
+        let now = Utc::now().timestamp();
+        self.nodes.retain(|_, info| now - info.last_seen < 60);
+    }
+
+    fn has_seen(&self, msg_id: &str) -> bool {
+        self.seen_messages.contains_key(msg_id)
+    }
+
+    fn mark_seen(&mut self, msg_id: String) {
+        self.seen_messages.insert(msg_id, Instant::now());
+        if self.seen_messages.len() > 1000 {
+            let oldest: Vec<String> = self.seen_messages.iter()
+                .min_by_key(|(_, t)| *t)
+                .map(|(k, _)| vec![k.clone()]).unwrap_or_default();
+            for k in oldest { self.seen_messages.remove(&k); }
+        }
+    }
+
+    fn count(&self) -> usize { self.nodes.len() }
+}
+
+fn generate_node_id() -> String {
+    let mut hasher = Sha256::new();
+    hasher.update(format!("afrimesh-{}", Utc::now().timestamp_nanos_opt().unwrap_or(0)).as_bytes());
+    format!("AFR-{}", &hex::encode(hasher.finalize())[..16])
+}
+
+// ===== UDP DISCOVERY =====
+fn udp_discovery(state: Arc<AppState>, my_id: String, port: u16, solar: bool, region: String) {
+    let socket = UdpSocket::bind("0.0.0.0:0").expect("UDP bind");
+    socket.set_broadcast(true).expect("broadcast");
+    let listener = UdpSocket::bind("0.0.0.0:7946").unwrap_or_else(|_| UdpSocket::bind("0.0.0.0:0").unwrap());
+    listener.set_read_timeout(Some(Duration::from_secs(2))).ok();
+    let discovery_msg = MeshMessage::new("discovery", &my_id, &format!("{}|{}|{}", port, solar, region), 5);
+
+    loop {
+        let _ = socket.send_to(&discovery_msg.to_bytes(), "255.255.255.255:7946");
+        let mut buf = [0u8; 4096];
+        if let Ok((len, src)) = listener.recv_from(&mut buf) {
+            if let Some(msg) = MeshMessage::from_bytes(&buf[..len]) {
+                if msg.node_id != my_id && msg.msg_type == "discovery" {
+                    let parts: Vec<&str> = msg.payload.split('|').collect();
+                    if parts.len() >= 3 {
+                        let other_port: u16 = parts[0].parse().unwrap_or(port);
+                        let other_solar = parts[1] == "true";
+                        let other_region = parts[2].to_string();
+                        let node_addr = format!("{}:{}", src.ip(), other_port);
+                        let mut mesh = state.mesh.lock().unwrap();
+                        mesh.add_or_update(msg.node_id.clone(), node_addr, other_solar, other_region);
+                        let reply = MeshMessage::new("discovery", &my_id, &format!("{}|{}|{}", port, solar, region), 5);
+                        if let Ok(rs) = UdpSocket::bind("0.0.0.0:0") { let _ = rs.send_to(&reply.to_bytes(), src); }
+                    }
+                }
+            }
+        }
+        thread::sleep(Duration::from_secs(3));
+    }
+}
+
+// ===== TCP RELAY (with blockchain sync) =====
+fn tcp_relay(state: Arc<AppState>, port: u16) {
+    let addr = format!("0.0.0.0:{}", port);
+    let listener = TcpListener::bind(&addr).expect("TCP bind");
+    listener.set_nonblocking(true).expect("nonblocking");
+    println!("📡 Mesh relay sur {}", addr);
+
+    loop {
+        match listener.accept() {
+            Ok((stream, peer)) => {
+                let st = state.clone();
+                thread::spawn(move || { handle_mesh_connection(stream, peer, st); });
+            }
+            Err(_) => { thread::sleep(Duration::from_millis(100)); }
+        }
+    }
+}
+
+fn handle_mesh_connection(mut stream: TcpStream, _peer: SocketAddr, state: Arc<AppState>) {
+    let mut buf = [0u8; 65536];
+    if let Ok(len) = stream.read(&mut buf) {
+        if len == 0 { return; }
+        let data = &buf[..len];
+
+        if data.starts_with(b"GET ") || data.starts_with(b"POST ") {
+            return; // HTTP handled by actix-web
+        }
+
+        if let Some(msg) = MeshMessage::from_bytes(data) {
+            let mut mesh = state.mesh.lock().unwrap();
+            if mesh.has_seen(&msg.msg_id) { return; }
+            mesh.mark_seen(msg.msg_id.clone());
+
+            match msg.msg_type.as_str() {
+                "block" => {
+                    if let Ok(block) = serde_json::from_str::<Block>(&msg.payload) {
+                        let mut chain = state.chain.lock().unwrap();
+                        if block.index == chain.blocks.len() as u64 && block.verify_hash() {
+                            println!("📦 Bloc #{} reçu de {} via mesh!", block.index, msg.node_id);
+                            chain.blocks.push(block);
+                            chain.save_to_file();
+                        }
+                    }
+                }
+                "tx" => {
+                    if let Ok(tx) = serde_json::from_str::<Transaction>(&msg.payload) {
+                        if tx.verify() {
+                            println!("💸 Transaction reçue de {} via mesh!", msg.node_id);
+                            let mut chain = state.chain.lock().unwrap();
+                            chain.add_transaction(tx);
+                        }
+                    }
+                }
+                "ping" => {
+                    let ack = MeshMessage::new("ack", &mesh.my_id, &format!("pong-{}", mesh.my_id), 1);
+                    let _ = stream.write_all(&ack.to_bytes());
+                }
+                "ack" => {}
+                _ => {}
+            }
+
+            // Relay
+            if msg.ttl > 0 {
+                let mut relay = msg.clone();
+                relay.ttl -= 1;
+                relay.node_id = mesh.my_id.clone();
+                let bytes = relay.to_bytes();
+                let peers: Vec<String> = mesh.nodes.values().map(|n| n.address.clone()).collect();
+                drop(mesh);
+                for addr in peers {
+                    if let Ok(mut s) = TcpStream::connect_timeout(&addr.parse().unwrap_or(_peer), Duration::from_secs(2)) {
+                        let _ = s.write_all(&bytes);
+                    }
+                }
+            }
+        }
+    }
+}
+
+// ===== BROADCAST HELPER =====
+fn broadcast_mesh(state: &AppState, msg_type: &str, payload: &str) {
+    let mesh = state.mesh.lock().unwrap();
+    let msg = MeshMessage::new(msg_type, &mesh.my_id, payload, 5);
+    let bytes = msg.to_bytes();
+    let peers: Vec<String> = mesh.nodes.values().map(|n| n.address.clone()).collect();
+    drop(mesh);
+    for addr in peers {
+        if let Ok(parsed) = addr.parse::<SocketAddr>() {
+            if let Ok(mut s) = TcpStream::connect_timeout(&parsed, Duration::from_secs(2)) {
+                let _ = s.write_all(&bytes);
+            }
+        }
+    }
+}
+
 // ===== HTML: SHARED STYLE =====
 const STYLE: &str = r##"<style>body{font-family:sans-serif;background:linear-gradient(135deg,#1a3d2e,#0d1f17);color:#f5e9d4;padding:20px;margin:0;}h1{color:#d4a437;text-align:center;}a{color:#d4a437;}.card{background:rgba(212,164,55,0.1);border:1px solid #d4a437;border-radius:12px;padding:20px;margin:15px auto;max-width:600px;}input,button{width:100%;padding:12px;margin:6px 0;border:1px solid #d4a437;border-radius:8px;background:rgba(0,0,0,0.3);color:#f5e9d4;font-size:1em;box-sizing:border-box;}button{background:#d4a437;color:#1a3d2e;font-weight:bold;cursor:pointer;border:none;}button:hover{background:#e8b547;}.addr{font-family:monospace;font-size:1.1em;color:#7fcf7f;word-break:break-all;background:rgba(0,0,0,0.3);padding:12px;border-radius:8px;border:1px solid #d4a437;text-align:center;}.priv{font-family:monospace;font-size:0.9em;color:#cf7f7f;word-break:break-all;background:rgba(0,0,0,0.3);padding:12px;border-radius:8px;border:1px solid #cf7f7f;text-align:center;}.bal{font-size:2em;color:#7fcf7f;text-align:center;font-weight:bold;}.tx{background:rgba(0,0,0,0.3);padding:8px;margin:6px 0;border-radius:6px;font-size:0.9em;}label{color:#a8c5a8;display:block;margin-top:8px;}.msg{background:rgba(127,207,127,0.2);border:1px solid #7fcf7f;border-radius:8px;padding:12px;margin:10px 0;text-align:center;color:#7fcf7f;}.err{background:rgba(207,127,127,0.2);border:1px solid #cf7f7f;border-radius:8px;padding:12px;margin:10px 0;text-align:center;color:#cf7f7f;}.nav{text-align:center;padding:10px;}.nav a{margin:0 8px;}.stat-box{display:inline-block;background:rgba(212,164,55,0.15);border:1px solid #d4a437;border-radius:12px;padding:15px 20px;margin:8px;text-align:center;min-width:120px;}.stat-num{font-size:2em;color:#d4a437;font-weight:bold;}.stat-label{color:#a8c5a8;font-size:0.85em;}.bar{height:30px;background:#d4a437;border-radius:4px;display:flex;align-items:center;justify-content:center;color:#1a3d2e;font-weight:bold;margin:4px 0;}</style>"##;
 
@@ -355,14 +589,39 @@ fn html_head(title: &str) -> String {
 }
 
 // ===== HTML PAGES =====
-fn html_home(chain: &Blockchain, users: &UserStore) -> String {
+fn html_home(chain: &Blockchain, users: &UserStore, mesh: &NodeRegistry) -> String {
     let mut html = html_head("🦁 AfriChain");
-    html.push_str(&format!(r#"<h1>🦁 AfriChain</h1><p style="text-align:center;">La blockchain 100% africaine 💚</p><div class="nav\"><a href="/register">🆕 S'inscrire</a> | <a href="/login">🔑 Connexion</a> | <a href="/wallet">👛 Wallet</a> | <a href="/admin">🔐 Admin</a> | <a href="/api/status">🔌 API</a></div><div style="text-align:center;\"><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Blocs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Transactions</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Utilisateurs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">AFR en circulation</div></div></div><div class="card"><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);\"><span style="color:#a8c5a8;\">🪙 Token</span><b>AfriRich (AFR)</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);\"><span style="color:#a8c5a8;\">🌍 Lien</span><b>Monnaie AES</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);\"><span style="color:#a8c5a8;\">🛡️ Statut</span><b>Souveraine 💚</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;\"><span style="color:#a8c5a8;\">🔐 Crypto</span><b>Ed25519</b></div></div><footer style="text-align:center;margin-top:40px;color:#a8c5a8;\">🦁 Codée from scratch par Machine-senpai</footer>"#,
+    html.push_str(&format!(r#"<h1>🦁 AfriChain</h1><p style="text-align:center;">La blockchain 100% africaine 💚</p><div class="nav\"><a href="/register">🆕 S'inscrire</a> | <a href="/login">🔑 Connexion</a> | <a href="/wallet">👛 Wallet</a> | <a href="/admin">🔐 Admin</a> | <a href="/mesh">📡 Mesh</a> | <a href="/api/status">🔌 API</a></div><div style="text-align:center;\"><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Blocs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Transactions</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Utilisateurs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">AFR en circulation</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📡 Noeuds mesh</div></div></div><div class="card"><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);\"><span style="color:#a8c5a8;\">🪙 Token</span><b>AfriRich (AFR)</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);\"><span style="color:#a8c5a8;\">🌍 Lien</span><b>Monnaie AES</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);\"><span style="color:#a8c5a8;\">🛡️ Statut</span><b>Souveraine 💚</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;\"><span style="color:#a8c5a8;\">🔐 Crypto</span><b>Ed25519</b></div></div><footer style="text-align:center;margin-top:40px;color:#a8c5a8;\">🦁 Codée from scratch par Machine-senpai</footer>"#,
         chain.blocks.len(),
         chain.total_transactions(),
         users.count(),
         chain.total_supply(),
+        mesh.count(),
     ));
+    html.push_str("</body></html>");
+    html
+}
+
+fn html_mesh(mesh: &NodeRegistry) -> String {
+    let mut html = html_head("📡 AfriMesh");
+    html.push_str(r#"<h1>📡 AfriMesh — Réseau Mesh</h1><div class="nav"><a href="/">← Accueil</a></div>"#);
+    html.push_str(&format!(r#"<div style="text-align:center;"><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📡 Noeuds</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📦 Messages</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">☀️ Solaire</div></div></div>"#,
+        mesh.count(), mesh.seen_messages.len(), if mesh.solar { "Oui" } else { "Non" }));
+    html.push_str(&format!(r#"<div class="card"><h2>📡 Mon Noeud</h2><p><b>Node ID:</b> <span style="font-family:monospace;color:#7fcf7f;">{}</span></p><p><b>Port mesh:</b> {}</p><p><b>Région:</b> {}</p></div>"#,
+        mesh.my_id, mesh.my_port, mesh.region));
+    if mesh.nodes.is_empty() {
+        html.push_str(r#"<div class="card"><p style="text-align:center;color:#a8c5a8;">Aucun noeud connecté. En attente... ⏳</p></div>"#);
+    } else {
+        html.push_str(r#"<div class="card"><h2>🌐 Noeuds connectés</h2>"#);
+        for (id, info) in &mesh.nodes {
+            let icon = if info.solar_powered { "☀️" } else { "🔌" };
+            let last_seen = chrono::DateTime::from_timestamp(info.last_seen, 0)
+                .map(|d| d.format("%H:%M:%S").to_string()).unwrap_or_else(|| "?".to_string());
+            html.push_str(&format!(r#"<div class="tx">{} <b>{}</b> — {} | {} | vu à {}</div>"#, icon, id, info.address, info.region, last_seen));
+        }
+        html.push_str("</div>");
+    }
+    html.push_str(r#"<footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🦁 AfriMesh — Un seul réseau pour l'Afrique 💚</footer>"#);
     html.push_str("</body></html>");
     html
 }
@@ -612,12 +871,25 @@ struct AppState {
     chain: Mutex<Blockchain>,
     wallets: Mutex<WalletStore>,
     users: Mutex<UserStore>,
+    mesh: Mutex<NodeRegistry>,
 }
 
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
-    println!("🦁 AfriChain v0.6 — Accounts + Dashboard");
+    let args: Vec<String> = std::env::args().collect();
+    let mesh_port: u16 = args.iter().position(|a| a == "--mesh-port")
+        .and_then(|i| args.get(i + 1)).and_then(|s| s.parse().ok()).unwrap_or(8090);
+    let solar = args.iter().any(|a| a == "--solar");
+    let region = args.iter().position(|a| a == "--region")
+        .and_then(|i| args.get(i + 1)).cloned().unwrap_or_else(|| "Afrique".to_string());
+
+    let my_node_id = generate_node_id();
+    println!("🦁 AfriChain v0.7 — Mesh Sync");
     println!("💚 L'Afrique n'a pas besoin de permission");
+    println!("📡 Node ID: {}", my_node_id);
+    println!("🔌 Mesh port: {}", mesh_port);
+    println!("☀️  Solaire: {}", if solar { "Oui" } else { "Non" });
+    println!("🌍 Région: {}", region);
 
     let chain = match Blockchain::load_from_file() {
         Some(c) => { println!("📊 {} blocs chargés", c.blocks.len()); c }
@@ -638,41 +910,71 @@ async fn main() -> std::io::Result<()> {
     let users = UserStore::load();
     println!("👥 {} utilisateurs inscrits", users.count());
 
-    let state = web::Data::new(AppState {
+    let registry = NodeRegistry::new(my_node_id.clone(), mesh_port, solar, region.clone());
+
+    let state = Arc::new(AppState {
         chain: Mutex::new(chain),
         wallets: Mutex::new(wallets),
         users: Mutex::new(users),
+        mesh: Mutex::new(registry),
     });
 
-    println!("\n🌐 Serveur sur http://localhost:8080");
+    // Start mesh threads
+    let mesh_state1 = state.clone();
+    let mesh_state2 = state.clone();
+    let my_id_clone = my_node_id.clone();
+    thread::spawn(move || udp_discovery(mesh_state1, my_id_clone, mesh_port, solar, region));
+    thread::spawn(move || tcp_relay(mesh_state2, mesh_port));
+
+    // Cleanup thread
+    let cleanup_state = state.clone();
+    thread::spawn(move || {
+        loop {
+            thread::sleep(Duration::from_secs(10));
+            let mut mesh = cleanup_state.mesh.lock().unwrap();
+            mesh.cleanup_stale();
+            let count = mesh.count();
+            println!("📊 Mesh: {} noeuds | {} messages vus", count, mesh.seen_messages.len());
+        }
+    });
+
+    let web_state = web::Data::new(state.clone());
+
+    println!("\n🌐 Serveur web sur http://localhost:8080");
+    println!("📡 Mesh relay sur port {}", mesh_port);
     println!("👛 Wallet sur http://localhost:8080/wallet");
     println!("🆕 Inscription sur http://localhost:8080/register");
     println!("📈 Dashboard sur http://localhost:8080/dashboard");
 
     HttpServer::new(move || {
-        let state = state.clone();
+        let state = web_state.clone();
         App::new()
             .app_data(state)
-            .route("/", web::get().to(|s: web::Data<AppState>| async move {
+            .route("/", web::get().to(|s: web::Data<Arc<AppState>>| async move {
                 let chain = s.chain.lock().unwrap();
                 let users = s.users.lock().unwrap();
-                HttpResponse::Ok().content_type("text/html").body(html_home(&chain, &users))
+                let mesh = s.mesh.lock().unwrap();
+                HttpResponse::Ok().content_type("text/html").body(html_home(&chain, &users, &mesh))
             }))
-            .route("/blocks", web::get().to(|s: web::Data<AppState>, req: actix_web::HttpRequest| async move {
+            .route("/mesh", web::get().to(|s: web::Data<Arc<AppState>>| async move {
+                let mesh = s.mesh.lock().unwrap();
+                HttpResponse::Ok().content_type("text/html").body(html_mesh(&mesh))
+            }))
+            .route("/blocks", web::get().to(|s: web::Data<Arc<AppState>>, req: actix_web::HttpRequest| async move {
                 if req.cookie("afri_admin").map(|c| c.value().to_string()) != Some("1".to_string()) {
                     return HttpResponse::Found().append_header(("Location", "/admin")).finish();
                 }
                 let chain = s.chain.lock().unwrap();
                 HttpResponse::Ok().content_type("text/html").body(html_blocks(&chain))
             }))
-            .route("/balances", web::get().to(|s: web::Data<AppState>, req: actix_web::HttpRequest| async move {
+            .route("/balances", web::get().to(|s: web::Data<Arc<AppState>>, req: actix_web::HttpRequest| async move {
                 if req.cookie("afri_admin").map(|c| c.value().to_string()) != Some("1".to_string()) {
                     return HttpResponse::Found().append_header(("Location", "/admin")).finish();
                 }
                 let chain = s.chain.lock().unwrap();
                 HttpResponse::Ok().content_type("text/html").body(html_balances(&chain))
             }))
-            .route("/wallet", web::get().to(|s: web::Data<AppState>, q: web::Query<std::collections::HashMap<String, String>>| async move {
+            .route("/wallet", web::get().to(|s: web::Data<Arc<AppState>>, q: web::Query<std::collections::HashMap<String, String>>| async move {
                 let chain = s.chain.lock().unwrap();
                 let new_addr = q.get("new").map(|s| s.as_str());
                 let new_priv = q.get("priv").map(|s| s.as_str());
@@ -680,7 +982,7 @@ async fn main() -> std::io::Result<()> {
                 let msg = q.get("msg").map(|s| s.as_str());
                 HttpResponse::Ok().content_type("text/html").body(html_wallet(new_addr, new_priv, check_addr, msg, &chain))
             }))
-            .route("/wallet/new", web::get().to(|s: web::Data<AppState>| async move {
+            .route("/wallet/new", web::get().to(|s: web::Data<Arc<AppState>>| async move {
                 let mut wallets = s.wallets.lock().unwrap();
                 let (addr, priv_key) = wallets.create_wallet();
                 println!("🆕 Wallet créé : {}", addr);
@@ -688,20 +990,24 @@ async fn main() -> std::io::Result<()> {
                     .append_header(("Location", format!("/wallet?new={}&priv={}", addr, priv_key)))
                     .finish()
             }))
-            .route("/wallet/balance", web::get().to(|_s: web::Data<AppState>, q: web::Query<std::collections::HashMap<String, String>>| async move {
+            .route("/wallet/balance", web::get().to(|_s: web::Data<Arc<AppState>>, q: web::Query<std::collections::HashMap<String, String>>| async move {
                 let addr = q.get("addr").cloned().unwrap_or_default();
                 HttpResponse::Found()
                     .append_header(("Location", format!("/wallet?addr={}", addr)))
                     .finish()
             }))
-            .route("/wallet/send", web::post().to(|s: web::Data<AppState>, form: web::Form<SendForm>| async move {
+            .route("/wallet/send", web::post().to(|s: web::Data<Arc<AppState>>, form: web::Form<SendForm>| async move {
                 let wallets = s.wallets.lock().unwrap();
                 let mut chain = s.chain.lock().unwrap();
                 let mut tx = Transaction::new(&form.from, &form.to, form.amount, &form.memo);
                 if let Some(sk) = wallets.get_signing_key(&form.from) {
                     tx.sign(&sk);
                     println!("🔐 Transaction signée Ed25519 : {} → {} ({} AFR)", form.from, form.to, form.amount);
+                    let tx_json = serde_json::to_string(&tx).unwrap_or_default();
                     chain.add_transaction(tx);
+                    drop(chain);
+                    drop(wallets);
+                    broadcast_mesh(&s, "tx", &tx_json);
                     HttpResponse::Found()
                         .append_header(("Location", "/wallet?msg=✅ Transaction signée et ajoutée !"))
                         .finish()
@@ -711,20 +1017,23 @@ async fn main() -> std::io::Result<()> {
                         .finish()
                 }
             }))
-            .route("/wallet/mine", web::post().to(|s: web::Data<AppState>, form: web::Form<MineForm>| async move {
+            .route("/wallet/mine", web::post().to(|s: web::Data<Arc<AppState>>, form: web::Form<MineForm>| async move {
                 let mut chain = s.chain.lock().unwrap();
                 chain.mine_pending(&form.miner);
                 println!("⛏️ Bloc miné pour {}", form.miner);
+                let block_json = serde_json::to_string(chain.blocks.last().unwrap()).unwrap_or_default();
+                drop(chain);
+                broadcast_mesh(&s, "block", &block_json);
                 HttpResponse::Found()
                     .append_header(("Location", "/wallet?msg=⛏️ Bloc miné ! +100 AFR pour le mineur"))
                     .finish()
             }))
             // ===== REGISTER =====
-            .route("/register", web::get().to(|_s: web::Data<AppState>, q: web::Query<std::collections::HashMap<String, String>>| async move {
+            .route("/register", web::get().to(|_s: web::Data<Arc<AppState>>, q: web::Query<std::collections::HashMap<String, String>>| async move {
                 let msg = q.get("err").map(|s| s.as_str());
                 HttpResponse::Ok().content_type("text/html").body(html_register(msg))
             }))
-            .route("/register", web::post().to(|s: web::Data<AppState>, form: web::Form<RegisterForm>| async move {
+            .route("/register", web::post().to(|s: web::Data<Arc<AppState>>, form: web::Form<RegisterForm>| async move {
                 let mut wallets = s.wallets.lock().unwrap();
                 let mut users = s.users.lock().unwrap();
                 match users.register(&form.username, &form.password, &mut wallets) {
@@ -741,11 +1050,11 @@ async fn main() -> std::io::Result<()> {
                 }
             }))
             // ===== LOGIN =====
-            .route("/login", web::get().to(|_s: web::Data<AppState>, q: web::Query<std::collections::HashMap<String, String>>| async move {
+            .route("/login", web::get().to(|_s: web::Data<Arc<AppState>>, q: web::Query<std::collections::HashMap<String, String>>| async move {
                 let msg = q.get("err").map(|s| s.as_str());
                 HttpResponse::Ok().content_type("text/html").body(html_login(msg))
             }))
-            .route("/login", web::post().to(|s: web::Data<AppState>, form: web::Form<LoginForm>| async move {
+            .route("/login", web::post().to(|s: web::Data<Arc<AppState>>, form: web::Form<LoginForm>| async move {
                 let users = s.users.lock().unwrap();
                 match users.login(&form.username, &form.password) {
                     Some(user) => {
@@ -761,7 +1070,7 @@ async fn main() -> std::io::Result<()> {
                 }
             }))
             // ===== ACCOUNT =====
-            .route("/account", web::get().to(|s: web::Data<AppState>, q: web::Query<std::collections::HashMap<String, String>>| async move {
+            .route("/account", web::get().to(|s: web::Data<Arc<AppState>>, q: web::Query<std::collections::HashMap<String, String>>| async move {
                 let username = q.get("user").cloned().unwrap_or_default();
                 let users = s.users.lock().unwrap();
                 let chain = s.chain.lock().unwrap();
@@ -771,7 +1080,7 @@ async fn main() -> std::io::Result<()> {
                     None => HttpResponse::Found().append_header(("Location", "/login")).finish(),
                 }
             }))
-            .route("/account/send", web::post().to(|s: web::Data<AppState>, form: web::Form<SendForm>| async move {
+            .route("/account/send", web::post().to(|s: web::Data<Arc<AppState>>, form: web::Form<SendForm>| async move {
                 let wallets = s.wallets.lock().unwrap();
                 let mut chain = s.chain.lock().unwrap();
                 let users = s.users.lock().unwrap();
@@ -780,7 +1089,12 @@ async fn main() -> std::io::Result<()> {
                 let mut tx = Transaction::new(&form.from, &form.to, form.amount, &form.memo);
                 if let Some(sk) = wallets.get_signing_key(&form.from) {
                     tx.sign(&sk);
+                    let tx_json = serde_json::to_string(&tx).unwrap_or_default();
                     chain.add_transaction(tx);
+                    drop(chain);
+                    drop(wallets);
+                    drop(users);
+                    broadcast_mesh(&s, "tx", &tx_json);
                     HttpResponse::Found()
                         .append_header(("Location", format!("/account?user={}&msg=✅ Envoyé ! {} AFR signés", username, form.amount)))
                         .finish()
@@ -790,22 +1104,26 @@ async fn main() -> std::io::Result<()> {
                         .finish()
                 }
             }))
-            .route("/account/mine", web::post().to(|s: web::Data<AppState>, form: web::Form<MineForm>| async move {
+            .route("/account/mine", web::post().to(|s: web::Data<Arc<AppState>>, form: web::Form<MineForm>| async move {
                 let mut chain = s.chain.lock().unwrap();
                 let users = s.users.lock().unwrap();
                 let user = users.users.iter().find(|u| u.address == form.miner);
                 let username = user.map(|u| u.username.clone()).unwrap_or_default();
                 chain.mine_pending(&form.miner);
+                let block_json = serde_json::to_string(chain.blocks.last().unwrap()).unwrap_or_default();
+                drop(chain);
+                drop(users);
+                broadcast_mesh(&s, "block", &block_json);
                 HttpResponse::Found()
                     .append_header(("Location", format!("/account?user={}&msg=⛏️ Miné ! +100 AFR", username)))
                     .finish()
             }))
             // ===== ADMIN =====
-            .route("/admin", web::get().to(|_s: web::Data<AppState>, q: web::Query<std::collections::HashMap<String, String>>| async move {
+            .route("/admin", web::get().to(|_s: web::Data<Arc<AppState>>, q: web::Query<std::collections::HashMap<String, String>>| async move {
                 let err = q.get("err").map(|s| s.as_str());
                 HttpResponse::Ok().content_type("text/html").body(html_admin_login(err))
             }))
-            .route("/admin", web::post().to(|_s: web::Data<AppState>, form: web::Form<AdminForm>| async move {
+            .route("/admin", web::post().to(|_s: web::Data<Arc<AppState>>, form: web::Form<AdminForm>| async move {
                 if form.password == ADMIN_PASSWORD {
                     HttpResponse::Found()
                         .cookie(actix_web::cookie::Cookie::build("afri_admin", "1").path("/").finish())
@@ -824,7 +1142,7 @@ async fn main() -> std::io::Result<()> {
                     .finish()
             }))
             // ===== DASHBOARD (ADMIN ONLY) =====
-            .route("/dashboard", web::get().to(|s: web::Data<AppState>, req: actix_web::HttpRequest| async move {
+            .route("/dashboard", web::get().to(|s: web::Data<Arc<AppState>>, req: actix_web::HttpRequest| async move {
                 if req.cookie("afri_admin").map(|c| c.value().to_string()) != Some("1".to_string()) {
                     return HttpResponse::Found().append_header(("Location", "/admin")).finish();
                 }
@@ -833,15 +1151,16 @@ async fn main() -> std::io::Result<()> {
                 HttpResponse::Ok().content_type("text/html").body(html_dashboard(&chain, &users))
             }))
             // ===== API =====
-            .route("/api/blocks", web::get().to(|s: web::Data<AppState>| async move {
+            .route("/api/blocks", web::get().to(|s: web::Data<Arc<AppState>>| async move {
                 let chain = s.chain.lock().unwrap();
                 HttpResponse::Ok().json(&chain.blocks)
             }))
-            .route("/api/status", web::get().to(|s: web::Data<AppState>| async move {
+            .route("/api/status", web::get().to(|s: web::Data<Arc<AppState>>| async move {
                 let chain = s.chain.lock().unwrap();
                 let users = s.users.lock().unwrap();
-                let json = format!(r#"{{"name":"AfriChain","blocks":{},"transactions":{},"users":{},"valid":{},"token":"AFR","version":"0.6","crypto":"Ed25519","supply":{}}}"#,
-                    chain.blocks.len(), chain.total_transactions(), users.count(), chain.is_valid(), chain.total_supply());
+                let mesh = s.mesh.lock().unwrap();
+                let json = format!(r#"{{"name":"AfriChain","blocks":{},"transactions":{},"users":{},"valid":{},"token":"AFR","version":"0.7","crypto":"Ed25519","supply":{},"mesh_nodes":{},"mesh_id":"{}","mesh_region":"{}"}}"#,
+                    chain.blocks.len(), chain.total_transactions(), users.count(), chain.is_valid(), chain.total_supply(), mesh.count(), mesh.my_id, mesh.region);
                 HttpResponse::Ok().content_type("application/json").body(json)
             }))
             // ===== PWA =====
@@ -854,7 +1173,7 @@ async fn main() -> std::io::Result<()> {
                 HttpResponse::Ok().content_type("image/svg+xml").body(svg)
             }))
             .route("/sw.js", web::get().to(|| async move {
-                let sw = "const C='afri-v0.6';self.addEventListener('install',e=>{e.waitUntil(caches.open(C).then(c=>c.addAll(['/wallet','/manifest.json','/icon.svg'])))});self.addEventListener('fetch',e=>{e.respondWith(caches.match(e.request).then(r=>r||fetch(e.request)))});";
+                let sw = "const C='afri-v0.7';self.addEventListener('install',e=>{e.waitUntil(caches.open(C).then(c=>c.addAll(['/wallet','/manifest.json','/icon.svg'])))});self.addEventListener('fetch',e=>{e.respondWith(caches.match(e.request).then(r=>r||fetch(e.request)))});";
                 HttpResponse::Ok().content_type("application/javascript").body(sw)
             }))
     })
