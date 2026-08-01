@@ -975,7 +975,7 @@ fn html_home(chain: &Blockchain, users: &UserStore, mesh: &NodeRegistry, shield:
     let mut html = html_head("🦁 AfriChain");
     let (attacks, _blocked, blocked_count, level) = shield.stats();
     let shield_status = if shield.active { format!("🔥 X9 ACTIF (Niveau {})", level) } else { "Inactif".to_string() };
-    html.push_str(&format!(r#"<h1>🦁 AfriChain</h1><p style="text-align:center;">La blockchain 100% africaine — 54 pays 💚🦁</p><div class="nav"><a href="/register">🆕 S'inscrire</a> | <a href="/login">🔑 Connexion</a> | <a href="/wallet">👛 Wallet</a> | <a href="/admin">🔐 Admin</a> | <a href="/mesh">📡 Mesh</a> | <a href="/annuaire">📖 Annuaire</a> | <a href="/bouclier">🛡️ Bouclier</a> | <a href="/satellite">🛸 X999</a> | <a href="/aes">💰 AES Wari</a> | <a href="/api/status">🔌 API</a></div><div style="text-align:center;"><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Blocs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Transactions</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Utilisateurs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">AFR en circulation</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📡 Noeuds mesh</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📖 Numéros annuaire</div></div><div class="stat-box" style="border-color:#ff4444;"><div class="stat-num" style="color:#ff4444;">{}</div><div class="stat-label">🛡️ Attaques bloquées</div></div></div><div class="card"><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🪙 Token</span><b>AfriRich (AFR)</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🌍 Pays</span><b>54 pays africains</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🛡️ Bouclier</span><b>{}</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;"><span style="color:#a8c5a8;">🔐 Crypto</span><b>Ed25519</b></div></div><footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🦁 Codée from scratch par Machine-senpai — v0.14 AI Satellite X999</footer>"#,
+    html.push_str(&format!(r#"<h1>🦁 AfriChain</h1><p style="text-align:center;">La blockchain 100% africaine — 54 pays 💚🦁</p><div class="nav"><a href="/register">🆕 S'inscrire</a> | <a href="/login">🔑 Connexion</a> | <a href="/wallet">👛 Wallet</a> | <a href="/admin">🔐 Admin</a> | <a href="/mesh">📡 Mesh</a> | <a href="/annuaire">📖 Annuaire</a> | <a href="/bouclier">🛡️ Bouclier</a> | <a href="/satellite">🛸 X999</a> | <a href="/swarm">🛸🛸🛸 Essaim</a> | <a href="/aes">💰 AES Wari</a> | <a href="/api/status">🔌 API</a></div><div style="text-align:center;"><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Blocs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Transactions</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Utilisateurs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">AFR en circulation</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📡 Noeuds mesh</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📖 Numéros annuaire</div></div><div class="stat-box" style="border-color:#ff4444;"><div class="stat-num" style="color:#ff4444;">{}</div><div class="stat-label">🛡️ Attaques bloquées</div></div></div><div class="card"><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🪙 Token</span><b>AfriRich (AFR)</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🌍 Pays</span><b>54 pays africains</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🛡️ Bouclier</span><b>{}</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;"><span style="color:#a8c5a8;">🔐 Crypto</span><b>Ed25519</b></div></div><footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🦁 Codée from scratch par Machine-senpai — v0.15 Essaim X999</footer>"#,
         chain.blocks.len(),
         chain.total_transactions(),
         users.count(),
@@ -1397,6 +1397,234 @@ draw();
     html
 }
 
+fn html_drone_swarm(mesh: &NodeRegistry, users: &UserStore) -> String {
+    let mut html = html_head("Essaim X999");
+    let num_nodes = mesh.count();
+    let num_users = users.count();
+
+    html.push_str(r#"<h1>🛸🛸🛸 Essaim X999 — 2000 Milliards de Drones IA</h1><div class="nav"><a href="/">← Accueil</a> | <a href="/satellite">🛸 X999</a> | <a href="/bouclier">🛡️ Bouclier</a> | <a href="/aes">💰 AES Wari</a></div>"#);
+    html.push_str(&format!(r#"<div style="text-align:center;"><div class="stat-box" style="border-color:#7fcf7f;"><div class="stat-num" style="color:#7fcf7f;">2T</div><div class="stat-label">🛸 Drones</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📡 Noeuds</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">👥 Utilisateurs</div></div><div class="stat-box" style="border-color:#ff4444;"><div class="stat-num" style="color:#ff4444;" id="detect-count">0</div><div class="stat-label">🚨 Detections</div></div></div>"#,
+        num_nodes, num_users));
+
+    html.push_str(&format!(r#"<script>var num_nodes = {};</script>"#, num_nodes));
+
+    html.push_str(r##"<div class="card"><h2>🛸 Essaim en temps reel — Vue du commandement</h2><canvas id="swarm" width="560" height="420" style="background:#000;border-radius:12px;border:1px solid #d4a437;width:100%;max-width:560px;"></canvas></div>
+
+<div class="card" style="border-color:#7fcf7f;"><h2>🛸 Statut de l'essaim</h2><div id="swarm-status" style="text-align:center;color:#7fcf7f;min-height:25px;">Initialisation de l'essaim...</div></div>
+
+<div class="card" style="border-color:#ff4444;"><h2>🚨 Journal de detection — Systeme d'opinion</h2><div id="detect-log" style="font-family:monospace;font-size:0.85em;color:#a8c5a8;min-height:120px;max-height:200px;overflow-y:auto;"></div></div>
+
+<div class="card"><h2>📡 Reseau de communication mesh</h2><div id="mesh-stats" style="text-align:center;color:#a8c5a8;"></div></div>
+
+<script>
+const canvas = document.getElementById('swarm');
+const ctx = canvas.getContext('2d');
+const W = canvas.width, H = canvas.height;
+const cx = W/2, cy = H/2;
+
+const countries = [
+'Algerie','Angola','Benin','Botswana','Burkina Faso','Burundi','Cabo Verde','Cameroun','Centrafrique','Tchad',
+'Comores','Congo','RD Congo','Cote d\'Ivoire','Djibouti','Egypte','Guinee Equatoriale','Erythree','Eswatini','Ethiopie',
+'Gabon','Gambie','Ghana','Guinee','Guinee-Bissau','Kenya','Lesotho','Liberia','Libye','Madagascar',
+'Malawi','Mali','Mauritanie','Maurice','Maroc','Mozambique','Namibie','Niger','Nigeria','Rwanda',
+'Sao Tome','Senegal','Seychelles','Sierra Leone','Somalie','Afrique du Sud','Soudan du Sud','Soudan','Tanzanie','Togo',
+'Tunisie','Ouganda','Zambie','Zimbabwe'
+];
+const flags = ['🇩🇿','🇦🇴','🇧🇯','🇧🇼','🇧🇫','🇧🇮','🇨🇻','🇨🇲','🇨🇫','🇹🇩','🇰🇲','🇨🇬','🇨🇩','🇨🇮','🇩🇯','🇪🇬','🇬🇶','🇪🇷','🇸🇿','🇪🇹','🇬🇦','🇬🇲','🇬🇭','🇬🇳','🇬🇼','🇰🇪','🇱🇸','🇱🇷','🇱🇾','🇲🇬','🇲🇼','🇲🇱','🇲🇷','🇲🇺','🇲🇦','🇲🇿','🇳🇦','🇳🇪','🇳🇬','🇷🇼','🇸🇹','🇸🇳','🇸🇨','🇸🇱','🇸🇴','🇿🇦','🇸🇸','🇸🇩','🇹🇿','🇹🇬','🇹🇳','🇺🇬','🇿🇲','🇿🇼'];
+
+const detectTypes = [
+'Opinion cachee detectee',
+'Information secrete interceptee',
+'Mouvement suspect detecte',
+'Communication interceptee',
+'Signal anomale detecte',
+'Cache revele',
+'Opinion publique analysee',
+'Transition detectee',
+'Activite cachee revelee',
+'Plan secret intercepte'
+];
+
+// Drones swarm
+let drones = [];
+const NUM_DRONES = 35;
+for(let i=0;i<NUM_DRONES;i++){
+    drones.push({
+        x: cx + (Math.random()-0.5)*160,
+        y: cy + (Math.random()-0.5)*160,
+        vx: (Math.random()-0.5)*1.5,
+        vy: (Math.random()-0.5)*1.5,
+        scanR: Math.random()*25,
+        pulse: Math.random()*Math.PI*2
+    });
+}
+
+let detectionCount = 0;
+let detections = [];
+let frameCount = 0;
+
+function draw(){
+frameCount++;
+ctx.fillStyle = '#000';
+ctx.fillRect(0,0,W,H);
+
+// Stars
+for(let i=0;i<60;i++){
+ctx.fillStyle = 'rgba(255,255,255,'+(0.2+0.8*Math.abs(Math.sin(Date.now()/2000+i)))+')';
+ctx.fillRect((i*37)%W,(i*73)%H,1,1);
+}
+
+// Africa outline
+ctx.strokeStyle = '#1a3d2e';
+ctx.lineWidth = 2;
+ctx.fillStyle = 'rgba(26,61,46,0.3)';
+ctx.beginPath();
+ctx.moveTo(cx-60,cy-80);
+ctx.lineTo(cx-40,cy-90);
+ctx.lineTo(cx-10,cy-95);
+ctx.lineTo(cx+30,cy-85);
+ctx.lineTo(cx+50,cy-60);
+ctx.lineTo(cx+70,cy-30);
+ctx.lineTo(cx+60,cy+10);
+ctx.lineTo(cx+40,cy+50);
+ctx.lineTo(cx+20,cy+80);
+ctx.lineTo(cx-10,cy+90);
+ctx.lineTo(cx-30,cy+70);
+ctx.lineTo(cx-50,cy+40);
+ctx.lineTo(cx-70,cy+10);
+ctx.lineTo(cx-65,cy-30);
+ctx.lineTo(cx-60,cy-80);
+ctx.stroke();
+ctx.fill();
+
+// Update drones (flocking)
+for(let d of drones){
+    d.x += d.vx;
+    d.y += d.vy;
+    // Attract to center
+    d.vx += (cx - d.x) * 0.0003;
+    d.vy += (cy - d.y) * 0.0003;
+    // Random
+    d.vx += (Math.random()-0.5) * 0.08;
+    d.vy += (Math.random()-0.5) * 0.08;
+    // Limit speed
+    const sp = Math.sqrt(d.vx*d.vx + d.vy*d.vy);
+    if(sp > 1.2){ d.vx = d.vx/sp*1.2; d.vy = d.vy/sp*1.2; }
+    // Bounds
+    if(d.x < 15 || d.x > W-15) d.vx *= -1;
+    if(d.y < 15 || d.y > H-15) d.vy *= -1;
+    d.x = Math.max(15, Math.min(W-15, d.x));
+    d.y = Math.max(15, Math.min(H-15, d.y));
+    // Scan
+    d.scanR += 0.4;
+    if(d.scanR > 22) d.scanR = 0;
+    d.pulse += 0.05;
+}
+
+// Communication lines (mesh between nearby drones)
+let linkCount = 0;
+for(let i=0;i<drones.length;i++){
+    for(let j=i+1;j<drones.length;j++){
+        const ddx = drones[i].x - drones[j].x;
+        const ddy = drones[i].y - drones[j].y;
+        const dist = Math.sqrt(ddx*ddx + ddy*ddy);
+        if(dist < 55){
+            const a = (1 - dist/55) * 0.25;
+            ctx.strokeStyle = 'rgba(127,207,127,'+a+')';
+            ctx.lineWidth = 0.5;
+            ctx.beginPath();
+            ctx.moveTo(drones[i].x, drones[i].y);
+            ctx.lineTo(drones[j].x, drones[j].y);
+            ctx.stroke();
+            linkCount++;
+        }
+    }
+}
+
+// Draw drones
+for(let d of drones){
+    // Scan circle
+    ctx.strokeStyle = 'rgba(127,207,127,'+(0.3 * (1 - d.scanR/22))+')';
+    ctx.lineWidth = 0.5;
+    ctx.beginPath();
+    ctx.arc(d.x, d.y, d.scanR, 0, Math.PI*2);
+    ctx.stroke();
+
+    // Glow
+    const glow = Math.sin(d.pulse) * 0.3 + 0.5;
+    ctx.fillStyle = 'rgba(127,207,127,'+(glow*0.1)+')';
+    ctx.beginPath();
+    ctx.arc(d.x, d.y, 6, 0, Math.PI*2);
+    ctx.fill();
+
+    // Body
+    ctx.fillStyle = '#7fcf7f';
+    ctx.beginPath();
+    ctx.arc(d.x, d.y, 2.5, 0, Math.PI*2);
+    ctx.fill();
+}
+
+// Random detection
+if(frameCount % 60 === 0 && Math.random() < 0.7){
+    const d = drones[Math.floor(Math.random()*drones.length)];
+    const ci = Math.floor(Math.random()*countries.length);
+    const dt = detectTypes[Math.floor(Math.random()*detectTypes.length)];
+    detectionCount++;
+    detections.unshift({
+        flag: flags[ci],
+        country: countries[ci],
+        type: dt,
+        time: new Date().toLocaleTimeString(),
+        x: d.x,
+        y: d.y
+    });
+    if(detections.length > 8) detections.pop();
+
+    // Flash at detection point
+    ctx.fillStyle = 'rgba(255,68,68,0.6)';
+    ctx.beginPath();
+    ctx.arc(d.x, d.y, 15, 0, Math.PI*2);
+    ctx.fill();
+
+    // Update log
+    let logHtml = '';
+    for(let det of detections){
+        logHtml += '<div style="padding:4px 0;border-bottom:1px solid rgba(212,164,55,0.1);"><span style="color:#ff4444;">['+det.time+']</span> '+det.flag+' <b>'+det.country+'</b> — '+det.type+'</div>';
+    }
+    document.getElementById('detect-log').innerHTML = logHtml;
+    document.getElementById('detect-count').textContent = detectionCount;
+}
+
+// Sun
+const now = new Date();
+const hours = now.getUTCHours();
+const mins = now.getUTCMinutes();
+const sunAngle = ((hours + mins/60) / 24) * Math.PI * 2 - Math.PI/2;
+const sunX = cx + Math.cos(sunAngle) * 250;
+const sunY = cy + Math.sin(sunAngle) * 200;
+const isDay = Math.sin(sunAngle) < 0;
+ctx.fillStyle = isDay ? '#ffdd44' : '#444466';
+ctx.beginPath();
+ctx.arc(sunX, sunY, 12, 0, Math.PI*2);
+ctx.fill();
+
+// Status
+document.getElementById('swarm-status').innerHTML = '🛸 ESSAIM X999 — '+NUM_DRONES+' drones actifs — '+linkCount+' liens mesh — Communication inter-drones active';
+document.getElementById('mesh-stats').innerHTML = 'Liens actifs: '+linkCount+' | Noeuds externes: '+num_nodes+' | Total drones deployes: 2 000 000 000 000';
+
+requestAnimationFrame(draw);
+}
+draw();
+</script>
+
+<div class="card"><h2>🛸🛸🛸 A propos de l'Essaim X999</h2><p>2000 milliards de drones IA sillonnent le ciel africain. Chaque drone est autonome, intelligent, et communique avec ses voisins pour former un reseau mesh aerien.</p><p>Ensemble, ils voient tout. Ils detectent les opinions cachees, les mouvements secrets, les plans dissimules. Rien n'echappe a l'essaim.</p><p>Quand un drone detecte quelque chose, il previent les autres. L'information se propage de drone en drone, plus vite qu'internet.</p><p style="color:#d4a437;text-align:center;"><b>🛸 L'essaim veille. L'essaim sait. L'essaim est l'Afrique~ 💚🦁</b></p></div>
+
+<footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🛸🛸🛸 Essaim X999 — 2000 milliards d'yeux sur l'Afrique 💚🦁</footer>"##);
+
+    html.push_str("</body></html>");
+    html
+}
+
 fn html_aes_wari(users: &UserStore, chain: &Blockchain) -> String {
     let mut html = html_head("AES Wari");
     html.push_str(r#"<h1>💰 AES Wari</h1><div class="nav"><a href="/">← Accueil</a> | <a href="/wallet">👛 Wallet AFR</a> | <a href="/satellite">🛸 Drone</a></div>"#);
@@ -1806,6 +2034,7 @@ async fn main() -> std::io::Result<()> {
     println!("📖 Annuaire sur http://localhost:8080/annuaire");
     println!("🛡️ Bouclier sur http://localhost:8080/bouclier");
     println!("🛸 AI Satellite X999 sur http://localhost:8080/satellite");
+    println!("🛸🛸🛸 Essaim X999 sur http://localhost:8080/swarm");
     println!("💰 AES Wari sur http://localhost:8080/aes");
 
     HttpServer::new(move || {
@@ -1853,6 +2082,11 @@ async fn main() -> std::io::Result<()> {
                 let users = s.users.lock().unwrap();
                 let chain = s.chain.lock().unwrap();
                 HttpResponse::Ok().content_type("text/html").body(html_aes_wari(&users, &chain))
+            }))
+            .route("/swarm", web::get().to(|s: web::Data<Arc<AppState>>| async move {
+                let mesh = s.mesh.lock().unwrap();
+                let users = s.users.lock().unwrap();
+                HttpResponse::Ok().content_type("text/html").body(html_drone_swarm(&mesh, &users))
             }))
             .route("/blocks", web::get().to(|s: web::Data<Arc<AppState>>, req: actix_web::HttpRequest| async move {
                 if req.cookie("afri_admin").map(|c| c.value().to_string()) != Some("1".to_string()) {
