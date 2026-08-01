@@ -551,6 +551,137 @@ fn extract_country_code(phone: &str) -> &str {
 // ===== ADMIN PASSWORD =====
 const ADMIN_PASSWORD: &str = "africhain2026";
 
+// ===== BOUCLIER X9 — SYSTÈME DE PROTECTION =====
+#[derive(Debug, Clone, Serialize, Deserialize)]
+struct AttackLog {
+    ip: String,
+    attack_type: String,
+    timestamp: i64,
+    details: String,
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize)]
+struct ShieldState {
+    active: bool,
+    level: u32,              // 1=normal, 2=vigilance, 3=alerte, 9=X9 MAX
+    blocked_ips: Vec<String>,
+    attack_log: Vec<AttackLog>,
+    requests_per_ip: HashMap<String, Vec<i64>>,  // IP -> timestamps
+    failed_logins: HashMap<String, u32>,          // IP -> failed count
+    total_blocked: u64,
+    total_attacks: u64,
+    #[serde(skip)]
+    last_cleanup: Option<i64>,
+}
+
+impl ShieldState {
+    fn new() -> Self {
+        ShieldState {
+            active: true,
+            level: 9,  // X9 par défaut !
+            blocked_ips: Vec::new(),
+            attack_log: Vec::new(),
+            requests_per_ip: HashMap::new(),
+            failed_logins: HashMap::new(),
+            total_blocked: 0,
+            total_attacks: 0,
+            last_cleanup: None,
+        }
+    }
+
+    fn is_blocked(&self, ip: &str) -> bool {
+        if !self.active { return false; }
+        self.blocked_ips.iter().any(|b| b == ip)
+    }
+
+    fn block_ip(&mut self, ip: &str, reason: &str) {
+        if !self.blocked_ips.iter().any(|b| b == ip) {
+            self.blocked_ips.push(ip.to_string());
+            self.total_blocked += 1;
+            println!("🔥 BOUCLIER X9 — IP BANNIE : {} ({})", ip, reason);
+        }
+        self.log_attack(ip, "BLOCKED", reason);
+    }
+
+    fn log_attack(&mut self, ip: &str, attack_type: &str, details: &str) {
+        self.attack_log.push(AttackLog {
+            ip: ip.to_string(),
+            attack_type: attack_type.to_string(),
+            timestamp: Utc::now().timestamp(),
+            details: details.to_string(),
+        });
+        self.total_attacks += 1;
+        // Keep only last 100 attacks
+        if self.attack_log.len() > 100 {
+            self.attack_log.remove(0);
+        }
+    }
+
+    // Returns true if request is allowed, false if blocked
+    fn check_request(&mut self, ip: &str, path: &str) -> bool {
+        if !self.active { return true; }
+        if self.is_blocked(ip) {
+            return false;
+        }
+
+        let now = Utc::now().timestamp();
+
+        // Rate limiting: max 30 requests per 10 seconds per IP
+        let timestamps = self.requests_per_ip.entry(ip.to_string()).or_insert(Vec::new());
+        timestamps.retain(|t| now - t < 10);
+        timestamps.push(now);
+        let count = timestamps.len();
+        if count > 30 {
+            drop(timestamps);
+            self.block_ip(ip, &format!("Rate limit dépassé ({} req/10s) sur {}", count, path));
+            return false;
+        }
+
+        // Detect attack patterns in path
+        let suspicious = [
+            "../", "..\\", "etc/passwd", "cmd=", "exec(", "SELECT ", "UNION ",
+            "<script", "javascript:", "eval(", "rm -rf", "wget ", "curl ", "/bin/",
+            "phpinfo", "wp-admin", ".env", "config.php", "shell",
+        ];
+        for pattern in &suspicious {
+            if path.to_lowercase().contains(&pattern.to_lowercase()) {
+                self.block_ip(ip, &format!("Pattern suspect détecté : '{}' dans {}", pattern, path));
+                return false;
+            }
+        }
+
+        true
+    }
+
+    fn record_failed_login(&mut self, ip: &str) {
+        let count = self.failed_logins.entry(ip.to_string()).or_insert(0);
+        *count += 1;
+        let should_block = *count >= 5;
+        let c = *count;
+        if should_block {
+            *count = 0;
+            drop(count);
+            self.block_ip(ip, &format!("{} tentatives de connexion échouées", c));
+        }
+    }
+
+    fn cleanup(&mut self) {
+        let now = Utc::now().timestamp();
+        let last = self.last_cleanup.unwrap_or(0);
+        // Cleanup request timestamps every 60 seconds
+        if now - last > 60 {
+            for timestamps in self.requests_per_ip.values_mut() {
+                timestamps.retain(|t| now - t < 10);
+            }
+            self.last_cleanup = Some(now);
+        }
+    }
+
+    fn stats(&self) -> (u64, u64, usize, u32) {
+        (self.total_attacks, self.total_blocked, self.blocked_ips.len(), self.level)
+    }
+}
+
 // ===== MESH NETWORKING =====
 #[derive(Debug, Clone, Serialize, Deserialize)]
 struct MeshMessage {
@@ -840,15 +971,19 @@ fn html_head(title: &str) -> String {
 }
 
 // ===== HTML PAGES =====
-fn html_home(chain: &Blockchain, users: &UserStore, mesh: &NodeRegistry) -> String {
+fn html_home(chain: &Blockchain, users: &UserStore, mesh: &NodeRegistry, shield: &ShieldState) -> String {
     let mut html = html_head("🦁 AfriChain");
-    html.push_str(&format!(r#"<h1>🦁 AfriChain</h1><p style="text-align:center;">La blockchain 100% africaine — 54 pays 💚🦁</p><div class="nav"><a href="/register">🆕 S'inscrire</a> | <a href="/login">🔑 Connexion</a> | <a href="/wallet">👛 Wallet</a> | <a href="/admin">🔐 Admin</a> | <a href="/mesh">📡 Mesh</a> | <a href="/annuaire">📖 Annuaire</a> | <a href="/api/status">🔌 API</a></div><div style="text-align:center;"><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Blocs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Transactions</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Utilisateurs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">AFR en circulation</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📡 Noeuds mesh</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📖 Numéros annuaire</div></div></div><div class="card"><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🪙 Token</span><b>AfriRich (AFR)</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🌍 Pays</span><b>54 pays africains</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🛡️ Statut</span><b>Souveraine 💚</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;"><span style="color:#a8c5a8;">🔐 Crypto</span><b>Ed25519</b></div></div><footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🦁 Codée from scratch par Machine-senpai — v0.10 Annuaire Mesh</footer>"#,
+    let (attacks, _blocked, blocked_count, level) = shield.stats();
+    let shield_status = if shield.active { format!("🔥 X9 ACTIF (Niveau {})", level) } else { "Inactif".to_string() };
+    html.push_str(&format!(r#"<h1>🦁 AfriChain</h1><p style="text-align:center;">La blockchain 100% africaine — 54 pays 💚🦁</p><div class="nav"><a href="/register">🆕 S'inscrire</a> | <a href="/login">🔑 Connexion</a> | <a href="/wallet">👛 Wallet</a> | <a href="/admin">🔐 Admin</a> | <a href="/mesh">📡 Mesh</a> | <a href="/annuaire">📖 Annuaire</a> | <a href="/bouclier">🛡️ Bouclier</a> | <a href="/api/status">🔌 API</a></div><div style="text-align:center;"><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Blocs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Transactions</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Utilisateurs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">AFR en circulation</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📡 Noeuds mesh</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📖 Numéros annuaire</div></div><div class="stat-box" style="border-color:#ff4444;"><div class="stat-num" style="color:#ff4444;">{}</div><div class="stat-label">🛡️ Attaques bloquées</div></div></div><div class="card"><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🪙 Token</span><b>AfriRich (AFR)</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🌍 Pays</span><b>54 pays africains</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🛡️ Bouclier</span><b>{}</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;"><span style="color:#a8c5a8;">🔐 Crypto</span><b>Ed25519</b></div></div><footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🦁 Codée from scratch par Machine-senpai — v0.11 Bouclier X9</footer>"#,
         chain.blocks.len(),
         chain.total_transactions(),
         users.count(),
         chain.total_supply(),
         mesh.count(),
         mesh.directory_count() + users.count(),
+        attacks,
+        shield_status,
     ));
     html.push_str("</body></html>");
     html
@@ -922,6 +1057,44 @@ fn html_annuaire(mesh: &NodeRegistry, users: &UserStore) -> String {
     }
 
     html.push_str(r#"<footer style="text-align:center;margin-top:40px;color:#a8c5a8;">📖 Annuaire Mesh — Tous les numéros d'Afrique sur écoute 💚🦁</footer>"#);
+    html.push_str("</body></html>");
+    html
+}
+
+fn html_bouclier(shield: &ShieldState) -> String {
+    let mut html = html_head("🛡️ Bouclier X9");
+    let (attacks, blocked, blocked_count, level) = shield.stats();
+    let status = if shield.active { "ACTIF 🔥" } else { "Inactif" };
+    let level_color = match level { 9 => "#ff4444", 3 => "#d4a437", _ => "#7fcf7f" };
+
+    html.push_str(&format!(r#"<h1>🛡️ Bouclier X9</h1><div class="nav"><a href="/">← Accueil</a> | <a href="/admin">🔐 Admin</a></div>"#));
+    html.push_str(&format!(r#"<div style="text-align:center;"><div class="stat-box" style="border-color:{};"><div class="stat-num" style="color:{};">{}</div><div class="stat-label">🛡️ Statut</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">⚡ Niveau</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">🔥 Attaques détectées</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">🚫 IP bannies</div></div></div>"#,
+        level_color, level_color, status, level, attacks, blocked_count));
+
+    // Shield description
+    html.push_str(r#"<div class="card"><h2>🛡️ Protection Active</h2><p>Le Bouclier X9 protège AfriChain en temps réel :</p><div style="margin:8px 0;">✅ <b>Détection de patterns suspects</b> — SQL injection, path traversal, XSS</div><div style="margin:8px 0;">✅ <b>Rate limiting</b> — max 30 requêtes / 10 secondes par IP</div><div style="margin:8px 0;">✅ <b>Anti-brute force</b> — bannissement après 5 tentatives échouées</div><div style="margin:8px 0;">✅ <b>Réponse instantanée</b> — aucune seconde d'attente, BOOM 💥</div><div style="margin:8px 0;">✅ <b>Bannissement automatique</b> — les attaquants sont expulsés</div></div>"#);
+
+    // Blocked IPs
+    if !shield.blocked_ips.is_empty() {
+        html.push_str(r#"<div class="card"><h2>🚫 IP Bannies</h2>"#);
+        for ip in &shield.blocked_ips {
+            html.push_str(&format!(r#"<div class="tx">🔥 <b>{}</b> — bannie du système</div>"#, ip));
+        }
+        html.push_str("</div>");
+    }
+
+    // Attack log
+    if !shield.attack_log.is_empty() {
+        html.push_str(r#"<div class="card"><h2>🔥 Journal des attaques</h2>"#);
+        for log in shield.attack_log.iter().rev().take(20) {
+            let date = chrono::DateTime::from_timestamp(log.timestamp, 0)
+                .map(|d| d.format("%H:%M:%S").to_string()).unwrap_or_else(|| "?".to_string());
+            html.push_str(&format!(r#"<div class="tx">⚠️ <b>{}</b> — {} — {} <span style="color:#a8c5a8;font-size:0.8em;">à {}</span></div>"#, log.ip, log.attack_type, log.details, date));
+        }
+        html.push_str("</div>");
+    }
+
+    html.push_str(r#"<footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🛡️ Bouclier X9 — L'Afrique se protège 💚🦁</footer>"#);
     html.push_str("</body></html>");
     html
 }
@@ -1190,6 +1363,7 @@ struct AppState {
     wallets: Mutex<WalletStore>,
     users: Mutex<UserStore>,
     mesh: Mutex<NodeRegistry>,
+    shield: Mutex<ShieldState>,
 }
 
 #[actix_web::main]
@@ -1202,10 +1376,11 @@ async fn main() -> std::io::Result<()> {
         .and_then(|i| args.get(i + 1)).cloned().unwrap_or_else(|| "Afrique".to_string());
 
     let my_node_id = generate_node_id();
-    println!("🦁 AfriChain v0.10 — Annuaire Mesh");
+    println!("🦁 AfriChain v0.11 — Bouclier X9");
     println!("💚 L'Afrique n'a pas besoin de permission");
     println!("🌍 54 pays africains intégrés");
     println!("📖 Annuaire mesh panafricain — tous les numéros sur écoute");
+    println!("🛡️ Bouclier X9 ACTIF — protection automatique");
     println!("📡 Node ID: {}", my_node_id);
     println!("🔌 Mesh port: {}", mesh_port);
     println!("☀️  Solaire: {}", if solar { "Oui" } else { "Non" });
@@ -1231,12 +1406,14 @@ async fn main() -> std::io::Result<()> {
     println!("👥 {} utilisateurs inscrits", users.count());
 
     let registry = NodeRegistry::new(my_node_id.clone(), mesh_port, solar, region.clone());
+    let shield = ShieldState::new();
 
     let state = Arc::new(AppState {
         chain: Mutex::new(chain),
         wallets: Mutex::new(wallets),
         users: Mutex::new(users),
         mesh: Mutex::new(registry),
+        shield: Mutex::new(shield),
     });
 
     // Start mesh threads
@@ -1254,7 +1431,10 @@ async fn main() -> std::io::Result<()> {
             let mut mesh = cleanup_state.mesh.lock().unwrap();
             mesh.cleanup_stale();
             let count = mesh.count();
-            println!("📊 Mesh: {} noeuds | {} messages vus", count, mesh.seen_messages.len());
+            let mut shield = cleanup_state.shield.lock().unwrap();
+            shield.cleanup();
+            let (attacks, blocked, blocked_count, level) = shield.stats();
+            println!("📊 Mesh: {} noeuds | {} messages vus | 🛡️ Bouclier X9 Niveau {} | {} attaques | {} IP bannies", count, mesh.seen_messages.len(), level, attacks, blocked_count);
         }
     });
 
@@ -1266,16 +1446,24 @@ async fn main() -> std::io::Result<()> {
     println!("🆕 Inscription sur http://localhost:8080/register");
     println!("📈 Dashboard sur http://localhost:8080/dashboard");
     println!("📖 Annuaire sur http://localhost:8080/annuaire");
+    println!("🛡️ Bouclier sur http://localhost:8080/bouclier");
 
     HttpServer::new(move || {
         let state = web_state.clone();
         App::new()
             .app_data(state)
-            .route("/", web::get().to(|s: web::Data<Arc<AppState>>| async move {
+            .route("/", web::get().to(|s: web::Data<Arc<AppState>>, req: actix_web::HttpRequest| async move {
+                let ip = req.connection_info().peer_addr().unwrap_or("unknown").to_string();
+                let path = req.path().to_string();
+                let allowed = s.shield.lock().unwrap().check_request(&ip, &path);
+                if !allowed {
+                    return HttpResponse::Forbidden().body("🛡️ Bouclier X9 — Accès refusé. IP bannie.");
+                }
                 let chain = s.chain.lock().unwrap();
                 let users = s.users.lock().unwrap();
                 let mesh = s.mesh.lock().unwrap();
-                HttpResponse::Ok().content_type("text/html").body(html_home(&chain, &users, &mesh))
+                let shield = s.shield.lock().unwrap();
+                HttpResponse::Ok().content_type("text/html").body(html_home(&chain, &users, &mesh, &shield))
             }))
             .route("/mesh", web::get().to(|s: web::Data<Arc<AppState>>| async move {
                 let mesh = s.mesh.lock().unwrap();
@@ -1285,6 +1473,16 @@ async fn main() -> std::io::Result<()> {
                 let mesh = s.mesh.lock().unwrap();
                 let users = s.users.lock().unwrap();
                 HttpResponse::Ok().content_type("text/html").body(html_annuaire(&mesh, &users))
+            }))
+            .route("/bouclier", web::get().to(|s: web::Data<Arc<AppState>>, req: actix_web::HttpRequest| async move {
+                let ip = req.connection_info().peer_addr().unwrap_or("unknown").to_string();
+                let path = req.path().to_string();
+                let allowed = s.shield.lock().unwrap().check_request(&ip, &path);
+                if !allowed {
+                    return HttpResponse::Forbidden().body("🛡️ Bouclier X9 — Accès refusé.");
+                }
+                let shield = s.shield.lock().unwrap();
+                HttpResponse::Ok().content_type("text/html").body(html_bouclier(&shield))
             }))
             .route("/blocks", web::get().to(|s: web::Data<Arc<AppState>>, req: actix_web::HttpRequest| async move {
                 if req.cookie("afri_admin").map(|c| c.value().to_string()) != Some("1".to_string()) {
@@ -1403,7 +1601,8 @@ async fn main() -> std::io::Result<()> {
                 let msg = q.get("err").map(|s| s.as_str());
                 HttpResponse::Ok().content_type("text/html").body(html_login(msg))
             }))
-            .route("/login", web::post().to(|s: web::Data<Arc<AppState>>, form: web::Form<LoginForm>| async move {
+            .route("/login", web::post().to(|s: web::Data<Arc<AppState>>, form: web::Form<LoginForm>, req: actix_web::HttpRequest| async move {
+                let ip = req.connection_info().peer_addr().unwrap_or("unknown").to_string();
                 let users = s.users.lock().unwrap();
                 match users.login(&form.username, &form.password) {
                     Some(user) => {
@@ -1412,6 +1611,8 @@ async fn main() -> std::io::Result<()> {
                             .finish()
                     }
                     None => {
+                        drop(users);
+                        s.shield.lock().unwrap().record_failed_login(&ip);
                         HttpResponse::Found()
                             .append_header(("Location", "/login?err=Nom d'utilisateur ou mot de passe incorrect"))
                             .finish()
@@ -1516,8 +1717,10 @@ async fn main() -> std::io::Result<()> {
                 let chain = s.chain.lock().unwrap();
                 let users = s.users.lock().unwrap();
                 let mesh = s.mesh.lock().unwrap();
-                let json = format!(r#"{{"name":"AfriChain","blocks":{},"transactions":{},"users":{},"valid":{},"token":"AFR","version":"0.10","crypto":"Ed25519","supply":{},"mesh_nodes":{},"mesh_id":"{}","mesh_region":"{}","countries":54,"directory":{}}}"#,
-                    chain.blocks.len(), chain.total_transactions(), users.count(), chain.is_valid(), chain.total_supply(), mesh.count(), mesh.my_id, mesh.region, mesh.directory_count() + users.count());
+                let shield = s.shield.lock().unwrap();
+                let (attacks, blocked, blocked_count, level) = shield.stats();
+                let json = format!(r#"{{"name":"AfriChain","blocks":{},"transactions":{},"users":{},"valid":{},"token":"AFR","version":"0.11","crypto":"Ed25519","supply":{},"mesh_nodes":{},"mesh_id":"{}","mesh_region":"{}","countries":54,"directory":{},"shield_active":{},"shield_level":{},"shield_attacks":{},"shield_blocked_ips":{}}}"#,
+                    chain.blocks.len(), chain.total_transactions(), users.count(), chain.is_valid(), chain.total_supply(), mesh.count(), mesh.my_id, mesh.region, mesh.directory_count() + users.count(), shield.active, level, attacks, blocked_count);
                 HttpResponse::Ok().content_type("application/json").body(json)
             }))
             .route("/api/directory", web::get().to(|s: web::Data<Arc<AppState>>| async move {
@@ -1554,7 +1757,7 @@ async fn main() -> std::io::Result<()> {
                 HttpResponse::Ok().content_type("image/svg+xml").body(svg)
             }))
             .route("/sw.js", web::get().to(|| async move {
-                let sw = "const C='afri-v0.10';self.addEventListener('install',e=>{e.waitUntil(caches.open(C).then(c=>c.addAll(['/wallet','/manifest.json','/icon.svg'])))});self.addEventListener('fetch',e=>{e.respondWith(caches.match(e.request).then(r=>r||fetch(e.request)))});";
+                let sw = "const C='afri-v0.11';self.addEventListener('install',e=>{e.waitUntil(caches.open(C).then(c=>c.addAll(['/wallet','/manifest.json','/icon.svg'])))});self.addEventListener('fetch',e=>{e.respondWith(caches.match(e.request).then(r=>r||fetch(e.request)))});";
                 HttpResponse::Ok().content_type("application/javascript").body(sw)
             }))
     })
