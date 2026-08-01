@@ -975,7 +975,7 @@ fn html_home(chain: &Blockchain, users: &UserStore, mesh: &NodeRegistry, shield:
     let mut html = html_head("🦁 AfriChain");
     let (attacks, _blocked, blocked_count, level) = shield.stats();
     let shield_status = if shield.active { format!("🔥 X9 ACTIF (Niveau {})", level) } else { "Inactif".to_string() };
-    html.push_str(&format!(r#"<h1>🦁 AfriChain</h1><p style="text-align:center;">La blockchain 100% africaine — 54 pays 💚🦁</p><div class="nav"><a href="/register">🆕 S'inscrire</a> | <a href="/login">🔑 Connexion</a> | <a href="/wallet">👛 Wallet</a> | <a href="/admin">🔐 Admin</a> | <a href="/mesh">📡 Mesh</a> | <a href="/annuaire">📖 Annuaire</a> | <a href="/bouclier">🛡️ Bouclier</a> | <a href="/api/status">🔌 API</a></div><div style="text-align:center;"><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Blocs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Transactions</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Utilisateurs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">AFR en circulation</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📡 Noeuds mesh</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📖 Numéros annuaire</div></div><div class="stat-box" style="border-color:#ff4444;"><div class="stat-num" style="color:#ff4444;">{}</div><div class="stat-label">🛡️ Attaques bloquées</div></div></div><div class="card"><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🪙 Token</span><b>AfriRich (AFR)</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🌍 Pays</span><b>54 pays africains</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🛡️ Bouclier</span><b>{}</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;"><span style="color:#a8c5a8;">🔐 Crypto</span><b>Ed25519</b></div></div><footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🦁 Codée from scratch par Machine-senpai — v0.11 Bouclier X9</footer>"#,
+    html.push_str(&format!(r#"<h1>🦁 AfriChain</h1><p style="text-align:center;">La blockchain 100% africaine — 54 pays 💚🦁</p><div class="nav"><a href="/register">🆕 S'inscrire</a> | <a href="/login">🔑 Connexion</a> | <a href="/wallet">👛 Wallet</a> | <a href="/admin">🔐 Admin</a> | <a href="/mesh">📡 Mesh</a> | <a href="/annuaire">📖 Annuaire</a> | <a href="/bouclier">🛡️ Bouclier</a> | <a href="/satellite">🛰️ Satellite</a> | <a href="/api/status">🔌 API</a></div><div style="text-align:center;"><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Blocs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Transactions</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Utilisateurs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">AFR en circulation</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📡 Noeuds mesh</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📖 Numéros annuaire</div></div><div class="stat-box" style="border-color:#ff4444;"><div class="stat-num" style="color:#ff4444;">{}</div><div class="stat-label">🛡️ Attaques bloquées</div></div></div><div class="card"><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🪙 Token</span><b>AfriRich (AFR)</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🌍 Pays</span><b>54 pays africains</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🛡️ Bouclier</span><b>{}</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;"><span style="color:#a8c5a8;">🔐 Crypto</span><b>Ed25519</b></div></div><footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🦁 Codée from scratch par Machine-senpai — v0.12 Satellite Afri</footer>"#,
         chain.blocks.len(),
         chain.total_transactions(),
         users.count(),
@@ -1095,6 +1095,183 @@ fn html_bouclier(shield: &ShieldState) -> String {
     }
 
     html.push_str(r#"<footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🛡️ Bouclier X9 — L'Afrique se protège 💚🦁</footer>"#);
+    html.push_str("</body></html>");
+    html
+}
+
+fn html_satellite(mesh: &NodeRegistry, users: &UserStore) -> String {
+    let mut html = html_head("🛰️ Satellite Afri");
+    let num_nodes = mesh.count();
+    let num_users = users.count();
+
+    html.push_str(r#"<h1>🛰️ Satellite Afri</h1><div class="nav"><a href="/">← Accueil</a> | <a href="/mesh">📡 Mesh</a> | <a href="/bouclier">🛡️ Bouclier</a></div>"#);
+    html.push_str(&format!(r#"<div style="text-align:center;"><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📡 Noeuds</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">👥 Utilisateurs</div></div><div class="stat-box"><div class="stat-num">54</div><div class="stat-label">🌍 Pays survolés</div></div><div class="stat-box"><div class="stat-num">X9</div><div class="stat-label">🛰️ Orbite</div></div></div>"#,
+        num_nodes, num_users));
+
+    // Inject Rust values as JS variables before the script
+    html.push_str(&format!(r#"<script>var num_nodes = {};</script>"#, num_nodes));
+
+    // Canvas satellite visualization
+    html.push_str(r##"<div class="card"><h2>🛰️ Orbite en temps réel</h2><canvas id="sat" width="560" height="400" style="background:#000;border-radius:12px;border:1px solid #d4a437;width:100%;max-width:560px;"></canvas></div>
+
+<div class="card"><h2>🌍 Pays actuellement survolés</h2><div id="country-info" style="text-align:center;font-size:1.2em;color:#d4a437;min-height:30px;">Calcul...</div></div>
+
+<div class="card"><h2>☀️ Position du soleil</h2><div id="sun-info" style="text-align:center;color:#a8c5a8;"></div></div>
+
+<div class="card"><h2>☁️ Couverture nuageuse</h2><div id="cloud-info" style="text-align:center;color:#a8c5a8;">Simulation atmosphérique active</div></div>
+
+<div class="card"><h2>📡 Liens mesh satellitaires</h2><div id="mesh-info" style="text-align:center;color:#a8c5a8;"></div></div>
+
+<script>
+const canvas = document.getElementById('sat');
+const ctx = canvas.getContext('2d');
+const W = canvas.width, H = canvas.height;
+const cx = W/2, cy = H/2;
+const orbitRx = 220, orbitRy = 100;
+let angle = 0;
+let clouds = [];
+for(let i=0;i<12;i++){clouds.push({x:Math.random()*W,y:Math.random()*H,r:20+Math.random()*40,s:0.3+Math.random()*0.5});}
+
+const countries = [
+'Algérie','Angola','Bénin','Botswana','Burkina Faso','Burundi','Cabo Verde','Cameroun','Centrafrique','Tchad',
+'Comores','Congo','RD Congo','Côte d\'Ivoire','Djibouti','Égypte','Guinée Équatoriale','Érythrée','Eswatini','Éthiopie',
+'Gabon','Gambie','Ghana','Guinée','Guinée-Bissau','Kenya','Lesotho','Liberia','Libye','Madagascar',
+'Malawi','Mali','Mauritanie','Maurice','Maroc','Mozambique','Namibie','Niger','Nigeria','Rwanda',
+'São Tomé','Sénégal','Seychelles','Sierra Leone','Somalie','Afrique du Sud','Soudan du Sud','Soudan','Tanzanie','Togo',
+'Tunisie','Ouganda','Zambie','Zimbabwe'
+];
+const flags = ['🇩🇿','🇦🇴','🇧🇯','🇧🇼','🇧🇫','🇧🇮','🇨🇻','🇨🇲','🇨🇫','🇹🇩','🇰🇲','🇨🇬','🇨🇩','🇨🇮','🇩🇯','🇪🇬','🇬🇶','🇪🇷','🇸🇿','🇪🇹','🇬🇦','🇬🇲','🇬🇭','🇬🇳','🇬🇼','🇰🇪','🇱🇸','🇱🇷','🇱🇾','🇲🇬','🇲🇼','🇲🇱','🇲🇷','🇲🇺','🇲🇦','🇲🇿','🇳🇦','🇳🇪','🇳🇬','🇷🇼','🇸🇹','🇸🇳','🇸🇨','🇸🇱','🇸🇴','🇿🇦','🇸🇸','🇸🇩','🇹🇿','🇹🇬','🇹🇳','🇺🇬','🇿🇲','🇿🇼'];
+
+function draw(){
+ctx.fillStyle = '#000';
+ctx.fillRect(0,0,W,H);
+
+// Stars
+for(let i=0;i<50;i++){
+ctx.fillStyle = 'rgba(255,255,255,'+(0.3+0.7*Math.sin(Date.now()/1000+i))+')';
+ctx.fillRect((i*37)%W,(i*73)%H,1,1);
+}
+
+// Africa outline (simplified)
+ctx.strokeStyle = '#1a3d2e';
+ctx.lineWidth = 2;
+ctx.fillStyle = 'rgba(26,61,46,0.5)';
+ctx.beginPath();
+ctx.moveTo(cx-60,cy-80);
+ctx.lineTo(cx-40,cy-90);
+ctx.lineTo(cx-10,cy-95);
+ctx.lineTo(cx+30,cy-85);
+ctx.lineTo(cx+50,cy-60);
+ctx.lineTo(cx+70,cy-30);
+ctx.lineTo(cx+60,cy+10);
+ctx.lineTo(cx+40,cy+50);
+ctx.lineTo(cx+20,cy+80);
+ctx.lineTo(cx-10,cy+90);
+ctx.lineTo(cx-30,cy+70);
+ctx.lineTo(cx-50,cy+40);
+ctx.lineTo(cx-70,cy+10);
+ctx.lineTo(cx-65,cy-30);
+ctx.lineTo(cx-60,cy-80);
+ctx.stroke();
+ctx.fill();
+
+// Clouds
+for(let c of clouds){
+c.x += c.s;
+if(c.x > W+50) c.x = -50;
+ctx.fillStyle = 'rgba(200,200,220,0.15)';
+ctx.beginPath();
+ctx.arc(c.x,c.y,c.r,0,Math.PI*2);
+ctx.fill();
+}
+
+// Orbit path
+ctx.strokeStyle = 'rgba(212,164,55,0.2)';
+ctx.lineWidth = 1;
+ctx.beginPath();
+ctx.ellipse(cx,cy,orbitRx,orbitRy,0,0,Math.PI*2);
+ctx.stroke();
+
+// Satellite position
+const sx = cx + Math.cos(angle) * orbitRx;
+const sy = cy + Math.sin(angle) * orbitRy;
+const depth = Math.sin(angle); // -1 to 1, front/back
+
+// Satellite shadow (coverage area on ground)
+const shadowSize = 40 + 20 * Math.abs(Math.sin(angle*0.5));
+ctx.fillStyle = 'rgba(212,164,55,0.1)';
+ctx.beginPath();
+ctx.ellipse(sx, sy + 20, shadowSize, shadowSize*0.4, 0, 0, Math.PI*2);
+ctx.fill();
+
+// Satellite body
+const satSize = 8 + 4 * (depth > 0 ? 1 : 0.5);
+ctx.fillStyle = depth > 0 ? '#d4a437' : '#8a6a20';
+ctx.beginPath();
+ctx.arc(sx, sy, satSize, 0, Math.PI*2);
+ctx.fill();
+
+// Solar panels
+ctx.strokeStyle = '#d4a437';
+ctx.lineWidth = 2;
+ctx.beginPath();
+ctx.moveTo(sx - 20, sy);
+ctx.lineTo(sx + 20, sy);
+ctx.stroke();
+ctx.fillStyle = 'rgba(212,164,55,0.3)';
+ctx.fillRect(sx - 20, sy - 3, 40, 6);
+
+// Signal beams to ground
+if(depth > 0){
+ctx.strokeStyle = 'rgba(127,207,127,0.3)';
+ctx.lineWidth = 1;
+for(let i=0;i<3;i++){
+ctx.beginPath();
+ctx.moveTo(sx, sy);
+ctx.lineTo(sx + (i-1)*30, sy + 40);
+ctx.stroke();
+}
+}
+
+// Country being overflown
+const countryIdx = Math.floor((angle / (Math.PI*2)) * countries.length) % countries.length;
+const positiveIdx = ((countryIdx % countries.length) + countries.length) % countries.length;
+document.getElementById('country-info').innerHTML = flags[positiveIdx] + ' <b>' + countries[positiveIdx] + '</b>';
+
+// Sun position
+const now = new Date();
+const hours = now.getUTCHours();
+const mins = now.getUTCMinutes();
+const sunAngle = ((hours + mins/60) / 24) * Math.PI * 2 - Math.PI/2;
+const sunX = cx + Math.cos(sunAngle) * 250;
+const sunY = cy + Math.sin(sunAngle) * 200;
+const isDay = Math.sin(sunAngle) < 0;
+ctx.fillStyle = isDay ? '#ffdd44' : '#444466';
+ctx.beginPath();
+ctx.arc(sunX, sunY, 15, 0, Math.PI*2);
+ctx.fill();
+if(isDay){
+ctx.fillStyle = 'rgba(255,221,68,0.2)';
+ctx.beginPath();
+ctx.arc(sunX, sunY, 25, 0, Math.PI*2);
+ctx.fill();
+}
+document.getElementById('sun-info').innerHTML = (isDay ? '☀️ Jour' : '🌙 Nuit') + ' — ' + String(hours).padStart(2,'0') + ':' + String(mins).padStart(2,'0') + ' UTC';
+
+// Mesh info
+const meshNodes = "" + num_nodes + "";
+document.getElementById('mesh-info').innerHTML = meshNodes + ' noeud(s) connecte(s) au satellite';
+
+angle += 0.008;
+requestAnimationFrame(draw);
+}
+draw();
+</script>
+
+<div class="card"><h2>🛰️ À propos du Satellite Afri</h2><p>Le Satellite Afri est l'ombre d'AfriChain dans le ciel. Il surveille, protège et connecte les 54 pays d'Afrique. Tout chose a une ombre — la nôtre vient de l'espace.</p><p>Les gens diront que c'est de la sorcellerie. Mais non — c'est l'intelligence secrète. La technologie avancée. Notre satellite sera le meilleur sur des siècles et des siècles.</p><p style="color:#d4a437;text-align:center;"><b>🦁 L'Afrique nourrit l'univers, et maintenant elle le surveille~ 💚</b></p></div>
+
+<footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🛰️ Satellite Afri — L'ombre de l'Afrique dans le ciel 💚🦁</footer>"##);
+
     html.push_str("</body></html>");
     html
 }
@@ -1376,11 +1553,12 @@ async fn main() -> std::io::Result<()> {
         .and_then(|i| args.get(i + 1)).cloned().unwrap_or_else(|| "Afrique".to_string());
 
     let my_node_id = generate_node_id();
-    println!("🦁 AfriChain v0.11 — Bouclier X9");
+    println!("🦁 AfriChain v0.12 — Satellite Afri");
     println!("💚 L'Afrique n'a pas besoin de permission");
     println!("🌍 54 pays africains intégrés");
     println!("📖 Annuaire mesh panafricain — tous les numéros sur écoute");
     println!("🛡️ Bouclier X9 ACTIF — protection automatique");
+    println!("🛰️ Satellite Afri — l'ombre de l'Afrique dans le ciel");
     println!("📡 Node ID: {}", my_node_id);
     println!("🔌 Mesh port: {}", mesh_port);
     println!("☀️  Solaire: {}", if solar { "Oui" } else { "Non" });
@@ -1447,6 +1625,7 @@ async fn main() -> std::io::Result<()> {
     println!("📈 Dashboard sur http://localhost:8080/dashboard");
     println!("📖 Annuaire sur http://localhost:8080/annuaire");
     println!("🛡️ Bouclier sur http://localhost:8080/bouclier");
+    println!("🛰️ Satellite sur http://localhost:8080/satellite");
 
     HttpServer::new(move || {
         let state = web_state.clone();
@@ -1483,6 +1662,11 @@ async fn main() -> std::io::Result<()> {
                 }
                 let shield = s.shield.lock().unwrap();
                 HttpResponse::Ok().content_type("text/html").body(html_bouclier(&shield))
+            }))
+            .route("/satellite", web::get().to(|s: web::Data<Arc<AppState>>| async move {
+                let mesh = s.mesh.lock().unwrap();
+                let users = s.users.lock().unwrap();
+                HttpResponse::Ok().content_type("text/html").body(html_satellite(&mesh, &users))
             }))
             .route("/blocks", web::get().to(|s: web::Data<Arc<AppState>>, req: actix_web::HttpRequest| async move {
                 if req.cookie("afri_admin").map(|c| c.value().to_string()) != Some("1".to_string()) {
@@ -1719,7 +1903,7 @@ async fn main() -> std::io::Result<()> {
                 let mesh = s.mesh.lock().unwrap();
                 let shield = s.shield.lock().unwrap();
                 let (attacks, blocked, blocked_count, level) = shield.stats();
-                let json = format!(r#"{{"name":"AfriChain","blocks":{},"transactions":{},"users":{},"valid":{},"token":"AFR","version":"0.11","crypto":"Ed25519","supply":{},"mesh_nodes":{},"mesh_id":"{}","mesh_region":"{}","countries":54,"directory":{},"shield_active":{},"shield_level":{},"shield_attacks":{},"shield_blocked_ips":{}}}"#,
+                let json = format!(r#"{{"name":"AfriChain","blocks":{},"transactions":{},"users":{},"valid":{},"token":"AFR","version":"0.12","crypto":"Ed25519","supply":{},"mesh_nodes":{},"mesh_id":"{}","mesh_region":"{}","countries":54,"directory":{},"shield_active":{},"shield_level":{},"shield_attacks":{},"shield_blocked_ips":{}}}"#,
                     chain.blocks.len(), chain.total_transactions(), users.count(), chain.is_valid(), chain.total_supply(), mesh.count(), mesh.my_id, mesh.region, mesh.directory_count() + users.count(), shield.active, level, attacks, blocked_count);
                 HttpResponse::Ok().content_type("application/json").body(json)
             }))
@@ -1757,7 +1941,7 @@ async fn main() -> std::io::Result<()> {
                 HttpResponse::Ok().content_type("image/svg+xml").body(svg)
             }))
             .route("/sw.js", web::get().to(|| async move {
-                let sw = "const C='afri-v0.11';self.addEventListener('install',e=>{e.waitUntil(caches.open(C).then(c=>c.addAll(['/wallet','/manifest.json','/icon.svg'])))});self.addEventListener('fetch',e=>{e.respondWith(caches.match(e.request).then(r=>r||fetch(e.request)))});";
+                let sw = "const C='afri-v0.12';self.addEventListener('install',e=>{e.waitUntil(caches.open(C).then(c=>c.addAll(['/wallet','/manifest.json','/icon.svg'])))});self.addEventListener('fetch',e=>{e.respondWith(caches.match(e.request).then(r=>r||fetch(e.request)))});";
                 HttpResponse::Ok().content_type("application/javascript").body(sw)
             }))
     })
