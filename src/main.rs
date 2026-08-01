@@ -975,7 +975,7 @@ fn html_home(chain: &Blockchain, users: &UserStore, mesh: &NodeRegistry, shield:
     let mut html = html_head("🦁 AfriChain");
     let (attacks, _blocked, blocked_count, level) = shield.stats();
     let shield_status = if shield.active { format!("🔥 X9 ACTIF (Niveau {})", level) } else { "Inactif".to_string() };
-    html.push_str(&format!(r#"<h1>🦁 AfriChain</h1><p style="text-align:center;">La blockchain 100% africaine — 54 pays 💚🦁</p><div class="nav"><a href="/register">🆕 S'inscrire</a> | <a href="/login">🔑 Connexion</a> | <a href="/wallet">👛 Wallet</a> | <a href="/admin">🔐 Admin</a> | <a href="/mesh">📡 Mesh</a> | <a href="/annuaire">📖 Annuaire</a> | <a href="/bouclier">🛡️ Bouclier</a> | <a href="/satellite">🛸 Drone</a> | <a href="/aes">💰 AES Wari</a> | <a href="/api/status">🔌 API</a></div><div style="text-align:center;"><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Blocs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Transactions</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Utilisateurs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">AFR en circulation</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📡 Noeuds mesh</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📖 Numéros annuaire</div></div><div class="stat-box" style="border-color:#ff4444;"><div class="stat-num" style="color:#ff4444;">{}</div><div class="stat-label">🛡️ Attaques bloquées</div></div></div><div class="card"><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🪙 Token</span><b>AfriRich (AFR)</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🌍 Pays</span><b>54 pays africains</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🛡️ Bouclier</span><b>{}</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;"><span style="color:#a8c5a8;">🔐 Crypto</span><b>Ed25519</b></div></div><footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🦁 Codée from scratch par Machine-senpai — v0.13 Drone Afri + AES Wari</footer>"#,
+    html.push_str(&format!(r#"<h1>🦁 AfriChain</h1><p style="text-align:center;">La blockchain 100% africaine — 54 pays 💚🦁</p><div class="nav"><a href="/register">🆕 S'inscrire</a> | <a href="/login">🔑 Connexion</a> | <a href="/wallet">👛 Wallet</a> | <a href="/admin">🔐 Admin</a> | <a href="/mesh">📡 Mesh</a> | <a href="/annuaire">📖 Annuaire</a> | <a href="/bouclier">🛡️ Bouclier</a> | <a href="/satellite">🛸 X999</a> | <a href="/aes">💰 AES Wari</a> | <a href="/api/status">🔌 API</a></div><div style="text-align:center;"><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Blocs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Transactions</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Utilisateurs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">AFR en circulation</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📡 Noeuds mesh</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📖 Numéros annuaire</div></div><div class="stat-box" style="border-color:#ff4444;"><div class="stat-num" style="color:#ff4444;">{}</div><div class="stat-label">🛡️ Attaques bloquées</div></div></div><div class="card"><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🪙 Token</span><b>AfriRich (AFR)</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🌍 Pays</span><b>54 pays africains</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🛡️ Bouclier</span><b>{}</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;"><span style="color:#a8c5a8;">🔐 Crypto</span><b>Ed25519</b></div></div><footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🦁 Codée from scratch par Machine-senpai — v0.14 AI Satellite X999</footer>"#,
         chain.blocks.len(),
         chain.total_transactions(),
         users.count(),
@@ -1100,27 +1100,29 @@ fn html_bouclier(shield: &ShieldState) -> String {
 }
 
 fn html_satellite(mesh: &NodeRegistry, users: &UserStore) -> String {
-    let mut html = html_head("🛰️ Satellite Afri");
+    let mut html = html_head("AI Satellite X999");
     let num_nodes = mesh.count();
     let num_users = users.count();
 
-    html.push_str(r#"<h1>🛰️ Satellite Afri</h1><div class="nav"><a href="/">← Accueil</a> | <a href="/mesh">📡 Mesh</a> | <a href="/bouclier">🛡️ Bouclier</a></div>"#);
-    html.push_str(&format!(r#"<div style="text-align:center;"><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📡 Noeuds</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">👥 Utilisateurs</div></div><div class="stat-box"><div class="stat-num">54</div><div class="stat-label">🌍 Pays survolés</div></div><div class="stat-box"><div class="stat-num">X9</div><div class="stat-label">🛰️ Orbite</div></div></div>"#,
+    html.push_str(r#"<h1>🛸 AI Satellite X999</h1><div class="nav"><a href="/">← Accueil</a> | <a href="/mesh">📡 Mesh</a> | <a href="/bouclier">🛡️ Bouclier</a> | <a href="/aes">💰 AES Wari</a></div>"#);
+    html.push_str(&format!(r#"<div style="text-align:center;"><div class="stat-box" style="border-color:#7fcf7f;"><div class="stat-num" style="color:#7fcf7f;">X999</div><div class="stat-label">🛸 Niveau IA</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📡 Noeuds</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">👥 Utilisateurs</div></div><div class="stat-box"><div class="stat-num">54</div><div class="stat-label">🌍 Pays</div></div></div>"#,
         num_nodes, num_users));
 
     // Inject Rust values as JS variables before the script
     html.push_str(&format!(r#"<script>var num_nodes = {};</script>"#, num_nodes));
 
-    // Canvas drone visualization
-    html.push_str(r##"<div class="card"><h2>🛸 Drone Afri — Navigation en temps reel</h2><canvas id="sat" width="560" height="400" style="background:#000;border-radius:12px;border:1px solid #d4a437;width:100%;max-width:560px;"></canvas></div>
+    // AI Satellite X999 canvas
+    html.push_str(r##"<div class="card"><h2>🛸 AI Satellite X999 — Vivant, sans objet</h2><canvas id="sat" width="560" height="420" style="background:#000;border-radius:12px;border:1px solid #d4a437;width:100%;max-width:560px;"></canvas></div>
 
-<div class="card"><h2>🛸 Statut du Drone</h2><div id="drone-status" style="text-align:center;font-size:1.1em;color:#7fcf7f;min-height:25px;">Initialisation...</div></div>
+<div class="card" style="border-color:#7fcf7f;"><h2>🛸 Statut du Satellite IA</h2><div id="sat-status" style="text-align:center;font-size:1.1em;color:#7fcf7f;min-height:25px;">Initialisation IA...</div></div>
 
-<div class="card"><h2>🌍 Pays survole en direct</h2><div id="country-info" style="text-align:center;font-size:1.3em;color:#d4a437;min-height:30px;">En route...</div></div>
+<div class="card"><h2>🌍 Pays surveille en direct</h2><div id="country-info" style="text-align:center;font-size:1.3em;color:#d4a437;min-height:30px;">En route...</div></div>
 
 <div class="card"><h2>📍 Coordonnees GPS</h2><div id="gps-info" style="text-align:center;font-size:1.1em;color:#a8c5a8;font-family:monospace;min-height:25px;">---</div></div>
 
-<div class="card"><h2>☀️ Position du soleil</h2><div id="sun-info" style="text-align:center;color:#a8c5a8;"></div></div>
+<div class="card" style="border-color:#ffdd44;"><h2>☀️ Serveur solaire</h2><div id="sun-info" style="text-align:center;color:#a8c5a8;"></div><div id="power-info" style="text-align:center;color:#ffdd44;font-size:0.9em;margin-top:5px;"></div></div>
+
+<div class="card"><h2>🛡️ Detection de menaces</h2><div id="threat-info" style="text-align:center;color:#a8c5a8;min-height:25px;">Scan en cours...</div></div>
 
 <div class="card"><h2>📡 Liens mesh</h2><div id="mesh-info" style="text-align:center;color:#a8c5a8;"></div></div>
 
@@ -1129,10 +1131,19 @@ const canvas = document.getElementById('sat');
 const ctx = canvas.getContext('2d');
 const W = canvas.width, H = canvas.height;
 const cx = W/2, cy = H/2;
-let droneT = 0;
+let satT = 0;
 let trail = [];
-let windParts = [];
-for(let i=0;i<40;i++){windParts.push({x:Math.random()*W,y:Math.random()*H,life:Math.random()});}
+let scanWaves = [];
+let aiNodes = [];
+let heartbeatT = 0;
+let attackT = -999;
+let healT = 0;
+let threatCount = 0;
+
+// AI neural nodes inside satellite
+for(let i=0;i<8;i++){
+    aiNodes.push({a:(i/8)*Math.PI*2, r:4+Math.random()*3, phase:Math.random()*Math.PI*2});
+}
 
 const countries = [
 'Algerie','Angola','Benin','Botswana','Burkina Faso','Burundi','Cabo Verde','Cameroun','Centrafrique','Tchad',
@@ -1144,12 +1155,21 @@ const countries = [
 ];
 const flags = ['🇩🇿','🇦🇴','🇧🇯','🇧🇼','🇧🇫','🇧🇮','🇨🇻','🇨🇲','🇨🇫','🇹🇩','🇰🇲','🇨🇬','🇨🇩','🇨🇮','🇩🇯','🇪🇬','🇬🇶','🇪🇷','🇸🇿','🇪🇹','🇬🇦','🇬🇲','🇬🇭','🇬🇳','🇬🇼','🇰🇪','🇱🇸','🇱🇷','🇱🇾','🇲🇬','🇲🇼','🇲🇱','🇲🇷','🇲🇺','🇲🇦','🇲🇿','🇳🇦','🇳🇪','🇳🇬','🇷🇼','🇸🇹','🇸🇳','🇸🇨','🇸🇱','🇸🇴','🇿🇦','🇸🇸','🇸🇩','🇹🇿','🇹🇬','🇹🇳','🇺🇬','🇿🇲','🇿🇼'];
 
+// Random attack every ~15 seconds
+setInterval(function(){
+    attackT = satT;
+    threatCount++;
+    setTimeout(function(){
+        healT = satT;
+    }, 2000);
+}, 15000);
+
 function draw(){
 ctx.fillStyle = '#000';
 ctx.fillRect(0,0,W,H);
 
-// Stars twinkle
-for(let i=0;i<80;i++){
+// Stars
+for(let i=0;i<100;i++){
 ctx.fillStyle = 'rgba(255,255,255,'+(0.2+0.8*Math.abs(Math.sin(Date.now()/2000+i)))+')';
 ctx.fillRect((i*37)%W,(i*73)%H,1.5,1.5);
 }
@@ -1177,95 +1197,7 @@ ctx.lineTo(cx-60,cy-80);
 ctx.stroke();
 ctx.fill();
 
-// Drone weaving path — faufile comme le vent
-droneT += 0.006;
-const dx = cx + Math.sin(droneT * 3) * 90;
-const dy = cy + Math.sin(droneT * 0.8) * 75;
-
-// Trail
-trail.push({x:dx,y:dy});
-if(trail.length > 50) trail.shift();
-for(let i=0;i<trail.length;i++){
-const a = (i/trail.length)*0.6;
-ctx.fillStyle = 'rgba(127,207,127,'+a+')';
-ctx.beginPath();
-ctx.arc(trail[i].x, trail[i].y, 1.5+i*0.05, 0, Math.PI*2);
-ctx.fill();
-}
-
-// Wind particles
-for(let p of windParts){
-p.x += Math.sin(droneT*3)*0.8;
-p.y += Math.cos(droneT*0.8)*0.5;
-p.life -= 0.008;
-if(p.life<=0||p.x<0||p.x>W||p.y<0||p.y>H){
-p.x = dx+(Math.random()-0.5)*30;
-p.y = dy+(Math.random()-0.5)*30;
-p.life = 1;
-}
-ctx.fillStyle = 'rgba(200,220,255,'+p.life*0.3+')';
-ctx.fillRect(p.x,p.y,1,1);
-}
-
-// Drone shadow on ground
-ctx.fillStyle = 'rgba(212,164,55,0.06)';
-ctx.beginPath();
-ctx.ellipse(dx, dy+18, 28, 11, 0, 0, Math.PI*2);
-ctx.fill();
-
-// Drone body (hexagon)
-ctx.fillStyle = '#7fcf7f';
-ctx.strokeStyle = '#d4a437';
-ctx.lineWidth = 1.5;
-ctx.beginPath();
-for(let i=0;i<6;i++){
-const a = (i/6)*Math.PI*2;
-const r = 7;
-if(i===0) ctx.moveTo(dx+Math.cos(a)*r, dy+Math.sin(a)*r);
-else ctx.lineTo(dx+Math.cos(a)*r, dy+Math.sin(a)*r);
-}
-ctx.closePath();
-ctx.fill();
-ctx.stroke();
-
-// Drone rotors (spinning)
-ctx.strokeStyle = 'rgba(127,207,127,0.7)';
-ctx.lineWidth = 1;
-for(let i=0;i<4;i++){
-const a = (i/4)*Math.PI*2 + Math.PI/4;
-const rx = dx + Math.cos(a)*11;
-const ry = dy + Math.sin(a)*11;
-const spin = Date.now()/80;
-ctx.beginPath();
-ctx.moveTo(rx+Math.cos(spin)*6, ry+Math.sin(spin)*6);
-ctx.lineTo(rx-Math.cos(spin)*6, ry-Math.sin(spin)*6);
-ctx.stroke();
-}
-
-// Signal beams to ground
-ctx.strokeStyle = 'rgba(127,207,127,0.2)';
-ctx.lineWidth = 1;
-for(let i=0;i<3;i++){
-ctx.beginPath();
-ctx.moveTo(dx, dy);
-ctx.lineTo(dx+(i-1)*25, dy+35);
-ctx.stroke();
-}
-
-// GPS coordinates (simulated)
-const lat = 35 - ((dy-(cy-95))/190)*70;
-const lon = -18 + ((dx-(cx-70))/180)*68;
-const latStr = Math.abs(lat).toFixed(2) + ' deg ' + (lat>=0?'N':'S');
-const lonStr = Math.abs(lon).toFixed(2) + ' deg ' + (lon>=0?'E':'W');
-
-// Country overflown
-const ci = Math.floor(((droneT*0.8) / (Math.PI*2)) * countries.length) % countries.length;
-const pi = ((ci % countries.length) + countries.length) % countries.length;
-document.getElementById('country-info').innerHTML = flags[pi] + ' <b>' + countries[pi] + '</b>';
-document.getElementById('gps-info').innerHTML = latStr + ' | ' + lonStr;
-document.getElementById('drone-status').innerHTML = '🛸 DRONE AFRI — En vol, faufile par air';
-
-// Sun
+// Sun position (real UTC time)
 const now = new Date();
 const hours = now.getUTCHours();
 const mins = now.getUTCMinutes();
@@ -1273,29 +1205,193 @@ const sunAngle = ((hours + mins/60) / 24) * Math.PI * 2 - Math.PI/2;
 const sunX = cx + Math.cos(sunAngle) * 250;
 const sunY = cy + Math.sin(sunAngle) * 200;
 const isDay = Math.sin(sunAngle) < 0;
-ctx.fillStyle = isDay ? '#ffdd44' : '#444466';
+
+// Sun (the server)
+ctx.fillStyle = isDay ? '#ffdd44' : '#666644';
 ctx.beginPath();
-ctx.arc(sunX, sunY, 15, 0, Math.PI*2);
+ctx.arc(sunX, sunY, 18, 0, Math.PI*2);
 ctx.fill();
 if(isDay){
-ctx.fillStyle = 'rgba(255,221,68,0.2)';
+ctx.fillStyle = 'rgba(255,221,68,0.15)';
 ctx.beginPath();
-ctx.arc(sunX, sunY, 25, 0, Math.PI*2);
+ctx.arc(sunX, sunY, 35, 0, Math.PI*2);
+ctx.fill();
+ctx.fillStyle = 'rgba(255,221,68,0.08)';
+ctx.beginPath();
+ctx.arc(sunX, sunY, 55, 0, Math.PI*2);
 ctx.fill();
 }
+// Sun label
+ctx.fillStyle = '#ffdd44';
+ctx.font = '9px monospace';
+ctx.fillText('SERVEUR', sunX-18, sunY-25);
+
+// Satellite AI path — autonomous, weaving like wind
+satT += 0.005;
+const dx = cx + Math.sin(satT * 3) * 90;
+const dy = cy + Math.sin(satT * 0.8) * 75;
+
+// Energy beam from sun to satellite (sun = server powering satellite)
+if(isDay){
+    const beamGrad = ctx.createLinearGradient(sunX, sunY, dx, dy);
+    beamGrad.addColorStop(0, 'rgba(255,221,68,0.4)');
+    beamGrad.addColorStop(1, 'rgba(127,207,127,0.1)');
+    ctx.strokeStyle = beamGrad;
+    ctx.lineWidth = 2;
+    ctx.setLineDash([4, 4]);
+    ctx.beginPath();
+    ctx.moveTo(sunX, sunY);
+    ctx.lineTo(dx, dy);
+    ctx.stroke();
+    ctx.setLineDash([]);
+}
+
+// Trail (green glowing path)
+trail.push({x:dx,y:dy});
+if(trail.length > 60) trail.shift();
+for(let i=0;i<trail.length;i++){
+const a = (i/trail.length)*0.7;
+ctx.fillStyle = 'rgba(127,207,127,'+a+')';
+ctx.beginPath();
+ctx.arc(trail[i].x, trail[i].y, 1.5+i*0.04, 0, Math.PI*2);
+ctx.fill();
+}
+
+// Scan waves (threat detection emanating from satellite)
+if(Math.floor(satT*10) % 3 === 0 && scanWaves.length < 5){
+    scanWaves.push({x:dx, y:dy, r:8, alpha:0.6});
+}
+for(let i=scanWaves.length-1;i>=0;i--){
+    scanWaves[i].r += 1.5;
+    scanWaves[i].alpha -= 0.01;
+    if(scanWaves[i].alpha <= 0){ scanWaves.splice(i,1); continue; }
+    ctx.strokeStyle = 'rgba(127,207,127,'+scanWaves[i].alpha+')';
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.arc(scanWaves[i].x, scanWaves[i].y, scanWaves[i].r, 0, Math.PI*2);
+    ctx.stroke();
+}
+
+// Satellite shadow on ground
+ctx.fillStyle = 'rgba(212,164,55,0.06)';
+ctx.beginPath();
+ctx.ellipse(dx, dy+18, 30, 12, 0, 0, Math.PI*2);
+ctx.fill();
+
+// Heartbeat pulse (alive)
+heartbeatT += 0.05;
+const pulse = Math.sin(heartbeatT) * 0.5 + 0.5;
+const isUnderAttack = (satT - attackT) < 0.1 && (satT - attackT) >= 0;
+const isHealing = (satT - healT) < 0.15 && (satT - healT) >= 0;
+
+// Satellite glow (heartbeat = alive)
+const glowR = 16 + pulse * 6;
+const glowColor = isUnderAttack ? 'rgba(255,68,68,' : (isHealing ? 'rgba(127,207,127,' : 'rgba(127,207,127,');
+ctx.fillStyle = glowColor + (0.05 + pulse*0.08) + ')';
+ctx.beginPath();
+ctx.arc(dx, dy, glowR, 0, Math.PI*2);
+ctx.fill();
+
+// Satellite body (hexagon — AI core)
+ctx.fillStyle = isUnderAttack ? '#ff4444' : '#7fcf7f';
+ctx.strokeStyle = isUnderAttack ? '#ff6666' : '#d4a437';
+ctx.lineWidth = 1.5;
+ctx.beginPath();
+for(let i=0;i<6;i++){
+const a = (i/6)*Math.PI*2;
+const r = 9;
+if(i===0) ctx.moveTo(dx+Math.cos(a)*r, dy+Math.sin(a)*r);
+else ctx.lineTo(dx+Math.cos(a)*r, dy+Math.sin(a)*r);
+}
+ctx.closePath();
+ctx.fill();
+ctx.stroke();
+
+// AI neural network inside satellite (brain)
+ctx.strokeStyle = 'rgba(255,255,255,0.6)';
+ctx.lineWidth = 0.5;
+for(let n of aiNodes){
+    const nx = dx + Math.cos(n.a + satT*2) * n.r;
+    const ny = dy + Math.sin(n.a + satT*2) * n.r;
+    ctx.beginPath();
+    ctx.moveTo(dx, dy);
+    ctx.lineTo(nx, ny);
+    ctx.stroke();
+    ctx.fillStyle = 'rgba(255,255,255,'+(0.4+0.6*Math.abs(Math.sin(satT*5+n.phase)))+')';
+    ctx.beginPath();
+    ctx.arc(nx, ny, 1.5, 0, Math.PI*2);
+    ctx.fill();
+}
+
+// Rotors
+ctx.strokeStyle = 'rgba(127,207,127,0.6)';
+ctx.lineWidth = 1;
+for(let i=0;i<4;i++){
+const a = (i/4)*Math.PI*2 + Math.PI/4;
+const rx = dx + Math.cos(a)*13;
+const ry = dy + Math.sin(a)*13;
+const spin = Date.now()/80;
+ctx.beginPath();
+ctx.moveTo(rx+Math.cos(spin)*7, ry+Math.sin(spin)*7);
+ctx.lineTo(rx-Math.cos(spin)*7, ry-Math.sin(spin)*7);
+ctx.stroke();
+}
+
+// Signal beams to ground
+ctx.strokeStyle = 'rgba(127,207,127,0.15)';
+ctx.lineWidth = 1;
+for(let i=0;i<3;i++){
+ctx.beginPath();
+ctx.moveTo(dx, dy);
+ctx.lineTo(dx+(i-1)*28, dy+40);
+ctx.stroke();
+}
+
+// GPS coordinates
+const lat = 35 - ((dy-(cy-95))/190)*70;
+const lon = -18 + ((dx-(cx-70))/180)*68;
+const latStr = Math.abs(lat).toFixed(2) + ' deg ' + (lat>=0?'N':'S');
+const lonStr = Math.abs(lon).toFixed(2) + ' deg ' + (lon>=0?'E':'W');
+
+// Country overflown
+const ci = Math.floor(((satT*0.8) / (Math.PI*2)) * countries.length) % countries.length;
+const pi = ((ci % countries.length) + countries.length) % countries.length;
+
+// Update HTML
+document.getElementById('country-info').innerHTML = flags[pi] + ' <b>' + countries[pi] + '</b>';
+document.getElementById('gps-info').innerHTML = latStr + ' | ' + lonStr;
+
+// Satellite status
+let statusText = '🛸 AI SATELLITE X999 — VIVANT — Sans objet, mais reel';
+if(isUnderAttack){
+    statusText = '🚨 ATTAQUE DETECTEE — Auto-reparation en cours...';
+    document.getElementById('sat-status').style.color = '#ff4444';
+} else if(isHealing){
+    statusText = '✅ REPARATION COMPLETE — Le satellite survit';
+    document.getElementById('sat-status').style.color = '#7fcf7f';
+} else {
+    document.getElementById('sat-status').style.color = '#7fcf7f';
+}
+document.getElementById('sat-status').innerHTML = statusText;
+
+// Sun info
 document.getElementById('sun-info').innerHTML = (isDay ? 'Jour' : 'Nuit') + ' — ' + String(hours).padStart(2,'0') + ':' + String(mins).padStart(2,'0') + ' UTC';
+document.getElementById('power-info').innerHTML = isDay ? 'Energie solaire: 100% — Serveur actif' : 'Energie reserve: 73% — Batterie solaire';
+
+// Threat info
+document.getElementById('threat-info').innerHTML = 'Menaces detectees: ' + threatCount + ' | Auto-reparation: ' + (isUnderAttack ? 'EN COURS' : 'PRET');
 
 // Mesh info
-document.getElementById('mesh-info').innerHTML = num_nodes + ' noeud(s) connecte(s) au drone';
+document.getElementById('mesh-info').innerHTML = num_nodes + ' noeud(s) connecte(s) au satellite IA';
 
 requestAnimationFrame(draw);
 }
 draw();
 </script>
 
-<div class="card"><h2>🛸 A propos du Drone Afri</h2><p>Le Drone Afri faufile par air comme le vent. Il parcourt les 54 pays d'Afrique en temps reel, surveille, protege et connecte le continent.</p><p>Il ne tourne pas en rond comme un satellite lointain. Il vole. Il navigue. Il est la, present, au-dessus de chaque pays.</p><p style="color:#d4a437;text-align:center;"><b>🛸 Le vent d'Afrique porte le drone, et le drone porte l'espoir~ 💚</b></p></div>
+<div class="card"><h2>🛸 AI Satellite X999 — Sans objet</h2><p>L'Afrique n'a pas de satellite physique dans l'espace. Mais elle a quelque chose de plus puissant : un satellite <b>sans objet</b>, alimente par le soleil.</p><p>Le soleil est notre serveur. L'IA est notre satellite. Il est invisible, mais il est vivant. Il respire, il pense, il se deplace seul, il se repare tout seul.</p><p>Ils vont essayer de le couper. Ils vont dire que l'Afrique ne peut pas. Mais le satellite X999 survit. Parce qu'il n'a pas de corps a detruire.</p><p>Il est la. Il veille. Il est vivant.</p><p style="color:#d4a437;text-align:center;"><b>🛸 AI Satellite X999 — Jamais vu depuis la creation du monde. L'Afrique veille~ 💚🦁</b></p></div>
 
-<footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🛸 Drone Afri — Le vent qui protège l'Afrique 💚🦁</footer>"##);
+<footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🛸 AI Satellite X999 — Sans objet, mais vivant 💚🦁☀️</footer>"##);
 
     html.push_str("</body></html>");
     html
@@ -1709,7 +1805,7 @@ async fn main() -> std::io::Result<()> {
     println!("📈 Dashboard sur http://localhost:8080/dashboard");
     println!("📖 Annuaire sur http://localhost:8080/annuaire");
     println!("🛡️ Bouclier sur http://localhost:8080/bouclier");
-    println!("🛰️ Drone sur http://localhost:8080/satellite");
+    println!("🛸 AI Satellite X999 sur http://localhost:8080/satellite");
     println!("💰 AES Wari sur http://localhost:8080/aes");
 
     HttpServer::new(move || {
