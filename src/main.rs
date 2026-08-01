@@ -4,6 +4,15 @@ use chrono::Utc;
 use std::sync::{Arc, Mutex};
 
 use ed25519_dalek::{SigningKey, VerifyingKey, Signer, Verifier, Signature};
+
+// ===== DATA PATH HELPER =====
+// Toujours sauvegarder dans ~/afririch/ meme si le binaire est lance d ailleurs
+fn data_path(filename: &str) -> String {
+    let home = std::env::var("HOME").unwrap_or_else(|_| ".".to_string());
+    let dir = if home.ends_with('/') { home + "afririch" } else { format!("{}/afririch", home) };
+    let _ = std::fs::create_dir_all(&dir);
+    format!("{}/{}", dir, filename)
+}
 use rand::rngs::OsRng;
 
 use std::net::{UdpSocket, TcpListener, TcpStream, SocketAddr};
@@ -300,11 +309,11 @@ impl Blockchain {
 
     fn save_to_file(&self) {
         let data = serde_json::to_string_pretty(self).unwrap_or_default();
-        std::fs::write("blockchain.json", data).ok();
+        std::fs::write(data_path("blockchain.json"), data).ok();
     }
 
     fn load_from_file() -> Option<Self> {
-        match std::fs::read_to_string("blockchain.json") {
+        match std::fs::read_to_string(data_path("blockchain.json")) {
             Ok(data) => serde_json::from_str(&data).ok(),
             Err(_) => None,
         }
@@ -319,7 +328,7 @@ struct WalletStore {
 
 impl WalletStore {
     fn load() -> Self {
-        match std::fs::read_to_string("wallets.json") {
+        match std::fs::read_to_string(data_path("wallets.json")) {
             Ok(data) => serde_json::from_str(&data).unwrap_or(WalletStore { wallets: HashMap::new() }),
             Err(_) => WalletStore { wallets: HashMap::new() },
         }
@@ -327,7 +336,7 @@ impl WalletStore {
 
     fn save(&self) {
         let data = serde_json::to_string_pretty(self).unwrap_or_default();
-        std::fs::write("wallets.json", data).ok();
+        std::fs::write(data_path("wallets.json"), data).ok();
     }
 
     fn create_wallet(&mut self) -> (String, String) {
@@ -371,7 +380,7 @@ struct UserStore {
 
 impl UserStore {
     fn load() -> Self {
-        match std::fs::read_to_string("users.json") {
+        match std::fs::read_to_string(data_path("users.json")) {
             Ok(data) => {
                 let mut store: UserStore = serde_json::from_str(&data).unwrap_or(UserStore { users: Vec::new() });
                 // Pass 1: Assign country to existing users based on phone prefix
@@ -412,7 +421,7 @@ impl UserStore {
 
     fn save(&self) {
         let data = serde_json::to_string_pretty(self).unwrap_or_default();
-        std::fs::write("users.json", data).ok();
+        std::fs::write(data_path("users.json"), data).ok();
     }
 
     fn hash_password(password: &str) -> String {
@@ -904,7 +913,8 @@ fn tcp_relay(state: Arc<AppState>, port: u16) {
                             if let Ok(tx) = serde_json::from_str::<Transaction>(&msg.payload) {
                                 let mut chain = state.chain.lock().unwrap();
                                 chain.add_transaction(tx);
-                                println!("💸 Transaction reçue via mesh");
+                                chain.save_to_file();
+                                println!("💸 Transaction reçue via mesh et sauvegardée");
                             }
                         }
                         "ping" => {
@@ -974,7 +984,7 @@ fn html_home(chain: &Blockchain, users: &UserStore, mesh: &NodeRegistry, shield:
     let mut html = html_head("🦁 AfriChain");
     let (attacks, _blocked, blocked_count, level) = shield.stats();
     let shield_status = if shield.active { format!("🔥 X9 ACTIF (Niveau {})", level) } else { "Inactif".to_string() };
-    html.push_str(&format!(r#"<h1>🦁 AfriChain</h1><p style="text-align:center;">La blockchain 100% africaine — 54 pays 💚🦁</p><div class="nav"><a href="/register">🆕 S'inscrire</a> | <a href="/login">🔑 Connexion</a> | <a href="/wallet">👛 Wallet</a> | <a href="/admin">🔐 Admin</a> | <a href="/mesh">📡 Mesh</a> | <a href="/annuaire">📖 Annuaire</a> | <a href="/bouclier">🛡️ Bouclier</a> | <a href="/satellite">🛸 X999</a> | <a href="/swarm">🛸🛸🛸 Essaim</a> | <a href="/commandement">🎖️ Commandement</a> | <a href="/interception">🛡️ Souverainete</a> | <a href="/aes">💰 AES Wari</a> | <a href="/api/status">🔌 API</a></div><div style="text-align:center;"><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Blocs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Transactions</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Utilisateurs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">AFR en circulation</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📡 Noeuds mesh</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📖 Numéros annuaire</div></div><div class="stat-box" style="border-color:#ff4444;"><div class="stat-num" style="color:#ff4444;">{}</div><div class="stat-label">🛡️ Attaques bloquées</div></div></div><div class="card"><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🪙 Token</span><b>AfriRich (AFR)</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🌍 Pays</span><b>54 pays africains</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🛡️ Bouclier</span><b>{}</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;"><span style="color:#a8c5a8;">🔐 Crypto</span><b>Ed25519</b></div></div><footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🦁 Codée from scratch par Machine-senpai — v0.18 Souverainete des Donnees X999</footer>"#,
+    html.push_str(&format!(r#"<h1>🦁 AfriChain</h1><p style="text-align:center;">La blockchain 100% africaine — 54 pays 💚🦁</p><div class="nav"><a href="/register">🆕 S'inscrire</a> | <a href="/login">🔑 Connexion</a> | <a href="/wallet">👛 Wallet</a> | <a href="/admin">🔐 Admin</a> | <a href="/mesh">📡 Mesh</a> | <a href="/annuaire">📖 Annuaire</a> | <a href="/bouclier">🛡️ Bouclier</a> | <a href="/satellite">🛸 X999</a> | <a href="/swarm">🛸🛸🛸 Essaim</a> | <a href="/commandement">🎖️ Commandement</a> | <a href="/interception">🛡️ Souverainete</a> | <a href="/aes">💰 AES Wari</a> | <a href="/api/status">🔌 API</a></div><div style="text-align:center;"><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Blocs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Transactions</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Utilisateurs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">AFR en circulation</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📡 Noeuds mesh</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📖 Numéros annuaire</div></div><div class="stat-box" style="border-color:#ff4444;"><div class="stat-num" style="color:#ff4444;">{}</div><div class="stat-label">🛡️ Attaques bloquées</div></div></div><div class="card"><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🪙 Token</span><b>AfriRich (AFR)</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🌍 Pays</span><b>54 pays africains</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🛡️ Bouclier</span><b>{}</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;"><span style="color:#a8c5a8;">🔐 Crypto</span><b>Ed25519</b></div></div><footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🦁 Codée from scratch par Machine-senpai — v0.19 Sauvegarde Auto X999</footer>"#,
         chain.blocks.len(),
         chain.total_transactions(),
         users.count(),
@@ -2675,6 +2685,17 @@ async fn main() -> std::io::Result<()> {
     println!("☀️  Solaire: {}", if solar { "Oui" } else { "Non" });
     println!("🌍 Région: {}", region);
 
+    // Migration: deplacer les anciens fichiers vers ~/afririch/
+    for f in &["blockchain.json", "wallets.json", "users.json"] {
+        if std::path::Path::new(f).exists() {
+            let dest = data_path(f);
+            if !std::path::Path::new(&dest).exists() {
+                let _ = std::fs::rename(f, &dest);
+                println!("📦 Migration: {} → {}", f, dest);
+            }
+        }
+    }
+
     let chain = match Blockchain::load_from_file() {
         Some(c) => { println!("📊 {} blocs chargés", c.blocks.len()); c }
         None => {
@@ -2712,11 +2733,13 @@ async fn main() -> std::io::Result<()> {
     thread::spawn(move || udp_discovery(mesh_state1, my_id_clone, mesh_port, solar, region));
     thread::spawn(move || tcp_relay(mesh_state2, mesh_port));
 
-    // Cleanup thread
+    // Cleanup + auto-save thread
     let cleanup_state = state.clone();
     thread::spawn(move || {
+        let mut tick = 0;
         loop {
             thread::sleep(Duration::from_secs(10));
+            tick++;
             let mut mesh = cleanup_state.mesh.lock().unwrap();
             mesh.cleanup_stale();
             let count = mesh.count();
@@ -2724,12 +2747,26 @@ async fn main() -> std::io::Result<()> {
             shield.cleanup();
             let (attacks, blocked, blocked_count, level) = shield.stats();
             println!("📊 Mesh: {} noeuds | {} messages vus | 🛡️ Bouclier X9 Niveau {} | {} attaques | {} IP bannies", count, mesh.seen_messages.len(), level, attacks, blocked_count);
+            drop(mesh);
+            drop(shield);
+            // Auto-save toutes les 30 secondes (3 ticks)
+            if tick % 3 == 0 {
+                let chain = cleanup_state.chain.lock().unwrap();
+                chain.save_to_file();
+                let wallets = cleanup_state.wallets.lock().unwrap();
+                wallets.save();
+                let users = cleanup_state.users.lock().unwrap();
+                users.save();
+                println!("💾 Sauvegarde automatique — {} blocs, {} utilisateurs", chain.blocks.len(), users.count());
+            }
         }
     });
 
     let web_state = web::Data::new(state.clone());
 
     println!("\n🌐 Serveur web sur http://localhost:8080");
+    println!("💾 Sauvegarde automatique active — toutes les 30 secondes");
+    println!("📁 Données dans ~/afririch/ (chemin absolu)");
     println!("📡 Mesh relay sur port {}", mesh_port);
     println!("👛 Wallet sur http://localhost:8080/wallet");
     println!("🆕 Inscription sur http://localhost:8080/register");
@@ -2970,6 +3007,7 @@ async fn main() -> std::io::Result<()> {
                     tx.sign(&sk);
                     let tx_json = serde_json::to_string(&tx).unwrap_or_default();
                     chain.add_transaction(tx);
+                    chain.save_to_file();
                     drop(chain);
                     drop(wallets);
                     drop(users);
