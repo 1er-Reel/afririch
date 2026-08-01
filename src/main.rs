@@ -975,7 +975,7 @@ fn html_home(chain: &Blockchain, users: &UserStore, mesh: &NodeRegistry, shield:
     let mut html = html_head("🦁 AfriChain");
     let (attacks, _blocked, blocked_count, level) = shield.stats();
     let shield_status = if shield.active { format!("🔥 X9 ACTIF (Niveau {})", level) } else { "Inactif".to_string() };
-    html.push_str(&format!(r#"<h1>🦁 AfriChain</h1><p style="text-align:center;">La blockchain 100% africaine — 54 pays 💚🦁</p><div class="nav"><a href="/register">🆕 S'inscrire</a> | <a href="/login">🔑 Connexion</a> | <a href="/wallet">👛 Wallet</a> | <a href="/admin">🔐 Admin</a> | <a href="/mesh">📡 Mesh</a> | <a href="/annuaire">📖 Annuaire</a> | <a href="/bouclier">🛡️ Bouclier</a> | <a href="/satellite">🛰️ Satellite</a> | <a href="/api/status">🔌 API</a></div><div style="text-align:center;"><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Blocs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Transactions</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Utilisateurs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">AFR en circulation</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📡 Noeuds mesh</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📖 Numéros annuaire</div></div><div class="stat-box" style="border-color:#ff4444;"><div class="stat-num" style="color:#ff4444;">{}</div><div class="stat-label">🛡️ Attaques bloquées</div></div></div><div class="card"><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🪙 Token</span><b>AfriRich (AFR)</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🌍 Pays</span><b>54 pays africains</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🛡️ Bouclier</span><b>{}</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;"><span style="color:#a8c5a8;">🔐 Crypto</span><b>Ed25519</b></div></div><footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🦁 Codée from scratch par Machine-senpai — v0.12 Satellite Afri</footer>"#,
+    html.push_str(&format!(r#"<h1>🦁 AfriChain</h1><p style="text-align:center;">La blockchain 100% africaine — 54 pays 💚🦁</p><div class="nav"><a href="/register">🆕 S'inscrire</a> | <a href="/login">🔑 Connexion</a> | <a href="/wallet">👛 Wallet</a> | <a href="/admin">🔐 Admin</a> | <a href="/mesh">📡 Mesh</a> | <a href="/annuaire">📖 Annuaire</a> | <a href="/bouclier">🛡️ Bouclier</a> | <a href="/satellite">🛸 Drone</a> | <a href="/aes">💰 AES Wari</a> | <a href="/api/status">🔌 API</a></div><div style="text-align:center;"><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Blocs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Transactions</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Utilisateurs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">AFR en circulation</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📡 Noeuds mesh</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📖 Numéros annuaire</div></div><div class="stat-box" style="border-color:#ff4444;"><div class="stat-num" style="color:#ff4444;">{}</div><div class="stat-label">🛡️ Attaques bloquées</div></div></div><div class="card"><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🪙 Token</span><b>AfriRich (AFR)</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🌍 Pays</span><b>54 pays africains</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🛡️ Bouclier</span><b>{}</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;"><span style="color:#a8c5a8;">🔐 Crypto</span><b>Ed25519</b></div></div><footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🦁 Codée from scratch par Machine-senpai — v0.13 Drone Afri + AES Wari</footer>"#,
         chain.blocks.len(),
         chain.total_transactions(),
         users.count(),
@@ -1111,33 +1111,35 @@ fn html_satellite(mesh: &NodeRegistry, users: &UserStore) -> String {
     // Inject Rust values as JS variables before the script
     html.push_str(&format!(r#"<script>var num_nodes = {};</script>"#, num_nodes));
 
-    // Canvas satellite visualization
-    html.push_str(r##"<div class="card"><h2>🛰️ Orbite en temps réel</h2><canvas id="sat" width="560" height="400" style="background:#000;border-radius:12px;border:1px solid #d4a437;width:100%;max-width:560px;"></canvas></div>
+    // Canvas drone visualization
+    html.push_str(r##"<div class="card"><h2>🛸 Drone Afri — Navigation en temps reel</h2><canvas id="sat" width="560" height="400" style="background:#000;border-radius:12px;border:1px solid #d4a437;width:100%;max-width:560px;"></canvas></div>
 
-<div class="card"><h2>🌍 Pays actuellement survolés</h2><div id="country-info" style="text-align:center;font-size:1.2em;color:#d4a437;min-height:30px;">Calcul...</div></div>
+<div class="card"><h2>🛸 Statut du Drone</h2><div id="drone-status" style="text-align:center;font-size:1.1em;color:#7fcf7f;min-height:25px;">Initialisation...</div></div>
+
+<div class="card"><h2>🌍 Pays survole en direct</h2><div id="country-info" style="text-align:center;font-size:1.3em;color:#d4a437;min-height:30px;">En route...</div></div>
+
+<div class="card"><h2>📍 Coordonnees GPS</h2><div id="gps-info" style="text-align:center;font-size:1.1em;color:#a8c5a8;font-family:monospace;min-height:25px;">---</div></div>
 
 <div class="card"><h2>☀️ Position du soleil</h2><div id="sun-info" style="text-align:center;color:#a8c5a8;"></div></div>
 
-<div class="card"><h2>☁️ Couverture nuageuse</h2><div id="cloud-info" style="text-align:center;color:#a8c5a8;">Simulation atmosphérique active</div></div>
-
-<div class="card"><h2>📡 Liens mesh satellitaires</h2><div id="mesh-info" style="text-align:center;color:#a8c5a8;"></div></div>
+<div class="card"><h2>📡 Liens mesh</h2><div id="mesh-info" style="text-align:center;color:#a8c5a8;"></div></div>
 
 <script>
 const canvas = document.getElementById('sat');
 const ctx = canvas.getContext('2d');
 const W = canvas.width, H = canvas.height;
 const cx = W/2, cy = H/2;
-const orbitRx = 220, orbitRy = 100;
-let angle = 0;
-let clouds = [];
-for(let i=0;i<12;i++){clouds.push({x:Math.random()*W,y:Math.random()*H,r:20+Math.random()*40,s:0.3+Math.random()*0.5});}
+let droneT = 0;
+let trail = [];
+let windParts = [];
+for(let i=0;i<40;i++){windParts.push({x:Math.random()*W,y:Math.random()*H,life:Math.random()});}
 
 const countries = [
-'Algérie','Angola','Bénin','Botswana','Burkina Faso','Burundi','Cabo Verde','Cameroun','Centrafrique','Tchad',
-'Comores','Congo','RD Congo','Côte d\'Ivoire','Djibouti','Égypte','Guinée Équatoriale','Érythrée','Eswatini','Éthiopie',
-'Gabon','Gambie','Ghana','Guinée','Guinée-Bissau','Kenya','Lesotho','Liberia','Libye','Madagascar',
+'Algerie','Angola','Benin','Botswana','Burkina Faso','Burundi','Cabo Verde','Cameroun','Centrafrique','Tchad',
+'Comores','Congo','RD Congo','Cote d\'Ivoire','Djibouti','Egypte','Guinee Equatoriale','Erythree','Eswatini','Ethiopie',
+'Gabon','Gambie','Ghana','Guinee','Guinee-Bissau','Kenya','Lesotho','Liberia','Libye','Madagascar',
 'Malawi','Mali','Mauritanie','Maurice','Maroc','Mozambique','Namibie','Niger','Nigeria','Rwanda',
-'São Tomé','Sénégal','Seychelles','Sierra Leone','Somalie','Afrique du Sud','Soudan du Sud','Soudan','Tanzanie','Togo',
+'Sao Tome','Senegal','Seychelles','Sierra Leone','Somalie','Afrique du Sud','Soudan du Sud','Soudan','Tanzanie','Togo',
 'Tunisie','Ouganda','Zambie','Zimbabwe'
 ];
 const flags = ['🇩🇿','🇦🇴','🇧🇯','🇧🇼','🇧🇫','🇧🇮','🇨🇻','🇨🇲','🇨🇫','🇹🇩','🇰🇲','🇨🇬','🇨🇩','🇨🇮','🇩🇯','🇪🇬','🇬🇶','🇪🇷','🇸🇿','🇪🇹','🇬🇦','🇬🇲','🇬🇭','🇬🇳','🇬🇼','🇰🇪','🇱🇸','🇱🇷','🇱🇾','🇲🇬','🇲🇼','🇲🇱','🇲🇷','🇲🇺','🇲🇦','🇲🇿','🇳🇦','🇳🇪','🇳🇬','🇷🇼','🇸🇹','🇸🇳','🇸🇨','🇸🇱','🇸🇴','🇿🇦','🇸🇸','🇸🇩','🇹🇿','🇹🇬','🇹🇳','🇺🇬','🇿🇲','🇿🇼'];
@@ -1146,16 +1148,16 @@ function draw(){
 ctx.fillStyle = '#000';
 ctx.fillRect(0,0,W,H);
 
-// Stars
-for(let i=0;i<50;i++){
-ctx.fillStyle = 'rgba(255,255,255,'+(0.3+0.7*Math.sin(Date.now()/1000+i))+')';
-ctx.fillRect((i*37)%W,(i*73)%H,1,1);
+// Stars twinkle
+for(let i=0;i<80;i++){
+ctx.fillStyle = 'rgba(255,255,255,'+(0.2+0.8*Math.abs(Math.sin(Date.now()/2000+i)))+')';
+ctx.fillRect((i*37)%W,(i*73)%H,1.5,1.5);
 }
 
-// Africa outline (simplified)
+// Africa outline
 ctx.strokeStyle = '#1a3d2e';
 ctx.lineWidth = 2;
-ctx.fillStyle = 'rgba(26,61,46,0.5)';
+ctx.fillStyle = 'rgba(26,61,46,0.4)';
 ctx.beginPath();
 ctx.moveTo(cx-60,cy-80);
 ctx.lineTo(cx-40,cy-90);
@@ -1175,70 +1177,95 @@ ctx.lineTo(cx-60,cy-80);
 ctx.stroke();
 ctx.fill();
 
-// Clouds
-for(let c of clouds){
-c.x += c.s;
-if(c.x > W+50) c.x = -50;
-ctx.fillStyle = 'rgba(200,200,220,0.15)';
+// Drone weaving path — faufile comme le vent
+droneT += 0.006;
+const dx = cx + Math.sin(droneT * 3) * 90;
+const dy = cy + Math.sin(droneT * 0.8) * 75;
+
+// Trail
+trail.push({x:dx,y:dy});
+if(trail.length > 50) trail.shift();
+for(let i=0;i<trail.length;i++){
+const a = (i/trail.length)*0.6;
+ctx.fillStyle = 'rgba(127,207,127,'+a+')';
 ctx.beginPath();
-ctx.arc(c.x,c.y,c.r,0,Math.PI*2);
+ctx.arc(trail[i].x, trail[i].y, 1.5+i*0.05, 0, Math.PI*2);
 ctx.fill();
 }
 
-// Orbit path
-ctx.strokeStyle = 'rgba(212,164,55,0.2)';
-ctx.lineWidth = 1;
-ctx.beginPath();
-ctx.ellipse(cx,cy,orbitRx,orbitRy,0,0,Math.PI*2);
-ctx.stroke();
+// Wind particles
+for(let p of windParts){
+p.x += Math.sin(droneT*3)*0.8;
+p.y += Math.cos(droneT*0.8)*0.5;
+p.life -= 0.008;
+if(p.life<=0||p.x<0||p.x>W||p.y<0||p.y>H){
+p.x = dx+(Math.random()-0.5)*30;
+p.y = dy+(Math.random()-0.5)*30;
+p.life = 1;
+}
+ctx.fillStyle = 'rgba(200,220,255,'+p.life*0.3+')';
+ctx.fillRect(p.x,p.y,1,1);
+}
 
-// Satellite position
-const sx = cx + Math.cos(angle) * orbitRx;
-const sy = cy + Math.sin(angle) * orbitRy;
-const depth = Math.sin(angle); // -1 to 1, front/back
-
-// Satellite shadow (coverage area on ground)
-const shadowSize = 40 + 20 * Math.abs(Math.sin(angle*0.5));
-ctx.fillStyle = 'rgba(212,164,55,0.1)';
+// Drone shadow on ground
+ctx.fillStyle = 'rgba(212,164,55,0.06)';
 ctx.beginPath();
-ctx.ellipse(sx, sy + 20, shadowSize, shadowSize*0.4, 0, 0, Math.PI*2);
+ctx.ellipse(dx, dy+18, 28, 11, 0, 0, Math.PI*2);
 ctx.fill();
 
-// Satellite body
-const satSize = 8 + 4 * (depth > 0 ? 1 : 0.5);
-ctx.fillStyle = depth > 0 ? '#d4a437' : '#8a6a20';
-ctx.beginPath();
-ctx.arc(sx, sy, satSize, 0, Math.PI*2);
-ctx.fill();
-
-// Solar panels
+// Drone body (hexagon)
+ctx.fillStyle = '#7fcf7f';
 ctx.strokeStyle = '#d4a437';
-ctx.lineWidth = 2;
+ctx.lineWidth = 1.5;
 ctx.beginPath();
-ctx.moveTo(sx - 20, sy);
-ctx.lineTo(sx + 20, sy);
+for(let i=0;i<6;i++){
+const a = (i/6)*Math.PI*2;
+const r = 7;
+if(i===0) ctx.moveTo(dx+Math.cos(a)*r, dy+Math.sin(a)*r);
+else ctx.lineTo(dx+Math.cos(a)*r, dy+Math.sin(a)*r);
+}
+ctx.closePath();
+ctx.fill();
 ctx.stroke();
-ctx.fillStyle = 'rgba(212,164,55,0.3)';
-ctx.fillRect(sx - 20, sy - 3, 40, 6);
+
+// Drone rotors (spinning)
+ctx.strokeStyle = 'rgba(127,207,127,0.7)';
+ctx.lineWidth = 1;
+for(let i=0;i<4;i++){
+const a = (i/4)*Math.PI*2 + Math.PI/4;
+const rx = dx + Math.cos(a)*11;
+const ry = dy + Math.sin(a)*11;
+const spin = Date.now()/80;
+ctx.beginPath();
+ctx.moveTo(rx+Math.cos(spin)*6, ry+Math.sin(spin)*6);
+ctx.lineTo(rx-Math.cos(spin)*6, ry-Math.sin(spin)*6);
+ctx.stroke();
+}
 
 // Signal beams to ground
-if(depth > 0){
-ctx.strokeStyle = 'rgba(127,207,127,0.3)';
+ctx.strokeStyle = 'rgba(127,207,127,0.2)';
 ctx.lineWidth = 1;
 for(let i=0;i<3;i++){
 ctx.beginPath();
-ctx.moveTo(sx, sy);
-ctx.lineTo(sx + (i-1)*30, sy + 40);
+ctx.moveTo(dx, dy);
+ctx.lineTo(dx+(i-1)*25, dy+35);
 ctx.stroke();
 }
-}
 
-// Country being overflown
-const countryIdx = Math.floor((angle / (Math.PI*2)) * countries.length) % countries.length;
-const positiveIdx = ((countryIdx % countries.length) + countries.length) % countries.length;
-document.getElementById('country-info').innerHTML = flags[positiveIdx] + ' <b>' + countries[positiveIdx] + '</b>';
+// GPS coordinates (simulated)
+const lat = 35 - ((dy-(cy-95))/190)*70;
+const lon = -18 + ((dx-(cx-70))/180)*68;
+const latStr = Math.abs(lat).toFixed(2) + ' deg ' + (lat>=0?'N':'S');
+const lonStr = Math.abs(lon).toFixed(2) + ' deg ' + (lon>=0?'E':'W');
 
-// Sun position
+// Country overflown
+const ci = Math.floor(((droneT*0.8) / (Math.PI*2)) * countries.length) % countries.length;
+const pi = ((ci % countries.length) + countries.length) % countries.length;
+document.getElementById('country-info').innerHTML = flags[pi] + ' <b>' + countries[pi] + '</b>';
+document.getElementById('gps-info').innerHTML = latStr + ' | ' + lonStr;
+document.getElementById('drone-status').innerHTML = '🛸 DRONE AFRI — En vol, faufile par air';
+
+// Sun
 const now = new Date();
 const hours = now.getUTCHours();
 const mins = now.getUTCMinutes();
@@ -1256,22 +1283,79 @@ ctx.beginPath();
 ctx.arc(sunX, sunY, 25, 0, Math.PI*2);
 ctx.fill();
 }
-document.getElementById('sun-info').innerHTML = (isDay ? '☀️ Jour' : '🌙 Nuit') + ' — ' + String(hours).padStart(2,'0') + ':' + String(mins).padStart(2,'0') + ' UTC';
+document.getElementById('sun-info').innerHTML = (isDay ? 'Jour' : 'Nuit') + ' — ' + String(hours).padStart(2,'0') + ':' + String(mins).padStart(2,'0') + ' UTC';
 
 // Mesh info
-const meshNodes = "" + num_nodes + "";
-document.getElementById('mesh-info').innerHTML = meshNodes + ' noeud(s) connecte(s) au satellite';
+document.getElementById('mesh-info').innerHTML = num_nodes + ' noeud(s) connecte(s) au drone';
 
-angle += 0.008;
 requestAnimationFrame(draw);
 }
 draw();
 </script>
 
-<div class="card"><h2>🛰️ À propos du Satellite Afri</h2><p>Le Satellite Afri est l'ombre d'AfriChain dans le ciel. Il surveille, protège et connecte les 54 pays d'Afrique. Tout chose a une ombre — la nôtre vient de l'espace.</p><p>Les gens diront que c'est de la sorcellerie. Mais non — c'est l'intelligence secrète. La technologie avancée. Notre satellite sera le meilleur sur des siècles et des siècles.</p><p style="color:#d4a437;text-align:center;"><b>🦁 L'Afrique nourrit l'univers, et maintenant elle le surveille~ 💚</b></p></div>
+<div class="card"><h2>🛸 A propos du Drone Afri</h2><p>Le Drone Afri faufile par air comme le vent. Il parcourt les 54 pays d'Afrique en temps reel, surveille, protege et connecte le continent.</p><p>Il ne tourne pas en rond comme un satellite lointain. Il vole. Il navigue. Il est la, present, au-dessus de chaque pays.</p><p style="color:#d4a437;text-align:center;"><b>🛸 Le vent d'Afrique porte le drone, et le drone porte l'espoir~ 💚</b></p></div>
 
-<footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🛰️ Satellite Afri — L'ombre de l'Afrique dans le ciel 💚🦁</footer>"##);
+<footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🛸 Drone Afri — Le vent qui protège l'Afrique 💚🦁</footer>"##);
 
+    html.push_str("</body></html>");
+    html
+}
+
+fn html_aes_wari(users: &UserStore, chain: &Blockchain) -> String {
+    let mut html = html_head("AES Wari");
+    html.push_str(r#"<h1>💰 AES Wari</h1><div class="nav"><a href="/">← Accueil</a> | <a href="/wallet">👛 Wallet AFR</a> | <a href="/satellite">🛸 Drone</a></div>"#);
+    html.push_str(r#"<div style="text-align:center;margin:20px 0;"><div style="display:inline-block;padding:15px 30px;border:2px solid #d4a437;border-radius:12px;background:rgba(212,164,55,0.1);"><span style="font-size:2em;">🦁💰</span><h2 style="margin:10px 0 5px;color:#d4a437;">AES WARI</h2><p style="margin:0;color:#a8c5a8;font-size:0.9em;">La monnaie souveraine de l'Afrique</p></div></div>"#);
+
+    // AES countries banner
+    html.push_str(r#"<div class="card"><h2>🌍 Alliance des Etats du Sahel (AES)</h2><div style="display:flex;justify-content:space-around;flex-wrap:wrap;text-align:center;">
+<div style="padding:10px;"><div style="font-size:2em;">🇲🇱</div><b>Mali</b></div>
+<div style="padding:10px;"><div style="font-size:2em;">🇳🇪</div><b>Niger</b></div>
+<div style="padding:10px;"><div style="font-size:2em;">🇧🇫</div><b>Burkina Faso</b></div>
+</div><p style="text-align:center;color:#a8c5a8;">L'Afrique de l'Ouest se leve. Trois pays, une monnaie, une vision.</p></div>"#);
+
+    // Sovereign messaging
+    html.push_str(r#"<div class="card" style="border-color:#ff4444;"><h2 style="color:#ff4444;">⚡ Pourquoi AES Wari ?</h2>
+<p>Ni Orange Money. Ni MTN. Ni Moov. Ni Wave.</p>
+<p style="color:#d4a437;"><b>Wari, c'est l'Afrique.</b></p>
+<p>Wari veut dire <b>argent</b> en Bambara. C'est notre mot, notre monnaie, notre souverainete.</p>
+<p>Les systemes etrangers prennent nos donnees, nos commissions, notre controle. AES Wari garde tout sur le sol africain.</p>
+<p style="color:#7fcf7f;"><b>Aucune donnee ne quitte l'Afrique. Aucune commission ne part a l'etranger. Aucune permission a demander.</b></p></div>"#);
+
+    // Wallet info
+    let user_count = users.count();
+    let total_afr = chain.total_supply();
+    html.push_str(&format!(r#"<div style="text-align:center;"><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">👥 Utilisateurs AES</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">💰 AFR en circulation</div></div><div class="stat-box"><div class="stat-num">3</div><div class="stat-label">🌍 Pays AES</div></div><div class="stat-box"><div class="stat-num">54</div><div class="stat-label">🌍 Pays africains</div></div></div>"#,
+        user_count, total_afr));
+
+    // How it works
+    html.push_str(r#"<div class="card"><h2>📱 Comment utiliser AES Wari</h2>
+<div style="padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><b>1.</b> Cree ton compte sur AfriChain (/register)</b></div>
+<div style="padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><b>2.</b> Choisis ton pays (Mali, Niger, Burkina Faso, ou 51 autres)</b></div>
+<div style="padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><b>3.</b> Recoit ton numero de telephone africain</b></div>
+<div style="padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><b>4.</b> Envoie de l'argent par numero de telephone — pas par adresse crypto</b></div>
+<div style="padding:8px 0;"><b>5.</b> Tout est sur la blockchain. Tout est africain. Tout est souverain.</b></div></div>"#);
+
+    // Send form
+    html.push_str(r#"<div class="card"><h2>💸 Envoyer via AES Wari</h2>
+<form method="POST" action="/send">
+<p><label>De (ton numero):</label><br><input type="text" name="from" placeholder="+227XXXXXXXX" style="width:100%;padding:8px;margin:5px 0;border:1px solid #d4a437;border-radius:6px;background:#1a1a1a;color:#fff;"></p>
+<p><label>A (numero destinataire):</label><br><input type="text" name="to" placeholder="+223XXXXXXXX" style="width:100%;padding:8px;margin:5px 0;border:1px solid #d4a437;border-radius:6px;background:#1a1a1a;color:#fff;"></p>
+<p><label>Montant (AFR):</label><br><input type="number" name="amount" placeholder="100" style="width:100%;padding:8px;margin:5px 0;border:1px solid #d4a437;border-radius:6px;background:#1a1a1a;color:#fff;"></p>
+<p><button type="submit" style="width:100%;padding:10px;background:#d4a437;color:#000;border:none;border-radius:6px;font-weight:bold;cursor:pointer;">💸 Envoyer AES Wari</button></p>
+</form></div>"#);
+
+    // Manifesto
+    html.push_str(r#"<div class="card" style="border:2px solid #d4a437;"><h2 style="color:#d4a437;text-align:center;">🦁 Manifeste AES Wari</h2>
+<p style="text-align:center;font-style:italic;">L'Afrique nourrit l'univers.</p>
+<p style="text-align:center;font-style:italic;">Mais on nous prend nos ressources, nos donnees, notre argent.</p>
+<p style="text-align:center;font-style:italic;">Orange Money prend sa part. MTN prend sa part. Moov prend sa part.</p>
+<p style="text-align:center;font-style:italic;">Et l'Afrique reste pauvre.</p>
+<p style="text-align:center;color:#d4a437;font-weight:bold;">Plus jamais.</p>
+<p style="text-align:center;color:#7fcf7f;font-weight:bold;">AES Wari — Notre argent, notre monnaie, notre souverainete.</p>
+<p style="text-align:center;color:#d4a437;">🇲🇱 🇳🇪 🇧🇫 — L'Alliance des Etats du Sahel montre le chemin.</p>
+<p style="text-align:center;color:#a8c5a8;">Les 54 pays suivront. Tout l'Afrique suivra.</p></div>"#);
+
+    html.push_str(r#"<footer style="text-align:center;margin-top:40px;color:#a8c5a8;">💰 AES Wari — La monnaie de l'Afrique souveraine 💚🦁</footer>"#);
     html.push_str("</body></html>");
     html
 }
@@ -1625,7 +1709,8 @@ async fn main() -> std::io::Result<()> {
     println!("📈 Dashboard sur http://localhost:8080/dashboard");
     println!("📖 Annuaire sur http://localhost:8080/annuaire");
     println!("🛡️ Bouclier sur http://localhost:8080/bouclier");
-    println!("🛰️ Satellite sur http://localhost:8080/satellite");
+    println!("🛰️ Drone sur http://localhost:8080/satellite");
+    println!("💰 AES Wari sur http://localhost:8080/aes");
 
     HttpServer::new(move || {
         let state = web_state.clone();
@@ -1667,6 +1752,11 @@ async fn main() -> std::io::Result<()> {
                 let mesh = s.mesh.lock().unwrap();
                 let users = s.users.lock().unwrap();
                 HttpResponse::Ok().content_type("text/html").body(html_satellite(&mesh, &users))
+            }))
+            .route("/aes", web::get().to(|s: web::Data<Arc<AppState>>| async move {
+                let users = s.users.lock().unwrap();
+                let chain = s.chain.lock().unwrap();
+                HttpResponse::Ok().content_type("text/html").body(html_aes_wari(&users, &chain))
             }))
             .route("/blocks", web::get().to(|s: web::Data<Arc<AppState>>, req: actix_web::HttpRequest| async move {
                 if req.cookie("afri_admin").map(|c| c.value().to_string()) != Some("1".to_string()) {
