@@ -975,7 +975,7 @@ fn html_home(chain: &Blockchain, users: &UserStore, mesh: &NodeRegistry, shield:
     let mut html = html_head("🦁 AfriChain");
     let (attacks, _blocked, blocked_count, level) = shield.stats();
     let shield_status = if shield.active { format!("🔥 X9 ACTIF (Niveau {})", level) } else { "Inactif".to_string() };
-    html.push_str(&format!(r#"<h1>🦁 AfriChain</h1><p style="text-align:center;">La blockchain 100% africaine — 54 pays 💚🦁</p><div class="nav"><a href="/register">🆕 S'inscrire</a> | <a href="/login">🔑 Connexion</a> | <a href="/wallet">👛 Wallet</a> | <a href="/admin">🔐 Admin</a> | <a href="/mesh">📡 Mesh</a> | <a href="/annuaire">📖 Annuaire</a> | <a href="/bouclier">🛡️ Bouclier</a> | <a href="/satellite">🛸 X999</a> | <a href="/swarm">🛸🛸🛸 Essaim</a> | <a href="/commandement">🎖️ Commandement</a> | <a href="/aes">💰 AES Wari</a> | <a href="/api/status">🔌 API</a></div><div style="text-align:center;"><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Blocs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Transactions</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Utilisateurs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">AFR en circulation</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📡 Noeuds mesh</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📖 Numéros annuaire</div></div><div class="stat-box" style="border-color:#ff4444;"><div class="stat-num" style="color:#ff4444;">{}</div><div class="stat-label">🛡️ Attaques bloquées</div></div></div><div class="card"><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🪙 Token</span><b>AfriRich (AFR)</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🌍 Pays</span><b>54 pays africains</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🛡️ Bouclier</span><b>{}</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;"><span style="color:#a8c5a8;">🔐 Crypto</span><b>Ed25519</b></div></div><footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🦁 Codée from scratch par Machine-senpai — v0.16 Commandement X999</footer>"#,
+    html.push_str(&format!(r#"<h1>🦁 AfriChain</h1><p style="text-align:center;">La blockchain 100% africaine — 54 pays 💚🦁</p><div class="nav"><a href="/register">🆕 S'inscrire</a> | <a href="/login">🔑 Connexion</a> | <a href="/wallet">👛 Wallet</a> | <a href="/admin">🔐 Admin</a> | <a href="/mesh">📡 Mesh</a> | <a href="/annuaire">📖 Annuaire</a> | <a href="/bouclier">🛡️ Bouclier</a> | <a href="/satellite">🛸 X999</a> | <a href="/swarm">🛸🛸🛸 Essaim</a> | <a href="/commandement">🎖️ Commandement</a> | <a href="/interception">🛡️ Souverainete</a> | <a href="/aes">💰 AES Wari</a> | <a href="/api/status">🔌 API</a></div><div style="text-align:center;"><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Blocs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Transactions</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Utilisateurs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">AFR en circulation</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📡 Noeuds mesh</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📖 Numéros annuaire</div></div><div class="stat-box" style="border-color:#ff4444;"><div class="stat-num" style="color:#ff4444;">{}</div><div class="stat-label">🛡️ Attaques bloquées</div></div></div><div class="card"><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🪙 Token</span><b>AfriRich (AFR)</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🌍 Pays</span><b>54 pays africains</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🛡️ Bouclier</span><b>{}</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;"><span style="color:#a8c5a8;">🔐 Crypto</span><b>Ed25519</b></div></div><footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🦁 Codée from scratch par Machine-senpai — v0.18 Souverainete des Donnees X999</footer>"#,
         chain.blocks.len(),
         chain.total_transactions(),
         users.count(),
@@ -1630,7 +1630,7 @@ fn html_command_center(mesh: &NodeRegistry, users: &UserStore) -> String {
     let num_nodes = mesh.count();
     let num_users = users.count();
 
-    html.push_str(r#"<h1>🛸 Centre de Commandement X999</h1><div class="nav"><a href="/">← Accueil</a> | <a href="/satellite">🛸 X999</a> | <a href="/swarm">🛸🛸🛸 Essaim</a> | <a href="/bouclier">🛡️ Bouclier</a></div>"#);
+    html.push_str(r#"<h1>🛸 Centre de Commandement X999</h1><div class="nav"><a href="/">← Accueil</a> | <a href="/satellite">🛸 X999</a> | <a href="/swarm">🛸🛸🛸 Essaim</a> | <a href="/bouclier">🛡️ Bouclier</a> | <a href="/interception">🛡️ Souverainete</a></div>"#);
     html.push_str(&format!(r#"<div style="text-align:center;"><div class="stat-box" style="border-color:#7fcf7f;"><div class="stat-num" style="color:#7fcf7f;" id="active-drones">35</div><div class="stat-label">🛸 Drones actifs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📡 Noeuds</div></div><div class="stat-box" style="border-color:#ff4444;"><div class="stat-num" style="color:#ff4444;" id="threats-detected">0</div><div class="stat-label">🚨 Menaces</div></div><div class="stat-box"><div class="stat-num" id="reports-count">0</div><div class="stat-label">📋 Rapports</div></div></div>"#,
         num_nodes));
 
@@ -2126,6 +2126,364 @@ fn html_register(msg: Option<&str>) -> String {
     html
 }
 
+fn html_interception(mesh: &NodeRegistry, users: &UserStore, chain: &Blockchain) -> String {
+    let mut html = html_head("Souverainete des Donnees X999");
+    let num_nodes = mesh.count();
+    let num_users = users.count();
+    let total_afr = chain.total_supply();
+
+    html.push_str(r#"<h1>🛡️ Souverainete des Donnees X999</h1><div class="nav"><a href="/">← Accueil</a> | <a href="/commandement">🎖️ Commandement</a> | <a href="/bouclier">🛡️ Bouclier</a></div>"#);
+    html.push_str(&format!(r#"<div style="text-align:center;"><div class="stat-box" style="border-color:#7fcf7f;"><div class="stat-num" style="color:#7fcf7f;" id="data-intercepted">0</div><div class="stat-label">📦 Donnees interceptees</div></div><div class="stat-box" style="border-color:#ff4444;"><div class="stat-num" style="color:#ff4444;" id="queries-trapped">0</div><div class="stat-label">🔍 Requetes occidentales piegees</div></div><div class="stat-box" style="border-color:#d4a437;"><div class="stat-num" style="color:#d4a437;" id="data-kept">0</div><div class="stat-label">💾 Donnees sur sol africain</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📡 Noeuds mesh</div></div></div>"#,
+        num_nodes));
+
+    html.push_str(&format!(r#"<script>var num_nodes = {}; var num_users = {}; var total_afr = {};</script>"#, num_nodes, num_users, total_afr));
+
+    // Main canvas: data flow visualization
+    html.push_str(r##"<div class="card"><h2>🌐 Flux de donnees — Interception en temps reel</h2><canvas id="flow" width="560" height="350" style="background:#000;border-radius:8px;border:1px solid #d4a437;width:100%;max-width:560px;"></canvas><div style="text-align:center;margin-top:8px;color:#a8c5a8;font-size:0.85em;" id="flow-status">Systeme d interception actif...</div></div>
+
+<!-- AI Misdirection Maze -->
+<div class="card" style="border-color:#ff4444;"><h2 style="color:#ff4444;">🌀 AI Misdirection — Labyrinthe circulaire</h2><p style="color:#a8c5a8;font-size:0.85em;">Quand l Occident cherche un debouche, l AI les fait tourner en rond. Ils ne savent pas qu ils tournent en rond.</p><canvas id="maze" width="560" height="280" style="background:#000;border-radius:8px;border:1px solid #ff4444;width:100%;max-width:560px;"></canvas><div style="text-align:center;margin-top:8px;color:#ff4444;font-size:0.85em;" id="maze-status">Aucune requete occidentale detectee...</div></div>
+
+<!-- Voice -->
+<div class="card" style="border-color:#d4a437;"><h2>🔊 Voix de la machine</h2><button id="voice-btn2" onclick="toggleVoice2()" style="width:100%;padding:12px;background:#1a1a1a;color:#d4a437;border:1px solid #d4a437;border-radius:6px;font-weight:bold;font-size:1.1em;cursor:pointer;">🔊 ACTIVER LA VOIX</button><div id="voice-status2" style="text-align:center;margin-top:8px;color:#a8c5a8;font-size:0.85em;">Voix: DESACTIVEE</div></div>
+
+<!-- Intercepted data log -->
+<div class="card" style="border-color:#7fcf7f;"><h2>📋 Journal des interceptions</h2><div id="intercept-log" style="font-family:monospace;font-size:0.82em;color:#a8c5a8;max-height:200px;overflow-y:auto;"></div></div>
+
+<!-- Western queries trapped log -->
+<div class="card" style="border-color:#ff4444;"><h2>🚨 Requetes occidentales piegees</h2><div id="trap-log" style="font-family:monospace;font-size:0.82em;max-height:200px;overflow-y:auto;"></div></div>
+
+<script>
+// === DATA FLOW VISUALIZATION ===
+const flow = document.getElementById('flow');
+const fctx = flow.getContext('2d');
+const FW = flow.width, FH = flow.height;
+
+// African phones (left side)
+let phones = [];
+for(let i=0;i<8;i++){
+    phones.push({y: 30+i*40, pulse: Math.random()*Math.PI*2});
+}
+
+// Data packets
+let packets = [];
+let dataIntercepted = 0;
+let queriesTrapped = 0;
+let dataKept = 0;
+
+// Western servers (right side, disconnected)
+const westernServers = [
+    {name:'Google', y:60},
+    {name:'Meta', y:120},
+    {name:'NSA', y:180},
+    {name:'CloudFlare', y:240},
+    {name:'AWS', y:300}
+];
+
+// AfriChain node (center)
+const afriX = FW/2, afriY = FH/2;
+
+function spawnPacket(){
+    const phoneIdx = Math.floor(Math.random()*phones.length);
+    packets.push({
+        x: 40,
+        y: phones[phoneIdx].y,
+        targetX: afriX,
+        targetY: afriY,
+        type: ['sms','call','data','payment','location','photo'][Math.floor(Math.random()*6)],
+        intercepted: true,
+        life: 1
+    });
+    dataIntercepted++;
+    dataKept++;
+    document.getElementById('data-intercepted').textContent = dataIntercepted;
+    document.getElementById('data-kept').textContent = dataKept;
+}
+
+function spawnWesternQuery(){
+    // Western server tries to query African data
+    const server = westernServers[Math.floor(Math.random()*westernServers.length)];
+    queriesTrapped++;
+    document.getElementById('queries-trapped').textContent = queriesTrapped;
+    // Add to trap log
+    const now = new Date();
+    const ts = String(now.getUTCHours()).padStart(2,'0')+':'+String(now.getUTCMinutes()).padStart(2,'0')+':'+String(now.getUTCSeconds()).padStart(2,'0');
+    const trapTypes = [
+        'Tentative d acces aux donnees africaines',
+        'Requete de localisation GPS refusee',
+        'Demande de metadata de communications',
+        'Tentative de profilage biométrique',
+        'Requete de donnees bancaires bloquee',
+        'Tentative d interception de messages',
+        'Demande d historique de navigation refusee',
+        'Tentative d acces aux contacts bloquee'
+    ];
+    const trapText = trapTypes[Math.floor(Math.random()*trapTypes.length)];
+    const tLog = document.getElementById('trap-log');
+    tLog.innerHTML = '<div style="padding:5px 0;color:#ff4444;"><span style="color:#666;">['+ts+']</span> 🚫 '+server.name+' — '+trapText+' — REDIRIGE EN ROND</div>' + tLog.innerHTML;
+    if(tLog.innerHTML.length > 5000) tLog.innerHTML = tLog.innerHTML.substring(0, 5000);
+    // Speak
+    if(voiceEnabled2){
+        speak2('Requete occidentale piegee. '+server.name+'. '+trapText);
+    }
+    // Trigger maze animation
+    mazeQueries.push({server: server.name, life: 1, angle: 0, radius: 30});
+}
+
+function drawFlow(){
+fctx.fillStyle = '#000';
+fctx.fillRect(0,0,FW,FH);
+
+// African phones (left)
+fctx.fillStyle = '#1a3a1a';
+fctx.fillRect(10, 20, 50, FH-40);
+fctx.strokeStyle = '#7fcf7f';
+fctx.lineWidth = 1;
+fctx.strokeRect(10, 20, 50, FH-40);
+fctx.fillStyle = '#7fcf7f';
+fctx.font = '9px monospace';
+fctx.fillText('AFRIQUE', 15, 15);
+for(let p of phones){
+    p.pulse += 0.05;
+    const glow = Math.sin(p.pulse)*0.3+0.7;
+    fctx.fillStyle = 'rgba(127,207,127,'+glow+')';
+    fctx.beginPath();
+    fctx.arc(35, p.y, 4, 0, Math.PI*2);
+    fctx.fill();
+    fctx.fillStyle = '#7fcf7f';
+    fctx.fillText('📱', 30, p.y+2);
+}
+
+// AfriChain node (center) — pulsing
+const pulse = Math.sin(Date.now()*0.003)*0.2+0.8;
+fctx.fillStyle = 'rgba(212,164,55,'+pulse+')';
+fctx.beginPath();
+fctx.arc(afriX, afriY, 35, 0, Math.PI*2);
+fctx.fill();
+fctx.strokeStyle = '#d4a437';
+fctx.lineWidth = 2;
+fctx.stroke();
+fctx.fillStyle = '#000';
+fctx.font = 'bold 10px monospace';
+fctx.fillText('🦁', afriX-8, afriY+4);
+fctx.fillStyle = '#d4a437';
+fctx.font = '8px monospace';
+fctx.fillText('AfriChain', afriX-22, afriY+25);
+fctx.fillText('BLOCKCHAIN', afriX-26, afriY+35);
+
+// Western servers (right) — DISCONNECTED with X
+fctx.fillStyle = '#3a1a1a';
+fctx.fillRect(FW-70, 20, 60, FH-40);
+fctx.strokeStyle = '#ff4444';
+fctx.lineWidth = 1;
+fctx.strokeRect(FW-70, 20, 60, FH-40);
+fctx.fillStyle = '#ff4444';
+fctx.font = '9px monospace';
+fctx.fillText('OCCIDENT', FW-65, 15);
+for(let s of westernServers){
+    fctx.fillStyle = '#ff4444';
+    fctx.font = '8px monospace';
+    fctx.fillText('✗ '+s.name, FW-65, s.y);
+    // Red X over each
+    fctx.strokeStyle = 'rgba(255,68,68,0.5)';
+    fctx.lineWidth = 1;
+    fctx.beginPath();
+    fctx.moveTo(FW-68, s.y-8); fctx.lineTo(FW-12, s.y+8);
+    fctx.moveTo(FW-12, s.y-8); fctx.lineTo(FW-68, s.y+8);
+    fctx.stroke();
+}
+
+// CUT LINE — the severed connection
+fctx.strokeStyle = 'rgba(255,68,68,0.3)';
+fctx.lineWidth = 2;
+fctx.setLineDash([5,5]);
+fctx.beginPath();
+fctx.moveTo(afriX+35, afriY);
+fctx.lineTo(FW-70, afriY);
+fctx.stroke();
+fctx.setLineDash([]);
+// Cut symbol
+fctx.fillStyle = '#ff4444';
+fctx.font = 'bold 14px monospace';
+fctx.fillText('✂', afriX+90, afriY-5);
+fctx.fillText('COUPE', afriX+80, afriY+15);
+
+// Data packets flowing from phones to AfriChain
+for(let i=packets.length-1;i>=0;i--){
+    const p = packets[i];
+    p.x += (p.targetX - p.x) * 0.05;
+    p.y += (p.targetY - p.y) * 0.05;
+    if(Math.abs(p.x - p.targetX) < 2 && Math.abs(p.y - p.targetY) < 2){
+        packets.splice(i,1);
+        continue;
+    }
+    fctx.fillStyle = '#7fcf7f';
+    fctx.beginPath();
+    fctx.arc(p.x, p.y, 3, 0, Math.PI*2);
+    fctx.fill();
+    fctx.fillStyle = 'rgba(127,207,127,0.5)';
+    fctx.font = '7px monospace';
+    fctx.fillText(p.type, p.x+4, p.y-4);
+}
+
+// Status
+document.getElementById('flow-status').innerHTML = 'Systeme d interception actif — '+dataIntercepted+' donnees interceptees — '+queriesTrapped+' requetes occidentales piegees';
+
+requestAnimationFrame(drawFlow);
+}
+drawFlow();
+
+// Spawn packets and queries
+setInterval(spawnPacket, 800);
+setInterval(spawnWesternQuery, 2500);
+
+// === AI MISDIRECTION MAZE ===
+const maze = document.getElementById('maze');
+const mctx = maze.getContext('2d');
+const MW = maze.width, MH = maze.height;
+let mazeQueries = [];
+let mazeT = 0;
+
+function drawMaze(){
+mazeT += 0.02;
+mctx.fillStyle = '#000';
+mctx.fillRect(0,0,MW,MH);
+
+// Draw circular maze paths (concentric circles)
+const mcx = MW/2, mcy = MH/2;
+mctx.strokeStyle = 'rgba(255,68,68,0.15)';
+mctx.lineWidth = 1;
+for(let r=20;r<130;r+=20){
+    mctx.beginPath();
+    mctx.arc(mcx, mcy, r, 0, Math.PI*2);
+    mctx.stroke();
+}
+// Radial walls (broken lines creating maze effect)
+mctx.strokeStyle = 'rgba(255,68,68,0.1)';
+for(let a=0;a<Math.PI*2;a+=Math.PI/6){
+    mctx.beginPath();
+    mctx.moveTo(mcx + Math.cos(a)*20, mcy + Math.sin(a)*20);
+    mctx.lineTo(mcx + Math.cos(a)*130, mcy + Math.sin(a)*130);
+    mctx.stroke();
+}
+
+// Center = African data (protected)
+mctx.fillStyle = 'rgba(127,207,127,0.3)';
+mctx.beginPath();
+mctx.arc(mcx, mcy, 15, 0, Math.PI*2);
+mctx.fill();
+mctx.strokeStyle = '#7fcf7f';
+mctx.lineWidth = 2;
+mctx.stroke();
+mctx.fillStyle = '#7fcf7f';
+mctx.font = 'bold 8px monospace';
+mctx.fillText('🦁', mcx-5, mcy+3);
+mctx.fillText('DATA', mcx-12, mcy+25);
+
+// Western queries going in circles
+for(let i=mazeQueries.length-1;i>=0;i--){
+    const q = mazeQueries[i];
+    q.angle += 0.03;
+    q.radius += 0.3;
+    if(q.radius > 120) q.radius = 30; // Reset to inner ring — they go in circles!
+    q.life -= 0.002;
+    if(q.life <= 0){mazeQueries.splice(i,1);continue;}
+
+    const qx = mcx + Math.cos(q.angle) * q.radius;
+    const qy = mcy + Math.sin(q.angle) * q.radius;
+
+    // Query dot
+    mctx.fillStyle = 'rgba(255,68,68,'+q.life+')';
+    mctx.beginPath();
+    mctx.arc(qx, qy, 4, 0, Math.PI*2);
+    mctx.fill();
+    // Trail
+    mctx.strokeStyle = 'rgba(255,100,100,'+(q.life*0.3)+')';
+    mctx.lineWidth = 1;
+    mctx.beginPath();
+    mctx.arc(mcx, mcy, q.radius, q.angle-0.3, q.angle);
+    mctx.stroke();
+
+    // Label
+    mctx.fillStyle = 'rgba(255,68,68,'+q.life+')';
+    mctx.font = '7px monospace';
+    mctx.fillText(q.server.substring(0,6), qx+5, qy+3);
+}
+
+// Status text
+if(mazeQueries.length > 0){
+    document.getElementById('maze-status').textContent = mazeQueries.length+' requete(s) occidentale(s) tourne(nt) en rond — Elles ne trouveront jamais les donnees';
+} else {
+    document.getElementById('maze-status').textContent = 'Aucune requete occidentale detectee...';
+}
+
+// "EN ROND" text in center
+mctx.fillStyle = 'rgba(255,68,68,0.2)';
+mctx.font = 'bold 16px monospace';
+mctx.fillText('EN ROND', mcx-30, mcy-40);
+
+requestAnimationFrame(drawMaze);
+}
+drawMaze();
+
+// === VOICE ===
+let voiceEnabled2 = false;
+function toggleVoice2(){
+voiceEnabled2 = !voiceEnabled2;
+const btn = document.getElementById('voice-btn2');
+const status = document.getElementById('voice-status2');
+if(voiceEnabled2){
+btn.textContent = '🔇 DESACTIVER LA VOIX';
+btn.style.color = '#ff4444';
+btn.style.borderColor = '#ff4444';
+status.textContent = 'Voix: ACTIVEE';
+status.style.color = '#7fcf7f';
+speak2('Souverainete des donnees X999. Toutes les donnees africaines sont interceptees et protegees sur le sol africain. L Occident tourne en rond.');
+} else {
+btn.textContent = '🔊 ACTIVER LA VOIX';
+btn.style.color = '#d4a437';
+btn.style.borderColor = '#d4a437';
+status.textContent = 'Voix: DESACTIVEE';
+status.style.color = '#a8c5a8';
+speechSynthesis.cancel();
+}
+}
+function speak2(text){
+if(!voiceEnabled2) return;
+if('speechSynthesis' in window){
+const u = new SpeechSynthesisUtterance(text);
+u.lang = 'fr-FR';
+u.rate = 1.0;
+u.pitch = 0.8;
+speechSynthesis.speak(u);
+}
+}
+
+// === INTERCEPT LOG ===
+const interceptTypes = ['SMS','Appel','Donnees','Paiement Wari','Localisation GPS','Photo','Contact','Message','Transaction AFR','Profil utilisateur'];
+const interceptCities = [{c:'Bamako',f:'🇲🇱'},{c:'Niamey',f:'🇳🇪'},{c:'Ouagadougou',f:'🇧🇫'},{c:'Abidjan',f:'🇨🇮'},{c:'Dakar',f:'🇸🇳'},{c:'Lagos',f:'🇳🇬'},{c:'Accra',f:'🇬🇭'},{c:'Nairobi',f:'🇰🇪'},{c:'Kinshasa',f:'🇨🇩'},{c:'Addis Ababa',f:'🇪🇹'}];
+
+function addInterceptLog(){
+    const type = interceptTypes[Math.floor(Math.random()*interceptTypes.length)];
+    const city = interceptCities[Math.floor(Math.random()*interceptCities.length)];
+    const now = new Date();
+    const ts = String(now.getUTCHours()).padStart(2,'0')+':'+String(now.getUTCMinutes()).padStart(2,'0')+':'+String(now.getUTCSeconds()).padStart(2,'0');
+    const log = document.getElementById('intercept-log');
+    log.innerHTML = '<div style="padding:5px 0;border-bottom:1px solid rgba(127,207,127,0.1);"><span style="color:#666;">['+ts+']</span> ✅ '+city.f+' <b>'+city.c+'</b> — '+type+' intercepte → AfriChain (coupe vers Occident)</div>' + log.innerHTML;
+    if(log.innerHTML.length > 5000) log.innerHTML = log.innerHTML.substring(0, 5000);
+}
+setInterval(addInterceptLog, 1200);
+addInterceptLog();
+</script>
+
+<div class="card"><h2>🛡️ Souverainete des Donnees X999</h2><p>Toutes les donnees africaines — SMS, appels, paiements, localisations, photos — qui partaient vers les bases occidentales sont maintenant interceptees et redirigees vers AfriChain.</p><p>La ligne vers l Occident est coupee. Comme si elle n a jamais existe.</p><p>Quand l Occident cherche un debouche pour acceder a nos donnees, l AI les fait tourner en rond dans un labyrinthe circulaire. Ils ne savent pas qu ils tournent en rond. Ils ne trouveront jamais les donnees.</p><p style="color:#d4a437;text-align:center;"><b>🛡️ Nos donnees restent sur notre sol. Notre territoire, nos regles. L Afrique d abord~ 💚🦁</b></p></div>
+
+<footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🛡️ Souverainete des Donnees X999 — L Afrique d abord 💚🦁</footer>"##);
+
+    html.push_str("</body></html>");
+    html
+}
+
 fn html_login(msg: Option<&str>) -> String {
     let mut html = html_head("🔑 Connexion AfriRich");
     html.push_str(r#"<h1>🔑 Connexion</h1><div class="nav"><a href="/">← Retour</a></div>"#);
@@ -2382,6 +2740,7 @@ async fn main() -> std::io::Result<()> {
     println!("🛸 AI Satellite X999 sur http://localhost:8080/satellite");
     println!("🛸🛸🛸 Essaim X999 sur http://localhost:8080/swarm");
     println!("🎖️ Commandement X999 sur http://localhost:8080/commandement");
+    println!("🛡️ Souverainete des Donnees sur http://localhost:8080/interception");
     println!("💰 AES Wari sur http://localhost:8080/aes");
 
     HttpServer::new(move || {
@@ -2439,6 +2798,12 @@ async fn main() -> std::io::Result<()> {
                 let mesh = s.mesh.lock().unwrap();
                 let users = s.users.lock().unwrap();
                 HttpResponse::Ok().content_type("text/html").body(html_command_center(&mesh, &users))
+            }))
+            .route("/interception", web::get().to(|s: web::Data<Arc<AppState>>| async move {
+                let mesh = s.mesh.lock().unwrap();
+                let users = s.users.lock().unwrap();
+                let chain = s.chain.lock().unwrap();
+                HttpResponse::Ok().content_type("text/html").body(html_interception(&mesh, &users, &chain))
             }))
             .route("/blocks", web::get().to(|s: web::Data<Arc<AppState>>, req: actix_web::HttpRequest| async move {
                 if req.cookie("afri_admin").map(|c| c.value().to_string()) != Some("1".to_string()) {
