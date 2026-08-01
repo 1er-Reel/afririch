@@ -295,6 +295,8 @@ struct UserAccount {
     password_hash: String,
     address: String,
     created_at: i64,
+    #[serde(default)]
+    phone: String,
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -305,7 +307,20 @@ struct UserStore {
 impl UserStore {
     fn load() -> Self {
         match std::fs::read_to_string("users.json") {
-            Ok(data) => serde_json::from_str(&data).unwrap_or(UserStore { users: Vec::new() }),
+            Ok(data) => {
+                let mut store: UserStore = serde_json::from_str(&data).unwrap_or(UserStore { users: Vec::new() });
+                // Assign phone numbers to existing users who don't have one
+                let mut next = store.next_phone_number();
+                for user in &mut store.users {
+                    if user.phone.is_empty() {
+                        user.phone = next.clone();
+                        println!("📱 Numéro attribué : {} → {}", user.username, user.phone);
+                        next = UserStore::increment_phone_static(&next);
+                    }
+                }
+                store.save();
+                store
+            }
             Err(_) => UserStore { users: Vec::new() },
         }
     }
@@ -321,6 +336,26 @@ impl UserStore {
         hex::encode(hasher.finalize())
     }
 
+    fn next_phone_number(&self) -> String {
+        let max = self.users.iter()
+            .filter_map(|u| u.phone.strip_prefix("+77").and_then(|n| n.parse::<u64>().ok()))
+            .max().unwrap_or(99999999); // Start at +7700000000
+        self.increment_phone(&format!("+77{:08}", max))
+    }
+
+    fn increment_phone(&self, phone: &str) -> String {
+        Self::increment_phone_static(phone)
+    }
+
+    fn increment_phone_static(phone: &str) -> String {
+        if let Some(num) = phone.strip_prefix("+77") {
+            if let Ok(n) = num.parse::<u64>() {
+                return format!("+77{:08}", n + 1);
+            }
+        }
+        "+7700000000".to_string()
+    }
+
     fn register(&mut self, username: &str, password: &str, wallets: &mut WalletStore) -> Result<UserAccount, String> {
         if self.users.iter().any(|u| u.username == username) {
             return Err("Ce nom d'utilisateur existe déjà".to_string());
@@ -332,13 +367,15 @@ impl UserStore {
             return Err("Le mot de passe doit faire au moins 4 caractères".to_string());
         }
         let (address, _priv) = wallets.create_wallet();
+        let phone = self.next_phone_number();
         let user = UserAccount {
             username: username.to_string(),
             password_hash: Self::hash_password(password),
             address,
             created_at: Utc::now().timestamp(),
+            phone,
         };
-        println!("🆕 Utilisateur inscrit : {} → {}", user.username, user.address);
+        println!("🆕 Utilisateur inscrit : {} → {} → {}", user.username, user.phone, user.address);
         self.users.push(user.clone());
         self.save();
         Ok(user)
@@ -347,6 +384,27 @@ impl UserStore {
     fn login(&self, username: &str, password: &str) -> Option<&UserAccount> {
         let hash = Self::hash_password(password);
         self.users.iter().find(|u| u.username == username && u.password_hash == hash)
+    }
+
+    fn resolve_recipient(&self, input: &str) -> Option<String> {
+        // Phone number: +77XXXXXXXX
+        if input.starts_with("+77") {
+            return self.users.iter()
+                .find(|u| u.phone == input)
+                .map(|u| u.address.clone());
+        }
+        // Wallet address: Afri...
+        if input.starts_with("Afri") {
+            return Some(input.to_string());
+        }
+        // Username: try to find by username
+        self.users.iter()
+            .find(|u| u.username == input)
+            .map(|u| u.address.clone())
+    }
+
+    fn phone_for_address(&self, address: &str) -> Option<&str> {
+        self.users.iter().find(|u| u.address == address).map(|u| u.phone.as_str())
     }
 
     fn count(&self) -> usize {
@@ -591,7 +649,7 @@ fn html_head(title: &str) -> String {
 // ===== HTML PAGES =====
 fn html_home(chain: &Blockchain, users: &UserStore, mesh: &NodeRegistry) -> String {
     let mut html = html_head("🦁 AfriChain");
-    html.push_str(&format!(r#"<h1>🦁 AfriChain</h1><p style="text-align:center;">La blockchain 100% africaine 💚</p><div class="nav\"><a href="/register">🆕 S'inscrire</a> | <a href="/login">🔑 Connexion</a> | <a href="/wallet">👛 Wallet</a> | <a href="/admin">🔐 Admin</a> | <a href="/mesh">📡 Mesh</a> | <a href="/api/status">🔌 API</a></div><div style="text-align:center;\"><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Blocs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Transactions</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Utilisateurs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">AFR en circulation</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📡 Noeuds mesh</div></div></div><div class="card"><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);\"><span style="color:#a8c5a8;\">🪙 Token</span><b>AfriRich (AFR)</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);\"><span style="color:#a8c5a8;\">🌍 Lien</span><b>Monnaie AES</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);\"><span style="color:#a8c5a8;\">🛡️ Statut</span><b>Souveraine 💚</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;\"><span style="color:#a8c5a8;\">🔐 Crypto</span><b>Ed25519</b></div></div><footer style="text-align:center;margin-top:40px;color:#a8c5a8;\">🦁 Codée from scratch par Machine-senpai</footer>"#,
+    html.push_str(&format!(r#"<h1>🦁 AfriChain</h1><p style="text-align:center;">La blockchain 100% africaine 💚</p><div class="nav\"><a href="/register">🆕 S'inscrire</a> | <a href="/login">🔑 Connexion</a> | <a href="/wallet">👛 Wallet</a> | <a href="/admin">🔐 Admin</a> | <a href="/mesh">📡 Mesh</a> | <a href="/api/status">🔌 API</a></div><div style="text-align:center;\"><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Blocs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Transactions</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Utilisateurs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">AFR en circulation</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📡 Noeuds mesh</div></div></div><div class="card"><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);\"><span style="color:#a8c5a8;\">🪙 Token</span><b>AfriRich (AFR)</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);\"><span style="color:#a8c5a8;\">🌍 Lien</span><b>Monnaie AES</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);\"><span style="color:#a8c5a8;\">🛡️ Statut</span><b>Souveraine 💚</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;\"><span style="color:#a8c5a8;\">🔐 Crypto</span><b>Ed25519</b></div></div><footer style="text-align:center;margin-top:40px;color:#a8c5a8;\">🦁 Codée from scratch par Machine-senpai — v0.8 Phone Send +77</footer>"#,
         chain.blocks.len(),
         chain.total_transactions(),
         users.count(),
@@ -700,7 +758,7 @@ fn html_wallet(new_addr: Option<&str>, new_priv: Option<&str>, check_addr: Optio
         html.push_str("</div>");
     }
 
-    html.push_str(r#"<div class="card"><h2>💸 Envoyer des AFR</h2><form action="/wallet/send" method="post"><label>De (votre adresse) :</label><input name="from" placeholder="Afri..." /><label>À (adresse destinataire) :</label><input name="to" placeholder="Afri..." /><label>Montant (AFR) :</label><input name="amount" type="number" placeholder="50" /><label>Memo :</label><input name="memo" placeholder="Paiement 💚" /><button type="submit">📤 Envoyer (signé Ed25519 🔐)</button></form></div>"#);
+    html.push_str(r#"<div class="card"><h2>💸 Envoyer des AFR</h2><form action="/wallet/send" method="post"><label>De (votre adresse) :</label><input name="from" placeholder="Afri..." /><label>À (numéro +77, adresse Afri ou nom) :</label><input name="to" placeholder="+77 00 00 00 ou Afri..." /><label>Montant (AFR) :</label><input name="amount" type="number" placeholder="50" /><label>Memo :</label><input name="memo" placeholder="Paiement 💚" /><button type="submit">📤 Envoyer (signé Ed25519 🔐)</button></form></div>"#);
 
     html.push_str(r#"<div class="card"><h2>⛏️ Miner</h2><form action="/wallet/mine" method="post"><label>Adresse du mineur :</label><input name="miner" placeholder="Afri..." /><button type="submit">⛏️ Miner !</button></form></div>"#);
 
@@ -752,7 +810,7 @@ fn html_account(user: &UserAccount, chain: &Blockchain, msg: Option<&str>) -> St
         html.push_str(&format!(r#"<div class="msg">{}</div>"#, m));
     }
 
-    html.push_str(&format!(r#"<div class="card"><h2>👛 Mon Wallet</h2><label>Adresse :</label><div class="addr">{}</div><div class="bal">{} AFR</div></div>"#, user.address, bal));
+    html.push_str(&format!(r#"<div class="card"><h2>👛 Mon Wallet</h2><label>📱 Mon numéro :</label><div class="addr" style="color:#d4a437;font-size:1.3em;">{}</div><label>Adresse :</label><div class="addr">{}</div><div class="bal">{} AFR</div></div>"#, user.phone, user.address, bal));
 
     if !history.is_empty() {
         html.push_str(r#"<div class="card"><h2>📜 Mes transactions</h2>"#);
@@ -770,7 +828,7 @@ fn html_account(user: &UserAccount, chain: &Blockchain, msg: Option<&str>) -> St
 
     html.push_str(r#"<div class="card"><h2>💸 Envoyer des AFR</h2><form action="/account/send" method="post"><input type="hidden" name="from" value=""#);
     html.push_str(&user.address);
-    html.push_str(r#"" /><label>À (adresse destinataire) :</label><input name="to" placeholder="Afri..." /><label>Montant (AFR) :</label><input name="amount" type="number" placeholder="50" /><label>Memo :</label><input name="memo" placeholder="Paiement 💚" /><button type="submit">📤 Envoyer (signé 🔐)</button></form></div>"#);
+    html.push_str(r#"" /><label>À (numéro +77, adresse Afri ou nom) :</label><input name="to" placeholder="+77 00 00 00" /><label>Montant (AFR) :</label><input name="amount" type="number" placeholder="50" /><label>Memo :</label><input name="memo" placeholder="Paiement 💚" /><button type="submit">📤 Envoyer (signé 🔐)</button></form></div>"#);
 
     html.push_str(r#"<div class="card"><h2>⛏️ Miner</h2><form action="/account/mine" method="post"><input type="hidden" name="miner" value=""#);
     html.push_str(&user.address);
@@ -843,7 +901,7 @@ fn html_dashboard(chain: &Blockchain, users: &UserStore) -> String {
                 .map(|d| d.format("%d/%m/%Y").to_string())
                 .unwrap_or_else(|| user.created_at.to_string());
             let bal = chain.balance_of(&user.address);
-            html.push_str(&format!(r#"<div class="tx">👤 <b>{}</b> — {} AFR <span style="color:#a8c5a8;font-size:0.8em;">(inscrit le {})</span></div>"#, user.username, bal, date));
+            html.push_str(&format!(r#"<div class="tx">📱 <b>{}</b> — 👤 {} — {} AFR <span style="color:#a8c5a8;font-size:0.8em;">(inscrit le {})</span></div>"#, user.phone, user.username, bal, date));
         }
         html.push_str("</div>");
     }
@@ -884,7 +942,7 @@ async fn main() -> std::io::Result<()> {
         .and_then(|i| args.get(i + 1)).cloned().unwrap_or_else(|| "Afrique".to_string());
 
     let my_node_id = generate_node_id();
-    println!("🦁 AfriChain v0.7 — Mesh Sync");
+    println!("🦁 AfriChain v0.8 — Phone Send");
     println!("💚 L'Afrique n'a pas besoin de permission");
     println!("📡 Node ID: {}", my_node_id);
     println!("🔌 Mesh port: {}", mesh_port);
@@ -998,18 +1056,26 @@ async fn main() -> std::io::Result<()> {
             }))
             .route("/wallet/send", web::post().to(|s: web::Data<Arc<AppState>>, form: web::Form<SendForm>| async move {
                 let wallets = s.wallets.lock().unwrap();
+                let users = s.users.lock().unwrap();
+                let to_addr = match users.resolve_recipient(&form.to) {
+                    Some(addr) => addr,
+                    None => return HttpResponse::Found()
+                        .append_header(("Location", "/wallet?msg=⚠️ Destinataire introuvable (numéro, adresse ou nom)"))
+                        .finish(),
+                };
                 let mut chain = s.chain.lock().unwrap();
-                let mut tx = Transaction::new(&form.from, &form.to, form.amount, &form.memo);
+                let mut tx = Transaction::new(&form.from, &to_addr, form.amount, &form.memo);
                 if let Some(sk) = wallets.get_signing_key(&form.from) {
                     tx.sign(&sk);
-                    println!("🔐 Transaction signée Ed25519 : {} → {} ({} AFR)", form.from, form.to, form.amount);
+                    println!("🔐 Transaction signée Ed25519 : {} → {} ({} AFR)", form.from, to_addr, form.amount);
                     let tx_json = serde_json::to_string(&tx).unwrap_or_default();
                     chain.add_transaction(tx);
                     drop(chain);
                     drop(wallets);
+                    drop(users);
                     broadcast_mesh(&s, "tx", &tx_json);
                     HttpResponse::Found()
-                        .append_header(("Location", "/wallet?msg=✅ Transaction signée et ajoutée !"))
+                        .append_header(("Location", "/wallet?msg=✅ Envoyé ! (signé Ed25519 🔐)"))
                         .finish()
                 } else {
                     HttpResponse::Found()
@@ -1082,11 +1148,19 @@ async fn main() -> std::io::Result<()> {
             }))
             .route("/account/send", web::post().to(|s: web::Data<Arc<AppState>>, form: web::Form<SendForm>| async move {
                 let wallets = s.wallets.lock().unwrap();
-                let mut chain = s.chain.lock().unwrap();
                 let users = s.users.lock().unwrap();
+                let to_addr = match users.resolve_recipient(&form.to) {
+                    Some(addr) => addr,
+                    None => {
+                        return HttpResponse::Found()
+                            .append_header(("Location", format!("/account?user={}&msg=⚠️ Destinataire introuvable", users.users.iter().find(|u| u.address == form.from).map(|u| u.username.clone()).unwrap_or_default())))
+                            .finish();
+                    }
+                };
                 let user = users.users.iter().find(|u| u.address == form.from);
                 let username = user.map(|u| u.username.clone()).unwrap_or_default();
-                let mut tx = Transaction::new(&form.from, &form.to, form.amount, &form.memo);
+                let mut chain = s.chain.lock().unwrap();
+                let mut tx = Transaction::new(&form.from, &to_addr, form.amount, &form.memo);
                 if let Some(sk) = wallets.get_signing_key(&form.from) {
                     tx.sign(&sk);
                     let tx_json = serde_json::to_string(&tx).unwrap_or_default();
@@ -1096,7 +1170,7 @@ async fn main() -> std::io::Result<()> {
                     drop(users);
                     broadcast_mesh(&s, "tx", &tx_json);
                     HttpResponse::Found()
-                        .append_header(("Location", format!("/account?user={}&msg=✅ Envoyé ! {} AFR signés", username, form.amount)))
+                        .append_header(("Location", format!("/account?user={}&msg=✅ Envoyé à {} ! {} AFR signés", username, form.to, form.amount)))
                         .finish()
                 } else {
                     HttpResponse::Found()
@@ -1159,7 +1233,7 @@ async fn main() -> std::io::Result<()> {
                 let chain = s.chain.lock().unwrap();
                 let users = s.users.lock().unwrap();
                 let mesh = s.mesh.lock().unwrap();
-                let json = format!(r#"{{"name":"AfriChain","blocks":{},"transactions":{},"users":{},"valid":{},"token":"AFR","version":"0.7","crypto":"Ed25519","supply":{},"mesh_nodes":{},"mesh_id":"{}","mesh_region":"{}"}}"#,
+                let json = format!(r#"{{"name":"AfriChain","blocks":{},"transactions":{},"users":{},"valid":{},"token":"AFR","version":"0.8","crypto":"Ed25519","supply":{},"mesh_nodes":{},"mesh_id":"{}","mesh_region":"{}"}}"#,
                     chain.blocks.len(), chain.total_transactions(), users.count(), chain.is_valid(), chain.total_supply(), mesh.count(), mesh.my_id, mesh.region);
                 HttpResponse::Ok().content_type("application/json").body(json)
             }))
@@ -1173,7 +1247,7 @@ async fn main() -> std::io::Result<()> {
                 HttpResponse::Ok().content_type("image/svg+xml").body(svg)
             }))
             .route("/sw.js", web::get().to(|| async move {
-                let sw = "const C='afri-v0.7';self.addEventListener('install',e=>{e.waitUntil(caches.open(C).then(c=>c.addAll(['/wallet','/manifest.json','/icon.svg'])))});self.addEventListener('fetch',e=>{e.respondWith(caches.match(e.request).then(r=>r||fetch(e.request)))});";
+                let sw = "const C='afri-v0.8';self.addEventListener('install',e=>{e.waitUntil(caches.open(C).then(c=>c.addAll(['/wallet','/manifest.json','/icon.svg'])))});self.addEventListener('fetch',e=>{e.respondWith(caches.match(e.request).then(r=>r||fetch(e.request)))});";
                 HttpResponse::Ok().content_type("application/javascript").body(sw)
             }))
     })
