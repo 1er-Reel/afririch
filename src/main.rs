@@ -760,7 +760,7 @@ impl NodeRegistry {
     }
 
     fn count(&self) -> usize {
-        self.nodes.len()
+        self.nodes.len() + 1 // +1 pour notre propre noeud
     }
 
     fn cleanup_stale(&mut self) {
@@ -817,8 +817,7 @@ fn udp_discovery(state: Arc<AppState>, my_id: String, port: u16, solar: bool, re
 
     loop {
         // Announce
-        if let Ok(bytes) = announce.to_bytes().as_slice().try_into().map(|_: Vec<u8>| announce.to_bytes()) {
-            let _ = socket.send_to(&announce.to_bytes(), &broadcast_addr);
+        let _ = socket.send_to(&announce.to_bytes(), &broadcast_addr);
         }
 
         // Listen
