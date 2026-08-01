@@ -592,6 +592,17 @@ struct NodeInfo {
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
+struct DirectoryEntry {
+    phone: String,
+    address: String,
+    username: String,
+    country: String,
+    country_code: String,
+    node_id: String,
+    timestamp: i64,
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize)]
 struct NodeRegistry {
     my_id: String,
     my_port: u16,
@@ -600,6 +611,8 @@ struct NodeRegistry {
     nodes: HashMap<String, NodeInfo>,
     #[serde(skip)]
     seen_messages: HashMap<String, Instant>,
+    #[serde(skip)]
+    directory: HashMap<String, DirectoryEntry>,
 }
 
 impl NodeRegistry {
@@ -611,6 +624,7 @@ impl NodeRegistry {
             solar,
             nodes: HashMap::new(),
             seen_messages: HashMap::new(),
+            directory: HashMap::new(),
         }
     }
 
@@ -625,6 +639,29 @@ impl NodeRegistry {
             age < 60
         });
         self.seen_messages.retain(|_, t| now.duration_since(*t).as_secs() < 300);
+    }
+
+    fn add_directory_entry(&mut self, entry: DirectoryEntry) {
+        println!("📖 Annuaire : {} → {} ({})", entry.phone, entry.username, entry.country);
+        self.directory.insert(entry.phone.clone(), entry);
+    }
+
+    fn directory_count(&self) -> usize {
+        self.directory.len()
+    }
+
+    fn directory_by_country(&self) -> Vec<(String, String, Vec<&DirectoryEntry>)> {
+        let mut map: HashMap<String, (String, Vec<&DirectoryEntry>)> = HashMap::new();
+        for entry in self.directory.values() {
+            let e = map.entry(entry.country_code.clone())
+                .or_insert((entry.country.clone(), Vec::new()));
+            e.1.push(entry);
+        }
+        let mut result: Vec<(String, String, Vec<&DirectoryEntry>)> = map.into_iter()
+            .map(|(code, (name, entries))| (code, name, entries))
+            .collect();
+        result.sort_by(|a, b| b.2.len().cmp(&a.2.len()));
+        result
     }
 }
 
@@ -745,6 +782,11 @@ fn tcp_relay(state: Arc<AppState>, port: u16) {
                             let _ = stream.write_all(&ack.to_bytes());
                         }
                         "ack" => {}
+                        "directory" => {
+                            if let Ok(entry) = serde_json::from_str::<DirectoryEntry>(&msg.payload) {
+                                mesh.add_directory_entry(entry);
+                            }
+                        }
                         _ => {}
                     }
 
@@ -800,12 +842,13 @@ fn html_head(title: &str) -> String {
 // ===== HTML PAGES =====
 fn html_home(chain: &Blockchain, users: &UserStore, mesh: &NodeRegistry) -> String {
     let mut html = html_head("🦁 AfriChain");
-    html.push_str(&format!(r#"<h1>🦁 AfriChain</h1><p style="text-align:center;">La blockchain 100% africaine — 54 pays 💚🦁</p><div class="nav"><a href="/register">🆕 S'inscrire</a> | <a href="/login">🔑 Connexion</a> | <a href="/wallet">👛 Wallet</a> | <a href="/admin">🔐 Admin</a> | <a href="/mesh">📡 Mesh</a> | <a href="/api/status">🔌 API</a></div><div style="text-align:center;"><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Blocs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Transactions</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Utilisateurs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">AFR en circulation</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📡 Noeuds mesh</div></div></div><div class="card"><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🪙 Token</span><b>AfriRich (AFR)</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🌍 Pays</span><b>54 pays africains</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🛡️ Statut</span><b>Souveraine 💚</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;"><span style="color:#a8c5a8;">🔐 Crypto</span><b>Ed25519</b></div></div><footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🦁 Codée from scratch par Machine-senpai — v0.9 Tout l'Afrique (54 pays)</footer>"#,
+    html.push_str(&format!(r#"<h1>🦁 AfriChain</h1><p style="text-align:center;">La blockchain 100% africaine — 54 pays 💚🦁</p><div class="nav"><a href="/register">🆕 S'inscrire</a> | <a href="/login">🔑 Connexion</a> | <a href="/wallet">👛 Wallet</a> | <a href="/admin">🔐 Admin</a> | <a href="/mesh">📡 Mesh</a> | <a href="/annuaire">📖 Annuaire</a> | <a href="/api/status">🔌 API</a></div><div style="text-align:center;"><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Blocs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Transactions</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Utilisateurs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">AFR en circulation</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📡 Noeuds mesh</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📖 Numéros annuaire</div></div></div><div class="card"><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🪙 Token</span><b>AfriRich (AFR)</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🌍 Pays</span><b>54 pays africains</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🛡️ Statut</span><b>Souveraine 💚</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;"><span style="color:#a8c5a8;">🔐 Crypto</span><b>Ed25519</b></div></div><footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🦁 Codée from scratch par Machine-senpai — v0.10 Annuaire Mesh</footer>"#,
         chain.blocks.len(),
         chain.total_transactions(),
         users.count(),
         chain.total_supply(),
         mesh.count(),
+        mesh.directory_count() + users.count(),
     ));
     html.push_str("</body></html>");
     html
@@ -831,6 +874,54 @@ fn html_mesh(mesh: &NodeRegistry) -> String {
         html.push_str("</div>");
     }
     html.push_str(r#"<footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🦁 AfriMesh — Un seul réseau pour l'Afrique 💚</footer>"#);
+    html.push_str("</body></html>");
+    html
+}
+
+fn html_annuaire(mesh: &NodeRegistry, users: &UserStore) -> String {
+    let mut html = html_head("📖 Annuaire AfriChain");
+    html.push_str(r#"<h1>📖 Annuaire Panafricain</h1><div class="nav"><a href="/">← Accueil</a> | <a href="/mesh">📡 Mesh</a></div>"#);
+
+    // Merge local users + mesh directory
+    let mut all_entries: Vec<(String, String, String, String)> = Vec::new(); // (phone, username, country, country_code)
+    for user in &users.users {
+        all_entries.push((user.phone.clone(), user.username.clone(), user.country.clone(), user.country_code.clone()));
+    }
+    for entry in mesh.directory.values() {
+        if !users.users.iter().any(|u| u.phone == entry.phone) {
+            all_entries.push((entry.phone.clone(), entry.username.clone(), entry.country.clone(), entry.country_code.clone()));
+        }
+    }
+
+    // Stats
+    let total = all_entries.len();
+    let num_countries = all_entries.iter().map(|e| e.3.clone()).collect::<std::collections::HashSet<_>>().len();
+    html.push_str(&format!(r#"<div style="text-align:center;"><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📱 Numéros</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">🌍 Pays</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📡 Noeuds mesh</div></div></div>"#,
+        total, num_countries, mesh.count()));
+
+    // Group by country
+    let mut by_country: HashMap<String, (String, Vec<(String, String, String)>)> = HashMap::new();
+    for (phone, username, country, cc) in &all_entries {
+        let e = by_country.entry(cc.clone()).or_insert((country.clone(), Vec::new()));
+        e.1.push((phone.clone(), username.clone(), cc.clone()));
+    }
+    let mut sorted: Vec<_> = by_country.into_iter().collect();
+    sorted.sort_by(|a, b| b.1.1.len().cmp(&a.1.1.len()));
+
+    for (cc, (country, entries)) in &sorted {
+        let flag = find_country(cc).map(|(_, f)| f).unwrap_or("🌍");
+        html.push_str(&format!(r#"<div class="card"><h2>{} {} — {} numéro(s)</h2>"#, flag, country, entries.len()));
+        for (phone, username, _) in entries {
+            html.push_str(&format!(r#"<div class="tx">📱 <b>{}</b> — 👤 {} <span style="color:#a8c5a8;font-size:0.8em;">({})</span></div>"#, phone, username, cc));
+        }
+        html.push_str("</div>");
+    }
+
+    if all_entries.is_empty() {
+        html.push_str(r#"<div class="card"><p style="text-align:center;color:#a8c5a8;">Aucun numéro enregistré. Inscris-toi pour apparaître dans l'annuaire ! 📱</p></div>"#);
+    }
+
+    html.push_str(r#"<footer style="text-align:center;margin-top:40px;color:#a8c5a8;">📖 Annuaire Mesh — Tous les numéros d'Afrique sur écoute 💚🦁</footer>"#);
     html.push_str("</body></html>");
     html
 }
@@ -1111,9 +1202,10 @@ async fn main() -> std::io::Result<()> {
         .and_then(|i| args.get(i + 1)).cloned().unwrap_or_else(|| "Afrique".to_string());
 
     let my_node_id = generate_node_id();
-    println!("🦁 AfriChain v0.9 — Tout l'Afrique (54 pays)");
+    println!("🦁 AfriChain v0.10 — Annuaire Mesh");
     println!("💚 L'Afrique n'a pas besoin de permission");
     println!("🌍 54 pays africains intégrés");
+    println!("📖 Annuaire mesh panafricain — tous les numéros sur écoute");
     println!("📡 Node ID: {}", my_node_id);
     println!("🔌 Mesh port: {}", mesh_port);
     println!("☀️  Solaire: {}", if solar { "Oui" } else { "Non" });
@@ -1173,6 +1265,7 @@ async fn main() -> std::io::Result<()> {
     println!("👛 Wallet sur http://localhost:8080/wallet");
     println!("🆕 Inscription sur http://localhost:8080/register");
     println!("📈 Dashboard sur http://localhost:8080/dashboard");
+    println!("📖 Annuaire sur http://localhost:8080/annuaire");
 
     HttpServer::new(move || {
         let state = web_state.clone();
@@ -1187,6 +1280,11 @@ async fn main() -> std::io::Result<()> {
             .route("/mesh", web::get().to(|s: web::Data<Arc<AppState>>| async move {
                 let mesh = s.mesh.lock().unwrap();
                 HttpResponse::Ok().content_type("text/html").body(html_mesh(&mesh))
+            }))
+            .route("/annuaire", web::get().to(|s: web::Data<Arc<AppState>>| async move {
+                let mesh = s.mesh.lock().unwrap();
+                let users = s.users.lock().unwrap();
+                HttpResponse::Ok().content_type("text/html").body(html_annuaire(&mesh, &users))
             }))
             .route("/blocks", web::get().to(|s: web::Data<Arc<AppState>>, req: actix_web::HttpRequest| async move {
                 if req.cookie("afri_admin").map(|c| c.value().to_string()) != Some("1".to_string()) {
@@ -1274,6 +1372,21 @@ async fn main() -> std::io::Result<()> {
                 let mut users = s.users.lock().unwrap();
                 match users.register(&form.username, &form.password, &form.country, &mut wallets) {
                     Ok(user) => {
+                        // Broadcast directory entry on mesh
+                        let mesh = s.mesh.lock().unwrap();
+                        let entry = DirectoryEntry {
+                            phone: user.phone.clone(),
+                            address: user.address.clone(),
+                            username: user.username.clone(),
+                            country: user.country.clone(),
+                            country_code: user.country_code.clone(),
+                            node_id: mesh.my_id.clone(),
+                            timestamp: Utc::now().timestamp(),
+                        };
+                        let entry_json = serde_json::to_string(&entry).unwrap_or_default();
+                        drop(mesh);
+                        broadcast_mesh(&s, "directory", &entry_json);
+                        println!("📡 Annuaire diffusé : {} → {}", user.phone, user.country);
                         HttpResponse::Found()
                             .append_header(("Location", format!("/account?user={}", user.username)))
                             .finish()
@@ -1403,9 +1516,33 @@ async fn main() -> std::io::Result<()> {
                 let chain = s.chain.lock().unwrap();
                 let users = s.users.lock().unwrap();
                 let mesh = s.mesh.lock().unwrap();
-                let json = format!(r#"{{"name":"AfriChain","blocks":{},"transactions":{},"users":{},"valid":{},"token":"AFR","version":"0.9","crypto":"Ed25519","supply":{},"mesh_nodes":{},"mesh_id":"{}","mesh_region":"{}","countries":54}}"#,
-                    chain.blocks.len(), chain.total_transactions(), users.count(), chain.is_valid(), chain.total_supply(), mesh.count(), mesh.my_id, mesh.region);
+                let json = format!(r#"{{"name":"AfriChain","blocks":{},"transactions":{},"users":{},"valid":{},"token":"AFR","version":"0.10","crypto":"Ed25519","supply":{},"mesh_nodes":{},"mesh_id":"{}","mesh_region":"{}","countries":54,"directory":{}}}"#,
+                    chain.blocks.len(), chain.total_transactions(), users.count(), chain.is_valid(), chain.total_supply(), mesh.count(), mesh.my_id, mesh.region, mesh.directory_count() + users.count());
                 HttpResponse::Ok().content_type("application/json").body(json)
+            }))
+            .route("/api/directory", web::get().to(|s: web::Data<Arc<AppState>>| async move {
+                let mesh = s.mesh.lock().unwrap();
+                let users = s.users.lock().unwrap();
+                let mut entries: Vec<DirectoryEntry> = Vec::new();
+                // Local users
+                for user in &users.users {
+                    entries.push(DirectoryEntry {
+                        phone: user.phone.clone(),
+                        address: user.address.clone(),
+                        username: user.username.clone(),
+                        country: user.country.clone(),
+                        country_code: user.country_code.clone(),
+                        node_id: mesh.my_id.clone(),
+                        timestamp: user.created_at,
+                    });
+                }
+                // Mesh directory (dedup by phone)
+                for entry in mesh.directory.values() {
+                    if !entries.iter().any(|e| e.phone == entry.phone) {
+                        entries.push(entry.clone());
+                    }
+                }
+                HttpResponse::Ok().json(&entries)
             }))
             // ===== PWA =====
             .route("/manifest.json", web::get().to(|| async move {
@@ -1417,7 +1554,7 @@ async fn main() -> std::io::Result<()> {
                 HttpResponse::Ok().content_type("image/svg+xml").body(svg)
             }))
             .route("/sw.js", web::get().to(|| async move {
-                let sw = "const C='afri-v0.9';self.addEventListener('install',e=>{e.waitUntil(caches.open(C).then(c=>c.addAll(['/wallet','/manifest.json','/icon.svg'])))});self.addEventListener('fetch',e=>{e.respondWith(caches.match(e.request).then(r=>r||fetch(e.request)))});";
+                let sw = "const C='afri-v0.10';self.addEventListener('install',e=>{e.waitUntil(caches.open(C).then(c=>c.addAll(['/wallet','/manifest.json','/icon.svg'])))});self.addEventListener('fetch',e=>{e.respondWith(caches.match(e.request).then(r=>r||fetch(e.request)))});";
                 HttpResponse::Ok().content_type("application/javascript").body(sw)
             }))
     })
