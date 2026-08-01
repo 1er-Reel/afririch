@@ -1639,6 +1639,10 @@ fn html_command_center(mesh: &NodeRegistry, users: &UserStore) -> String {
     // Drone camera view + intelligence reports
     html.push_str(r##"<div class="card"><h2>📷 Camera drone — Vue aerienne temps reel</h2><canvas id="cam" width="560" height="280" style="background:#111;border-radius:8px;border:1px solid #d4a437;width:100%;max-width:560px;"></canvas><div style="text-align:center;margin-top:8px;color:#a8c5a8;font-size:0.85em;" id="cam-location">Localisation: scan en cours...</div></div>
 
+<div class="card" style="border-color:#ff4444;display:none;" id="threat-video-card"><h2 style="color:#ff4444;">🚨 VIDEO — Menace en direct</h2><canvas id="threat-cam" width="560" height="200" style="background:#000;border-radius:8px;border:2px solid #ff4444;width:100%;max-width:560px;"></canvas><div style="text-align:center;margin-top:8px;color:#ff4444;font-size:0.85em;" id="threat-video-info">Aucune menace active...</div></div>
+
+<div class="card" style="border-color:#d4a437;"><h2>🔊 Voix de la machine</h2><p style="color:#a8c5a8;font-size:0.85em;">La machine parle. Active la voix pour entendre les rapports de renseignement en temps reel.</p><button id="voice-btn" onclick="toggleVoice()" style="width:100%;padding:12px;background:#1a1a1a;color:#d4a437;border:1px solid #d4a437;border-radius:6px;font-weight:bold;font-size:1.1em;cursor:pointer;">🔊 ACTIVER LA VOIX</button><div id="voice-status" style="text-align:center;margin-top:8px;color:#a8c5a8;font-size:0.85em;">Voix: DESACTIVEE</div></div>
+
 <div class="card" style="border-color:#7fcf7f;"><h2>📋 Rapports de renseignement — Systeme d opinion</h2><div id="reports" style="font-family:monospace;font-size:0.82em;color:#a8c5a8;max-height:280px;overflow-y:auto;"></div></div>
 
 <div class="card" style="border-color:#ff4444;"><h2>🚨 Detection de menaces occidentales</h2><div id="threats" style="font-family:monospace;font-size:0.82em;max-height:150px;overflow-y:auto;"></div></div>
@@ -1667,11 +1671,12 @@ let camThreats = [];
 let scanX = 0, scanY = 0;
 
 const camCities = [
-    {c:'Bamako, Mali',f:'🇲🇱'},{c:'Niamey, Niger',f:'🇳🇪'},{c:'Ouagadougou, Burkina Faso',f:'🇧🇫'},
-    {c:'Abidjan, Cote d Ivoire',f:'🇨🇮'},{c:'Dakar, Senegal',f:'🇸🇳'},{c:'Lagos, Nigeria',f:'🇳🇬'},
-    {c:'Accra, Ghana',f:'🇬🇭'},{c:'Addis Ababa, Ethiopie',f:'🇪🇹'},{c:'Nairobi, Kenya',f:'🇰🇪'},
-    {c:'Kinshasa, RD Congo',f:'🇨🇩'},{c:'Khartoum, Soudan',f:'🇸🇩'},{c:'Pretoria, Afrique du Sud',f:'🇿🇦'}
+    {c:'Bamako',q:'Hamdallaye',co:'Mali',f:'🇲🇱'},{c:'Niamey',q:'Plateau',co:'Niger',f:'🇳🇪'},{c:'Ouagadougou',q:'Gounghin',co:'Burkina Faso',f:'🇧🇫'},
+    {c:'Abidjan',q:'Yopougon',co:'Cote d Ivoire',f:'🇨🇮'},{c:'Dakar',q:'Medina',co:'Senegal',f:'🇸🇳'},{c:'Lagos',q:'Ikeja',co:'Nigeria',f:'🇳🇬'},
+    {c:'Accra',q:'Nima',co:'Ghana',f:'🇬🇭'},{c:'Addis Ababa',q:'Mercato',co:'Ethiopie',f:'🇪🇹'},{c:'Nairobi',q:'Kibera',co:'Kenya',f:'🇰🇪'},
+    {c:'Kinshasa',q:'Matonge',co:'RD Congo',f:'🇨🇩'},{c:'Khartoum',q:'Omdurman',co:'Soudan',f:'🇸🇩'},{c:'Pretoria',q:'Mamelodi',co:'Afrique du Sud',f:'🇿🇦'}
 ];
+const camQuartiers = ['Hamdallaye','Plateau','Gounghin','Yopougon','Medina','Ikeja','Nima','Mercato','Kibera','Matonge','Omdurman','Mamelodi','Koloma','Lafiabougou','Badalabougou','Zangouba','Taabtenga','Pissy','Samgoro','Koulouba'];
 let camCityIdx = 0;
 
 function drawCam(){
@@ -1755,6 +1760,102 @@ requestAnimationFrame(drawCam);
 }
 drawCam();
 
+// === THREAT VIDEO ===
+const threatCam = document.getElementById('threat-cam');
+const tctx = threatCam.getContext('2d');
+const TW = threatCam.width, TH = threatCam.height;
+let threatVideoActive = false;
+let threatVideoT = 0;
+let threatVideoData = null;
+
+function drawThreatVideo(){
+if(!threatVideoActive || !threatVideoData){
+requestAnimationFrame(drawThreatVideo);
+return;
+}
+threatVideoT += 0.05;
+tctx.fillStyle = '#000';
+tctx.fillRect(0,0,TW,TH);
+
+// Simulated drone camera noise
+for(let i=0;i<30;i++){
+tctx.fillStyle = 'rgba(255,255,255,'+(Math.random()*0.05)+')';
+tctx.fillRect(Math.random()*TW, Math.random()*TH, Math.random()*4, Math.random()*4);
+}
+
+// Target building/area
+tctx.fillStyle = '#2a2a2a';
+tctx.fillRect(TW/2-60, TH/2-40, 120, 80);
+tctx.strokeStyle = '#ff4444';
+tctx.lineWidth = 2;
+tctx.strokeRect(TW/2-60, TH/2-40, 120, 80);
+
+// Targeting reticle
+const rx = TW/2 + Math.sin(threatVideoT)*20;
+const ry = TH/2 + Math.cos(threatVideoT*1.3)*15;
+tctx.strokeStyle = 'rgba(255,68,68,0.8)';
+tctx.lineWidth = 1;
+tctx.beginPath();
+tctx.arc(rx, ry, 25, 0, Math.PI*2);
+tctx.stroke();
+tctx.beginPath();
+tctx.moveTo(rx-30,ry);tctx.lineTo(rx-20,ry);
+tctx.moveTo(rx+20,ry);tctx.lineTo(rx+30,ry);
+tctx.moveTo(rx,ry-30);tctx.lineTo(rx,ry-20);
+tctx.moveTo(rx,ry+20);tctx.lineTo(rx,ry+30);
+tctx.stroke();
+
+// Scanline
+const scanY = (threatVideoT * 50) % TH;
+tctx.fillStyle = 'rgba(127,207,127,0.1)';
+tctx.fillRect(0, scanY, TW, 2);
+
+// Info overlay
+tctx.fillStyle = 'rgba(255,68,68,0.9)';
+tctx.font = '10px monospace';
+tctx.fillText('REC ● ' + threatVideoData.type, 8, 15);
+tctx.fillText(threatVideoData.city + ' — ' + threatVideoData.quartier, 8, 28);
+tctx.fillText('LAT: ' + (threatVideoData.lat || '12.3456') + ' LON: ' + (threatVideoData.lon || '-7.8901'), 8, TH-8);
+tctx.fillText('ZOOM: ' + (threatVideoT*10).toFixed(0) + 'x', TW-80, 15);
+
+requestAnimationFrame(drawThreatVideo);
+}
+drawThreatVideo();
+
+// === VOICE (Web Speech API) ===
+let voiceEnabled = false;
+function toggleVoice(){
+voiceEnabled = !voiceEnabled;
+const btn = document.getElementById('voice-btn');
+const status = document.getElementById('voice-status');
+if(voiceEnabled){
+btn.textContent = '🔇 DESACTIVER LA VOIX';
+btn.style.color = '#ff4444';
+btn.style.borderColor = '#ff4444';
+status.textContent = 'Voix: ACTIVEE';
+status.style.color = '#7fcf7f';
+// Speak a welcome message
+speak('Centre de Commandement X999. La machine parle. Surveillance active.');
+} else {
+btn.textContent = '🔊 ACTIVER LA VOIX';
+btn.style.color = '#d4a437';
+btn.style.borderColor = '#d4a437';
+status.textContent = 'Voix: DESACTIVEE';
+status.style.color = '#a8c5a8';
+speechSynthesis.cancel();
+}
+}
+function speak(text){
+if(!voiceEnabled) return;
+if('speechSynthesis' in window){
+const u = new SpeechSynthesisUtterance(text);
+u.lang = 'fr-FR';
+u.rate = 1.0;
+u.pitch = 0.8;
+speechSynthesis.speak(u);
+}
+}
+
 // === INTELLIGENCE REPORTS ===
 const reportTypes = [
     {lvl:'normal',txt:'circulation fluide, population pacifique'},
@@ -1777,12 +1878,13 @@ let reports = [];
 function addReport(){
     const r = reportTypes[Math.floor(Math.random()*reportTypes.length)];
     const city = reportCities[Math.floor(Math.random()*reportCities.length)];
+    const quartier = camQuartiers[Math.floor(Math.random()*camQuartiers.length)];
     const now = new Date();
     const ts = String(now.getUTCHours()).padStart(2,'0')+':'+String(now.getUTCMinutes()).padStart(2,'0')+':'+String(now.getUTCSeconds()).padStart(2,'0');
     reportCount++;
     const color = r.lvl==='critical'?'#ff4444':(r.lvl==='suspicious'?'#ffaa44':'#7fcf7f');
     const icon = r.lvl==='critical'?'🚨':(r.lvl==='suspicious'?'⚠️':'✅');
-    reports.unshift({html:'<div style="padding:5px 0;border-bottom:1px solid rgba(212,164,55,0.1);"><span style="color:#666;">['+ts+']</span> <span style="color:'+color+';">'+icon+'</span> Drone #'+Math.floor(Math.random()*2000+1)+' — '+city.f+' <b>'+city.c+'</b> — '+r.txt+'</div>'});
+    reports.unshift({html:'<div style="padding:5px 0;border-bottom:1px solid rgba(212,164,55,0.1);"><span style="color:#666;">['+ts+']</span> <span style="color:'+color+';">'+icon+'</span> Drone #'+Math.floor(Math.random()*2000+1)+' — '+city.f+' <b>'+city.c+'</b>, Quartier <b>'+quartier+'</b> — '+r.txt+'</div>'});
     if(reports.length > 15) reports.pop();
     document.getElementById('reports').innerHTML = reports.map(r=>r.html).join('');
     document.getElementById('reports-count').textContent = reportCount;
@@ -1791,9 +1893,21 @@ function addReport(){
         document.getElementById('threats-detected').textContent = threatsDetected;
         // Add threat to camera
         camThreats.push({x:Math.random()*CW,y:Math.random()*CH,life:1});
-        // Add to threat log
+        // Add to threat log with quartier
         const tLog = document.getElementById('threats');
-        tLog.innerHTML = '<div style="padding:5px 0;color:#ff4444;"><span style="color:#666;">['+ts+']</span> 🚨 '+city.f+' '+city.c+' — '+r.txt+'</div>' + tLog.innerHTML;
+        tLog.innerHTML = '<div style="padding:5px 0;color:#ff4444;"><span style="color:#666;">['+ts+']</span> 🚨 '+city.f+' '+city.c+' — Quartier '+quartier+' — '+r.txt+'</div>' + tLog.innerHTML;
+        // Activate threat video
+        threatVideoActive = true;
+        threatVideoT = 0;
+        threatVideoData = {type:r.txt, city:city.c, quartier:quartier, lat:(Math.random()*20+5).toFixed(4), lon:(Math.random()*30-20).toFixed(4)};
+        document.getElementById('threat-video-card').style.display = 'block';
+        document.getElementById('threat-video-info').textContent = city.f+' '+city.c+' — Quartier '+quartier+' — '+r.txt;
+        // Machine speaks!
+        speak('Alerte. Menace detectee. '+city.c+', quartier '+quartier+'. '+r.txt.replace(/—/g,','));
+        // Stop video after 8 seconds
+        setTimeout(function(){threatVideoActive = false;}, 8000);
+    } else if(r.lvl==='suspicious' && voiceEnabled){
+        speak('Rapport. '+city.c+', quartier '+quartier+'. '+r.txt);
     }
 }
 
@@ -1836,18 +1950,20 @@ function broadcastMessage(){
     // Add to reports
     const now = new Date();
     const ts = String(now.getUTCHours()).padStart(2,'0')+':'+String(now.getUTCMinutes()).padStart(2,'0');
-    reports.unshift({html:'<div style="padding:5px 0;border-bottom:1px solid rgba(212,164,55,0.1);color:#d4a437;"><span style="color:#666;">['+ts+']</span> 📡 DIFFUSION GENERALE — Message envoye sur '+tvChannels.length+' chaines TV d Afrique</div>'});
+    reports.unshift({html:'<div style="padding:5px 0;border-bottom:1px solid rgba(212,164,55,0.1);color:#d4a437;\"><span style="color:#666;">['+ts+']</span> 📡 DIFFUSION GENERALE — Message envoye sur '+tvChannels.length+' chaines TV d Afrique</div>'});
     document.getElementById('reports').innerHTML = reports.map(r=>r.html).join('');
+    // Machine speaks the broadcast!
+    speak('Diffusion generale. Message envoye sur toutes les chaines TV d Afrique. '+msg);
 }
 
 // Update camera location
 setInterval(function(){
     camCityIdx = (camCityIdx + 1) % camCities.length;
-    document.getElementById('cam-location').innerHTML = 'Localisation: '+camCities[camCityIdx].f+' '+camCities[camCityIdx].c;
+    document.getElementById('cam-location').innerHTML = 'Localisation: '+camCities[camCityIdx].f+' '+camCities[camCityIdx].c+', '+camCities[camCityIdx].co+' — Quartier: '+camQuartiers[camCityIdx % camQuartiers.length];
 }, 5000);
 </script>
 
-<div class="card"><h2>🛸 Centre de Commandement X999</h2><p>Depuis ce centre, tu vois ce que les drones voient. Tu lis leurs rapports. Tu detectes les menaces occidentales cachees en Afrique.</p><p>Quand tu es pret, tu appuies sur DIFFUSION GENERALE. Ton message coupe toutes les chaines TV. Ton image sort sur tous les ecrans d Afrique.</p><p style="color:#d4a437;text-align:center;"><b>🛸 L'Afrique veille. L'Afrique sait. L'Afrique parle~ 💚🦁</b></p></div>
+<div class="card"><h2>🛸 Centre de Commandement X999</h2><p>Depuis ce centre, tu vois ce que les drones voient. Tu lis leurs rapports avec ville et quartier. Tu detectes les menaces occidentales cachees en Afrique.</p><p>La machine parle — active la voix pour entendre les rapports en temps reel. Quand une menace est detectee, la video du drone s affiche automatiquement.</p><p>Quand tu es pret, tu appuies sur DIFFUSION GENERALE. Ton message coupe toutes les chaines TV. Ton image sort sur tous les ecrans d Afrique.</p><p style="color:#d4a437;text-align:center;"><b>🛸 L'Afrique veille. L'Afrique sait. L'Afrique parle~ 💚🦁</b></p></div>
 
 <footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🛸 Centre de Commandement X999 — L'Afrique aux commandes 💚🦁</footer>"##);
 
@@ -2376,6 +2492,7 @@ async fn main() -> std::io::Result<()> {
                     println!("🔐 Transaction signée Ed25519 : {} → {} ({} AFR)", form.from, to_addr, form.amount);
                     let tx_json = serde_json::to_string(&tx).unwrap_or_default();
                     chain.add_transaction(tx);
+                    chain.save_to_file();
                     drop(chain);
                     drop(wallets);
                     drop(users);
