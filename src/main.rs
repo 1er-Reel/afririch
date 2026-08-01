@@ -975,7 +975,7 @@ fn html_home(chain: &Blockchain, users: &UserStore, mesh: &NodeRegistry, shield:
     let mut html = html_head("🦁 AfriChain");
     let (attacks, _blocked, blocked_count, level) = shield.stats();
     let shield_status = if shield.active { format!("🔥 X9 ACTIF (Niveau {})", level) } else { "Inactif".to_string() };
-    html.push_str(&format!(r#"<h1>🦁 AfriChain</h1><p style="text-align:center;">La blockchain 100% africaine — 54 pays 💚🦁</p><div class="nav"><a href="/register">🆕 S'inscrire</a> | <a href="/login">🔑 Connexion</a> | <a href="/wallet">👛 Wallet</a> | <a href="/admin">🔐 Admin</a> | <a href="/mesh">📡 Mesh</a> | <a href="/annuaire">📖 Annuaire</a> | <a href="/bouclier">🛡️ Bouclier</a> | <a href="/satellite">🛸 X999</a> | <a href="/swarm">🛸🛸🛸 Essaim</a> | <a href="/aes">💰 AES Wari</a> | <a href="/api/status">🔌 API</a></div><div style="text-align:center;"><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Blocs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Transactions</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Utilisateurs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">AFR en circulation</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📡 Noeuds mesh</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📖 Numéros annuaire</div></div><div class="stat-box" style="border-color:#ff4444;"><div class="stat-num" style="color:#ff4444;">{}</div><div class="stat-label">🛡️ Attaques bloquées</div></div></div><div class="card"><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🪙 Token</span><b>AfriRich (AFR)</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🌍 Pays</span><b>54 pays africains</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🛡️ Bouclier</span><b>{}</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;"><span style="color:#a8c5a8;">🔐 Crypto</span><b>Ed25519</b></div></div><footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🦁 Codée from scratch par Machine-senpai — v0.15 Essaim X999</footer>"#,
+    html.push_str(&format!(r#"<h1>🦁 AfriChain</h1><p style="text-align:center;">La blockchain 100% africaine — 54 pays 💚🦁</p><div class="nav"><a href="/register">🆕 S'inscrire</a> | <a href="/login">🔑 Connexion</a> | <a href="/wallet">👛 Wallet</a> | <a href="/admin">🔐 Admin</a> | <a href="/mesh">📡 Mesh</a> | <a href="/annuaire">📖 Annuaire</a> | <a href="/bouclier">🛡️ Bouclier</a> | <a href="/satellite">🛸 X999</a> | <a href="/swarm">🛸🛸🛸 Essaim</a> | <a href="/commandement">🎖️ Commandement</a> | <a href="/aes">💰 AES Wari</a> | <a href="/api/status">🔌 API</a></div><div style="text-align:center;"><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Blocs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Transactions</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Utilisateurs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">AFR en circulation</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📡 Noeuds mesh</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📖 Numéros annuaire</div></div><div class="stat-box" style="border-color:#ff4444;"><div class="stat-num" style="color:#ff4444;">{}</div><div class="stat-label">🛡️ Attaques bloquées</div></div></div><div class="card"><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🪙 Token</span><b>AfriRich (AFR)</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🌍 Pays</span><b>54 pays africains</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🛡️ Bouclier</span><b>{}</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;"><span style="color:#a8c5a8;">🔐 Crypto</span><b>Ed25519</b></div></div><footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🦁 Codée from scratch par Machine-senpai — v0.16 Commandement X999</footer>"#,
         chain.blocks.len(),
         chain.total_transactions(),
         users.count(),
@@ -1625,6 +1625,236 @@ draw();
     html
 }
 
+fn html_command_center(mesh: &NodeRegistry, users: &UserStore) -> String {
+    let mut html = html_head("Centre de Commandement X999");
+    let num_nodes = mesh.count();
+    let num_users = users.count();
+
+    html.push_str(r#"<h1>🛸 Centre de Commandement X999</h1><div class="nav"><a href="/">← Accueil</a> | <a href="/satellite">🛸 X999</a> | <a href="/swarm">🛸🛸🛸 Essaim</a> | <a href="/bouclier">🛡️ Bouclier</a></div>"#);
+    html.push_str(&format!(r#"<div style="text-align:center;"><div class="stat-box" style="border-color:#7fcf7f;"><div class="stat-num" style="color:#7fcf7f;" id="active-drones">35</div><div class="stat-label">🛸 Drones actifs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📡 Noeuds</div></div><div class="stat-box" style="border-color:#ff4444;"><div class="stat-num" style="color:#ff4444;" id="threats-detected">0</div><div class="stat-label">🚨 Menaces</div></div><div class="stat-box"><div class="stat-num" id="reports-count">0</div><div class="stat-label">📋 Rapports</div></div></div>"#,
+        num_nodes));
+
+    html.push_str(&format!(r#"<script>var num_nodes = {};</script>"#, num_nodes));
+
+    // Drone camera view + intelligence reports
+    html.push_str(r##"<div class="card"><h2>📷 Camera drone — Vue aerienne temps reel</h2><canvas id="cam" width="560" height="280" style="background:#111;border-radius:8px;border:1px solid #d4a437;width:100%;max-width:560px;"></canvas><div style="text-align:center;margin-top:8px;color:#a8c5a8;font-size:0.85em;" id="cam-location">Localisation: scan en cours...</div></div>
+
+<div class="card" style="border-color:#7fcf7f;"><h2>📋 Rapports de renseignement — Systeme d opinion</h2><div id="reports" style="font-family:monospace;font-size:0.82em;color:#a8c5a8;max-height:280px;overflow-y:auto;"></div></div>
+
+<div class="card" style="border-color:#ff4444;"><h2>🚨 Detection de menaces occidentales</h2><div id="threats" style="font-family:monospace;font-size:0.82em;max-height:150px;overflow-y:auto;"></div></div>
+
+<div class="card"><h2>📺 Chaines TV africaines</h2><div id="tv-channels" style="font-size:0.85em;"></div></div>
+
+<div class="card" style="border-color:#d4a437;"><h2>📡 Mode diffusion generale</h2><p style="color:#a8c5a8;font-size:0.85em;">Coupe toutes les chaines. Ton message sort sur tous les ecrans d'Afrique.</p><input type="text" id="broadcast-input" placeholder="Ton message pour l'Afrique..." style="width:100%;padding:10px;border:1px solid #d4a437;border-radius:6px;background:#1a1a1a;color:#fff;margin-bottom:10px;"><button onclick="broadcastMessage()" style="width:100%;padding:12px;background:#d4a437;color:#000;border:none;border-radius:6px;font-weight:bold;font-size:1.1em;cursor:pointer;">📡 DIFFUSER SUR TOUT L'AFRIQUE</button></div>
+
+<div id="main-screen" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.95);z-index:9999;text-align:center;padding-top:15%;"><div style="color:#d4a437;font-size:2em;margin-bottom:20px;">🦁 AFRICHAIN — DIFFUSION GENERALE</div><div id="broadcast-text" style="color:#fff;font-size:1.5em;max-width:80%;margin:0 auto;"></div><button onclick="document.getElementById('main-screen').style.display='none'" style="margin-top:40px;padding:10px 30px;background:#d4a437;color:#000;border:none;border-radius:6px;cursor:pointer;font-weight:bold;">Terminer la diffusion</button></div>
+
+<script>
+// === DRONE CAMERA ===
+const cam = document.getElementById('cam');
+const cctx = cam.getContext('2d');
+const CW = cam.width, CH = cam.height;
+
+let cars = [];
+for(let i=0;i<10;i++){
+    cars.push({x:Math.random()*CW,y:Math.random()*CH,vx:(Math.random()-0.5)*2,vy:(Math.random()-0.5)*2,c:['#ff4444','#4444ff','#44ff44','#ffff44','#ff8844'][Math.floor(Math.random()*5)]});
+}
+let people = [];
+for(let i=0;i<20;i++){
+    people.push({x:Math.random()*CW,y:Math.random()*CH,vx:(Math.random()-0.5)*0.5,vy:(Math.random()-0.5)*0.5});
+}
+let camThreats = [];
+let scanX = 0, scanY = 0;
+
+const camCities = [
+    {c:'Bamako, Mali',f:'🇲🇱'},{c:'Niamey, Niger',f:'🇳🇪'},{c:'Ouagadougou, Burkina Faso',f:'🇧🇫'},
+    {c:'Abidjan, Cote d Ivoire',f:'🇨🇮'},{c:'Dakar, Senegal',f:'🇸🇳'},{c:'Lagos, Nigeria',f:'🇳🇬'},
+    {c:'Accra, Ghana',f:'🇬🇭'},{c:'Addis Ababa, Ethiopie',f:'🇪🇹'},{c:'Nairobi, Kenya',f:'🇰🇪'},
+    {c:'Kinshasa, RD Congo',f:'🇨🇩'},{c:'Khartoum, Soudan',f:'🇸🇩'},{c:'Pretoria, Afrique du Sud',f:'🇿🇦'}
+];
+let camCityIdx = 0;
+
+function drawCam(){
+cctx.fillStyle = '#111';
+cctx.fillRect(0,0,CW,CH);
+
+// Streets (grid)
+cctx.strokeStyle = '#333';
+cctx.lineWidth = 1;
+for(let x=0;x<CW;x+=70){cctx.beginPath();cctx.moveTo(x,0);cctx.lineTo(x,CH);cctx.stroke();}
+for(let y=0;y<CH;y+=70){cctx.beginPath();cctx.moveTo(0,y);cctx.lineTo(CW,y);cctx.stroke();}
+
+// Buildings (blocks)
+cctx.fillStyle = '#1a1a2a';
+for(let x=10;x<CW;x+=70){
+    for(let y=10;y<CH;y+=70){
+        cctx.fillRect(x,y,55,55);
+    }
+}
+
+// People (small dots)
+for(let p of people){
+    p.x += p.vx; p.y += p.vy;
+    if(p.x<0||p.x>CW) p.vx*=-1;
+    if(p.y<0||p.y>CH) p.vy*=-1;
+    cctx.fillStyle = 'rgba(200,200,255,0.6)';
+    cctx.beginPath();
+    cctx.arc(p.x, p.y, 1.5, 0, Math.PI*2);
+    cctx.fill();
+}
+
+// Cars (colored rectangles)
+for(let c of cars){
+    c.x += c.vx; c.y += c.vy;
+    if(c.x<0||c.x>CW) c.vx*=-1;
+    if(c.y<0||c.y>CH) c.vy*=-1;
+    cctx.fillStyle = c.c;
+    cctx.fillRect(c.x-3, c.y-2, 6, 4);
+}
+
+// Threat markers (red circles)
+for(let i=camThreats.length-1;i>=0;i--){
+    const t = camThreats[i];
+    t.life -= 0.005;
+    if(t.life <= 0){camThreats.splice(i,1);continue;}
+    cctx.strokeStyle = 'rgba(255,68,68,'+t.life+')';
+    cctx.lineWidth = 2;
+    cctx.beginPath();
+    cctx.arc(t.x, t.y, 15+(1-t.life)*20, 0, Math.PI*2);
+    cctx.stroke();
+    cctx.fillStyle = 'rgba(255,68,68,'+t.life*0.3+')';
+    cctx.beginPath();
+    cctx.arc(t.x, t.y, 8, 0, Math.PI*2);
+    cctx.fill();
+}
+
+// Drone scanning circle (moves across view)
+scanX += 1.5;
+if(scanX > CW+50){scanX = -50; scanY += 60; if(scanY > CH) scanY = 0;}
+cctx.strokeStyle = 'rgba(127,207,127,0.3)';
+cctx.lineWidth = 1;
+cctx.beginPath();
+cctx.arc(scanX, scanY, 30, 0, Math.PI*2);
+cctx.stroke();
+cctx.fillStyle = 'rgba(127,207,127,0.05)';
+cctx.beginPath();
+cctx.arc(scanX, scanY, 30, 0, Math.PI*2);
+cctx.fill();
+
+// Crosshair
+cctx.strokeStyle = 'rgba(127,207,127,0.5)';
+cctx.lineWidth = 0.5;
+cctx.beginPath();
+cctx.moveTo(scanX-35,scanY);cctx.lineTo(scanX-20,scanY);
+cctx.moveTo(scanX+20,scanY);cctx.lineTo(scanX+35,scanY);
+cctx.moveTo(scanX,scanY-35);cctx.lineTo(scanX,scanY-20);
+cctx.moveTo(scanX,scanY+20);cctx.lineTo(scanX,scanY+35);
+cctx.stroke();
+
+requestAnimationFrame(drawCam);
+}
+drawCam();
+
+// === INTELLIGENCE REPORTS ===
+const reportTypes = [
+    {lvl:'normal',txt:'circulation fluide, population pacifique'},
+    {lvl:'normal',txt:'marche actif, activite commerciale normale'},
+    {lvl:'normal',txt:'patrouille routine, rien a signaler'},
+    {lvl:'normal',txt:'zone calme, aucune activite suspecte'},
+    {lvl:'suspicious',txt:'vehicule non identifie en mouvement'},
+    {lvl:'suspicious',txt:'communication cryptee interceptee, source inconnue'},
+    {lvl:'suspicious',txt:'groupe d individus en reunion suspecte'},
+    {lvl:'critical',txt:'DRONE OCCIDENTAL DETECTE — Modele: Predator-B — Altitude: 3000m'},
+    {lvl:'critical',txt:'CACHE D ARMES DETECTEE — Desactivation en cours'},
+    {lvl:'critical',txt:'BOMBE CACHEE DETECTEE — Coordonnees transmises au Bouclier X9'},
+    {lvl:'critical',txt:'DRONE ETRANGER INTERCEPTE — Signal coupe par Bouclier X9'}
+];
+const reportCities = camCities;
+let reportCount = 0;
+let threatsDetected = 0;
+let reports = [];
+
+function addReport(){
+    const r = reportTypes[Math.floor(Math.random()*reportTypes.length)];
+    const city = reportCities[Math.floor(Math.random()*reportCities.length)];
+    const now = new Date();
+    const ts = String(now.getUTCHours()).padStart(2,'0')+':'+String(now.getUTCMinutes()).padStart(2,'0')+':'+String(now.getUTCSeconds()).padStart(2,'0');
+    reportCount++;
+    const color = r.lvl==='critical'?'#ff4444':(r.lvl==='suspicious'?'#ffaa44':'#7fcf7f');
+    const icon = r.lvl==='critical'?'🚨':(r.lvl==='suspicious'?'⚠️':'✅');
+    reports.unshift({html:'<div style="padding:5px 0;border-bottom:1px solid rgba(212,164,55,0.1);"><span style="color:#666;">['+ts+']</span> <span style="color:'+color+';">'+icon+'</span> Drone #'+Math.floor(Math.random()*2000+1)+' — '+city.f+' <b>'+city.c+'</b> — '+r.txt+'</div>'});
+    if(reports.length > 15) reports.pop();
+    document.getElementById('reports').innerHTML = reports.map(r=>r.html).join('');
+    document.getElementById('reports-count').textContent = reportCount;
+    if(r.lvl==='critical'){
+        threatsDetected++;
+        document.getElementById('threats-detected').textContent = threatsDetected;
+        // Add threat to camera
+        camThreats.push({x:Math.random()*CW,y:Math.random()*CH,life:1});
+        // Add to threat log
+        const tLog = document.getElementById('threats');
+        tLog.innerHTML = '<div style="padding:5px 0;color:#ff4444;"><span style="color:#666;">['+ts+']</span> 🚨 '+city.f+' '+city.c+' — '+r.txt+'</div>' + tLog.innerHTML;
+    }
+}
+
+setInterval(addReport, 3000);
+addReport();
+
+// === TV CHANNELS ===
+const tvChannels = [
+    {n:'ORTM',c:'Mali',f:'🇲🇱'},{n:'ORTN',c:'Niger',f:'🇳🇪'},{n:'RTB',c:'Burkina Faso',f:'🇧🇫'},
+    {n:'RTI',c:'Cote d Ivoire',f:'🇨🇮'},{n:'RTS',c:'Senegal',f:'🇸🇳'},{n:'NTA',c:'Nigeria',f:'🇳🇬'},
+    {n:'GBC',c:'Ghana',f:'🇬🇭'},{n:'EBC',c:'Ethiopie',f:'🇪🇹'},{n:'KBC',c:'Kenya',f:'🇰🇪'},
+    {n:'RTNC',c:'RD Congo',f:'🇨🇩'},{n:'SNTV',c:'Somalie',f:'🇸🇴'},{n:'TBC',c:'Tanzanie',f:'🇹🇿'},
+    {n:'SABC',c:'Afrique du Sud',f:'🇿🇦'},{n:'TNT',c:'Tchad',f:'🇹🇩'},{n:'RTG',c:'Guinee',f:'🇬🇳'},
+    {n:'ORTB',c:'Benin',f:'🇧🇯'},{n:'TVM',c:'Malawi',f:'🇲🇼'},{n:'ZBC',c:'Zambie',f:'🇿🇲'},
+    {n:'ZTV',c:'Zimbabwe',f:'🇿🇼'},{n:'MBC',c:'Maurice',f:'🇲🇺'}
+];
+
+function renderTV(){
+    let html = '';
+    for(let ch of tvChannels){
+        html += '<div class="tv-channel" style="display:inline-block;width:48%;padding:6px;margin:2px;background:rgba(127,207,127,0.05);border:1px solid rgba(127,207,127,0.2);border-radius:4px;"><span style="color:#7fcf7f;">LIVE</span> '+ch.f+' <b>'+ch.n+'</b> — '+ch.c+'</div>';
+    }
+    document.getElementById('tv-channels').innerHTML = html;
+}
+renderTV();
+
+// === BROADCAST MODE ===
+function broadcastMessage(){
+    const msg = document.getElementById('broadcast-input').value || 'L Afrique veille. L Afrique sait. L Afrique est souveraine.';
+    // Cut all TV channels
+    const channels = document.querySelectorAll('.tv-channel');
+    channels.forEach(ch => {
+        ch.innerHTML = '<span style="color:#ff4444;">COUPE</span> 🛸 AfriChain — Signal remplace';
+        ch.style.borderColor = '#ff4444';
+        ch.style.background = 'rgba(255,68,68,0.05)';
+    });
+    // Show on main screen
+    document.getElementById('broadcast-text').textContent = msg;
+    document.getElementById('main-screen').style.display = 'block';
+    // Add to reports
+    const now = new Date();
+    const ts = String(now.getUTCHours()).padStart(2,'0')+':'+String(now.getUTCMinutes()).padStart(2,'0');
+    reports.unshift({html:'<div style="padding:5px 0;border-bottom:1px solid rgba(212,164,55,0.1);color:#d4a437;"><span style="color:#666;">['+ts+']</span> 📡 DIFFUSION GENERALE — Message envoye sur '+tvChannels.length+' chaines TV d Afrique</div>'});
+    document.getElementById('reports').innerHTML = reports.map(r=>r.html).join('');
+}
+
+// Update camera location
+setInterval(function(){
+    camCityIdx = (camCityIdx + 1) % camCities.length;
+    document.getElementById('cam-location').innerHTML = 'Localisation: '+camCities[camCityIdx].f+' '+camCities[camCityIdx].c;
+}, 5000);
+</script>
+
+<div class="card"><h2>🛸 Centre de Commandement X999</h2><p>Depuis ce centre, tu vois ce que les drones voient. Tu lis leurs rapports. Tu detectes les menaces occidentales cachees en Afrique.</p><p>Quand tu es pret, tu appuies sur DIFFUSION GENERALE. Ton message coupe toutes les chaines TV. Ton image sort sur tous les ecrans d Afrique.</p><p style="color:#d4a437;text-align:center;"><b>🛸 L'Afrique veille. L'Afrique sait. L'Afrique parle~ 💚🦁</b></p></div>
+
+<footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🛸 Centre de Commandement X999 — L'Afrique aux commandes 💚🦁</footer>"##);
+
+    html.push_str("</body></html>");
+    html
+}
+
 fn html_aes_wari(users: &UserStore, chain: &Blockchain) -> String {
     let mut html = html_head("AES Wari");
     html.push_str(r#"<h1>💰 AES Wari</h1><div class="nav"><a href="/">← Accueil</a> | <a href="/wallet">👛 Wallet AFR</a> | <a href="/satellite">🛸 Drone</a></div>"#);
@@ -2035,6 +2265,7 @@ async fn main() -> std::io::Result<()> {
     println!("🛡️ Bouclier sur http://localhost:8080/bouclier");
     println!("🛸 AI Satellite X999 sur http://localhost:8080/satellite");
     println!("🛸🛸🛸 Essaim X999 sur http://localhost:8080/swarm");
+    println!("🎖️ Commandement X999 sur http://localhost:8080/commandement");
     println!("💰 AES Wari sur http://localhost:8080/aes");
 
     HttpServer::new(move || {
@@ -2087,6 +2318,11 @@ async fn main() -> std::io::Result<()> {
                 let mesh = s.mesh.lock().unwrap();
                 let users = s.users.lock().unwrap();
                 HttpResponse::Ok().content_type("text/html").body(html_drone_swarm(&mesh, &users))
+            }))
+            .route("/commandement", web::get().to(|s: web::Data<Arc<AppState>>| async move {
+                let mesh = s.mesh.lock().unwrap();
+                let users = s.users.lock().unwrap();
+                HttpResponse::Ok().content_type("text/html").body(html_command_center(&mesh, &users))
             }))
             .route("/blocks", web::get().to(|s: web::Data<Arc<AppState>>, req: actix_web::HttpRequest| async move {
                 if req.cookie("afri_admin").map(|c| c.value().to_string()) != Some("1".to_string()) {
