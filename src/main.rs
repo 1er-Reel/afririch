@@ -827,7 +827,6 @@ fn udp_discovery(state: Arc<AppState>, my_id: String, port: u16, solar: bool, re
     loop {
         // Announce
         let _ = socket.send_to(&announce.to_bytes(), &broadcast_addr);
-        }
 
         // Listen
         let mut buf = [0u8; 4096];
@@ -3121,7 +3120,7 @@ async fn main() -> std::io::Result<()> {
         let mut tick = 0;
         loop {
             thread::sleep(Duration::from_secs(10));
-            tick++;
+            tick += 1;
             let mut mesh = cleanup_state.mesh.lock().unwrap();
             mesh.cleanup_stale();
             let count = mesh.count();
