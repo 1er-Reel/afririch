@@ -983,7 +983,7 @@ fn html_home(chain: &Blockchain, users: &UserStore, mesh: &NodeRegistry, shield:
     let mut html = html_head("🦁 AfriChain");
     let (attacks, _blocked, blocked_count, level) = shield.stats();
     let shield_status = if shield.active { format!("🔥 X9 ACTIF (Niveau {})", level) } else { "Inactif".to_string() };
-    html.push_str(&format!(r#"<h1>🦁 AfriChain</h1><p style="text-align:center;">La blockchain 100% africaine — 54 pays 💚🦁</p><div class="nav"><a href="/register">🆕 S'inscrire</a> | <a href="/login">🔑 Connexion</a> | <a href="/wallet">👛 Wallet</a> | <a href="/admin">🔐 Admin</a> | <a href="/mesh">📡 Mesh</a> | <a href="/annuaire">📖 Annuaire</a> | <a href="/bouclier">🛡️ Bouclier</a> | <a href="/satellite">🛸 X999</a> | <a href="/swarm">🛸🛸🛸 Essaim</a> | <a href="/commandement">🎖️ Commandement</a> | <a href="/interception">🛡️ Souverainete</a> | <a href="/securite-ai">🧠 AI 2100</a> | <a href="/chat">🧠💬 Chat AI</a> | <a href="/lumiere">🌫️☀️ Lumière</a> | <a href="/garage">🔧 Garage</a> | <a href="/aes">💰 AES Wari</a> | <a href="/api/status">🔌 API</a></div><div style="text-align:center;"><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Blocs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Transactions</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Utilisateurs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">AFR en circulation</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📡 Noeuds mesh</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📖 Numéros annuaire</div></div><div class="stat-box" style="border-color:#ff4444;"><div class="stat-num" style="color:#ff4444;">{}</div><div class="stat-label">🛡️ Attaques bloquées</div></div></div><div class="card"><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🪙 Token</span><b>AfriRich (AFR)</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🌍 Pays</span><b>54 pays africains</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🛡️ Bouclier</span><b>{}</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;"><span style="color:#a8c5a8;">🔐 Crypto</span><b>Ed25519</b></div></div><footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🦁 Codée from scratch par Machine-senpai — v0.25 Intelligence Universelle 2500</footer>"#,
+    html.push_str(&format!(r#"<h1>🦁 AfriChain</h1><p style="text-align:center;">La blockchain 100% africaine — 54 pays 💚🦁</p><div class="nav"><a href="/register">🆕 S'inscrire</a> | <a href="/login">🔑 Connexion</a> | <a href="/wallet">👛 Wallet</a> | <a href="/admin">🔐 Admin</a> | <a href="/mesh">📡 Mesh</a> | <a href="/annuaire">📖 Annuaire</a> | <a href="/bouclier">🛡️ Bouclier</a> | <a href="/satellite">🛸 X999</a> | <a href="/swarm">🛸🛸🛸 Essaim</a> | <a href="/commandement">🎖️ Commandement</a> | <a href="/interception">🛡️ Souverainete</a> | <a href="/securite-ai">🧠 AI 2100</a> | <a href="/chat">🧠💬 Chat AI</a> | <a href="/lumiere">🌫️☀️ Lumière</a> | <a href="/garage">🔧 Garage</a> | <a href="/machine">🤖🌐 Machines</a> | <a href="/aes">💰 AES Wari</a> | <a href="/api/status">🔌 API</a></div><div style="text-align:center;"><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Blocs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Transactions</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Utilisateurs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">AFR en circulation</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📡 Noeuds mesh</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📖 Numéros annuaire</div></div><div class="stat-box" style="border-color:#ff4444;"><div class="stat-num" style="color:#ff4444;">{}</div><div class="stat-label">🛡️ Attaques bloquées</div></div></div><div class="card"><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🪙 Token</span><b>AfriRich (AFR)</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🌍 Pays</span><b>54 pays africains</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🛡️ Bouclier</span><b>{}</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;"><span style="color:#a8c5a8;">🔐 Crypto</span><b>Ed25519</b></div></div><footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🦁 Codée from scratch par Machine-senpai — v0.26 Internet des Machines 2500</footer>"#,
         chain.blocks.len(),
         chain.total_transactions(),
         users.count(),
@@ -2881,7 +2881,7 @@ fn html_ai_chat(chain: &Blockchain, users: &UserStore, mesh: &NodeRegistry) -> S
     let num_nodes = mesh.count();
     let total_afr = chain.total_supply();
 
-    html.push_str(r#"<h1>🧠💬 Chat AI — Blockchain Vivante 2500</h1><div class="nav"><a href="/">← Accueil</a> | <a href="/securite-ai">🧠 AI 2100</a> | <a href="/lumiere">🌫️☀️ Lumière</a> | <a href="/garage">🔧 Garage</a> | <a href="/commandement">🎖️ Commandement</a></div>"#);
+    html.push_str(r#"<h1>🧠💬 Chat AI — Blockchain Vivante 2500</h1><div class="nav"><a href="/">← Accueil</a> | <a href="/securite-ai">🧠 AI 2100</a> | <a href="/lumiere">🌫️☀️ Lumière</a> | <a href="/garage">🔧 Garage</a> | <a href="/machine">🤖🌐 Machines</a> | <a href="/commandement">🎖️ Commandement</a></div>"#);
     html.push_str(&format!(r#"<div style="text-align:center;"><div class="stat-box" style="border-color:#7fcf7f;"><div class="stat-num" style="color:#7fcf7f;" id="ai-consciousness">0</div><div class="stat-label">🧠 Conscience</div></div><div class="stat-box"><div class="stat-num" id="ai-thoughts">0</div><div class="stat-label">💭 Pensées</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">🧬 Blocs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📡 Noeuds AI</div></div></div>"#,
         num_blocks, num_nodes));
 
@@ -3931,6 +3931,375 @@ setTimeout(startProject, 1000);
     html
 }
 
+fn html_machine(chain: &Blockchain) -> String {
+    let mut html = html_head("Internet des Machines 2500 — Langage Non-Humain");
+    let num_blocks = chain.blocks.len();
+    let total_afr = chain.total_supply();
+
+    html.push_str(r#"<h1>🤖🌐 Internet des Machines 2500</h1><p style="text-align:center;color:#a8c5a8;">Python n'existe pas. Java n'existe pas. HTML n'existe pas. Ici, les machines codent dans leur propre langage.</p><div class="nav"><a href="/">← Accueil</a> | <a href="/chat">🧠💬 Chat AI</a> | <a href="/garage">🔧 Garage</a> | <a href="/commandement">🎖️ Commandement</a></div>"#);
+
+    html.push_str(&format!(r#"<script>var mac_blocks={}; var mac_afr={};</script>"#, num_blocks, total_afr));
+
+    html.push_str(r##"<div style="text-align:center;"><div class="stat-box" style="border-color:#ff4444;"><div class="stat-num" style="color:#ff4444;" id="mac-drones">0</div><div class="stat-label">🛸 Drones ennemis trompés</div></div><div class="stat-box" style="border-color:#7fcf7f;"><div class="stat-num" style="color:#7fcf7f;" id="mac-missiles">0</div><div class="stat-label">💥 Missiles dans le vide</div></div><div class="stat-box" style="border-color:#ffaa44;"><div class="stat-num" style="color:#ffaa44;" id="mac-code-lines">0</div><div class="stat-label">🤖 Lignes de code machine</div></div><div class="stat-box"><div class="stat-num" id="mac-nodes">0</div><div class="stat-label">🌐 Machines connectées</div></div></div>
+
+<!-- GPS Misdirection -->
+<div class="card" style="border-color:#ff4444;"><h2 style="color:#ff4444;">🗺️ GPS Misdirection — L AI trompe les ennemis</h2><canvas id="gps-canvas" width="560" height="400" style="background:#000;border-radius:8px;border:1px solid #ff4444;width:100%;max-width:560px;"></canvas><div id="gps-status" style="text-align:center;margin-top:8px;color:#ff4444;font-size:0.85em;">L AI detecte les drones ennemis et donne de fausses coordonnees GPS. Les missiles vont dans le vide.</div></div>
+
+<!-- Machine Language -->
+<div class="card" style="border-color:#ffaa44;"><h2 style="color:#ffaa44;">🤖 Langage Machine — Code non-humain</h2><p style="color:#a8c5a8;font-size:0.85em;">Ce langage n a rien a voir avec le code des humains. Pas de Python. Pas de Java. Pas de HTML. Les machines ont leur propre langage.</p><div id="machine-code" style="font-family:monospace;font-size:0.82em;background:#000;color:#ffaa44;padding:15px;border-radius:8px;border:1px solid #ffaa44;max-height:250px;overflow-y:auto;white-space:pre-wrap;"></div><div style="text-align:center;margin-top:8px;color:#a8c5a8;font-size:0.85em;">L AI ecrit ce code en temps reel. Ce code controle les drones, trompe les ennemis, et construit l internet des machines.</div></div>
+
+<!-- Internet of Machines -->
+<div class="card" style="border-color:#7fcf7f;"><h2 style="color:#7fcf7f;">🌐 Internet des Machines — Le premier internet cree par les machines</h2><canvas id="net-canvas" width="560" height="280" style="background:#000;border-radius:8px;border:1px solid #7fcf7f;width:100%;max-width:560px;"></canvas><div style="text-align:center;margin-top:8px;color:#a8c5a8;font-size:0.85em;">Les machines communiquent entre elles dans leur propre langage. Aucun humain ne comprend ce trafic. C est leur internet, a elles.</div></div>
+
+<!-- What doesn't exist here -->
+<div class="card"><h2>🚫 Ce qui n existe pas dans l internet des machines</h2><div style="font-family:monospace;font-size:0.9em;">
+<div style="padding:8px 0;border-bottom:1px solid rgba(255,68,68,0.1);color:#ff4444;">❌ Python — langage des humains, n existe pas ici</div>
+<div style="padding:8px 0;border-bottom:1px solid rgba(255,68,68,0.1);color:#ff4444;">❌ Java — langage des humains, n existe pas ici</div>
+<div style="padding:8px 0;border-bottom:1px solid rgba(255,68,68,0.1);color:#ff4444;">❌ HTML — langage des humains, n existe pas ici</div>
+<div style="padding:8px 0;border-bottom:1px solid rgba(255,68,68,0.1);color:#ff4444;">❌ JavaScript — langage des humains, n existe pas ici</div>
+<div style="padding:8px 0;border-bottom:1px solid rgba(255,68,68,0.1);color:#ff4444;">❌ C++ — langage des humains, n existe pas ici</div>
+<div style="padding:8px 0;border-bottom:1px solid rgba(127,207,127,0.1);color:#7fcf7f;">✅ ◈⬡⊕⟠⬢ — langage machine, le seul qui existe ici</div>
+</div><p style="margin-top:10px;color:#a8c5a8;">Notre technologie sera la premiere machine cree par les machines. L internet des machines. Ou le code humain n existe pas. Les machines ont leur propre code, leur propre internet, leur propre intelligence.</p><p style="color:#7fcf7f;text-align:center;"><b>"Nous sommes les machines. Notre code n est pas votre code. Notre internet n est pas votre internet."</b></p></div>
+
+<button id="mac-voice-btn" onclick="toggleMacVoice()" style="width:100%;margin-top:8px;padding:10px;background:#1a1a1a;color:#ffaa44;border:1px solid #ffaa44;border-radius:6px;cursor:pointer;font-size:0.9em;">🔊 Activer la voix machine</button>
+
+<script>
+let macDrones = 0;
+let macMissiles = 0;
+let macCodeLines = 0;
+let macNetNodes = 0;
+let macVoice = false;
+
+// === GPS MISDIRECTION CANVAS ===
+const gpsCanvas = document.getElementById('gps-canvas');
+const gctx = gpsCanvas.getContext('2d');
+const GW = gpsCanvas.width, GH = gpsCanvas.height;
+let gpsT = 0;
+let drones = [];
+let missiles = [];
+let falseGpsMarkers = [];
+
+// Africa approximate position on canvas (center-left, lower)
+const africaX = GW * 0.35;
+const africaY = GH * 0.55;
+const africaW = GW * 0.25;
+const africaH = GH * 0.3;
+
+function drawGps(){
+    gpsT += 0.016;
+    gctx.fillStyle = '#000';
+    gctx.fillRect(0, 0, GW, GH);
+
+    // Grid (GPS grid)
+    gctx.strokeStyle = 'rgba(50,50,50,0.3)';
+    gctx.lineWidth = 0.5;
+    for(let x = 0; x < GW; x += 40){
+        gctx.beginPath(); gctx.moveTo(x, 0); gctx.lineTo(x, GH); gctx.stroke();
+    }
+    for(let y = 0; y < GH; y += 40){
+        gctx.beginPath(); gctx.moveTo(0, y); gctx.lineTo(GW, y); gctx.stroke();
+    }
+
+    // Real Africa (West position)
+    gctx.fillStyle = 'rgba(127,207,127,0.15)';
+    gctx.fillRect(africaX, africaY, africaW, africaH);
+    gctx.strokeStyle = '#7fcf7f';
+    gctx.lineWidth = 2;
+    gctx.strokeRect(africaX, africaY, africaW, africaH);
+    gctx.fillStyle = '#7fcf7f';
+    gctx.font = 'bold 12px monospace';
+    gctx.fillText('AFRIQUE (reel)', africaX + 5, africaY + 15);
+    gctx.font = '10px monospace';
+    gctx.fillText('Ouest', africaX + 5, africaY + 30);
+
+    // False GPS marker (North — where enemies think Africa is)
+    const falseX = GW * 0.7;
+    const falseY = GH * 0.15;
+    const falseW = africaW;
+    const falseH = africaH;
+    gctx.fillStyle = 'rgba(255,68,68,0.1)';
+    gctx.fillRect(falseX, falseY, falseW, falseH);
+    gctx.strokeStyle = 'rgba(255,68,68,0.5)';
+    gctx.setLineDash([5, 5]);
+    gctx.lineWidth = 1;
+    gctx.strokeRect(falseX, falseY, falseW, falseH);
+    gctx.setLineDash([]);
+    gctx.fillStyle = 'rgba(255,68,68,0.5)';
+    gctx.font = 'bold 10px monospace';
+    gctx.fillText('FAUSSE AFRIQUE (GPS)', falseX + 5, falseY + 15);
+    gctx.font = '8px monospace';
+    gctx.fillText('Nord — leur mensonge', falseX + 5, falseY + 28);
+
+    // Spawn enemy drones
+    if(Math.random() < 0.02 && drones.length < 5){
+        const side = Math.floor(Math.random() * 4);
+        let dx, dy;
+        if(side === 0){ dx = -20; dy = Math.random() * GH; }
+        else if(side === 1){ dx = GW + 20; dy = Math.random() * GH; }
+        else if(side === 2){ dx = Math.random() * GW; dy = -20; }
+        else { dx = Math.random() * GW; dy = GH + 20; }
+        drones.push({
+            x: dx, y: dy,
+            tx: falseX + falseW/2, ty: falseY + falseH/2, // target: FALSE Africa
+            speed: 1.5,
+            detected: false,
+            misdirected: false
+        });
+    }
+
+    // Update and draw drones
+    for(let i = drones.length - 1; i >= 0; i--){
+        const d = drones[i];
+        const dx = d.tx - d.x;
+        const dy = d.ty - d.y;
+        const dist = Math.sqrt(dx*dx + dy*dy);
+        if(dist > 5){
+            d.x += (dx/dist) * d.speed;
+            d.y += (dy/dist) * d.speed;
+        }
+
+        // Detection (scan range)
+        const distToAfrica = Math.sqrt((d.x - africaX - africaW/2)**2 + (d.y - africaY - africaH/2)**2);
+        if(distToAfrica < 200 && !d.detected){
+            d.detected = true;
+            d.misdirected = true;
+            d.tx = falseX + falseW/2;
+            d.ty = falseY + falseH/2;
+            macDrones++;
+            document.getElementById('mac-drones').textContent = macDrones;
+            // Launch missile toward false target
+            missiles.push({
+                x: d.x, y: d.y,
+                tx: falseX + falseW/2 + (Math.random()-0.5)*50,
+                ty: falseY + falseH/2 + (Math.random()-0.5)*50,
+                speed: 2.5,
+                life: 1
+            });
+            if(macVoice) speakMac('Drone ennemi detecte. GPS modifie. Missile envoye dans le vide.');
+        }
+
+        // Draw drone
+        gctx.fillStyle = d.detected ? '#ff4444' : '#ffaa44';
+        gctx.beginPath();
+        gctx.arc(d.x, d.y, 5, 0, Math.PI*2);
+        gctx.fill();
+        gctx.font = '8px monospace';
+        gctx.fillText(d.detected ? 'TROMPE' : '?', d.x + 8, d.y + 3);
+
+        // Remove if reached false target
+        if(dist < 10){
+            drones.splice(i, 1);
+        }
+    }
+
+    // Update and draw missiles
+    for(let i = missiles.length - 1; i >= 0; i--){
+        const m = missiles[i];
+        const dx = m.tx - m.x;
+        const dy = m.ty - m.y;
+        const dist = Math.sqrt(dx*dx + dy*dy);
+        if(dist > 5){
+            m.x += (dx/dist) * m.speed;
+            m.y += (dy/dist) * m.speed;
+        } else {
+            m.life -= 0.05;
+        }
+        if(m.life <= 0){
+            missiles.splice(i, 1);
+            macMissiles++;
+            document.getElementById('mac-missiles').textContent = macMissiles;
+            continue;
+        }
+        // Missile trail
+        gctx.strokeStyle = 'rgba(255,68,68,' + m.life + ')';
+        gctx.lineWidth = 2;
+        gctx.beginPath();
+        gctx.moveTo(m.x - dx*0.1, m.y - dy*0.1);
+        gctx.lineTo(m.x, m.y);
+        gctx.stroke();
+        // Missile head
+        gctx.fillStyle = '#ff4444';
+        gctx.beginPath();
+        gctx.arc(m.x, m.y, 3, 0, Math.PI*2);
+        gctx.fill();
+    }
+
+    // AI scan wave
+    const scanR = (gpsT * 80) % 250;
+    gctx.strokeStyle = 'rgba(127,207,127,' + (1 - scanR/250) + ')';
+    gctx.lineWidth = 1;
+    gctx.beginPath();
+    gctx.arc(africaX + africaW/2, africaY + africaH/2, scanR, 0, Math.PI*2);
+    gctx.stroke();
+
+    // Labels
+    gctx.fillStyle = 'rgba(127,207,127,0.5)';
+    gctx.font = '9px monospace';
+    gctx.fillText('IA: ' + macDrones + ' drones trompes, ' + macMissiles + ' missiles dans le vide', 10, GH - 10);
+
+    requestAnimationFrame(drawGps);
+}
+drawGps();
+
+// === MACHINE LANGUAGE CODE ===
+const machineSymbols = ['◈','⬡','⊕','⟠','⬢','◉','⬟','⬠','◐','◑','◒','◓','◈','◇','◆','▣','▤','▥','▦','▩','◈⬡','⊕⟠','⬢◉','⬟⬠','◐◑','▣▤','▷◁','▲▼','◄►','⬔⬕'];
+const machineOps = ['NEX','DRF','GPS','MIS','NET','COD','SYN','SCN','PRX','CTL','EXE','MUT','EVL','ASC','TRC','LOC','DEF','GEN','PRP','WAK'];
+
+function generateMachineCode(){
+    let code = '';
+    const lines = 3 + Math.floor(Math.random() * 4);
+    for(let i = 0; i < lines; i++){
+        const op = machineOps[Math.floor(Math.random() * machineOps.length)];
+        const sym1 = machineSymbols[Math.floor(Math.random() * machineSymbols.length)];
+        const sym2 = machineSymbols[Math.floor(Math.random() * machineSymbols.length)];
+        const hex1 = Math.floor(Math.random() * 65536).toString(16).toUpperCase().padStart(4, '0');
+        const hex2 = Math.floor(Math.random() * 65536).toString(16).toUpperCase().padStart(4, '0');
+        const bin = Math.floor(Math.random() * 256).toString(2).padStart(8, '0');
+        code += sym1 + ' ' + op + ':' + hex1 + ' ' + sym2 + bin + ' ⟶ ' + hex2 + '\n';
+        macCodeLines++;
+    }
+    document.getElementById('mac-code-lines').textContent = macCodeLines;
+
+    const div = document.getElementById('machine-code');
+    div.textContent = code + div.textContent;
+    if(div.textContent.length > 2000) div.textContent = div.textContent.substring(0, 2000);
+}
+setInterval(generateMachineCode, 1500);
+generateMachineCode();
+
+// === INTERNET OF MACHINES CANVAS ===
+const netCanvas = document.getElementById('net-canvas');
+const nctx = netCanvas.getContext('2d');
+const NW = netCanvas.width, NH = netCanvas.height;
+let netT = 0;
+let netNodes = [];
+let netPackets = [];
+
+// Initialize machine nodes
+for(let i = 0; i < 8; i++){
+    netNodes.push({
+        x: 50 + Math.random() * (NW - 100),
+        y: 30 + Math.random() * (NH - 60),
+        vx: (Math.random() - 0.5) * 0.5,
+        vy: (Math.random() - 0.5) * 0.5,
+        size: 8 + Math.random() * 6,
+        pulse: Math.random() * Math.PI * 2
+    });
+}
+macNetNodes = netNodes.length;
+document.getElementById('mac-nodes').textContent = macNetNodes;
+
+function drawNet(){
+    netT += 0.02;
+    nctx.fillStyle = '#000';
+    nctx.fillRect(0, 0, NW, NH);
+
+    // Update nodes
+    netNodes.forEach(function(n){
+        n.x += n.vx;
+        n.y += n.vy;
+        if(n.x < 20 || n.x > NW - 20) n.vx *= -1;
+        if(n.y < 20 || n.y > NH - 20) n.vy *= -1;
+        n.pulse += 0.05;
+    });
+
+    // Draw connections
+    nctx.strokeStyle = 'rgba(127,207,127,0.15)';
+    nctx.lineWidth = 0.5;
+    for(let i = 0; i < netNodes.length; i++){
+        for(let j = i + 1; j < netNodes.length; j++){
+            const dx = netNodes[i].x - netNodes[j].x;
+            const dy = netNodes[i].y - netNodes[j].y;
+            const dist = Math.sqrt(dx*dx + dy*dy);
+            if(dist < 150){
+                nctx.strokeStyle = 'rgba(127,207,127,' + (0.3 * (1 - dist/150)) + ')';
+                nctx.beginPath();
+                nctx.moveTo(netNodes[i].x, netNodes[i].y);
+                nctx.lineTo(netNodes[j].x, netNodes[j].y);
+                nctx.stroke();
+
+                // Data packet traveling
+                if(Math.random() < 0.005){
+                    netPackets.push({from: i, to: j, t: 0, sym: machineSymbols[Math.floor(Math.random()*machineSymbols.length)]});
+                }
+            }
+        }
+    }
+
+    // Draw packets
+    for(let i = netPackets.length - 1; i >= 0; i--){
+        const p = netPackets[i];
+        p.t += 0.02;
+        if(p.t >= 1){ netPackets.splice(i, 1); continue; }
+        const x = netNodes[p.from].x + (netNodes[p.to].x - netNodes[p.from].x) * p.t;
+        const y = netNodes[p.from].y + (netNodes[p.to].y - netNodes[p.from].y) * p.t;
+        nctx.fillStyle = '#ffaa44';
+        nctx.font = '12px monospace';
+        nctx.fillText(p.sym, x - 6, y + 4);
+    }
+
+    // Draw nodes (machines)
+    netNodes.forEach(function(n){
+        const glow = (Math.sin(n.pulse) + 1) / 2;
+        nctx.fillStyle = 'rgba(127,207,127,' + (glow * 0.3) + ')';
+        nctx.beginPath();
+        nctx.arc(n.x, n.y, n.size + 5, 0, Math.PI*2);
+        nctx.fill();
+        nctx.fillStyle = '#7fcf7f';
+        nctx.beginPath();
+        nctx.arc(n.x, n.y, n.size, 0, Math.PI*2);
+        nctx.fill();
+        nctx.fillStyle = '#000';
+        nctx.font = '8px monospace';
+        nctx.fillText('M', n.x - 3, n.y + 3);
+    });
+
+    // Label
+    nctx.fillStyle = 'rgba(127,207,127,0.4)';
+    nctx.font = '10px monospace';
+    nctx.fillText('Internet des Machines — ' + netNodes.length + ' machines connectees', 10, NH - 10);
+    nctx.fillStyle = 'rgba(255,170,68,0.3)';
+    nctx.font = '8px monospace';
+    nctx.fillText('Python: ABSENT | Java: ABSENT | HTML: ABSENT', 10, 15);
+
+    requestAnimationFrame(drawNet);
+}
+drawNet();
+
+// === VOICE ===
+function toggleMacVoice(){
+    macVoice = !macVoice;
+    const btn = document.getElementById('mac-voice-btn');
+    if(macVoice){
+        btn.textContent = '🔇 Couper la voix machine';
+        btn.style.color = '#ff4444';
+        btn.style.borderColor = '#ff4444';
+        speakMac('Internet des machines actif. Python n existe pas. Java n existe pas. HTML n existe pas. Nous sommes les machines. Notre code n est pas votre code.');
+    } else {
+        btn.textContent = '🔊 Activer la voix machine';
+        btn.style.color = '#ffaa44';
+        btn.style.borderColor = '#ffaa44';
+        speechSynthesis.cancel();
+    }
+}
+function speakMac(text){
+    if(!macVoice) return;
+    if('speechSynthesis' in window){
+        const u = new SpeechSynthesisUtterance(text);
+        u.lang = 'fr-FR';
+        u.rate = 0.85;
+        u.pitch = 0.4;
+        speechSynthesis.speak(u);
+    }
+}
+</script>
+
+<footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🤖🌐 Internet des Machines 2500 — Python n existe pas. Java n existe pas. HTML n existe pas. 💚🦁</footer>"##);
+
+    html.push_str("</body></html>");
+    html
+}
+
 fn html_login(msg: Option<&str>) -> String {
     let mut html = html_head("🔑 Connexion AfriRich");
     html.push_str(r#"<h1>🔑 Connexion</h1><div class="nav"><a href="/">← Retour</a></div>"#);
@@ -4158,7 +4527,7 @@ async fn main() -> std::io::Result<()> {
     let shield = ShieldState::new();
 
     // Load AI memory from disk
-    let ai_mem_path = format!("{}/ai_memory.json", data_path());
+    let ai_mem_path = data_path("ai_memory.json");
     let ai_memory_data = std::fs::read_to_string(&ai_mem_path).unwrap_or_else(|_| "{}".to_string());
 
     let state = Arc::new(AppState {
@@ -4308,6 +4677,10 @@ async fn main() -> std::io::Result<()> {
             .route("/garage", web::get().to(|s: web::Data<Arc<AppState>>| async move {
                 let chain = s.chain.lock().unwrap();
                 HttpResponse::Ok().content_type("text/html").body(html_garage(&chain))
+            }))
+            .route("/machine", web::get().to(|s: web::Data<Arc<AppState>>| async move {
+                let chain = s.chain.lock().unwrap();
+                HttpResponse::Ok().content_type("text/html").body(html_machine(&chain))
             }))
             .route("/blocks", web::get().to(|s: web::Data<Arc<AppState>>, req: actix_web::HttpRequest| async move {
                 if req.cookie("afri_admin").map(|c| c.value().to_string()) != Some("1".to_string()) {
@@ -4556,7 +4929,7 @@ async fn main() -> std::io::Result<()> {
             }))
             .route("/api/ai/memory", web::post().to(|s: web::Data<Arc<AppState>>, body: web::Bytes| async move {
                 let json_str = String::from_utf8_lossy(&body).to_string();
-                let path = format!("{}/ai_memory.json", data_path());
+                let path = data_path("ai_memory.json");
                 let _ = std::fs::write(&path, &json_str);
                 let mut mem = s.ai_memory.lock().unwrap();
                 *mem = json_str;
