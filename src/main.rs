@@ -984,7 +984,7 @@ fn html_home(chain: &Blockchain, users: &UserStore, mesh: &NodeRegistry, shield:
     let mut html = html_head("🦁 AfriChain");
     let (attacks, _blocked, blocked_count, level) = shield.stats();
     let shield_status = if shield.active { format!("🔥 X9 ACTIF (Niveau {})", level) } else { "Inactif".to_string() };
-    html.push_str(&format!(r#"<h1>🦁 AfriChain</h1><p style="text-align:center;">La blockchain 100% africaine — 54 pays 💚🦁</p><div class="nav"><a href="/register">🆕 S'inscrire</a> | <a href="/login">🔑 Connexion</a> | <a href="/wallet">👛 Wallet</a> | <a href="/admin">🔐 Admin</a> | <a href="/mesh">📡 Mesh</a> | <a href="/annuaire">📖 Annuaire</a> | <a href="/bouclier">🛡️ Bouclier</a> | <a href="/satellite">🛸 X999</a> | <a href="/swarm">🛸🛸🛸 Essaim</a> | <a href="/commandement">🎖️ Commandement</a> | <a href="/interception">🛡️ Souverainete</a> | <a href="/aes">💰 AES Wari</a> | <a href="/api/status">🔌 API</a></div><div style="text-align:center;"><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Blocs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Transactions</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Utilisateurs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">AFR en circulation</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📡 Noeuds mesh</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📖 Numéros annuaire</div></div><div class="stat-box" style="border-color:#ff4444;"><div class="stat-num" style="color:#ff4444;">{}</div><div class="stat-label">🛡️ Attaques bloquées</div></div></div><div class="card"><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🪙 Token</span><b>AfriRich (AFR)</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🌍 Pays</span><b>54 pays africains</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🛡️ Bouclier</span><b>{}</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;"><span style="color:#a8c5a8;">🔐 Crypto</span><b>Ed25519</b></div></div><footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🦁 Codée from scratch par Machine-senpai — v0.19 Sauvegarde Auto X999</footer>"#,
+    html.push_str(&format!(r#"<h1>🦁 AfriChain</h1><p style="text-align:center;">La blockchain 100% africaine — 54 pays 💚🦁</p><div class="nav"><a href="/register">🆕 S'inscrire</a> | <a href="/login">🔑 Connexion</a> | <a href="/wallet">👛 Wallet</a> | <a href="/admin">🔐 Admin</a> | <a href="/mesh">📡 Mesh</a> | <a href="/annuaire">📖 Annuaire</a> | <a href="/bouclier">🛡️ Bouclier</a> | <a href="/satellite">🛸 X999</a> | <a href="/swarm">🛸🛸🛸 Essaim</a> | <a href="/commandement">🎖️ Commandement</a> | <a href="/interception">🛡️ Souverainete</a> | <a href="/aes">💰 AES Wari</a> | <a href="/api/status">🔌 API</a></div><div style="text-align:center;"><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Blocs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Transactions</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Utilisateurs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">AFR en circulation</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📡 Noeuds mesh</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📖 Numéros annuaire</div></div><div class="stat-box" style="border-color:#ff4444;"><div class="stat-num" style="color:#ff4444;">{}</div><div class="stat-label">🛡️ Attaques bloquées</div></div></div><div class="card"><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🪙 Token</span><b>AfriRich (AFR)</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🌍 Pays</span><b>54 pays africains</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🛡️ Bouclier</span><b>{}</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;"><span style="color:#a8c5a8;">🔐 Crypto</span><b>Ed25519</b></div></div><footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🦁 Codée from scratch par Machine-senpai — v0.20 Coordonnees Reelles X999</footer>"#,
         chain.blocks.len(),
         chain.total_transactions(),
         users.count(),
@@ -1680,12 +1680,19 @@ let camThreats = [];
 let scanX = 0, scanY = 0;
 
 const camCities = [
-    {c:'Bamako',q:'Hamdallaye',co:'Mali',f:'🇲🇱'},{c:'Niamey',q:'Plateau',co:'Niger',f:'🇳🇪'},{c:'Ouagadougou',q:'Gounghin',co:'Burkina Faso',f:'🇧🇫'},
-    {c:'Abidjan',q:'Yopougon',co:'Cote d Ivoire',f:'🇨🇮'},{c:'Dakar',q:'Medina',co:'Senegal',f:'🇸🇳'},{c:'Lagos',q:'Ikeja',co:'Nigeria',f:'🇳🇬'},
-    {c:'Accra',q:'Nima',co:'Ghana',f:'🇬🇭'},{c:'Addis Ababa',q:'Mercato',co:'Ethiopie',f:'🇪🇹'},{c:'Nairobi',q:'Kibera',co:'Kenya',f:'🇰🇪'},
-    {c:'Kinshasa',q:'Matonge',co:'RD Congo',f:'🇨🇩'},{c:'Khartoum',q:'Omdurman',co:'Soudan',f:'🇸🇩'},{c:'Pretoria',q:'Mamelodi',co:'Afrique du Sud',f:'🇿🇦'}
+    {c:'Bamako',co:'Mali',f:'🇲🇱',qs:['Hamdallaye','Badalabougou','Magnambougou','Faladié','Medina-Coura','Koulouba']},
+    {c:'Niamey',co:'Niger',f:'🇳🇪',qs:['Plateau','Lafiabougou','Kalley','Yantala','Terminus','Poudrière']},
+    {c:'Ouagadougou',co:'Burkina Faso',f:'🇧🇫',qs:['Gounghin','Zangouba','Taabtenga','Pissy','Samgoro','Wemtenga']},
+    {c:'Abidjan',co:'Cote d Ivoire',f:'🇨🇮',qs:['Yopougon','Cocody','Adjamé','Treichville','Koumassi','Marcory']},
+    {c:'Dakar',co:'Senegal',f:'🇸🇳',qs:['Medina','Pikine','Grand Yoff','Parcelles','HLM','Mermoz']},
+    {c:'Lagos',co:'Nigeria',f:'🇳🇬',qs:['Ikeja','Surulere','Lekki','Agege','Mushin','Shomolu']},
+    {c:'Accra',co:'Ghana',f:'🇬🇭',qs:['Nima','Mamobi','Kotobabi','Chorkor','James Town','Osu']},
+    {c:'Addis Ababa',co:'Ethiopie',f:'🇪🇹',qs:['Mercato','Piazza','Bole','Kazanchis','Merkato','Kirkos']},
+    {c:'Nairobi',co:'Kenya',f:'🇰🇪',qs:['Kibera','Mathare','Kawangware','Eastleigh','Kayole','Huruma']},
+    {c:'Kinshasa',co:'RD Congo',f:'🇨🇩',qs:['Matonge','Lemba','Limbete','Ngaba','Kintambo','Bandalungwa']},
+    {c:'Khartoum',co:'Soudan',f:'🇸🇩',qs:['Omdurman','Bahri','Khartoum Nord','Mamoura','Sajjana','Arkawit']},
+    {c:'Pretoria',co:'Afrique du Sud',f:'🇿🇦',qs:['Mamelodi','Atteridgeville','Soshanguve','Mamelodi East','Nellmapius','Saulsville']}
 ];
-const camQuartiers = ['Hamdallaye','Plateau','Gounghin','Yopougon','Medina','Ikeja','Nima','Mercato','Kibera','Matonge','Omdurman','Mamelodi','Koloma','Lafiabougou','Badalabougou','Zangouba','Taabtenga','Pissy','Samgoro','Koulouba'];
 let camCityIdx = 0;
 
 function drawCam(){
@@ -1887,7 +1894,7 @@ let reports = [];
 function addReport(){
     const r = reportTypes[Math.floor(Math.random()*reportTypes.length)];
     const city = reportCities[Math.floor(Math.random()*reportCities.length)];
-    const quartier = camQuartiers[Math.floor(Math.random()*camQuartiers.length)];
+    const quartier = city.qs[Math.floor(Math.random()*city.qs.length)];
     const now = new Date();
     const ts = String(now.getUTCHours()).padStart(2,'0')+':'+String(now.getUTCMinutes()).padStart(2,'0')+':'+String(now.getUTCSeconds()).padStart(2,'0');
     reportCount++;
@@ -1968,7 +1975,7 @@ function broadcastMessage(){
 // Update camera location
 setInterval(function(){
     camCityIdx = (camCityIdx + 1) % camCities.length;
-    document.getElementById('cam-location').innerHTML = 'Localisation: '+camCities[camCityIdx].f+' '+camCities[camCityIdx].c+', '+camCities[camCityIdx].co+' — Quartier: '+camQuartiers[camCityIdx % camQuartiers.length];
+    document.getElementById('cam-location').innerHTML = 'Localisation: '+camCities[camCityIdx].f+' '+camCities[camCityIdx].c+', '+camCities[camCityIdx].co+' — Quartier: '+camCities[camCityIdx].qs[0];
 }, 5000);
 </script>
 
@@ -2470,15 +2477,16 @@ speechSynthesis.speak(u);
 
 // === INTERCEPT LOG ===
 const interceptTypes = ['SMS','Appel','Donnees','Paiement Wari','Localisation GPS','Photo','Contact','Message','Transaction AFR','Profil utilisateur'];
-const interceptCities = [{c:'Bamako',f:'🇲🇱'},{c:'Niamey',f:'🇳🇪'},{c:'Ouagadougou',f:'🇧🇫'},{c:'Abidjan',f:'🇨🇮'},{c:'Dakar',f:'🇸🇳'},{c:'Lagos',f:'🇳🇬'},{c:'Accra',f:'🇬🇭'},{c:'Nairobi',f:'🇰🇪'},{c:'Kinshasa',f:'🇨🇩'},{c:'Addis Ababa',f:'🇪🇹'}];
+const interceptCities = [{c:'Bamako',co:'Mali',f:'🇲🇱',qs:['Hamdallaye','Badalabougou','Magnambougou']},{c:'Niamey',co:'Niger',f:'🇳🇪',qs:['Plateau','Lafiabougou','Yantala']},{c:'Ouagadougou',co:'Burkina Faso',f:'🇧🇫',qs:['Gounghin','Zangouba','Wemtenga']},{c:'Abidjan',co:'Cote d Ivoire',f:'🇨🇮',qs:['Yopougon','Cocody','Adjamé']},{c:'Dakar',co:'Senegal',f:'🇸🇳',qs:['Medina','Pikine','Parcelles']},{c:'Lagos',co:'Nigeria',f:'🇳🇬',qs:['Ikeja','Surulere','Lekki']},{c:'Accra',co:'Ghana',f:'🇬🇭',qs:['Nima','Mamobi','Chorkor']},{c:'Nairobi',co:'Kenya',f:'🇰🇪',qs:['Kibera','Mathare','Kawangware']},{c:'Kinshasa',co:'RD Congo',f:'🇨🇩',qs:['Matonge','Lemba','Ngaba']},{c:'Addis Ababa',co:'Ethiopie',f:'🇪🇹',qs:['Mercato','Piazza','Bole']}];
 
 function addInterceptLog(){
     const type = interceptTypes[Math.floor(Math.random()*interceptTypes.length)];
     const city = interceptCities[Math.floor(Math.random()*interceptCities.length)];
+    const quartier = city.qs[Math.floor(Math.random()*city.qs.length)];
     const now = new Date();
     const ts = String(now.getUTCHours()).padStart(2,'0')+':'+String(now.getUTCMinutes()).padStart(2,'0')+':'+String(now.getUTCSeconds()).padStart(2,'0');
     const log = document.getElementById('intercept-log');
-    log.innerHTML = '<div style="padding:5px 0;border-bottom:1px solid rgba(127,207,127,0.1);"><span style="color:#666;">['+ts+']</span> ✅ '+city.f+' <b>'+city.c+'</b> — '+type+' intercepte → AfriChain (coupe vers Occident)</div>' + log.innerHTML;
+    log.innerHTML = '<div style="padding:5px 0;border-bottom:1px solid rgba(127,207,127,0.1);"><span style="color:#666;">['+ts+']</span> ✅ '+city.f+' <b>'+city.c+'</b>, '+city.co+' — Quartier '+quartier+' — '+type+' intercepte → AfriChain (coupe vers Occident)</div>' + log.innerHTML;
     if(log.innerHTML.length > 5000) log.innerHTML = log.innerHTML.substring(0, 5000);
 }
 setInterval(addInterceptLog, 1200);
