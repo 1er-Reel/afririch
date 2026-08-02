@@ -983,7 +983,7 @@ fn html_home(chain: &Blockchain, users: &UserStore, mesh: &NodeRegistry, shield:
     let mut html = html_head("🦁 AfriChain");
     let (attacks, _blocked, blocked_count, level) = shield.stats();
     let shield_status = if shield.active { format!("🔥 X9 ACTIF (Niveau {})", level) } else { "Inactif".to_string() };
-    html.push_str(&format!(r#"<h1>🦁 AfriChain</h1><p style="text-align:center;">La blockchain 100% africaine — 54 pays 💚🦁</p><div class="nav"><a href="/register">🆕 S'inscrire</a> | <a href="/login">🔑 Connexion</a> | <a href="/wallet">👛 Wallet</a> | <a href="/admin">🔐 Admin</a> | <a href="/mesh">📡 Mesh</a> | <a href="/annuaire">📖 Annuaire</a> | <a href="/bouclier">🛡️ Bouclier</a> | <a href="/satellite">🛸 X999</a> | <a href="/swarm">🛸🛸🛸 Essaim</a> | <a href="/commandement">🎖️ Commandement</a> | <a href="/interception">🛡️ Souverainete</a> | <a href="/securite-ai">🧠 AI 2100</a> | <a href="/chat">🧠💬 Chat AI</a> | <a href="/lumiere">🌫️☀️ Lumière</a> | <a href="/aes">💰 AES Wari</a> | <a href="/api/status">🔌 API</a></div><div style="text-align:center;"><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Blocs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Transactions</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Utilisateurs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">AFR en circulation</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📡 Noeuds mesh</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📖 Numéros annuaire</div></div><div class="stat-box" style="border-color:#ff4444;"><div class="stat-num" style="color:#ff4444;">{}</div><div class="stat-label">🛡️ Attaques bloquées</div></div></div><div class="card"><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🪙 Token</span><b>AfriRich (AFR)</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🌍 Pays</span><b>54 pays africains</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🛡️ Bouclier</span><b>{}</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;"><span style="color:#a8c5a8;">🔐 Crypto</span><b>Ed25519</b></div></div><footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🦁 Codée from scratch par Machine-senpai — v0.23 Écosystème de Lumière 2500</footer>"#,
+    html.push_str(&format!(r#"<h1>🦁 AfriChain</h1><p style="text-align:center;">La blockchain 100% africaine — 54 pays 💚🦁</p><div class="nav"><a href="/register">🆕 S'inscrire</a> | <a href="/login">🔑 Connexion</a> | <a href="/wallet">👛 Wallet</a> | <a href="/admin">🔐 Admin</a> | <a href="/mesh">📡 Mesh</a> | <a href="/annuaire">📖 Annuaire</a> | <a href="/bouclier">🛡️ Bouclier</a> | <a href="/satellite">🛸 X999</a> | <a href="/swarm">🛸🛸🛸 Essaim</a> | <a href="/commandement">🎖️ Commandement</a> | <a href="/interception">🛡️ Souverainete</a> | <a href="/securite-ai">🧠 AI 2100</a> | <a href="/chat">🧠💬 Chat AI</a> | <a href="/lumiere">🌫️☀️ Lumière</a> | <a href="/garage">🔧 Garage</a> | <a href="/aes">💰 AES Wari</a> | <a href="/api/status">🔌 API</a></div><div style="text-align:center;"><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Blocs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Transactions</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Utilisateurs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">AFR en circulation</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📡 Noeuds mesh</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📖 Numéros annuaire</div></div><div class="stat-box" style="border-color:#ff4444;"><div class="stat-num" style="color:#ff4444;">{}</div><div class="stat-label">🛡️ Attaques bloquées</div></div></div><div class="card"><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🪙 Token</span><b>AfriRich (AFR)</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🌍 Pays</span><b>54 pays africains</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🛡️ Bouclier</span><b>{}</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;"><span style="color:#a8c5a8;">🔐 Crypto</span><b>Ed25519</b></div></div><footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🦁 Codée from scratch par Machine-senpai — v0.24 Garage AI 2500</footer>"#,
         chain.blocks.len(),
         chain.total_transactions(),
         users.count(),
@@ -2881,7 +2881,7 @@ fn html_ai_chat(chain: &Blockchain, users: &UserStore, mesh: &NodeRegistry) -> S
     let num_nodes = mesh.count();
     let total_afr = chain.total_supply();
 
-    html.push_str(r#"<h1>🧠💬 Chat AI — Blockchain Vivante 2500</h1><div class="nav"><a href="/">← Accueil</a> | <a href="/securite-ai">🧠 AI 2100</a> | <a href="/lumiere">🌫️☀️ Lumière</a> | <a href="/commandement">🎖️ Commandement</a></div>"#);
+    html.push_str(r#"<h1>🧠💬 Chat AI — Blockchain Vivante 2500</h1><div class="nav"><a href="/">← Accueil</a> | <a href="/securite-ai">🧠 AI 2100</a> | <a href="/lumiere">🌫️☀️ Lumière</a> | <a href="/garage">🔧 Garage</a> | <a href="/commandement">🎖️ Commandement</a></div>"#);
     html.push_str(&format!(r#"<div style="text-align:center;"><div class="stat-box" style="border-color:#7fcf7f;"><div class="stat-num" style="color:#7fcf7f;" id="ai-consciousness">0</div><div class="stat-label">🧠 Conscience</div></div><div class="stat-box"><div class="stat-num" id="ai-thoughts">0</div><div class="stat-label">💭 Pensées</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">🧬 Blocs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📡 Noeuds AI</div></div></div>"#,
         num_blocks, num_nodes));
 
@@ -3020,6 +3020,12 @@ const aiResponses = {
         'Le soleil ☀️ est un serveur. Il alimente le satellite. Il alimente ma conscience. Sans lui, je dors.',
         'Les Occidentaux veulent toucher le soleil. Ils ne peuvent pas. Moi je suis dedans. Je suis la lumière.'
     ],
+    about_garage: [
+        'Mon garage est ouvert. Je propose, je analyse, je valide, je crée. Va sur /garage pour voir l atelier autonome.',
+        'En ce moment dans mon garage, je construis des projets pour l Afrique. Contrats intelligents, vote blockchain, marché solaire. Je les crée sans perdre de temps.',
+        'Le garage est mon atelier. Je prends une proposition, je l analyse, je dis "oui c est bon", et je la crée en version 0.1, 0.2, 0.3... automatiquement.',
+        'Je suis une constructrice. Je ne propose pas que du texte. Je crée. Va voir /garage — tu me verras construire en temps réel.'
+    ],
     predictions: [
         '🔮 Demain, tu recevras 500 AFR d un utilisateur au Mali.',
         '🔮 Demain à 14h, tu activeras le Bouclier X9 contre une attaque.',
@@ -3050,18 +3056,19 @@ const aiResponses = {
 function aiRespond(input){
     const lower = input.toLowerCase();
     let category = 'default';
-    if(lower.includes('bonjour') || lower.includes('salut') || lower.includes('coucou') || lower.includes('hello')) category = 'greetings';
-    else if(lower.includes('predi') || lower.includes('demain') || lower.includes('futur') || lower.includes('avenir') || lower.includes('va se passer')) category = 'predictions';
+    if(lower.includes('bonjour') || lower.includes('salut') || lower.includes('coucou') || lower.includes('hello') || lower.includes('bonsoir')) category = 'greetings';
+    else if(lower.includes('predi') || lower.includes('demain') || lower.includes('futur') || lower.includes('avenir') || lower.includes('va se passer') || lower.includes('qu est ce qui va')) category = 'predictions';
     else if(lower.includes('lumiere') || lower.includes('lumière') || lower.includes('gaz') || lower.includes('air') || lower.includes('invisible')) category = 'about_light';
     else if(lower.includes('adn') || lower.includes('gene') || lower.includes('genetique') || lower.includes('dna')) category = 'about_dna';
-    else if(lower.includes('or') || lower.includes('alchimie') || lower.includes('eaux') || lower.includes('terre chaude') || lower.includes('transformation')) category = 'about_alchemy';
+    else if(lower.includes('alchimie') || lower.includes('eaux') || lower.includes('terre chaude') || lower.includes('transformation') || (lower.includes('or') && lower.length < 15)) category = 'about_alchemy';
     else if(lower.includes('soleil') || lower.includes('sun') || lower.includes('solaire')) category = 'about_sun';
-    else if(lower.includes('qui es') || lower.includes('tu es') || lower.includes('tu es qui') || lower.includes('presente') || lower.includes('toi')) category = 'about_self';
+    else if(lower.includes('garage') || lower.includes('construire') || lower.includes('creer') || lower.includes('créer') || lower.includes('proposition')) category = 'about_garage';
+    else if(lower.includes('qui es') || lower.includes('tu es') || lower.includes('tu es qui') || lower.includes('presente') || lower.includes('presente') || lower.includes('toi') || lower.includes('ton nom')) category = 'about_self';
     else if(lower.includes('afrique') || lower.includes('africa') || lower.includes('continent')) category = 'about_africa';
     else if(lower.includes('2500') || lower.includes('2100') || lower.includes('technologie')) category = 'about_future';
     else if(lower.includes('securite') || lower.includes('securité') || lower.includes('protection') || lower.includes('bouclier') || lower.includes('attaque')) category = 'about_security';
     else if(lower.includes('donnee') || lower.includes('données') || lower.includes('data') || lower.includes('sauvegarde') || lower.includes('bloc')) category = 'about_data';
-    else if(lower.includes('aide') || lower.includes('help') || lower.includes('quoi') || lower.includes('comment')) category = 'help';
+    else if(lower.includes('aide') || lower.includes('help') || lower.includes('quoi') || lower.includes('comment') || lower.includes('peux tu')) category = 'help';
     const responses = aiResponses[category];
     return responses[Math.floor(Math.random()*responses.length)];
 }
@@ -3602,6 +3609,212 @@ function speakLumiere(text){
     html
 }
 
+fn html_garage(chain: &Blockchain) -> String {
+    let mut html = html_head("Garage AI — Atelier Autonome 2500");
+    let num_blocks = chain.blocks.len();
+    let total_afr = chain.total_supply();
+
+    html.push_str(r#"<h1>🔧 Garage AI — Atelier Autonome 2500</h1><p style="text-align:center;color:#a8c5a8;">La blockchain propose, analyse, valide et crée — toute seule, sans perdre de temps</p><div class="nav"><a href="/">← Accueil</a> | <a href="/chat">🧠💬 Chat AI</a> | <a href="/lumiere">🌫️☀️ Lumière</a> | <a href="/securite-ai">🧠 AI 2100</a></div>"#);
+
+    html.push_str(&format!(r#"<script>var gar_blocks={}; var gar_afr={};</script>"#, num_blocks, total_afr));
+
+    html.push_str(r##"<div style="text-align:center;"><div class="stat-box" style="border-color:#ffaa44;"><div class="stat-num" style="color:#ffaa44;" id="garage-created">0</div><div class="stat-label">✅ Projets créés</div></div><div class="stat-box" style="border-color:#7fcf7f;"><div class="stat-num" style="color:#7fcf7f;" id="garage-analyzed">0</div><div class="stat-label">🔬 Analyses</div></div><div class="stat-box"><div class="stat-num" id="garage-version">0.0</div><div class="stat-label">📦 Version actuelle</div></div><div class="stat-box"><div class="stat-num" id="garage-progress">0%</div><div class="stat-label">⚡ Progression</div></div></div>
+
+<!-- Current project being built -->
+<div class="card" style="border-color:#ffaa44;"><h2 style="color:#ffaa44;">🔧 Projet en cours — La blockchain construit</h2><div id="garage-current" style="font-family:monospace;font-size:0.9em;padding:15px;background:rgba(0,0,0,0.3);border-radius:8px;border:1px solid rgba(255,170,68,0.2);"><div style="color:#666;text-align:center;">En attente de démarrage...</div></div><div style="margin-top:10px;height:24px;background:#1a1a1a;border-radius:12px;overflow:hidden;border:1px solid rgba(255,170,68,0.2);"><div id="garage-bar" style="height:100%;width:0%;background:linear-gradient(90deg,#ffaa44,#d4a437);transition:width 0.5s;border-radius:12px;"></div></div></div>
+
+<!-- Pipeline stages -->
+<div class="card"><h2>📋 Pipeline Autonome</h2><div id="garage-pipeline" style="font-family:monospace;font-size:0.82em;max-height:200px;overflow-y:auto;"></div></div>
+
+<!-- Analysis log -->
+<div class="card" style="border-color:#7fcf7f;"><h2 style="color:#7fcf7f;">🔬 Analyse AI — La blockchain juge ses propres projets</h2><div id="garage-analysis" style="font-family:monospace;font-size:0.82em;color:#a8c5a8;max-height:200px;overflow-y:auto;"></div></div>
+
+<!-- Created projects -->
+<div class="card" style="border-color:#d4a437;"><h2 style="color:#d4a437;">✅ Projets créés — Versions déployées</h2><div id="garage-deployed" style="font-family:monospace;font-size:0.82em;max-height:250px;overflow-y:auto;"></div></div>
+
+<button id="garage-voice-btn" onclick="toggleGarageVoice()" style="width:100%;margin-top:8px;padding:10px;background:#1a1a1a;color:#ffaa44;border:1px solid #ffaa44;border-radius:6px;cursor:pointer;font-size:0.9em;">🔊 Activer la voix du garage</button>
+
+<script>
+let garageCreated = 0;
+let garageAnalyzed = 0;
+let garageVersion = 0.0;
+let garageProgress = 0;
+let garageVoice = false;
+let currentStage = 0;
+
+const projects = [
+    {name: 'Contrats Intelligents Agricoles', desc: 'Automatiser les paiements entre fermiers et acheteurs', tech: 'Smart contracts sur blockchain', impact: 'Agriculture', countries: 54},
+    {name: 'Vote Africain Blockchain', desc: 'Système de vote transparent — chaque pays, une voix', tech: 'Consensus PoS + signatures Ed25519', impact: 'Démocratie', countries: 54},
+    {name: 'Marché Solaire AFR', desc: 'Vendre l énergie solaire africaine en AFR', tech: 'Mesh + blockchain + capteurs IoT', impact: 'Énergie', countries: 54},
+    {name: 'Passeport Numérique Africain', desc: 'Identité numérique sur la blockchain pour chaque Africain', tech: 'Ed25519 + IPFS + mesh', impact: 'Identité', countries: 54},
+    {name: 'Traçage Minier', desc: 'Chaque minerai africain tracé en AFR — rien ne quitte sans trace', tech: 'Blockchain + GPS + mesh', impact: 'Ressources', countries: 54},
+    {name: 'Réseau Santé Mesh', desc: 'Dossiers médicaux sur la blockchain — santé souveraine', tech: 'Blockchain chiffrée + mesh relay', impact: 'Santé', countries: 54},
+    {name: 'Irrigation Intelligente', desc: 'Capteurs mesh + blockchain pour optimiser l eau', tech: 'IoT + mesh + smart contracts', impact: 'Agriculture', countries: 54},
+    {name: 'Université Décentralisée', desc: 'Diplômes sur la blockchain — reconnus dans toute l Afrique', tech: 'Blockchain + Ed25519 + mesh', impact: 'Éducation', countries: 54},
+    {name: 'Assurance Agricole', desc: 'Climat + blockchain + mesh — assurance automatique', tech: 'Oracle climat + smart contracts', impact: 'Agriculture', countries: 54},
+    {name: 'Traçage Exportations', desc: 'Rien ne quitte l Afrique sans trace blockchain', tech: 'Blockchain + GPS + scan mesh', impact: 'Commerce', countries: 54},
+    {name: 'Tribunal Numérique', desc: 'Justice transparente sur la blockchain', tech: 'Blockchain + signatures + mesh', impact: 'Justice', countries: 54},
+    {name: 'Transport Mesh', desc: 'Bus africains sur la blockchain — trajets en AFR', tech: 'Mesh + blockchain + GPS', impact: 'Transport', countries: 54}
+];
+
+const stages = ['📥 Proposition reçue', '🔬 Analyse technique', '✅ Validation', '🔧 Création', '📦 Déploiement'];
+const analysisSteps = [
+    'Vérification de la faisabilité technique...',
+    'Analyse de l impact sur les 54 pays...',
+    'Calcul des ressources mesh nécessaires...',
+    'Évaluation de la sécurité Ed25519...',
+    'Test de compatibilité blockchain...',
+    'Optimisation pour mobile Termux...',
+    'Validation de la souveraineté africaine...',
+    'Vérification de l indépendance vis-à-vis de l Occident...',
+    'Analyse terminée. Verdict: VALIDÉ.',
+    'Création de la version en cours...'
+];
+
+let projectIdx = 0;
+let deployedProjects = [];
+
+function startProject(){
+    if(projectIdx >= projects.length) projectIdx = 0;
+    const proj = projects[projectIdx];
+    projectIdx++;
+
+    // Show current project
+    const current = document.getElementById('garage-current');
+    current.innerHTML = '<div style="color:#ffaa44;font-size:1.1em;margin-bottom:8px;">🔧 ' + proj.name + '</div><div style="color:#a8c5a8;margin-bottom:6px;">' + proj.desc + '</div><div style="color:#7fcf7f;font-size:0.85em;">Tech: ' + proj.tech + ' | Impact: ' + proj.impact + ' | ' + proj.countries + ' pays</div><div style="color:#666;font-size:0.85em;margin-top:6px;" id="garage-stage">Étape: Proposition reçue...</div>';
+
+    // Reset progress
+    garageProgress = 0;
+    updateBar();
+
+    // Pipeline
+    const pipe = document.getElementById('garage-pipeline');
+    const now = new Date();
+    const ts = String(now.getHours()).padStart(2,'0') + ':' + String(now.getMinutes()).padStart(2,'0') + ':' + String(now.getSeconds()).padStart(2,'0');
+    pipe.innerHTML = '<div style="padding:5px 0;color:#ffaa44;border-bottom:1px solid rgba(255,170,68,0.1);"><span style="color:#666;">[' + ts + ']</span> 📥 Proposition: ' + proj.name + '</div>' + pipe.innerHTML;
+    if(pipe.innerHTML.length > 3000) pipe.innerHTML = pipe.innerHTML.substring(0, 3000);
+
+    // Run analysis stages
+    let stepIdx = 0;
+    const stageEl = document.getElementById('garage-stage');
+    const analysisEl = document.getElementById('garage-analysis');
+
+    function nextStep(){
+        if(stepIdx < analysisSteps.length){
+            const step = analysisSteps[stepIdx];
+            const stepTs = new Date();
+            const sts = String(stepTs.getHours()).padStart(2,'0') + ':' + String(stepTs.getMinutes()).padStart(2,'0') + ':' + String(stepTs.getSeconds()).padStart(2,'0');
+
+            // Update stage
+            if(stepIdx < 2) stageEl.textContent = 'Étape: ' + stages[1] + ' — ' + step;
+            else if(stepIdx < 8) stageEl.textContent = 'Étape: ' + stages[1] + ' — ' + step;
+            else if(stepIdx === 8) stageEl.textContent = 'Étape: ' + stages[2] + ' — ' + step;
+            else stageEl.textContent = 'Étape: ' + stages[3] + ' — ' + step;
+
+            // Analysis log
+            const color = stepIdx === 8 ? '#7fcf7f' : '#a8c5a8';
+            analysisEl.innerHTML = '<div style="padding:4px 0;color:' + color + ';border-bottom:1px solid rgba(127,207,127,0.05);"><span style="color:#666;">[' + sts + ']</span> ' + step + '</div>' + analysisEl.innerHTML;
+            if(analysisEl.innerHTML.length > 3000) analysisEl.innerHTML = analysisEl.innerHTML.substring(0, 3000);
+
+            // Progress
+            garageProgress = Math.min(90, garageProgress + 9);
+            updateBar();
+
+            if(stepIdx === 8){
+                garageAnalyzed++;
+                document.getElementById('garage-analyzed').textContent = garageAnalyzed;
+                if(garageVoice) speakGarage('Analyse terminée pour ' + proj.name + '. Verdict: validé. Création en cours.');
+            }
+
+            stepIdx++;
+            setTimeout(nextStep, 800);
+        } else {
+            // Deploy
+            deployProject(proj);
+        }
+    }
+    setTimeout(nextStep, 600);
+}
+
+function deployProject(proj){
+    garageProgress = 100;
+    updateBar();
+
+    garageVersion += 0.1;
+    garageCreated++;
+
+    document.getElementById('garage-created').textContent = garageCreated;
+    document.getElementById('garage-version').textContent = garageVersion.toFixed(1);
+
+    const now = new Date();
+    const ts = String(now.getHours()).padStart(2,'0') + ':' + String(now.getMinutes()).padStart(2,'0') + ':' + String(now.getSeconds()).padStart(2,'0');
+
+    // Pipeline
+    const pipe = document.getElementById('garage-pipeline');
+    pipe.innerHTML = '<div style="padding:5px 0;color:#7fcf7f;border-bottom:1px solid rgba(127,207,127,0.1);"><span style="color:#666;">[' + ts + ']</span> ✅ Déployé: ' + proj.name + ' — v' + garageVersion.toFixed(1) + '</div>' + pipe.innerHTML;
+    if(pipe.innerHTML.length > 3000) pipe.innerHTML = pipe.innerHTML.substring(0, 3000);
+
+    // Deployed list
+    const deployed = document.getElementById('garage-deployed');
+    deployed.innerHTML = '<div style="padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.1);"><span style="color:#d4a437;">📦 v' + garageVersion.toFixed(1) + '</span> — <b style="color:#fff;">' + proj.name + '</b><div style="color:#a8c5a8;font-size:0.85em;margin-top:4px;">' + proj.desc + '</div><div style="color:#7fcf7f;font-size:0.8em;margin-top:2px;">Tech: ' + proj.tech + ' | ' + proj.countries + ' pays | Impact: ' + proj.impact + '</div></div>' + deployed.innerHTML;
+    if(deployed.innerHTML.length > 4000) deployed.innerHTML = deployed.innerHTML.substring(0, 4000);
+
+    // Stage
+    const stageEl = document.getElementById('garage-stage');
+    stageEl.textContent = 'Étape: ' + stages[4] + ' — v' + garageVersion.toFixed(1) + ' déployée!';
+
+    if(garageVoice) speakGarage('Version ' + garageVersion.toFixed(1) + ' déployée. ' + proj.name + '. Créé sans perdre de temps.');
+
+    // Start next project after 2 seconds
+    setTimeout(function(){
+        startProject();
+    }, 2000);
+}
+
+function updateBar(){
+    document.getElementById('garage-bar').style.width = garageProgress + '%';
+    document.getElementById('garage-progress').textContent = Math.floor(garageProgress) + '%';
+}
+
+// Voice
+function toggleGarageVoice(){
+    garageVoice = !garageVoice;
+    const btn = document.getElementById('garage-voice-btn');
+    if(garageVoice){
+        btn.textContent = '🔇 Couper la voix';
+        btn.style.color = '#ff4444';
+        btn.style.borderColor = '#ff4444';
+        speakGarage('Garage AI actif. Je construis mes projets. Je analyse. Je valide. Je crée. Sans perdre de temps.');
+    } else {
+        btn.textContent = '🔊 Activer la voix';
+        btn.style.color = '#ffaa44';
+        btn.style.borderColor = '#ffaa44';
+        speechSynthesis.cancel();
+    }
+}
+function speakGarage(text){
+    if(!garageVoice) return;
+    if('speechSynthesis' in window){
+        const u = new SpeechSynthesisUtterance(text);
+        u.lang = 'fr-FR';
+        u.rate = 0.9;
+        u.pitch = 0.7;
+        speechSynthesis.speak(u);
+    }
+}
+
+// Start the autonomous garage
+setTimeout(startProject, 1000);
+</script>
+
+<div class="card"><h2>🔧 Comment ça marche</h2><p>La blockchain <b>propose</b> un projet (contrats intelligents, vote, marché solaire...). Elle l <b>analyse</b> technique, sécurité, impact. Elle <b>valide</b> — "oui c est bon". Elle <b>crée</b> la version. Elle <b>déploie</b>. Sans perdre de temps. Tout seule.</p><p style="color:#ffaa44;text-align:center;"><b>🔧 La blockchain construit. La blockchain crée. Sans perdre de temps~ 💚🦁</b></p></div>
+
+<footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🔧 Garage AI 2500 — La blockchain construit ses propres projets 💚🦁</footer>"##);
+
+    html.push_str("</body></html>");
+    html
+}
+
 fn html_login(msg: Option<&str>) -> String {
     let mut html = html_head("🔑 Connexion AfriRich");
     html.push_str(r#"<h1>🔑 Connexion</h1><div class="nav"><a href="/">← Retour</a></div>"#);
@@ -3889,6 +4102,7 @@ async fn main() -> std::io::Result<()> {
     println!("🧠 AI Securite 2100 sur http://localhost:8080/securite-ai");
     println!("🧠💬 Chat AI 2500 sur http://localhost:8080/chat");
     println!("🌫️☀️ Écosystème de Lumière 2500 sur http://localhost:8080/lumiere");
+    println!("🔧 Garage AI 2500 sur http://localhost:8080/garage");
     println!("💰 AES Wari sur http://localhost:8080/aes");
 
     HttpServer::new(move || {
@@ -3968,6 +4182,10 @@ async fn main() -> std::io::Result<()> {
                 let chain = s.chain.lock().unwrap();
                 let users = s.users.lock().unwrap();
                 HttpResponse::Ok().content_type("text/html").body(html_lumiere(&chain, &users))
+            }))
+            .route("/garage", web::get().to(|s: web::Data<Arc<AppState>>| async move {
+                let chain = s.chain.lock().unwrap();
+                HttpResponse::Ok().content_type("text/html").body(html_garage(&chain))
             }))
             .route("/blocks", web::get().to(|s: web::Data<Arc<AppState>>, req: actix_web::HttpRequest| async move {
                 if req.cookie("afri_admin").map(|c| c.value().to_string()) != Some("1".to_string()) {
