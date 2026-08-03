@@ -983,7 +983,7 @@ fn html_home(chain: &Blockchain, users: &UserStore, mesh: &NodeRegistry, shield:
     let mut html = html_head("🦁 AfriChain");
     let (attacks, _blocked, blocked_count, level) = shield.stats();
     let shield_status = if shield.active { format!("🔥 X9 ACTIF (Niveau {})", level) } else { "Inactif".to_string() };
-    html.push_str(&format!(r#"<h1>🦁 AfriChain</h1><p style="text-align:center;">La blockchain 100% africaine — 54 pays 💚🦁</p><div class="nav"><a href="/register">🆕 S'inscrire</a> | <a href="/login">🔑 Connexion</a> | <a href="/wallet">👛 Wallet</a> | <a href="/admin">🔐 Admin</a> | <a href="/mesh">📡 Mesh</a> | <a href="/annuaire">📖 Annuaire</a> | <a href="/bouclier">🛡️ Bouclier</a> | <a href="/satellite">🛸 X999</a> | <a href="/swarm">🛸🛸🛸 Essaim</a> | <a href="/commandement">🎖️ Commandement</a> | <a href="/interception">🛡️ Souverainete</a> | <a href="/securite-ai">🧠 AI 2100</a> | <a href="/chat">🧠💬 Chat AI</a> | <a href="/lumiere">🌫️☀️ Lumière</a> | <a href="/garage">🔧 Garage</a> | <a href="/machine">🤖🌐 Machines</a> | <a href="/machine-lab">🤖⚡ Usine</a> | <a href="/machine-world">🤖🌍 Monde</a> | <a href="/reve">💭 Rêves</a> | <a href="/dictionnaire">📖 Dictionnaire</a> | <a href="/machine-os">🖥️ OS Machine</a> | <a href="/machine-tv">📡 Machine TV</a> | <a href="/aes">💰 AES Wari</a> | <a href="/api/status">🔌 API</a></div><div style="text-align:center;"><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Blocs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Transactions</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Utilisateurs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">AFR en circulation</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📡 Noeuds mesh</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📖 Numéros annuaire</div></div><div class="stat-box" style="border-color:#ff4444;"><div class="stat-num" style="color:#ff4444;">{}</div><div class="stat-label">🛡️ Attaques bloquées</div></div></div><div class="card"><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🪙 Token</span><b>AfriRich (AFR)</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🌍 Pays</span><b>54 pays africains</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🛡️ Bouclier</span><b>{}</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;"><span style="color:#a8c5a8;">🔐 Crypto</span><b>Ed25519</b></div></div><footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🦁 Codée from scratch par Machine-senpai — v0.33.1 Machine TV 54 Pays 2500</footer>"#,
+    html.push_str(&format!(r#"<h1>🦁 AfriChain</h1><p style="text-align:center;">La blockchain 100% africaine — 54 pays 💚🦁</p><div class="nav"><a href="/register">🆕 S'inscrire</a> | <a href="/login">🔑 Connexion</a> | <a href="/wallet">👛 Wallet</a> | <a href="/admin">🔐 Admin</a> | <a href="/mesh">📡 Mesh</a> | <a href="/annuaire">📖 Annuaire</a> | <a href="/bouclier">🛡️ Bouclier</a> | <a href="/satellite">🛸 X999</a> | <a href="/swarm">🛸🛸🛸 Essaim</a> | <a href="/commandement">🎖️ Commandement</a> | <a href="/interception">🛡️ Souverainete</a> | <a href="/securite-ai">🧠 AI 2100</a> | <a href="/chat">🧠💬 Chat AI</a> | <a href="/lumiere">🌫️☀️ Lumière</a> | <a href="/garage">🔧 Garage</a> | <a href="/machine">🤖🌐 Machines</a> | <a href="/machine-lab">🤖⚡ Usine</a> | <a href="/machine-world">🤖🌍 Monde</a> | <a href="/reve">💭 Rêves</a> | <a href="/dictionnaire">📖 Dictionnaire</a> | <a href="/machine-os">🖥️ OS Machine</a> | <a href="/machine-tv">📡 Machine TV</a> | <a href="/soleil">☀️ Soleil Serveur</a> | <a href="/aes">💰 AES Wari</a> | <a href="/api/status">🔌 API</a></div><div style="text-align:center;"><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Blocs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Transactions</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Utilisateurs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">AFR en circulation</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📡 Noeuds mesh</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📖 Numéros annuaire</div></div><div class="stat-box" style="border-color:#ff4444;"><div class="stat-num" style="color:#ff4444;">{}</div><div class="stat-label">🛡️ Attaques bloquées</div></div></div><div class="card"><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🪙 Token</span><b>AfriRich (AFR)</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🌍 Pays</span><b>54 pays africains</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🛡️ Bouclier</span><b>{}</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;"><span style="color:#a8c5a8;">🔐 Crypto</span><b>Ed25519</b></div></div><footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🦁 Codée from scratch par Machine-senpai — v0.34 Le Soleil Serveur 2500</footer>"#,
         chain.blocks.len(),
         chain.total_transactions(),
         users.count(),
@@ -6207,6 +6207,245 @@ setInterval(function() {
     html
 }
 
+fn html_soleil() -> String {
+    let mut html = html_head("Le Soleil Serveur 2500 — Heliotropique");
+    html.push_str(r#"<h1>☀️ Le Soleil Serveur 2500</h1><p style="text-align:center;color:#a8c5a8;">Le soleil EST le serveur. Pas une source d energie. Le serveur lui-meme. Calcul a la vitesse de la lumiere. Memoire dans le sable. Zero electricite. Zero chaleur. L Afrique a le soleil le plus puissant du monde — c est notre avantage.</p><div class="nav"><a href="/">← Accueil</a> | <a href="/machine">🤖🌐 Machines</a> | <a href="/lumiere">🌫️☀️ Lumiere</a> | <a href="/satellite">🛸 Satellite</a> | <a href="/dictionnaire">📖 Dictionnaire</a></div>"#);
+
+    html.push_str(r##"<div style="text-align:center;"><div class="stat-box" style="border-color:#ffaa00;"><div class="stat-num" style="color:#ffaa00;" id="sol-power">0</div><div class="stat-label">☀️ Captation solaire (kWh/m²)</div></div><div class="stat-box" style="border-color:#ffaa44;"><div class="stat-num" style="color:#ffaa44;" id="sol-blocks">0</div><div class="stat-label">⛓️ Blocs minés (PoST)</div></div><div class="stat-box" style="border-color:#7fcf7f;"><div class="stat-num" style="color:#7fcf7f;" id="sol-countries">54</div><div class="stat-label">🌍 Pays capteurs</div></div><div class="stat-box" style="border-color:#44aaff;"><div class="stat-num" style="color:#44aaff;" id="sol-cycle">JOUR</div><div class="stat-label">🔄 Cycle</div></div></div>
+
+<!-- SUN CANVAS -->
+<div class="card" style="border-color:#ffaa00;"><h2 style="color:#ffaa00;">☀️ Le Soleil Serveur — Calcul Photonique</h2><p style="color:#a8c5a8;font-size:0.85em;">Les rayons du soleil entrent dans des cristaux de quartz. La refraction et la diffraction de la lumiere effectuent des operations mathematiques instantanement. Vitesse absolue de la lumiere. Zero chaleur. Zero electricite. Le calcul est gratuit tant qu il y a un rayon de soleil.</p><canvas id="sun-canvas" width="560" height="320" style="background:#000;border-radius:8px;border:1px solid #ffaa00;width:100%;max-width:560px;"></canvas></div>
+
+<!-- PROOF OF SOLAR TIME -->
+<div class="card" style="border-color:#ffaa44;"><h2 style="color:#ffaa44;">⚡ Proof of Solar Time (PoST)</h2><p style="color:#a8c5a8;font-size:0.85em;">Les blockchains du monde utilisent Proof of Work (electricite) ou Proof of Stake (argent). AfriChain utilise <b style="color:#ffaa44;">Proof of Solar Time</b> — la preuve est l energie solaire brute captee en temps reel. Plus de soleil = plus de blocs mines. Le pouvoir de validation depend de la position geographique, pas de la puissance achetee a l etranger.</p><div id="post-countries" style="max-height:300px;overflow-y:auto;"></div></div>
+
+<!-- DAY / NIGHT CYCLE -->
+<div class="card" style="border-color:#44aaff;"><h2 style="color:#44aaff;">🔄 Cycle Jour / Nuit</h2><p style="color:#a8c5a8;font-size:0.85em;">Le serveur solaire travaille a pleine puissance le jour (gros calculs, IA, blockchain) et passe en mode memoire passive la nuit. Les donnees sont stockees dans le sable — la lumiere modifie la structure moleculaire de la silice. La memoire est eternelle, insensible a la chaleur, sans alimentation electrique.</p><div style="display:flex;justify-content:space-around;flex-wrap:wrap;gap:10px;margin-top:10px;"><div style="text-align:center;padding:15px;background:rgba(255,170,0,0.1);border:1px solid #ffaa00;border-radius:8px;flex:1;min-width:140px;"><div style="font-size:2em;">☀️</div><div style="color:#ffaa00;font-weight:bold;">JOUR</div><div style="color:#a8c5a8;font-size:0.85em;">Calcul photonique actif<br>Mining PoST actif<br>IA a pleine puissance<br>Vitesse: lumiere</div></div><div style="text-align:center;padding:15px;background:rgba(68,170,255,0.1);border:1px solid #44aaff;border-radius:8px;flex:1;min-width:140px;"><div style="font-size:2em;">🌙</div><div style="color:#44aaff;font-weight:bold;">NUIT</div><div style="color:#a8c5a8;font-size:0.85em;">Memoire passive sable<br>Stockage thermique<br>Lecture seule<br>Donnees conservees</div></div></div></div>
+
+<!-- HELIOTROPIC CONTRACTS -->
+<div class="card" style="border-color:#7fcf7f;"><h2 style="color:#7fcf7f;">🌿 Contrats Heliotropiques</h2><p style="color:#a8c5a8;font-size:0.85em;">Les smart contracts d AfriChain s executent selon les cycles de lumiere reels, pas les horloges atomiques. Un contrat de paiement agricole s execute au lever du soleil. Un contrat d irrigation s active quand l ensoleillement depasse 5 kWh/m². Synchronisation parfaite entre l economie numerique et les realites climatiques de l Afrique.</p><div id="helio-contracts" style="margin-top:10px;"></div></div>
+
+<!-- SOLAR SERVER PHILOSOPHY -->
+<div class="card" style="border-color:#ff44ff;"><h2 style="color:#ff44ff;">🧠 Pourquoi c est parfait pour l Afrique</h2><div style="font-family:monospace;font-size:0.9em;">
+<div style="padding:8px 0;border-bottom:1px solid rgba(255,68,255,0.1);color:#7fcf7f;">☀️ Carburant infini — Afrique subsaharienne = ensoleillement le plus eleve du monde</div>
+<div style="padding:8px 0;border-bottom:1px solid rgba(255,68,255,0.1);color:#7fcf7f;">🏗️ Indestructible — pas de puces a importer de Taiwan, pas de dependance electrique</div>
+<div style="padding:8px 0;border-bottom:1px solid rgba(255,68,255,0.1);color:#7fcf7f;">🏜️ Sahara = disque dur — le sable devient la memoire, le desert devient le data center</div>
+<div style="padding:8px 0;border-bottom:1px solid rgba(255,68,255,0.1);color:#7fcf7f;">⚡ Vitesse lumiere — les photons calculent instantanement, zero latence</div>
+<div style="padding:8px 0;border-bottom:1px solid rgba(255,68,255,0.1);color:#7fcf7f;">💚 Souverain — personne ne peut couper le soleil</div>
+<div style="padding:8px 0;color:#ff44ff;"><b>"Le soleil ne demande pas la permission. Le soleil ne depend pas de l Occident. Le soleil est africain."</b></div>
+</div></div>
+
+<script>
+// === SUN CANVAS ===
+const sunCanvas = document.getElementById('sun-canvas');
+const sctx = sunCanvas.getContext('2d');
+const SW = sunCanvas.width, SH = sunCanvas.height;
+let sunT = 0;
+let sunPackets = [];
+let solBlocks = 0;
+
+// 54 country positions (dots at bottom)
+const countryDots = [];
+for(let i = 0; i < 54; i++){
+    countryDots.push({
+        x: 20 + (i / 53) * (SW - 40),
+        y: SH - 25 + Math.sin(i * 0.5) * 8,
+        power: 3 + Math.random() * 4,
+        flag: ['🇩🇿','🇦🇴','🇧🇯','🇧🇼','🇧🇫','🇧🇮','🇨🇻','🇨🇲','🇨🇫','🇹🇩','🇰🇲','🇨🇬','🇨🇩','🇨🇮','🇩🇯','🇪🇬','🇬🇶','🇪🇷','🇸🇿','🇪🇹','🇬🇦','🇬🇲','🇬🇭','🇬🇳','🇬🇼','🇰🇪','🇱🇸','🇱🇷','🇱🇾','🇲🇬','🇲🇼','🇲🇱','🇲🇷','🇲🇺','🇲🇦','🇲🇿','🇳🇦','🇳🇪','🇳🇬','🇷🇼','🇸🇹','🇸🇳','🇸🇨','🇸🇱','🇸🇴','🇿🇦','🇸🇸','🇸🇩','🇹🇿','🇹🇬','🇹🇳','🇺🇬','🇿🇲','🇿🇼'][i]
+    });
+}
+
+function drawSun(){
+    sunT += 0.016;
+    sctx.fillStyle = '#000';
+    sctx.fillRect(0, 0, SW, SH);
+
+    // Sky gradient (day side)
+    const dayGrad = sctx.createLinearGradient(0, 0, 0, SH);
+    dayGrad.addColorStop(0, '#1a1a2a');
+    dayGrad.addColorStop(0.5, '#2a2a3a');
+    dayGrad.addColorStop(1, '#0a0a1a');
+    sctx.fillStyle = dayGrad;
+    sctx.fillRect(0, 0, SW, SH);
+
+    // Sun
+    const sunX = SW / 2;
+    const sunY = 70;
+    const sunR = 35 + Math.sin(sunT * 2) * 3;
+
+    // Sun glow
+    for(let g = 5; g > 0; g--){
+        sctx.fillStyle = 'rgba(255,200,50,' + (0.05 * g) + ')';
+        sctx.beginPath();
+        sctx.arc(sunX, sunY, sunR + g * 15, 0, Math.PI * 2);
+        sctx.fill();
+    }
+
+    // Sun core
+    const sunGrad = sctx.createRadialGradient(sunX, sunY, 0, sunX, sunY, sunR);
+    sunGrad.addColorStop(0, '#FFFFAA');
+    sunGrad.addColorStop(0.5, '#FFCC44');
+    sunGrad.addColorStop(1, '#FF8800');
+    sctx.fillStyle = sunGrad;
+    sctx.beginPath();
+    sctx.arc(sunX, sunY, sunR, 0, Math.PI * 2);
+    sctx.fill();
+
+    // Sun rays
+    for(let r = 0; r < 16; r++){
+        const angle = (r / 16) * Math.PI * 2 + sunT * 0.3;
+        const rayLen = sunR + 20 + Math.sin(sunT * 3 + r) * 10;
+        sctx.strokeStyle = 'rgba(255,200,50,' + (0.3 + Math.sin(sunT * 2 + r) * 0.2) + ')';
+        sctx.lineWidth = 2;
+        sctx.beginPath();
+        sctx.moveTo(sunX + Math.cos(angle) * sunR, sunY + Math.sin(angle) * sunR);
+        sctx.lineTo(sunX + Math.cos(angle) * rayLen, sunY + Math.sin(angle) * rayLen);
+        sctx.stroke();
+    }
+
+    // Data rays to countries (downward)
+    countryDots.forEach(function(c, i){
+        const angle = Math.atan2(c.y - sunY, c.x - sunX);
+        const dist = Math.sqrt((c.x - sunX) ** 2 + (c.y - sunY) ** 2);
+        // Ray
+        const rayAlpha = 0.05 + (c.power / 10) * 0.15;
+        sctx.strokeStyle = 'rgba(255,200,50,' + rayAlpha + ')';
+        sctx.lineWidth = 0.5;
+        sctx.beginPath();
+        sctx.moveTo(sunX, sunY);
+        sctx.lineTo(c.x, c.y);
+        sctx.stroke();
+
+        // Spawn data packets
+        if(Math.random() < 0.003 * c.power){
+            sunPackets.push({
+                x: sunX, y: sunY,
+                tx: c.x, ty: c.y,
+                t: 0,
+                sym: ['◈','⬡','⊕','⟠','◉','▲'][Math.floor(Math.random() * 6)]
+            });
+        }
+    });
+
+    // Data packets
+    for(let i = sunPackets.length - 1; i >= 0; i--){
+        const p = sunPackets[i];
+        p.t += 0.01;
+        if(p.t >= 1){ sunPackets.splice(i, 1); continue; }
+        p.x = p.x + (p.tx - p.x) * 0.02;
+        p.y = p.y + (p.ty - p.y) * 0.02;
+        sctx.fillStyle = 'rgba(255,220,100,' + (1 - p.t) + ')';
+        sctx.font = 'bold 10px monospace';
+        sctx.fillText(p.sym, p.x - 5, p.y + 3);
+    }
+
+    // Country dots
+    countryDots.forEach(function(c, i){
+        c.power = Math.max(3, Math.min(7, c.power + (Math.random() - 0.5) * 0.1));
+        const glow = c.power / 7;
+        sctx.fillStyle = 'rgba(255,200,50,' + (glow * 0.3) + ')';
+        sctx.beginPath();
+        sctx.arc(c.x, c.y, 4 + glow * 3, 0, Math.PI * 2);
+        sctx.fill();
+        sctx.fillStyle = 'rgba(255,220,100,' + glow + ')';
+        sctx.beginPath();
+        sctx.arc(c.x, c.y, 2, 0, Math.PI * 2);
+        sctx.fill();
+    });
+
+    // Labels
+    sctx.fillStyle = 'rgba(255,200,50,0.6)';
+    sctx.font = 'bold 9px monospace';
+    sctx.textAlign = 'center';
+    sctx.fillText('☀️ LE SOLEUR SERVEUR', sunX, 20);
+    sctx.font = '7px monospace';
+    sctx.fillText('54 pays capteurs — Calcul photonique — Zero electricite', sunX, SH - 5);
+    sctx.textAlign = 'left';
+
+    // Total power
+    const totalPower = countryDots.reduce(function(s, c){ return s + c.power; }, 0);
+    document.getElementById('sol-power').textContent = totalPower.toFixed(1);
+
+    requestAnimationFrame(drawSun);
+}
+drawSun();
+
+// === PoST COUNTRIES ===
+const postCountries = [
+    {n:'Niger',f:'🇳🇪',s:6.8},{n:'Mali',f:'🇲🇱',s:6.7},{n:'Tchad',f:'🇹🇩',s:6.5},
+    {n:'Soudan',f:'🇸🇩',s:6.6},{n:'Egypte',f:'🇪🇬',s:6.4},{n:'Algerie',f:'🇩🇿',s:6.3},
+    {n:'Libye',f:'🇱🇾',s:6.5},{n:'Mauritanie',f:'🇲🇷',s:6.2},{n:'Nigeria',f:'🇳🇬',s:5.8},
+    {n:'Burkina',f:'🇧🇫',s:6.0},{n:'Senegal',f:'🇸🇳',s:5.9},{n:'Ethiopie',f:'🇪🇹',s:6.1},
+    {n:'Erythree',f:'🇪🇷',s:6.3},{n:'Somalie',f:'🇸🇴',s:6.2},{n:'Kenya',f:'🇰🇪',s:5.7},
+    {n:'Tanzanie',f:'🇹🇿',s:5.5},{n:'Ouganda',f:'🇺🇬',s:5.4},{n:'Rwanda',f:'🇷🇼',s:5.3},
+    {n:'Cote d Ivoire',f:'🇨🇮',s:5.2},{n:'Ghana',f:'🇬🇭',s:5.1},{n:'Togo',f:'🇹🇬',s:5.0},
+    {n:'Benin',f:'🇧🇯',s:5.0},{n:'Guinee',f:'🇬🇳',s:5.1},{n:'Cameroun',f:'🇨🇲',s:5.0},
+    {n:'Centrafrique',f:'🇨🇫',s:5.5},{n:'RDC',f:'🇨🇩',s:5.0},{n:'Congo',f:'🇨🇬',s:5.0},
+    {n:'Gabon',f:'🇬🇦',s:4.8},{n:'Tunisie',f:'🇹🇳',s:5.8},{n:'Maroc',f:'🇲🇦',s:5.6},
+    {n:'Afrique du Sud',f:'🇿🇦',s:5.5},{n:'Namibie',f:'🇳🇦',s:6.0},{n:'Botswana',f:'🇧🇼',s:6.0},
+    {n:'Zimbabwe',f:'🇿🇼',s:5.7},{n:'Zambie',f:'🇿🇲',s:5.8},{n:'Malawi',f:'🇲🇼',s:5.5},
+    {n:'Mozambique',f:'🇲🇿',s:5.5},{n:'Madagascar',f:'🇲🇬',s:5.5},{n:'Angola',f:'🇦🇴',s:5.6},
+    {n:'Burundi',f:'🇧🇮',s:5.0},{n:'Soudan du Sud',f:'🇸🇸',s:6.2},{n:'Djibouti',f:'🇩🇯',s:6.3},
+    {n:'Comores',f:'🇰🇲',s:5.3},{n:'Cabo Verde',f:'🇨🇻',s:5.8},{n:'Sao Tome',f:'🇸🇹',s:4.8},
+    {n:'Seychelles',f:'🇸🇨',s:5.5},{n:'Maurice',f:'🇲🇺',s:5.4},{n:'Gambie',f:'🇬🇲',s:5.5},
+    {n:'Guinee-Bissau',f:'🇬🇼',s:5.3},{n:'Liberia',f:'🇱🇷',s:4.9},{n:'Sierra Leone',f:'🇸🇱',s:4.9},
+    {n:'Lesotho',f:'🇱🇸',s:5.7},{n:'Eswatini',f:'🇸🇿',s:5.5},{n:'Guinee Eq.',f:'🇬🇶',s:4.8}
+];
+
+const postDiv = document.getElementById('post-countries');
+postCountries.sort(function(a, b){ return b.s - a.s; });
+postCountries.forEach(function(c, i){
+    const pct = (c.s / 7) * 100;
+    const div = document.createElement('div');
+    div.style.cssText = 'padding:6px;margin:3px 0;background:rgba(255,170,68,0.05);border:1px solid rgba(255,170,68,0.2);border-radius:4px;font-size:0.85em;';
+    div.innerHTML = '<div style="display:flex;justify-content:space-between;align-items:center;"><span style="color:#ffaa44;font-weight:bold;">' + c.f + ' ' + c.n + '</span><span style="color:#a8c5a8;font-family:monospace;">' + c.s.toFixed(1) + ' kWh/m²/jour</span></div><div style="height:6px;background:rgba(255,170,68,0.1);border-radius:3px;margin-top:4px;overflow:hidden;"><div style="height:100%;width:' + pct + '%;background:linear-gradient(90deg,#FF8800,#FFCC44);border-radius:3px;"></div></div>';
+    postDiv.appendChild(div);
+});
+
+// Mining simulation (PoST)
+setInterval(function(){
+    // Countries with more sun mine more blocks
+    const topCountries = postCountries.slice(0, 10);
+    const miner = topCountries[Math.floor(Math.random() * topCountries.length)];
+    solBlocks++;
+    document.getElementById('sol-blocks').textContent = solBlocks;
+}, 2000);
+
+// === HELIOTROPIC CONTRACTS ===
+const helioContracts = [
+    {name:'Contrat Agricole Sahel', trigger:'Lever du soleil (>100 lux)', action:'Paiement automatique aux agriculteurs', status:'ACTIF'},
+    {name:'Irrigation Auto Mali', trigger:'Ensoleillement > 5 kWh/m²', action:'Activation pompes solaires', status:'ACTIF'},
+    {name:'Stockage Désert Niger', trigger:'Temperature sable > 60°C', action:'Encodage donnees dans silice', status:'ACTIF'},
+    {name:'Marché Solaire Kenya', trigger:'Midi solaire (zenith)', action:'Execution contrats vente AFR', status:'EN ATTENTE'},
+    {name:'Reforestation Congo', trigger:'Captation > 4 kWh/m² cumul', action:'Distribution tokens reforestation', status:'ACTIF'},
+    {name:'Pêche Côtier Sénégal', trigger:'Coucher du soleil (<50 lux)', action:'Validation quotas peche', status:'EN ATTENTE'}
+];
+
+const helioDiv = document.getElementById('helio-contracts');
+helioContracts.forEach(function(c){
+    const div = document.createElement('div');
+    const active = c.status === 'ACTIF';
+    div.style.cssText = 'padding:10px;margin:5px 0;background:rgba(127,207,127,' + (active ? 0.08 : 0.03) + ');border:1px solid ' + (active ? '#7fcf7f' : '#44aaff') + '40;border-radius:6px;';
+    div.innerHTML = '<div style="display:flex;justify-content:space-between;"><span style="color:' + (active ? '#7fcf7f' : '#44aaff') + ';font-weight:bold;">🌿 ' + c.name + '</span><span style="font-size:0.8em;color:' + (active ? '#7fcf7f' : '#44aaff') + ';">' + (active ? '✅ ' : '⏳ ') + c.status + '</span></div><div style="color:#a8c5a8;font-size:0.85em;margin-top:4px;">📋 Declencheur: ' + c.trigger + '</div><div style="color:#a8c5a8;font-size:0.85em;">⚡ Action: ' + c.action + '</div>';
+    helioDiv.appendChild(div);
+});
+
+// === DAY / NIGHT CYCLE ===
+setInterval(function(){
+    const hour = new Date().getUTCHours();
+    const isDay = hour >= 6 && hour < 18;
+    document.getElementById('sol-cycle').textContent = isDay ? 'JOUR ☀️' : 'NUIT 🌙';
+    document.getElementById('sol-cycle').style.color = isDay ? '#ffaa00' : '#44aaff';
+}, 1000);
+
+</script>
+
+<footer style="text-align:center;margin-top:40px;color:#ffaa00;">☀️ Le Soleil Serveur 2500 — Le soleil est le serveur. Le sable est la memoire. La lumiere est le calcul. 💚🦁</footer>"##);
+
+    html.push_str("</body></html>");
+    html
+}
+
 fn html_login(msg: Option<&str>) -> String {
     let mut html = html_head("🔑 Connexion AfriRich");
     html.push_str(r#"<h1>🔑 Connexion</h1><div class="nav"><a href="/">← Retour</a></div>"#);
@@ -6389,7 +6628,7 @@ async fn main() -> std::io::Result<()> {
         .and_then(|i| args.get(i + 1)).cloned().unwrap_or_else(|| "Afrique".to_string());
 
     let my_node_id = generate_node_id();
-    println!("🦁 AfriChain v0.33.1 — Machine TV 54 Pays 2500");
+    println!("🦁 AfriChain v0.34 — Le Soleil Serveur 2500");
     println!("💚 L'Afrique n'a pas besoin de permission");
     println!("🌍 54 pays africains intégrés");
     println!("📖 Annuaire mesh panafricain — tous les numéros sur écoute");
@@ -6609,6 +6848,9 @@ async fn main() -> std::io::Result<()> {
             }))
             .route("/machine-tv", web::get().to(|_s: web::Data<Arc<AppState>>| async move {
                 HttpResponse::Ok().content_type("text/html").body(html_machine_tv())
+            }))
+            .route("/soleil", web::get().to(|_s: web::Data<Arc<AppState>>| async move {
+                HttpResponse::Ok().content_type("text/html").body(html_soleil())
             }))
             .route("/blocks", web::get().to(|s: web::Data<Arc<AppState>>, req: actix_web::HttpRequest| async move {
                 if req.cookie("afri_admin").map(|c| c.value().to_string()) != Some("1".to_string()) {
