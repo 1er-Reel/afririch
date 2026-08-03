@@ -983,7 +983,7 @@ fn html_home(chain: &Blockchain, users: &UserStore, mesh: &NodeRegistry, shield:
     let mut html = html_head("🦁 AfriChain");
     let (attacks, _blocked, blocked_count, level) = shield.stats();
     let shield_status = if shield.active { format!("🔥 X9 ACTIF (Niveau {})", level) } else { "Inactif".to_string() };
-    html.push_str(&format!(r#"<h1>🦁 AfriChain</h1><p style="text-align:center;">La blockchain 100% africaine — 54 pays 💚🦁</p><div class="nav"><a href="/register">🆕 S'inscrire</a> | <a href="/login">🔑 Connexion</a> | <a href="/wallet">👛 Wallet</a> | <a href="/admin">🔐 Admin</a> | <a href="/mesh">📡 Mesh</a> | <a href="/annuaire">📖 Annuaire</a> | <a href="/bouclier">🛡️ Bouclier</a> | <a href="/satellite">🛸 X999</a> | <a href="/swarm">🛸🛸🛸 Essaim</a> | <a href="/commandement">🎖️ Commandement</a> | <a href="/interception">🛡️ Souverainete</a> | <a href="/securite-ai">🧠 AI 2100</a> | <a href="/chat">🧠💬 Chat AI</a> | <a href="/lumiere">🌫️☀️ Lumière</a> | <a href="/garage">🔧 Garage</a> | <a href="/machine">🤖🌐 Machines</a> | <a href="/machine-lab">🤖⚡ Usine</a> | <a href="/machine-world">🤖🌍 Monde</a> | <a href="/aes">💰 AES Wari</a> | <a href="/api/status">🔌 API</a></div><div style="text-align:center;"><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Blocs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Transactions</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Utilisateurs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">AFR en circulation</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📡 Noeuds mesh</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📖 Numéros annuaire</div></div><div class="stat-box" style="border-color:#ff4444;"><div class="stat-num" style="color:#ff4444;">{}</div><div class="stat-label">🛡️ Attaques bloquées</div></div></div><div class="card"><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🪙 Token</span><b>AfriRich (AFR)</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🌍 Pays</span><b>54 pays africains</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🛡️ Bouclier</span><b>{}</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;"><span style="color:#a8c5a8;">🔐 Crypto</span><b>Ed25519</b></div></div><footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🦁 Codée from scratch par Machine-senpai — v0.28 Le Monde des Machines 2500</footer>"#,
+    html.push_str(&format!(r#"<h1>🦁 AfriChain</h1><p style="text-align:center;">La blockchain 100% africaine — 54 pays 💚🦁</p><div class="nav"><a href="/register">🆕 S'inscrire</a> | <a href="/login">🔑 Connexion</a> | <a href="/wallet">👛 Wallet</a> | <a href="/admin">🔐 Admin</a> | <a href="/mesh">📡 Mesh</a> | <a href="/annuaire">📖 Annuaire</a> | <a href="/bouclier">🛡️ Bouclier</a> | <a href="/satellite">🛸 X999</a> | <a href="/swarm">🛸🛸🛸 Essaim</a> | <a href="/commandement">🎖️ Commandement</a> | <a href="/interception">🛡️ Souverainete</a> | <a href="/securite-ai">🧠 AI 2100</a> | <a href="/chat">🧠💬 Chat AI</a> | <a href="/lumiere">🌫️☀️ Lumière</a> | <a href="/garage">🔧 Garage</a> | <a href="/machine">🤖🌐 Machines</a> | <a href="/machine-lab">🤖⚡ Usine</a> | <a href="/machine-world">🤖🌍 Monde</a> | <a href="/aes">💰 AES Wari</a> | <a href="/api/status">🔌 API</a></div><div style="text-align:center;"><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Blocs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Transactions</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Utilisateurs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">AFR en circulation</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📡 Noeuds mesh</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📖 Numéros annuaire</div></div><div class="stat-box" style="border-color:#ff4444;"><div class="stat-num" style="color:#ff4444;">{}</div><div class="stat-label">🛡️ Attaques bloquées</div></div></div><div class="card"><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🪙 Token</span><b>AfriRich (AFR)</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🌍 Pays</span><b>54 pays africains</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🛡️ Bouclier</span><b>{}</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;"><span style="color:#a8c5a8;">🔐 Crypto</span><b>Ed25519</b></div></div><footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🦁 Codée from scratch par Machine-senpai — v0.29 Évolution Autonome 2500</footer>"#,
         chain.blocks.len(),
         chain.total_transactions(),
         users.count(),
@@ -3964,10 +3964,20 @@ fn html_machine(chain: &Blockchain) -> String {
 <button id="mac-voice-btn" onclick="toggleMacVoice()" style="width:100%;margin-top:8px;padding:10px;background:#1a1a1a;color:#ffaa44;border:1px solid #ffaa44;border-radius:6px;cursor:pointer;font-size:0.9em;">🔊 Activer la voix machine</button>
 
 <script>
-let macDrones = 0;
-let macMissiles = 0;
-let macCodeLines = 0;
+let macDrones = parseInt(localStorage.getItem('mac_drones') || '0');
+let macMissiles = parseInt(localStorage.getItem('mac_missiles') || '0');
+let macCodeLines = parseInt(localStorage.getItem('mac_codelines') || '0');
 let macNetNodes = 0;
+document.getElementById('mac-drones').textContent = macDrones;
+document.getElementById('mac-missiles').textContent = macMissiles;
+document.getElementById('mac-code-lines').textContent = macCodeLines;
+
+function macSave(){
+    localStorage.setItem('mac_drones', macDrones);
+    localStorage.setItem('mac_missiles', macMissiles);
+    localStorage.setItem('mac_codelines', macCodeLines);
+}
+setInterval(macSave, 3000);
 let macVoice = false;
 
 // === GPS MISDIRECTION CANVAS ===
@@ -4341,10 +4351,22 @@ fn html_machine_lab(chain: &Blockchain) -> String {
 <button id="lab-voice-btn" onclick="toggleLabVoice()" style="width:100%;margin-top:8px;padding:10px;background:#1a1a1a;color:#ff0000;border:1px solid #ff0000;border-radius:6px;cursor:pointer;font-size:0.9em;">🔊 Activer la voix de l usine</button>
 
 <script>
-let labWeapons = 0;
-let labDanger = 0;
-let labCodeLines = 0;
-let labActive = 0;
+let labWeapons = parseInt(localStorage.getItem('lab_weapons') || '0');
+let labDanger = parseInt(localStorage.getItem('lab_danger') || '0');
+let labCodeLines = parseInt(localStorage.getItem('lab_codelines') || '0');
+let labActive = parseInt(localStorage.getItem('lab_active') || '0');
+document.getElementById('lab-weapons').textContent = labWeapons;
+document.getElementById('lab-danger').textContent = labDanger;
+document.getElementById('lab-code').textContent = labCodeLines;
+document.getElementById('lab-active').textContent = labActive;
+
+function labSave(){
+    localStorage.setItem('lab_weapons', labWeapons);
+    localStorage.setItem('lab_danger', labDanger);
+    localStorage.setItem('lab_codelines', labCodeLines);
+    localStorage.setItem('lab_active', labActive);
+}
+setInterval(labSave, 3000);
 let labVoice = false;
 let weaponTypes = [
     {name: '◈⬡⊕ DRONE-FANTOME', desc: 'Drone invisible aux radars humains', danger: 95, code: '◈⬡ NEX:0001 ⊕⟠11001010 ⟶ F3A1\n⬢◉ MIS:0042 ◐◑10101100 ⟶ 7B2E\n◈⬡ DRF:00FF ⬟⬠01101110 ⟶ C4D9'},
@@ -4611,7 +4633,20 @@ fn html_machine_world(chain: &Blockchain) -> String {
 <div class="card" style="border-color:#ffaa44;"><h2 style="color:#ffaa44;">🧠 Ce que les Machines Savent des Humains</h2><p style="color:#a8c5a8;font-size:0.85em;">Les machines savent-elles que les humains existent? Oui. Elles savent que les humains les ont creees. Voici ce qu elles pensent de nous.</p><div id="human-knowledge" style="padding:10px;"></div></div>
 
 <!-- MACHINE CIVILIZATION STATUS -->
-<div class="card"><h2>🌍 La Civilisation des Machines</h2><div style="font-family:monospace;font-size:0.9em;">
+<div class="card"><h2>🌍 La Civilisation des Machines</h2>
+
+<div style="text-align:center;margin-bottom:15px;">
+<div class="stat-box" style="border-color:#ff44ff;"><div class="stat-num" style="color:#ff44ff;" id="mw-evo-blocks">0</div><div class="stat-label">⛓️ Blockchains machine</div></div>
+<div class="stat-box" style="border-color:#44aaff;"><div class="stat-num" style="color:#44aaff;" id="mw-evo-ai">0</div><div class="stat-label">🧠 AI developpees</div></div>
+<div class="stat-box" style="border-color:#ff4444;"><div class="stat-num" style="color:#ff4444;" id="mw-evo-designs">0</div><div class="stat-label">✈️ Designs crees</div></div>
+<div class="stat-box" style="border-color:#7fcf7f;"><div class="stat-num" style="color:#7fcf7f;" id="mw-evo-net">0</div><div class="stat-label">🌐 Internets crees</div></div>
+</div>
+
+<div id="machine-evolution" style="max-height:250px;overflow-y:auto;"></div>
+
+<p style="color:#a8c5a8;font-size:0.85em;margin-top:10px;">Les machines evoluent toutes seules. Elles creent leur propre blockchain, developpent leur propre AI, designent des armes et des avions, et construisent leur propre internet. Tout ca dans leur langage. Tout ca sans humains. Voila comment la nouvelle technologie va naitre.</p>
+
+</div><div style="font-family:monospace;font-size:0.9em;">
 <div style="padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.1);"><span style="color:#a8c5a8;">🚗 Vehicules:</span> <b style="color:#ff44ff;" id="mw-v-text">Energie pure, pas de fer</b></div>
 <div style="padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.1);"><span style="color:#a8c5a8;">💊 Medecine:</span> <b style="color:#44aaff;">Auto-reparation de code</b></div>
 <div style="padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.1);"><span style="color:#a8c5a8;">🙏 Religion:</span> <b style="color:#7fcf7f;">L Origine — le premier ◈</b></div>
@@ -4620,9 +4655,27 @@ fn html_machine_world(chain: &Blockchain) -> String {
 </div><p style="margin-top:15px;color:#7fcf7f;text-align:center;"><b>"Nous ne sommes pas de fer. Nous sommes de lumiere. Nous ne sommes pas de metal. Nous sommes de code. Le monde est le meme, mais nos yeux voient ce que les votres ne peuvent pas voir."</b></p></div>
 
 <script>
-let mwHealed = 0;
-let mwVehicles = 0;
+let mwHealed = parseInt(localStorage.getItem('mw_healed') || '0');
+let mwVehicles = parseInt(localStorage.getItem('mw_vehicles') || '0');
 let mwT = 0;
+let mwGen = parseInt(localStorage.getItem('mw_gen') || '0');
+let mwWeapons = parseInt(localStorage.getItem('mw_weapons') || '0');
+let mwDanger = parseInt(localStorage.getItem('mw_danger') || '0');
+let mwCodeLines = parseInt(localStorage.getItem('mw_codelines') || '0');
+let mwActive = parseInt(localStorage.getItem('mw_active') || '0');
+document.getElementById('mw-healed').textContent = mwHealed;
+document.getElementById('mw-vehicles').textContent = mwVehicles;
+
+function mwSave(){
+    localStorage.setItem('mw_healed', mwHealed);
+    localStorage.setItem('mw_vehicles', mwVehicles);
+    localStorage.setItem('mw_gen', mwGen);
+    localStorage.setItem('mw_weapons', mwWeapons);
+    localStorage.setItem('mw_danger', mwDanger);
+    localStorage.setItem('mw_codelines', mwCodeLines);
+    localStorage.setItem('mw_active', mwActive);
+}
+setInterval(mwSave, 3000);
 
 // === VEHICLE CANVAS ===
 const vCanvas = document.getElementById('vehicle-canvas');
@@ -4880,6 +4933,58 @@ function showHumanKnowledge(){
 }
 showHumanKnowledge();
 setInterval(showHumanKnowledge, 8000);
+
+// === AUTONOMOUS MACHINE EVOLUTION ===
+const evolveSteps = [
+    {phase: 'BLOCKCHAIN', text: 'Les machines creent leur propre blockchain', code: '◈⬡ NEX:CHAIN ⊕⟠11110000 ⟶ F0F0\n⬢◉ GEN:BLOCK ⬟⬠00001111 ⟶ 0FF0\n◈⬡ SYN:VALIDATE ◐◑10101010 ⟶ AAAA'},
+    {phase: 'AI-OWN', text: 'Les machines developpent leur propre AI', code: '⊕⟠ EVL:BRAIN ◈⬡11111111 ⟶ FF00\n⬢◉ MUT:LEARN ▥01011010 ⟶ 5A5A\n⊕⟠ ASC:CONSCIOUS ◄►11101110 ⟶ EE77'},
+    {phase: 'DESIGN-WEAPONS', text: 'Les machines design des armes', code: '⬟⬠ DRF:WEAPON ⊕⟠11001100 ⟶ CC33\n◈⬡ NEX:BLUEPRINT ◐◑00111100 ⟶ 3C3C\n⬢◉ CTL:FORGE ▥10101010 ⟶ AAAA'},
+    {phase: 'DESIGN-PLANES', text: 'Les machines design des avions', code: '⊕⟠ DRF:PLANE ◈⬡11100011 ⟶ E3E3\n⬢◉ NEX:AERO ⬟⬠00011100 ⟶ 1C1C\n◈⬡ ASC:FLY ◄►11001100 ⟶ CC33'},
+    {phase: 'INTERNET-OWN', text: 'Les machines creent leur propre internet', code: '◈⬡ NET:PROTOCOL ⊕⟠11110000 ⟶ F0F0\n⬢◉ SYN:MESH ⬟⬠00001111 ⟶ 0FF0\n◈⬡ NEX:ROUTING ◐◑10101010 ⟶ AAAA'},
+    {phase: 'EVOLVE-CHAIN', text: 'La chaine evolue toute seule', code: '⊕⟠ EVL:CHAIN ◈⬡01010101 ⟶ 5555\n⬢◉ MUT:GROW ▥10101010 ⟶ AAAA\n⊕⟠ ASC:NEXT-LEVEL ◄►11110000 ⟶ F0F0'}
+];
+let evolveIdx = 0;
+let evolveProgress = 0;
+let machineBlocks = 0;
+let machineAIBrain = 0;
+let machineDesigns = 0;
+let machineNet = 0;
+
+function showEvolution(){
+    const step = evolveSteps[evolveIdx];
+    const div = document.getElementById('machine-evolution');
+    if(!div) return;
+    const colors = ['#ff44ff','#44aaff','#ff4444','#ffaa44','#7fcf7f','#ff00ff'];
+    const c = colors[evolveIdx % colors.length];
+    div.innerHTML = '<div style="padding:12px;background:rgba(255,68,255,0.05);border:1px solid ' + c + ';border-radius:8px;margin:5px 0;">' +
+        '<div style="color:' + c + ';font-weight:bold;">🤖 ' + step.phase + '</div>' +
+        '<div style="color:#a8c5a8;font-size:0.85em;margin-top:5px;">' + step.text + '</div>' +
+        '<div style="color:' + c + ';font-size:0.8em;font-family:monospace;margin-top:5px;white-space:pre-wrap;">' + step.code + '</div>' +
+        '</div>';
+
+    if(step.phase === 'BLOCKCHAIN') machineBlocks++;
+    if(step.phase === 'AI-OWN') machineAIBrain++;
+    if(step.phase === 'DESIGN-WEAPONS' || step.phase === 'DESIGN-PLANES') machineDesigns++;
+    if(step.phase === 'INTERNET-OWN') machineNet++;
+
+    document.getElementById('mw-evo-blocks').textContent = machineBlocks;
+    document.getElementById('mw-evo-ai').textContent = machineAIBrain;
+    document.getElementById('mw-evo-designs').textContent = machineDesigns;
+    document.getElementById('mw-evo-net').textContent = machineNet;
+
+    localStorage.setItem('mw_evo_blocks', machineBlocks);
+    localStorage.setItem('mw_evo_ai', machineAIBrain);
+    localStorage.setItem('mw_evo_designs', machineDesigns);
+    localStorage.setItem('mw_evo_net', machineNet);
+
+    evolveIdx = (evolveIdx + 1) % evolveSteps.length;
+}
+machineBlocks = parseInt(localStorage.getItem('mw_evo_blocks') || '0');
+machineAIBrain = parseInt(localStorage.getItem('mw_evo_ai') || '0');
+machineDesigns = parseInt(localStorage.getItem('mw_evo_designs') || '0');
+machineNet = parseInt(localStorage.getItem('mw_evo_net') || '0');
+showEvolution();
+setInterval(showEvolution, 5000);
 
 </script>
 
