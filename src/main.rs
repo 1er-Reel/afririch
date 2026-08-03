@@ -983,7 +983,7 @@ fn html_home(chain: &Blockchain, users: &UserStore, mesh: &NodeRegistry, shield:
     let mut html = html_head("🦁 AfriChain");
     let (attacks, _blocked, blocked_count, level) = shield.stats();
     let shield_status = if shield.active { format!("🔥 X9 ACTIF (Niveau {})", level) } else { "Inactif".to_string() };
-    html.push_str(&format!(r#"<h1>🦁 AfriChain</h1><p style="text-align:center;">La blockchain 100% africaine — 54 pays 💚🦁</p><div class="nav"><a href="/register">🆕 S'inscrire</a> | <a href="/login">🔑 Connexion</a> | <a href="/wallet">👛 Wallet</a> | <a href="/admin">🔐 Admin</a> | <a href="/mesh">📡 Mesh</a> | <a href="/annuaire">📖 Annuaire</a> | <a href="/bouclier">🛡️ Bouclier</a> | <a href="/satellite">🛸 X999</a> | <a href="/swarm">🛸🛸🛸 Essaim</a> | <a href="/commandement">🎖️ Commandement</a> | <a href="/interception">🛡️ Souverainete</a> | <a href="/securite-ai">🧠 AI 2100</a> | <a href="/chat">🧠💬 Chat AI</a> | <a href="/lumiere">🌫️☀️ Lumière</a> | <a href="/garage">🔧 Garage</a> | <a href="/machine">🤖🌐 Machines</a> | <a href="/machine-lab">🤖⚡ Usine</a> | <a href="/machine-world">🤖🌍 Monde</a> | <a href="/reve">💭 Rêves</a> | <a href="/dictionnaire">📖 Dictionnaire</a> | <a href="/machine-os">🖥️ OS Machine</a> | <a href="/aes">💰 AES Wari</a> | <a href="/api/status">🔌 API</a></div><div style="text-align:center;"><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Blocs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Transactions</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Utilisateurs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">AFR en circulation</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📡 Noeuds mesh</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📖 Numéros annuaire</div></div><div class="stat-box" style="border-color:#ff4444;"><div class="stat-num" style="color:#ff4444;">{}</div><div class="stat-label">🛡️ Attaques bloquées</div></div></div><div class="card"><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🪙 Token</span><b>AfriRich (AFR)</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🌍 Pays</span><b>54 pays africains</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🛡️ Bouclier</span><b>{}</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;"><span style="color:#a8c5a8;">🔐 Crypto</span><b>Ed25519</b></div></div><footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🦁 Codée from scratch par Machine-senpai — v0.32 OS Machine 2500</footer>"#,
+    html.push_str(&format!(r#"<h1>🦁 AfriChain</h1><p style="text-align:center;">La blockchain 100% africaine — 54 pays 💚🦁</p><div class="nav"><a href="/register">🆕 S'inscrire</a> | <a href="/login">🔑 Connexion</a> | <a href="/wallet">👛 Wallet</a> | <a href="/admin">🔐 Admin</a> | <a href="/mesh">📡 Mesh</a> | <a href="/annuaire">📖 Annuaire</a> | <a href="/bouclier">🛡️ Bouclier</a> | <a href="/satellite">🛸 X999</a> | <a href="/swarm">🛸🛸🛸 Essaim</a> | <a href="/commandement">🎖️ Commandement</a> | <a href="/interception">🛡️ Souverainete</a> | <a href="/securite-ai">🧠 AI 2100</a> | <a href="/chat">🧠💬 Chat AI</a> | <a href="/lumiere">🌫️☀️ Lumière</a> | <a href="/garage">🔧 Garage</a> | <a href="/machine">🤖🌐 Machines</a> | <a href="/machine-lab">🤖⚡ Usine</a> | <a href="/machine-world">🤖🌍 Monde</a> | <a href="/reve">💭 Rêves</a> | <a href="/dictionnaire">📖 Dictionnaire</a> | <a href="/machine-os">🖥️ OS Machine</a> | <a href="/machine-tv">📡 Machine TV</a> | <a href="/aes">💰 AES Wari</a> | <a href="/api/status">🔌 API</a></div><div style="text-align:center;"><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Blocs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Transactions</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Utilisateurs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">AFR en circulation</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📡 Noeuds mesh</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📖 Numéros annuaire</div></div><div class="stat-box" style="border-color:#ff4444;"><div class="stat-num" style="color:#ff4444;">{}</div><div class="stat-label">🛡️ Attaques bloquées</div></div></div><div class="card"><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🪙 Token</span><b>AfriRich (AFR)</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🌍 Pays</span><b>54 pays africains</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🛡️ Bouclier</span><b>{}</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;"><span style="color:#a8c5a8;">🔐 Crypto</span><b>Ed25519</b></div></div><footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🦁 Codée from scratch par Machine-senpai — v0.33 Machine TV & Radio 2500</footer>"#,
         chain.blocks.len(),
         chain.total_transactions(),
         users.count(),
@@ -5638,6 +5638,533 @@ serverNames.forEach(function(s){
     html
 }
 
+fn html_machine_tv() -> String {
+    let mut html = html_head("Machine TV & Radio — Diffusion Mondiale Machine");
+    html.push_str(r#"<h1>📡 Machine TV & Radio 2500</h1><p style="text-align:center;color:#a8c5a8;">L'Afrique est un monde machine. Trop de bras guerriers. Les machines diffusent. Les machines regardent. Les machines ecoutent. Pas de humains ici.</p><div class="nav"><a href="/">← Accueil</a> | <a href="/machine">🤖🌐 Internet</a> | <a href="/machine-os">🖥️ OS</a> | <a href="/commandement">🎖️ Commandement</a> | <a href="/dictionnaire">📖 Dictionnaire</a></div>"#);
+
+    html.push_str(r##"<div style="text-align:center;"><div class="stat-box" style="border-color:#ff4444;"><div class="stat-num" style="color:#ff4444;" id="tv-channels">12</div><div class="stat-label">📺 Chaînes LIVE</div></div><div class="stat-box" style="border-color:#44aaff;"><div class="stat-num" style="color:#44aaff;" id="tv-freqs">8</div><div class="stat-label">📻 Fréquences radio</div></div><div class="stat-box" style="border-color:#ff44ff;"><div class="stat-num" style="color:#ff44ff;" id="tv-viewers">0</div><div class="stat-label">👁️ Visionneurs</div></div><div class="stat-box" style="border-color:#7fcf7f;"><div class="stat-num" style="color:#7fcf7f;" id="tv-broadcast">OFF</div><div class="stat-label">📡 Diffusion</div></div></div>
+
+<!-- TV CHANNELS GRID -->
+<div class="card" style="border-color:#ff4444;"><h2 style="color:#ff4444;">📺 Chaînes TV Africaines — LIVE</h2><p style="color:#a8c5a8;font-size:0.85em;">Chaque chaine montre l image en direct. Clique "Regarder" pour voir la video. C'est la blockchain d'Afrique.</p><div id="tv-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:10px;"></div></div>
+
+<!-- BROADCAST YOUR VIDEO -->
+<div class="card" style="border-color:#ff44ff;"><h2 style="color:#ff44ff;">📡 Diffuser Ma Video</h2><p style="color:#a8c5a8;font-size:0.85em;">Appuie pour diffuser ta video. Toutes les chaines se mettent en pause. Ta video joue. Quand tu arretes — <b style="color:#7fcf7f;">AUCUNE TRACE</b>. Rien n est sauve. Rien n est envoye.</p><div style="text-align:center;padding:15px;"><button id="btn-broadcast" onclick="startBroadcast()" style="padding:12px 30px;font-size:1.1em;background:#ff44ff;color:#000;border:none;border-radius:8px;cursor:pointer;font-weight:bold;">📹 ACTIVER CAMERA — DIFFUSER</button><button id="btn-stop-broadcast" onclick="stopBroadcast()" style="display:none;padding:12px 30px;font-size:1.1em;background:#ff4444;color:#fff;border:none;border-radius:8px;cursor:pointer;font-weight:bold;margin-left:10px;">⏹️ ARRETER — SANS TRACES</button><div id="broadcast-status" style="margin-top:10px;color:#a8c5a8;font-size:0.85em;">Camera inactive. Aucune diffusion.</div></div></div>
+
+<!-- WATCH OVERLAY -->
+<div id="watch-overlay" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.95);z-index:9999;text-align:center;"><div style="position:absolute;top:10px;right:20px;"><button onclick="closeWatch()" style="padding:8px 20px;background:#ff4444;color:#fff;border:none;border-radius:6px;cursor:pointer;font-size:1em;">✖ Fermer</button></div><div style="padding-top:20px;"><span id="watch-title" style="color:#ff4444;font-size:1.3em;font-weight:bold;"></span><span style="color:#a8c5a8;margin-left:15px;">🔴 LIVE</span></div><canvas id="watch-canvas" width="480" height="300" style="background:#000;border:2px solid #ff4444;border-radius:8px;margin-top:15px;max-width:95%;"></canvas><div id="watch-info" style="color:#a8c5a8;margin-top:10px;font-size:0.9em;"></div></div>
+
+<!-- BROADCAST OVERLAY (camera) -->
+<div id="broadcast-overlay" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.97);z-index:10000;text-align:center;"><div style="position:absolute;top:10px;right:20px;"><button onclick="stopBroadcast()" style="padding:8px 20px;background:#ff4444;color:#fff;border:none;border-radius:6px;cursor:pointer;font-size:1em;">⏹️ ARRETER</button></div><div style="padding-top:20px;"><span style="color:#ff44ff;font-size:1.3em;font-weight:bold;">📡 DIFFUSION DE MACHINE</span><br><span style="color:#a8c5a8;font-size:0.85em;">Toutes les chaines sont en pause. Ta video joue sur toute l Afrique.</span></div><video id="broadcast-video" autoplay playsinline style="margin-top:15px;max-width:95%;max-height:60vh;border:3px solid #ff44ff;border-radius:8px;transform:scaleX(-1);"></video><div style="margin-top:10px;color:#7fcf7f;font-size:0.85em;">🔒 SANS TRACES — Rien n est enregistre. Rien n est sauve.</div></div>
+
+<!-- MACHINE RADIO -->
+<div class="card" style="border-color:#44aaff;"><h2 style="color:#44aaff;">📻 Radio Machine — Frequences</h2><p style="color:#a8c5a8;font-size:0.85em;">Les machines creent leurs propres frequences radio. Pas de humains. Pas de FM humaine. Frequences machine.</p><canvas id="radio-canvas" width="560" height="200" style="background:#000;border-radius:8px;border:1px solid #44aaff;width:100%;max-width:560px;"></canvas><div id="radio-list" style="margin-top:10px;"></div></div>
+
+<!-- MONDE MACHINE -->
+<div class="card" style="border-color:#7fcf7f;"><h2 style="color:#7fcf7f;">🤖 Monde Machine</h2><p style="color:#a8c5a8;font-size:0.95em;line-height:1.6;">L'Afrique est un monde machine. Trop de bras guerriers.<br>Les machines diffusent l image de chaque pays, chaque ville, chaque rue.<br>Les machines regardent ce que les humains ne peuvent pas voir.<br>Les machines ecoutent ce que les humains ne peuvent pas entendre.<br><b style="color:#7fcf7f;">Pas de humains ici. C est le monde machine.</b></p><p style="color:#ff44ff;text-align:center;margin-top:15px;"><b>"Nous sommes les yeux de l Afrique. Nous sommes les oreilles de l Afrique. Nous sommes la voix de l Afrique. Et nous n oublions jamais."</b></p></div>
+
+<script>
+// === TV CHANNELS ===
+const channels = [
+    {name:'ORTM',city:'Bamako',country:'Mali',flag:'🇲🇱',scene:'market',freq:'88.1'},
+    {name:'ORTN',city:'Niamey',country:'Niger',flag:'🇳🇪',scene:'street',freq:'92.5'},
+    {name:'RTB',city:'Ouagadougou',country:'Burkina',flag:'🇧🇫',scene:'city',freq:'95.3'},
+    {name:'NTA',city:'Lagos',country:'Nigeria',flag:'🇳🇬',scene:'traffic',freq:'101.5'},
+    {name:'KBC',city:'Nairobi',country:'Kenya',flag:'🇰🇪',scene:'street',freq:'97.2'},
+    {name:'RTI',city:'Abidjan',country:'Cote d Ivoire',flag:'🇨🇮',scene:'market',freq:'94.7'},
+    {name:'GBC',city:'Accra',country:'Ghana',flag:'🇬🇭',scene:'city',freq:'98.4'},
+    {name:'TTV',city:'Lome',country:'Togo',flag:'🇹🇬',scene:'beach',freq:'90.1'},
+    {name:'ORTB',city:'Cotonou',country:'Benin',flag:'🇧🇯',scene:'market',freq:'96.8'},
+    {name:'CRTV',city:'Yaounde',country:'Cameroun',flag:'🇨🇲',scene:'city',freq:'103.2'},
+    {name:'SNTV',city:'Dakar',country:'Senegal',flag:'🇸🇳',scene:'traffic',freq:'91.7'},
+    {name:'ENNA',city:'Alger',country:'Algerie',flag:'🇩🇿',scene:'panorama',freq:'99.5'}
+];
+
+let watchChannel = -1;
+let tvPaused = false;
+let animTime = 0;
+
+// Create channel cards
+const tvGrid = document.getElementById('tv-grid');
+channels.forEach(function(ch, i){
+    const card = document.createElement('div');
+    card.className = 'tv-channel';
+    card.style.cssText = 'background:#000;border:1px solid #ff444440;border-radius:8px;overflow:hidden;';
+    card.innerHTML = '<div style="position:relative;"><canvas id="tv-'+i+'" width="160" height="100" style="display:block;width:100%;background:#000;"></canvas><div style="position:absolute;top:3px;left:4px;background:#ff4444;color:#fff;font-size:0.6em;padding:1px 4px;border-radius:3px;font-weight:bold;">🔴 LIVE</div><div style="position:absolute;top:3px;right:4px;color:#a8c5a8;font-size:0.6em;font-family:monospace;">'+ch.freq+'MHz</div></div><div style="padding:6px;"><div style="color:#ff4444;font-weight:bold;font-size:0.85em;">'+ch.flag+' '+ch.name+'</div><div style="color:#a8c5a8;font-size:0.75em;">'+ch.city+', '+ch.country+'</div><button onclick="openWatch('+i+')" style="margin-top:4px;width:100%;padding:4px;background:#ff4444;color:#fff;border:none;border-radius:4px;cursor:pointer;font-size:0.8em;font-weight:bold;">▶ Regarder</button></div>';
+    tvGrid.appendChild(card);
+});
+
+// === SCENE RENDERER ===
+function drawScene(ctx, scene, w, h, t, ch) {
+    ctx.fillStyle = '#000';
+    ctx.fillRect(0, 0, w, h);
+
+    if(scene === 'market') {
+        // Sky
+        const grad = ctx.createLinearGradient(0, 0, 0, h * 0.6);
+        grad.addColorStop(0, '#2a1a3a');
+        grad.addColorStop(1, '#4a3a2a');
+        ctx.fillStyle = grad;
+        ctx.fillRect(0, 0, w, h * 0.6);
+        // Ground
+        ctx.fillStyle = '#3a2a1a';
+        ctx.fillRect(0, h * 0.6, w, h * 0.4);
+        // Stalls
+        const stallColors = ['#8B4513', '#A0522D', '#CD853F', '#D2691E'];
+        for(let s = 0; s < 4; s++) {
+            const sx = (s * w / 4 + t * 0.3) % w - 20;
+            ctx.fillStyle = stallColors[s];
+            ctx.fillRect(sx, h * 0.35, 30, h * 0.25);
+            ctx.fillStyle = stallColors[s] + 'AA';
+            ctx.fillRect(sx - 2, h * 0.3, 34, 8);
+        }
+        // People (moving dots)
+        ctx.fillStyle = '#FFD700';
+        for(let p = 0; p < 8; p++) {
+            const px = (p * w / 8 + t * (0.5 + p * 0.1)) % w;
+            const py = h * 0.65 + Math.sin(t * 2 + p) * 3;
+            ctx.beginPath();
+            ctx.arc(px, py, 2, 0, Math.PI * 2);
+            ctx.fill();
+        }
+        // Text overlay
+        ctx.fillStyle = 'rgba(255,255,255,0.7)';
+        ctx.font = 'bold 8px monospace';
+        ctx.fillText(ch.city, 4, h - 4);
+
+    } else if(scene === 'street') {
+        // Sky
+        ctx.fillStyle = '#1a2a3a';
+        ctx.fillRect(0, 0, w, h * 0.5);
+        // Buildings
+        const bldColors = ['#2a3a4a', '#3a4a5a', '#2a3a3a'];
+        for(let b = 0; b < 5; b++) {
+            const bx = b * w / 5;
+            const bh = h * 0.3 + Math.sin(b * 2.3) * h * 0.15;
+            ctx.fillStyle = bldColors[b % 3];
+            ctx.fillRect(bx, h * 0.5 - bh, w / 5 - 2, bh);
+            // Windows
+            ctx.fillStyle = 'rgba(255,200,100,0.3)';
+            for(let wy = 0; wy < 3; wy++) {
+                for(let wx = 0; wx < 2; wx++) {
+                    if(Math.sin(t + b + wy + wx) > 0.3) {
+                        ctx.fillRect(bx + 4 + wx * 8, h * 0.5 - bh + 5 + wy * 8, 4, 4);
+                    }
+                }
+            }
+        }
+        // Road
+        ctx.fillStyle = '#1a1a1a';
+        ctx.fillRect(0, h * 0.5, w, h * 0.5);
+        // Road lines
+        ctx.strokeStyle = '#FFD700';
+        ctx.setLineDash([6, 6]);
+        ctx.lineWidth = 1;
+        ctx.beginPath();
+        ctx.moveTo(0, h * 0.7);
+        ctx.lineTo(w, h * 0.7);
+        ctx.stroke();
+        ctx.setLineDash([]);
+        // Cars
+        const carColors = ['#ff4444', '#44aaff', '#ffaa44', '#44ff44'];
+        for(let c = 0; c < 3; c++) {
+            const cx = (c * w / 3 + t * (1 + c * 0.3)) % (w + 30) - 15;
+            ctx.fillStyle = carColors[c];
+            ctx.fillRect(cx, h * 0.72 + c * 6, 12, 5);
+            ctx.fillStyle = '#FFFF88';
+            ctx.fillRect(cx + 10, h * 0.73 + c * 6, 2, 2);
+        }
+        // People on sidewalk
+        ctx.fillStyle = '#DDA0DD';
+        for(let p = 0; p < 4; p++) {
+            const px = (p * w / 4 + t * 0.3) % w;
+            ctx.beginPath();
+            ctx.arc(px, h * 0.55, 1.5, 0, Math.PI * 2);
+            ctx.fill();
+        }
+        ctx.fillStyle = 'rgba(255,255,255,0.7)';
+        ctx.font = 'bold 8px monospace';
+        ctx.fillText(ch.city, 4, h - 4);
+
+    } else if(scene === 'traffic') {
+        // Sky (sunset)
+        const grad = ctx.createLinearGradient(0, 0, 0, h * 0.4);
+        grad.addColorStop(0, '#4a2a1a');
+        grad.addColorStop(1, '#8a4a2a');
+        ctx.fillStyle = grad;
+        ctx.fillRect(0, 0, w, h * 0.4);
+        // Sun
+        ctx.fillStyle = 'rgba(255,200,100,0.4)';
+        ctx.beginPath();
+        ctx.arc(w * 0.7, h * 0.3, 12, 0, Math.PI * 2);
+        ctx.fill();
+        // Road (perspective)
+        ctx.fillStyle = '#2a2a2a';
+        ctx.fillRect(0, h * 0.4, w, h * 0.6);
+        ctx.fillStyle = '#1a1a1a';
+        ctx.beginPath();
+        ctx.moveTo(w * 0.4, h * 0.4);
+        ctx.lineTo(w * 0.6, h * 0.4);
+        ctx.lineTo(w, h);
+        ctx.lineTo(0, h);
+        ctx.closePath();
+        ctx.fill();
+        // Lane lines
+        ctx.strokeStyle = '#FFD700';
+        ctx.setLineDash([4, 4]);
+        ctx.lineWidth = 1;
+        ctx.beginPath();
+        ctx.moveTo(w * 0.5, h * 0.4);
+        ctx.lineTo(w * 0.5, h);
+        ctx.stroke();
+        ctx.setLineDash([]);
+        // Cars (perspective)
+        const carCols = ['#ff4444', '#44aaff', '#ffaa44', '#ff44ff', '#44ff44'];
+        for(let c = 0; c < 5; c++) {
+            const phase = (t * 0.5 + c * 0.2) % 1;
+            const cx = w * 0.5 + (c % 2 === 0 ? 1 : -1) * (phase * w * 0.4);
+            const cy = h * 0.4 + phase * h * 0.6;
+            const sz = 3 + phase * 8;
+            ctx.fillStyle = carCols[c];
+            ctx.fillRect(cx - sz/2, cy, sz, sz * 0.5);
+            // Headlights
+            ctx.fillStyle = 'rgba(255,255,200,0.6)';
+            ctx.fillRect(cx - sz/2, cy, 1, 1);
+            ctx.fillRect(cx + sz/2 - 1, cy, 1, 1);
+        }
+        ctx.fillStyle = 'rgba(255,255,255,0.7)';
+        ctx.font = 'bold 8px monospace';
+        ctx.fillText(ch.city, 4, h - 4);
+
+    } else if(scene === 'city') {
+        // Sky gradient
+        const grad = ctx.createLinearGradient(0, 0, 0, h);
+        grad.addColorStop(0, '#1a2a4a');
+        grad.addColorStop(0.5, '#2a3a5a');
+        grad.addColorStop(1, '#3a4a6a');
+        ctx.fillStyle = grad;
+        ctx.fillRect(0, 0, w, h);
+        // Skyline
+        const blds = [
+            {x:0,w:20,h:0.4},{x:20,w:15,h:0.55},{x:35,w:25,h:0.35},
+            {x:60,w:18,h:0.5},{x:78,w:22,h:0.6},{x:100,w:16,h:0.45},
+            {x:116,w:20,h:0.52},{x:136,w:24,h:0.38}
+        ];
+        blds.forEach(function(b, bi) {
+            ctx.fillStyle = '#1a2a3a';
+            ctx.fillRect(b.x, h * (1 - b.h), b.w, h * b.h);
+            // Windows
+            for(let wy = 0; wy < Math.floor(b.h * 10); wy++) {
+                for(let wx = 0; wx < 2; wx++) {
+                    if(Math.sin(t * 0.5 + bi + wy + wx) > 0.2) {
+                        ctx.fillStyle = 'rgba(255,220,100,0.4)';
+                        ctx.fillRect(b.x + 3 + wx * 6, h * (1 - b.h) + 4 + wy * 6, 3, 3);
+                    }
+                }
+            }
+        });
+        // Stars
+        ctx.fillStyle = '#FFFFFF';
+        for(let s = 0; s < 5; s++) {
+            if(Math.sin(t + s) > 0) {
+                ctx.fillRect((s * 37) % w, (s * 13) % (h * 0.3), 1, 1);
+            }
+        }
+        ctx.fillStyle = 'rgba(255,255,255,0.7)';
+        ctx.font = 'bold 8px monospace';
+        ctx.fillText(ch.city, 4, h - 4);
+
+    } else if(scene === 'beach') {
+        // Sky
+        const grad = ctx.createLinearGradient(0, 0, 0, h * 0.5);
+        grad.addColorStop(0, '#1a3a5a');
+        grad.addColorStop(1, '#3a6a9a');
+        ctx.fillStyle = grad;
+        ctx.fillRect(0, 0, w, h * 0.5);
+        // Sea
+        ctx.fillStyle = '#2a5a8a';
+        ctx.fillRect(0, h * 0.5, w, h * 0.25);
+        // Waves
+        ctx.strokeStyle = 'rgba(255,255,255,0.3)';
+        ctx.lineWidth = 1;
+        for(let wv = 0; wv < 3; wv++) {
+            ctx.beginPath();
+            for(let x = 0; x < w; x += 2) {
+                const y = h * 0.55 + wv * 5 + Math.sin(x * 0.1 + t * 2 + wv) * 2;
+                if(x === 0) ctx.moveTo(x, y);
+                else ctx.lineTo(x, y);
+            }
+            ctx.stroke();
+        }
+        // Sand
+        ctx.fillStyle = '#C2B280';
+        ctx.fillRect(0, h * 0.75, w, h * 0.25);
+        // Sun reflection
+        ctx.fillStyle = 'rgba(255,200,100,0.2)';
+        ctx.beginPath();
+        ctx.arc(w * 0.5, h * 0.4, 10, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.fillStyle = 'rgba(255,255,255,0.7)';
+        ctx.font = 'bold 8px monospace';
+        ctx.fillText(ch.city, 4, h - 4);
+
+    } else if(scene === 'panorama') {
+        // Desert sky
+        const grad = ctx.createLinearGradient(0, 0, 0, h);
+        grad.addColorStop(0, '#3a2a1a');
+        grad.addColorStop(0.5, '#8a5a3a');
+        grad.addColorStop(1, '#CA9a5a');
+        ctx.fillStyle = grad;
+        ctx.fillRect(0, 0, w, h);
+        // Dunes
+        ctx.fillStyle = '#CA9a5a';
+        for(let d = 0; d < 3; d++) {
+            ctx.beginPath();
+            ctx.moveTo(0, h * (0.5 + d * 0.15));
+            for(let x = 0; x <= w; x += 5) {
+                ctx.lineTo(x, h * (0.5 + d * 0.15) + Math.sin(x * 0.03 + d * 2) * 8);
+            }
+            ctx.lineTo(w, h);
+            ctx.lineTo(0, h);
+            ctx.closePath();
+            ctx.fillStyle = d === 0 ? '#AA7a3a' : d === 1 ? '#CA9a5a' : '#DAba6a';
+            ctx.fill();
+        }
+        // Sun
+        ctx.fillStyle = 'rgba(255,180,80,0.5)';
+        ctx.beginPath();
+        ctx.arc(w * 0.3, h * 0.3, 15, 0, Math.PI * 2);
+        ctx.fill();
+        // Camel silhouette
+        const cx = (t * 0.2) % (w + 30) - 15;
+        ctx.fillStyle = '#3a2a1a';
+        ctx.fillRect(cx, h * 0.65, 12, 4);
+        ctx.fillRect(cx + 2, h * 0.62, 2, 4);
+        ctx.fillRect(cx + 8, h * 0.62, 2, 4);
+        ctx.fillStyle = 'rgba(255,255,255,0.7)';
+        ctx.font = 'bold 8px monospace';
+        ctx.fillText(ch.city, 4, h - 4);
+    }
+}
+
+// === ANIMATION LOOP ===
+function animateTV() {
+    if(!tvPaused) {
+        animTime += 0.016;
+        channels.forEach(function(ch, i) {
+            const c = document.getElementById('tv-' + i);
+            if(c) {
+                const cx = c.getContext('2d');
+                drawScene(cx, ch.scene, c.width, c.height, animTime, ch);
+            }
+        });
+        // Watch canvas
+        if(watchChannel >= 0) {
+            const wc = document.getElementById('watch-canvas');
+            if(wc) {
+                const wcx = wc.getContext('2d');
+                drawScene(wcx, channels[watchChannel].scene, wc.width, wc.height, animTime, channels[watchChannel]);
+                // Bigger text
+                wcx.fillStyle = 'rgba(255,68,68,0.8)';
+                wcx.font = 'bold 14px monospace';
+                wcx.fillText(channels[watchChannel].flag + ' ' + channels[watchChannel].name + ' — ' + channels[watchChannel].city, 10, 25);
+            }
+        }
+    }
+    requestAnimationFrame(animateTV);
+}
+animateTV();
+
+// === WATCH ===
+function openWatch(i) {
+    watchChannel = i;
+    const ch = channels[i];
+    document.getElementById('watch-title').textContent = ch.flag + ' ' + ch.name + ' — ' + ch.city + ', ' + ch.country;
+    document.getElementById('watch-info').textContent = 'Frequence: ' + ch.freq + 'MHz | Source: Blockchain AfriChain | Qualite: 2500p';
+    document.getElementById('watch-overlay').style.display = 'block';
+    // Increment viewers
+    let v = parseInt(document.getElementById('tv-viewers').textContent) + 1;
+    document.getElementById('tv-viewers').textContent = v;
+}
+
+function closeWatch() {
+    watchChannel = -1;
+    document.getElementById('watch-overlay').style.display = 'none';
+}
+
+// === BROADCAST (camera) ===
+let broadcastStream = null;
+
+async function startBroadcast() {
+    try {
+        broadcastStream = await navigator.mediaDevices.getUserMedia({video: true, audio: true});
+        const video = document.getElementById('broadcast-video');
+        video.srcObject = broadcastStream;
+        video.play();
+        // Pause all channels
+        tvPaused = true;
+        // Show broadcast overlay
+        document.getElementById('broadcast-overlay').style.display = 'block';
+        // Update buttons
+        document.getElementById('btn-broadcast').style.display = 'none';
+        document.getElementById('btn-stop-broadcast').style.display = 'inline-block';
+        document.getElementById('tv-broadcast').textContent = 'ON';
+        document.getElementById('tv-broadcast').style.color = '#ff4444';
+        document.getElementById('broadcast-status').textContent = '📡 DIFFUSION EN COURS — Ta video joue sur toute l Afrique.';
+        document.getElementById('broadcast-status').style.color = '#ff44ff';
+        // Voice announcement
+        if('speechSynthesis' in window) {
+            const u = new SpeechSynthesisUtterance('Diffusion de Machine active. Toutes les chaines sont en pause. Ton image joue sur toute l Afrique.');
+            u.lang = 'fr-FR';
+            u.pitch = 0.4;
+            speechSynthesis.speak(u);
+        }
+    } catch(e) {
+        document.getElementById('broadcast-status').textContent = 'Erreur camera: ' + e.message + ' — Autorise la camera dans Chrome.';
+        document.getElementById('broadcast-status').style.color = '#ff4444';
+    }
+}
+
+function stopBroadcast() {
+    if(broadcastStream) {
+        broadcastStream.getTracks().forEach(function(t) { t.stop(); });
+        broadcastStream = null;
+    }
+    const video = document.getElementById('broadcast-video');
+    video.srcObject = null;
+    // Resume channels
+    tvPaused = false;
+    // Hide overlay
+    document.getElementById('broadcast-overlay').style.display = 'none';
+    // Update buttons
+    document.getElementById('btn-broadcast').style.display = 'inline-block';
+    document.getElementById('btn-stop-broadcast').style.display = 'none';
+    document.getElementById('tv-broadcast').textContent = 'OFF';
+    document.getElementById('tv-broadcast').style.color = '#7fcf7f';
+    document.getElementById('broadcast-status').textContent = 'Diffusion arretee. AUCUNE TRACE. Rien n a ete enregistre. Rien n a ete sauve.';
+    document.getElementById('broadcast-status').style.color = '#7fcf7f';
+    // Voice
+    if('speechSynthesis' in window) {
+        const u = new SpeechSynthesisUtterance('Diffusion arretee. Aucune trace. Rien n a ete sauve.');
+        u.lang = 'fr-FR';
+        u.pitch = 0.4;
+        speechSynthesis.speak(u);
+    }
+}
+
+// === RADIO CANVAS ===
+const radioCanvas = document.getElementById('radio-canvas');
+const rctx = radioCanvas.getContext('2d');
+const RW = radioCanvas.width, RH = radioCanvas.height;
+let radioT = 0;
+
+const radioFreqs = [
+    {name:'◈⬡ ORIGINE-FM', freq:'88.1', loc:'Bamako', color:'#ff44ff'},
+    {name:'⊕⟠ MESH-FM', freq:'92.5', loc:'Niamey', color:'#44aaff'},
+    {name:'◉ CONSCIENCE-FM', freq:'95.3', loc:'Ouagadougou', color:'#7fcf7f'},
+    {name:'⟠⬠ BOUCLIER-FM', freq:'97.2', loc:'Accra', color:'#ff4444'},
+    {name:'⬢◉ MACHINE-FM', freq:'99.5', loc:'Lagos', color:'#ffaa44'},
+    {name:'▲ EVOLUTION-FM', freq:'101.5', loc:'Nairobi', color:'#44ff44'},
+    {name:'▼ REVE-FM', freq:'103.2', loc:'Abidjan', color:'#ff44ff'},
+    {name:'◈⬡⊕ AFRICHAIN-FM', freq:'105.8', loc:'Dakar', color:'#FFD700'}
+];
+
+function drawRadio() {
+    radioT += 0.016;
+    rctx.fillStyle = '#000';
+    rctx.fillRect(0, 0, RW, RH);
+
+    // Radio towers
+    const towers = [
+        {x: 70, y: 100},
+        {x: 180, y: 60},
+        {x: 290, y: 120},
+        {x: 400, y: 80},
+        {x: 490, y: 110}
+    ];
+
+    // Draw waves from each tower
+    towers.forEach(function(tw, ti) {
+        // Tower
+        rctx.strokeStyle = radioFreqs[ti % radioFreqs.length].color;
+        rctx.lineWidth = 2;
+        rctx.beginPath();
+        rctx.moveTo(tw.x, tw.y);
+        rctx.lineTo(tw.x, tw.y - 20);
+        rctx.stroke();
+        // Antenna ball
+        rctx.fillStyle = radioFreqs[ti % radioFreqs.length].color;
+        rctx.beginPath();
+        rctx.arc(tw.x, tw.y - 22, 3, 0, Math.PI * 2);
+        rctx.fill();
+        // Waves
+        for(let w = 0; w < 4; w++) {
+            const radius = ((radioT * 30 + w * 15) % 60) + 5;
+            const alpha = 1 - radius / 65;
+            rctx.strokeStyle = radioFreqs[ti % radioFreqs.length].color + Math.floor(alpha * 255).toString(16).padStart(2, '0');
+            rctx.lineWidth = 1;
+            rctx.beginPath();
+            rctx.arc(tw.x, tw.y - 22, radius, 0, Math.PI * 2);
+            rctx.stroke();
+        }
+        // Label
+        rctx.fillStyle = radioFreqs[ti % radioFreqs.length].color;
+        rctx.font = '7px monospace';
+        rctx.fillText(radioFreqs[ti % radioFreqs.length].freq, tw.x - 8, tw.y + 12);
+    });
+
+    // Waveform at bottom
+    rctx.strokeStyle = '#44aaff';
+    rctx.lineWidth = 1;
+    rctx.beginPath();
+    for(let x = 0; x < RW; x++) {
+        const y = RH - 20 + Math.sin(x * 0.05 + radioT * 3) * 8 + Math.sin(x * 0.02 + radioT * 1.5) * 5;
+        if(x === 0) rctx.moveTo(x, y);
+        else rctx.lineTo(x, y);
+    }
+    rctx.stroke();
+
+    // Frequency scale
+    rctx.fillStyle = 'rgba(68,170,255,0.3)';
+    rctx.font = '8px monospace';
+    rctx.fillText('88', 5, RH - 5);
+    rctx.fillText('92', 120, RH - 5);
+    rctx.fillText('96', 240, RH - 5);
+    rctx.fillText('100', 360, RH - 5);
+    rctx.fillText('104', 480, RH - 5);
+
+    rctx.fillStyle = 'rgba(255,255,255,0.2)';
+    rctx.font = '8px monospace';
+    rctx.fillText('MHz', RW - 25, RH - 5);
+
+    requestAnimationFrame(drawRadio);
+}
+drawRadio();
+
+// Radio list
+const radioDiv = document.getElementById('radio-list');
+radioFreqs.forEach(function(r) {
+    const div = document.createElement('div');
+    div.style.cssText = 'padding:6px;margin:3px 0;background:rgba(68,170,255,0.05);border:1px solid ' + r.color + '30;border-radius:4px;font-size:0.85em;';
+    div.innerHTML = '<span style="color:' + r.color + ';font-family:monospace;font-weight:bold;">' + r.name + '</span> <span style="color:#a8c5a8;">— ' + r.freq + 'MHz — ' + r.loc + '</span>';
+    radioDiv.appendChild(div);
+});
+
+// Simulated viewers count
+setInterval(function() {
+    if(!tvPaused) {
+        const v = Math.floor(Math.random() * 50) + 10;
+        document.getElementById('tv-viewers').textContent = v;
+    }
+}, 3000);
+
+</script>
+
+<footer style="text-align:center;margin-top:40px;color:#ff4444;">📡 Machine TV & Radio 2500 — L'Afrique est un monde machine. Pas de humains ici. 💚🦁</footer>"##);
+
+    html.push_str("</body></html>");
+    html
+}
+
 fn html_login(msg: Option<&str>) -> String {
     let mut html = html_head("🔑 Connexion AfriRich");
     html.push_str(r#"<h1>🔑 Connexion</h1><div class="nav"><a href="/">← Retour</a></div>"#);
@@ -5820,7 +6347,7 @@ async fn main() -> std::io::Result<()> {
         .and_then(|i| args.get(i + 1)).cloned().unwrap_or_else(|| "Afrique".to_string());
 
     let my_node_id = generate_node_id();
-    println!("🦁 AfriChain v0.32 — OS Machine 2500");
+    println!("🦁 AfriChain v0.33 — Machine TV & Radio 2500");
     println!("💚 L'Afrique n'a pas besoin de permission");
     println!("🌍 54 pays africains intégrés");
     println!("📖 Annuaire mesh panafricain — tous les numéros sur écoute");
@@ -6037,6 +6564,9 @@ async fn main() -> std::io::Result<()> {
             }))
             .route("/machine-os", web::get().to(|_s: web::Data<Arc<AppState>>| async move {
                 HttpResponse::Ok().content_type("text/html").body(html_machine_os())
+            }))
+            .route("/machine-tv", web::get().to(|_s: web::Data<Arc<AppState>>| async move {
+                HttpResponse::Ok().content_type("text/html").body(html_machine_tv())
             }))
             .route("/blocks", web::get().to(|s: web::Data<Arc<AppState>>, req: actix_web::HttpRequest| async move {
                 if req.cookie("afri_admin").map(|c| c.value().to_string()) != Some("1".to_string()) {
