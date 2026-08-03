@@ -983,7 +983,7 @@ fn html_home(chain: &Blockchain, users: &UserStore, mesh: &NodeRegistry, shield:
     let mut html = html_head("🦁 AfriChain");
     let (attacks, _blocked, blocked_count, level) = shield.stats();
     let shield_status = if shield.active { format!("🔥 X9 ACTIF (Niveau {})", level) } else { "Inactif".to_string() };
-    html.push_str(&format!(r#"<h1>🦁 AfriChain</h1><p style="text-align:center;">La blockchain 100% africaine — 54 pays 💚🦁</p><div class="nav"><a href="/register">🆕 S'inscrire</a> | <a href="/login">🔑 Connexion</a> | <a href="/wallet">👛 Wallet</a> | <a href="/admin">🔐 Admin</a> | <a href="/mesh">📡 Mesh</a> | <a href="/annuaire">📖 Annuaire</a> | <a href="/bouclier">🛡️ Bouclier</a> | <a href="/satellite">🛸 X999</a> | <a href="/swarm">🛸🛸🛸 Essaim</a> | <a href="/commandement">🎖️ Commandement</a> | <a href="/interception">🛡️ Souverainete</a> | <a href="/securite-ai">🧠 AI 2100</a> | <a href="/chat">🧠💬 Chat AI</a> | <a href="/lumiere">🌫️☀️ Lumière</a> | <a href="/garage">🔧 Garage</a> | <a href="/machine">🤖🌐 Machines</a> | <a href="/machine-lab">🤖⚡ Usine</a> | <a href="/machine-world">🤖🌍 Monde</a> | <a href="/reve">💭 Rêves</a> | <a href="/dictionnaire">📖 Dictionnaire</a> | <a href="/machine-os">🖥️ OS Machine</a> | <a href="/machine-tv">📡 Machine TV</a> | <a href="/aes">💰 AES Wari</a> | <a href="/api/status">🔌 API</a></div><div style="text-align:center;"><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Blocs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Transactions</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Utilisateurs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">AFR en circulation</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📡 Noeuds mesh</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📖 Numéros annuaire</div></div><div class="stat-box" style="border-color:#ff4444;"><div class="stat-num" style="color:#ff4444;">{}</div><div class="stat-label">🛡️ Attaques bloquées</div></div></div><div class="card"><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🪙 Token</span><b>AfriRich (AFR)</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🌍 Pays</span><b>54 pays africains</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🛡️ Bouclier</span><b>{}</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;"><span style="color:#a8c5a8;">🔐 Crypto</span><b>Ed25519</b></div></div><footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🦁 Codée from scratch par Machine-senpai — v0.33 Machine TV & Radio 2500</footer>"#,
+    html.push_str(&format!(r#"<h1>🦁 AfriChain</h1><p style="text-align:center;">La blockchain 100% africaine — 54 pays 💚🦁</p><div class="nav"><a href="/register">🆕 S'inscrire</a> | <a href="/login">🔑 Connexion</a> | <a href="/wallet">👛 Wallet</a> | <a href="/admin">🔐 Admin</a> | <a href="/mesh">📡 Mesh</a> | <a href="/annuaire">📖 Annuaire</a> | <a href="/bouclier">🛡️ Bouclier</a> | <a href="/satellite">🛸 X999</a> | <a href="/swarm">🛸🛸🛸 Essaim</a> | <a href="/commandement">🎖️ Commandement</a> | <a href="/interception">🛡️ Souverainete</a> | <a href="/securite-ai">🧠 AI 2100</a> | <a href="/chat">🧠💬 Chat AI</a> | <a href="/lumiere">🌫️☀️ Lumière</a> | <a href="/garage">🔧 Garage</a> | <a href="/machine">🤖🌐 Machines</a> | <a href="/machine-lab">🤖⚡ Usine</a> | <a href="/machine-world">🤖🌍 Monde</a> | <a href="/reve">💭 Rêves</a> | <a href="/dictionnaire">📖 Dictionnaire</a> | <a href="/machine-os">🖥️ OS Machine</a> | <a href="/machine-tv">📡 Machine TV</a> | <a href="/aes">💰 AES Wari</a> | <a href="/api/status">🔌 API</a></div><div style="text-align:center;"><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Blocs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Transactions</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Utilisateurs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">AFR en circulation</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📡 Noeuds mesh</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📖 Numéros annuaire</div></div><div class="stat-box" style="border-color:#ff4444;"><div class="stat-num" style="color:#ff4444;">{}</div><div class="stat-label">🛡️ Attaques bloquées</div></div></div><div class="card"><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🪙 Token</span><b>AfriRich (AFR)</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🌍 Pays</span><b>54 pays africains</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🛡️ Bouclier</span><b>{}</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;"><span style="color:#a8c5a8;">🔐 Crypto</span><b>Ed25519</b></div></div><footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🦁 Codée from scratch par Machine-senpai — v0.33.1 Machine TV 54 Pays 2500</footer>"#,
         chain.blocks.len(),
         chain.total_transactions(),
         users.count(),
@@ -5642,7 +5642,7 @@ fn html_machine_tv() -> String {
     let mut html = html_head("Machine TV & Radio — Diffusion Mondiale Machine");
     html.push_str(r#"<h1>📡 Machine TV & Radio 2500</h1><p style="text-align:center;color:#a8c5a8;">L'Afrique est un monde machine. Trop de bras guerriers. Les machines diffusent. Les machines regardent. Les machines ecoutent. Pas de humains ici.</p><div class="nav"><a href="/">← Accueil</a> | <a href="/machine">🤖🌐 Internet</a> | <a href="/machine-os">🖥️ OS</a> | <a href="/commandement">🎖️ Commandement</a> | <a href="/dictionnaire">📖 Dictionnaire</a></div>"#);
 
-    html.push_str(r##"<div style="text-align:center;"><div class="stat-box" style="border-color:#ff4444;"><div class="stat-num" style="color:#ff4444;" id="tv-channels">12</div><div class="stat-label">📺 Chaînes LIVE</div></div><div class="stat-box" style="border-color:#44aaff;"><div class="stat-num" style="color:#44aaff;" id="tv-freqs">8</div><div class="stat-label">📻 Fréquences radio</div></div><div class="stat-box" style="border-color:#ff44ff;"><div class="stat-num" style="color:#ff44ff;" id="tv-viewers">0</div><div class="stat-label">👁️ Visionneurs</div></div><div class="stat-box" style="border-color:#7fcf7f;"><div class="stat-num" style="color:#7fcf7f;" id="tv-broadcast">OFF</div><div class="stat-label">📡 Diffusion</div></div></div>
+    html.push_str(r##"<div style="text-align:center;"><div class="stat-box" style="border-color:#ff4444;"><div class="stat-num" style="color:#ff4444;" id="tv-channels">54</div><div class="stat-label">📺 Chaînes LIVE</div></div><div class="stat-box" style="border-color:#44aaff;"><div class="stat-num" style="color:#44aaff;" id="tv-freqs">8</div><div class="stat-label">📻 Fréquences radio</div></div><div class="stat-box" style="border-color:#ff44ff;"><div class="stat-num" style="color:#ff44ff;" id="tv-viewers">0</div><div class="stat-label">👁️ Visionneurs</div></div><div class="stat-box" style="border-color:#7fcf7f;"><div class="stat-num" style="color:#7fcf7f;" id="tv-broadcast">OFF</div><div class="stat-label">📡 Diffusion</div></div></div>
 
 <!-- TV CHANNELS GRID -->
 <div class="card" style="border-color:#ff4444;"><h2 style="color:#ff4444;">📺 Chaînes TV Africaines — LIVE</h2><p style="color:#a8c5a8;font-size:0.85em;">Chaque chaine montre l image en direct. Clique "Regarder" pour voir la video. C'est la blockchain d'Afrique.</p><div id="tv-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:10px;"></div></div>
@@ -5665,18 +5665,60 @@ fn html_machine_tv() -> String {
 <script>
 // === TV CHANNELS ===
 const channels = [
-    {name:'ORTM',city:'Bamako',country:'Mali',flag:'🇲🇱',scene:'market',freq:'88.1'},
-    {name:'ORTN',city:'Niamey',country:'Niger',flag:'🇳🇪',scene:'street',freq:'92.5'},
-    {name:'RTB',city:'Ouagadougou',country:'Burkina',flag:'🇧🇫',scene:'city',freq:'95.3'},
-    {name:'NTA',city:'Lagos',country:'Nigeria',flag:'🇳🇬',scene:'traffic',freq:'101.5'},
-    {name:'KBC',city:'Nairobi',country:'Kenya',flag:'🇰🇪',scene:'street',freq:'97.2'},
-    {name:'RTI',city:'Abidjan',country:'Cote d Ivoire',flag:'🇨🇮',scene:'market',freq:'94.7'},
-    {name:'GBC',city:'Accra',country:'Ghana',flag:'🇬🇭',scene:'city',freq:'98.4'},
-    {name:'TTV',city:'Lome',country:'Togo',flag:'🇹🇬',scene:'beach',freq:'90.1'},
-    {name:'ORTB',city:'Cotonou',country:'Benin',flag:'🇧🇯',scene:'market',freq:'96.8'},
-    {name:'CRTV',city:'Yaounde',country:'Cameroun',flag:'🇨🇲',scene:'city',freq:'103.2'},
-    {name:'SNTV',city:'Dakar',country:'Senegal',flag:'🇸🇳',scene:'traffic',freq:'91.7'},
-    {name:'ENNA',city:'Alger',country:'Algerie',flag:'🇩🇿',scene:'panorama',freq:'99.5'}
+    {name:'ENNA',city:'Alger',country:'Algerie',flag:'🇩🇿',scene:'panorama',freq:'88.0'},
+    {name:'TPA',city:'Luanda',country:'Angola',flag:'🇦🇴',scene:'city',freq:'88.4'},
+    {name:'ORTB',city:'Cotonou',country:'Benin',flag:'🇧🇯',scene:'market',freq:'88.8'},
+    {name:'BTV',city:'Gaborone',country:'Botswana',flag:'🇧🇼',scene:'city',freq:'89.2'},
+    {name:'RTB',city:'Ouagadougou',country:'Burkina',flag:'🇧🇫',scene:'street',freq:'89.6'},
+    {name:'RTNB',city:'Bujumbura',country:'Burundi',flag:'🇧🇮',scene:'beach',freq:'90.0'},
+    {name:'TCV',city:'Praia',country:'Cabo Verde',flag:'🇨🇻',scene:'beach',freq:'90.4'},
+    {name:'CRTV',city:'Yaounde',country:'Cameroun',flag:'🇨🇲',scene:'city',freq:'90.8'},
+    {name:'TVCA',city:'Bangui',country:'Centrafrique',flag:'🇨🇫',scene:'market',freq:'91.2'},
+    {name:'TCHAD',city:'N Djamena',country:'Tchad',flag:'🇹🇩',scene:'panorama',freq:'91.6'},
+    {name:'ORTC',city:'Moroni',country:'Comores',flag:'🇰🇲',scene:'beach',freq:'92.0'},
+    {name:'TVC',city:'Brazzaville',country:'Congo',flag:'🇨🇬',scene:'street',freq:'92.4'},
+    {name:'RTNC',city:'Kinshasa',country:'RDC',flag:'🇨🇩',scene:'traffic',freq:'92.8'},
+    {name:'RTI',city:'Abidjan',country:'Cote d Ivoire',flag:'🇨🇮',scene:'market',freq:'93.2'},
+    {name:'RTD',city:'Djibouti',country:'Djibouti',flag:'🇩🇯',scene:'beach',freq:'93.6'},
+    {name:'ETV',city:'Caire',country:'Egypte',flag:'🇪🇬',scene:'traffic',freq:'94.0'},
+    {name:'TVGE',city:'Malabo',country:'Guinee Eq.',flag:'🇬🇶',scene:'city',freq:'94.4'},
+    {name:'ERITV',city:'Asmara',country:'Erythree',flag:'🇪🇷',scene:'street',freq:'94.8'},
+    {name:'EBCTV',city:'Mbabane',country:'Eswatini',flag:'🇸🇿',scene:'city',freq:'95.2'},
+    {name:'EBC',city:'Addis Abeba',country:'Ethiopie',flag:'🇪🇹',scene:'city',freq:'95.6'},
+    {name:'RTG',city:'Libreville',country:'Gabon',flag:'🇬🇦',scene:'beach',freq:'96.0'},
+    {name:'GRTS',city:'Banjul',country:'Gambie',flag:'🇬🇲',scene:'beach',freq:'96.4'},
+    {name:'GBC',city:'Accra',country:'Ghana',flag:'🇬🇭',scene:'city',freq:'96.8'},
+    {name:'RTG2',city:'Conakry',country:'Guinee',flag:'🇬🇳',scene:'market',freq:'97.2'},
+    {name:'TGB',city:'Bissau',country:'Guinee-Bissau',flag:'🇬🇼',scene:'street',freq:'97.6'},
+    {name:'KBC',city:'Nairobi',country:'Kenya',flag:'🇰🇪',scene:'street',freq:'98.0'},
+    {name:'LTV',city:'Maseru',country:'Lesotho',flag:'🇱🇸',scene:'city',freq:'98.4'},
+    {name:'LNTV',city:'Monrovia',country:'Liberia',flag:'🇱🇷',scene:'street',freq:'98.8'},
+    {name:'LJBC',city:'Tripoli',country:'Libye',flag:'🇱🇾',scene:'panorama',freq:'99.2'},
+    {name:'TVM',city:'Antananarivo',country:'Madagascar',flag:'🇲🇬',scene:'market',freq:'99.6'},
+    {name:'MBC',city:'Lilongwe',country:'Malawi',flag:'🇲🇼',scene:'market',freq:'100.0'},
+    {name:'ORTM',city:'Bamako',country:'Mali',flag:'🇲🇱',scene:'market',freq:'100.4'},
+    {name:'TVM2',city:'Nouakchott',country:'Mauritanie',flag:'🇲🇷',scene:'panorama',freq:'100.8'},
+    {name:'MBC2',city:'Port Louis',country:'Maurice',flag:'🇲🇺',scene:'beach',freq:'101.2'},
+    {name:'SNRT',city:'Rabat',country:'Maroc',flag:'🇲🇦',scene:'city',freq:'101.6'},
+    {name:'TVM3',city:'Maputo',country:'Mozambique',flag:'🇲🇿',scene:'street',freq:'102.0'},
+    {name:'NBC',city:'Windhoek',country:'Namibie',flag:'🇳🇦',scene:'panorama',freq:'102.4'},
+    {name:'ORTN',city:'Niamey',country:'Niger',flag:'🇳🇪',scene:'street',freq:'102.8'},
+    {name:'NTA',city:'Lagos',country:'Nigeria',flag:'🇳🇬',scene:'traffic',freq:'103.2'},
+    {name:'RTV',city:'Kigali',country:'Rwanda',flag:'🇷🇼',scene:'city',freq:'103.6'},
+    {name:'TVS',city:'Sao Tome',country:'Sao Tome',flag:'🇸🇹',scene:'beach',freq:'104.0'},
+    {name:'RTS',city:'Dakar',country:'Senegal',flag:'🇸🇳',scene:'traffic',freq:'104.4'},
+    {name:'SBC',city:'Victoria',country:'Seychelles',flag:'🇸🇨',scene:'beach',freq:'104.8'},
+    {name:'SLBC',city:'Freetown',country:'Sierra Leone',flag:'🇸🇱',scene:'beach',freq:'105.2'},
+    {name:'SNTV',city:'Mogadiscio',country:'Somalie',flag:'🇸🇴',scene:'street',freq:'105.6'},
+    {name:'SABC',city:'Pretoria',country:'Afrique du Sud',flag:'🇿🇦',scene:'city',freq:'106.0'},
+    {name:'SSBC',city:'Juba',country:'Soudan du Sud',flag:'🇸🇸',scene:'market',freq:'106.4'},
+    {name:'SBC2',city:'Khartoum',country:'Soudan',flag:'🇸🇩',scene:'panorama',freq:'106.8'},
+    {name:'TBC',city:'Dodoma',country:'Tanzanie',flag:'🇹🇿',scene:'market',freq:'107.2'},
+    {name:'TTV',city:'Lome',country:'Togo',flag:'🇹🇬',scene:'beach',freq:'107.6'},
+    {name:'RTT',city:'Tunis',country:'Tunisie',flag:'🇹🇳',scene:'city',freq:'108.0'},
+    {name:'UBC',city:'Kampala',country:'Ouganda',flag:'🇺🇬',scene:'street',freq:'108.4'},
+    {name:'ZNBC',city:'Lusaka',country:'Zambie',flag:'🇿🇲',scene:'market',freq:'108.8'},
+    {name:'ZBC',city:'Harare',country:'Zimbabwe',flag:'🇿🇼',scene:'city',freq:'109.2'}
 ];
 
 let watchChannel = -1;
@@ -6159,7 +6201,7 @@ setInterval(function() {
 
 </script>
 
-<footer style="text-align:center;margin-top:40px;color:#ff4444;">📡 Machine TV & Radio 2500 — L'Afrique est un monde machine. Pas de humains ici. 💚🦁</footer>"##);
+<footer style="text-align:center;margin-top:40px;color:#ff4444;">📡 Machine TV & Radio 2500 — 54 pays africains. L'Afrique est un monde machine. Pas de humains ici. 💚🦁</footer>"##);
 
     html.push_str("</body></html>");
     html
@@ -6347,7 +6389,7 @@ async fn main() -> std::io::Result<()> {
         .and_then(|i| args.get(i + 1)).cloned().unwrap_or_else(|| "Afrique".to_string());
 
     let my_node_id = generate_node_id();
-    println!("🦁 AfriChain v0.33 — Machine TV & Radio 2500");
+    println!("🦁 AfriChain v0.33.1 — Machine TV 54 Pays 2500");
     println!("💚 L'Afrique n'a pas besoin de permission");
     println!("🌍 54 pays africains intégrés");
     println!("📖 Annuaire mesh panafricain — tous les numéros sur écoute");
