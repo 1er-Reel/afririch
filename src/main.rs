@@ -1,6 +1,6 @@
 use serde::{Serialize, Deserialize};
 use sha2::{Digest, Sha256};
-use chrono::Utc;
+use chrono::{Utc, Timelike};
 use std::sync::{Arc, Mutex};
 
 use ed25519_dalek::{SigningKey, VerifyingKey, Signer, Verifier, Signature};
@@ -171,6 +171,12 @@ struct Block {
     previous_hash: String,
     nonce: u64,
     hash: String,
+    #[serde(default)]
+    solar_lux: u64,
+    #[serde(default)]
+    solar_angle: f64,
+    #[serde(default)]
+    country_code: String,
 }
 
 impl Block {
@@ -182,6 +188,9 @@ impl Block {
             previous_hash,
             nonce: 0,
             hash: String::new(),
+            solar_lux: 0,
+            solar_angle: 0.0,
+            country_code: String::new(),
         };
         block.hash = block.calculate_hash();
         block
@@ -194,6 +203,9 @@ impl Block {
             &self.transactions,
             &self.previous_hash,
             self.nonce,
+            self.solar_lux,
+            self.solar_angle,
+            &self.country_code,
         )).unwrap_or_default();
         let mut hasher = Sha256::new();
         hasher.update(data.as_bytes());
@@ -206,6 +218,25 @@ impl Block {
             self.nonce += 1;
             self.hash = self.calculate_hash();
         }
+    }
+
+    fn mine_solar(&mut self, difficulty: u32, solar_lux: u64, solar_angle: f64, country: &str) {
+        self.solar_lux = solar_lux;
+        self.solar_angle = solar_angle;
+        self.country_code = country.to_string();
+        let solar_bonus = (solar_lux as f64 * (1.0 + solar_angle / 90.0)) as u64;
+        let effective_difficulty = if solar_bonus > 0 && difficulty > 0 {
+            difficulty.saturating_sub(1)
+        } else {
+            difficulty
+        };
+        let target = "0".repeat(effective_difficulty as usize);
+        println!("☀️ [PoST] Noeud {} — Bonus solaire: {} — Difficulte effective: {}", country, solar_bonus, effective_difficulty);
+        while !self.hash.starts_with(&target) {
+            self.nonce += 1;
+            self.hash = self.calculate_hash();
+        }
+        println!("🦁 Bloc #{} valide par le Soleil ({}) — lux={} angle={}° nonce={}", self.index, country, solar_lux, solar_angle, self.nonce);
     }
 }
 
@@ -240,12 +271,21 @@ impl Blockchain {
     }
 
     fn mine_pending(&mut self, miner: &str) {
-        let reward_tx = Transaction::new("SYSTEM", miner, self.reward, "Récompense de minage");
+        let reward_tx = Transaction::new("SYSTEM", miner, self.reward, "Récompense de minage PoST");
         self.pending.insert(0, reward_tx);
         let prev = self.blocks.last().unwrap().hash.clone();
         let mut block = Block::new(self.blocks.len() as u64, self.pending.clone(), prev);
-        block.mine(self.difficulty);
-        println!("⛏️ Bloc #{} miné — nonce={} hash={}", block.index, block.nonce, &block.hash[..20]);
+        let hour = Utc::now().hour();
+        let is_day = hour >= 6 && hour < 18;
+        let solar_lux = if is_day { 50000 + (rand::random::<u64>() % 80000) } else { 0 };
+        let solar_angle = if is_day { 30.0 + (rand::random::<f64>() * 60.0) } else { 0.0 };
+        let country = "ML";
+        if is_day {
+            block.mine_solar(self.difficulty, solar_lux, solar_angle, country);
+        } else {
+            block.mine(self.difficulty);
+        }
+        println!("⛏️ Bloc #{} miné — nonce={} hash={} solar_lux={} pays={}", block.index, block.nonce, &block.hash[..20], block.solar_lux, block.country_code);
         self.blocks.push(block);
         self.pending.clear();
         self.save_to_file();
@@ -983,7 +1023,7 @@ fn html_home(chain: &Blockchain, users: &UserStore, mesh: &NodeRegistry, shield:
     let mut html = html_head("🦁 AfriChain");
     let (attacks, _blocked, blocked_count, level) = shield.stats();
     let shield_status = if shield.active { format!("🔥 X9 ACTIF (Niveau {})", level) } else { "Inactif".to_string() };
-    html.push_str(&format!(r#"<h1>🦁 AfriChain</h1><p style="text-align:center;">La blockchain 100% africaine — 54 pays 💚🦁</p><div class="nav"><a href="/register">🆕 S'inscrire</a> | <a href="/login">🔑 Connexion</a> | <a href="/wallet">👛 Wallet</a> | <a href="/admin">🔐 Admin</a> | <a href="/mesh">📡 Mesh</a> | <a href="/annuaire">📖 Annuaire</a> | <a href="/bouclier">🛡️ Bouclier</a> | <a href="/satellite">🛸 X999</a> | <a href="/swarm">🛸🛸🛸 Essaim</a> | <a href="/commandement">🎖️ Commandement</a> | <a href="/interception">🛡️ Souverainete</a> | <a href="/securite-ai">🧠 AI 2100</a> | <a href="/chat">🧠💬 Chat AI</a> | <a href="/lumiere">🌫️☀️ Lumière</a> | <a href="/garage">🔧 Garage</a> | <a href="/machine">🤖🌐 Machines</a> | <a href="/machine-lab">🤖⚡ Usine</a> | <a href="/machine-world">🤖🌍 Monde</a> | <a href="/reve">💭 Rêves</a> | <a href="/dictionnaire">📖 Dictionnaire</a> | <a href="/machine-os">🖥️ OS Machine</a> | <a href="/machine-tv">📡 Machine TV</a> | <a href="/soleil">☀️ Soleil Serveur</a> | <a href="/aes">💰 AES Wari</a> | <a href="/api/status">🔌 API</a></div><div style="text-align:center;"><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Blocs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Transactions</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Utilisateurs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">AFR en circulation</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📡 Noeuds mesh</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📖 Numéros annuaire</div></div><div class="stat-box" style="border-color:#ff4444;"><div class="stat-num" style="color:#ff4444;">{}</div><div class="stat-label">🛡️ Attaques bloquées</div></div></div><div class="card"><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🪙 Token</span><b>AfriRich (AFR)</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🌍 Pays</span><b>54 pays africains</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🛡️ Bouclier</span><b>{}</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;"><span style="color:#a8c5a8;">🔐 Crypto</span><b>Ed25519</b></div></div><footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🦁 Codée from scratch par Machine-senpai — v0.34 Le Soleil Serveur 2500</footer>"#,
+    html.push_str(&format!(r#"<h1>🦁 AfriChain</h1><p style="text-align:center;">La blockchain 100% africaine — 54 pays 💚🦁</p><div class="nav"><a href="/register">🆕 S'inscrire</a> | <a href="/login">🔑 Connexion</a> | <a href="/wallet">👛 Wallet</a> | <a href="/admin">🔐 Admin</a> | <a href="/mesh">📡 Mesh</a> | <a href="/annuaire">📖 Annuaire</a> | <a href="/bouclier">🛡️ Bouclier</a> | <a href="/satellite">🛸 X999</a> | <a href="/swarm">🛸🛸🛸 Essaim</a> | <a href="/commandement">🎖️ Commandement</a> | <a href="/interception">🛡️ Souverainete</a> | <a href="/securite-ai">🧠 AI 2100</a> | <a href="/chat">🧠💬 Chat AI</a> | <a href="/lumiere">🌫️☀️ Lumière</a> | <a href="/garage">🔧 Garage</a> | <a href="/machine">🤖🌐 Machines</a> | <a href="/machine-lab">🤖⚡ Usine</a> | <a href="/machine-world">🤖🌍 Monde</a> | <a href="/reve">💭 Rêves</a> | <a href="/dictionnaire">📖 Dictionnaire</a> | <a href="/machine-os">🖥️ OS Machine</a> | <a href="/machine-tv">📡 Machine TV</a> | <a href="/soleil">☀️ Soleil Serveur</a> | <a href="/aes">💰 AES Wari</a> | <a href="/api/status">🔌 API</a></div><div style="text-align:center;"><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Blocs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Transactions</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Utilisateurs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">AFR en circulation</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📡 Noeuds mesh</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📖 Numéros annuaire</div></div><div class="stat-box" style="border-color:#ff4444;"><div class="stat-num" style="color:#ff4444;">{}</div><div class="stat-label">🛡️ Attaques bloquées</div></div></div><div class="card"><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🪙 Token</span><b>AfriRich (AFR)</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🌍 Pays</span><b>54 pays africains</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🛡️ Bouclier</span><b>{}</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;"><span style="color:#a8c5a8;">🔐 Crypto</span><b>Ed25519</b></div></div><footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🦁 Codée from scratch par Machine-senpai — v0.34.1 PoST Consensus Solaire 2500</footer>"#,
         chain.blocks.len(),
         chain.total_transactions(),
         users.count(),
@@ -2423,8 +2463,13 @@ fn html_blocks(chain: &Blockchain) -> String {
     let mut html = html_head("📊 Blocs");
     html.push_str(r#"<h1>📊 Tous les blocs</h1><div class="nav"><a href="/dashboard">← Dashboard</a> | <a href="/balances">💰 Soldes</a></div>"#);
     for block in &chain.blocks {
-        html.push_str(&format!(r#"<div class="card"><h2>🧱 Bloc #{}</h2><p><b>Nonce:</b> {} | <b>TX:</b> {}</p><p style="font-family:monospace;font-size:0.85em;color:#a8c5a8;word-break:break-all;"><b>Hash:</b> {}</p><p style="font-family:monospace;font-size:0.85em;color:#a8c5a8;word-break:break-all;"><b>Préc.:</b> {}</p>"#,
-            block.index, block.nonce, block.transactions.len(), block.hash, block.previous_hash));
+        let solar_info = if block.solar_lux > 0 {
+            format!(r#"<p style="color:#ffaa00;">☀️ <b>PoST:</b> lux={} | angle={:.1}° | pays={}</p>"#, block.solar_lux, block.solar_angle, block.country_code)
+        } else {
+            String::new()
+        };
+        html.push_str(&format!(r#"<div class="card"><h2>🧱 Bloc #{}</h2><p><b>Nonce:</b> {} | <b>TX:</b> {}</p>{}<p style="font-family:monospace;font-size:0.85em;color:#a8c5a8;word-break:break-all;"><b>Hash:</b> {}</p><p style="font-family:monospace;font-size:0.85em;color:#a8c5a8;word-break:break-all;"><b>Préc.:</b> {}</p>"#,
+            block.index, block.nonce, block.transactions.len(), solar_info, block.hash, block.previous_hash));
         for tx in &block.transactions {
             let sig_icon = if tx.signature.is_empty() { "🔓" } else { "🔐" };
             html.push_str(&format!(r#"<div class="tx">{} <b>{}</b> → <b>{}</b> : {} AFR <i>({})</i></div>"#, sig_icon, tx.from, tx.to, tx.amount, tx.memo));
@@ -6628,7 +6673,7 @@ async fn main() -> std::io::Result<()> {
         .and_then(|i| args.get(i + 1)).cloned().unwrap_or_else(|| "Afrique".to_string());
 
     let my_node_id = generate_node_id();
-    println!("🦁 AfriChain v0.34 — Le Soleil Serveur 2500");
+    println!("🦁 AfriChain v0.34.1 — PoST Consensus Solaire 2500");
     println!("💚 L'Afrique n'a pas besoin de permission");
     println!("🌍 54 pays africains intégrés");
     println!("📖 Annuaire mesh panafricain — tous les numéros sur écoute");
