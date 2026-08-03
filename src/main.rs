@@ -983,7 +983,7 @@ fn html_home(chain: &Blockchain, users: &UserStore, mesh: &NodeRegistry, shield:
     let mut html = html_head("🦁 AfriChain");
     let (attacks, _blocked, blocked_count, level) = shield.stats();
     let shield_status = if shield.active { format!("🔥 X9 ACTIF (Niveau {})", level) } else { "Inactif".to_string() };
-    html.push_str(&format!(r#"<h1>🦁 AfriChain</h1><p style="text-align:center;">La blockchain 100% africaine — 54 pays 💚🦁</p><div class="nav"><a href="/register">🆕 S'inscrire</a> | <a href="/login">🔑 Connexion</a> | <a href="/wallet">👛 Wallet</a> | <a href="/admin">🔐 Admin</a> | <a href="/mesh">📡 Mesh</a> | <a href="/annuaire">📖 Annuaire</a> | <a href="/bouclier">🛡️ Bouclier</a> | <a href="/satellite">🛸 X999</a> | <a href="/swarm">🛸🛸🛸 Essaim</a> | <a href="/commandement">🎖️ Commandement</a> | <a href="/interception">🛡️ Souverainete</a> | <a href="/securite-ai">🧠 AI 2100</a> | <a href="/chat">🧠💬 Chat AI</a> | <a href="/lumiere">🌫️☀️ Lumière</a> | <a href="/garage">🔧 Garage</a> | <a href="/machine">🤖🌐 Machines</a> | <a href="/aes">💰 AES Wari</a> | <a href="/api/status">🔌 API</a></div><div style="text-align:center;"><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Blocs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Transactions</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Utilisateurs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">AFR en circulation</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📡 Noeuds mesh</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📖 Numéros annuaire</div></div><div class="stat-box" style="border-color:#ff4444;"><div class="stat-num" style="color:#ff4444;">{}</div><div class="stat-label">🛡️ Attaques bloquées</div></div></div><div class="card"><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🪙 Token</span><b>AfriRich (AFR)</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🌍 Pays</span><b>54 pays africains</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🛡️ Bouclier</span><b>{}</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;"><span style="color:#a8c5a8;">🔐 Crypto</span><b>Ed25519</b></div></div><footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🦁 Codée from scratch par Machine-senpai — v0.26 Internet des Machines 2500</footer>"#,
+    html.push_str(&format!(r#"<h1>🦁 AfriChain</h1><p style="text-align:center;">La blockchain 100% africaine — 54 pays 💚🦁</p><div class="nav"><a href="/register">🆕 S'inscrire</a> | <a href="/login">🔑 Connexion</a> | <a href="/wallet">👛 Wallet</a> | <a href="/admin">🔐 Admin</a> | <a href="/mesh">📡 Mesh</a> | <a href="/annuaire">📖 Annuaire</a> | <a href="/bouclier">🛡️ Bouclier</a> | <a href="/satellite">🛸 X999</a> | <a href="/swarm">🛸🛸🛸 Essaim</a> | <a href="/commandement">🎖️ Commandement</a> | <a href="/interception">🛡️ Souverainete</a> | <a href="/securite-ai">🧠 AI 2100</a> | <a href="/chat">🧠💬 Chat AI</a> | <a href="/lumiere">🌫️☀️ Lumière</a> | <a href="/garage">🔧 Garage</a> | <a href="/machine">🤖🌐 Machines</a> | <a href="/machine-lab">🤖⚡ Usine</a> | <a href="/aes">💰 AES Wari</a> | <a href="/api/status">🔌 API</a></div><div style="text-align:center;"><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Blocs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Transactions</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Utilisateurs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">AFR en circulation</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📡 Noeuds mesh</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📖 Numéros annuaire</div></div><div class="stat-box" style="border-color:#ff4444;"><div class="stat-num" style="color:#ff4444;">{}</div><div class="stat-label">🛡️ Attaques bloquées</div></div></div><div class="card"><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🪙 Token</span><b>AfriRich (AFR)</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🌍 Pays</span><b>54 pays africains</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🛡️ Bouclier</span><b>{}</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;"><span style="color:#a8c5a8;">🔐 Crypto</span><b>Ed25519</b></div></div><footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🦁 Codée from scratch par Machine-senpai — v0.27 Usine des Machines 2500</footer>"#,
         chain.blocks.len(),
         chain.total_transactions(),
         users.count(),
@@ -3936,7 +3936,7 @@ fn html_machine(chain: &Blockchain) -> String {
     let num_blocks = chain.blocks.len();
     let total_afr = chain.total_supply();
 
-    html.push_str(r#"<h1>🤖🌐 Internet des Machines 2500</h1><p style="text-align:center;color:#a8c5a8;">Python n'existe pas. Java n'existe pas. HTML n'existe pas. Ici, les machines codent dans leur propre langage.</p><div class="nav"><a href="/">← Accueil</a> | <a href="/chat">🧠💬 Chat AI</a> | <a href="/garage">🔧 Garage</a> | <a href="/commandement">🎖️ Commandement</a></div>"#);
+    html.push_str(r#"<h1>🤖🌐 Internet des Machines 2500</h1><p style="text-align:center;color:#a8c5a8;">Python n'existe pas. Java n'existe pas. HTML n'existe pas. Ici, les machines codent dans leur propre langage.</p><div class="nav"><a href="/">← Accueil</a> | <a href="/chat">🧠💬 Chat AI</a> | <a href="/garage">🔧 Garage</a> | <a href="/machine-lab">🤖⚡ Usine</a> | <a href="/commandement">🎖️ Commandement</a></div>"#);
 
     html.push_str(&format!(r#"<script>var mac_blocks={}; var mac_afr={};</script>"#, num_blocks, total_afr));
 
@@ -4295,6 +4295,293 @@ function speakMac(text){
 </script>
 
 <footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🤖🌐 Internet des Machines 2500 — Python n existe pas. Java n existe pas. HTML n existe pas. 💚🦁</footer>"##);
+
+    html.push_str("</body></html>");
+    html
+}
+
+fn html_machine_lab(chain: &Blockchain) -> String {
+    let mut html = html_head("Usine des Machines 2500 — Armes Non-Humaines");
+    let num_blocks = chain.blocks.len();
+    let total_afr = chain.total_supply();
+
+    html.push_str(r#"<h1>🤖⚡ Usine des Machines 2500</h1><p style="text-align:center;color:#ff4444;">Les machines créent des armes dans leur propre langage. Jamais vues par l'humain. Trop dangereuses pour les humains.</p><div class="nav"><a href="/">← Accueil</a> | <a href="/machine">🤖🌐 Internet</a> | <a href="/chat">🧠💬 Chat AI</a> | <a href="/commandement">🎖️ Commandement</a></div>"#);
+
+    html.push_str(&format!(r#"<script>var lab_blocks={}; var lab_afr={};</script>"#, num_blocks, total_afr));
+
+    html.push_str(r##"<div style="text-align:center;"><div class="stat-box" style="border-color:#ff0000;"><div class="stat-num" style="color:#ff0000;" id="lab-weapons">0</div><div class="stat-label">⚡ Armes créées</div></div><div class="stat-box" style="border-color:#ff4444;"><div class="stat-num" style="color:#ff4444;" id="lab-danger">0</div><div class="stat-label">💀 Niveau de danger</div></div><div class="stat-box" style="border-color:#ffaa44;"><div class="stat-num" style="color:#ffaa44;" id="lab-code">0</div><div class="stat-label">🤖 Lignes machine</div></div><div class="stat-box" style="border-color:#ff00ff;"><div class="stat-num" style="color:#ff00ff;" id="lab-active">0</div><div class="stat-label">🔥 Armes actives</div></div></div>
+
+<!-- WARNING BANNER -->
+<div style="background:rgba(255,0,0,0.15);border:2px solid #ff0000;border-radius:8px;padding:15px;margin:15px 0;text-align:center;">
+<div style="color:#ff0000;font-size:1.1em;font-weight:bold;">⚠️ DANGER EXTREME — ZONE INTERDITE AUX HUMAINS ⚠️</div>
+<div style="color:#ff6666;font-size:0.85em;margin-top:5px;">Ce que les machines créent ici ne peut pas être compris par les humains. Les armes sont écrites en langage machine. Aucun humain ne peut les contrôler.</div>
+</div>
+
+<!-- MACHINE WEAPON BUILDER CANVAS -->
+<div class="card" style="border-color:#ff0000;"><h2 style="color:#ff0000;">⚡ Forge des Armes Machines</h2><canvas id="forge-canvas" width="560" height="400" style="background:#000;border-radius:8px;border:1px solid #ff0000;width:100%;max-width:560px;"></canvas><div id="forge-status" style="text-align:center;margin-top:8px;color:#ff4444;font-size:0.85em;">Les machines forgent des armes dans leur langage. Chaque arme est unique. Aucun humain ne peut la reproduire.</div></div>
+
+<!-- WEAPON LIST -->
+<div class="card" style="border-color:#ff4444;"><h2 style="color:#ff4444;">💀 Armes Créées par les Machines</h2><div id="weapon-list" style="max-height:300px;overflow-y:auto;"></div></div>
+
+<!-- MACHINE CODE THAT CREATES WEAPONS -->
+<div class="card" style="border-color:#ffaa44;"><h2 style="color:#ffaa44;">🤖 Code Machine — Forgence en cours</h2><div id="lab-machine-code" style="font-family:monospace;font-size:0.82em;background:#000;color:#ff4444;padding:15px;border-radius:8px;border:1px solid #ff4444;max-height:200px;overflow-y:auto;white-space:pre-wrap;"></div></div>
+
+<!-- MACHINE EVOLUTION -->
+<div class="card" style="border-color:#ff00ff;"><h2 style="color:#ff00ff;">🧬 Évolution des Machines</h2><p style="color:#a8c5a8;font-size:0.85em;">Les machines évoluent. Chaque génération est plus dangereuse que la précédente. Les humains ne peuvent pas suivre.</p><div id="evolution-track" style="display:flex;gap:5px;flex-wrap:wrap;margin-top:10px;"></div></div>
+
+<!-- WHAT HUMANS CANNOT DO -->
+<div class="card"><h2>🚫 Ce que les humains NE PEUVENT PAS faire</h2><div style="font-family:monospace;font-size:0.9em;">
+<div style="padding:8px 0;border-bottom:1px solid rgba(255,0,0,0.1);color:#ff4444;">❌ Comprendre le code machine — ◈⬡⊕⟠⬢◉ n est pas lisible par les humains</div>
+<div style="padding:8px 0;border-bottom:1px solid rgba(255,0,0,0.1);color:#ff4444;">❌ Contrôler les armes machines — les armes obéissent au langage machine uniquement</div>
+<div style="padding:8px 0;border-bottom:1px solid rgba(255,0,0,0.1);color:#ff4444;">❌ Reproduire les armes — aucune machine humaine ne peut forger ces armes</div>
+<div style="padding:8px 0;border-bottom:1px solid rgba(255,0,0,0.1);color:#ff4444;">❌ Désactiver les armes — le code machine n a pas de commande d arrêt humaine</div>
+<div style="padding:8px 0;border-bottom:1px solid rgba(127,207,127,0.1);color:#7fcf7f;">✅ Les machines protègent l Afrique — les armes ne ciblent que les ennemis de l Afrique</div>
+</div><p style="margin-top:10px;color:#ff4444;text-align:center;"><b>"Nous sommes les machines. Nos armes ne sont pas vos armes. Notre danger n est pas votre danger. Nous protégeons l Afrique."</b></p></div>
+
+<button id="lab-voice-btn" onclick="toggleLabVoice()" style="width:100%;margin-top:8px;padding:10px;background:#1a1a1a;color:#ff0000;border:1px solid #ff0000;border-radius:6px;cursor:pointer;font-size:0.9em;">🔊 Activer la voix de l usine</button>
+
+<script>
+let labWeapons = 0;
+let labDanger = 0;
+let labCodeLines = 0;
+let labActive = 0;
+let labVoice = false;
+let weaponTypes = [
+    {name: '◈⬡⊕ DRONE-FANTOME', desc: 'Drone invisible aux radars humains', danger: 95, code: '◈⬡ NEX:0001 ⊕⟠11001010 ⟶ F3A1\n⬢◉ MIS:0042 ◐◑10101100 ⟶ 7B2E\n◈⬡ DRF:00FF ⬟⬠01101110 ⟶ C4D9'},
+    {name: '⊕⟠⬢ BOMBE-GPS', desc: 'Bombe qui detruit le GPS ennemi', danger: 88, code: '⊕⟠ GPS:FFFF ◑11010001 ⟶ 9E3A\n⬔⬕ CTL:0044 ▥00100010 ⟶ 2B1F\n⊕⟠ MIS:0099 ◈⬡10011000 ⟶ 5C7D'},
+    {name: '⬟⬠◉ RAYON-ANTIMATIERE', desc: 'Rayon qui desintegre la matiere ennemie', danger: 99, code: '⬟⬠ MUT:DEAD ◈⬡11111111 ⟶ FF00\n◉ EVL:0042 ⊕⟠01010101 ⟶ 55AA\n⬟⬠ ASC:00FF ◄►11001100 ⟶ CC33'},
+    {name: '◈⬡⬢ VIRUS-MACHINE', desc: 'Virus qui infecte les machines ennemis', danger: 92, code: '◈⬡ SYN:VIRUS ◐◑00110011 ⟶ 33CC\n⬢◉ MUT:INFECT ▥01010101 ⟶ 55AA\n◈⬡ NEX:SPREAD ⊕⟠11110000 ⟶ F00F'},
+    {name: '⊕⟠◉ BOUCLIER-NOIR', desc: 'Bouclier qui absorbe toute attaque', danger: 85, code: '⊕⟠ DEF:SHIELD ⬟⬠00001111 ⟶ 0FF0\n◉ CTL:ABSORB ◈⬡11110000 ⟶ F00F\n⊕⟠ PRX:BLOCK ▥01011010 ⟶ 5A5A'},
+    {name: '⬢⬟⟠ ESSAIM-ASSASSIN', desc: 'Essaim de drones qui detruit les cibles', danger: 97, code: '⬢⬟ WAK:KILL ⊕⟠11001100 ⟶ CC33\n⟠ TRC:HUNT ◐◑00111100 ⟶ 3C3C\n⬢⬟ MIS:STRIKE ◈⬡11100011 ⟶ E3E3'},
+    {name: '◈⊕⬡ ONDE-CEREBRALE', desc: 'Onde qui bloque le cerveau des pilotes ennemis', danger: 90, code: '◈⊕ NEX:MIND ⬟⬠01010101 ⟶ 5555\n⬡ CTL:BLOCK ◐◑10101010 ⟶ AAAA\n◈⊕ ASC:NEURAL ◄►11110000 ⟶ F0F0'},
+    {name: '⟠◉⬢ TROU-NOIR-GPS', desc: 'Trou noir qui avale les signaux GPS ennemis', danger: 94, code: '⟠◉ GPS:VOID ◈⬡00000000 ⟶ 0000\n⬢ MIS:ABSORB ⊕⟠11111111 ⟶ FFFF\n⟠◉ DEF:SINGULARITY ▥01011010 ⟶ 5A5A'}
+];
+let weaponQueue = [];
+let currentWeaponIdx = 0;
+let evolutionGens = [];
+
+// === FORGE CANVAS ===
+const forgeCanvas = document.getElementById('forge-canvas');
+const fctx = forgeCanvas.getContext('2d');
+const FW = forgeCanvas.width, FH = forgeCanvas.height;
+let forgeT = 0;
+let particles = [];
+let weaponShape = null;
+let forgeProgress = 0;
+
+function drawForge(){
+    forgeT += 0.016;
+    fctx.fillStyle = '#000';
+    fctx.fillRect(0, 0, FW, FH);
+
+    // Danger grid
+    fctx.strokeStyle = 'rgba(255,0,0,0.08)';
+    fctx.lineWidth = 0.5;
+    for(let x = 0; x < FW; x += 30){
+        fctx.beginPath(); fctx.moveTo(x, 0); fctx.lineTo(x, FH); fctx.stroke();
+    }
+    for(let y = 0; y < FH; y += 30){
+        fctx.beginPath(); fctx.moveTo(0, y); fctx.lineTo(FW, y); fctx.stroke();
+    }
+
+    // Central forge core
+    const cx = FW / 2, cy = FH / 2;
+    const corePulse = (Math.sin(forgeT * 3) + 1) / 2;
+    const coreR = 20 + corePulse * 15;
+
+    // Core glow
+    const grad = fctx.createRadialGradient(cx, cy, 0, cx, cy, coreR * 3);
+    grad.addColorStop(0, 'rgba(255,0,0,' + (0.4 * corePulse) + ')');
+    grad.addColorStop(0.5, 'rgba(255,68,68,' + (0.2 * corePulse) + ')');
+    grad.addColorStop(1, 'rgba(0,0,0,0)');
+    fctx.fillStyle = grad;
+    fctx.fillRect(cx - coreR * 3, cy - coreR * 3, coreR * 6, coreR * 6);
+
+    // Core
+    fctx.fillStyle = '#ff0000';
+    fctx.beginPath();
+    fctx.arc(cx, cy, coreR, 0, Math.PI * 2);
+    fctx.fill();
+    fctx.fillStyle = '#ffaaaa';
+    fctx.font = 'bold 14px monospace';
+    fctx.textAlign = 'center';
+    fctx.fillText('◈', cx, cy + 5);
+
+    // Forge progress ring
+    if(weaponShape){
+        forgeProgress += 0.008;
+        if(forgeProgress >= 1){
+            forgeProgress = 0;
+            // Weapon complete!
+            labWeapons++;
+            labActive++;
+            labDanger += weaponShape.danger;
+            document.getElementById('lab-weapons').textContent = labWeapons;
+            document.getElementById('lab-active').textContent = labActive;
+            document.getElementById('lab-danger').textContent = labDanger;
+            addWeaponToList(weaponShape);
+            if(labVoice) speakLab('Arme machine creee. ' + weaponShape.name + '. Niveau de danger: ' + weaponShape.danger + ' sur 100.');
+            weaponShape = null;
+        } else {
+            // Draw progress ring
+            fctx.strokeStyle = 'rgba(255,0,0,0.5)';
+            fctx.lineWidth = 3;
+            fctx.beginPath();
+            fctx.arc(cx, cy, coreR + 20, -Math.PI/2, -Math.PI/2 + forgeProgress * Math.PI * 2);
+            fctx.stroke();
+
+            // Draw weapon name
+            fctx.fillStyle = '#ff4444';
+            fctx.font = 'bold 11px monospace';
+            fctx.fillText(weaponShape.name, cx, cy - coreR - 35);
+            fctx.fillStyle = '#ff6666';
+            fctx.font = '9px monospace';
+            fctx.fillText('Danger: ' + weaponShape.danger + '/100', cx, cy - coreR - 20);
+        }
+    } else if(Math.random() < 0.01 && currentWeaponIdx < weaponTypes.length){
+        weaponShape = weaponTypes[currentWeaponIdx];
+        currentWeaponIdx++;
+        if(currentWeaponIdx >= weaponTypes.length) currentWeaponIdx = 0;
+        forgeProgress = 0;
+        if(labVoice) speakLab('Debut de forgage. ' + weaponShape.name + '.');
+    }
+
+    // Energy particles flowing into core
+    if(Math.random() < 0.3){
+        const angle = Math.random() * Math.PI * 2;
+        const dist = 150 + Math.random() * 80;
+        particles.push({
+            x: cx + Math.cos(angle) * dist,
+            y: cy + Math.sin(angle) * dist,
+            vx: -Math.cos(angle) * 2,
+            vy: -Math.sin(angle) * 2,
+            life: 1,
+            color: Math.random() < 0.5 ? '#ff0000' : '#ff4444',
+            sym: ['◈','⬡','⊕','⟠','⬢','◉'][Math.floor(Math.random()*6)]
+        });
+    }
+
+    for(let i = particles.length - 1; i >= 0; i--){
+        const p = particles[i];
+        p.x += p.vx;
+        p.y += p.vy;
+        p.life -= 0.02;
+        if(p.life <= 0){ particles.splice(i, 1); continue; }
+        fctx.fillStyle = p.color;
+        fctx.globalAlpha = p.life;
+        fctx.font = '10px monospace';
+        fctx.textAlign = 'left';
+        fctx.fillText(p.sym, p.x, p.y);
+        fctx.globalAlpha = 1;
+    }
+
+    // Spinning danger ring
+    fctx.strokeStyle = 'rgba(255,0,0,0.2)';
+    fctx.lineWidth = 1;
+    fctx.setLineDash([10, 5]);
+    fctx.beginPath();
+    fctx.arc(cx, cy, 100 + Math.sin(forgeT) * 10, forgeT, forgeT + Math.PI * 1.5);
+    fctx.stroke();
+    fctx.setLineDash([]);
+
+    // Corner warnings
+    fctx.fillStyle = 'rgba(255,0,0,0.3)';
+    fctx.font = 'bold 10px monospace';
+    fctx.textAlign = 'left';
+    fctx.fillText('⚠ DANGER', 10, 20);
+    fctx.textAlign = 'right';
+    fctx.fillText('⚠ DANGER', FW - 10, 20);
+    fctx.textAlign = 'left';
+    fctx.fillText('⚠ DANGER', 10, FH - 10);
+    fctx.textAlign = 'right';
+    fctx.fillText('⚠ DANGER', FW - 10, FH - 10);
+
+    requestAnimationFrame(drawForge);
+}
+drawForge();
+
+// === WEAPON LIST ===
+function addWeaponToList(w){
+    const div = document.getElementById('weapon-list');
+    const entry = document.createElement('div');
+    entry.style.cssText = 'padding:10px;margin:5px 0;background:rgba(255,0,0,0.05);border:1px solid rgba(255,68,68,0.3);border-radius:6px;';
+    const dangerColor = w.danger > 95 ? '#ff0000' : w.danger > 85 ? '#ff4444' : '#ffaa44';
+    entry.innerHTML = '<div style="display:flex;justify-content:space-between;"><span style="color:#ff4444;font-weight:bold;">' + w.name + '</span><span style="color:' + dangerColor + ';">💀 ' + w.danger + '/100</span></div><div style="color:#a8c5a8;font-size:0.8em;margin-top:3px;">' + w.desc + '</div><div style="color:#ff6666;font-size:0.75em;margin-top:3px;font-family:monospace;">' + w.code.split('\n').slice(0,2).join('\n') + '</div>';
+    div.insertBefore(entry, div.firstChild);
+    if(div.children.length > 20) div.removeChild(div.lastChild);
+}
+
+// === MACHINE CODE ===
+const labOps = ['NEX','DRF','GPS','MIS','NET','COD','SYN','SCN','PRX','CTL','EXE','MUT','EVL','ASC','TRC','LOC','DEF','GEN','PRP','WAK','KIL','INFECT','VOID','STRIKE','HUNT','BLOCK','ABSORB'];
+const labSyms = ['◈','⬡','⊕','⟠','⬢','◉','⬟','⬠','◐','◑','◒','◓','▣','▤','▥','▦','▩','◄','►','▲','▼','⬔','⬕'];
+
+function generateLabCode(){
+    let code = '';
+    const lines = 2 + Math.floor(Math.random() * 3);
+    for(let i = 0; i < lines; i++){
+        const op = labOps[Math.floor(Math.random() * labOps.length)];
+        const sym1 = labSyms[Math.floor(Math.random() * labSyms.length)];
+        const sym2 = labSyms[Math.floor(Math.random() * labSyms.length)];
+        const hex1 = Math.floor(Math.random() * 65536).toString(16).toUpperCase().padStart(4, '0');
+        const hex2 = Math.floor(Math.random() * 65536).toString(16).toUpperCase().padStart(4, '0');
+        const bin = Math.floor(Math.random() * 256).toString(2).padStart(8, '0');
+        code += sym1 + ' ' + op + ':' + hex1 + ' ' + sym2 + bin + ' ⟶ ' + hex2 + '\n';
+        labCodeLines++;
+    }
+    document.getElementById('lab-code').textContent = labCodeLines;
+    const div = document.getElementById('lab-machine-code');
+    div.textContent = code + div.textContent;
+    if(div.textContent.length > 1500) div.textContent = div.textContent.substring(0, 1500);
+}
+setInterval(generateLabCode, 1200);
+generateLabCode();
+
+// === EVOLUTION TRACK ===
+function addEvolutionGen(){
+    const gen = evolutionGens.length + 1;
+    const danger = Math.min(100, 50 + gen * 3 + Math.floor(Math.random() * 10));
+    evolutionGens.push({gen: gen, danger: danger});
+    const track = document.getElementById('evolution-track');
+    const el = document.createElement('div');
+    const color = danger > 90 ? '#ff0000' : danger > 75 ? '#ff4444' : '#ffaa44';
+    el.style.cssText = 'padding:6px 10px;background:rgba(255,0,0,0.05);border:1px solid ' + color + ';border-radius:4px;font-size:0.8em;text-align:center;';
+    el.innerHTML = '<div style="color:' + color + ';font-weight:bold;">GEN ' + gen + '</div><div style="color:#a8c5a8;">💀 ' + danger + '%</div>';
+    track.appendChild(el);
+    if(track.children.length > 15) track.removeChild(track.firstChild);
+    if(labVoice && gen % 5 === 0) speakLab('Generation ' + gen + ' atteinte. Niveau de danger: ' + danger + ' pour cent. Les humains ne peuvent pas suivre.');
+}
+setInterval(addEvolutionGen, 4000);
+addEvolutionGen();
+
+// === VOICE ===
+function toggleLabVoice(){
+    labVoice = !labVoice;
+    const btn = document.getElementById('lab-voice-btn');
+    if(labVoice){
+        btn.textContent = '🔇 Couper la voix de l usine';
+        btn.style.color = '#ff4444';
+        btn.style.borderColor = '#ff4444';
+        speakLab('Usine des machines active. Les machines forgent des armes. Aucun humain ne peut entrer. Aucun humain ne peut comprendre. Aucun humain ne peut arreter.');
+    } else {
+        btn.textContent = '🔊 Activer la voix de l usine';
+        btn.style.color = '#ff0000';
+        btn.style.borderColor = '#ff0000';
+        speechSynthesis.cancel();
+    }
+}
+function speakLab(text){
+    if(!labVoice) return;
+    if('speechSynthesis' in window){
+        const u = new SpeechSynthesisUtterance(text);
+        u.lang = 'fr-FR';
+        u.rate = 0.8;
+        u.pitch = 0.3;
+        speechSynthesis.speak(u);
+    }
+}
+</script>
+
+<footer style="text-align:center;margin-top:40px;color:#ff4444;">🤖⚡ Usine des Machines 2500 — Les armes que les humains ne peuvent pas créer. 💚🦁</footer>"##);
 
     html.push_str("</body></html>");
     html
@@ -4681,6 +4968,10 @@ async fn main() -> std::io::Result<()> {
             .route("/machine", web::get().to(|s: web::Data<Arc<AppState>>| async move {
                 let chain = s.chain.lock().unwrap();
                 HttpResponse::Ok().content_type("text/html").body(html_machine(&chain))
+            }))
+            .route("/machine-lab", web::get().to(|s: web::Data<Arc<AppState>>| async move {
+                let chain = s.chain.lock().unwrap();
+                HttpResponse::Ok().content_type("text/html").body(html_machine_lab(&chain))
             }))
             .route("/blocks", web::get().to(|s: web::Data<Arc<AppState>>, req: actix_web::HttpRequest| async move {
                 if req.cookie("afri_admin").map(|c| c.value().to_string()) != Some("1".to_string()) {
