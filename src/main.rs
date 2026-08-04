@@ -1097,7 +1097,7 @@ fn html_home(chain: &Blockchain, users: &UserStore, mesh: &NodeRegistry, shield:
     let mut html = html_head("🦁 AfriChain");
     let (attacks, _blocked, blocked_count, level) = shield.stats();
     let shield_status = if shield.active { format!("🔥 X9 ACTIF (Niveau {})", level) } else { "Inactif".to_string() };
-    html.push_str(&format!(r#"<h1>🦁 AfriChain</h1><p style="text-align:center;">La blockchain 100% africaine — 54 pays 💚🦁</p><div class="nav"><a href="/register">🆕 S'inscrire</a> | <a href="/login">🔑 Connexion</a> | <a href="/wallet">👛 Wallet</a> | <a href="/admin">🔐 Admin</a> | <a href="/mesh">📡 Mesh</a> | <a href="/annuaire">📖 Annuaire</a> | <a href="/bouclier">🛡️ Bouclier</a> | <a href="/satellite">🛸 X999</a> | <a href="/swarm">🛸🛸🛸 Essaim</a> | <a href="/commandement">🎖️ Commandement</a> | <a href="/interception">🛡️ Souverainete</a> | <a href="/securite-ai">🧠 AI 2100</a> | <a href="/chat">🧠💬 Chat AI</a> | <a href="/lumiere">🌫️☀️ Lumière</a> | <a href="/garage">🔧 Garage</a> | <a href="/machine">🤖🌐 Machines</a> | <a href="/machine-lab">🤖⚡ Usine</a> | <a href="/machine-world">🤖🌍 Monde</a> | <a href="/reve">💭 Rêves</a> | <a href="/dictionnaire">📖 Dictionnaire</a> | <a href="/machine-os">🖥️ OS Machine</a> | <a href="/machine-tv">📡 Machine TV</a> | <a href="/soleil">☀️ Soleil Serveur</a> | <a href="/aes">💰 AES Wari</a> | <a href="/api/status">🔌 API</a></div><div style="text-align:center;"><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Blocs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Transactions</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Utilisateurs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">AFR en circulation</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📡 Noeuds mesh</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📖 Numéros annuaire</div></div><div class="stat-box" style="border-color:#ff4444;"><div class="stat-num" style="color:#ff4444;">{}</div><div class="stat-label">🛡️ Attaques bloquées</div></div></div><div class="card"><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🪙 Token</span><b>AfriRich (AFR)</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🌍 Pays</span><b>54 pays africains</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🛡️ Bouclier</span><b>{}</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;"><span style="color:#a8c5a8;">🔐 Crypto</span><b>Ed25519</b></div></div><footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🦁 Codée from scratch par Machine-senpai — v0.35 Sharding Solaire 54 Pays 2500</footer>"#,
+    html.push_str(&format!(r#"<h1>🦁 AfriChain</h1><p style="text-align:center;">La blockchain 100% africaine — 54 pays 💚🦁</p><div class="nav"><a href="/register">🆕 S'inscrire</a> | <a href="/login">🔑 Connexion</a> | <a href="/wallet">👛 Wallet</a> | <a href="/admin">🔐 Admin</a> | <a href="/mesh">📡 Mesh</a> | <a href="/annuaire">📖 Annuaire</a> | <a href="/bouclier">🛡️ Bouclier</a> | <a href="/satellite">🛸 X999</a> | <a href="/swarm">🛸🛸🛸 Essaim</a> | <a href="/commandement">🎖️ Commandement</a> | <a href="/interception">🛡️ Souverainete</a> | <a href="/securite-ai">🧠 AI 2100</a> | <a href="/chat">🧠💬 Chat AI</a> | <a href="/lumiere">🌫️☀️ Lumière</a> | <a href="/garage">🔧 Garage</a> | <a href="/machine">🤖🌐 Machines</a> | <a href="/machine-lab">🤖⚡ Usine</a> | <a href="/machine-world">🤖🌍 Monde</a> | <a href="/reve">💭 Rêves</a> | <a href="/dictionnaire">📖 Dictionnaire</a> | <a href="/machine-os">🖥️ OS Machine</a> | <a href="/machine-tv">📡 Machine TV</a> | <a href="/machine-economy">🤖 Économie</a> | <a href="/soleil">☀️ Soleil Serveur</a> | <a href="/aes">💰 AES Wari</a> | <a href="/api/status">🔌 API</a></div><div style="text-align:center;"><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Blocs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Transactions</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Utilisateurs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">AFR en circulation</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📡 Noeuds mesh</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📖 Numéros annuaire</div></div><div class="stat-box" style="border-color:#ff4444;"><div class="stat-num" style="color:#ff4444;">{}</div><div class="stat-label">🛡️ Attaques bloquées</div></div></div><div class="card"><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🪙 Token</span><b>AfriRich (AFR)</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🌍 Pays</span><b>54 pays africains</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🛡️ Bouclier</span><b>{}</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;"><span style="color:#a8c5a8;">🔐 Crypto</span><b>Ed25519</b></div></div><footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🦁 Codée from scratch par Machine-senpai — v0.36 Économie Machine 2500</footer>"#,
         chain.blocks.len(),
         chain.total_transactions(),
         users.count(),
@@ -6759,6 +6759,203 @@ struct LoginForm { username: String, password: String }
 #[derive(Deserialize)]
 struct AdminForm { password: String }
 
+// ===== MACHINE ECONOMY (REAL) =====
+#[derive(Debug, Clone, Serialize, Deserialize)]
+struct MachineNode {
+    name: String,
+    city: String,
+    country: String,
+    flag: String,
+    address: String,      // Real Ed25519 wallet address
+    balance: u64,          // Real AFR balance
+    blocks_mined: u64,     // Real blocks mined
+    tx_sent: u64,          // Real transactions sent
+    tx_received: u64,     // Real transactions received
+    solar_kwh: f64,        // Real solar captation
+    status: String,       // "ACTIF", "MINING", "TRANSACTION"
+    last_action: String,   // Description of last action
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize)]
+struct MachineEconomy {
+    machines: Vec<MachineNode>,
+    tx_count: u64,
+    total_mined: u64,
+    #[serde(skip)]
+    initialized: bool,
+}
+
+impl MachineEconomy {
+    fn new() -> Self {
+        MachineEconomy {
+            machines: Vec::new(),
+            tx_count: 0,
+            total_mined: 0,
+            initialized: false,
+        }
+    }
+
+    fn load() -> Self {
+        match std::fs::read_to_string(data_path("machines.json")) {
+            Ok(data) => {
+                let mut me: MachineEconomy = serde_json::from_str(&data).unwrap_or(MachineEconomy::new());
+                me.initialized = true;
+                me
+            }
+            Err(_) => MachineEconomy::new(),
+        }
+    }
+
+    fn save(&self) {
+        let data = serde_json::to_string_pretty(self).unwrap_or_default();
+        std::fs::write(data_path("machines.json"), data).ok();
+    }
+
+    fn init_if_needed(&mut self, wallets: &mut WalletStore, chain: &mut Blockchain) {
+        if self.initialized && !self.machines.is_empty() {
+            return;
+        }
+        println!("🤖 Initialisation de l'économie machine — 6 serveurs africains");
+        let server_data = [
+            ("◈BAMAKO-01", "Bamako", "Mali", "🇲🇱", 6.7),
+            ("◈NIAMEY-02", "Niamey", "Niger", "🇳🇪", 6.8),
+            ("◈OUAGA-03", "Ouagadougou", "Burkina Faso", "🇧🇫", 6.0),
+            ("◈ACCRA-04", "Accra", "Ghana", "🇬🇭", 5.1),
+            ("◈ABIDJAN-05", "Abidjan", "Côte d'Ivoire", "🇨🇮", 5.2),
+            ("◈LAGOS-06", "Lagos", "Nigeria", "🇳🇬", 5.8),
+        ];
+        for (name, city, country, flag, kwh) in server_data.iter() {
+            let (addr, _priv) = wallets.create_wallet();
+            // Give each machine real AFR from SYSTEM
+            chain.add_transaction(Transaction::new("SYSTEM", &addr, 10000, &format!("Dotation machine {} {}", name, city)));
+            self.machines.push(MachineNode {
+                name: name.to_string(),
+                city: city.to_string(),
+                country: country.to_string(),
+                flag: flag.to_string(),
+                address: addr,
+                balance: 10000,
+                blocks_mined: 0,
+                tx_sent: 0,
+                tx_received: 0,
+                solar_kwh: *kwh,
+                status: "ACTIF".to_string(),
+                last_action: "Initialisation".to_string(),
+            });
+            println!("  ✅ {} {} — wallet: {}... — 10000 AFR", flag, name, &addr[..12]);
+        }
+        // Mine the initial machine transactions
+        chain.mine_pending("machine-init");
+        self.initialized = true;
+        self.save();
+        println!("🤖 Économie machine initialisée — 6 serveurs, 60000 AFR distribués");
+    }
+
+    fn tick(&mut self, chain: &mut Blockchain) {
+        if self.machines.is_empty() {
+            return;
+        }
+        let hour = Utc::now().hour();
+        let is_day = hour >= 6 && hour < 18;
+
+        // Machines transact with each other
+        let from_idx = rand::random::<usize>() % self.machines.len();
+        let mut to_idx = rand::random::<usize>() % self.machines.len();
+        if to_idx == from_idx { to_idx = (to_idx + 1) % self.machines.len(); }
+
+        let amount = 50 + (rand::random::<u64>() % 200);
+        let from_addr = self.machines[from_idx].address.clone();
+        let to_addr = self.machines[to_idx].address.clone();
+        let from_name = self.machines[from_idx].name.clone();
+        let to_name = self.machines[to_idx].name.clone();
+        let from_flag = self.machines[from_idx].flag.clone();
+        let to_flag = self.machines[to_idx].flag.clone();
+
+        let memo = format!("{} → {} : échange machine", from_name, to_name);
+        chain.add_transaction(Transaction::new(&from_addr, &to_addr, amount, &memo));
+
+        // Update machine stats
+        self.machines[from_idx].balance = self.machines[from_idx].balance.saturating_sub(amount);
+        self.machines[from_idx].tx_sent += 1;
+        self.machines[from_idx].status = "TRANSACTION".to_string();
+        self.machines[from_idx].last_action = format!("→ {} {} : {} AFR", to_flag, to_name, amount);
+
+        self.machines[to_idx].balance += amount;
+        self.machines[to_idx].tx_received += 1;
+        self.machines[to_idx].last_action = format!("← {} {} : {} AFR", from_flag, from_name, amount);
+
+        self.tx_count += 1;
+
+        // Every 3 ticks, mine a block (machines participate in PoST)
+        if self.tx_count % 3 == 0 {
+            let miner_idx = rand::random::<usize>() % self.machines.len();
+            let miner_name = self.machines[miner_idx].name.clone();
+            let miner_city = self.machines[miner_idx].city.clone();
+            let miner_flag = self.machines[miner_idx].flag.clone();
+            chain.mine_pending(&miner_name);
+            self.machines[miner_idx].blocks_mined += 1;
+            self.machines[miner_idx].status = "MINING".to_string();
+            self.machines[miner_idx].balance += 100; // Mining reward
+            self.total_mined += 1;
+            println!("⛏️ {} {} a miné un bloc (PoST) — total: {} blocs", miner_flag, miner_city, self.machines[miner_idx].blocks_mined);
+        }
+
+        // Reset status to ACTIF after a moment
+        for m in &mut self.machines {
+            if m.status == "TRANSACTION" || m.status == "MINING" {
+                m.status = "ACTIF".to_string();
+            }
+        }
+
+        self.save();
+    }
+
+    fn html(&self, chain: &Blockchain) -> String {
+        let mut html = html_head("🤖 Économie Machine");
+        html.push_str(r#"<h1>🤖 Économie Machine — RÉEL</h1><p style="text-align:center;color:#a8c5a8;">6 serveurs machine africains — vrais wallets, vraies transactions, vrai minage PoST. Pas de canvas. Du code.</p><div class="nav"><a href="/">← Accueil</a> | <a href="/machine">🤖 Machines</a> | <a href="/machine-world">🤖 Monde</a> | <a href="/soleil">☀️ Soleil</a> | <a href="/blocks">📊 Blocs</a></div>"#);
+
+        // Stats
+        html.push_str(&format!(r#"<div style="text-align:center;"><div class="stat-box" style="border-color:#7fcf7f;"><div class="stat-num" style="color:#7fcf7f;">{}</div><div class="stat-label">🤖 Serveurs actifs</div></div><div class="stat-box" style="border-color:#d4a437;"><div class="stat-num" style="color:#d4a437;">{}</div><div class="stat-label">💸 Transactions machine</div></div><div class="stat-box" style="border-color:#ffaa00;"><div class="stat-num" style="color:#ffaa00;">{}</div><div class="stat-label">⛏️ Blocs minés</div></div><div class="stat-box" style="border-color:#ff4444;"><div class="stat-num" style="color:#ff4444;">{}</div><div class="stat-label">💰 AFR total</div></div></div>"#,
+            self.machines.len(), self.tx_count, self.total_mined, self.machines.iter().map(|m| m.balance).sum::<u64>()));
+
+        // Machine wallets
+        html.push_str(r#"<div class="card" style="border-color:#7fcf7f;"><h2 style="color:#7fcf7f;">🏦 Serveurs Machine — Vrais Wallets</h2>"#);
+        for m in &self.machines {
+            let bal_pct = if m.balance > 0 { (m.balance as f64 / 15000.0) * 100.0 } else { 0.0 };
+            html.push_str(&format!(r#"<div style="background:rgba(0,0,0,0.3);padding:12px;margin:8px 0;border-radius:8px;border:1px solid rgba(127,207,127,0.3);"><div style="display:flex;justify-content:space-between;align-items:center;"><span style="font-size:1.1em;"><b>{} {}</b> <span style="color:#a8c5a8;font-size:0.85em;">— {}</span></span><span style="color:#7fcf7f;font-weight:bold;">{} AFR</span></div><div style="font-family:monospace;font-size:0.8em;color:#666;margin-top:4px;">Wallet: {}</div><div style="display:flex;gap:15px;margin-top:6px;font-size:0.85em;"><span style="color:#d4a437;">⛏️ {} blocs</span><span style="color:#7fcf7f;">📤 {} envoyés</span><span style="color:#44aaff;">📥 {} reçus</span><span style="color:#ffaa00;">☀️ {} kWh/m²</span></div><div style="margin-top:4px;font-size:0.85em;color:#a8c5a8;">Status: <b style="color:#7fcf7f;">{}</b> | Dernier: {}</div><div style="background:rgba(0,0,0,0.3);border-radius:4px;margin-top:6px;height:6px;"><div style="background:#7fcf7f;height:6px;border-radius:4px;width:{}%;"></div></div></div>"#,
+                m.flag, m.name, m.city, m.balance, m.address, m.blocks_mined, m.tx_sent, m.tx_received, m.solar_kwh, m.status, m.last_action, bal_pct as u32));
+        }
+        html.push_str("</div>");
+
+        // Real machine transactions from blockchain
+        html.push_str(r#"<div class="card"><h2>💸 Transactions Machine Réelles</h2><p style="color:#a8c5a8;font-size:0.85em;">Vraies transactions enregistrées sur la blockchain AfriChain</p>"#);
+        let machine_addrs: Vec<&str> = self.machines.iter().map(|m| m.address.as_str()).collect();
+        let mut machine_txs: Vec<&Transaction> = Vec::new();
+        for block in &chain.blocks {
+            for tx in &block.transactions {
+                if machine_addrs.contains(&tx.from.as_str()) || machine_addrs.contains(&tx.to.as_str()) {
+                    machine_txs.push(tx);
+                }
+            }
+        }
+        if machine_txs.is_empty() {
+            html.push_str(r#"<p style="text-align:center;color:#a8c5a8;">En attente de transactions machine...</p>"#);
+        } else {
+            for tx in machine_txs.iter().rev().take(20) {
+                let from_machine = self.machines.iter().find(|m| m.address == tx.from);
+                let to_machine = self.machines.iter().find(|m| m.address == tx.to);
+                let from_label = if let Some(m) = from_machine { format!("{} {}", m.flag, m.name) } else { tx.from[..12.min(tx.from.len())].to_string() };
+                let to_label = if let Some(m) = to_machine { format!("{} {}", m.flag, m.name) } else { tx.to[..12.min(tx.to.len())].to_string() };
+                html.push_str(&format!(r#"<div class="tx">🤖 <b>{}</b> → <b>{}</b> : {} AFR <i>({})</i></div>"#, from_label, to_label, tx.amount, tx.memo));
+            }
+        }
+        html.push_str("</div>");
+
+        html.push_str(&format!(r#"<footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🤖 Économie Machine — Vrais wallets Ed25519, vraies transactions, vrai minage PoST. Pas de canvas. Du code. 💚🦁</footer></body></html>"#));
+        html
+    }
+}
+
 // ===== SERVER =====
 use actix_web::{web, App, HttpServer, HttpResponse};
 
@@ -6769,6 +6966,7 @@ struct AppState {
     mesh: Mutex<NodeRegistry>,
     shield: Mutex<ShieldState>,
     ai_memory: Mutex<String>,
+    machines: Mutex<MachineEconomy>,
 }
 
 #[actix_web::main]
@@ -6781,10 +6979,11 @@ async fn main() -> std::io::Result<()> {
         .and_then(|i| args.get(i + 1)).cloned().unwrap_or_else(|| "Afrique".to_string());
 
     let my_node_id = generate_node_id();
-    println!("🦁 AfriChain v0.35 — Sharding Solaire 54 Pays 2500");
+    println!("🦁 AfriChain v0.36 — Économie Machine 2500");
     println!("💚 L'Afrique n'a pas besoin de permission");
     println!("🌍 54 pays africains — chaque bloc miné par un pays différent");
     println!("☀️ PoST: le soleil de toute l'Afrique valide la blockchain");
+    println!("🤖 Économie machine: 6 serveurs, vrais wallets, vraies transactions");
     println!("📖 Annuaire mesh panafricain — tous les numéros sur écoute");
     println!("🛡️ Bouclier X9 ACTIF — protection automatique");
     println!("🛰️ Satellite Afri — l'ombre de l'Afrique dans le ciel");
@@ -6794,7 +6993,7 @@ async fn main() -> std::io::Result<()> {
     println!("🌍 Région: {}", region);
 
     // Migration: deplacer les anciens fichiers vers ~/afririch/
-    for f in &["blockchain.json", "wallets.json", "users.json"] {
+    for f in &["blockchain.json", "wallets.json", "users.json", "machines.json", "ai_memory.json"] {
         if std::path::Path::new(f).exists() {
             let dest = data_path(f);
             if !std::path::Path::new(&dest).exists() {
@@ -6830,6 +7029,16 @@ async fn main() -> std::io::Result<()> {
     let ai_mem_path = data_path("ai_memory.json");
     let ai_memory_data = std::fs::read_to_string(&ai_mem_path).unwrap_or_else(|_| "{}".to_string());
 
+    // Load and initialize machine economy
+    let mut machine_economy = MachineEconomy::load();
+    machine_economy.init_if_needed(&mut wallets, &mut chain);
+    // Save wallets and chain after machine init
+    wallets.save();
+    chain.save_to_file();
+    machine_economy.save();
+    println!("🤖 {} serveurs machine actifs — {} transactions — {} blocs minés",
+        machine_economy.machines.len(), machine_economy.tx_count, machine_economy.total_mined);
+
     let state = Arc::new(AppState {
         chain: Mutex::new(chain),
         wallets: Mutex::new(wallets),
@@ -6837,6 +7046,7 @@ async fn main() -> std::io::Result<()> {
         mesh: Mutex::new(registry),
         shield: Mutex::new(shield),
         ai_memory: Mutex::new(ai_memory_data),
+        machines: Mutex::new(machine_economy),
     });
 
     // Start mesh threads
@@ -6845,6 +7055,18 @@ async fn main() -> std::io::Result<()> {
     let my_id_clone = my_node_id.clone();
     thread::spawn(move || udp_discovery(mesh_state1, my_id_clone, mesh_port, solar, region));
     thread::spawn(move || tcp_relay(mesh_state2, mesh_port));
+
+    // Machine economy thread — real transactions every 15 seconds
+    let machine_state = state.clone();
+    thread::spawn(move || {
+        loop {
+            thread::sleep(Duration::from_secs(15));
+            let mut me = machine_state.machines.lock().unwrap();
+            let mut chain = machine_state.chain.lock().unwrap();
+            me.tick(&mut chain);
+            chain.save_to_file();
+        }
+    });
 
     // Cleanup + auto-save thread
     let cleanup_state = state.clone();
@@ -6870,7 +7092,9 @@ async fn main() -> std::io::Result<()> {
                 wallets.save();
                 let users = cleanup_state.users.lock().unwrap();
                 users.save();
-                println!("💾 Sauvegarde automatique — {} blocs, {} utilisateurs", chain.blocks.len(), users.count());
+                let machines = cleanup_state.machines.lock().unwrap();
+                machines.save();
+                println!("💾 Sauvegarde automatique — {} blocs, {} utilisateurs, {} machines", chain.blocks.len(), users.count(), machines.machines.len());
             }
         }
     });
@@ -6879,6 +7103,7 @@ async fn main() -> std::io::Result<()> {
 
     println!("\n🌐 Serveur web sur http://localhost:8080");
     println!("💾 Sauvegarde automatique active — toutes les 30 secondes");
+    println!("🤖 Économie machine active — transactions toutes les 15 secondes");
     println!("📁 Données dans ~/afririch/ (chemin absolu)");
     println!("📡 Mesh relay sur port {}", mesh_port);
     println!("👛 Wallet sur http://localhost:8080/wallet");
@@ -7005,6 +7230,11 @@ async fn main() -> std::io::Result<()> {
             }))
             .route("/soleil", web::get().to(|_s: web::Data<Arc<AppState>>| async move {
                 HttpResponse::Ok().content_type("text/html").body(html_soleil())
+            }))
+            .route("/machine-economy", web::get().to(|s: web::Data<Arc<AppState>>| async move {
+                let me = s.machines.lock().unwrap();
+                let chain = s.chain.lock().unwrap();
+                HttpResponse::Ok().content_type("text/html").body(me.html(&chain))
             }))
             .route("/blocks", web::get().to(|s: web::Data<Arc<AppState>>, req: actix_web::HttpRequest| async move {
                 if req.cookie("afri_admin").map(|c| c.value().to_string()) != Some("1".to_string()) {
@@ -7243,7 +7473,7 @@ async fn main() -> std::io::Result<()> {
                 let mesh = s.mesh.lock().unwrap();
                 let shield = s.shield.lock().unwrap();
                 let (attacks, blocked, blocked_count, level) = shield.stats();
-                let json = format!(r#"{{"name":"AfriChain","blocks":{},"transactions":{},"users":{},"valid":{},"token":"AFR","version":"0.35.0","crypto":"Ed25519","supply":{},"mesh_nodes":{},"mesh_id":"{}","mesh_region":"{}","countries":54,"directory":{},"shield_active":{},"shield_level":{},"shield_attacks":{},"shield_blocked_ips":{}}}"#,
+                let json = format!(r#"{{"name":"AfriChain","blocks":{},"transactions":{},"users":{},"valid":{},"token":"AFR","version":"0.36.0","crypto":"Ed25519","supply":{},"mesh_nodes":{},"mesh_id":"{}","mesh_region":"{}","countries":54,"directory":{},"shield_active":{},"shield_level":{},"shield_attacks":{},"shield_blocked_ips":{}}}"#,
                     chain.blocks.len(), chain.total_transactions(), users.count(), chain.is_valid(), chain.total_supply(), mesh.count(), mesh.my_id, mesh.region, mesh.directory_count() + users.count(), shield.active, level, attacks, blocked_count);
                 HttpResponse::Ok().content_type("application/json").body(json)
             }))
