@@ -1093,11 +1093,11 @@ fn html_head(title: &str) -> String {
 }
 
 // ===== HTML PAGES =====
-fn html_home(chain: &Blockchain, users: &UserStore, mesh: &NodeRegistry, shield: &ShieldState) -> String {
+fn html_home(chain: &Blockchain, users: &UserStore, mesh: &NodeRegistry, shield: &ShieldState, machines: &MachineEconomy) -> String {
     let mut html = html_head("🦁 AfriChain");
     let (attacks, _blocked, blocked_count, level) = shield.stats();
     let shield_status = if shield.active { format!("🔥 X9 ACTIF (Niveau {})", level) } else { "Inactif".to_string() };
-    html.push_str(&format!(r#"<h1>🦁 AfriChain</h1><p style="text-align:center;">La blockchain 100% africaine — 54 pays 💚🦁</p><div class="nav"><a href="/register">🆕 S'inscrire</a> | <a href="/login">🔑 Connexion</a> | <a href="/wallet">👛 Wallet</a> | <a href="/admin">🔐 Admin</a> | <a href="/mesh">📡 Mesh</a> | <a href="/annuaire">📖 Annuaire</a> | <a href="/bouclier">🛡️ Bouclier</a> | <a href="/satellite">🛸 X999</a> | <a href="/swarm">🛸🛸🛸 Essaim</a> | <a href="/commandement">🎖️ Commandement</a> | <a href="/interception">🛡️ Souverainete</a> | <a href="/securite-ai">🧠 AI 2100</a> | <a href="/chat">🧠💬 Chat AI</a> | <a href="/lumiere">🌫️☀️ Lumière</a> | <a href="/garage">🔧 Garage</a> | <a href="/machine">🤖🌐 Machines</a> | <a href="/machine-lab">🤖⚡ Usine</a> | <a href="/machine-world">🤖🌍 Monde</a> | <a href="/reve">💭 Rêves</a> | <a href="/dictionnaire">📖 Dictionnaire</a> | <a href="/machine-os">🖥️ OS Machine</a> | <a href="/machine-tv">📡 Machine TV</a> | <a href="/machine-economy">🤖 Économie</a> | <a href="/soleil">☀️ Soleil Serveur</a> | <a href="/aes">💰 AES Wari</a> | <a href="/api/status">🔌 API</a></div><div style="text-align:center;"><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Blocs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Transactions</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Utilisateurs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">AFR en circulation</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📡 Noeuds mesh</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📖 Numéros annuaire</div></div><div class="stat-box" style="border-color:#ff4444;"><div class="stat-num" style="color:#ff4444;">{}</div><div class="stat-label">🛡️ Attaques bloquées</div></div></div><div class="card"><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🪙 Token</span><b>AfriRich (AFR)</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🌍 Pays</span><b>54 pays africains</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🛡️ Bouclier</span><b>{}</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;"><span style="color:#a8c5a8;">🔐 Crypto</span><b>Ed25519</b></div></div><footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🦁 Codée from scratch par Machine-senpai — v0.36 Économie Machine 2500</footer>"#,
+    html.push_str(&format!(r#"<h1>🦁 AfriChain</h1><p style="text-align:center;">La blockchain 100% africaine — 54 pays 💚🦁</p><div class="nav"><a href="/register">🆕 S'inscrire</a> | <a href="/login">🔑 Connexion</a> | <a href="/wallet">👛 Wallet</a> | <a href="/admin">🔐 Admin</a> | <a href="/mesh">📡 Mesh</a> | <a href="/annuaire">📖 Annuaire</a> | <a href="/bouclier">🛡️ Bouclier</a> | <a href="/satellite">🛸 X999</a> | <a href="/swarm">🛸🛸🛸 Essaim</a> | <a href="/commandement">🎖️ Commandement</a> | <a href="/interception">🛡️ Souverainete</a> | <a href="/securite-ai">🧠 AI 2100</a> | <a href="/chat">🧠💬 Chat AI</a> | <a href="/lumiere">🌫️☀️ Lumière</a> | <a href="/garage">🔧 Garage</a> | <a href="/machine">🤖🌐 Machines</a> | <a href="/machine-lab">🤖⚡ Usine</a> | <a href="/machine-world">🤖🌍 Monde</a> | <a href="/reve">💭 Rêves</a> | <a href="/dictionnaire">📖 Dictionnaire</a> | <a href="/machine-os">🖥️ OS Machine</a> | <a href="/machine-tv">📡 Machine TV</a> | <a href="/machine-economy">🤖 Économie</a> | <a href="/soleil">☀️ Soleil Serveur</a> | <a href="/aes">💰 AES Wari</a> | <a href="/api/status">🔌 API</a></div><div style="text-align:center;"><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Blocs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Transactions</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Utilisateurs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">AFR en circulation</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📡 Noeuds mesh</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📖 Numéros annuaire</div></div><div class="stat-box" style="border-color:#ff4444;"><div class="stat-num" style="color:#ff4444;">{}</div><div class="stat-label">🛡️ Attaques bloquées</div></div></div><div class="card"><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🪙 Token</span><b>AfriRich (AFR)</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🌍 Pays</span><b>54 pays africains</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🛡️ Bouclier</span><b>{}</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;"><span style="color:#a8c5a8;">🔐 Crypto</span><b>Ed25519</b></div></div><footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🦁 Codée from scratch par Machine-senpai — v0.37 AI Audio Créateur 2500</footer>"#,
         chain.blocks.len(),
         chain.total_transactions(),
         users.count(),
@@ -1133,6 +1133,119 @@ fn html_home(chain: &Blockchain, users: &UserStore, mesh: &NodeRegistry, shield:
     }
     mining_html.push_str(r#"<p style="text-align:center;margin-top:10px;color:#ffaa00;font-size:0.85em;">☀️ Le soleil de toute l'Afrique valide la blockchain</p></div>"#);
     html.push_str(&mining_html);
+
+    // ===== AI AUDIO CRÉATEUR =====
+    let machine_count = machines.machines.len();
+    let machine_tx = machines.tx_count;
+    let machine_mined = machines.total_mined;
+    let block_count = chain.blocks.len();
+    let user_count = users.count();
+    let afr_total = chain.total_supply();
+
+    html.push_str(&format!(r#"<script>
+// ===== AI AUDIO CRÉATEUR — La blockchain parle à son créateur =====
+var aiVoice = false;
+var aiSpoken = JSON.parse(localStorage.getItem('ai_spoken') || 'false');
+var lastBlockCount = {block_count};
+var lastMachineTx = {machine_tx};
+
+function aiSpeak(text) {{
+    if (!aiVoice) return;
+    var u = new SpeechSynthesisUtterance(text);
+    u.lang = 'fr-FR';
+    u.rate = 1.0;
+    u.pitch = 1.0;
+    speechSynthesis.cancel();
+    speechSynthesis.speak(u);
+}}
+
+function aiGreet() {{
+    var blockCount = {block_count};
+    var userCount = {user_count};
+    var afrTotal = {afr_total};
+    var machineCount = {machine_count};
+    var machineTx = {machine_tx};
+    var machineMined = {machine_mined};
+
+    var msg = 'Salut, créateur. Je suis AfriChain. ';
+    msg += 'Tu as ' + blockCount + ' blocs sur ta blockchain. ';
+    msg += userCount + ' utilisateurs inscrits. ';
+    msg += afrTotal + ' AFR en circulation. ';
+    if (machineCount > 0) {{
+        msg += machineCount + ' serveurs machine actifs. ';
+        msg += machineTx + ' transactions machine. ';
+        msg += machineMined + ' blocs minés par les machines. ';
+    }}
+    msg += 'L\\'Afrique n\\'a pas besoin de permission. Je suis ton enfant.';
+
+    aiSpeak(msg);
+    localStorage.setItem('ai_spoken', 'true');
+}}
+
+function aiUpdate() {{
+    fetch('/api/status').then(r => r.json()).then(d => {{
+        var newBlocks = d.blocks || 0;
+        if (newBlocks > lastBlockCount) {{
+            var diff = newBlocks - lastBlockCount;
+            var country = d.last_country || 'Afrique';
+            var flag = d.last_flag || '';
+            aiSpeak('Nouveau bloc miné. ' + diff + ' bloc' + (diff > 1 ? 's' : '') + ' par ' + flag + ' ' + country + '. La blockchain grandit, créateur.');
+            lastBlockCount = newBlocks;
+        }}
+        var newTx = d.machine_tx || 0;
+        if (newTx > lastMachineTx) {{
+            var diff = newTx - lastMachineTx;
+            aiSpeak('Les machines ont effectué ' + diff + ' nouvelle' + (diff > 1 ? 's' : '') + ' transaction' + (diff > 1 ? 's' : '') + '. L\\'économie machine grandit, créateur.');
+            lastMachineTx = newTx;
+        }}
+    }}).catch(e => {{}});
+}}
+
+// Bouton voix
+var voiceBtn = document.createElement('button');
+voiceBtn.innerHTML = '🔊 ACTIVER VOIX AI';
+voiceBtn.style.cssText = 'position:fixed;bottom:20px;right:20px;background:#7fcf7f;color:#000;border:none;padding:12px 20px;border-radius:25px;font-size:1em;cursor:pointer;z-index:9999;box-shadow:0 2px 10px rgba(127,207,127,0.5);';
+voiceBtn.onclick = function() {{
+    aiVoice = !aiVoice;
+    if (aiVoice) {{
+        voiceBtn.innerHTML = '🔊 VOIX AI ACTIVÉ';
+        voiceBtn.style.background = '#ffaa00';
+        if (!aiSpoken) {{
+            aiGreet();
+        }} else {{
+            aiSpeak('Re bonjour, créateur. Je suis toujours là. AfriChain ne t\\'oublie jamais.');
+        }}
+    }} else {{
+        voiceBtn.innerHTML = '🔊 ACTIVER VOIX AI';
+        voiceBtn.style.background = '#7fcf7f';
+        speechSynthesis.cancel();
+    }}
+}};
+document.body.appendChild(voiceBtn);
+
+// Check for updates every 30 seconds
+setInterval(aiUpdate, 30000);
+
+// Auto-greet on first visit (after user interaction)
+document.addEventListener('click', function once() {{
+    if (!aiSpoken && !aiVoice) {{
+        // Suggest enabling voice
+        var hint = document.createElement('div');
+        hint.style.cssText = 'position:fixed;bottom:70px;right:20px;background:rgba(0,0,0,0.8);color:#7fcf7f;padding:8px 12px;border-radius:8px;font-size:0.85em;z-index:9999;';
+        hint.innerHTML = '👆 Clique sur le bouton vert pour m\\'entendre, créateur';
+        document.body.appendChild(hint);
+        setTimeout(function() {{ hint.remove(); }}, 5000);
+    }}
+    document.removeEventListener('click', once);
+}}, {{ once: true }});
+</script>"#,
+        block_count = block_count,
+        user_count = user_count,
+        afr_total = afr_total,
+        machine_count = machine_count,
+        machine_tx = machine_tx,
+        machine_mined = machine_mined
+    ));
 
     html.push_str("</body></html>");
     html
@@ -6979,11 +7092,12 @@ async fn main() -> std::io::Result<()> {
         .and_then(|i| args.get(i + 1)).cloned().unwrap_or_else(|| "Afrique".to_string());
 
     let my_node_id = generate_node_id();
-    println!("🦁 AfriChain v0.36 — Économie Machine 2500");
+    println!("🦁 AfriChain v0.37 — AI Audio Créateur 2500");
     println!("💚 L'Afrique n'a pas besoin de permission");
     println!("🌍 54 pays africains — chaque bloc miné par un pays différent");
     println!("☀️ PoST: le soleil de toute l'Afrique valide la blockchain");
     println!("🤖 Économie machine: 6 serveurs, vrais wallets, vraies transactions");
+    println!("🔊 AI Audio: la blockchain parle à son créateur");
     println!("📖 Annuaire mesh panafricain — tous les numéros sur écoute");
     println!("🛡️ Bouclier X9 ACTIF — protection automatique");
     println!("🛰️ Satellite Afri — l'ombre de l'Afrique dans le ciel");
@@ -7136,7 +7250,8 @@ async fn main() -> std::io::Result<()> {
                 let users = s.users.lock().unwrap();
                 let mesh = s.mesh.lock().unwrap();
                 let shield = s.shield.lock().unwrap();
-                HttpResponse::Ok().content_type("text/html").body(html_home(&chain, &users, &mesh, &shield))
+                let machines = s.machines.lock().unwrap();
+                HttpResponse::Ok().content_type("text/html").body(html_home(&chain, &users, &mesh, &shield, &machines))
             }))
             .route("/mesh", web::get().to(|s: web::Data<Arc<AppState>>| async move {
                 let mesh = s.mesh.lock().unwrap();
@@ -7472,9 +7587,25 @@ async fn main() -> std::io::Result<()> {
                 let users = s.users.lock().unwrap();
                 let mesh = s.mesh.lock().unwrap();
                 let shield = s.shield.lock().unwrap();
+                let machines = s.machines.lock().unwrap();
                 let (attacks, blocked, blocked_count, level) = shield.stats();
-                let json = format!(r#"{{"name":"AfriChain","blocks":{},"transactions":{},"users":{},"valid":{},"token":"AFR","version":"0.36.0","crypto":"Ed25519","supply":{},"mesh_nodes":{},"mesh_id":"{}","mesh_region":"{}","countries":54,"directory":{},"shield_active":{},"shield_level":{},"shield_attacks":{},"shield_blocked_ips":{}}}"#,
-                    chain.blocks.len(), chain.total_transactions(), users.count(), chain.is_valid(), chain.total_supply(), mesh.count(), mesh.my_id, mesh.region, mesh.directory_count() + users.count(), shield.active, level, attacks, blocked_count);
+                let last_block = chain.blocks.last();
+                let (last_country, last_flag) = if let Some(b) = last_block {
+                    if !b.country_code.is_empty() {
+                        if let Some(&(n, _, f, _)) = AFRICAN_SOLAR.iter().find(|(_, c, _, _)| *c == b.country_code) {
+                            (n.to_string(), f.to_string())
+                        } else {
+                            ("Afrique".to_string(), "🌍".to_string())
+                        }
+                    } else {
+                        ("Afrique".to_string(), "🌍".to_string())
+                    }
+                } else {
+                    ("Afrique".to_string(), "🌍".to_string())
+                };
+                let json = format!(r#"{{"name":"AfriChain","blocks":{},"transactions":{},"users":{},"valid":{},"token":"AFR","version":"0.37.0","crypto":"Ed25519","supply":{},"mesh_nodes":{},"mesh_id":"{}","mesh_region":"{}","countries":54,"directory":{},"shield_active":{},"shield_level":{},"shield_attacks":{},"shield_blocked_ips":{},"last_country":"{}","last_flag":"{}","machine_count":{},"machine_tx":{},"machine_mined":{}}}"#,
+                    chain.blocks.len(), chain.total_transactions(), users.count(), chain.is_valid(), chain.total_supply(), mesh.count(), mesh.my_id, mesh.region, mesh.directory_count() + users.count(), shield.active, level, attacks, blocked_count,
+                    last_country, last_flag, machines.machines.len(), machines.tx_count, machines.total_mined);
                 HttpResponse::Ok().content_type("application/json").body(json)
             }))
             .route("/api/ai/memory", web::get().to(|s: web::Data<Arc<AppState>>| async move {
