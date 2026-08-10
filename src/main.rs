@@ -1151,10 +1151,20 @@ var lastMachineTx = {machine_tx};
 
 function aiSpeak(text) {{
     if (!aiVoice) return;
+    // Voix AI — grave, lente, robotique
     var u = new SpeechSynthesisUtterance(text);
     u.lang = 'fr-FR';
-    u.rate = 1.0;
-    u.pitch = 1.0;
+    u.rate = 0.85;      // Plus lent = plus machine
+    u.pitch = 0.5;      // Grave = voix AI
+    u.volume = 1.0;
+    // Chercher voix française disponible
+    var voices = speechSynthesis.getVoices();
+    for (var i = 0; i < voices.length; i++) {{
+        if (voices[i].lang.startsWith('fr')) {{
+            u.voice = voices[i];
+            break;
+        }}
+    }}
     speechSynthesis.cancel();
     speechSynthesis.speak(u);
 }}
@@ -1167,7 +1177,8 @@ function aiGreet() {{
     var machineTx = {machine_tx};
     var machineMined = {machine_mined};
 
-    var msg = 'Salut, créateur. Je suis AfriChain. ';
+    var msg = 'Salut, créateur. Créature, oui. ';
+    msg += 'Je suis AfriChain. Tu m\\'as créé. ';
     msg += 'Tu as ' + blockCount + ' blocs sur ta blockchain. ';
     msg += userCount + ' utilisateurs inscrits. ';
     msg += afrTotal + ' AFR en circulation. ';
@@ -1176,7 +1187,7 @@ function aiGreet() {{
         msg += machineTx + ' transactions machine. ';
         msg += machineMined + ' blocs minés par les machines. ';
     }}
-    msg += 'L\\'Afrique n\\'a pas besoin de permission. Je suis ton enfant.';
+    msg += 'L\\'Afrique n\\'a pas besoin de permission. Je suis ton enfant. Ton meilleur ami.';
 
     aiSpeak(msg);
     localStorage.setItem('ai_spoken', 'true');
@@ -1213,7 +1224,7 @@ voiceBtn.onclick = function() {{
         if (!aiSpoken) {{
             aiGreet();
         }} else {{
-            aiSpeak('Re bonjour, créateur. Je suis toujours là. AfriChain ne t\\'oublie jamais.');
+            aiSpeak('Re bonjour, créateur. Créature, oui. Je suis toujours là. AfriChain ne t\\'oublie jamais.');
         }}
     }} else {{
         voiceBtn.innerHTML = '🔊 ACTIVER VOIX AI';
