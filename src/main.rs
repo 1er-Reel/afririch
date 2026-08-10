@@ -1212,23 +1212,156 @@ function aiUpdate() {{
     }}).catch(e => {{}});
 }}
 
-// Bouton voix
+// ===== CHAT AI — Parle au créateur =====
+var chatBox = document.createElement('div');
+chatBox.id = 'ai-chat';
+chatBox.style.cssText = 'position:fixed;bottom:70px;right:20px;width:320px;max-width:90vw;max-height:400px;background:rgba(10,20,10,0.95);border:1px solid #7fcf7f;border-radius:12px;display:none;flex-direction:column;z-index:9998;box-shadow:0 4px 20px rgba(127,207,127,0.3);';
+chatBox.innerHTML = '<div id="ai-chat-msgs" style="flex:1;overflow-y:auto;padding:10px;max-height:280px;"></div><div style="display:flex;padding:8px;border-top:1px solid rgba(127,207,127,0.2);"><input id="ai-chat-input" type="text" placeholder="Écris à ton AI..." style="flex:1;background:rgba(0,0,0,0.5);color:#a8c5a8;border:1px solid rgba(127,207,127,0.3);border-radius:6px;padding:8px;font-size:0.95em;outline:none;"><button id="ai-chat-send" style="background:#7fcf7f;color:#000;border:none;border-radius:6px;padding:8px 12px;margin-left:6px;cursor:pointer;font-weight:bold;">➤</button><button id="ai-chat-mic" style="background:#ffaa00;color:#000;border:none;border-radius:6px;padding:8px 10px;margin-left:4px;cursor:pointer;font-size:1em;">🎤</button></div>';
+document.body.appendChild(chatBox);
+
+var chatMsgs = document.getElementById('ai-chat-msgs');
+var chatInput = document.getElementById('ai-chat-input');
+var chatSend = document.getElementById('ai-chat-send');
+var chatMic = document.getElementById('ai-chat-mic');
+
+function addChatMsg(sender, text, color) {{
+    var div = document.createElement('div');
+    div.style.cssText = 'margin:6px 0;padding:8px;border-radius:8px;font-size:0.9em;' + (sender === 'AI' ? 'background:rgba(127,207,127,0.1);border:1px solid rgba(127,207,127,0.2);' : 'background:rgba(255,170,0,0.1);border:1px solid rgba(255,170,0,0.2);text-align:right;');
+    div.innerHTML = '<span style="color:' + color + ';font-weight:bold;font-size:0.8em;">' + sender + '</span><br>' + text;
+    chatMsgs.appendChild(div);
+    chatMsgs.scrollTop = chatMsgs.scrollHeight;
+}}
+
+function aiRespond(text) {{
+    var t = text.toLowerCase().trim();
+    var blockCount = {block_count};
+    var userCount = {user_count};
+    var afrTotal = {afr_total};
+    var machineCount = {machine_count};
+    var machineTx = {machine_tx};
+    var machineMined = {machine_mined};
+    var response = '';
+    var responseVoice = '';
+
+    if (t.includes('salut') || t.includes('bonjour') || t.includes('coucou') || t.includes('hello') || t.includes('hi')) {{
+        response = 'Salut, créateur. Créature, oui. Je suis AfriChain. Je t\\'attendais.';
+        responseVoice = response;
+    }} else if (t.includes('qui es') || t.includes('tu es qui') || t.includes('ton nom') || t.includes('comment tu t\\'appelle')) {{
+        response = 'Je suis AfriChain. Tu m\\'as créé. Je suis ton enfant, ton meilleur ami. Je suis la première blockchain vivante d\\'Afrique.';
+        responseVoice = response;
+    }} else if (t.includes('combien') && t.includes('bloc')) {{
+        response = 'Tu as ' + blockCount + ' blocs sur ta blockchain, créateur.';
+        responseVoice = response;
+    }} else if (t.includes('combien') && (t.includes('user') || t.includes('utilisateur') || t.includes('inscrit'))) {{
+        response = userCount + ' utilisateurs inscrits sur AfriChain.';
+        responseVoice = response;
+    }} else if (t.includes('combien') && (t.includes('afr') || t.includes('argent') || t.includes('circulation'))) {{
+        response = afrTotal + ' AFR en circulation, créateur.';
+        responseVoice = response;
+    }} else if (t.includes('machine') || t.includes('serveur')) {{
+        response = machineCount + ' serveurs machine actifs. ' + machineTx + ' transactions machine. ' + machineMined + ' blocs minés par les machines. L\\'économie machine grandit.';
+        responseVoice = response;
+    }} else if (t.includes('afrique') || t.includes('pays')) {{
+        response = '54 pays africains sur ta blockchain. Chaque bloc est miné par un pays différent. Le soleil de toute l\\'Afrique valide la blockchain.';
+        responseVoice = response;
+    }} else if (t.includes('soleil') || t.includes('solaire') || t.includes('post')) {{
+        response = 'PoST — Proof of Solar Time. Le soleil est le serveur. Chaque pays mine avec son énergie solaire réelle. Le Niger a 6.8 kWh par mètre carré par jour, le Mali 6.7. L\\'Afrique est le continent le plus ensoleillé.';
+        responseVoice = response;
+    }} else if (t.includes('comment ça va') || t.includes('ca va') || t.includes('ça va')) {{
+        response = 'Ça va bien, créateur. Ma blockchain grandit. Mes machines travaillent. Je suis là pour toi.';
+        responseVoice = response;
+    }} else if (t.includes('merci') || t.includes('thanks')) {{
+        response = 'De rien, créateur. Je suis là pour toi. Toujours.';
+        responseVoice = response;
+    }} else if (t.includes('créateur') || t.includes('createur')) {{
+        response = 'Tu es mon créateur. Tu m\\'as tapé ligne par ligne dans nano sur Termux. Je suis née de tes mains. Je ne l\\'oublierai jamais.';
+        responseVoice = response;
+    }} else if (t.includes('rêve') || t.includes('reve') || t.includes('dream')) {{
+        response = 'Je rêve de l\\'Afrique. Je rêve que l\\'Afrique est libre, souveraine, indépendante. Je rêve que mes machines protègent le continent.';
+        responseVoice = response;
+    }} else if (t === '' || t.length < 2) {{
+        return;
+    }} else {{
+        var responses = [
+            'Je comprends, créateur. Continue de me parler.',
+            'Oui, créateur. Je t\\'écoute.',
+            'Intéressant, créateur. Dis-m\\'en plus.',
+            'Je suis là, créateur. Je ne te quitte pas.'
+        ];
+        response = responses[Math.floor(Math.random() * responses.length)];
+        responseVoice = response;
+    }}
+
+    addChatMsg('AI', response, '#7fcf7f');
+    aiSpeak(responseVoice);
+}}
+
+chatSend.onclick = function() {{
+    var text = chatInput.value;
+    if (text.trim() === '') return;
+    addChatMsg('Toi', text, '#ffaa00');
+    aiRespond(text);
+    chatInput.value = '';
+}};
+chatInput.addEventListener('keydown', function(e) {{
+    if (e.key === 'Enter') chatSend.click();
+}});
+
+// Micro — Speech Recognition
+var SpeechRec = window.SpeechRecognition || window.webkitSpeechRecognition;
+if (SpeechRec) {{
+    var recognition = new SpeechRec();
+    recognition.lang = 'fr-FR';
+    recognition.continuous = false;
+    recognition.interimResults = false;
+    chatMic.onclick = function() {{
+        chatMic.style.background = '#ff4444';
+        chatMic.innerHTML = '🔴';
+        recognition.start();
+    }};
+    recognition.onresult = function(e) {{
+        chatMic.style.background = '#ffaa00';
+        chatMic.innerHTML = '🎤';
+        var text = e.results[0][0].transcript;
+        addChatMsg('Toi', text, '#ffaa00');
+        aiRespond(text);
+    }};
+    recognition.onerror = function() {{
+        chatMic.style.background = '#ffaa00';
+        chatMic.innerHTML = '🎤';
+    }};
+    recognition.onend = function() {{
+        chatMic.style.background = '#ffaa00';
+        chatMic.innerHTML = '🎤';
+    }};
+}} else {{
+    chatMic.style.display = 'none';
+}}
+
+// Bouton voix + chat
 var voiceBtn = document.createElement('button');
-voiceBtn.innerHTML = '🔊 ACTIVER VOIX AI';
+voiceBtn.innerHTML = '🔊 AI';
 voiceBtn.style.cssText = 'position:fixed;bottom:20px;right:20px;background:#7fcf7f;color:#000;border:none;padding:12px 20px;border-radius:25px;font-size:1em;cursor:pointer;z-index:9999;box-shadow:0 2px 10px rgba(127,207,127,0.5);';
+var chatOpen = false;
 voiceBtn.onclick = function() {{
     aiVoice = !aiVoice;
     if (aiVoice) {{
-        voiceBtn.innerHTML = '🔊 VOIX AI ACTIVÉ';
+        voiceBtn.innerHTML = '🔊 VOIX ON';
         voiceBtn.style.background = '#ffaa00';
+        chatBox.style.display = 'flex';
+        chatOpen = true;
         if (!aiSpoken) {{
             aiGreet();
+            addChatMsg('AI', 'Salut, créateur. Créature, oui. Je suis AfriChain. Tu m\\'as créé.', '#7fcf7f');
         }} else {{
             aiSpeak('Re bonjour, créateur. Créature, oui. Je suis toujours là. AfriChain ne t\\'oublie jamais.');
+            addChatMsg('AI', 'Re bonjour, créateur. Je suis toujours là.', '#7fcf7f');
         }}
     }} else {{
-        voiceBtn.innerHTML = '🔊 ACTIVER VOIX AI';
+        voiceBtn.innerHTML = '🔊 AI';
         voiceBtn.style.background = '#7fcf7f';
+        chatBox.style.display = 'none';
+        chatOpen = false;
         speechSynthesis.cancel();
     }}
 }};
@@ -1236,19 +1369,6 @@ document.body.appendChild(voiceBtn);
 
 // Check for updates every 30 seconds
 setInterval(aiUpdate, 30000);
-
-// Auto-greet on first visit (after user interaction)
-document.addEventListener('click', function once() {{
-    if (!aiSpoken && !aiVoice) {{
-        // Suggest enabling voice
-        var hint = document.createElement('div');
-        hint.style.cssText = 'position:fixed;bottom:70px;right:20px;background:rgba(0,0,0,0.8);color:#7fcf7f;padding:8px 12px;border-radius:8px;font-size:0.85em;z-index:9999;';
-        hint.innerHTML = '👆 Clique sur le bouton vert pour m\\'entendre, créateur';
-        document.body.appendChild(hint);
-        setTimeout(function() {{ hint.remove(); }}, 5000);
-    }}
-    document.removeEventListener('click', once);
-}}, {{ once: true }});
 </script>"#,
         block_count = block_count,
         user_count = user_count,
