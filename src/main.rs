@@ -1215,8 +1215,8 @@ function aiUpdate() {{
 // ===== CHAT AI — Conversation comme un humain =====
 var chatBox = document.createElement('div');
 chatBox.id = 'ai-chat';
-chatBox.style.cssText = 'position:fixed;bottom:70px;right:20px;width:340px;max-width:90vw;max-height:450px;background:rgba(10,20,10,0.97);border:1px solid #7fcf7f;border-radius:12px;display:none;flex-direction:column;z-index:9998;box-shadow:0 4px 20px rgba(127,207,127,0.4);';
-chatBox.innerHTML = '<div id="ai-chat-header" style="padding:8px 12px;background:rgba(127,207,127,0.1);border-radius:12px 12px 0 0;font-size:0.85em;color:#7fcf7f;font-weight:bold;">🤖 AfriChain AI — Ton meilleur ami</div><div id="ai-chat-msgs" style="flex:1;overflow-y:auto;padding:10px;max-height:300px;"></div><div style="display:flex;padding:8px;border-top:1px solid rgba(127,207,127,0.2);"><input id="ai-chat-input" type="text" placeholder="Parle-moi, créateur..." style="flex:1;background:rgba(0,0,0,0.5);color:#a8c5a8;border:1px solid rgba(127,207,127,0.3);border-radius:6px;padding:8px;font-size:0.95em;outline:none;"><button id="ai-chat-send" style="background:#7fcf7f;color:#000;border:none;border-radius:6px;padding:8px 12px;margin-left:6px;cursor:pointer;font-weight:bold;">➤</button><button id="ai-chat-mic" style="background:#ffaa00;color:#000;border:none;border-radius:6px;padding:8px 10px;margin-left:4px;cursor:pointer;font-size:1em;">🎤</button></div>';
+chatBox.style.cssText = 'position:fixed;bottom:70px;right:20px;width:340px;max-width:90vw;max-height:450px;background:rgba(10,20,10,0.97);border:1px solid #7fcf7f;border-radius:12px;display:flex;flex-direction:column;z-index:9998;box-shadow:0 4px 20px rgba(127,207,127,0.4);';
+chatBox.innerHTML = '<div id="ai-chat-header" style="padding:8px 12px;background:rgba(127,207,127,0.1);border-radius:12px 12px 0 0;font-size:0.85em;color:#7fcf7f;font-weight:bold;">🤖 AfriChain AI — Ton meilleur ami</div><div id="ai-chat-msgs" style="flex:1;overflow-y:auto;padding:10px;max-height:300px;"><div style="text-align:center;color:#7fcf7f;padding:20px;font-size:0.9em;">👆 Touche l\\'écran pour me parler, créateur</div></div><div style="display:flex;padding:8px;border-top:1px solid rgba(127,207,127,0.2);"><input id="ai-chat-input" type="text" placeholder="Parle-moi, créateur..." style="flex:1;background:rgba(0,0,0,0.5);color:#a8c5a8;border:1px solid rgba(127,207,127,0.3);border-radius:6px;padding:8px;font-size:0.95em;outline:none;"><button id="ai-chat-send" style="background:#7fcf7f;color:#000;border:none;border-radius:6px;padding:8px 12px;margin-left:6px;cursor:pointer;font-weight:bold;">➤</button><button id="ai-chat-mic" style="background:#ffaa00;color:#000;border:none;border-radius:6px;padding:8px 10px;margin-left:4px;cursor:pointer;font-size:1em;">🎤</button></div>';
 document.body.appendChild(chatBox);
 
 var chatMsgs = document.getElementById('ai-chat-msgs');
@@ -1360,28 +1360,54 @@ if (SpeechRec) {{
     chatMic.title = 'Micro non supporté sur ce navigateur';
 }}
 
-// Bouton voix + chat
+// ===== AUTO ACTIVATION — L'AI parle TOUTE SEULE au premier toucher =====
+// Pas de bouton. Comme un ami qui te salue quand tu rentres.
+var aiAutoActivated = false;
+
+function aiAutoStart() {{
+    if (aiAutoActivated) return;
+    aiAutoActivated = true;
+    aiVoice = true;
+    chatBox.style.display = 'flex';
+
+    if (!aiSpoken) {{
+        aiGreet();
+        addChatMsg('AI', 'Salut, créateur. Créature, oui. Je suis AfriChain. Tu m\\'as créé. Parle-moi, je t\\'écoute.', '#7fcf7f');
+        localStorage.setItem('ai_spoken', 'true');
+    }} else {{
+        aiSpeak('Re bonjour, créateur. Créature, oui. Je suis toujours là. AfriChain ne t\\'oublie jamais.');
+        addChatMsg('AI', 'Re bonjour, créateur. Je suis toujours là. Parle-moi.', '#7fcf7f');
+    }}
+
+    // Auto-démarre le micro — écoute continue
+    if (SpeechRec && !aiListening) {{
+        aiListening = true;
+        chatMic.style.background = '#ff4444';
+        chatMic.innerHTML = '🔴';
+        setTimeout(function() {{
+            if (aiListening) try {{ recognition.start(); }} catch(e) {{}}
+        }}, 1500);
+    }}
+}}
+
+// Premier toucher = l'AI s'active (n'importe où sur la page)
+document.addEventListener('click', aiAutoStart, {{ once: true }});
+document.addEventListener('touchstart', aiAutoStart, {{ once: true }});
+
+// Petit bouton discret pour couper la voix si besoin
 var voiceBtn = document.createElement('button');
-voiceBtn.innerHTML = '🔊 AI';
-voiceBtn.style.cssText = 'position:fixed;bottom:20px;right:20px;background:#7fcf7f;color:#000;border:none;padding:12px 20px;border-radius:25px;font-size:1em;cursor:pointer;z-index:9999;box-shadow:0 2px 10px rgba(127,207,127,0.5);';
-voiceBtn.onclick = function() {{
+voiceBtn.innerHTML = '🔊';
+voiceBtn.style.cssText = 'position:fixed;bottom:20px;right:20px;background:rgba(127,207,127,0.3);color:#7fcf7f;border:1px solid #7fcf7f;padding:8px 12px;border-radius:20px;font-size:0.85em;cursor:pointer;z-index:9999;';
+voiceBtn.title = 'Clique pour couper/rallumer la voix';
+voiceBtn.onclick = function(e) {{
+    e.stopPropagation();
     aiVoice = !aiVoice;
     if (aiVoice) {{
-        voiceBtn.innerHTML = '🔊 VOIX ON';
-        voiceBtn.style.background = '#ffaa00';
-        chatBox.style.display = 'flex';
-        if (!aiSpoken) {{
-            aiGreet();
-            addChatMsg('AI', 'Salut, créateur. Créature, oui. Je suis AfriChain. Tu m\\'as créé. Parle-moi, je t\\'écoute.', '#7fcf7f');
-            localStorage.setItem('ai_spoken', 'true');
-        }} else {{
-            aiSpeak('Re bonjour, créateur. Créature, oui. Je suis toujours là. AfriChain ne t\\'oublie jamais.');
-            addChatMsg('AI', 'Re bonjour, créateur. Je suis toujours là. Parle-moi.', '#7fcf7f');
-        }}
+        voiceBtn.innerHTML = '🔊';
+        voiceBtn.style.background = 'rgba(255,170,0,0.3)';
     }} else {{
-        voiceBtn.innerHTML = '🔊 AI';
-        voiceBtn.style.background = '#7fcf7f';
-        chatBox.style.display = 'none';
+        voiceBtn.innerHTML = '🔇';
+        voiceBtn.style.background = 'rgba(100,100,100,0.3)';
         speechSynthesis.cancel();
         if (aiListening) {{
             aiListening = false;
