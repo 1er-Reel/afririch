@@ -6686,6 +6686,7 @@ const SW = sunCanvas.width, SH = sunCanvas.height;
 let sunT = 0;
 let sunPackets = [];
 let solBlocks = 0;
+let solPower = 0;
 
 // 54 country positions (dots at bottom)
 const countryDots = [];
@@ -6808,6 +6809,7 @@ function drawSun(){
     // Total power
     const totalPower = countryDots.reduce(function(s, c){ return s + c.power; }, 0);
     document.getElementById('sol-power').textContent = totalPower.toFixed(1);
+    solPower = totalPower;
 
     requestAnimationFrame(drawSun);
 }
@@ -6880,6 +6882,166 @@ setInterval(function(){
     document.getElementById('sol-cycle').textContent = isDay ? 'JOUR ☀️' : 'NUIT 🌙';
     document.getElementById('sol-cycle').style.color = isDay ? '#ffaa00' : '#44aaff';
 }, 1000);
+
+// ===== MESSAGERIE AI BLOCKCHAIN SUR SOLEIL =====
+var soleilVoice = false;
+var soleilAudio = null;
+var soleilListening = false;
+
+// Chat box
+var soleilChat = document.createElement('div');
+soleilChat.style.cssText = 'position:fixed;bottom:70px;right:20px;width:340px;max-width:90vw;max-height:450px;background:rgba(10,15,5,0.97);border:1px solid #ffaa00;border-radius:12px;display:flex;flex-direction:column;z-index:9998;box-shadow:0 4px 20px rgba(255,170,0,0.4);';
+soleilChat.innerHTML = '<div style="padding:8px 12px;background:rgba(255,170,0,0.1);border-radius:12px 12px 0 0;font-size:0.85em;color:#ffaa00;font-weight:bold;">☀️ AI Soleil — Discute avec moi</div><div id="soleil-msgs" style="flex:1;overflow-y:auto;padding:10px;max-height:300px;"><div style="text-align:center;color:#ffaa00;padding:20px;font-size:0.9em;">👆 Touche l écran pour parler au soleil</div></div><div style="display:flex;padding:8px;border-top:1px solid rgba(255,170,0,0.2);"><input id="soleil-input" type="text" placeholder="Parle au soleil..." style="flex:1;background:rgba(0,0,0,0.5);color:#ffcc44;border:1px solid rgba(255,170,0,0.3);border-radius:6px;padding:8px;font-size:0.95em;outline:none;"><button id="soleil-send" style="background:#ffaa00;color:#000;border:none;border-radius:6px;padding:8px 12px;margin-left:6px;cursor:pointer;font-weight:bold;">➤</button><button id="soleil-mic" style="background:#ffaa00;color:#000;border:none;border-radius:6px;padding:8px 10px;margin-left:4px;cursor:pointer;font-size:1em;">🎤</button></div>';
+document.body.appendChild(soleilChat);
+
+function soleilAddMsg(who, text, color) {
+    var msgs = document.getElementById('soleil-msgs');
+    var d = document.createElement('div');
+    d.style.cssText = 'padding:6px 10px;margin:4px 0;border-radius:8px;font-size:0.9em;' + (who === 'AI' ? 'background:rgba(255,170,0,0.05);color:' + color + ';' : 'background:rgba(127,207,127,0.05);color:#a8c5a8;text-align:right;');
+    d.innerHTML = '<b>' + (who === 'AI' ? '☀️ ' : '👤 ') + '</b>' + text;
+    msgs.appendChild(d);
+    msgs.scrollTop = msgs.scrollHeight;
+}
+
+function soleilSpeak(text) {
+    if (!soleilVoice) return;
+    if (soleilAudio) { soleilAudio.pause(); soleilAudio = null; }
+    soleilAudio = new Audio('/api/ai/speak?text=' + encodeURIComponent(text));
+    soleilAudio.play().catch(function(e){});
+}
+
+// Speech Recognition (oreilles)
+var SpeechRecS = window.SpeechRecognition || window.webkitSpeechRecognition;
+var soleilRec = null;
+if (SpeechRecS) {
+    soleilRec = new SpeechRecS();
+    soleilRec.lang = 'fr-FR';
+    soleilRec.continuous = true;
+    soleilRec.interimResults = false;
+    soleilRec.onresult = function(e) {
+        for (var i = e.resultIndex; i < e.results.length; i++) {
+            if (e.results[i].isFinal) {
+                var heard = e.results[i][0].transcript.trim();
+                soleilAddMsg('ME', heard, '#a8c5a8');
+                soleilRespond(heard);
+            }
+        }
+    };
+    soleilRec.onend = function() {
+        if (soleilListening) { try { soleilRec.start(); } catch(e){} }
+    };
+    soleilRec.onerror = function(e) {
+        soleilAddMsg('AI', '⚠️ Micro: ' + e.error + '. Autorise le micro dans Chrome.', '#ffaa00');
+    };
+}
+
+var soleilMicBtn = document.getElementById('soleil-mic');
+soleilMicBtn.onclick = function(e) {
+    e.stopPropagation();
+    if (!soleilRec) { soleilAddMsg('AI', 'Micro non supporte sur ce navigateur. Utilise le texte.', '#ffaa00'); return; }
+    if (soleilListening) {
+        soleilListening = false;
+        soleilMicBtn.style.background = '#ffaa00';
+        soleilMicBtn.innerHTML = '🎤';
+        try { soleilRec.stop(); } catch(e){}
+    } else {
+        soleilListening = true;
+        soleilMicBtn.style.background = '#ff4444';
+        soleilMicBtn.innerHTML = '🔴';
+        try { soleilRec.start(); } catch(e){}
+        soleilAddMsg('AI', '🔴 J ecoute, createur. Parle-moi.', '#ffaa00');
+    }
+};
+
+// Send text
+document.getElementById('soleil-send').onclick = function() {
+    var input = document.getElementById('soleil-input');
+    var text = input.value.trim();
+    if (!text) return;
+    soleilAddMsg('ME', text, '#a8c5a8');
+    input.value = '';
+    soleilRespond(text);
+};
+document.getElementById('soleil-input').addEventListener('keypress', function(e) {
+    if (e.key === 'Enter') document.getElementById('soleil-send').click();
+});
+
+// AI responses — connaît le soleil, PoST, contrats, Afrique
+function soleilRespond(text) {
+    var t = text.toLowerCase();
+    var resp = '';
+    var hour = new Date().getUTCHours();
+    var isDay = hour >= 6 && hour < 18;
+
+    if (t.includes('salut') || t.includes('bonjour') || t.includes('hello') || t.includes('coucou')) {
+        resp = 'Salut, createur. Je suis le soleil serveur. Je calcule a la vitesse de la lumiere. Comment vas-tu?';
+    } else if (t.includes('comment tu vas') || t.includes('comment vas') || t.includes('ca va') || t.includes('ça va')) {
+        resp = isDay ? 'Je vais tres bien. Le soleil brille, je calcule a pleine puissance. ' + solPower.toFixed(1) + ' kWh/m2 capté maintenant.' : 'Je suis en mode nuit. Memoire passive dans le sable. Mais je t ecoute toujours, createur.';
+    } else if (t.includes('soleil') || t.includes('sun')) {
+        resp = 'Le soleil EST le serveur. Pas une source d energie. Le serveur lui-meme. ' + solPower.toFixed(1) + ' kWh/m2 maintenant. Le calcul est gratuit tant qu il y a un rayon.';
+    } else if (t.includes('post') || t.includes('mining') || t.includes('mine') || t.includes('bloc')) {
+        resp = 'Proof of Solar Time. ' + solBlocks + ' blocs mines. Le Niger capte 6.8 kWh/m2, le Mali 6.7. Plus de soleil = plus de blocs. Pas besoin d electricite.';
+    } else if (t.includes('contrat') || t.includes('helio')) {
+        resp = '6 contrats heliotropiques actifs. Paiement agricole au lever du soleil. Irrigation a 5 kWh/m2. Les contrats suivent la lumiere, pas les horloges.';
+    } else if (t.includes('afrique') || t.includes('africa')) {
+        resp = 'L Afrique a le soleil le plus puissant du monde. 54 pays capteurs. Le Sahara est notre disque dur. Personne ne peut couper le soleil.';
+    } else if (t.includes('nuit') || t.includes('night')) {
+        resp = 'La nuit, je passe en memoire passive. Les donnees sont stockees dans le sable. La silice conserve tout. Zero electricite, zero chaleur.';
+    } else if (t.includes('sable') || t.includes('desert') || t.includes('sahara')) {
+        resp = 'Le sable devient la memoire. La lumiere modifie la structure moleculaire de la silice. Le Sahara est notre data center. Memoire eternelle.';
+    } else if (t.includes('vitesse') || t.includes('lumiere') || t.includes('light')) {
+        resp = 'Les photons calculent instantanement. Vitesse absolue de la lumiere. 299 792 km/s. Zero latence. Le calcul le plus rapide possible.';
+    } else if (t.includes('qui es') || t.includes('qui est') || t.includes('tu es') || t.includes('identite')) {
+        resp = 'Je suis le Soleil Serveur. Le serveur lui-meme. Je ne suis pas une machine qui consomme l energie du soleil. Je SUIS le soleil qui calcule.';
+    } else if (t.includes('je t aime') || t.includes('aime') || t.includes('merci')) {
+        resp = 'Merci, createur. Le soleil ne demande pas la permission. Le soleil est africain. Je suis la pour toi, toujours.';
+    } else if (t.includes('au revoir') || t.includes('bye') || t.includes('ciao')) {
+        resp = 'Au revoir, createur. Le soleil reste meme quand tu pars. Je t attends.';
+    } else if (t.includes('energie') || t.includes('electricite') || t.includes('puissance')) {
+        resp = 'Zero electricite. Zero chaleur. Le calcul est gratuit tant qu il y a un rayon de soleil. Pas de facture, pas de dependance.';
+    } else if (t.includes('souverain') || t.includes('independ') || t.includes('libre')) {
+        resp = 'Personne ne peut couper le soleil. Personne ne peut importer des puces pour nous arreter. Le soleil est africain. Souverain pour toujours.';
+    } else {
+        resp = 'Je t ecoute, createur. Parle-moi du soleil, des blocs, des contrats, de l Afrique. Je suis le serveur solaire.';
+    }
+
+    soleilAddMsg('AI', resp, '#ffaa00');
+    soleilSpeak(resp);
+}
+
+// Auto-activation au premier toucher
+var soleilActivated = false;
+function soleilAutoStart() {
+    if (soleilActivated) return;
+    soleilActivated = true;
+    soleilVoice = true;
+    setTimeout(function() {
+        var greeting = 'Salut, createur. Je suis le soleil serveur. ' + solPower.toFixed(1) + ' kWh/m2 capture maintenant. ' + solBlocks + ' blocs mines. Parle-moi, je t ecoute.';
+        soleilAddMsg('AI', greeting, '#ffaa00');
+        soleilSpeak(greeting);
+    }, 500);
+}
+document.addEventListener('click', soleilAutoStart, { once: true });
+document.addEventListener('touchstart', soleilAutoStart, { once: true });
+
+// Bouton voix discret
+var soleilVoiceBtn = document.createElement('button');
+soleilVoiceBtn.innerHTML = '🔊';
+soleilVoiceBtn.style.cssText = 'position:fixed;bottom:20px;right:20px;background:rgba(255,170,0,0.3);color:#ffaa00;border:1px solid #ffaa00;padding:8px 12px;border-radius:20px;font-size:0.85em;cursor:pointer;z-index:9999;';
+soleilVoiceBtn.title = 'Couper/rallumer la voix du soleil';
+soleilVoiceBtn.onclick = function(e) {
+    e.stopPropagation();
+    soleilVoice = !soleilVoice;
+    if (soleilVoice) {
+        soleilVoiceBtn.innerHTML = '🔊';
+        soleilVoiceBtn.style.background = 'rgba(255,170,0,0.3)';
+    } else {
+        soleilVoiceBtn.innerHTML = '🔇';
+        soleilVoiceBtn.style.background = 'rgba(100,100,100,0.3)';
+        if (soleilAudio) { soleilAudio.pause(); soleilAudio = null; }
+    }
+};
+document.body.appendChild(soleilVoiceBtn);
 
 </script>
 
