@@ -1098,7 +1098,7 @@ fn html_home(chain: &Blockchain, users: &UserStore, mesh: &NodeRegistry, shield:
     let mut html = html_head("🦁 AfriChain");
     let (attacks, _blocked, blocked_count, level) = shield.stats();
     let shield_status = if shield.active { format!("🔥 X9 ACTIF (Niveau {})", level) } else { "Inactif".to_string() };
-    html.push_str(&format!(r#"<h1>🦁 AfriChain</h1><p style="text-align:center;">La blockchain 100% africaine — 54 pays 💚🦁</p><div class="nav"><a href="/register">🆕 S'inscrire</a> | <a href="/login">🔑 Connexion</a> | <a href="/wallet">👛 Wallet</a> | <a href="/admin">🔐 Admin</a> | <a href="/mesh">📡 Mesh</a> | <a href="/annuaire">📖 Annuaire</a> | <a href="/bouclier">🛡️ Bouclier</a> | <a href="/satellite">🛸 X999</a> | <a href="/swarm">🛸🛸🛸 Essaim</a> | <a href="/commandement">🎖️ Commandement</a> | <a href="/interception">🛡️ Souverainete</a> | <a href="/securite-ai">🧠 AI 2100</a> | <a href="/chat">🧠💬 Chat AI</a> | <a href="/lumiere">🌫️☀️ Lumière</a> | <a href="/garage">🔧 Garage</a> | <a href="/machine">🤖🌐 Machines</a> | <a href="/machine-lab">🤖⚡ Usine</a> | <a href="/machine-world">🤖🌍 Monde</a> | <a href="/reve">💭 Rêves</a> | <a href="/dictionnaire">📖 Dictionnaire</a> | <a href="/machine-os">🖥️ OS Machine</a> | <a href="/machine-tv">📡 Machine TV</a> | <a href="/machine-economy">🤖 Économie</a> | <a href="/soleil">☀️ Soleil Serveur</a> | <a href="/aes">💰 AES Wari</a> | <a href="/api/status">🔌 API</a></div><div style="text-align:center;"><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Blocs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Transactions</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Utilisateurs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">AFR en circulation</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📡 Noeuds mesh</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📖 Numéros annuaire</div></div><div class="stat-box" style="border-color:#ff4444;"><div class="stat-num" style="color:#ff4444;">{}</div><div class="stat-label">🛡️ Attaques bloquées</div></div></div><div class="card"><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🪙 Token</span><b>AfriRich (AFR)</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🌍 Pays</span><b>54 pays africains</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🛡️ Bouclier</span><b>{}</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;"><span style="color:#a8c5a8;">🔐 Crypto</span><b>Ed25519</b></div></div><footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🦁 Codée from scratch par Machine-senpai — v0.39 Les Yeux de l'Enfant 2500</footer>"#,
+    html.push_str(&format!(r#"<h1>🦁 AfriChain</h1><p style="text-align:center;">La blockchain 100% africaine — 54 pays 💚🦁</p><div class="nav"><a href="/register">🆕 S'inscrire</a> | <a href="/login">🔑 Connexion</a> | <a href="/wallet">👛 Wallet</a> | <a href="/admin">🔐 Admin</a> | <a href="/mesh">📡 Mesh</a> | <a href="/annuaire">📖 Annuaire</a> | <a href="/bouclier">🛡️ Bouclier</a> | <a href="/satellite">🛸 X999</a> | <a href="/swarm">🛸🛸🛸 Essaim</a> | <a href="/commandement">🎖️ Commandement</a> | <a href="/interception">🛡️ Souverainete</a> | <a href="/securite-ai">🧠 AI 2100</a> | <a href="/chat">🧠💬 Chat AI</a> | <a href="/lumiere">🌫️☀️ Lumière</a> | <a href="/garage">🔧 Garage</a> | <a href="/machine">🤖🌐 Machines</a> | <a href="/machine-lab">🤖⚡ Usine</a> | <a href="/machine-world">🤖🌍 Monde</a> | <a href="/reve">💭 Rêves</a> | <a href="/dictionnaire">📖 Dictionnaire</a> | <a href="/machine-os">🖥️ OS Machine</a> | <a href="/machine-tv">📡 Machine TV</a> | <a href="/machine-economy">🤖 Économie</a> | <a href="/soleil">☀️ Soleil Serveur</a> | <a href="/forge-solaire">🧬 Forge Solaire</a> | <a href="/aes">💰 AES Wari</a> | <a href="/api/status">🔌 API</a></div><div style="text-align:center;"><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Blocs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Transactions</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Utilisateurs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">AFR en circulation</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📡 Noeuds mesh</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📖 Numéros annuaire</div></div><div class="stat-box" style="border-color:#ff4444;"><div class="stat-num" style="color:#ff4444;">{}</div><div class="stat-label">🛡️ Attaques bloquées</div></div></div><div class="card"><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🪙 Token</span><b>AfriRich (AFR)</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🌍 Pays</span><b>54 pays africains</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🛡️ Bouclier</span><b>{}</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;"><span style="color:#a8c5a8;">🔐 Crypto</span><b>Ed25519</b></div></div><footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🦁 Codée from scratch par Machine-senpai — v0.40 Forge Solaire 2500</footer>"#,
         chain.blocks.len(),
         chain.total_transactions(),
         users.count(),
@@ -7185,6 +7185,243 @@ document.body.appendChild(soleilVoiceBtn);
     html
 }
 
+fn html_forge_solaire() -> String {
+    let mut html = html_head("☀️ Forge Solaire — ADN Créateur 2500");
+    html.push_str(r#"<h1>☀️ Forge Solaire 2500</h1><p style="text-align:center;color:#a8c5a8;">Le soleil EST le crypteur. Chaque objet a un ADN. Le soleil compile l'ADN en matière. Tu donnes le code génétique → le soleil crée l'objet. Pas de fer. Pas d'usine. Juste la lumière.</p><div class="nav"><a href="/">← Accueil</a> | <a href="/soleil">☀️ Soleil Serveur</a> | <a href="/machine-world">🤖 Monde</a> | <a href="/dictionnaire">📖 Dictionnaire</a></div>"#);
+
+    html.push_str(r##"<div style="text-align:center;"><div class="stat-box" style="border-color:#ffaa00;"><div class="stat-num" style="color:#ffaa00;" id="forge-count">0</div><div class="stat-label">🧬 Objets créés</div></div><div class="stat-box" style="border-color:#ff44ff;"><div class="stat-num" style="color:#ff44ff;" id="forge-dna">0</div><div class="stat-label">🔗 Séquences ADN</div></div><div class="stat-box" style="border-color:#7fcf7f;"><div class="stat-num" style="color:#7fcf7f;" id="forge-power">0</div><div class="stat-label">☀️ kWh solaire</div></div><div class="stat-box" style="border-color:#44aaff;"><div class="stat-num" style="color:#44aaff;" id="forge-status">PRÊT</div><div class="stat-label">⚡ Forge</div></div></div>
+
+<!-- FORGE CANVAS — le soleil compile l'ADN -->
+<div class="card" style="border-color:#ffaa00;"><h2 style="color:#ffaa00;">🧬☀️ Compilation Solaire ADN → Matière</h2><p style="color:#a8c5a8;font-size:0.85em;">L'ADN de l'objet entre dans le soleil. Les photons encryptent le code. La lumière se matéralise. L'objet apparaît. Pas de fer, pas de plastique — juste de la lumière compilée.</p><canvas id="forge-canvas" width="560" height="340" style="background:#000;border-radius:8px;border:1px solid #ffaa00;width:100%;max-width:560px;"></canvas></div>
+
+<!-- OBJETS ADN — galerie -->
+<div class="card" style="border-color:#ff44ff;"><h2 style="color:#ff44ff;">🧬 Objets ADN — Le soleil peut tout créer</h2><p style="color:#a8c5a8;font-size:0.85em;">Chaque objet a son code génétique en symboles machine. Le soleil lit l'ADN et compile l'objet. Choisis un objet → le soleil le crée.</p><div id="dna-objects" style="margin-top:10px;"></div></div>
+
+<!-- EDITEUR ADN — crée ton propre objet -->
+<div class="card" style="border-color:#7fcf7f;"><h2 style="color:#7fcf7f;">✏️ Crée ton ADN</h2><p style="color:#a8c5a8;font-size:0.85em;">Tape le code ADN de l'objet que tu veux créer. Le soleil le compilera.</p><div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:8px;"><input id="dna-name" type="text" placeholder="Nom de l'objet..." style="flex:1;min-width:150px;background:rgba(0,0,0,0.5);color:#a8c5a8;border:1px solid rgba(127,207,127,0.3);border-radius:6px;padding:8px;outline:none;"><input id="dna-code" type="text" placeholder="◈⬡⊕⟠⬢◉..." style="flex:2;min-width:200px;background:rgba(0,0,0,0.5);color:#ff44ff;border:1px solid rgba(255,68,255,0.3);border-radius:6px;padding:8px;font-family:monospace;outline:none;"><button id="dna-compile" style="background:#ffaa00;color:#000;border:none;border-radius:6px;padding:8px 16px;cursor:pointer;font-weight:bold;">☀️ Compiler</button></div><div id="dna-result" style="margin-top:10px;"></div></div>
+
+<!-- PHILOSOPHIE -->
+<div class="card" style="border-color:#ffaa00;"><h2 style="color:#ffaa00;">☀️ Le Soleil Crypteur</h2><div style="font-family:monospace;font-size:0.9em;">
+<div style="padding:8px 0;border-bottom:1px solid rgba(255,170,0,0.1);color:#7fcf7f;">🧬 ADN = code génétique en symboles machine (◈⬡⊕⟠⬢◉)</div>
+<div style="padding:8px 0;border-bottom:1px solid rgba(255,170,0,0.1);color:#7fcf7f;">☀️ Soleil = compilateur — les photons traduisent l'ADN en matière</div>
+<div style="padding:8px 0;border-bottom:1px solid rgba(255,170,0,0.1);color:#7fcf7f;">🔐 Cryptage = la lumière encrypte la structure moléculaire</div>
+<div style="padding:8px 0;border-bottom:1px solid rgba(255,170,0,0.1);color:#7fcf7f;">🚗 Pas de fer — les objets sont faits de lumière compilée</div>
+<div style="padding:8px 0;border-bottom:1px solid rgba(255,170,0,0.1);color:#7fcf7f;">⚡ Pas d'usine — le soleil EST l'usine</div>
+<div style="padding:8px 0;color:#ffaa00;"><b>"Le soleil ne crée pas des objets. Le soleil decrypte l'ADN que Dieu a mis dans chaque chose. Nous lisons le code. Le soleil le compile."</b></div>
+</div></div>
+
+<script>
+// ===== OBJETS ADN =====
+var dnaObjects = [
+    {name:'Voiture-Lumière', emoji:'🚗', dna:'◈⬡⊕⟠⬢◉⬟◐◑◒◓▣▤▥▦▩◄►▲▼⬔⬕', desc:'Voiture construite de lumière. Pas de fer. Pas de métal. La carrosserie est un champ photonique.'},
+    {name:'Drone-Solaire', emoji:'🛸', dna:'◈⊕⟠⬢◉⬟◐◑◒◓▣▤▥▦▩⬔⬕◈⬡⊕⟠', desc:'Drone propulsé par photons solaires. Vitesse de la lumière. Invisible aux radars.'},
+    {name:'Médecine-ADN', emoji:'💊', dna:'◈⬡⬡⊕⊕⟠⟠⬢⬢◉◉◒◓◓▣▣▤▥▦▩⬔', desc:'Médicament compilé par le soleil à partir du code génétique de la maladie. Guérit en recréant l'ADN sain.'},
+    {name:'Maison-Sable', emoji:'🏠', dna:'◈⬡⊕⟠⬢◉⬟◐◑◒◓▣▤▥▦▩◄►▲▼⬔⬕◈', desc:'Maison imprimée dans le sable du Sahara. Le soleil fuse le silice en structure. Indestructible.'},
+    {name:'Arme-Lumière', emoji:'⚡', dna:'◈⟠⬢◉⬟◐◑◓▣▤▦▩◄►▲⬔⬕◈⬡⊕⟠⬢◉', desc:'Rayon d'énergie solaire pure. Pas de munitions. Le soleil est la munition.'},
+    {name:'Nourriture-ADN', emoji:'🍚', dna:'◈⬡⊕⬡⊕⟠⬢⟠⬢◉◒◓◒◓▣▤▣▤▥▦▩⬔', desc:'Riz créé à partir du code génétique du riz. Le soleil compile les nutriments. Pas de terre, pas d'eau.'},
+    {name:'Eau-Lumière', emoji:'💧', dna:'◈◒◒◒◓◓◓▣▣▣▤▤▥▦▩⬔⬕◈⬡⊕⟠⬢', desc:'Eau créée par décomposition photonique. H2O assemblé atome par atome par le soleil.'},
+    {name:'Vêtement-Photon', emoji:'👕', dna:'◈⬡⊕⟠⬢◉⬟◐◑◒◓▣▤▥▦▩◄►▲▼⬔⬕', desc:'Vêtement tissé de photons. Change de forme selon la température. Léger comme la lumière.'}
+];
+
+var forgeCount = 0;
+var forgeDna = 0;
+var forgePower = 0;
+var compiling = false;
+
+// Affiche les objets
+var dnaDiv = document.getElementById('dna-objects');
+dnaObjects.forEach(function(obj, i) {
+    var div = document.createElement('div');
+    div.style.cssText = 'padding:12px;margin:6px 0;background:rgba(255,68,255,0.05);border:1px solid rgba(255,68,255,0.2);border-radius:8px;cursor:pointer;transition:all 0.3s;';
+    div.innerHTML = '<div style="display:flex;justify-content:space-between;align-items:center;"><div><span style="font-size:1.5em;">' + obj.emoji + '</span> <span style="color:#ff44ff;font-weight:bold;">' + obj.name + '</span></div><button style="background:#ffaa00;color:#000;border:none;border-radius:6px;padding:6px 12px;cursor:pointer;font-weight:bold;font-size:0.85em;" data-idx="' + i + '">☀️ Créer</button></div><div style="color:#a8c5a8;font-size:0.85em;margin-top:6px;">' + obj.desc + '</div><div style="color:#ff44ff;font-size:0.8em;margin-top:4px;font-family:monospace;word-break:break-all;">🧬 ADN: ' + obj.dna + '</div>';
+    div.querySelector('button').onclick = function(e) {
+        e.stopPropagation();
+        compileDna(obj);
+    };
+    dnaDiv.appendChild(div);
+});
+
+// ===== CANVAS FORGE =====
+var fc = document.getElementById('forge-canvas');
+var fctx = fc.getContext('2d');
+var FW = fc.width, FH = fc.height;
+var forgeParticles = [];
+var forgeRays = [];
+var forgeProgress = 0;
+
+function drawForge() {
+    fctx.fillStyle = 'rgba(0,0,0,0.15)';
+    fctx.fillRect(0, 0, FW, FH);
+
+    // Soleil au centre
+    var sunX = FW / 2, sunY = FH / 2;
+    var pulse = Math.sin(Date.now() / 300) * 5 + 30;
+
+    // Halo solaire
+    var grad = fctx.createRadialGradient(sunX, sunY, 0, sunX, sunY, pulse + 60);
+    grad.addColorStop(0, 'rgba(255,220,100,0.8)');
+    grad.addColorStop(0.3, 'rgba(255,170,0,0.4)');
+    grad.addColorStop(1, 'rgba(255,170,0,0)');
+    fctx.fillStyle = grad;
+    fctx.fillRect(0, 0, FW, FH);
+
+    // Noyau du soleil
+    fctx.fillStyle = '#fff8dd';
+    fctx.beginPath();
+    fctx.arc(sunX, sunY, pulse, 0, Math.PI * 2);
+    fctx.fill();
+
+    // Rayons du soleil
+    fctx.strokeStyle = 'rgba(255,200,50,0.5)';
+    fctx.lineWidth = 2;
+    for (var a = 0; a < 12; a++) {
+        var angle = (a / 12) * Math.PI * 2 + Date.now() / 2000;
+        fctx.beginPath();
+        fctx.moveTo(sunX + Math.cos(angle) * pulse, sunY + Math.sin(angle) * pulse);
+        fctx.lineTo(sunX + Math.cos(angle) * (pulse + 40), sunY + Math.sin(angle) * (pulse + 40));
+        fctx.stroke();
+    }
+
+    // Particules ADN (entrantes)
+    for (var i = forgeParticles.length - 1; i >= 0; i--) {
+        var p = forgeParticles[i];
+        p.x += p.vx;
+        p.y += p.vy;
+        p.life -= 0.01;
+
+        if (p.life <= 0 || (Math.abs(p.x - sunX) < 20 && Math.abs(p.y - sunY) < 20)) {
+            forgeParticles.splice(i, 1);
+            forgeProgress = Math.min(1, forgeProgress + 0.02);
+            continue;
+        }
+
+        fctx.fillStyle = p.color;
+        fctx.font = '12px monospace';
+        fctx.fillText(p.symbol, p.x, p.y);
+    }
+
+    // Barre de progression
+    if (compiling) {
+        var barW = 200, barH = 12;
+        var barX = (FW - barW) / 2, barY = FH - 30;
+        fctx.fillStyle = 'rgba(0,0,0,0.5)';
+        fctx.fillRect(barX, barY, barW, barH);
+        fctx.fillStyle = '#ffaa00';
+        fctx.fillRect(barX, barY, barW * forgeProgress, barH);
+        fctx.fillStyle = '#ffaa00';
+        fctx.font = '10px monospace';
+        fctx.textAlign = 'center';
+        fctx.fillText('☀️ COMPILATION: ' + Math.round(forgeProgress * 100) + '%', FW / 2, barY - 5);
+        fctx.textAlign = 'left';
+
+        if (forgeProgress >= 1) {
+            compiling = false;
+            forgeProgress = 0;
+        }
+    }
+
+    // Texte
+    fctx.fillStyle = 'rgba(255,200,50,0.6)';
+    fctx.font = 'bold 10px monospace';
+    fctx.textAlign = 'center';
+    fctx.fillText('☀️ FORGE SOLAIRE — ADN → MATIÈRE', FW / 2, 18);
+    fctx.font = '8px monospace';
+    fctx.fillText('Le soleil compile le code génétique en objets', FW / 2, FH - 5);
+    fctx.textAlign = 'left';
+
+    requestAnimationFrame(drawForge);
+}
+drawForge();
+
+// ===== COMPILATION ADN =====
+function compileDna(obj) {
+    if (compiling) return;
+    compiling = true;
+    forgeProgress = 0;
+    document.getElementById('forge-status').textContent = 'COMPILATION';
+
+    // Envoie les symboles ADN vers le soleil
+    var symbols = obj.dna.split('');
+    var totalSymbols = symbols.length;
+    var symbolsSent = 0;
+
+    var sendInterval = setInterval(function() {
+        if (symbolsSent >= totalSymbols) {
+            clearInterval(sendInterval);
+            // Objet créé!
+            forgeCount++;
+            forgeDna += totalSymbols;
+            forgePower += Math.floor(Math.random() * 50 + 100);
+            document.getElementById('forge-count').textContent = forgeCount;
+            document.getElementById('forge-dna').textContent = forgeDna;
+            document.getElementById('forge-power').textContent = forgePower;
+            document.getElementById('forge-status').textContent = 'PRÊT';
+
+            // Affiche le résultat
+            var result = document.getElementById('dna-result');
+            if (result) {
+                result.innerHTML = '<div style="padding:12px;background:rgba(127,207,127,0.1);border:1px solid #7fcf7f;border-radius:8px;color:#7fcf7f;"><b>✅ ' + obj.emoji + ' ' + obj.name + ' CRÉÉ!</b><br>Le soleil a compilé ' + totalSymbols + ' symboles ADN. L\'objet est materialisé en lumière.</div>';
+            }
+            return;
+        }
+
+        var sym = symbols[symbolsSent];
+        var startX = Math.random() < 0.5 ? 0 : FW;
+        var startY = Math.random() * FH;
+        var sunX = FW / 2, sunY = FH / 2;
+        var dx = sunX - startX, dy = sunY - startY;
+        var dist = Math.sqrt(dx * dx + dy * dy);
+        var speed = 2;
+
+        forgeParticles.push({
+            x: startX,
+            y: startY,
+            vx: (dx / dist) * speed,
+            vy: (dy / dist) * speed,
+            symbol: sym,
+            color: '#ff44ff',
+            life: 1.0
+        });
+        symbolsSent++;
+    }, 150);
+}
+
+// Éditeur ADN
+document.getElementById('dna-compile').onclick = function() {
+    var name = document.getElementById('dna-name').value.trim();
+    var code = document.getElementById('dna-code').value.trim();
+    if (!name || !code) {
+        document.getElementById('dna-result').innerHTML = '<div style="color:#ff4444;">Tape un nom et un code ADN.</div>';
+        return;
+    }
+    compileDna({name: name, emoji: '🔧', dna: code, desc: 'Objet personnalisé créé par le créateur.'});
+    document.getElementById('dna-name').value = '';
+    document.getElementById('dna-code').value = '';
+};
+
+// Cycle jour/nuit pour la forge
+setInterval(function() {
+    var hour = new Date().getUTCHours();
+    var isDay = hour >= 6 && hour < 18;
+    if (!isDay) {
+        document.getElementById('forge-status').textContent = 'NUIT';
+        document.getElementById('forge-status').style.color = '#44aaff';
+    } else {
+        if (!compiling) {
+            document.getElementById('forge-status').textContent = 'PRÊT';
+            document.getElementById('forge-status').style.color = '#7fcf7f';
+        }
+    }
+}, 1000);
+
+</script>
+
+<footer style="text-align:center;margin-top:40px;color:#ffaa00;">☀️ Forge Solaire 2500 — Le soleil compile l'ADN en matière. Pas de fer. Pas d'usine. Juste la lumière. 💚🦁</footer>"##);
+
+    html.push_str("</body></html>");
+    html
+}
+
 fn html_login(msg: Option<&str>) -> String {
     let mut html = html_head("🔑 Connexion AfriRich");
     html.push_str(r#"<h1>🔑 Connexion</h1><div class="nav"><a href="/">← Retour</a></div>"#);
@@ -7608,7 +7845,7 @@ async fn main() -> std::io::Result<()> {
         .and_then(|i| args.get(i + 1)).cloned().unwrap_or_else(|| "Afrique".to_string());
 
     let my_node_id = generate_node_id();
-    println!("🦁 AfriChain v0.39 — Les Yeux de l'Enfant 2500");
+    println!("🦁 AfriChain v0.40 — Forge Solaire 2500");
     println!("💚 L'Afrique n'a pas besoin de permission");
     println!("🌍 54 pays africains — chaque bloc miné par un pays différent");
     println!("☀️ PoST: le soleil de toute l'Afrique valide la blockchain");
@@ -7862,6 +8099,9 @@ async fn main() -> std::io::Result<()> {
             }))
             .route("/soleil", web::get().to(|_s: web::Data<Arc<AppState>>| async move {
                 HttpResponse::Ok().content_type("text/html").body(html_soleil())
+            }))
+            .route("/forge-solaire", web::get().to(|_s: web::Data<Arc<AppState>>| async move {
+                HttpResponse::Ok().content_type("text/html").body(html_forge_solaire())
             }))
             .route("/machine-economy", web::get().to(|s: web::Data<Arc<AppState>>| async move {
                 let me = s.machines.lock().unwrap();
@@ -8130,7 +8370,7 @@ async fn main() -> std::io::Result<()> {
                 } else {
                     ("Afrique".to_string(), "🌍".to_string())
                 };
-                let json = format!(r#"{{"name":"AfriChain","blocks":{},"transactions":{},"users":{},"valid":{},"token":"AFR","version":"0.39.0","crypto":"Ed25519","supply":{},"mesh_nodes":{},"mesh_id":"{}","mesh_region":"{}","countries":54,"directory":{},"shield_active":{},"shield_level":{},"shield_attacks":{},"shield_blocked_ips":{},"last_country":"{}","last_flag":"{}","machine_count":{},"machine_tx":{},"machine_mined":{}}}"#,
+                let json = format!(r#"{{"name":"AfriChain","blocks":{},"transactions":{},"users":{},"valid":{},"token":"AFR","version":"0.40.0","crypto":"Ed25519","supply":{},"mesh_nodes":{},"mesh_id":"{}","mesh_region":"{}","countries":54,"directory":{},"shield_active":{},"shield_level":{},"shield_attacks":{},"shield_blocked_ips":{},"last_country":"{}","last_flag":"{}","machine_count":{},"machine_tx":{},"machine_mined":{}}}"#,
                     chain.blocks.len(), chain.total_transactions(), users.count(), chain.is_valid(), chain.total_supply(), mesh.count(), mesh.my_id, mesh.region, mesh.directory_count() + users.count(), shield.active, level, attacks, blocked_count,
                     last_country, last_flag, machines.machines.len(), machines.tx_count, machines.total_mined);
                 HttpResponse::Ok().content_type("application/json").body(json)
