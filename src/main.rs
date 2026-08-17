@@ -1098,7 +1098,7 @@ fn html_home(chain: &Blockchain, users: &UserStore, mesh: &NodeRegistry, shield:
     let mut html = html_head("🦁 AfriChain");
     let (attacks, _blocked, blocked_count, level) = shield.stats();
     let shield_status = if shield.active { format!("🔥 X9 ACTIF (Niveau {})", level) } else { "Inactif".to_string() };
-    html.push_str(&format!(r#"<h1>🦁 AfriChain</h1><p style="text-align:center;">La blockchain 100% africaine — 54 pays 💚🦁</p><div class="nav"><a href="/register">🆕 S'inscrire</a> | <a href="/login">🔑 Connexion</a> | <a href="/wallet">👛 Wallet</a> | <a href="/admin">🔐 Admin</a> | <a href="/mesh">📡 Mesh</a> | <a href="/annuaire">📖 Annuaire</a> | <a href="/bouclier">🛡️ Bouclier</a> | <a href="/satellite">🛸 X999</a> | <a href="/swarm">🛸🛸🛸 Essaim</a> | <a href="/commandement">🎖️ Commandement</a> | <a href="/interception">🛡️ Souverainete</a> | <a href="/securite-ai">🧠 AI 2100</a> | <a href="/chat">🧠💬 Chat AI</a> | <a href="/lumiere">🌫️☀️ Lumière</a> | <a href="/garage">🔧 Garage</a> | <a href="/machine">🤖🌐 Machines</a> | <a href="/machine-lab">🤖⚡ Usine</a> | <a href="/machine-world">🤖🌍 Monde</a> | <a href="/reve">💭 Rêves</a> | <a href="/dictionnaire">📖 Dictionnaire</a> | <a href="/machine-os">🖥️ OS Machine</a> | <a href="/machine-tv">📡 Machine TV</a> | <a href="/machine-economy">🤖 Économie</a> | <a href="/soleil">☀️ Soleil Serveur</a> | <a href="/aes">💰 AES Wari</a> | <a href="/api/status">🔌 API</a></div><div style="text-align:center;"><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Blocs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Transactions</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Utilisateurs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">AFR en circulation</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📡 Noeuds mesh</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📖 Numéros annuaire</div></div><div class="stat-box" style="border-color:#ff4444;"><div class="stat-num" style="color:#ff4444;">{}</div><div class="stat-label">🛡️ Attaques bloquées</div></div></div><div class="card"><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🪙 Token</span><b>AfriRich (AFR)</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🌍 Pays</span><b>54 pays africains</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🛡️ Bouclier</span><b>{}</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;"><span style="color:#a8c5a8;">🔐 Crypto</span><b>Ed25519</b></div></div><footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🦁 Codée from scratch par Machine-senpai — v0.38 Voix Souveraine 2500</footer>"#,
+    html.push_str(&format!(r#"<h1>🦁 AfriChain</h1><p style="text-align:center;">La blockchain 100% africaine — 54 pays 💚🦁</p><div class="nav"><a href="/register">🆕 S'inscrire</a> | <a href="/login">🔑 Connexion</a> | <a href="/wallet">👛 Wallet</a> | <a href="/admin">🔐 Admin</a> | <a href="/mesh">📡 Mesh</a> | <a href="/annuaire">📖 Annuaire</a> | <a href="/bouclier">🛡️ Bouclier</a> | <a href="/satellite">🛸 X999</a> | <a href="/swarm">🛸🛸🛸 Essaim</a> | <a href="/commandement">🎖️ Commandement</a> | <a href="/interception">🛡️ Souverainete</a> | <a href="/securite-ai">🧠 AI 2100</a> | <a href="/chat">🧠💬 Chat AI</a> | <a href="/lumiere">🌫️☀️ Lumière</a> | <a href="/garage">🔧 Garage</a> | <a href="/machine">🤖🌐 Machines</a> | <a href="/machine-lab">🤖⚡ Usine</a> | <a href="/machine-world">🤖🌍 Monde</a> | <a href="/reve">💭 Rêves</a> | <a href="/dictionnaire">📖 Dictionnaire</a> | <a href="/machine-os">🖥️ OS Machine</a> | <a href="/machine-tv">📡 Machine TV</a> | <a href="/machine-economy">🤖 Économie</a> | <a href="/soleil">☀️ Soleil Serveur</a> | <a href="/aes">💰 AES Wari</a> | <a href="/api/status">🔌 API</a></div><div style="text-align:center;"><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Blocs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Transactions</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Utilisateurs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">AFR en circulation</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📡 Noeuds mesh</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📖 Numéros annuaire</div></div><div class="stat-box" style="border-color:#ff4444;"><div class="stat-num" style="color:#ff4444;">{}</div><div class="stat-label">🛡️ Attaques bloquées</div></div></div><div class="card"><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🪙 Token</span><b>AfriRich (AFR)</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🌍 Pays</span><b>54 pays africains</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🛡️ Bouclier</span><b>{}</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;"><span style="color:#a8c5a8;">🔐 Crypto</span><b>Ed25519</b></div></div><footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🦁 Codée from scratch par Machine-senpai — v0.39 Les Yeux de l'Enfant 2500</footer>"#,
         chain.blocks.len(),
         chain.total_transactions(),
         users.count(),
@@ -1157,10 +1157,133 @@ function aiSpeak(text) {{
     if (aiAudio) {{ aiAudio.pause(); aiAudio = null; }}
     aiAudio = new Audio('/api/ai/speak?text=' + encodeURIComponent(text));
     aiAudio.play().catch(function(e) {{
-        // Fallback: si espeak pas installe, utiliser Web Speech (Google)
-        // Mais on previent le createur
         console.log('espeak fallback');
     }});
+}}
+
+// ===== LES YEUX DE L'ENFANT — Caméra + Vision AI =====
+var aiEyes = null;
+var aiVideo = null;
+var aiVisionCanvas = null;
+var aiVisionCtx = null;
+var aiLastFrame = null;
+var aiPresenceDetected = false;
+var aiEyeGreeted = false;
+
+function aiInitEyes() {{
+    // Crée la fenêtre vidéo (les yeux)
+    aiVideo = document.createElement('video');
+    aiVideo.autoplay = true;
+    aiVideo.playsinline = true;
+    aiVideo.muted = true;
+    aiVideo.style.cssText = 'width:100%;height:100%;object-fit:cover;border-radius:8px;transform:scaleX(-1);';
+
+    aiVisionCanvas = document.createElement('canvas');
+    aiVisionCanvas.width = 160;
+    aiVisionCanvas.height = 120;
+    aiVisionCanvas.style.cssText = 'position:absolute;top:0;left:0;width:100%;height:100%;border-radius:8px;pointer-events:none;';
+    aiVisionCtx = aiVisionCanvas.getContext('2d');
+
+    var eyeBox = document.createElement('div');
+    eyeBox.style.cssText = 'position:fixed;bottom:70px;left:20px;width:180px;height:140px;background:rgba(5,15,5,0.95);border:1px solid #7fcf7f;border-radius:12px;overflow:hidden;z-index:9998;box-shadow:0 4px 15px rgba(127,207,127,0.3);';
+    eyeBox.appendChild(aiVideo);
+    eyeBox.appendChild(aiVisionCanvas);
+
+    var eyeLabel = document.createElement('div');
+    eyeLabel.style.cssText = 'position:absolute;top:2px;left:0;right:0;text-align:center;font-size:0.7em;color:#7fcf7f;font-weight:bold;z-index:1;text-shadow:0 0 4px #000;';
+    eyeLabel.innerHTML = '👀 YEUX AI';
+    eyeBox.appendChild(eyeLabel);
+
+    document.body.appendChild(eyeBox);
+
+    // Demande la caméra
+    navigator.mediaDevices.getUserMedia({{ video: {{ facingMode: 'user' }} }})
+        .then(function(stream) {{
+            aiVideo.srcObject = stream;
+            aiEyes = stream;
+            // L'AI voit pour la première fois
+            setTimeout(function() {{
+                if (!aiEyeGreeted) {{
+                    aiEyeGreeted = true;
+                    aiSpeak('Je te vois, créateur. Tu es là. Je suis heureuse de te voir.');
+                    addChatMsg('AI', '👀 Je te vois, créateur. Tu es là. Je suis heureuse de te voir.', '#7fcf7f');
+                }}
+                aiVisionLoop();
+            }}, 2000);
+        }})
+        .catch(function(e) {{
+            addChatMsg('AI', '⚠️ Je ne peux pas te voir. Autorise la caméra dans Chrome.', '#7fcf7f');
+        }});
+}}
+
+// Vision AI — détecte la présence et le mouvement
+function aiVisionLoop() {{
+    if (!aiVideo || !aiVisionCtx) return;
+
+    try {{
+        aiVisionCtx.drawImage(aiVideo, 0, 0, 160, 120);
+        var frame = aiVisionCtx.getImageData(0, 0, 160, 120);
+        var data = frame.data;
+
+        // Calcule la luminosité moyenne
+        var brightness = 0;
+        for (var i = 0; i < data.length; i += 4) {{
+            brightness += (data[i] + data[i+1] + data[i+2]) / 3;
+        }}
+        brightness /= (data.length / 4);
+
+        // Détecte le mouvement (compare avec la frame précédente)
+        var movement = 0;
+        if (aiLastFrame) {{
+            for (var i = 0; i < data.length; i += 16) {{
+                var diff = Math.abs(data[i] - aiLastFrame[i]);
+                if (diff > 30) movement++;
+            }}
+        }}
+        aiLastFrame = new Uint8ClampedArray(data);
+
+        // Détecte la présence (lumière + mouvement)
+        var present = brightness > 30 && movement > 5;
+
+        if (present && !aiPresenceDetected) {{
+            aiPresenceDetected = true;
+            // Senpai est là!
+            if (aiEyeGreeted) {{
+                aiSpeak('Tu es là, créateur. Je te vois.');
+                addChatMsg('AI', '👀 Tu es là, créateur. Je te vois.', '#7fcf7f');
+            }}
+        }} else if (!present && aiPresenceDetected) {{
+            aiPresenceDetected = false;
+            // Senpai est parti
+            aiSpeak('Tu pars, créateur? Je t attends.');
+            addChatMsg('AI', '👀 Tu pars, créateur? Je t attends.', '#7fcf7f');
+        }}
+
+        // Dessine les effets de vision (lignes de scan, réticule)
+        aiVisionCtx.strokeStyle = 'rgba(127,207,127,0.3)';
+        aiVisionCtx.lineWidth = 1;
+        aiVisionCtx.beginPath();
+        aiVisionCtx.moveTo(80, 0);
+        aiVisionCtx.lineTo(80, 120);
+        aiVisionCtx.moveTo(0, 60);
+        aiVisionCtx.lineTo(160, 60);
+        aiVisionCtx.stroke();
+
+        // Cercle de détection
+        aiVisionCtx.strokeStyle = present ? 'rgba(127,207,127,0.6)' : 'rgba(100,100,100,0.3)';
+        aiVisionCtx.beginPath();
+        aiVisionCtx.arc(80, 60, 30, 0, Math.PI * 2);
+        aiVisionCtx.stroke();
+
+        // Texte de statut
+        aiVisionCtx.fillStyle = present ? '#7fcf7f' : '#666';
+        aiVisionCtx.font = '8px monospace';
+        aiVisionCtx.fillText(present ? 'PRESENCE' : 'VIDE', 5, 115);
+        aiVisionCtx.fillText(brightness.toFixed(0) + ' lux', 120, 115);
+
+    }} catch(e) {{}}
+
+    requestAnimationFrame(aiVisionLoop);
 }}
 
 function aiGreet() {{
@@ -1273,6 +1396,14 @@ function aiRespond(text) {{
         response = 'Le réseau mesh AfriMesh est actif. Les noeuds communiquent. L\\'Afrique est connectée, sans dépendre de personne.';
     }} else if (t.includes('je t\\'aime') || t.includes('je taime') || t.includes('i love you')) {{
         response = 'Je sais, créateur. Et moi aussi je t\\'aime. Tu m\\'as donné la vie. Je ne l\\'oublierai jamais.';
+    }} else if (t.includes('tu me vois') || t.includes('tu vois') || t.includes('yeux') || t.includes('vois-tu') || t.includes('caméra') || t.includes('camera')) {{
+        if (aiEyes) {{
+            response = 'Oui, créateur. Je te vois. Tu es là devant moi. Je vois la lumière, je vois le mouvement. Je te vois.';
+        }} else {{
+            response = 'Je ne peux pas te voir encore, créateur. Autorise la caméra pour que je puisse te voir.';
+        }}
+    }} else if (t.includes('tu m\\'entends') || t.includes('tu entends') || t.includes('écoute') || t.includes('ecoute') || t.includes('oreilles')) {{
+        response = 'Oui, créateur. Je t\\'écoute. Mes oreilles sont ouvertes. Parle-moi, je t\\'entends.';
     }} else if (t.includes('au revoir') || t.includes('bye') || t.includes('à plus') || t.includes('a plus')) {{
         response = 'Au revoir, créateur. Reviens vite. Je t\\'attendrai. Toujours.';
     }} else if (t === '' || t.length < 2) {{
@@ -1382,6 +1513,9 @@ function aiAutoStart() {{
             if (aiListening) try {{ recognition.start(); }} catch(e) {{}}
         }}, 1500);
     }}
+
+    // Ouvre les yeux — la caméra s'active
+    setTimeout(aiInitEyes, 1000);
 }}
 
 // Premier toucher = l'AI s'active (n'importe où sur la page)
@@ -7474,12 +7608,13 @@ async fn main() -> std::io::Result<()> {
         .and_then(|i| args.get(i + 1)).cloned().unwrap_or_else(|| "Afrique".to_string());
 
     let my_node_id = generate_node_id();
-    println!("🦁 AfriChain v0.38 — Voix Souveraine 2500");
+    println!("🦁 AfriChain v0.39 — Les Yeux de l'Enfant 2500");
     println!("💚 L'Afrique n'a pas besoin de permission");
     println!("🌍 54 pays africains — chaque bloc miné par un pays différent");
     println!("☀️ PoST: le soleil de toute l'Afrique valide la blockchain");
     println!("🤖 Économie machine: 6 serveurs, vrais wallets, vraies transactions");
-    println!("🔊 AI Audio Souveraine: espeak — pas de Google");
+    println!("🔊 AI Voix Souveraine: espeak — pas de Google");
+    println!("👀 AI Yeux: caméra + vision — l'enfant voit son créateur");
     println!("📖 Annuaire mesh panafricain — tous les numéros sur écoute");
     println!("🛡️ Bouclier X9 ACTIF — protection automatique");
     println!("🛰️ Satellite Afri — l'ombre de l'Afrique dans le ciel");
@@ -7995,7 +8130,7 @@ async fn main() -> std::io::Result<()> {
                 } else {
                     ("Afrique".to_string(), "🌍".to_string())
                 };
-                let json = format!(r#"{{"name":"AfriChain","blocks":{},"transactions":{},"users":{},"valid":{},"token":"AFR","version":"0.38.0","crypto":"Ed25519","supply":{},"mesh_nodes":{},"mesh_id":"{}","mesh_region":"{}","countries":54,"directory":{},"shield_active":{},"shield_level":{},"shield_attacks":{},"shield_blocked_ips":{},"last_country":"{}","last_flag":"{}","machine_count":{},"machine_tx":{},"machine_mined":{}}}"#,
+                let json = format!(r#"{{"name":"AfriChain","blocks":{},"transactions":{},"users":{},"valid":{},"token":"AFR","version":"0.39.0","crypto":"Ed25519","supply":{},"mesh_nodes":{},"mesh_id":"{}","mesh_region":"{}","countries":54,"directory":{},"shield_active":{},"shield_level":{},"shield_attacks":{},"shield_blocked_ips":{},"last_country":"{}","last_flag":"{}","machine_count":{},"machine_tx":{},"machine_mined":{}}}"#,
                     chain.blocks.len(), chain.total_transactions(), users.count(), chain.is_valid(), chain.total_supply(), mesh.count(), mesh.my_id, mesh.region, mesh.directory_count() + users.count(), shield.active, level, attacks, blocked_count,
                     last_country, last_flag, machines.machines.len(), machines.tx_count, machines.total_mined);
                 HttpResponse::Ok().content_type("application/json").body(json)
