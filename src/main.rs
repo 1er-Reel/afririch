@@ -7795,28 +7795,29 @@ struct AdminForm { password: String }
 
 // ===== AI VOICE SOUVERAINE (espeak — pas de Google) =====
 fn urlencoding_decode(s: &str) -> String {
-    let mut result = String::new();
+    let mut result: Vec<u8> = Vec::new();
     let bytes = s.as_bytes();
     let mut i = 0;
     while i < bytes.len() {
         if bytes[i] == b'%' && i + 2 < bytes.len() {
             let hex = std::str::from_utf8(&bytes[i+1..i+3]).unwrap_or("20");
             let code = u8::from_str_radix(hex, 16).unwrap_or(b' ');
-            result.push(code as char);
+            result.push(code);
             i += 3;
         } else if bytes[i] == b'+' {
-            result.push(' ');
+            result.push(b' ');
             i += 1;
         } else {
-            result.push(bytes[i] as char);
+            result.push(bytes[i]);
             i += 1;
         }
     }
+    let decoded = String::from_utf8(result).unwrap_or_else(|_| s.to_string());
     // Remove "text=" prefix if present
-    if result.starts_with("text=") {
-        result[5..].to_string()
+    if decoded.starts_with("text=") {
+        decoded[5..].to_string()
     } else {
-        result
+        decoded
     }
 }
 
@@ -8344,8 +8345,14 @@ async fn main() -> std::io::Result<()> {
             }))
             .route("/api/forge/stl", web::get().to(|req: actix_web::HttpRequest| async move {
                 let qs = req.query_string();
-                let name = urlencoding_decode(&format!("name={}", qs.split('&').find(|p| p.starts_with("name=")).unwrap_or("name=Objet").split('=').nth(1).unwrap_or("Objet")));
-                let dna_val = urlencoding_decode(&format!("dna={}", qs.split('&').find(|p| p.starts_with("dna=")).unwrap_or("dna=◈").split('=').nth(1).unwrap_or("◈")));
+                let name = qs.split('&').find(|p| p.starts_with("name="))
+                    .and_then(|p| p.splitn(2, '=').nth(1))
+                    .unwrap_or("Objet");
+                let name = urlencoding_decode(name);
+                let dna_val = qs.split('&').find(|p| p.starts_with("dna="))
+                    .and_then(|p| p.splitn(2, '=').nth(1))
+                    .unwrap_or("◈");
+                let dna_val = urlencoding_decode(dna_val);
                 let stl = forge_dna_to_stl(&name, &dna_val);
                 HttpResponse::Ok()
                     .content_type("application/sla")
@@ -8354,8 +8361,14 @@ async fn main() -> std::io::Result<()> {
             }))
             .route("/api/forge/spec", web::get().to(|req: actix_web::HttpRequest| async move {
                 let qs = req.query_string();
-                let name = urlencoding_decode(&format!("name={}", qs.split('&').find(|p| p.starts_with("name=")).unwrap_or("name=Objet").split('=').nth(1).unwrap_or("Objet")));
-                let dna_val = urlencoding_decode(&format!("dna={}", qs.split('&').find(|p| p.starts_with("dna=")).unwrap_or("dna=◈").split('=').nth(1).unwrap_or("◈")));
+                let name = qs.split('&').find(|p| p.starts_with("name="))
+                    .and_then(|p| p.splitn(2, '=').nth(1))
+                    .unwrap_or("Objet");
+                let name = urlencoding_decode(name);
+                let dna_val = qs.split('&').find(|p| p.starts_with("dna="))
+                    .and_then(|p| p.splitn(2, '=').nth(1))
+                    .unwrap_or("◈");
+                let dna_val = urlencoding_decode(dna_val);
                 let spec = forge_dna_to_spec(&name, &dna_val);
                 HttpResponse::Ok().content_type("text/plain").body(spec)
             }))
