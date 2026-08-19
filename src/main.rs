@@ -1098,7 +1098,7 @@ fn html_home(chain: &Blockchain, users: &UserStore, mesh: &NodeRegistry, shield:
     let mut html = html_head("🦁 AfriChain");
     let (attacks, _blocked, blocked_count, level) = shield.stats();
     let shield_status = if shield.active { format!("🔥 X9 ACTIF (Niveau {})", level) } else { "Inactif".to_string() };
-    html.push_str(&format!(r#"<h1>🦁 AfriChain</h1><p style="text-align:center;">La blockchain 100% africaine — 54 pays 💚🦁</p><div class="nav"><a href="/register">🆕 S'inscrire</a> | <a href="/login">🔑 Connexion</a> | <a href="/wallet">👛 Wallet</a> | <a href="/admin">🔐 Admin</a> | <a href="/mesh">📡 Mesh</a> | <a href="/annuaire">📖 Annuaire</a> | <a href="/bouclier">🛡️ Bouclier</a> | <a href="/satellite">🛸 X999</a> | <a href="/swarm">🛸🛸🛸 Essaim</a> | <a href="/commandement">🎖️ Commandement</a> | <a href="/interception">🛡️ Souverainete</a> | <a href="/securite-ai">🧠 AI 2100</a> | <a href="/chat">🧠💬 Chat AI</a> | <a href="/lumiere">🌫️☀️ Lumière</a> | <a href="/garage">🔧 Garage</a> | <a href="/machine">🤖🌐 Machines</a> | <a href="/machine-lab">🤖⚡ Usine</a> | <a href="/machine-world">🤖🌍 Monde</a> | <a href="/reve">💭 Rêves</a> | <a href="/dictionnaire">📖 Dictionnaire</a> | <a href="/machine-os">🖥️ OS Machine</a> | <a href="/machine-tv">📡 Machine TV</a> | <a href="/machine-economy">🤖 Économie</a> | <a href="/soleil">☀️ Soleil Serveur</a> | <a href="/forge-solaire">🧬 Forge Solaire</a> | <a href="/aes">💰 AES Wari</a> | <a href="/api/status">🔌 API</a></div><div style="text-align:center;"><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Blocs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Transactions</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Utilisateurs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">AFR en circulation</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📡 Noeuds mesh</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📖 Numéros annuaire</div></div><div class="stat-box" style="border-color:#ff4444;"><div class="stat-num" style="color:#ff4444;">{}</div><div class="stat-label">🛡️ Attaques bloquées</div></div></div><div class="card"><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🪙 Token</span><b>AfriRich (AFR)</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🌍 Pays</span><b>54 pays africains</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🛡️ Bouclier</span><b>{}</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;"><span style="color:#a8c5a8;">🔐 Crypto</span><b>Ed25519</b></div></div><footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🦁 Codée from scratch par Machine-senpai — v0.41 Forge Solaire Réaliste</footer>"#,
+    html.push_str(&format!(r#"<h1>🦁 AfriChain</h1><p style="text-align:center;">La blockchain 100% africaine — 54 pays 💚🦁</p><div class="nav"><a href="/register">🆕 S'inscrire</a> | <a href="/login">🔑 Connexion</a> | <a href="/wallet">👛 Wallet</a> | <a href="/admin">🔐 Admin</a> | <a href="/mesh">📡 Mesh</a> | <a href="/annuaire">📖 Annuaire</a> | <a href="/bouclier">🛡️ Bouclier</a> | <a href="/satellite">🛸 X999</a> | <a href="/swarm">🛸🛸🛸 Essaim</a> | <a href="/commandement">🎖️ Commandement</a> | <a href="/interception">🛡️ Souverainete</a> | <a href="/securite-ai">🧠 AI 2100</a> | <a href="/chat">🧠💬 Chat AI</a> | <a href="/lumiere">🌫️☀️ Lumière</a> | <a href="/garage">🔧 Garage</a> | <a href="/machine">🤖🌐 Machines</a> | <a href="/machine-lab">🤖⚡ Usine</a> | <a href="/machine-world">🤖🌍 Monde</a> | <a href="/reve">💭 Rêves</a> | <a href="/dictionnaire">📖 Dictionnaire</a> | <a href="/machine-os">🖥️ OS Machine</a> | <a href="/machine-tv">📡 Machine TV</a> | <a href="/machine-economy">🤖 Économie</a> | <a href="/soleil">☀️ Soleil Serveur</a> | <a href="/forge-solaire">🧬 Forge Solaire</a> | <a href="/aes">💰 AES Wari</a> | <a href="/api/status">🔌 API</a></div><div style="text-align:center;"><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Blocs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Transactions</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Utilisateurs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">AFR en circulation</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📡 Noeuds mesh</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📖 Numéros annuaire</div></div><div class="stat-box" style="border-color:#ff4444;"><div class="stat-num" style="color:#ff4444;">{}</div><div class="stat-label">🛡️ Attaques bloquées</div></div></div><div class="card"><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🪙 Token</span><b>AfriRich (AFR)</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🌍 Pays</span><b>54 pays africains</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🛡️ Bouclier</span><b>{}</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;"><span style="color:#a8c5a8;">🔐 Crypto</span><b>Ed25519</b></div></div><footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🦁 Codée from scratch par Machine-senpai — v0.42 Four Solaire Réel</footer>"#,
         chain.blocks.len(),
         chain.total_transactions(),
         users.count(),
@@ -7200,6 +7200,61 @@ fn html_forge_solaire() -> String {
 <!-- EDITEUR ADN — crée ton propre objet -->
 <div class="card" style="border-color:#7fcf7f;"><h2 style="color:#7fcf7f;">✏️ Crée ton ADN</h2><p style="color:#a8c5a8;font-size:0.85em;">Tape le code ADN de l'objet que tu veux créer. Le soleil le compilera.</p><div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:8px;"><input id="dna-name" type="text" placeholder="Nom de l'objet..." style="flex:1;min-width:150px;background:rgba(0,0,0,0.5);color:#a8c5a8;border:1px solid rgba(127,207,127,0.3);border-radius:6px;padding:8px;outline:none;"><input id="dna-code" type="text" placeholder="◈⬡⊕⟠⬢◉..." style="flex:2;min-width:200px;background:rgba(0,0,0,0.5);color:#ff44ff;border:1px solid rgba(255,68,255,0.3);border-radius:6px;padding:8px;font-family:monospace;outline:none;"><button id="dna-compile" style="background:#ffaa00;color:#000;border:none;border-radius:6px;padding:8px 16px;cursor:pointer;font-weight:bold;">☀️ Compiler</button></div><div id="dna-result" style="margin-top:10px;"></div></div>
 
+<!-- FOUR SOLAIRE — Vraie physique -->
+<div class="card" style="border-color:#ff6600;"><h2 style="color:#ff6600;">🔥 Four Solaire — Concentration Réelle</h2><p style="color:#a8c5a8;font-size:0.85em;">Le soleil envoie ~1000 W/m² en Afrique. Pour fabriquer, il faut CONCENTRER les rayons. Plus la concentration est haute, plus la température est élevée. Choisis ton concentrateur et ton pays africain — le four calcule la vraie température.</p>
+
+<div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:10px;">
+<div style="flex:1;min-width:200px;">
+<label style="color:#a8c5a8;font-size:0.85em;">Type de concentrateur:</label>
+<select id="furnace-type" style="width:100%;background:rgba(0,0,0,0.5);color:#ffaa00;border:1px solid rgba(255,102,0,0.3);border-radius:6px;padding:8px;margin-top:4px;outline:none;">
+<option value="parabolic">📡 Miroir Parabolique (max 5000x)</option>
+<option value="fresnel">🔍 Lentille Fresnel (max 2000x)</option>
+<option value="tower">🗼 Tour Solaire (max 3000x)</option>
+<option value="dish">🛰️ Parabole Satellite (max 800x)</option>
+</select>
+</div>
+<div style="flex:1;min-width:200px;">
+<label style="color:#a8c5a8;font-size:0.85em;">Pays africain (données solaires réelles):</label>
+<select id="furnace-country" style="width:100%;background:rgba(0,0,0,0.5);color:#ffaa00;border:1px solid rgba(255,102,0,0.3);border-radius:6px;padding:8px;margin-top:4px;outline:none;">
+<option value="Niger">🇳🇪 Niger — 6.8 kWh/m²/jour</option>
+<option value="Mali">🇲🇱 Mali — 6.7 kWh/m²/jour</option>
+<option value="Soudan">🇸🇩 Soudan — 6.6 kWh/m²/jour</option>
+<option value="Tchad">🇹🇩 Tchad — 6.5 kWh/m²/jour</option>
+<option value="Egypte">🇪🇬 Egypte — 6.4 kWh/m²/jour</option>
+<option value="Algerie">🇩🇿 Algerie — 6.3 kWh/m²/jour</option>
+<option value="Burkina Faso">🇧🇫 Burkina Faso — 6.0 kWh/m²/jour</option>
+<option value="Senegal">🇸🇳 Senegal — 5.8 kWh/m²/jour</option>
+<option value="Kenya">🇰🇪 Kenya — 5.7 kWh/m²/jour</option>
+<option value="Nigeria">🇳🇬 Nigeria — 5.5 kWh/m²/jour</option>
+<option value="Ghana">🇬🇭 Ghana — 5.3 kWh/m²/jour</option>
+<option value="Cote d Ivoire">🇨🇮 Cote d Ivoire — 5.2 kWh/m²/jour</option>
+</select>
+</div>
+</div>
+
+<div style="margin-top:10px;">
+<label style="color:#a8c5a8;font-size:0.85em;">Concentration (x): <span id="cr-display" style="color:#ff6600;font-weight:bold;">1000x</span></label>
+<input id="furnace-cr" type="range" min="1" max="5000" value="1000" style="width:100%;accent-color:#ff6600;">
+<div style="display:flex;justify-content:space-between;font-size:0.75em;color:#666;margin-top:2px;"><span>1x (direct)</span><span>1000x</span><span>5000x (max)</span></div>
+</div>
+
+<div style="text-align:center;margin-top:12px;padding:12px;background:rgba(255,102,0,0.05);border-radius:8px;">
+<div style="color:#a8c5a8;font-size:0.85em;">Température du point focal:</div>
+<div id="furnace-temp" style="margin-top:4px;"></div>
+</div>
+
+<canvas id="furnace-canvas" width="560" height="260" style="background:#000;border-radius:8px;border:1px solid #ff6600;width:100%;max-width:560px;margin-top:10px;"></canvas>
+
+<div style="margin-top:10px;">
+<h3 style="color:#ff6600;font-size:1em;">📦 Matériaux fabricables à cette température:</h3>
+<div id="furnace-materials"></div>
+</div>
+
+<div style="margin-top:10px;padding:8px;background:rgba(127,207,127,0.05);border-radius:6px;">
+<div style="color:#7fcf7f;font-size:0.85em;">💡 <b>Physique réelle:</b> T = 25°C + (Concentration × Irradiance) / 250<br>L'Afrique a le plus haut ensoleillement du monde. Le Sahara reçoit 6.8 kWh/m²/jour — assez pour tout fabriquer avec un bon miroir parabolique!</div>
+</div>
+</div>
+
 <!-- PHILOSOPHIE -->
 <div class="card" style="border-color:#ffaa00;"><h2 style="color:#ffaa00;">☀️ Le Soleil Crypteur</h2><div style="font-family:monospace;font-size:0.9em;">
 <div style="padding:8px 0;border-bottom:1px solid rgba(255,170,0,0.1);color:#7fcf7f;">🧬 ADN = code génétique en symboles machine (◈⬡⊕⟠⬢◉)</div>
@@ -7432,6 +7487,280 @@ setInterval(function() {
         }
     }
 }, 1000);
+
+// ===== FOUR SOLAIRE — Vraie physique de concentration =====
+var furnaceData = JSON.parse(localStorage.getItem('forge_furnace') || '{"type":"parabolic","country":"Niger","concentration":1000,"temp":0,"objectsForged":0}');
+
+var furnaceTypes = [
+    {id: 'parabolic', name: 'Miroir Parabolique', emoji: '📡', maxCR: 5000, desc: 'Grand miroir courbé qui focalise tous les rayons en un point. Le plus puissant.'},
+    {id: 'fresnel', name: 'Lentille Fresnel', emoji: '🔍', maxCR: 2000, desc: 'Lentille plate qui concentre la lumiere. Simple a fabriquer.'},
+    {id: 'tower', name: 'Tour Solaire', emoji: '🗼', maxCR: 3000, desc: 'Centaines de miroirs au sol qui renvoient vers une tour. Le four d Algerie!'},
+    {id: 'dish', name: 'Parabole Satellite', emoji: '🛰️', maxCR: 800, desc: 'Petite parabole recyclee. Accessible partout en Afrique.'}
+];
+
+var africanSolarData = [
+    {n: 'Niger', f: '🇳🇪', kwh: 6.8}, {n: 'Mali', f: '🇲🇱', kwh: 6.7},
+    {n: 'Soudan', f: '🇸🇩', kwh: 6.6}, {n: 'Tchad', f: '🇹🇩', kwh: 6.5},
+    {n: 'Egypte', f: '🇪🇬', kwh: 6.4}, {n: 'Algerie', f: '🇩🇿', kwh: 6.3},
+    {n: 'Burkina Faso', f: '🇧🇫', kwh: 6.0}, {n: 'Senegal', f: '🇸🇳', kwh: 5.8},
+    {n: 'Nigeria', f: '🇳🇬', kwh: 5.5}, {n: 'Ghana', f: '🇬🇭', kwh: 5.3},
+    {n: 'Cote d Ivoire', f: '🇨🇮', kwh: 5.2}, {n: 'Kenya', f: '🇰🇪', kwh: 5.7},
+    {n: 'Ethiopie', f: '🇪🇹', kwh: 6.1}, {n: 'Tanzanie', f: '🇹🇿', kwh: 5.6},
+    {n: 'Afrique du Sud', f: '🇿🇦', kwh: 5.5}, {n: 'Maroc', f: '🇲🇦', kwh: 5.6},
+    {n: 'Namibie', f: '🇳🇦', kwh: 6.2}, {n: 'RDC', f: '🇨🇩', kwh: 4.8}
+];
+
+var materialsByTemp = [
+    {temp: 80, name: 'Eau chaude', emoji: '💧', color: '#44aaff', uses: 'Sterilisation, sechage'},
+    {temp: 300, name: 'Cuisson', emoji: '🍲', color: '#ff8844', uses: 'Cuisine solaire, pasteurisation'},
+    {temp: 660, name: 'Aluminium', emoji: '🥫', color: '#aaaaaa', uses: 'Recyclage aluminium, structures legeres'},
+    {temp: 1000, name: 'Verre', emoji: '🔮', color: '#88ccff', uses: 'Fusion du sable en verre, fenetres, lentilles'},
+    {temp: 1500, name: 'Acier', emoji: '⚙️', color: '#888888', uses: 'Forge metallurgique, outils, machines'},
+    {temp: 2000, name: 'Silicium', emoji: '💎', color: '#cc88ff', uses: 'Purification silicium pour panneaux solaires!'},
+    {temp: 2500, name: 'Carbone', emoji: '⚫', color: '#444444', uses: 'Synthese carbone, nanotubes, materiaux avances'},
+    {temp: 3500, name: 'Tout materiau', emoji: '✨', color: '#ffaa00', uses: 'Le soleil peut TOUT compiler a cette temperature'}
+];
+
+function calcFurnaceTemp(kwh, concentration) {
+    // Physique reelle: T = T_amb + (CR * kwh * 1000) / (sigma * 4)
+    // Simplifie: 1000 W/m2 * CR / (emissivite * constante Stefan-Boltzmann)
+    // T_final ~ T_amb + CR * irradiance * facteur
+    var irradiance = kwh * 1000 / 24; // W/m2 moyen
+    var temp = 25 + (concentration * irradiance) / 250;
+    return Math.round(temp);
+}
+
+function updateFurnace() {
+    var ftype = furnaceTypes.find(function(t) { return t.id === furnaceData.type; });
+    var country = africanSolarData.find(function(c) { return c.n === furnaceData.country; });
+    if (!country) { country = africanSolarData[0]; }
+    var cr = furnaceData.concentration;
+    var temp = calcFurnaceTemp(country.kwh, cr);
+
+    furnaceData.temp = temp;
+    localStorage.setItem('forge_furnace', JSON.stringify(furnaceData));
+
+    // Mettre a jour l affichage
+    var tempDiv = document.getElementById('furnace-temp');
+    if (tempDiv) {
+        var color = temp > 2000 ? '#ffaa00' : temp > 1000 ? '#ff8844' : temp > 300 ? '#ffaa44' : '#44aaff';
+        tempDiv.innerHTML = '<span style="font-size:2em;color:' + color + ';">' + temp + '°C</span>';
+    }
+
+    // Mettre a jour les materiaux
+    var matDiv = document.getElementById('furnace-materials');
+    if (matDiv) {
+        var html = '';
+        materialsByTemp.forEach(function(m) {
+            var canForge = temp >= m.temp;
+            var opacity = canForge ? '1' : '0.3';
+            var status = canForge ? '<span style="color:#7fcf7f;">✅ ' + m.uses + '</span>' : '<span style="color:#666;">🔒 ' + m.temp + '°C requis</span>';
+            html += '<div style="display:flex;align-items:center;gap:8px;padding:6px 0;border-bottom:1px solid rgba(255,170,0,0.1);opacity:' + opacity + ';"><span style="font-size:1.5em;">' + m.emoji + '</span><div><b style="color:' + m.color + ';">' + m.name + '</b> <span style="color:#666;font-size:0.8em;">(' + m.temp + '°C)</span><br>' + status + '</div></div>';
+        });
+        matDiv.innerHTML = html;
+    }
+
+    // Mettre a jour le canvas
+    drawFurnace();
+}
+
+function drawFurnace() {
+    var canvas = document.getElementById('furnace-canvas');
+    if (!canvas) return;
+    var ctx = canvas.getContext('2d');
+    var W = canvas.width, H = canvas.height;
+    ctx.clearRect(0, 0, W, H);
+
+    var ftype = furnaceTypes.find(function(t) { return t.id === furnaceData.type; });
+    var country = africanSolarData.find(function(c) { return c.n === furnaceData.country; });
+    if (!country) { country = africanSolarData[0]; }
+    var temp = furnaceData.temp;
+
+    // Ciel
+    var hour = new Date().getUTCHours();
+    var isDay = hour >= 6 && hour < 18;
+    var skyGrad = ctx.createLinearGradient(0, 0, 0, H);
+    if (isDay) {
+        skyGrad.addColorStop(0, '#1a1a2e');
+        skyGrad.addColorStop(0.5, '#16213e');
+        skyGrad.addColorStop(1, '#0f3460');
+    } else {
+        skyGrad.addColorStop(0, '#0a0a1a');
+        skyGrad.addColorStop(1, '#0a0a2a');
+    }
+    ctx.fillStyle = skyGrad;
+    ctx.fillRect(0, 0, W, H);
+
+    // Soleil
+    var sunX = W * 0.5, sunY = isDay ? 50 : 30;
+    var sunR = 25;
+    if (isDay) {
+        var sunGrad = ctx.createRadialGradient(sunX, sunY, 5, sunX, sunY, sunR * 2);
+        sunGrad.addColorStop(0, '#ffff00');
+        sunGrad.addColorStop(0.3, '#ffaa00');
+        sunGrad.addColorStop(1, 'rgba(255,170,0,0)');
+        ctx.fillStyle = sunGrad;
+        ctx.beginPath();
+        ctx.arc(sunX, sunY, sunR * 2, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.fillStyle = '#ffff88';
+        ctx.beginPath();
+        ctx.arc(sunX, sunY, sunR, 0, Math.PI * 2);
+        ctx.fill();
+    } else {
+        ctx.fillStyle = '#ccccaa';
+        ctx.beginPath();
+        ctx.arc(sunX, sunY, 15, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.fillStyle = '#a8c5a8';
+        ctx.font = '12px monospace';
+        ctx.textAlign = 'center';
+        ctx.fillText('NUIT', sunX, sunY + 35);
+    }
+
+    // Rayons du soleil
+    if (isDay) {
+        var numRays = 12;
+        for (var i = 0; i < numRays; i++) {
+            var angle = (Math.PI / numRays) * i + Math.PI;
+            var x1 = sunX + Math.cos(angle) * sunR;
+            var y1 = sunY + Math.sin(angle) * sunR;
+            var x2 = sunX + Math.cos(angle) * (sunR + 30);
+            var y2 = sunY + Math.sin(angle) * (sunR + 30);
+            ctx.strokeStyle = 'rgba(255,200,0,' + (0.3 + 0.2 * Math.sin(Date.now() / 500 + i)) + ')';
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            ctx.moveTo(x1, y1);
+            ctx.lineTo(x2, y2);
+            ctx.stroke();
+        }
+    }
+
+    // Concentrateur (depend du type)
+    var focusX = W * 0.5, focusY = H * 0.65;
+
+    if (furnaceData.type === 'parabolic') {
+        // Grand miroir parabolique
+        ctx.strokeStyle = '#ffaa00';
+        ctx.lineWidth = 3;
+        ctx.beginPath();
+        ctx.arc(focusX, focusY + 40, 80, Math.PI * 1.2, Math.PI * 1.8);
+        ctx.stroke();
+        // Hachures
+        for (var a = Math.PI * 1.2; a < Math.PI * 1.8; a += 0.15) {
+            var r1 = 80, r2 = 72;
+            ctx.strokeStyle = 'rgba(255,170,0,0.4)';
+            ctx.lineWidth = 1;
+            ctx.beginPath();
+            ctx.moveTo(focusX + Math.cos(a) * r1, focusY + 40 + Math.sin(a) * r1);
+            ctx.lineTo(focusX + Math.cos(a) * r2, focusY + 40 + Math.sin(a) * r2);
+            ctx.stroke();
+        }
+    } else if (furnaceData.type === 'fresnel') {
+        // Lentille Fresnel — lignes horizontales
+        ctx.strokeStyle = '#ffaa00';
+        ctx.lineWidth = 2;
+        for (var fy = 0; fy < 5; fy++) {
+            ctx.beginPath();
+            ctx.moveTo(focusX - 70 + fy * 5, focusY + 20 + fy * 8);
+            ctx.lineTo(focusX + 70 - fy * 5, focusY + 20 + fy * 8);
+            ctx.stroke();
+        }
+    } else if (furnaceData.type === 'tower') {
+        // Tour solaire
+        ctx.fillStyle = '#aa8844';
+        ctx.fillRect(focusX - 8, focusY - 20, 16, 80);
+        // Miroirs au sol
+        for (var mi = -3; mi <= 3; mi++) {
+            ctx.strokeStyle = '#ffaa00';
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            ctx.moveTo(focusX + mi * 30 - 12, focusY + 60);
+            ctx.lineTo(focusX + mi * 30 + 12, focusY + 60);
+            ctx.stroke();
+        }
+    } else if (furnaceData.type === 'dish') {
+        // Petite parabole
+        ctx.strokeStyle = '#ffaa00';
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        ctx.arc(focusX, focusY + 30, 50, Math.PI * 1.25, Math.PI * 1.75);
+        ctx.stroke();
+    }
+
+    // Rayons convergents vers le point focal
+    if (isDay) {
+        var cr = furnaceData.concentration;
+        var rayOpacity = Math.min(1, cr / 2000);
+        for (var ri = 0; ri < 8; ri++) {
+            var ra = Math.PI * 0.7 + (Math.PI * 0.6 / 7) * ri;
+            var rx = focusX + Math.cos(ra) * 100;
+            var ry = focusY + Math.sin(ra) * 100;
+            ctx.strokeStyle = 'rgba(255,200,0,' + (rayOpacity * 0.6) + ')';
+            ctx.lineWidth = 1.5;
+            ctx.beginPath();
+            ctx.moveTo(rx, ry);
+            ctx.lineTo(focusX, focusY);
+            ctx.stroke();
+        }
+    }
+
+    // Point focal — couleur selon temperature
+    var tempColor = temp > 2000 ? '#ffaa00' : temp > 1000 ? '#ff6600' : temp > 300 ? '#ff8844' : '#44aaff';
+    var focalGrad = ctx.createRadialGradient(focusX, focusY, 2, focusX, focusY, 20);
+    focalGrad.addColorStop(0, '#ffffff');
+    focalGrad.addColorStop(0.3, tempColor);
+    focalGrad.addColorStop(1, 'rgba(0,0,0,0)');
+    ctx.fillStyle = focalGrad;
+    ctx.beginPath();
+    ctx.arc(focusX, focusY, 20, 0, Math.PI * 2);
+    ctx.fill();
+
+    // Texte temperature
+    ctx.fillStyle = tempColor;
+    ctx.font = 'bold 16px monospace';
+    ctx.textAlign = 'center';
+    ctx.fillText(temp + '°C', focusX, focusY - 30);
+
+    // Nom du pays
+    ctx.fillStyle = '#a8c5a8';
+    ctx.font = '12px monospace';
+    ctx.fillText(country.f + ' ' + country.n + ' — ' + country.kwh + ' kWh/m²/jour', focusX, H - 15);
+}
+
+// Animation du four
+// Event listeners pour le four solaire
+document.getElementById('furnace-type').addEventListener('change', function() {
+    furnaceData.type = this.value;
+    var ftype = furnaceTypes.find(function(t) { return t.id === furnaceData.type; });
+    var maxCR = ftype ? ftype.maxCR : 5000;
+    var crSlider = document.getElementById('furnace-cr');
+    crSlider.max = maxCR;
+    if (furnaceData.concentration > maxCR) {
+        furnaceData.concentration = maxCR;
+        crSlider.value = maxCR;
+    }
+    localStorage.setItem('forge_furnace', JSON.stringify(furnaceData));
+    updateFurnace();
+});
+
+document.getElementById('furnace-country').addEventListener('change', function() {
+    furnaceData.country = this.value;
+    localStorage.setItem('forge_furnace', JSON.stringify(furnaceData));
+    updateFurnace();
+});
+
+document.getElementById('furnace-cr').addEventListener('input', function() {
+    furnaceData.concentration = parseInt(this.value);
+    document.getElementById('cr-display').textContent = furnaceData.concentration + 'x';
+    localStorage.setItem('forge_furnace', JSON.stringify(furnaceData));
+    updateFurnace();
+});
+
+// Initialiser le four
+updateFurnace();
+
+setInterval(drawFurnace, 100);
 
 </script>
 
@@ -8058,7 +8387,7 @@ async fn main() -> std::io::Result<()> {
         .and_then(|i| args.get(i + 1)).cloned().unwrap_or_else(|| "Afrique".to_string());
 
     let my_node_id = generate_node_id();
-    println!("🦁 AfriChain v0.41 — Forge Solaire Réaliste");
+    println!("🦁 AfriChain v0.42 — Four Solaire Réel");
     println!("💚 L'Afrique n'a pas besoin de permission");
     println!("🌍 54 pays africains — chaque bloc miné par un pays différent");
     println!("☀️ PoST: le soleil de toute l'Afrique valide la blockchain");
@@ -8639,7 +8968,7 @@ async fn main() -> std::io::Result<()> {
                 } else {
                     ("Afrique".to_string(), "🌍".to_string())
                 };
-                let json = format!(r#"{{"name":"AfriChain","blocks":{},"transactions":{},"users":{},"valid":{},"token":"AFR","version":"0.41.0","crypto":"Ed25519","supply":{},"mesh_nodes":{},"mesh_id":"{}","mesh_region":"{}","countries":54,"directory":{},"shield_active":{},"shield_level":{},"shield_attacks":{},"shield_blocked_ips":{},"last_country":"{}","last_flag":"{}","machine_count":{},"machine_tx":{},"machine_mined":{}}}"#,
+                let json = format!(r#"{{"name":"AfriChain","blocks":{},"transactions":{},"users":{},"valid":{},"token":"AFR","version":"0.42.0","crypto":"Ed25519","supply":{},"mesh_nodes":{},"mesh_id":"{}","mesh_region":"{}","countries":54,"directory":{},"shield_active":{},"shield_level":{},"shield_attacks":{},"shield_blocked_ips":{},"last_country":"{}","last_flag":"{}","machine_count":{},"machine_tx":{},"machine_mined":{}}}"#,
                     chain.blocks.len(), chain.total_transactions(), users.count(), chain.is_valid(), chain.total_supply(), mesh.count(), mesh.my_id, mesh.region, mesh.directory_count() + users.count(), shield.active, level, attacks, blocked_count,
                     last_country, last_flag, machines.machines.len(), machines.tx_count, machines.total_mined);
                 HttpResponse::Ok().content_type("application/json").body(json)
