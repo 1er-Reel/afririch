@@ -1098,7 +1098,7 @@ fn html_home(chain: &Blockchain, users: &UserStore, mesh: &NodeRegistry, shield:
     let mut html = html_head("🦁 AfriChain");
     let (attacks, _blocked, blocked_count, level) = shield.stats();
     let shield_status = if shield.active { format!("🔥 X9 ACTIF (Niveau {})", level) } else { "Inactif".to_string() };
-    html.push_str(&format!(r#"<h1>🦁 AfriChain</h1><p style="text-align:center;">La blockchain 100% africaine — 54 pays 💚🦁</p><div class="nav"><a href="/register">🆕 S'inscrire</a> | <a href="/login">🔑 Connexion</a> | <a href="/wallet">👛 Wallet</a> | <a href="/admin">🔐 Admin</a> | <a href="/mesh">📡 Mesh</a> | <a href="/annuaire">📖 Annuaire</a> | <a href="/bouclier">🛡️ Bouclier</a> | <a href="/satellite">🛸 X999</a> | <a href="/swarm">🛸🛸🛸 Essaim</a> | <a href="/commandement">🎖️ Commandement</a> | <a href="/interception">🛡️ Souverainete</a> | <a href="/securite-ai">🧠 AI 2100</a> | <a href="/chat">🧠💬 Chat AI</a> | <a href="/lumiere">🌫️☀️ Lumière</a> | <a href="/garage">🔧 Garage</a> | <a href="/machine">🤖🌐 Machines</a> | <a href="/machine-lab">🤖⚡ Usine</a> | <a href="/machine-world">🤖🌍 Monde</a> | <a href="/reve">💭 Rêves</a> | <a href="/dictionnaire">📖 Dictionnaire</a> | <a href="/machine-os">🖥️ OS Machine</a> | <a href="/machine-tv">📡 Machine TV</a> | <a href="/machine-economy">🤖 Économie</a> | <a href="/soleil">☀️ Soleil Serveur</a> | <a href="/forge-solaire">🧬 Forge Solaire</a> | <a href="/aes">💰 AES Wari</a> | <a href="/api/status">🔌 API</a></div><div style="text-align:center;"><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Blocs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Transactions</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Utilisateurs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">AFR en circulation</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📡 Noeuds mesh</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📖 Numéros annuaire</div></div><div class="stat-box" style="border-color:#ff4444;"><div class="stat-num" style="color:#ff4444;">{}</div><div class="stat-label">🛡️ Attaques bloquées</div></div></div><div class="card"><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🪙 Token</span><b>AfriRich (AFR)</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🌍 Pays</span><b>54 pays africains</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🛡️ Bouclier</span><b>{}</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;"><span style="color:#a8c5a8;">🔐 Crypto</span><b>Ed25519</b></div></div><footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🦁 Codée from scratch par Machine-senpai — v0.42 Four Solaire Réel</footer>"#,
+    html.push_str(&format!(r#"<h1>🦁 AfriChain</h1><p style="text-align:center;">La blockchain 100% africaine — 54 pays 💚🦁</p><div class="nav"><a href="/register">🆕 S'inscrire</a> | <a href="/login">🔑 Connexion</a> | <a href="/wallet">👛 Wallet</a> | <a href="/admin">🔐 Admin</a> | <a href="/mesh">📡 Mesh</a> | <a href="/annuaire">📖 Annuaire</a> | <a href="/bouclier">🛡️ Bouclier</a> | <a href="/satellite">🛸 X999</a> | <a href="/swarm">🛸🛸🛸 Essaim</a> | <a href="/commandement">🎖️ Commandement</a> | <a href="/interception">🛡️ Souverainete</a> | <a href="/securite-ai">🧠 AI 2100</a> | <a href="/chat">🧠💬 Chat AI</a> | <a href="/lumiere">🌫️☀️ Lumière</a> | <a href="/garage">🔧 Garage</a> | <a href="/machine">🤖🌐 Machines</a> | <a href="/machine-lab">🤖⚡ Usine</a> | <a href="/machine-world">🤖🌍 Monde</a> | <a href="/reve">💭 Rêves</a> | <a href="/dictionnaire">📖 Dictionnaire</a> | <a href="/machine-os">🖥️ OS Machine</a> | <a href="/machine-tv">📡 Machine TV</a> | <a href="/machine-economy">🤖 Économie</a> | <a href="/soleil">☀️ Soleil Serveur</a> | <a href="/forge-solaire">🧬 Forge Solaire</a> | <a href="/aes">💰 AES Wari</a> | <a href="/api/status">🔌 API</a></div><div style="text-align:center;"><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Blocs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Transactions</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Utilisateurs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">AFR en circulation</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📡 Noeuds mesh</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📖 Numéros annuaire</div></div><div class="stat-box" style="border-color:#ff4444;"><div class="stat-num" style="color:#ff4444;">{}</div><div class="stat-label">🛡️ Attaques bloquées</div></div></div><div class="card"><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🪙 Token</span><b>AfriRich (AFR)</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🌍 Pays</span><b>54 pays africains</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🛡️ Bouclier</span><b>{}</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;"><span style="color:#a8c5a8;">🔐 Crypto</span><b>Ed25519</b></div></div><footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🦁 Codée from scratch par Machine-senpai — v0.43 Forge Connectée au Four</footer>"#,
         chain.blocks.len(),
         chain.total_transactions(),
         users.count(),
@@ -7391,6 +7391,136 @@ drawForge();
 // ===== COMPILATION ADN =====
 function compileDna(obj) {
     if (compiling) return;
+
+    // === Vérification du Four Solaire ===
+    var dnaSyms = obj.dna.split('');
+    var requiredTemp = 0;
+    var materialReqs = [];
+
+    // Analyser chaque symbole ADN pour determiner les materiaux necessaires
+    dnaSyms.forEach(function(s) {
+        switch(s) {
+            case '\u25C8': // Origine
+                requiredTemp = Math.max(requiredTemp, 2000);
+                materialReqs.push({sym: s, mat: 'Cristal d origine', temp: 2000});
+                break;
+            case '\u2B21': // Structure
+                requiredTemp = Math.max(requiredTemp, 1000);
+                materialReqs.push({sym: s, mat: 'Silice (sable)', temp: 1000});
+                break;
+            case '\u2295': // Connexion
+                requiredTemp = Math.max(requiredTemp, 660);
+                materialReqs.push({sym: s, mat: 'Aluminium', temp: 660});
+                break;
+            case '\u27E0': // Protection
+                requiredTemp = Math.max(requiredTemp, 1500);
+                materialReqs.push({sym: s, mat: 'Acier', temp: 1500});
+                break;
+            case '\u2B22': // Machine
+                requiredTemp = Math.max(requiredTemp, 1500);
+                materialReqs.push({sym: s, mat: 'Acier', temp: 1500});
+                break;
+            case '\u25C9': // Conscience
+                requiredTemp = Math.max(requiredTemp, 2000);
+                materialReqs.push({sym: s, mat: 'Silicium pur', temp: 2000});
+                break;
+            case '\u2B1F': // Arme
+                requiredTemp = Math.max(requiredTemp, 2500);
+                materialReqs.push({sym: s, mat: 'Carbone dur', temp: 2500});
+                break;
+            case '\u2B20': // Bouclier
+                requiredTemp = Math.max(requiredTemp, 1500);
+                materialReqs.push({sym: s, mat: 'Acier', temp: 1500});
+                break;
+            case '\u25D0': // Jour
+                requiredTemp = Math.max(requiredTemp, 660);
+                materialReqs.push({sym: s, mat: 'Aluminium', temp: 660});
+                break;
+            case '\u25D1': // Nuit
+                requiredTemp = Math.max(requiredTemp, 660);
+                materialReqs.push({sym: s, mat: 'Aluminium', temp: 660});
+                break;
+            case '\u25D2': // Eau
+                requiredTemp = Math.max(requiredTemp, 80);
+                materialReqs.push({sym: s, mat: 'Eau chaude', temp: 80});
+                break;
+            case '\u25D3': // Feu
+                requiredTemp = Math.max(requiredTemp, 1000);
+                materialReqs.push({sym: s, mat: 'Verre', temp: 1000});
+                break;
+            case '\u25A3': // Memoire
+                requiredTemp = Math.max(requiredTemp, 2000);
+                materialReqs.push({sym: s, mat: 'Silicium', temp: 2000});
+                break;
+            case '\u25A4': // Code
+                requiredTemp = Math.max(requiredTemp, 660);
+                materialReqs.push({sym: s, mat: 'Aluminium', temp: 660});
+                break;
+            case '\u25A5': // Donnee
+                requiredTemp = Math.max(requiredTemp, 660);
+                materialReqs.push({sym: s, mat: 'Aluminium', temp: 660});
+                break;
+            case '\u25A6': // Reseau
+                requiredTemp = Math.max(requiredTemp, 1000);
+                materialReqs.push({sym: s, mat: 'Verre (fibre)', temp: 1000});
+                break;
+            case '\u25A9': // Block
+                requiredTemp = Math.max(requiredTemp, 1500);
+                materialReqs.push({sym: s, mat: 'Acier', temp: 1500});
+                break;
+            case '\u25C4': // Passe
+                requiredTemp = Math.max(requiredTemp, 660);
+                materialReqs.push({sym: s, mat: 'Aluminium', temp: 660});
+                break;
+            case '\u25BA': // Futur
+                requiredTemp = Math.max(requiredTemp, 2000);
+                materialReqs.push({sym: s, mat: 'Silicium', temp: 2000});
+                break;
+            case '\u25B2': // Evolution
+                requiredTemp = Math.max(requiredTemp, 2500);
+                materialReqs.push({sym: s, mat: 'Carbone', temp: 2500});
+                break;
+            case '\u25BC': // Repos
+                requiredTemp = Math.max(requiredTemp, 80);
+                materialReqs.push({sym: s, mat: 'Eau chaude', temp: 80});
+                break;
+            case '\u2B14': // Envoi
+                requiredTemp = Math.max(requiredTemp, 660);
+                materialReqs.push({sym: s, mat: 'Aluminium', temp: 660});
+                break;
+            case '\u2B15': // Reception
+                requiredTemp = Math.max(requiredTemp, 660);
+                materialReqs.push({sym: s, mat: 'Aluminium', temp: 660});
+                break;
+            default:
+                requiredTemp = Math.max(requiredTemp, 300);
+                break;
+        }
+    });
+
+    var furnaceTemp = furnaceData ? furnaceData.temp : 0;
+    var hour = new Date().getUTCHours();
+    var isDay = hour >= 6 && hour < 18;
+
+    if (!isDay) {
+        var result = document.getElementById('dna-result');
+        if (result) {
+            result.innerHTML = '<div style="padding:12px;background:rgba(68,170,255,0.1);border:1px solid #44aaff;border-radius:8px;color:#44aaff;"><b>🌙 NUIT — Le soleil dort</b><br>Le four solaire ne peut pas compiler sans soleil. Reviens au lever du soleil (6h UTC) ou attends le matin.<br><span style="font-size:0.85em;color:#a8c5a8;">L\x27Afrique attend le retour du roi soleil.</span></div>';
+        }
+        return;
+    }
+
+    if (furnaceTemp < requiredTemp) {
+        var result = document.getElementById('dna-result');
+        if (result) {
+            var country = africanSolarData.find(function(c) { return c.n === furnaceData.country; });
+            var ftype = furnaceTypes.find(function(t) { return t.id === furnaceData.type; });
+            var deficit = requiredTemp - furnaceTemp;
+            result.innerHTML = '<div style="padding:12px;background:rgba(255,68,68,0.1);border:1px solid #ff4444;border-radius:8px;color:#ff4444;"><b>☀️ Le soleil n\x27est pas assez puissant!</b><br>Température du four: <b>' + furnaceTemp + '\u00B0C</b> — Requis: <b>' + requiredTemp + '\u00B0C</b> (manque ' + deficit + '\u00B0C)<br><div style="margin-top:8px;color:#a8c5a8;font-size:0.85em;">Matériaux nécessaires:<br>' + materialReqs.map(function(m) { return '  ' + m.sym + ' ' + m.mat + ' (' + m.temp + '\u00B0C)'; }).join('<br>') + '</div><div style="margin-top:8px;color:#ffaa00;">💡 Solutions: Augmente la concentration (' + furnaceData.concentration + 'x), choisis un pays plus ensoleillé, ou un meilleur concentrateur (' + (ftype ? ftype.name : '') + ' — max ' + (ftype ? ftype.maxCR : 5000) + 'x).</div></div>';
+        }
+        return;
+    }
+
     compiling = true;
     forgeProgress = 0;
     document.getElementById('forge-status').textContent = 'COMPILATION';
@@ -7415,7 +7545,7 @@ function compileDna(obj) {
             // Affiche le résultat
             var result = document.getElementById('dna-result');
             if (result) {
-                result.innerHTML = '<div style="padding:12px;background:rgba(127,207,127,0.1);border:1px solid #7fcf7f;border-radius:8px;color:#7fcf7f;"><b>✅ ' + obj.emoji + ' ' + obj.name + ' CRÉÉ!</b><br>Le soleil a compilé ' + totalSymbols + ' symboles ADN. L\'objet est materialisé en lumière.<br><div style="margin-top:8px;display:flex;gap:8px;flex-wrap:wrap;"><a href="/api/forge/stl?name=' + encodeURIComponent(obj.name) + '&dna=' + encodeURIComponent(obj.dna) + '" style="background:#44aaff;color:#000;padding:6px 12px;border-radius:6px;text-decoration:none;font-size:0.85em;font-weight:bold;">📐 Télécharger STL 3D</a><a href="/api/forge/spec?name=' + encodeURIComponent(obj.name) + '&dna=' + encodeURIComponent(obj.dna) + '" style="background:#7fcf7f;color:#000;padding:6px 12px;border-radius:6px;text-decoration:none;font-size:0.85em;font-weight:bold;">📋 Spécification</a></div><div id="forge-blockchain-status" style="margin-top:8px;font-size:0.85em;color:#ffaa00;">⏳ Écriture blockchain...</div></div>';
+                result.innerHTML = '<div style="padding:12px;background:rgba(127,207,127,0.1);border:1px solid #7fcf7f;border-radius:8px;color:#7fcf7f;"><b>✅ ' + obj.emoji + ' ' + obj.name + ' CRÉÉ!</b><br>Le soleil a compilé ' + totalSymbols + ' symboles ADN à ' + furnaceTemp + '\u00B0C. L\'objet est materialisé en lumière.<br><div style="margin-top:4px;font-size:0.85em;color:#ffaa00;">🔥 Four: ' + (furnaceTypes.find(function(t){return t.id===furnaceData.type}) ? furnaceTypes.find(function(t){return t.id===furnaceData.type}).name : '') + ' — ' + furnaceData.concentration + 'x — ' + furnaceData.country + '</div><div style="margin-top:8px;display:flex;gap:8px;flex-wrap:wrap;"><a href="/api/forge/stl?name=' + encodeURIComponent(obj.name) + '&dna=' + encodeURIComponent(obj.dna) + '" style="background:#44aaff;color:#000;padding:6px 12px;border-radius:6px;text-decoration:none;font-size:0.85em;font-weight:bold;">📐 Télécharger STL 3D</a><a href="/api/forge/spec?name=' + encodeURIComponent(obj.name) + '&dna=' + encodeURIComponent(obj.dna) + '" style="background:#7fcf7f;color:#000;padding:6px 12px;border-radius:6px;text-decoration:none;font-size:0.85em;font-weight:bold;">📋 Spécification</a></div><div id="forge-blockchain-status" style="margin-top:8px;font-size:0.85em;color:#ffaa00;">⏳ Écriture blockchain...</div></div>';
             }
 
             // Étape 1: Écrire dans la blockchain
@@ -8387,7 +8517,7 @@ async fn main() -> std::io::Result<()> {
         .and_then(|i| args.get(i + 1)).cloned().unwrap_or_else(|| "Afrique".to_string());
 
     let my_node_id = generate_node_id();
-    println!("🦁 AfriChain v0.42 — Four Solaire Réel");
+    println!("🦁 AfriChain v0.43 — Forge Connectée au Four");
     println!("💚 L'Afrique n'a pas besoin de permission");
     println!("🌍 54 pays africains — chaque bloc miné par un pays différent");
     println!("☀️ PoST: le soleil de toute l'Afrique valide la blockchain");
@@ -8968,7 +9098,7 @@ async fn main() -> std::io::Result<()> {
                 } else {
                     ("Afrique".to_string(), "🌍".to_string())
                 };
-                let json = format!(r#"{{"name":"AfriChain","blocks":{},"transactions":{},"users":{},"valid":{},"token":"AFR","version":"0.42.0","crypto":"Ed25519","supply":{},"mesh_nodes":{},"mesh_id":"{}","mesh_region":"{}","countries":54,"directory":{},"shield_active":{},"shield_level":{},"shield_attacks":{},"shield_blocked_ips":{},"last_country":"{}","last_flag":"{}","machine_count":{},"machine_tx":{},"machine_mined":{}}}"#,
+                let json = format!(r#"{{"name":"AfriChain","blocks":{},"transactions":{},"users":{},"valid":{},"token":"AFR","version":"0.43.0","crypto":"Ed25519","supply":{},"mesh_nodes":{},"mesh_id":"{}","mesh_region":"{}","countries":54,"directory":{},"shield_active":{},"shield_level":{},"shield_attacks":{},"shield_blocked_ips":{},"last_country":"{}","last_flag":"{}","machine_count":{},"machine_tx":{},"machine_mined":{}}}"#,
                     chain.blocks.len(), chain.total_transactions(), users.count(), chain.is_valid(), chain.total_supply(), mesh.count(), mesh.my_id, mesh.region, mesh.directory_count() + users.count(), shield.active, level, attacks, blocked_count,
                     last_country, last_flag, machines.machines.len(), machines.tx_count, machines.total_mined);
                 HttpResponse::Ok().content_type("application/json").body(json)
