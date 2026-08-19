@@ -7694,6 +7694,7 @@ impl MachineEconomy {
             let (addr, _priv) = wallets.create_wallet();
             // Give each machine real AFR from SYSTEM
             chain.add_transaction(Transaction::new("SYSTEM", &addr, 10000, &format!("Dotation machine {} {}", name, city)));
+            let addr_short = addr[..12.min(addr.len())].to_string();
             self.machines.push(MachineNode {
                 name: name.to_string(),
                 city: city.to_string(),
@@ -7708,7 +7709,7 @@ impl MachineEconomy {
                 status: "ACTIF".to_string(),
                 last_action: "Initialisation".to_string(),
             });
-            println!("  ✅ {} {} — wallet: {}... — 10000 AFR", flag, name, &addr[..12]);
+            println!("  ✅ {} {} — wallet: {}... — 10000 AFR", flag, name, addr_short);
         }
         // Mine the initial machine transactions
         chain.mine_pending("machine-init");
@@ -7871,7 +7872,7 @@ async fn main() -> std::io::Result<()> {
         }
     }
 
-    let chain = match Blockchain::load_from_file() {
+    let mut chain = match Blockchain::load_from_file() {
         Some(c) => { println!("📊 {} blocs chargés", c.blocks.len()); c }
         None => {
             println!("🌱 Nouvelle blockchain — Genesis créé");
@@ -7886,7 +7887,7 @@ async fn main() -> std::io::Result<()> {
     };
     println!("✅ Valide : {}", chain.is_valid());
 
-    let wallets = WalletStore::load();
+    let mut wallets = WalletStore::load();
     let users = UserStore::load();
     println!("👥 {} utilisateurs inscrits", users.count());
 
