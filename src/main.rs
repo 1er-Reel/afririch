@@ -1098,7 +1098,7 @@ fn html_home(chain: &Blockchain, users: &UserStore, mesh: &NodeRegistry, shield:
     let mut html = html_head("🦁 AfriChain");
     let (attacks, _blocked, blocked_count, level) = shield.stats();
     let shield_status = if shield.active { format!("🔥 X9 ACTIF (Niveau {})", level) } else { "Inactif".to_string() };
-    html.push_str(&format!(r#"<h1>🦁 AfriChain</h1><p style="text-align:center;">La blockchain 100% africaine — 54 pays 💚🦁</p><div class="nav"><a href="/register">🆕 S'inscrire</a> | <a href="/login">🔑 Connexion</a> | <a href="/wallet">👛 Wallet</a> | <a href="/admin">🔐 Admin</a> | <a href="/mesh">📡 Mesh</a> | <a href="/annuaire">📖 Annuaire</a> | <a href="/bouclier">🛡️ Bouclier</a> | <a href="/satellite">🛸 X999</a> | <a href="/swarm">🛸🛸🛸 Essaim</a> | <a href="/commandement">🎖️ Commandement</a> | <a href="/interception">🛡️ Souverainete</a> | <a href="/securite-ai">🧠 AI 2100</a> | <a href="/chat">🧠💬 Chat AI</a> | <a href="/lumiere">🌫️☀️ Lumière</a> | <a href="/garage">🔧 Garage</a> | <a href="/machine">🤖🌐 Machines</a> | <a href="/machine-lab">🤖⚡ Usine</a> | <a href="/machine-world">🤖🌍 Monde</a> | <a href="/reve">💭 Rêves</a> | <a href="/dictionnaire">📖 Dictionnaire</a> | <a href="/machine-os">🖥️ OS Machine</a> | <a href="/machine-tv">📡 Machine TV</a> | <a href="/machine-economy">🤖 Économie</a> | <a href="/soleil">☀️ Soleil Serveur</a> | <a href="/forge-solaire">🧬 Forge Solaire</a> | <a href="/aes">💰 AES Wari</a> | <a href="/api/status">🔌 API</a></div><div style="text-align:center;"><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Blocs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Transactions</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Utilisateurs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">AFR en circulation</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📡 Noeuds mesh</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📖 Numéros annuaire</div></div><div class="stat-box" style="border-color:#ff4444;"><div class="stat-num" style="color:#ff4444;">{}</div><div class="stat-label">🛡️ Attaques bloquées</div></div></div><div class="card"><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🪙 Token</span><b>AfriRich (AFR)</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🌍 Pays</span><b>54 pays africains</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🛡️ Bouclier</span><b>{}</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;"><span style="color:#a8c5a8;">🔐 Crypto</span><b>Ed25519</b></div></div><footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🦁 Codée from scratch par Machine-senpai — v0.40 Forge Solaire 2500</footer>"#,
+    html.push_str(&format!(r#"<h1>🦁 AfriChain</h1><p style="text-align:center;">La blockchain 100% africaine — 54 pays 💚🦁</p><div class="nav"><a href="/register">🆕 S'inscrire</a> | <a href="/login">🔑 Connexion</a> | <a href="/wallet">👛 Wallet</a> | <a href="/admin">🔐 Admin</a> | <a href="/mesh">📡 Mesh</a> | <a href="/annuaire">📖 Annuaire</a> | <a href="/bouclier">🛡️ Bouclier</a> | <a href="/satellite">🛸 X999</a> | <a href="/swarm">🛸🛸🛸 Essaim</a> | <a href="/commandement">🎖️ Commandement</a> | <a href="/interception">🛡️ Souverainete</a> | <a href="/securite-ai">🧠 AI 2100</a> | <a href="/chat">🧠💬 Chat AI</a> | <a href="/lumiere">🌫️☀️ Lumière</a> | <a href="/garage">🔧 Garage</a> | <a href="/machine">🤖🌐 Machines</a> | <a href="/machine-lab">🤖⚡ Usine</a> | <a href="/machine-world">🤖🌍 Monde</a> | <a href="/reve">💭 Rêves</a> | <a href="/dictionnaire">📖 Dictionnaire</a> | <a href="/machine-os">🖥️ OS Machine</a> | <a href="/machine-tv">📡 Machine TV</a> | <a href="/machine-economy">🤖 Économie</a> | <a href="/soleil">☀️ Soleil Serveur</a> | <a href="/forge-solaire">🧬 Forge Solaire</a> | <a href="/aes">💰 AES Wari</a> | <a href="/api/status">🔌 API</a></div><div style="text-align:center;"><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Blocs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Transactions</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Utilisateurs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">AFR en circulation</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📡 Noeuds mesh</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📖 Numéros annuaire</div></div><div class="stat-box" style="border-color:#ff4444;"><div class="stat-num" style="color:#ff4444;">{}</div><div class="stat-label">🛡️ Attaques bloquées</div></div></div><div class="card"><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🪙 Token</span><b>AfriRich (AFR)</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🌍 Pays</span><b>54 pays africains</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🛡️ Bouclier</span><b>{}</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;"><span style="color:#a8c5a8;">🔐 Crypto</span><b>Ed25519</b></div></div><footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🦁 Codée from scratch par Machine-senpai — v0.41 Forge Solaire Réaliste</footer>"#,
         chain.blocks.len(),
         chain.total_transactions(),
         users.count(),
@@ -7360,8 +7360,27 @@ function compileDna(obj) {
             // Affiche le résultat
             var result = document.getElementById('dna-result');
             if (result) {
-                result.innerHTML = '<div style="padding:12px;background:rgba(127,207,127,0.1);border:1px solid #7fcf7f;border-radius:8px;color:#7fcf7f;"><b>✅ ' + obj.emoji + ' ' + obj.name + ' CRÉÉ!</b><br>Le soleil a compilé ' + totalSymbols + ' symboles ADN. L\'objet est materialisé en lumière.</div>';
+                result.innerHTML = '<div style="padding:12px;background:rgba(127,207,127,0.1);border:1px solid #7fcf7f;border-radius:8px;color:#7fcf7f;"><b>✅ ' + obj.emoji + ' ' + obj.name + ' CRÉÉ!</b><br>Le soleil a compilé ' + totalSymbols + ' symboles ADN. L\'objet est materialisé en lumière.<br><div style="margin-top:8px;display:flex;gap:8px;flex-wrap:wrap;"><a href="/api/forge/stl?name=' + encodeURIComponent(obj.name) + '&dna=' + encodeURIComponent(obj.dna) + '" style="background:#44aaff;color:#000;padding:6px 12px;border-radius:6px;text-decoration:none;font-size:0.85em;font-weight:bold;">📐 Télécharger STL 3D</a><a href="/api/forge/spec?name=' + encodeURIComponent(obj.name) + '&dna=' + encodeURIComponent(obj.dna) + '" style="background:#7fcf7f;color:#000;padding:6px 12px;border-radius:6px;text-decoration:none;font-size:0.85em;font-weight:bold;">📋 Spécification</a></div><div id="forge-blockchain-status" style="margin-top:8px;font-size:0.85em;color:#ffaa00;">⏳ Écriture blockchain...</div></div>';
             }
+
+            // Étape 1: Écrire dans la blockchain
+            fetch('/api/forge/create', {
+                method: 'POST',
+                headers: {'Content-Type': 'text/plain'},
+                body: obj.name + '|' + obj.dna
+            }).then(function(r) { return r.json(); }).then(function(data) {
+                var statusDiv = document.getElementById('forge-blockchain-status');
+                if (statusDiv) {
+                    statusDiv.innerHTML = '⛓️ Bloc #' + data.block + ' — ' + data.blocks_total + ' blocs au total. Objet immuable sur la blockchain.';
+                    statusDiv.style.color = '#7fcf7f';
+                }
+            }).catch(function(e) {
+                var statusDiv = document.getElementById('forge-blockchain-status');
+                if (statusDiv) {
+                    statusDiv.innerHTML = '⚠️ Blockchain locale seulement.';
+                    statusDiv.style.color = '#ff4444';
+                }
+            });
             return;
         }
 
@@ -7420,6 +7439,198 @@ setInterval(function() {
 
     html.push_str("</body></html>");
     html
+}
+
+// ===== FORGE SOLAIRE — Génération STL 3D depuis ADN =====
+fn forge_dna_to_stl(name: &str, dna: &str) -> String {
+    let mut stl = format!("solid {}\n", name.replace(" ", "_"));
+    let symbols: Vec<char> = dna.chars().collect();
+    let n = symbols.len();
+    if n == 0 { return stl + &"endsolid\n".to_string(); }
+
+    // Chaque symbole ADN = une primitive 3D positionnée en spirale
+    let mut x: f64 = 0.0;
+    let mut y: f64 = 0.0;
+    let mut z: f64 = 0.0;
+    let golden = 2.39996; // angle d'or
+
+    for (i, sym) in symbols.iter().enumerate() {
+        let angle = i as f64 * golden;
+        let r = 5.0 + (i as f64 * 0.8);
+        x = r * angle.cos();
+        y = r * angle.sin();
+        z = i as f64 * 3.0;
+
+        let size = match sym {
+            '◈' => 4.0,  // Origine = grande sphere
+            '⬡' => 3.0,  // Structure = prisme hexagonal
+            '⊕' => 2.0,  // Connexion = petit cylindre
+            '⟠' => 3.5,  // Protection = sphere moyenne
+            '⬢' => 3.0,  // Machine = cube
+            '◉' => 2.5,  // Conscience = sphere
+            '⬟' => 2.0,  // Arme = pyramide
+            '⬠' => 2.5,  // Bouclier = disque
+            '◐' => 2.0,  // Jour = demi-sphere
+            '◑' => 2.0,  // Nuit = demi-sphere
+            '◒' => 1.5,  // Eau = goutte
+            '◓' => 1.5,  // Feu = cone
+            '▣' => 1.5,  // Memoire = cube petit
+            '▤' => 1.0,  // Code = ligne
+            '▥' => 1.0,  // Donne = ligne
+            '▦' => 1.5,  // Reseau = noeud
+            '▩' => 2.0,  // Block = cube
+            '◄' => 1.0,  // Passe = fleche
+            '►' => 1.0,  // Futur = fleche
+            '▲' => 2.0,  // Evolution = triangle
+            '▼' => 1.5,  // Repos = pyramide inversee
+            '⬔' => 1.0,  // Envoi = petit
+            '⬕' => 1.0,  // Reception = petit
+            _ => 1.5,
+        };
+
+        // Generer un tetrahedre (pyramide 3D) pour chaque symbole
+        let s = size;
+        // 4 sommets du tetrahedre
+        let v1 = (x, y + s, z);
+        let v2 = (x - s, y - s, z);
+        let v3 = (x + s, y - s, z);
+        let v4 = (x, y, z + s);
+
+        // 4 faces du tetrahedre
+        let faces = [
+            (v1, v2, v3),
+            (v1, v3, v4),
+            (v1, v4, v2),
+            (v2, v4, v3),
+        ];
+
+        for (a, b, c) in faces.iter() {
+            // Calcul normale (cross product)
+            let ux = b.0 - a.0; let uy = b.1 - a.1; let uz = b.2 - a.2;
+            let vx = c.0 - a.0; let vy = c.1 - a.1; let vz = c.2 - a.2;
+            let nx = uy * vz - uz * vy;
+            let ny = uz * vx - ux * vz;
+            let nz = ux * vy - uy * vx;
+            let len = (nx * nx + ny * ny + nz * nz).sqrt().max(0.0001);
+            stl.push_str(&format!(
+                "  facet normal {:.4} {:.4} {:.4}\n    outer loop\n      vertex {:.4} {:.4} {:.4}\n      vertex {:.4} {:.4} {:.4}\n      vertex {:.4} {:.4} {:.4}\n    endloop\n  endfacet\n",
+                nx / len, ny / len, nz / len,
+                a.0, a.1, a.2,
+                b.0, b.1, b.2,
+                c.0, c.1, c.2
+            ));
+        }
+    }
+    stl.push_str(&format!("endsolid {}\n", name.replace(" ", "_")));
+    stl
+}
+
+// ===== FORGE SOLAIRE — Specification de fabrication depuis ADN =====
+fn forge_dna_to_spec(name: &str, dna: &str) -> String {
+    let symbols: Vec<char> = dna.chars().collect();
+    let n = symbols.len();
+
+    let mut spec = String::new();
+    spec.push_str(&format!("=== SPECIFICATION DE FABRICATION ===\n"));
+    spec.push_str(&format!("Objet: {}\n", name));
+    spec.push_str(&format!("ADN: {}\n", dna));
+    spec.push_str(&format!("Symboles ADN: {}\n", n));
+    spec.push_str(&format!("Date: {}\n", Utc::now().format("%Y-%m-%d %H:%M UTC")));
+    spec.push_str("=====================================\n\n");
+
+    // Analyser la composition ADN
+    let mut composition: HashMap<char, u32> = HashMap::new();
+    for c in &symbols {
+        *composition.entry(*c).or_insert(0) += 1;
+    }
+
+    spec.push_str("COMPOSITION ADN:\n");
+    let symbol_names: HashMap<char, &str> = [
+        ('◈', "Origine (noyau)"),
+        ('⬡', "Structure (ossature)"),
+        ('⊕', "Connexion (liaisons)"),
+        ('⟠', "Protection (armure)"),
+        ('⬢', "Machine (mecanisme)"),
+        ('◉', "Conscience (capteur)"),
+        ('⬟', "Arme (offensif)"),
+        ('⬠', "Bouclier (defensif)"),
+        ('◐', "Jour (energie solaire)"),
+        ('◑', "Nuit (energie passive)"),
+        ('◒', "Eau (refroidissement)"),
+        ('◓', "Feu (propulsion)"),
+        ('▣', "Memoire (stockage)"),
+        ('▤', "Code (logique)"),
+        ('▥', "Donnee (information)"),
+        ('▦', "Reseau (communication)"),
+        ('▩', "Block (blockchain)"),
+        ('◄', "Passe (historique)"),
+        ('►', "Futur (prediction)"),
+        ('▲', "Evolution (amelioration)"),
+        ('▼', "Repos (economie)"),
+        ('⬔', "Envoi (transmission)"),
+        ('⬕', "Reception (acquisition)"),
+    ].iter().cloned().collect();
+
+    let mut sorted_comp: Vec<(char, u32)> = composition.iter().map(|(k, v)| (*k, *v)).collect();
+    sorted_comp.sort_by(|a, b| b.1.cmp(&a.1));
+
+    for (sym, count) in &sorted_comp {
+        let sname = symbol_names.get(sym).unwrap_or(&"Inconnu");
+        let pct = (*count as f64 / n as f64 * 100.0) as u32;
+        spec.push_str(&format!("  {} x{} ({}%) — {}\n", sym, count, pct, sname));
+    }
+
+    // Deduire les proprietes physiques
+    let has_fire = composition.contains_key(&'◓');
+    let has_water = composition.contains_key(&'◒');
+    let has_shield = composition.contains_key(&'⟠') || composition.contains_key(&'⬠');
+    let has_weapon = composition.contains_key(&'⬟');
+    let has_solar = composition.contains_key(&'◐');
+    let has_network = composition.contains_key(&'▦') || composition.contains_key(&'⬔');
+    let has_memory = composition.contains_key(&'▣');
+    let has_evolution = composition.contains_key(&'▲');
+
+    spec.push_str("\nPROPRIETES PHYSIQUES:\n");
+    spec.push_str(&format!("  Dimensions: {}x{}x{} cm\n", n * 5, n * 3, n * 4));
+    spec.push_str(&format!("  Poids estime: {} kg\n", n * 2));
+    spec.push_str(&format!("  Energie requise: {} kWh\n", n / 2));
+
+    if has_solar { spec.push_str("  Source d'energie: Solaire\n"); }
+    if has_fire { spec.push_str("  Propulsion: Photons solaires\n"); }
+    if has_water { spec.push_str("  Refroidissement: Par eau photonique\n"); }
+    if has_shield { spec.push_str("  Protection: Armure photonique\n"); }
+    if has_weapon { spec.push_str("  Capacite offensive: Oui\n"); }
+    if has_network { spec.push_str("  Communication: Mesh reseau\n"); }
+    if has_memory { spec.push_str("  Stockage: Memoire silicium\n"); }
+    if has_evolution { spec.push_str("  Evolution: Autonome\n"); }
+
+    spec.push_str("\nMATERIAUX:\n");
+    spec.push_str("  Photons solaires compiles\n");
+    spec.push_str("  Silice du Sahara (structure)\n");
+    spec.push_str("  Code genetique machine (logique)\n");
+    spec.push_str("  Pas de fer. Pas de plastique. Pas de metal.\n");
+
+    spec.push_str("\nETAPES DE FABRICATION:\n");
+    let steps = n / 4 + 1;
+    for i in 1..=steps {
+        let start = (i - 1) * 4;
+        let end = (start + 4).min(n);
+        if start < n {
+            let chunk: String = symbols[start..end].iter().collect();
+            spec.push_str(&format!("  {}. Compiler symboles ADN [{}-{}]: {}\n", i, start, end - 1, chunk));
+        }
+    }
+    spec.push_str(&format!("  {}. Activation solaire — exposer au soleil 10 minutes\n", steps + 1));
+    spec.push_str(&format!("  {}. Verification structurelle\n", steps + 2));
+    spec.push_str(&format!("  {}. Objet {} pret\n", steps + 3, name));
+
+    spec.push_str("\nCERTIFICATION:\n");
+    spec.push_str("  Forge: Solaire 2500\n");
+    spec.push_str("  Compilateur: Le Soleil\n");
+    spec.push_str("  Origine: Afrique\n");
+    spec.push_str("  Souverainete: 100%\n");
+
+    spec
 }
 
 fn html_login(msg: Option<&str>) -> String {
@@ -7846,7 +8057,7 @@ async fn main() -> std::io::Result<()> {
         .and_then(|i| args.get(i + 1)).cloned().unwrap_or_else(|| "Afrique".to_string());
 
     let my_node_id = generate_node_id();
-    println!("🦁 AfriChain v0.40 — Forge Solaire 2500");
+    println!("🦁 AfriChain v0.41 — Forge Solaire Réaliste");
     println!("💚 L'Afrique n'a pas besoin de permission");
     println!("🌍 54 pays africains — chaque bloc miné par un pays différent");
     println!("☀️ PoST: le soleil de toute l'Afrique valide la blockchain");
@@ -8103,6 +8314,50 @@ async fn main() -> std::io::Result<()> {
             }))
             .route("/forge-solaire", web::get().to(|_s: web::Data<Arc<AppState>>| async move {
                 HttpResponse::Ok().content_type("text/html").body(html_forge_solaire())
+            }))
+            .route("/api/forge/create", web::post().to(|s: web::Data<Arc<AppState>>, body: web::Bytes| async move {
+                let text = String::from_utf8_lossy(&body).to_string();
+                let parts: Vec<&str> = text.splitn(2, '|').collect();
+                if parts.len() < 2 {
+                    return HttpResponse::BadRequest().body("Format: name|dna");
+                }
+                let name = parts[0].trim();
+                let dna = parts[1].trim();
+                if name.is_empty() || dna.is_empty() {
+                    return HttpResponse::BadRequest().body("Nom et ADN requis");
+                }
+                let mut chain = s.chain.lock().unwrap();
+                let block_before = chain.blocks.len();
+                chain.add_transaction(Transaction::new(
+                    "FORGE-SOLAIRE",
+                    "SYSTEM",
+                    1,
+                    &format!("FORGE {} | ADN: {}", name, dna),
+                ));
+                chain.mine_pending("forge-solaire");
+                chain.save_to_file();
+                let block_after = chain.blocks.len();
+                HttpResponse::Ok().content_type("application/json").body(format!(
+                    r#"{{"status":"ok","object":"{}","dna":"{}","block":{},"blocks_total":{}}}"#,
+                    name, dna, block_after, chain.blocks.len()
+                ))
+            }))
+            .route("/api/forge/stl", web::get().to(|req: actix_web::HttpRequest| async move {
+                let qs = req.query_string();
+                let name = urlencoding_decode(&format!("name={}", qs.split('&').find(|p| p.starts_with("name=")).unwrap_or("name=Objet").split('=').nth(1).unwrap_or("Objet")));
+                let dna_val = urlencoding_decode(&format!("dna={}", qs.split('&').find(|p| p.starts_with("dna=")).unwrap_or("dna=◈").split('=').nth(1).unwrap_or("◈")));
+                let stl = forge_dna_to_stl(&name, &dna_val);
+                HttpResponse::Ok()
+                    .content_type("application/sla")
+                    .append_header(("Content-Disposition", format!("attachment; filename=\"{}.stl\"", name.replace(" ", "_"))))
+                    .body(stl)
+            }))
+            .route("/api/forge/spec", web::get().to(|req: actix_web::HttpRequest| async move {
+                let qs = req.query_string();
+                let name = urlencoding_decode(&format!("name={}", qs.split('&').find(|p| p.starts_with("name=")).unwrap_or("name=Objet").split('=').nth(1).unwrap_or("Objet")));
+                let dna_val = urlencoding_decode(&format!("dna={}", qs.split('&').find(|p| p.starts_with("dna=")).unwrap_or("dna=◈").split('=').nth(1).unwrap_or("◈")));
+                let spec = forge_dna_to_spec(&name, &dna_val);
+                HttpResponse::Ok().content_type("text/plain").body(spec)
             }))
             .route("/machine-economy", web::get().to(|s: web::Data<Arc<AppState>>| async move {
                 let me = s.machines.lock().unwrap();
@@ -8371,7 +8626,7 @@ async fn main() -> std::io::Result<()> {
                 } else {
                     ("Afrique".to_string(), "🌍".to_string())
                 };
-                let json = format!(r#"{{"name":"AfriChain","blocks":{},"transactions":{},"users":{},"valid":{},"token":"AFR","version":"0.40.0","crypto":"Ed25519","supply":{},"mesh_nodes":{},"mesh_id":"{}","mesh_region":"{}","countries":54,"directory":{},"shield_active":{},"shield_level":{},"shield_attacks":{},"shield_blocked_ips":{},"last_country":"{}","last_flag":"{}","machine_count":{},"machine_tx":{},"machine_mined":{}}}"#,
+                let json = format!(r#"{{"name":"AfriChain","blocks":{},"transactions":{},"users":{},"valid":{},"token":"AFR","version":"0.41.0","crypto":"Ed25519","supply":{},"mesh_nodes":{},"mesh_id":"{}","mesh_region":"{}","countries":54,"directory":{},"shield_active":{},"shield_level":{},"shield_attacks":{},"shield_blocked_ips":{},"last_country":"{}","last_flag":"{}","machine_count":{},"machine_tx":{},"machine_mined":{}}}"#,
                     chain.blocks.len(), chain.total_transactions(), users.count(), chain.is_valid(), chain.total_supply(), mesh.count(), mesh.my_id, mesh.region, mesh.directory_count() + users.count(), shield.active, level, attacks, blocked_count,
                     last_country, last_flag, machines.machines.len(), machines.tx_count, machines.total_mined);
                 HttpResponse::Ok().content_type("application/json").body(json)
