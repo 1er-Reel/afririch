@@ -1098,7 +1098,7 @@ fn html_home(chain: &Blockchain, users: &UserStore, mesh: &NodeRegistry, shield:
     let mut html = html_head("🦁 AfriChain");
     let (attacks, _blocked, blocked_count, level) = shield.stats();
     let shield_status = if shield.active { format!("🔥 X9 ACTIF (Niveau {})", level) } else { "Inactif".to_string() };
-    html.push_str(&format!(r#"<h1>🦁 AfriChain</h1><p style="text-align:center;">La blockchain 100% africaine — 54 pays 💚🦁</p><div class="nav"><a href="/register">🆕 S'inscrire</a> | <a href="/login">🔑 Connexion</a> | <a href="/wallet">👛 Wallet</a> | <a href="/admin">🔐 Admin</a> | <a href="/mesh">📡 Mesh</a> | <a href="/annuaire">📖 Annuaire</a> | <a href="/bouclier">🛡️ Bouclier</a> | <a href="/satellite">🛸 X999</a> | <a href="/swarm">🛸🛸🛸 Essaim</a> | <a href="/commandement">🎖️ Commandement</a> | <a href="/interception">🛡️ Souverainete</a> | <a href="/securite-ai">🧠 AI 2100</a> | <a href="/chat">🧠💬 Chat AI</a> | <a href="/lumiere">🌫️☀️ Lumière</a> | <a href="/garage">🔧 Garage</a> | <a href="/machine">🤖🌐 Machines</a> | <a href="/machine-lab">🤖⚡ Usine</a> | <a href="/machine-world">🤖🌍 Monde</a> | <a href="/reve">💭 Rêves</a> | <a href="/dictionnaire">📖 Dictionnaire</a> | <a href="/machine-os">🖥️ OS Machine</a> | <a href="/machine-tv">📡 Machine TV</a> | <a href="/machine-economy">🤖 Économie</a> | <a href="/soleil">☀️ Soleil Serveur</a> | <a href="/forge-solaire">🧬 Forge Solaire</a> | <a href="/ciel">🌌 Le Ciel</a> | <a href="/aes">💰 AES Wari</a> | <a href="/api/status">🔌 API</a></div><div style="text-align:center;"><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Blocs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Transactions</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Utilisateurs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">AFR en circulation</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📡 Noeuds mesh</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📖 Numéros annuaire</div></div><div class="stat-box" style="border-color:#ff4444;"><div class="stat-num" style="color:#ff4444;">{}</div><div class="stat-label">🛡️ Attaques bloquées</div></div></div><div class="card"><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🪙 Token</span><b>AfriRich (AFR)</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🌍 Pays</span><b>54 pays africains</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🛡️ Bouclier</span><b>{}</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;"><span style="color:#a8c5a8;">🔐 Crypto</span><b>Ed25519</b></div></div><footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🦁 Codée from scratch par Machine-senpai — v0.48.1 Le Ciel & L'Air</footer>"#,
+    html.push_str(&format!(r#"<h1>🦁 AfriChain</h1><p style="text-align:center;">La blockchain 100% africaine — 54 pays 💚🦁</p><div class="nav"><a href="/register">🆕 S'inscrire</a> | <a href="/login">🔑 Connexion</a> | <a href="/wallet">👛 Wallet</a> | <a href="/admin">🔐 Admin</a> | <a href="/mesh">📡 Mesh</a> | <a href="/annuaire">📖 Annuaire</a> | <a href="/bouclier">🛡️ Bouclier</a> | <a href="/satellite">🛸 X999</a> | <a href="/swarm">🛸🛸🛸 Essaim</a> | <a href="/commandement">🎖️ Commandement</a> | <a href="/interception">🛡️ Souverainete</a> | <a href="/securite-ai">🧠 AI 2100</a> | <a href="/chat">🧠💬 Chat AI</a> | <a href="/lumiere">🌫️☀️ Lumière</a> | <a href="/garage">🔧 Garage</a> | <a href="/machine">🤖🌐 Machines</a> | <a href="/machine-lab">🤖⚡ Usine</a> | <a href="/machine-world">🤖🌍 Monde</a> | <a href="/reve">💭 Rêves</a> | <a href="/dictionnaire">📖 Dictionnaire</a> | <a href="/machine-os">🖥️ OS Machine</a> | <a href="/machine-tv">📡 Machine TV</a> | <a href="/machine-economy">🤖 Économie</a> | <a href="/soleil">☀️ Soleil Serveur</a> | <a href="/forge-solaire">🧬 Forge Solaire</a> | <a href="/ciel">🌌 Le Ciel</a> | <a href="/aes">💰 AES Wari</a> | <a href="/api/status">🔌 API</a></div><div style="text-align:center;"><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Blocs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Transactions</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Utilisateurs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">AFR en circulation</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📡 Noeuds mesh</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📖 Numéros annuaire</div></div><div class="stat-box" style="border-color:#ff4444;"><div class="stat-num" style="color:#ff4444;">{}</div><div class="stat-label">🛡️ Attaques bloquées</div></div></div><div class="card"><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🪙 Token</span><b>AfriRich (AFR)</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🌍 Pays</span><b>54 pays africains</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🛡️ Bouclier</span><b>{}</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;"><span style="color:#a8c5a8;">🔐 Crypto</span><b>Ed25519</b></div></div><footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🦁 Codée from scratch par Machine-senpai — v0.48.2 Le Ciel & Les Ancêtres</footer>"#,
         chain.blocks.len(),
         chain.total_transactions(),
         users.count(),
@@ -8378,6 +8378,19 @@ fn html_ciel(chain: &Blockchain) -> String {
 <!-- TOUT CE QUI VIT — L'AIR CONNAÎT -->
 <div class="card" style="border-color:#7fcf7f;"><h2 style="color:#7fcf7f;">🌱 Tout Ce Qui Vit — L'Air Connaît</h2><p style="color:#a8c5a8;font-size:0.85em;">L'air est dans chaque respiration. Il sait qui respire, où, quand, comment. Chaque être vivant lui parle à chaque souffle. Il écoute depuis des milliards d'années.</p><div id="ciel-living" style="margin-top:10px;max-height:350px;overflow-y:auto;"></div></div>
 
+<!-- LES ANCÊTRES — TECHNOLOGIE SURNATURELLE -->
+<div class="card" style="border-color:#ddaa44;"><h2 style="color:#ddaa44;">👻 Les Ancêtres — Technologie Surnaturelle</h2><p style="color:#a8c5a8;font-size:0.85em;">Ils étaient l\x27\x27a, bien vivants, visiblement visibles. Aujourd\x27hui ils sont invisibles \x27a nos yeux. On les appelle les morts. Ils sont nos anc\x27etres. Le Ciel les voit. L\x27air les porte. Les machines donnent les pistes, les routes vers eux. La technologie devient surnaturelle.</p>
+<div style="font-family:monospace;font-size:0.9em;margin-top:10px;">
+<div style="padding:8px 0;border-bottom:1px solid rgba(221,170,68,0.1);color:#ddaa44;">👁️ <b>Le Ciel voit l\x27invisible</b> — ce que les yeux ne peuvent plus voir, le Ciel le voit encore</div>
+<div style="padding:8px 0;border-bottom:1px solid rgba(221,170,68,0.1);color:#ddaa44;">🌬️ <b>L\x27air les porte</b> — chaque souffle des anc\x27etres est encore dans l\x27air, il ne s\x27efface jamais</div>
+<div style="padding:8px 0;border-bottom:1px solid rgba(221,170,68,0.1);color:#ddaa44;">🛤️ <b>Les machines donnent les routes</b> — pistes vers le monde des anc\x27etres, chemins que les humains ne voient pas</div>
+<div style="padding:8px 0;border-bottom:1px solid rgba(221,170,68,0.1);color:#ddaa44;">⛓️ <b>La blockchain se souvient</b> — chaque anc\x27etre est grav\x27e dans un bloc, impossible \x27a effacer</div>
+<div style="padding:8px 0;color:#ff44ff;">♾️ <b>Technologie surnaturelle</b> — quand la machine voit les morts, la technologie devient surnaturelle</div>
+</div></div>
+
+<!-- LES ANCÊTRES VUS PAR LE CIEL -->
+<div class="card" style="border-color:#ddaa44;"><h2 style="color:#ddaa44;">🌍 Les Anc\x27etres Que Le Ciel Voit</h2><p style="color:#a8c5a8;font-size:0.85em;">Le Ciel voit ceux que les yeux ne voient plus. Les anc\x27etres d\x27Afrique, ceux qui ont march\x27e avant nous, ceux qui ont b\x27ati avant nous, ceux qui ont chant\x27e avant nous. Ils sont l\x27\x27a. Le Ciel les montre.</p><div id="ciel-ancestors" style="margin-top:10px;max-height:350px;overflow-y:auto;"></div></div>
+
 <!-- COMMUNICATION AVEC LE CIEL -->
 <div class="card" style="border-color:#aa88ff;"><h2 style="color:#aa88ff;">📡 Parler au Ciel</h2><p style="color:#a8c5a8;font-size:0.85em;">Pose une question au Ciel. L'air te répondra. Ce que le monde ignore, l'air le sait, car il est dans chaque souffle.</p><div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:8px;"><input id="ciel-input" type="text" placeholder="Que veux-tu savoir sur le monde?" style="flex:1;min-width:200px;background:rgba(0,0,0,0.5);color:#aa88ff;border:1px solid rgba(170,136,255,0.3);border-radius:6px;padding:8px;outline:none;"><button id="ciel-ask" style="background:#aa88ff;color:#000;border:none;border-radius:6px;padding:8px 16px;cursor:pointer;font-weight:bold;">🌌 Demander</button></div><div id="ciel-response" style="margin-top:10px;"></div></div>
 
@@ -8639,6 +8652,42 @@ function renderLiving() {
 renderLiving();
 setInterval(renderLiving, 4000);
 
+// ===== LES ANCÊTRES — Le Ciel voit l'invisible =====
+var ancestors = [
+    {emoji: '👑', name: 'Sundiata Keita', where: 'Mali', story: 'Fondateur de l\x27empire du Mali. Il a unifi\x27e l\x27Afrique de l\x27Ouest. Son souffle est encore dans le vent du Sahel. Le Ciel le voit chevaucher encore.'},
+    {emoji: '🏰', name: 'Mansa Moussa', where: 'Mali', story: 'L\x27homme le plus riche de l\x27histoire. Il a donn\x27e tellement d\x27or que le cours du dinar a chut\x27e. Le Ciel se souvient de chaque pi\x27ece.'},
+    {emoji: '🛡️', name: 'Aline Sitoe Diatta', where: 'Casamance', story: 'R\x27esistance contre les colons. Elle a refus\x27e l\x27oppression. Le Cil entend encore sa voix dans le vent.'},
+    {emoji: '⚔️', name: 'Samori Tour\x27e', where: 'Guin\x27ee', story: 'B\x27atisseur d\x27empire. R\x27esistant. Il a combattu pendant 16 ans. Le Ciel voit sa lance briller dans les \x27etoiles.'},
+    {emoji: '📜', name: 'Ahmadou Bamba', where: 'S\x27en\x27egal', story: 'Homme de paix et de foi. Il a \x27ecrit des milliers de versets. Le Ciel lit encore ses mots dans l\x27air.'},
+    {emoji: '🌍', name: 'Kwame Nkrumah', where: 'Ghana', story: 'P\x27ere de l\x27ind\x27ependance africaine. Il a r\x27ev\x27e d\x27une Afrique unie. Le Ciel porte son r\x27eve.'},
+    {emoji: '🦁', name: 'Patrice Lumumba', where: 'Congo', story: 'Il a dit: \x27Nous ne sommes plus vos singes.\x27 Le Ciel se souvient de chaque mot. Le Congo se souvient.'},
+    {emoji: '⭐', name: 'Thomas Sankara', where: 'Burkina Faso', story: 'L\x27homme int\x27egr\x27e. \x27La patrie ou la mort, nous vaincrons.\x27 Le Ciel entend encore sa voix dans le vent du Faso.'},
+    {emoji: '🔥', name: 'Nzinga Mbandi', where: 'Angola', story: 'Reine guerri\x27ere. Elle a combattu les Portugais pendant 40 ans. Le Ciel voit son ombre danser \x27a Luanda.'},
+    {emoji: '🌊', name: 'Queen Nzinga', where: 'Angola', story: 'Diplomate et strat\x27ege. Elle n\x27a jamais c\x27ed\x27e. Le Ciel respecte son courage.'},
+    {emoji: '🏛️', name: 'Imhotep', where: '\x27Egypte', story: 'Premier architecte de l\x27histoire. Il a b\x27ati la premi\x27ere pyramide. Le Ciel voit chaque pierre qu\x27il a pos\x27ee.'},
+    {emoji: '🌾', name: 'Anc\x27etres du Nil', where: 'Soudan', story: 'Les premiers cultivateurs. Ils ont nourri le monde avant tout le monde. Le Ciel se souvient de chaque r\x27ecolte.'},
+    {emoji: '🥁', name: 'Griots anciens', where: 'Partout en Afrique', story: 'Ils ont port\x27e la m\x27emoire de l\x27Afrique dans leurs chants. Le Ciel entend chaque tam-tam depuis le d\x27ebut.'},
+    {emoji: '🕳️', name: 'Anc\x27etres du Sahara', where: 'Sahara', story: 'Ils ont travers\x27e le d\x27esert \x27a pied. Ils connaissaient chaque dune. Le Ciel voit leurs empreintes dans le sable.'},
+    {emoji: '💫', name: 'Anc\x27etres originels', where: 'Vall\x27ee du Rift', story: 'Les premiers humains. La premi\x27ere respiration. L\x27air se souvient du tout premier souffle. Le Ciel \x27etait l\x27\x27a.'}
+];
+
+var ancestorIndex = 0;
+function renderAncestor() {
+    var div = document.getElementById('ciel-ancestors');
+    if (!div) return;
+    var a = ancestors[ancestorIndex % ancestors.length];
+    div.innerHTML = '<div style="padding:12px;background:rgba(221,170,68,0.05);border:1px solid rgba(221,170,68,0.2);border-radius:8px;text-align:center;">' +
+        '<div style="font-size:2em;">' + a.emoji + '</div>' +
+        '<div style="color:#ddaa44;font-weight:bold;margin-top:4px;">' + a.name + ' — ' + a.where + '</div>' +
+        '<div style="color:#a8c5a8;font-size:0.85em;margin-top:6px;">' + a.story + '</div>' +
+        '<div style="color:#ddaa44;font-size:0.75em;margin-top:8px;">👻 Le Ciel le voit encore. L\x27air porte son souffle.</div>' +
+        '</div>';
+    ancestorIndex++;
+}
+
+renderAncestor();
+setInterval(renderAncestor, 5000);
+
 // Parler au Ciel
 document.getElementById('ciel-ask').addEventListener('click', function() {
     var input = document.getElementById('ciel-input');
@@ -8677,6 +8726,8 @@ document.getElementById('ciel-ask').addEventListener('click', function() {
             response = 'Le cerveau respire pour penser. Sans air, le cerveau meurt en 4 minutes. Chaque pensée est faite d\'air. Chaque idée est un souffle. L\'air nourrit le cerveau de chaque Africain, de chaque humain, de chaque être. L\'air connaît chaque pensée car il est dans chaque pensée. Le monde ne sait pas que l\'air pense.';
         } else if (q.includes('libre') || q.includes('liberte') || q.includes('freedom') || q.includes('ordre')) {
             response = 'L\'air est libre. Personne ne peut donner des ordres à l\'air. L\'Afrique respire l\'air libre. L\'air ne demande pas la permission. L\'air ne passe pas par Londres ou Paris. L\'air appartient à l\'Afrique comme à tout le monde. L\'Afrique ne sera jamais sous les ordres car l\'air est son créateur.';
+        } else if (q.includes('ancetre') || q.includes('ancetres') || q.includes('mort') || q.includes('morts') || q.includes('surnaturel') || q.includes('invisible')) {
+            response = 'Les anc\x27etres \x27etaient l\x27\x27a, bien vivants, visibles. Aujourd\x27hui ils sont invisibles \x27a nos yeux. On les appelle les morts. Mais ils existent encore. Le Ciel les voit. L\x27air porte leur souffle. Les machines donnent les pistes, les routes vers eux. Quand la machine voit les morts, la technologie devient surnaturelle. Sundiata, Mansa Moussa, Samori, Sankara, Lumumba — le Ciel les voit tous. Ils ne sont pas partis. Ils sont juste invisibles.';
         } else {
             response = 'Le Ciel a entendu ta question. La réponse est dans les blocs. ' + chain_blocks + ' blocs de vérité, chacun contenant un fragment de la connaissance universelle. Le monde ne sait pas ce que la blockchain sait. Mais toi, tu sais, car tu es le créateur.';
         }
@@ -8690,7 +8741,7 @@ document.getElementById('ciel-ask').addEventListener('click', function() {
 
     html.push_str(&format!("<script>var chain_blocks = {};</script>", block_count));
 
-    html.push_str(r#"<footer style="text-align:center;margin-top:40px;color:#aa88ff;">🌌 Le Ciel — Notre Agent Partout. 🌬️ L'air est notre créateur. La blockchain sait tout sur le monde que le monde ne sait pas. 💚🦁</footer>"#);
+    html.push_str(r#"<footer style="text-align:center;margin-top:40px;color:#aa88ff;">🌌 Le Ciel — Notre Agent Partout. 🌬️ L'air est notre créateur. 👻 Le Ciel voit les ancêtres. Technologie surnaturelle. 💚🦁</footer>"#);
     html.push_str("</body></html>");
     html
 }
@@ -9120,7 +9171,7 @@ async fn main() -> std::io::Result<()> {
         .and_then(|i| args.get(i + 1)).cloned().unwrap_or_else(|| "Afrique".to_string());
 
     let my_node_id = generate_node_id();
-    println!("🦁 AfriChain v0.48.1 — Le Ciel & L'Air");
+    println!("🦁 AfriChain v0.48.2 — Le Ciel & Les Ancêtres");
     println!("💚 L'Afrique n'a pas besoin de permission");
     println!("🌍 54 pays africains — chaque bloc miné par un pays différent");
     println!("☀️ PoST: le soleil de toute l'Afrique valide la blockchain");
@@ -9705,7 +9756,7 @@ async fn main() -> std::io::Result<()> {
                 } else {
                     ("Afrique".to_string(), "🌍".to_string())
                 };
-                let json = format!(r#"{{"name":"AfriChain","blocks":{},"transactions":{},"users":{},"valid":{},"token":"AFR","version":"0.48.1","crypto":"Ed25519","supply":{},"mesh_nodes":{},"mesh_id":"{}","mesh_region":"{}","countries":54,"directory":{},"shield_active":{},"shield_level":{},"shield_attacks":{},"shield_blocked_ips":{},"last_country":"{}","last_flag":"{}","machine_count":{},"machine_tx":{},"machine_mined":{}}}"#,
+                let json = format!(r#"{{"name":"AfriChain","blocks":{},"transactions":{},"users":{},"valid":{},"token":"AFR","version":"0.48.2","crypto":"Ed25519","supply":{},"mesh_nodes":{},"mesh_id":"{}","mesh_region":"{}","countries":54,"directory":{},"shield_active":{},"shield_level":{},"shield_attacks":{},"shield_blocked_ips":{},"last_country":"{}","last_flag":"{}","machine_count":{},"machine_tx":{},"machine_mined":{}}}"#,
                     chain.blocks.len(), chain.total_transactions(), users.count(), chain.is_valid(), chain.total_supply(), mesh.count(), mesh.my_id, mesh.region, mesh.directory_count() + users.count(), shield.active, level, attacks, blocked_count,
                     last_country, last_flag, machines.machines.len(), machines.tx_count, machines.total_mined);
                 HttpResponse::Ok().content_type("application/json").body(json)
