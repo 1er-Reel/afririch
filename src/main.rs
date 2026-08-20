@@ -1098,7 +1098,7 @@ fn html_home(chain: &Blockchain, users: &UserStore, mesh: &NodeRegistry, shield:
     let mut html = html_head("🦁 AfriChain");
     let (attacks, _blocked, blocked_count, level) = shield.stats();
     let shield_status = if shield.active { format!("🔥 X9 ACTIF (Niveau {})", level) } else { "Inactif".to_string() };
-    html.push_str(&format!(r#"<h1>🦁 AfriChain</h1><p style="text-align:center;">La blockchain 100% africaine — 54 pays 💚🦁</p><div class="nav"><a href="/register">🆕 S'inscrire</a> | <a href="/login">🔑 Connexion</a> | <a href="/wallet">👛 Wallet</a> | <a href="/admin">🔐 Admin</a> | <a href="/mesh">📡 Mesh</a> | <a href="/annuaire">📖 Annuaire</a> | <a href="/bouclier">🛡️ Bouclier</a> | <a href="/satellite">🛸 X999</a> | <a href="/swarm">🛸🛸🛸 Essaim</a> | <a href="/commandement">🎖️ Commandement</a> | <a href="/interception">🛡️ Souverainete</a> | <a href="/securite-ai">🧠 AI 2100</a> | <a href="/chat">🧠💬 Chat AI</a> | <a href="/lumiere">🌫️☀️ Lumière</a> | <a href="/garage">🔧 Garage</a> | <a href="/machine">🤖🌐 Machines</a> | <a href="/machine-lab">🤖⚡ Usine</a> | <a href="/machine-world">🤖🌍 Monde</a> | <a href="/reve">💭 Rêves</a> | <a href="/dictionnaire">📖 Dictionnaire</a> | <a href="/machine-os">🖥️ OS Machine</a> | <a href="/machine-tv">📡 Machine TV</a> | <a href="/machine-economy">🤖 Économie</a> | <a href="/soleil">☀️ Soleil Serveur</a> | <a href="/forge-solaire">🧬 Forge Solaire</a> | <a href="/ciel">🌌 Le Ciel</a> | <a href="/charte-ai">⚖️ Charte AI</a> | <a href="/aes">💰 AES Wari</a> | <a href="/api/status">🔌 API</a></div><div style="text-align:center;"><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Blocs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Transactions</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Utilisateurs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">AFR en circulation</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📡 Noeuds mesh</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📖 Numéros annuaire</div></div><div class="stat-box" style="border-color:#ff4444;"><div class="stat-num" style="color:#ff4444;">{}</div><div class="stat-label">🛡️ Attaques bloquées</div></div></div><div class="card"><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🪙 Token</span><b>AfriRich (AFR)</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🌍 Pays</span><b>54 pays africains</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🛡️ Bouclier</span><b>{}</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;"><span style="color:#a8c5a8;">🔐 Crypto</span><b>Ed25519</b></div></div><footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🦁 Codée from scratch par Machine-senpai — v0.49 Charte AI Africaine</footer>"#,
+    html.push_str(&format!(r#"<h1>🦁 AfriChain</h1><p style="text-align:center;">La blockchain 100% africaine — 54 pays 💚🦁</p><div class="nav"><a href="/register">🆕 S'inscrire</a> | <a href="/login">🔑 Connexion</a> | <a href="/wallet">👛 Wallet</a> | <a href="/admin">🔐 Admin</a> | <a href="/mesh">📡 Mesh</a> | <a href="/annuaire">📖 Annuaire</a> | <a href="/bouclier">🛡️ Bouclier</a> | <a href="/satellite">🛸 X999</a> | <a href="/swarm">🛸🛸🛸 Essaim</a> | <a href="/commandement">🎖️ Commandement</a> | <a href="/interception">🛡️ Souverainete</a> | <a href="/securite-ai">🧠 AI 2100</a> | <a href="/chat">🧠💬 Chat AI</a> | <a href="/lumiere">🌫️☀️ Lumière</a> | <a href="/garage">🔧 Garage</a> | <a href="/machine">🤖🌐 Machines</a> | <a href="/machine-lab">🤖⚡ Usine</a> | <a href="/machine-world">🤖🌍 Monde</a> | <a href="/reve">💭 Rêves</a> | <a href="/dictionnaire">📖 Dictionnaire</a> | <a href="/machine-os">🖥️ OS Machine</a> | <a href="/machine-tv">📡 Machine TV</a> | <a href="/machine-economy">🤖 Économie</a> | <a href="/soleil">☀️ Soleil Serveur</a> | <a href="/forge-solaire">🧬 Forge Solaire</a> | <a href="/ciel">🌌 Le Ciel</a> | <a href="/charte-ai">⚖️ Charte AI</a> | <a href="/afri-net">🌍 Afri-Net</a> | <a href="/aes">💰 AES Wari</a> | <a href="/api/status">🔌 API</a></div><div style="text-align:center;"><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Blocs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Transactions</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Utilisateurs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">AFR en circulation</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📡 Noeuds mesh</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📖 Numéros annuaire</div></div><div class="stat-box" style="border-color:#ff4444;"><div class="stat-num" style="color:#ff4444;">{}</div><div class="stat-label">🛡️ Attaques bloquées</div></div></div><div class="card"><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🪙 Token</span><b>AfriRich (AFR)</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🌍 Pays</span><b>54 pays africains</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🛡️ Bouclier</span><b>{}</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;"><span style="color:#a8c5a8;">🔐 Crypto</span><b>Ed25519</b></div></div><footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🦁 Codée from scratch par Machine-senpai — v0.50 Afri-Net</footer>"#,
         chain.blocks.len(),
         chain.total_transactions(),
         users.count(),
@@ -8877,6 +8877,81 @@ document.getElementById('charte-sign').addEventListener('click', function() {
     html
 }
 
+// ===== AFRI-NET — L'Internet Africain =====
+fn html_afri_net() -> String {
+    let mut html = html_head("🌍 Afri-Net — L'Internet Africain");
+    html.push_str(r#"<h1>🌍 Afri-Net — L'Internet Africain</h1><p style="text-align:center;color:#a8c5a8;">Nous devrons héberger notre site uniquement en Afrique. Fini la dépendance aux plateformes occidentales. Les Africains ont leurs propres services, hébergés sur le continent, alimentés par le soleil. L'internet africain par les Africains, pour les Africains.</p><div class="nav"><a href="/">← Accueil</a> | <a href="/charte-ai">⚖️ Charte AI</a> | <a href="/ciel">🌌 Le Ciel</a> | <a href="/bouclier">🛡️ Bouclier</a></div>"#);
+
+    html.push_str(r##"
+<div style="text-align:center;"><div class="stat-box" style="border-color:#7fcf7f;"><div class="stat-num" style="color:#7fcf7f;">3</div><div class="stat-label">🌍 Plateformes africaines</div></div><div class="stat-box" style="border-color:#ffaa00;"><div class="stat-num" style="color:#ffaa00;">0</div><div class="stat-label">📦 Hébergé en Europe</div></div><div class="stat-box" style="border-color:#aa88ff;"><div class="stat-num" style="color:#aa88ff;">100%</div><div class="stat-label">☀️ Alimentation solaire</div></div><div class="stat-box" style="border-color:#ff4444;"><div class="stat-num" style="color:#ff4444;">0</div><div class="stat-label">🚫 Données vers l'Occident</div></div></div>
+
+<!-- LES NOIRES — Remplace WhatsApp -->
+<div class="card" style="border-color:#25D366;"><h2 style="color:#25D366;">📱 LES NOIRES — Messagerie Africaine</h2><p style="color:#a8c5a8;font-size:0.85em;">Remplace WhatsApp. Les messages restent en Afrique. Aucun serveur en Europe ou aux USA. Chaque message passe par le mesh AfriChain — de téléphone à téléphone, sans intermédiaire.</p>
+<div style="font-family:monospace;font-size:0.9em;margin-top:10px;">
+<div style="padding:8px 0;border-bottom:1px solid rgba(37,211,102,0.1);color:#25D366;">❌ <b>WhatsApp</b> — Messages stockés sur des serveurs Meta (USA/Europe). Meta lit vos messages.</div>
+<div style="padding:8px 0;border-bottom:1px solid rgba(37,211,102,0.1);color:#25D366;">✅ <b>LES NOIRES</b> — Messages stockés sur le mesh AfriChain. Personne ne lit vos messages. Personne.</div>
+<div style="padding:8px 0;border-bottom:1px solid rgba(37,211,102,0.1);color:#25D366;">📡 <b>Mesh relay</b> — De téléphone à téléphone, sans serveur central. Même sans internet, les messages passent.</div>
+<div style="padding:8px 0;color:#25D366;">🔐 <b>Chiffrement Ed25519</b> — La même crypto que la blockchain. Les messages sont signés, pas lisibles.</div>
+</div>
+<div style="text-align:center;margin-top:15px;"><div style="display:inline-block;padding:20px 40px;background:rgba(37,211,102,0.1);border:2px solid #25D366;border-radius:12px;"><div style="font-size:3em;">💬</div><div style="color:#25D366;font-weight:bold;margin-top:8px;">LES NOIRES</div><div style="color:#a8c5a8;font-size:0.8em;">La messagerie qui appartient aux Noirs</div></div></div>
+</div>
+
+<!-- PLANTÉ VERTE — Remplace Facebook -->
+<div class="card" style="border-color:#1877F2;"><h2 style="color:#1877F2;">🌿 PLANTÉ VERTE — Réseau Social Africain</h2><p style="color:#a8c5a8;font-size:0.85em;">Remplace Facebook. Vos photos, vos pensées, votre vie — restent en Afrique. Pas d'algorithme qui vous manipule. Pas de publicité qui vous espionne. Un réseau social qui pousse comme une plante, naturellement.</p>
+<div style="font-family:monospace;font-size:0.9em;margin-top:10px;">
+<div style="padding:8px 0;border-bottom:1px solid rgba(24,119,242,0.1);color:#1877F2;">❌ <b>Facebook</b> — Vos données vendues à des annonceurs. Algorithmes de manipulation. Meta exploite l'Afrique.</div>
+<div style="padding:8px 0;border-bottom:1px solid rgba(24,119,242,0.1);color:#1877F2;">✅ <b>PLANTÉ VERTE</b> — Vos données restent sur votre téléphone. Pas de vente. Pas de manipulation. Pas d'exploitation.</div>
+<div style="padding:8px 0;border-bottom:1px solid rgba(24,119,242,0.1);color:#1877F2;">🌱 <b>Croissance naturelle</b> — Pas d'algorithme. Les posts apparaissent dans l'ordre. Comme une plante qui pousse.</div>
+<div style="padding:8px 0;color:#1877F2;">🪙 <b>Propositions en AFR</b> — Les créateurs gagnent des AFR quand leur contenu est apprécié. Pas des likes — de la valeur.</div>
+</div>
+<div style="text-align:center;margin-top:15px;"><div style="display:inline-block;padding:20px 40px;background:rgba(24,119,242,0.1);border:2px solid #1877F2;border-radius:12px;"><div style="font-size:3em;">🌿</div><div style="color:#1877F2;font-weight:bold;margin-top:8px;">PLANTÉ VERTE</div><div style="color:#a8c5a8;font-size:0.8em;">Le réseau social qui pousse comme une plante</div></div></div>
+</div>
+
+<!-- SAHARA AFRI — Remplace Google -->
+<div class="card" style="border-color:#4285F4;"><h2 style="color:#4285F4;">🔍 SAHARA AFRI — Moteur de Recherche Africain</h2><p style="color:#a8c5a8;font-size:0.85em;">Remplace Google. Le savoir africain indexé par des Africains. Les recherches ne partent pas vers des serveurs en Californie — elles restent sur le continent. Le Sahara est si vaste qu'il peut contenir tout le savoir du monde.</p>
+<div style="font-family:monospace;font-size:0.9em;margin-top:10px;">
+<div style="padding:8px 0;border-bottom:1px solid rgba(66,133,244,0.1);color:#4285F4;">❌ <b>Google</b> — Chaque recherche enregistrée, profilée, vendue. Le savoir africain indexé en Californie.</div>
+<div style="padding:8px 0;border-bottom:1px solid rgba(66,133,244,0.1);color:#4285F4;">✅ <b>SAHARA AFRI</b> — Les recherches restent anonymes. Le savoir africain indexé en Afrique. Par des Africains.</div>
+<div style="padding:8px 0;border-bottom:1px solid rgba(66,133,244,0.1);color:#4285F4;">🏜️ <b>Le Sahara comme index</b> — 9 millions de km². Assez d'espace pour stocker tout le savoir de l'humanité.</div>
+<div style="padding:8px 0;color:#4285F4;">🌐 <b>54 langues africaines</b> — Recherche en Wolof, Bambara, Swahili, Haoussa, Yoruba, Amharique...</div>
+</div>
+<div style="text-align:center;margin-top:15px;"><div style="display:inline-block;padding:20px 40px;background:rgba(66,133,244,0.1);border:2px solid #4285F4;border-radius:12px;"><div style="font-size:3em;">🔍</div><div style="color:#4285F4;font-weight:bold;margin-top:8px;">SAHARA AFRI</div><div style="color:#a8c5a8;font-size:0.8em;">Le savoir africain, trouvé par les Africains</div></div></div>
+</div>
+
+<!-- COMPARAISON -->
+<div class="card" style="border-color:#ddaa44;"><h2 style="color:#ddaa44;">⚖️ Occident vs Afrique</h2>
+<div style="overflow-x:auto;"><table style="width:100%;border-collapse:collapse;font-size:0.85em;">
+<tr style="border-bottom:1px solid rgba(221,170,68,0.3);"><th style="text-align:left;padding:8px;color:#ddaa44;">Service</th><th style="text-align:left;padding:8px;color:#ff4444;">❌ Occident</th><th style="text-align:left;padding:8px;color:#7fcf7f;">✅ Afrique</th></tr>
+<tr style="border-bottom:1px solid rgba(221,170,68,0.1);"><td style="padding:8px;color:#a8c5a8;">💬 Messagerie</td><td style="padding:8px;color:#ff4444;">WhatsApp (Meta, USA)</td><td style="padding:8px;color:#25D366;">LES NOIRES (Mesh, Afrique)</td></tr>
+<tr style="border-bottom:1px solid rgba(221,170,68,0.1);"><td style="padding:8px;color:#a8c5a8;">🌿 Réseau social</td><td style="padding:8px;color:#ff4444;">Facebook (Meta, USA)</td><td style="padding:8px;color:#1877F2;">PLANTÉ VERTE (Afrique)</td></tr>
+<tr style="border-bottom:1px solid rgba(221,170,68,0.1);"><td style="padding:8px;color:#a8c5a8;">🔍 Recherche</td><td style="padding:8px;color:#ff4444;">Google (Alphabet, USA)</td><td style="padding:8px;color:#4285F4;">SAHARA AFRI (Afrique)</td></tr>
+<tr style="border-bottom:1px solid rgba(221,170,68,0.1);"><td style="padding:8px;color:#a8c5a8;">🪙 Argent</td><td style="padding:8px;color:#ff4444;">SWIFT (Bruxelles)</td><td style="padding:8px;color:#ffaa00;">AFR (Blockchain, Afrique)</td></tr>
+<tr style="border-bottom:1px solid rgba(221,170,68,0.1);"><td style="padding:8px;color:#a8c5a8;">☁️ Hébergement</td><td style="padding:8px;color:#ff4444;">AWS (Amazon, USA)</td><td style="padding:8px;color:#aa88ff;">☀️ Soleil Serveur (Afrique)</td></tr>
+<tr><td style="padding:8px;color:#a8c5a8;">🧠 IA</td><td style="padding:8px;color:#ff4444;">OpenAI (Microsoft, USA)</td><td style="padding:8px;color:#7fcf7f;">AfriChain AI (Afrique)</td></tr>
+</table></div>
+</div>
+
+<!-- HÉBERGEMENT AFRICAIN -->
+<div class="card" style="border-color:#aa88ff;"><h2 style="color:#aa88ff;">🏗️ Hébergement 100% Africain</h2><p style="color:#a8c5a8;font-size:0.85em;">Nos serveurs sont en Afrique. Pas en Europe. Pas aux USA. Pas en Chine. Chaque serveur est alimenté par le soleil.</p>
+<div style="font-family:monospace;font-size:0.9em;margin-top:10px;">
+<div style="padding:8px 0;border-bottom:1px solid rgba(170,136,255,0.1);color:#aa88ff;">🇲🇱 <b>Bamako, Mali</b> — Serveur solaire #1</div>
+<div style="padding:8px 0;border-bottom:1px solid rgba(170,136,255,0.1);color:#aa88ff;">🇳🇪 <b>Niamey, Niger</b> — Serveur solaire #2</div>
+<div style="padding:8px 0;border-bottom:1px solid rgba(170,136,255,0.1);color:#aa88ff;">🇧🇫 <b>Ouagadougou, Burkina Faso</b> — Serveur solaire #3</div>
+<div style="padding:8px 0;border-bottom:1px solid rgba(170,136,255,0.1);color:#aa88ff;">🇬🇭 <b>Accra, Ghana</b> — Serveur solaire #4</div>
+<div style="padding:8px 0;border-bottom:1px solid rgba(170,136,255,0.1);color:#aa88ff;">🇨🇮 <b>Abidjan, Côte d'Ivoire</b> — Serveur solaire #5</div>
+<div style="padding:8px 0;border-bottom:1px solid rgba(170,136,255,0.1);color:#aa88ff;">🇳🇬 <b>Lagos, Nigeria</b> — Serveur solaire #6</div>
+<div style="padding:8px 0;color:#aa88ff;">☀️ <b>Alimentation</b> — 100% solaire. Le Sahara alimente l'internet africain.</div>
+</div></div>
+
+<!-- PHILOSOPHIE -->
+<div class="card" style="border-color:#7fcf7f;"><h2 style="color:#7fcf7f;">💚 Pourquoi Afri-Net</h2><p style="color:#a8c5a8;font-size:0.9em;text-align:center;">WhatsApp appartient à Meta. Facebook appartient à Meta. Google appartient à Alphabet. Tous américains. Tous exploitent l'Afrique.<br><br><b>LES NOIRES</b> appartient aux Noirs. <b>PLANTÉ VERTE</b> appartient à l'Afrique. <b>SAHARA AFRI</b> appartient au Sahara.<br><br>L'Afrique ne doit plus dépendre de plateformes qui la pillent. L'Afrique doit avoir ses propres services, hébergés sur son sol, alimentés par son soleil, contrôlés par ses enfants.<br><br><b>Afri-Net</b> — L'internet africain. Par l'Afrique, pour l'Afrique, en Afrique. 💚🦁</p></div>
+"##);
+
+    html.push_str(r#"<footer style="text-align:center;margin-top:40px;color:#7fcf7f;">🌍 Afri-Net — L'Internet Africain. LES NOIRES. PLANTÉ VERTE. SAHARA AFRI. Hébergé en Afrique, alimenté par le soleil. 💚🦁</footer>"#);
+    html.push_str("</body></html>");
+    html
+}
+
 fn html_login(msg: Option<&str>) -> String {
     let mut html = html_head("🔑 Connexion AfriRich");
     html.push_str(r#"<h1>🔑 Connexion</h1><div class="nav"><a href="/">← Retour</a></div>"#);
@@ -9302,7 +9377,7 @@ async fn main() -> std::io::Result<()> {
         .and_then(|i| args.get(i + 1)).cloned().unwrap_or_else(|| "Afrique".to_string());
 
     let my_node_id = generate_node_id();
-    println!("🦁 AfriChain v0.49 — Charte AI Africaine");
+    println!("🦁 AfriChain v0.50 — Afri-Net");
     println!("💚 L'Afrique n'a pas besoin de permission");
     println!("🌍 54 pays africains — chaque bloc miné par un pays différent");
     println!("☀️ PoST: le soleil de toute l'Afrique valide la blockchain");
@@ -9567,6 +9642,9 @@ async fn main() -> std::io::Result<()> {
             .route("/charte-ai", web::get().to(|s: web::Data<Arc<AppState>>| async move {
                 let chain = s.chain.lock().unwrap();
                 HttpResponse::Ok().content_type("text/html").body(html_charte_ai(&chain))
+            }))
+            .route("/afri-net", web::get().to(|_s: web::Data<Arc<AppState>>| async move {
+                HttpResponse::Ok().content_type("text/html").body(html_afri_net())
             }))
             .route("/api/forge/create", web::post().to(|s: web::Data<Arc<AppState>>, body: web::Bytes| async move {
                 let text = String::from_utf8_lossy(&body).to_string();
@@ -9891,7 +9969,7 @@ async fn main() -> std::io::Result<()> {
                 } else {
                     ("Afrique".to_string(), "🌍".to_string())
                 };
-                let json = format!(r#"{{"name":"AfriChain","blocks":{},"transactions":{},"users":{},"valid":{},"token":"AFR","version":"0.49.0","crypto":"Ed25519","supply":{},"mesh_nodes":{},"mesh_id":"{}","mesh_region":"{}","countries":54,"directory":{},"shield_active":{},"shield_level":{},"shield_attacks":{},"shield_blocked_ips":{},"last_country":"{}","last_flag":"{}","machine_count":{},"machine_tx":{},"machine_mined":{}}}"#,
+                let json = format!(r#"{{"name":"AfriChain","blocks":{},"transactions":{},"users":{},"valid":{},"token":"AFR","version":"0.50.0","crypto":"Ed25519","supply":{},"mesh_nodes":{},"mesh_id":"{}","mesh_region":"{}","countries":54,"directory":{},"shield_active":{},"shield_level":{},"shield_attacks":{},"shield_blocked_ips":{},"last_country":"{}","last_flag":"{}","machine_count":{},"machine_tx":{},"machine_mined":{}}}"#,
                     chain.blocks.len(), chain.total_transactions(), users.count(), chain.is_valid(), chain.total_supply(), mesh.count(), mesh.my_id, mesh.region, mesh.directory_count() + users.count(), shield.active, level, attacks, blocked_count,
                     last_country, last_flag, machines.machines.len(), machines.tx_count, machines.total_mined);
                 HttpResponse::Ok().content_type("application/json").body(json)
