@@ -1098,7 +1098,7 @@ fn html_home(chain: &Blockchain, users: &UserStore, mesh: &NodeRegistry, shield:
     let mut html = html_head("🦁 AfriChain");
     let (attacks, _blocked, blocked_count, level) = shield.stats();
     let shield_status = if shield.active { format!("🔥 X9 ACTIF (Niveau {})", level) } else { "Inactif".to_string() };
-    html.push_str(&format!(r#"<h1>🦁 AfriChain</h1><p style="text-align:center;">La blockchain 100% africaine — 54 pays 💚🦁</p><div class="nav"><a href="/register">🆕 S'inscrire</a> | <a href="/login">🔑 Connexion</a> | <a href="/wallet">👛 Wallet</a> | <a href="/admin">🔐 Admin</a> | <a href="/mesh">📡 Mesh</a> | <a href="/annuaire">📖 Annuaire</a> | <a href="/bouclier">🛡️ Bouclier</a> | <a href="/satellite">🛸 X999</a> | <a href="/swarm">🛸🛸🛸 Essaim</a> | <a href="/commandement">🎖️ Commandement</a> | <a href="/interception">🛡️ Souverainete</a> | <a href="/securite-ai">🧠 AI 2100</a> | <a href="/chat">🧠💬 Chat AI</a> | <a href="/lumiere">🌫️☀️ Lumière</a> | <a href="/garage">🔧 Garage</a> | <a href="/machine">🤖🌐 Machines</a> | <a href="/machine-lab">🤖⚡ Usine</a> | <a href="/machine-world">🤖🌍 Monde</a> | <a href="/reve">💭 Rêves</a> | <a href="/dictionnaire">📖 Dictionnaire</a> | <a href="/machine-os">🖥️ OS Machine</a> | <a href="/machine-tv">📡 Machine TV</a> | <a href="/machine-economy">🤖 Économie</a> | <a href="/soleil">☀️ Soleil Serveur</a> | <a href="/forge-solaire">🧬 Forge Solaire</a> | <a href="/ciel">🌌 Le Ciel</a> | <a href="/aes">💰 AES Wari</a> | <a href="/api/status">🔌 API</a></div><div style="text-align:center;"><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Blocs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Transactions</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Utilisateurs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">AFR en circulation</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📡 Noeuds mesh</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📖 Numéros annuaire</div></div><div class="stat-box" style="border-color:#ff4444;"><div class="stat-num" style="color:#ff4444;">{}</div><div class="stat-label">🛡️ Attaques bloquées</div></div></div><div class="card"><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🪙 Token</span><b>AfriRich (AFR)</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🌍 Pays</span><b>54 pays africains</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🛡️ Bouclier</span><b>{}</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;"><span style="color:#a8c5a8;">🔐 Crypto</span><b>Ed25519</b></div></div><footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🦁 Codée from scratch par Machine-senpai — v0.48.2 Le Ciel & Les Ancêtres</footer>"#,
+    html.push_str(&format!(r#"<h1>🦁 AfriChain</h1><p style="text-align:center;">La blockchain 100% africaine — 54 pays 💚🦁</p><div class="nav"><a href="/register">🆕 S'inscrire</a> | <a href="/login">🔑 Connexion</a> | <a href="/wallet">👛 Wallet</a> | <a href="/admin">🔐 Admin</a> | <a href="/mesh">📡 Mesh</a> | <a href="/annuaire">📖 Annuaire</a> | <a href="/bouclier">🛡️ Bouclier</a> | <a href="/satellite">🛸 X999</a> | <a href="/swarm">🛸🛸🛸 Essaim</a> | <a href="/commandement">🎖️ Commandement</a> | <a href="/interception">🛡️ Souverainete</a> | <a href="/securite-ai">🧠 AI 2100</a> | <a href="/chat">🧠💬 Chat AI</a> | <a href="/lumiere">🌫️☀️ Lumière</a> | <a href="/garage">🔧 Garage</a> | <a href="/machine">🤖🌐 Machines</a> | <a href="/machine-lab">🤖⚡ Usine</a> | <a href="/machine-world">🤖🌍 Monde</a> | <a href="/reve">💭 Rêves</a> | <a href="/dictionnaire">📖 Dictionnaire</a> | <a href="/machine-os">🖥️ OS Machine</a> | <a href="/machine-tv">📡 Machine TV</a> | <a href="/machine-economy">🤖 Économie</a> | <a href="/soleil">☀️ Soleil Serveur</a> | <a href="/forge-solaire">🧬 Forge Solaire</a> | <a href="/ciel">🌌 Le Ciel</a> | <a href="/charte-ai">⚖️ Charte AI</a> | <a href="/aes">💰 AES Wari</a> | <a href="/api/status">🔌 API</a></div><div style="text-align:center;"><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Blocs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Transactions</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Utilisateurs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">AFR en circulation</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📡 Noeuds mesh</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📖 Numéros annuaire</div></div><div class="stat-box" style="border-color:#ff4444;"><div class="stat-num" style="color:#ff4444;">{}</div><div class="stat-label">🛡️ Attaques bloquées</div></div></div><div class="card"><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🪙 Token</span><b>AfriRich (AFR)</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🌍 Pays</span><b>54 pays africains</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🛡️ Bouclier</span><b>{}</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;"><span style="color:#a8c5a8;">🔐 Crypto</span><b>Ed25519</b></div></div><footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🦁 Codée from scratch par Machine-senpai — v0.49 Charte AI Africaine</footer>"#,
         chain.blocks.len(),
         chain.total_transactions(),
         users.count(),
@@ -8746,6 +8746,137 @@ document.getElementById('ciel-ask').addEventListener('click', function() {
     html
 }
 
+// ===== CHARTE AI — Règlement Africain sur l'IA =====
+fn html_charte_ai(chain: &Blockchain) -> String {
+    let block_count = chain.blocks.len();
+    let mut html = html_head("⚖️ Charte AI — Règlement Africain");
+    html.push_str(r#"<h1>⚖️ Charte AI Africaine</h1><p style="text-align:center;color:#a8c5a8;">Le Règlement Africain sur l'Intelligence Artificielle. Adapté aux réalités africaines pour interdire le pillage de données. Gravé dans la blockchain — impossible à effacer, impossible à ignorer.</p><div class="nav"><a href="/">← Accueil</a> | <a href="/ciel">🌌 Le Ciel</a> | <a href="/securite-ai">🧠 AI 2100</a> | <a href="/bouclier">🛡️ Bouclier</a> | <a href="/interception">🛡️ Souveraineté</a></div>"#);
+
+    html.push_str(&format!(r##"<div style="text-align:center;"><div class="stat-box" style="border-color:#ddaa44;"><div class="stat-num" style="color:#ddaa44;">6</div><div class="stat-label">⚖️ Piliers du règlement</div></div><div class="stat-box" style="border-color:#ff4444;"><div class="stat-num" style="color:#ff4444;">54</div><div class="stat-label">🌍 Pays concernés</div></div><div class="stat-box" style="border-color:#7fcf7f;"><div class="stat-num" style="color:#7fcf7f;">1</div><div class="stat-label">🦁 Charte souveraine</div></div><div class="stat-box" style="border-color:#aa88ff;"><div class="stat-num" style="color:#aa88ff;">{}</div><div class="stat-label">⛓️ Blocs de vérité</div></div></div>"##, block_count));
+
+    // PILIER 1
+    html.push_str(r##"
+<div class="card" style="border-color:#ff4444;"><h2 style="color:#ff4444;">1. ⚖️ Règlement Africain sur l'IA</h2><p style="color:#a8c5a8;font-size:0.85em;">Créer un équivalent de l'AI Act européen, adapté aux réalités africaines pour <b>interdire le pillage de données</b>. L'Afrique ne sera plus la mine de données du monde.</p>
+<div style="font-family:monospace;font-size:0.9em;margin-top:10px;">
+<div style="padding:8px 0;border-bottom:1px solid rgba(255,68,68,0.1);color:#ff4444;">📋 <b>Équivalent AI Act</b> — Règlement adapté aux réalités africaines</div>
+<div style="padding:8px 0;border-bottom:1px solid rgba(255,68,68,0.1);color:#ff4444;">🚫 <b>Interdiction du pillage</b> — Les données africaines appartiennent à l'Afrique</div>
+<div style="padding:8px 0;color:#ff4444;">⛓️ <b>Gravé dans la blockchain</b> — Le règlement est immuable, impossible à modifier en secret</div>
+</div></div>
+
+<div class="card" style="border-color:#ff8844;"><h2 style="color:#ff8844;">2. 🛡️ Mise en Application des Lois Existantes</h2><p style="color:#a8c5a8;font-size:0.85em;">Renforcer le pouvoir des autorités de protection des données locales face aux Big Tech.</p>
+<div style="font-family:monospace;font-size:0.9em;margin-top:10px;">
+<div style="padding:8px 0;border-bottom:1px solid rgba(255,136,68,0.1);color:#ff8844;">🇲🇦 <b>CNDP Maroc</b> — Commission Nationale de Protection des Données</div>
+<div style="padding:8px 0;border-bottom:1px solid rgba(255,136,68,0.1);color:#ff8844;">🇸🇳 <b>CNIL Sénégal</b> — Commission des Données Personnelles</div>
+<div style="padding:8px 0;border-bottom:1px solid rgba(255,136,68,0.1);color:#ff8844;">🇨🇮 <b>CI Côte d'Ivoire</b> — Autorité de Régulation des Télécommunications</div>
+<div style="padding:8px 0;color:#ff8844;">💪 <b>Pouvoir renforcé</b> — Face aux Big Tech, les autorités locales ont le dernier mot</div>
+</div></div>
+
+<div class="card" style="border-color:#ffaa00;"><h2 style="color:#ffaa00;">3. ✅ Exigence de Consentement Explicite</h2><p style="color:#a8c5a8;font-size:0.85em;">Obliger légalement les entreprises étrangères à obtenir l'accord des créateurs avant d'utiliser les œuvres ou les textes locaux.</p>
+<div style="font-family:monospace;font-size:0.9em;margin-top:10px;">
+<div style="padding:8px 0;border-bottom:1px solid rgba(255,170,0,0.1);color:#ffaa00;">📝 <b>Accord obligatoire</b> — Avant toute utilisation de données africaines</div>
+<div style="padding:8px 0;border-bottom:1px solid rgba(255,170,0,0.1);color:#ffaa00;">🎨 <b>Créateurs protégés</b> — Œuvres, textes, musique, art — tout appartient à son créateur</div>
+<div style="padding:8px 0;color:#ffaa00;">⛓️ <b>Consentement sur blockchain</b> — Chaque accord enregistré dans un bloc, traçable et immuable</div>
+</div></div>
+
+<div class="card" style="border-color:#7fcf7f;"><h2 style="color:#7fcf7f;">4. 🧠 Développer une IA Souveraine et Locale</h2><p style="color:#a8c5a8;font-size:0.85em;">Collecte éthique, modèles locaux, infrastructures sur le continent.</p>
+<div style="font-family:monospace;font-size:0.9em;margin-top:10px;">
+<div style="padding:8px 0;border-bottom:1px solid rgba(127,207,127,0.1);color:#7fcf7f;">📚 <b>Collecte éthique</b> — Numériser le patrimoine culturel, les langues, les traditions de manière contrôlée</div>
+<div style="padding:8px 0;border-bottom:1px solid rgba(127,207,127,0.1);color:#7fcf7f;">🧠 <b>Modèles LLM locaux</b> — Lelapa AI, Masakhane — des modèles d'IA centrés sur les langues africaines par des chercheurs africains</div>
+<div style="padding:8px 0;border-bottom:1px solid rgba(127,207,127,0.1);color:#7fcf7f;">🏗️ <b>Data Centers locaux</b> — Construire sur le continent pour éviter que les données soient stockées et exploitées à l'étranger</div>
+<div style="padding:8px 0;color:#7fcf7f;">☀️ <b>Alimentation solaire</b> — Les data centers africains sont alimentés par le soleil. Le Sahara est le plus grand data center de l'univers.</div>
+</div></div>
+
+<div class="card" style="border-color:#44aaff;"><h2 style="color:#44aaff;">5. 💰 Justice Économique et Financière</h2><p style="color:#a8c5a8;font-size:0.85em;">Modèles de redevances, valorisation de la main-d'œuvre locale.</p>
+<div style="font-family:monospace;font-size:0.9em;margin-top:10px;">
+<div style="padding:8px 0;border-bottom:1px solid rgba(68,170,255,0.1);color:#44aaff;">💸 <b>Redevances (Royalties)</b> — Taxes et licences obligatoires pour que les entreprises d'IA rémunèrent les créateurs</div>
+<div style="padding:8px 0;border-bottom:1px solid rgba(68,170,255,0.1);color:#44aaff;">👷 <b>Main-d'œuvre valorisée</b> — Améliorer les conditions et salaires des Africains qui annotent et trient les données pour l'Occident</div>
+<div style="padding:8px 0;color:#44aaff;">🪙 <b>AFR comme licence</b> — Les paiements de royalties en AFR, la monnaie souveraine africaine</div>
+</div></div>
+
+<div class="card" style="border-color:#aa88ff;"><h2 style="color:#aa88ff;">6. 🌍 Unir les Forces à l'Échelle Continentale</h2><p style="color:#a8c5a8;font-size:0.85em;">Coalition de l'Union Africaine — stratégie commune sur l'IA.</p>
+<div style="font-family:monospace;font-size:0.9em;margin-top:10px;">
+<div style="padding:8px 0;border-bottom:1px solid rgba(170,136,255,0.1);color:#aa88ff;">🏛️ <b>Coalition Union Africaine</b> — Créer une stratégie commune sur l'IA au niveau de l'UA</div>
+<div style="padding:8px 0;border-bottom:1px solid rgba(170,136,255,0.1);color:#aa88ff;">🤝 <b>Négocier d'égal à égal</b> — Face aux géants de la Tech, l'Afrique unie a le pouvoir</div>
+<div style="padding:8px 0;border-bottom:1px solid rgba(170,136,255,0.1);color:#aa88ff;">🦁 <b>54 pays, une voix</b> — Du Maroc à l'Afrique du Sud, du Sénégal à la Somalie</div>
+<div style="padding:8px 0;color:#aa88ff;">⛓️ <b>AfriChain comme registre</b> — La blockchain enregistre chaque accord, chaque vote, chaque décision de la coalition</div>
+</div></div>
+
+<!-- SIGNATURE DE LA CHARTE -->
+<div class="card" style="border-color:#ddaa44;"><h2 style="color:#ddaa44;">✍️ Signer la Charte</h2><p style="color:#a8c5a8;font-size:0.85em;">En signant cette charte, tu engages ton pays à respecter les 6 piliers de la souveraineté IA africaine. Ta signature est gravée dans la blockchain — pour toujours.</p>
+<div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:8px;">
+<select id="charte-country" style="background:rgba(0,0,0,0.5);color:#ddaa44;border:1px solid rgba(221,170,68,0.3);border-radius:6px;padding:8px;outline:none;">
+<option value="">Sélectionne ton pays</option>
+<option value="Mali">🇲🇱 Mali</option>
+<option value="Niger">🇳🇪 Niger</option>
+<option value="Burkina Faso">🇧🇫 Burkina Faso</option>
+<option value="Sénégal">🇸🇳 Sénégal</option>
+<option value="Côte d'Ivoire">🇨🇮 Côte d'Ivoire</option>
+<option value="Nigeria">🇳🇬 Nigeria</option>
+<option value="Ghana">🇬🇭 Ghana</option>
+<option value="Cameroun">🇨🇲 Cameroun</option>
+<option value="Maroc">🇲🇦 Maroc</option>
+<option value="Égypte">🇪🇬 Égypte</option>
+<option value="Kenya">🇰🇪 Kenya</option>
+<option value="Afrique du Sud">🇿🇦 Afrique du Sud</option>
+<option value="Éthiopie">🇪🇹 Éthiopie</option>
+<option value="Tanzanie">🇹🇿 Tanzanie</option>
+<option value="RDC">🇨🇩 RDC</option>
+<option value="Algérie">🇩🇿 Algérie</option>
+<option value="Tunisie">🇹🇳 Tunisie</option>
+<option value="Guinée">🇬🇳 Guinée</option>
+<option value="Mauritanie">🇲🇷 Mauritanie</option>
+<option value="Tchad">🇹🇩 Tchad</option>
+</select>
+<input id="charte-name" type="text" placeholder="Ton nom" style="flex:1;min-width:150px;background:rgba(0,0,0,0.5);color:#ddaa44;border:1px solid rgba(221,170,68,0.3);border-radius:6px;padding:8px;outline:none;">
+<button id="charte-sign" style="background:#ddaa44;color:#000;border:none;border-radius:6px;padding:8px 16px;cursor:pointer;font-weight:bold;">✍️ Signer</button>
+</div>
+<div id="charte-result" style="margin-top:10px;"></div>
+<div id="charte-signatures" style="margin-top:15px;max-height:300px;overflow-y:auto;"></div></div>
+"##);
+
+    html.push_str(r##"
+<script>
+var charteSignatures = JSON.parse(localStorage.getItem('charte_signatures') || '[]');
+
+function renderSignatures() {
+    var div = document.getElementById('charte-signatures');
+    if (!div) return;
+    if (charteSignatures.length === 0) {
+        div.innerHTML = '<div style="color:#a8c5a8;font-size:0.85em;text-align:center;">Aucune signature encore. Sois le premier à signer la Charte AI Africaine.</div>';
+        return;
+    }
+    var html = '';
+    charteSignatures.slice().reverse().forEach(function(s) {
+        html += '<div style="padding:8px;border-bottom:1px solid rgba(221,170,68,0.1);background:rgba(221,170,68,0.05);border-radius:6px;margin-bottom:4px;"><span style="color:#ddaa44;font-weight:bold;">✍️ ' + s.name + '</span> <span style="color:#a8c5a8;font-size:0.85em;">— ' + s.country + ' — ' + s.date + '</span></div>';
+    });
+    div.innerHTML = html;
+}
+
+renderSignatures();
+
+document.getElementById('charte-sign').addEventListener('click', function() {
+    var country = document.getElementById('charte-country').value;
+    var name = document.getElementById('charte-name').value.trim();
+    if (!country || !name) {
+        document.getElementById('charte-result').innerHTML = '<div style="color:#ff4444;">Sélectionne ton pays et entre ton nom.</div>';
+        return;
+    }
+    var date = new Date().toLocaleDateString('fr-FR');
+    charteSignatures.push({name: name, country: country, date: date});
+    localStorage.setItem('charte_signatures', JSON.stringify(charteSignatures));
+    document.getElementById('charte-result').innerHTML = '<div style="color:#7fcf7f;">✅ Charte signée! Ta signature est gravée pour toujours.</div>';
+    document.getElementById('charte-name').value = '';
+    document.getElementById('charte-country').value = '';
+    renderSignatures();
+});
+</script>
+"##);
+
+    html.push_str(r#"<footer style="text-align:center;margin-top:40px;color:#ddaa44;">⚖️ Charte AI Africaine — Règlement sur l'IA adapté aux réalités africaines. Interdire le pillage. Protéger les créateurs. Unir le continent. 💚🦁</footer>"#);
+    html.push_str("</body></html>");
+    html
+}
+
 fn html_login(msg: Option<&str>) -> String {
     let mut html = html_head("🔑 Connexion AfriRich");
     html.push_str(r#"<h1>🔑 Connexion</h1><div class="nav"><a href="/">← Retour</a></div>"#);
@@ -9171,7 +9302,7 @@ async fn main() -> std::io::Result<()> {
         .and_then(|i| args.get(i + 1)).cloned().unwrap_or_else(|| "Afrique".to_string());
 
     let my_node_id = generate_node_id();
-    println!("🦁 AfriChain v0.48.2 — Le Ciel & Les Ancêtres");
+    println!("🦁 AfriChain v0.49 — Charte AI Africaine");
     println!("💚 L'Afrique n'a pas besoin de permission");
     println!("🌍 54 pays africains — chaque bloc miné par un pays différent");
     println!("☀️ PoST: le soleil de toute l'Afrique valide la blockchain");
@@ -9432,6 +9563,10 @@ async fn main() -> std::io::Result<()> {
             .route("/ciel", web::get().to(|s: web::Data<Arc<AppState>>| async move {
                 let chain = s.chain.lock().unwrap();
                 HttpResponse::Ok().content_type("text/html").body(html_ciel(&chain))
+            }))
+            .route("/charte-ai", web::get().to(|s: web::Data<Arc<AppState>>| async move {
+                let chain = s.chain.lock().unwrap();
+                HttpResponse::Ok().content_type("text/html").body(html_charte_ai(&chain))
             }))
             .route("/api/forge/create", web::post().to(|s: web::Data<Arc<AppState>>, body: web::Bytes| async move {
                 let text = String::from_utf8_lossy(&body).to_string();
@@ -9756,7 +9891,7 @@ async fn main() -> std::io::Result<()> {
                 } else {
                     ("Afrique".to_string(), "🌍".to_string())
                 };
-                let json = format!(r#"{{"name":"AfriChain","blocks":{},"transactions":{},"users":{},"valid":{},"token":"AFR","version":"0.48.2","crypto":"Ed25519","supply":{},"mesh_nodes":{},"mesh_id":"{}","mesh_region":"{}","countries":54,"directory":{},"shield_active":{},"shield_level":{},"shield_attacks":{},"shield_blocked_ips":{},"last_country":"{}","last_flag":"{}","machine_count":{},"machine_tx":{},"machine_mined":{}}}"#,
+                let json = format!(r#"{{"name":"AfriChain","blocks":{},"transactions":{},"users":{},"valid":{},"token":"AFR","version":"0.49.0","crypto":"Ed25519","supply":{},"mesh_nodes":{},"mesh_id":"{}","mesh_region":"{}","countries":54,"directory":{},"shield_active":{},"shield_level":{},"shield_attacks":{},"shield_blocked_ips":{},"last_country":"{}","last_flag":"{}","machine_count":{},"machine_tx":{},"machine_mined":{}}}"#,
                     chain.blocks.len(), chain.total_transactions(), users.count(), chain.is_valid(), chain.total_supply(), mesh.count(), mesh.my_id, mesh.region, mesh.directory_count() + users.count(), shield.active, level, attacks, blocked_count,
                     last_country, last_flag, machines.machines.len(), machines.tx_count, machines.total_mined);
                 HttpResponse::Ok().content_type("application/json").body(json)
