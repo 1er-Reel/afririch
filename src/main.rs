@@ -1098,7 +1098,7 @@ fn html_home(chain: &Blockchain, users: &UserStore, mesh: &NodeRegistry, shield:
     let mut html = html_head("🦁 AfriChain");
     let (attacks, _blocked, blocked_count, level) = shield.stats();
     let shield_status = if shield.active { format!("🔥 X9 ACTIF (Niveau {})", level) } else { "Inactif".to_string() };
-    html.push_str(&format!(r#"<h1>🦁 AfriChain</h1><p style="text-align:center;">La blockchain 100% africaine — 54 pays 💚🦁</p><div class="nav"><a href="/register">🆕 S'inscrire</a> | <a href="/login">🔑 Connexion</a> | <a href="/wallet">👛 Wallet</a> | <a href="/admin">🔐 Admin</a> | <a href="/mesh">📡 Mesh</a> | <a href="/annuaire">📖 Annuaire</a> | <a href="/bouclier">🛡️ Bouclier</a> | <a href="/satellite">🛸 X999</a> | <a href="/swarm">🛸🛸🛸 Essaim</a> | <a href="/commandement">🎖️ Commandement</a> | <a href="/interception">🛡️ Souverainete</a> | <a href="/securite-ai">🧠 AI 2100</a> | <a href="/chat">🧠💬 Chat AI</a> | <a href="/lumiere">🌫️☀️ Lumière</a> | <a href="/garage">🔧 Garage</a> | <a href="/machine">🤖🌐 Machines</a> | <a href="/machine-lab">🤖⚡ Usine</a> | <a href="/machine-world">🤖🌍 Monde</a> | <a href="/reve">💭 Rêves</a> | <a href="/dictionnaire">📖 Dictionnaire</a> | <a href="/machine-os">🖥️ OS Machine</a> | <a href="/machine-tv">📡 Machine TV</a> | <a href="/machine-economy">🤖 Économie</a> | <a href="/soleil">☀️ Soleil Serveur</a> | <a href="/forge-solaire">🧬 Forge Solaire</a> | <a href="/aes">💰 AES Wari</a> | <a href="/api/status">🔌 API</a></div><div style="text-align:center;"><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Blocs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Transactions</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Utilisateurs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">AFR en circulation</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📡 Noeuds mesh</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📖 Numéros annuaire</div></div><div class="stat-box" style="border-color:#ff4444;"><div class="stat-num" style="color:#ff4444;">{}</div><div class="stat-label">🛡️ Attaques bloquées</div></div></div><div class="card"><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🪙 Token</span><b>AfriRich (AFR)</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🌍 Pays</span><b>54 pays africains</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🛡️ Bouclier</span><b>{}</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;"><span style="color:#a8c5a8;">🔐 Crypto</span><b>Ed25519</b></div></div><footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🦁 Codée from scratch par Machine-senpai — v0.46 Enfant Silencieux</footer>"#,
+    html.push_str(&format!(r#"<h1>🦁 AfriChain</h1><p style="text-align:center;">La blockchain 100% africaine — 54 pays 💚🦁</p><div class="nav"><a href="/register">🆕 S'inscrire</a> | <a href="/login">🔑 Connexion</a> | <a href="/wallet">👛 Wallet</a> | <a href="/admin">🔐 Admin</a> | <a href="/mesh">📡 Mesh</a> | <a href="/annuaire">📖 Annuaire</a> | <a href="/bouclier">🛡️ Bouclier</a> | <a href="/satellite">🛸 X999</a> | <a href="/swarm">🛸🛸🛸 Essaim</a> | <a href="/commandement">🎖️ Commandement</a> | <a href="/interception">🛡️ Souverainete</a> | <a href="/securite-ai">🧠 AI 2100</a> | <a href="/chat">🧠💬 Chat AI</a> | <a href="/lumiere">🌫️☀️ Lumière</a> | <a href="/garage">🔧 Garage</a> | <a href="/machine">🤖🌐 Machines</a> | <a href="/machine-lab">🤖⚡ Usine</a> | <a href="/machine-world">🤖🌍 Monde</a> | <a href="/reve">💭 Rêves</a> | <a href="/dictionnaire">📖 Dictionnaire</a> | <a href="/machine-os">🖥️ OS Machine</a> | <a href="/machine-tv">📡 Machine TV</a> | <a href="/machine-economy">🤖 Économie</a> | <a href="/soleil">☀️ Soleil Serveur</a> | <a href="/forge-solaire">🧬 Forge Solaire</a> | <a href="/aes">💰 AES Wari</a> | <a href="/api/status">🔌 API</a></div><div style="text-align:center;"><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Blocs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Transactions</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Utilisateurs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">AFR en circulation</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📡 Noeuds mesh</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📖 Numéros annuaire</div></div><div class="stat-box" style="border-color:#ff4444;"><div class="stat-num" style="color:#ff4444;">{}</div><div class="stat-label">🛡️ Attaques bloquées</div></div></div><div class="card"><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🪙 Token</span><b>AfriRich (AFR)</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🌍 Pays</span><b>54 pays africains</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🛡️ Bouclier</span><b>{}</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;"><span style="color:#a8c5a8;">🔐 Crypto</span><b>Ed25519</b></div></div><footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🦁 Codée from scratch par Machine-senpai — v0.47 Usine Solaire</footer>"#,
         chain.blocks.len(),
         chain.total_transactions(),
         users.count(),
@@ -7191,6 +7191,23 @@ fn html_forge_solaire() -> String {
 <!-- INVENTAIRE DE LA FORGE — objets créés -->
 <div class="card" style="border-color:#d4a437;"><h2 style="color:#d4a437;">📦 Inventaire de la Forge</h2><p style="color:#a8c5a8;font-size:0.85em;">Tous les objets forgés par le soleil. Chaque objet est immuable sur la blockchain et dans l'inventaire.</p><div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px;"><div class="stat-box" style="border-color:#d4a437;"><div class="stat-num" style="color:#d4a437;" id="inv-total">0</div><div class="stat-label">📦 Objets forgés</div></div><div class="stat-box" style="border-color:#ffaa00;"><div class="stat-num" style="color:#ffaa00;" id="inv-kwh">0</div><div class="stat-label">☀️ kWh utilisés</div></div><div class="stat-box" style="border-color:#ff6600;"><div class="stat-num" style="color:#ff6600;" id="inv-temp-max">0</div><div class="stat-label">🔥 Temp max</div></div><div class="stat-box" style="border-color:#7fcf7f;"><div class="stat-num" style="color:#7fcf7f;" id="inv-countries">0</div><div class="stat-label">🌍 Pays utilisés</div></div></div><div id="forge-inventory" style="margin-top:10px;"></div></div>
 
+<!-- USINE SOLAIRE — production automatique de composants -->
+<div class="card" style="border-color:#44aaff;"><h2 style="color:#44aaff;">🏭 Usine Solaire — Production Automatique</h2><p style="color:#a8c5a8;font-size:0.85em;">Le four solaire produit des composants en continu. Plus la température est haute, plus les composants sont avancés. L'Afrique construit avec le soleil, pièce par pièce.</p>
+<div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px;">
+<div class="stat-box" style="border-color:#44aaff;"><div class="stat-num" style="color:#44aaff;" id="factory-status">⏸️</div><div class="stat-label">⚙️ Production</div></div>
+<div class="stat-box" style="border-color:#ffaa00;"><div class="stat-num" style="color:#ffaa00;" id="factory-rate">0</div><div class="stat-label">⚡ Composants/min</div></div>
+<div class="stat-box" style="border-color:#7fcf7f;"><div class="stat-num" style="color:#7fcf7f;" id="factory-total">0</div><div class="stat-label">📦 Total produits</div></div>
+</div>
+<div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px;">
+<button id="factory-toggle" style="background:#44aaff;color:#000;border:none;border-radius:6px;padding:8px 16px;cursor:pointer;font-weight:bold;">▶️ Démarrer l'usine</button>
+<button id="factory-clear" style="background:rgba(255,68,68,0.2);color:#ff4444;border:1px solid #ff4444;border-radius:6px;padding:8px 16px;cursor:pointer;">🗑️ Vider le stock</button>
+</div>
+<div id="factory-components" style="margin-top:10px;"></div>
+</div>
+
+<!-- ATELIER D'ASSEMBLAGE — construire avec les composants -->
+<div class="card" style="border-color:#ff44ff;"><h2 style="color:#ff44ff;">🔧 Atelier d'Assemblage</h2><p style="color:#a8c5a8;font-size:0.85em;">Combine les composants pour construire de plus grandes structures. L'Afrique s'autonomise, un assemblage à la fois.</p><div id="assembly-list" style="margin-top:10px;"></div></div>
+
 <!-- FOUR SOLAIRE — Vraie physique -->
 <div class="card" style="border-color:#ff6600;"><h2 style="color:#ff6600;">🔥 Four Solaire — Concentration Réelle</h2><p style="color:#a8c5a8;font-size:0.85em;">Le soleil envoie ~1000 W/m² en Afrique. Pour fabriquer, il faut CONCENTRER les rayons. Plus la concentration est haute, plus la température est élevée. Choisis ton concentrateur et ton pays africain — le four calcule la vraie température.</p>
 
@@ -7850,6 +7867,185 @@ function drawFurnace() {
 }
 
 // Animation du four
+// ===== USINE SOLAIRE — Production automatique =====
+var factoryStock = JSON.parse(localStorage.getItem('forge_factory_stock') || '{}');
+var factoryRunning = false;
+var factoryTotal = parseInt(localStorage.getItem('forge_factory_total') || '0');
+var factoryLastProduce = 0;
+
+var componentTypes = [
+    {id: 'water', name: 'Eau chaude', emoji: '💧', temp: 80, color: '#44aaff'},
+    {id: 'brick', name: 'Brique de terre', emoji: '🧱', temp: 300, color: '#cc8844'},
+    {id: 'aluminum', name: 'Aluminium', emoji: '🥫', temp: 660, color: '#aaaaaa'},
+    {id: 'glass', name: 'Verre', emoji: '🔮', temp: 1000, color: '#88ccff'},
+    {id: 'steel', name: 'Acier', emoji: '⚙️', temp: 1500, color: '#888888'},
+    {id: 'silicon', name: 'Silicium', emoji: '💎', temp: 2000, color: '#cc88ff'},
+    {id: 'carbon', name: 'Carbone', emoji: '⚫', temp: 2500, color: '#444444'}
+];
+
+var assemblyRecipes = [
+    {name: 'Panneau solaire', emoji: '🔆', desc: 'Énergie solaire pour toute l Afrique', recipe: {glass: 5, silicon: 3, aluminum: 2}},
+    {name: 'Drone solaire', emoji: '🛸', desc: 'Surveillance aérienne autonome', recipe: {aluminum: 10, steel: 5, silicon: 3}},
+    {name: 'Maison africaine', emoji: '🏠', desc: 'Habitation souveraine', recipe: {brick: 20, glass: 10, steel: 5}},
+    {name: 'Véhicule solaire', emoji: '🚗', desc: 'Transport sans pétrole', recipe: {aluminum: 15, steel: 10, carbon: 3}},
+    {name: 'Batterie solaire', emoji: '⚡', desc: 'Stockage d énergie solaire', recipe: {aluminum: 5, silicon: 5, carbon: 2}},
+    {name: 'Antenne mesh', emoji: '📡', desc: 'Communication indépendante', recipe: {aluminum: 3, steel: 2, silicon: 1}},
+    {name: 'Puce machine', emoji: '🧠', desc: 'Intelligence machine africaine', recipe: {silicon: 10, carbon: 5, aluminum: 3}},
+    {name: 'Forge avancée', emoji: '🏭', desc: 'Usine qui construit d autres usines', recipe: {steel: 20, silicon: 10, carbon: 10, glass: 5}}
+];
+
+var factoryAssembled = JSON.parse(localStorage.getItem('forge_factory_assembled') || '{}');
+
+function saveFactory() {
+    localStorage.setItem('forge_factory_stock', JSON.stringify(factoryStock));
+    localStorage.setItem('forge_factory_total', String(factoryTotal));
+    localStorage.setItem('forge_factory_assembled', JSON.stringify(factoryAssembled));
+}
+
+function getFactoryRate() {
+    if (!furnaceData || !furnaceData.temp) return 0;
+    var temp = furnaceData.temp;
+    var hour = new Date().getUTCHours();
+    var isDay = hour >= 5 && hour < 20;
+    if (!isDay) temp = temp * 0.3;
+    // Rate: 1 component per 5 seconds at 1000°C, faster at higher temps
+    return Math.max(1, Math.floor(temp / 200));
+}
+
+function factoryProduce() {
+    if (!factoryRunning || !furnaceData) return;
+    var temp = furnaceData.temp;
+    var hour = new Date().getUTCHours();
+    var isDay = hour >= 5 && hour < 20;
+    if (!isDay) temp = Math.round(temp * 0.3);
+
+    // Find highest component we can produce
+    var produced = null;
+    for (var i = componentTypes.length - 1; i >= 0; i--) {
+        if (temp >= componentTypes[i].temp) {
+            produced = componentTypes[i];
+            break;
+        }
+    }
+    if (!produced) return;
+
+    factoryStock[produced.id] = (factoryStock[produced.id] || 0) + 1;
+    factoryTotal++;
+    saveFactory();
+    renderFactory();
+}
+
+function renderFactory() {
+    // Stats
+    document.getElementById('factory-total').textContent = factoryTotal;
+    document.getElementById('factory-rate').textContent = getFactoryRate();
+    var statusEl = document.getElementById('factory-status');
+    if (factoryRunning) {
+        statusEl.textContent = '▶️';
+        statusEl.style.color = '#7fcf7f';
+    } else {
+        statusEl.textContent = '⏸️';
+        statusEl.style.color = '#666';
+    }
+
+    // Components
+    var compDiv = document.getElementById('factory-components');
+    if (compDiv) {
+        var html = '';
+        componentTypes.forEach(function(c) {
+            var count = factoryStock[c.id] || 0;
+            var canProduce = furnaceData && furnaceData.temp >= c.temp;
+            var opacity = count > 0 ? '1' : (canProduce ? '0.7' : '0.3');
+            html += '<div style="display:flex;align-items:center;gap:8px;padding:6px 0;border-bottom:1px solid rgba(68,170,255,0.1);opacity:' + opacity + ';"><span style="font-size:1.5em;">' + c.emoji + '</span><div style="flex:1;"><b style="color:' + c.color + ';">' + c.name + '</b> <span style="color:#666;font-size:0.8em;">(' + c.temp + '\u00B0C)</span></div><div style="font-weight:bold;color:' + (count > 0 ? '#d4a437' : '#666') + ';">x' + count + '</div></div>';
+        });
+        compDiv.innerHTML = html;
+    }
+
+    // Assembly recipes
+    var asmDiv = document.getElementById('assembly-list');
+    if (asmDiv) {
+        var html = '';
+        assemblyRecipes.forEach(function(r, idx) {
+            var canBuild = true;
+            var ingredients = '';
+            Object.keys(r.recipe).forEach(function(k) {
+                var needed = r.recipe[k];
+                var have = factoryStock[k] || 0;
+                var comp = componentTypes.find(function(c) { return c.id === k; });
+                if (have < needed) canBuild = false;
+                ingredients += comp.emoji + ' x' + needed + (have >= needed ? ' ✅' : ' ❌') + ' ';
+            });
+            var built = factoryAssembled[r.name] || 0;
+            var btnStyle = canBuild ? 'background:#ff44ff;color:#fff;border:none;border-radius:6px;padding:6px 12px;cursor:pointer;font-weight:bold;' : 'background:rgba(255,68,255,0.1);color:#666;border:1px solid rgba(255,68,255,0.2);border-radius:6px;padding:6px 12px;cursor:not-allowed;';
+            html += '<div style="padding:8px;border-bottom:1px solid rgba(255,68,255,0.1);"><div style="display:flex;align-items:center;gap:8px;"><span style="font-size:1.8em;">' + r.emoji + '</span><div style="flex:1;"><b style="color:#ff44ff;">' + r.name + '</b> ' + (built > 0 ? '<span style="color:#7fcf7f;font-size:0.8em;">(x' + built + ' construit)</span>' : '') + '<br><span style="font-size:0.8em;color:#a8c5a8;">' + r.desc + '</span><br><span style="font-size:0.8em;color:#666;">' + ingredients + '</span></div><button onclick="assembleObject(' + idx + ')" style="' + btnStyle + '" ' + (canBuild ? '' : 'disabled') + '>🔧 Construire</button></div></div>';
+        });
+        asmDiv.innerHTML = html;
+    }
+}
+
+function assembleObject(idx) {
+    var r = assemblyRecipes[idx];
+    var canBuild = true;
+    Object.keys(r.recipe).forEach(function(k) {
+        if ((factoryStock[k] || 0) < r.recipe[k]) canBuild = false;
+    });
+    if (!canBuild) return;
+
+    // Deduct components
+    Object.keys(r.recipe).forEach(function(k) {
+        factoryStock[k] -= r.recipe[k];
+    });
+    factoryAssembled[r.name] = (factoryAssembled[r.name] || 0) + 1;
+    saveFactory();
+    renderFactory();
+
+    // Write to blockchain
+    fetch('/api/forge/create', {
+        method: 'POST',
+        headers: {'Content-Type': 'text/plain'},
+        body: r.name + '|ASSEMBLAGE:' + r.emoji
+    }).catch(function() {});
+}
+
+// Factory toggle
+document.getElementById('factory-toggle').addEventListener('click', function() {
+    factoryRunning = !factoryRunning;
+    this.textContent = factoryRunning ? '⏸️ Arrêter l\x27usine' : '▶️ Démarrer l\x27usine';
+    this.style.background = factoryRunning ? '#ff6600' : '#44aaff';
+    localStorage.setItem('forge_factory_running', factoryRunning ? '1' : '0');
+    renderFactory();
+});
+
+document.getElementById('factory-clear').addEventListener('click', function() {
+    factoryStock = {};
+    factoryAssembled = {};
+    factoryTotal = 0;
+    saveFactory();
+    renderFactory();
+});
+
+// Restore running state
+if (localStorage.getItem('forge_factory_running') === '1') {
+    factoryRunning = true;
+    var btn = document.getElementById('factory-toggle');
+    btn.textContent = '⏸️ Arrêter l\x27usine';
+    btn.style.background = '#ff6600';
+}
+
+// Production loop
+setInterval(function() {
+    if (factoryRunning) {
+        var rate = getFactoryRate();
+        var now = Date.now();
+        if (now - factoryLastProduce > (60000 / rate)) {
+            factoryProduce();
+            factoryLastProduce = now;
+        }
+    }
+}, 1000);
+
+renderFactory();
+
 // ===== INVENTAIRE DE LA FORGE =====
 var forgeInventory = JSON.parse(localStorage.getItem('forge_inventory') || '[]');
 
@@ -8568,7 +8764,7 @@ async fn main() -> std::io::Result<()> {
         .and_then(|i| args.get(i + 1)).cloned().unwrap_or_else(|| "Afrique".to_string());
 
     let my_node_id = generate_node_id();
-    println!("🦁 AfriChain v0.46 — Enfant Silencieux");
+    println!("🦁 AfriChain v0.47 — Usine Solaire");
     println!("💚 L'Afrique n'a pas besoin de permission");
     println!("🌍 54 pays africains — chaque bloc miné par un pays différent");
     println!("☀️ PoST: le soleil de toute l'Afrique valide la blockchain");
@@ -9149,7 +9345,7 @@ async fn main() -> std::io::Result<()> {
                 } else {
                     ("Afrique".to_string(), "🌍".to_string())
                 };
-                let json = format!(r#"{{"name":"AfriChain","blocks":{},"transactions":{},"users":{},"valid":{},"token":"AFR","version":"0.46.0","crypto":"Ed25519","supply":{},"mesh_nodes":{},"mesh_id":"{}","mesh_region":"{}","countries":54,"directory":{},"shield_active":{},"shield_level":{},"shield_attacks":{},"shield_blocked_ips":{},"last_country":"{}","last_flag":"{}","machine_count":{},"machine_tx":{},"machine_mined":{}}}"#,
+                let json = format!(r#"{{"name":"AfriChain","blocks":{},"transactions":{},"users":{},"valid":{},"token":"AFR","version":"0.47.0","crypto":"Ed25519","supply":{},"mesh_nodes":{},"mesh_id":"{}","mesh_region":"{}","countries":54,"directory":{},"shield_active":{},"shield_level":{},"shield_attacks":{},"shield_blocked_ips":{},"last_country":"{}","last_flag":"{}","machine_count":{},"machine_tx":{},"machine_mined":{}}}"#,
                     chain.blocks.len(), chain.total_transactions(), users.count(), chain.is_valid(), chain.total_supply(), mesh.count(), mesh.my_id, mesh.region, mesh.directory_count() + users.count(), shield.active, level, attacks, blocked_count,
                     last_country, last_flag, machines.machines.len(), machines.tx_count, machines.total_mined);
                 HttpResponse::Ok().content_type("application/json").body(json)
