@@ -1,6 +1,6 @@
 [package]
 name = "africhain"
-version = "0.50.0"
+version = "0.51.0"
 edition = "2021"
 
 [dependencies]
@@ -10,5 +10,8 @@ sha2 = "0.10"
 hex = "0.4"
 chrono = { version = "0.4", features = ["serde"] }
 actix-web = "4"
-ed25519-dalek = { version = "2.0", features = ["rand_core"] }
 rand = "0.8"
+
+[[bin]]
+name = "afri-ed25519-test"
+path = "afri_ed25519_test.rs"
