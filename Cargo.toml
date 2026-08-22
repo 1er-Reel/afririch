@@ -9,11 +9,6 @@ serde_json = "1.0"
 hex = "0.4"
 chrono = { version = "0.4", features = ["serde"] }
 actix-web = "4"
-rand = "0.8"
-
-[[bin]]
-name = "afri-ed25519-test"
-path = "afri_ed25519_test.rs"
 
 [[bin]]
 name = "afrihash-test"

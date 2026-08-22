@@ -2,8 +2,7 @@
 // Souveraineté crypto totale — zéro dépendance externe pour la crypto
 // Implémentation complète: Ed25519 signing/verification from scratch
 use crate::afri_hash::afrihash_512;
-use rand::rngs::OsRng;
-use rand::RngCore;
+use crate::afri_rng::AfriRng;
 
 // Field element: [u8; 32] little-endian, mod 2^255-19
 type Fe = [u8; 32];
@@ -877,7 +876,8 @@ pub struct AfriSignature { bytes: [u8; 64] }
 impl AfriSecretKey {
     pub fn generate() -> Self {
         let mut seed = [0u8; 32];
-        OsRng.fill_bytes(&mut seed);
+        let mut rng = AfriRng::new();
+        rng.fill_bytes(&mut seed);
         AfriSecretKey { seed }
     }
     
