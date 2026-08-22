@@ -1,7 +1,7 @@
 // ===== AFRI-ED25519 — Notre propre Ed25519 from scratch =====
 // Souveraineté crypto totale — zéro dépendance externe pour la crypto
 // Implémentation complète: Ed25519 signing/verification from scratch
-use sha2::{Sha512, Digest};
+use crate::afri_hash::afrihash_512;
 use rand::rngs::OsRng;
 use rand::RngCore;
 
@@ -893,8 +893,8 @@ impl AfriSecretKey {
         let d = compute_d();
         let d2 = compute_2d(&d);
         
-        // Hash seed with SHA-512
-        let h = Sha512::digest(&self.seed);
+        // Hash seed with AfriHash-512 (notre propre hash)
+        let h = afrihash_512(&self.seed);
         let mut scalar = [0u8; 32];
         scalar.copy_from_slice(&h[0..32]);
         
@@ -916,8 +916,8 @@ impl AfriSecretKey {
         let d2 = compute_2d(&d);
         let b = compute_base_point(&d, &d2);
         
-        // Hash seed with SHA-512
-        let h = Sha512::digest(&self.seed);
+        // Hash seed with AfriHash-512 (notre propre hash)
+        let h = afrihash_512(&self.seed);
         let mut scalar = [0u8; 32];
         scalar.copy_from_slice(&h[0..32]);
         let prefix = &h[32..64];
@@ -931,11 +931,11 @@ impl AfriSecretKey {
         let a_point = point_scalar_mul(&scalar, &b, &d, &d2);
         let a_bytes = point_compress(&a_point);
         
-        // r = SHA-512(prefix || M) mod L
-        let mut hasher = Sha512::new();
-        hasher.update(prefix);
-        hasher.update(message);
-        let r_hash = hasher.finalize();
+        // r = AfriHash-512(prefix || M) mod L
+        let mut r_input = Vec::new();
+        r_input.extend_from_slice(prefix);
+        r_input.extend_from_slice(message);
+        let r_hash = afrihash_512(&r_input);
         let mut r = [0u8; 32];
         r.copy_from_slice(&r_hash[0..32]);
         r = sc_reduce_512(&{
@@ -948,12 +948,12 @@ impl AfriSecretKey {
         let r_point = point_scalar_mul(&r, &b, &d, &d2);
         let r_bytes = point_compress(&r_point);
         
-        // k = SHA-512(R || A || M) mod L
-        let mut hasher2 = Sha512::new();
-        hasher2.update(&r_bytes);
-        hasher2.update(&a_bytes);
-        hasher2.update(message);
-        let k_hash = hasher2.finalize();
+        // k = AfriHash-512(R || A || M) mod L
+        let mut k_input = Vec::new();
+        k_input.extend_from_slice(&r_bytes);
+        k_input.extend_from_slice(&a_bytes);
+        k_input.extend_from_slice(message);
+        let k_hash = afrihash_512(&k_input);
         let mut k = [0u8; 32];
         k.copy_from_slice(&k_hash[0..32]);
         k = sc_reduce_512(&{
@@ -1014,12 +1014,12 @@ impl AfriPublicKey {
             None => return false,
         };
         
-        // k = SHA-512(R || A || M) mod L
-        let mut hasher = Sha512::new();
-        hasher.update(&r_bytes);
-        hasher.update(&self.bytes);
-        hasher.update(message);
-        let k_hash = hasher.finalize();
+        // k = AfriHash-512(R || A || M) mod L
+        let mut k_input = Vec::new();
+        k_input.extend_from_slice(&r_bytes);
+        k_input.extend_from_slice(&self.bytes);
+        k_input.extend_from_slice(message);
+        let k_hash = afrihash_512(&k_input);
         let mut k = [0u8; 32];
         k.copy_from_slice(&k_hash[0..32]);
         k = sc_reduce_512(&{
