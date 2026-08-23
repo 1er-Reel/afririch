@@ -1,10 +1,9 @@
 [package]
 name = "africhain"
-version = "0.51.0"
+version = "0.56.0"
 edition = "2021"
 
 [dependencies]
-actix-web = "4"
 
 [[bin]]
 name = "afrihash-test"

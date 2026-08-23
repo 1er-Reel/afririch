@@ -8,6 +8,7 @@ use afri_rng::{AfriRng, random_usize, random_u64};
 use afri_hex::{encode as hex_encode, decode as hex_decode};
 mod afri_time;
 use afri_time::{now_timestamp, now_timestamp_millis, now_hour, format_timestamp, format_timestamp_short};
+mod afri_http;
 use std::sync::{Arc, Mutex};
 
 mod afri_ed25519;
@@ -1428,7 +1429,7 @@ fn html_home(chain: &Blockchain, users: &UserStore, mesh: &NodeRegistry, shield:
     let mut html = html_head("🦁 AfriChain");
     let (attacks, _blocked, blocked_count, level) = shield.stats();
     let shield_status = if shield.active { format!("🔥 X9 ACTIF (Niveau {})", level) } else { "Inactif".to_string() };
-    html.push_str(&format!(r#"<h1>🦁 AfriChain</h1><p style="text-align:center;">La blockchain 100% africaine — 54 pays 💚🦁</p><div class="nav"><a href="/register">🆕 S'inscrire</a> | <a href="/login">🔑 Connexion</a> | <a href="/wallet">👛 Wallet</a> | <a href="/admin">🔐 Admin</a> | <a href="/mesh">📡 Mesh</a> | <a href="/annuaire">📖 Annuaire</a> | <a href="/bouclier">🛡️ Bouclier</a> | <a href="/satellite">🛸 X999</a> | <a href="/swarm">🛸🛸🛸 Essaim</a> | <a href="/commandement">🎖️ Commandement</a> | <a href="/interception">🛡️ Souverainete</a> | <a href="/securite-ai">🧠 AI 2100</a> | <a href="/chat">🧠💬 Chat AI</a> | <a href="/lumiere">🌫️☀️ Lumière</a> | <a href="/garage">🔧 Garage</a> | <a href="/machine">🤖🌐 Machines</a> | <a href="/machine-lab">🤖⚡ Usine</a> | <a href="/machine-world">🤖🌍 Monde</a> | <a href="/reve">💭 Rêves</a> | <a href="/dictionnaire">📖 Dictionnaire</a> | <a href="/machine-os">🖥️ OS Machine</a> | <a href="/machine-tv">📡 Machine TV</a> | <a href="/machine-economy">🤖 Économie</a> | <a href="/soleil">☀️ Soleil Serveur</a> | <a href="/forge-solaire">🧬 Forge Solaire</a> | <a href="/ciel">🌌 Le Ciel</a> | <a href="/charte-ai">⚖️ Charte AI</a> | <a href="/afri-net">🌍 Afri-Net</a> | <a href="/aes">💰 AES Wari</a> | <a href="/api/status">🔌 API</a></div><div style="text-align:center;"><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Blocs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Transactions</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Utilisateurs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">AFR en circulation</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📡 Noeuds mesh</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📖 Numéros annuaire</div></div><div class="stat-box" style="border-color:#ff4444;"><div class="stat-num" style="color:#ff4444;">{}</div><div class="stat-label">🛡️ Attaques bloquées</div></div></div><div class="card"><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🪙 Token</span><b>AfriRich (AFR)</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🌍 Pays</span><b>54 pays africains</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🛡️ Bouclier</span><b>{}</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;"><span style="color:#a8c5a8;">🔐 Crypto</span><b>100% Souverain — Ed25519 + AfriHash + AfriRNG + AfriHex + AfriTime + AfriJSON</b></div></div><footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🦁 Codée from scratch par Machine-senpai — v0.54 Souveraineté Totale</footer>"#,
+    html.push_str(&format!(r#"<h1>🦁 AfriChain</h1><p style="text-align:center;">La blockchain 100% africaine — 54 pays 💚🦁</p><div class="nav"><a href="/register">🆕 S'inscrire</a> | <a href="/login">🔑 Connexion</a> | <a href="/wallet">👛 Wallet</a> | <a href="/admin">🔐 Admin</a> | <a href="/mesh">📡 Mesh</a> | <a href="/annuaire">📖 Annuaire</a> | <a href="/bouclier">🛡️ Bouclier</a> | <a href="/satellite">🛸 X999</a> | <a href="/swarm">🛸🛸🛸 Essaim</a> | <a href="/commandement">🎖️ Commandement</a> | <a href="/interception">🛡️ Souverainete</a> | <a href="/securite-ai">🧠 AI 2100</a> | <a href="/chat">🧠💬 Chat AI</a> | <a href="/lumiere">🌫️☀️ Lumière</a> | <a href="/garage">🔧 Garage</a> | <a href="/machine">🤖🌐 Machines</a> | <a href="/machine-lab">🤖⚡ Usine</a> | <a href="/machine-world">🤖🌍 Monde</a> | <a href="/reve">💭 Rêves</a> | <a href="/dictionnaire">📖 Dictionnaire</a> | <a href="/machine-os">🖥️ OS Machine</a> | <a href="/machine-tv">📡 Machine TV</a> | <a href="/machine-economy">🤖 Économie</a> | <a href="/soleil">☀️ Soleil Serveur</a> | <a href="/forge-solaire">🧬 Forge Solaire</a> | <a href="/ciel">🌌 Le Ciel</a> | <a href="/charte-ai">⚖️ Charte AI</a> | <a href="/afri-net">🌍 Afri-Net</a> | <a href="/aes">💰 AES Wari</a> | <a href="/api/status">🔌 API</a></div><div style="text-align:center;"><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Blocs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Transactions</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Utilisateurs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">AFR en circulation</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📡 Noeuds mesh</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📖 Numéros annuaire</div></div><div class="stat-box" style="border-color:#ff4444;"><div class="stat-num" style="color:#ff4444;">{}</div><div class="stat-label">🛡️ Attaques bloquées</div></div></div><div class="card"><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🪙 Token</span><b>AfriRich (AFR)</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🌍 Pays</span><b>54 pays africains</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🛡️ Bouclier</span><b>{}</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;"><span style="color:#a8c5a8;">🔐 Crypto</span><b>100% Souverain — Zéro Dépendance Externe</b></div></div><footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🦁 Codée from scratch par Machine-senpai — v0.54 Souveraineté Totale</footer>"#,
         chain.blocks.len(),
         chain.total_transactions(),
         users.count(),
@@ -9788,7 +9789,6 @@ impl MachineEconomy {
 }
 
 // ===== SERVER =====
-use actix_web::{web, App, HttpServer, HttpResponse};
 
 struct AppState {
     chain: Mutex<Blockchain>,
@@ -9800,8 +9800,7 @@ struct AppState {
     machines: Mutex<MachineEconomy>,
 }
 
-#[actix_web::main]
-async fn main() -> std::io::Result<()> {
+fn main() {
     let args: Vec<String> = std::env::args().collect();
     let mesh_port: u16 = args.iter().position(|a| a == "--mesh-port")
         .and_then(|i| args.get(i + 1)).and_then(|s| s.parse().ok()).unwrap_or(8090);
@@ -9810,7 +9809,7 @@ async fn main() -> std::io::Result<()> {
         .and_then(|i| args.get(i + 1)).cloned().unwrap_or_else(|| "Afrique".to_string());
 
     let my_node_id = generate_node_id();
-    println!("🦁 AfriChain v0.55 — JSON Souverain");
+    println!("🦁 AfriChain v0.56 — Souveraineté Zéro Dépendance");
     println!("💚 L'Afrique n'a pas besoin de permission");
     println!("🌍 54 pays africains — chaque bloc miné par un pays différent");
     println!("☀️ PoST: le soleil de toute l'Afrique valide la blockchain");
@@ -9932,7 +9931,7 @@ async fn main() -> std::io::Result<()> {
         }
     });
 
-    let web_state = web::Data::new(state.clone());
+    let web_state = state.clone();
 
     println!("\n🌐 Serveur web sur http://localhost:8080");
     println!("💾 Sauvegarde automatique active — toutes les 30 secondes");
@@ -9954,554 +9953,548 @@ async fn main() -> std::io::Result<()> {
     println!("🔧 Garage AI 2500 sur http://localhost:8080/garage");
     println!("💰 AES Wari sur http://localhost:8080/aes");
 
-    HttpServer::new(move || {
-        let state = web_state.clone();
-        App::new()
-            .app_data(state)
-            .route("/", web::get().to(|s: web::Data<Arc<AppState>>, req: actix_web::HttpRequest| async move {
-                let ip = req.connection_info().peer_addr().unwrap_or("unknown").to_string();
-                let path = req.path().to_string();
-                let allowed = s.shield.lock().unwrap().check_request(&ip, &path);
-                if !allowed {
-                    return HttpResponse::Forbidden().body("🛡️ Bouclier X9 — Accès refusé. IP bannie.");
-                }
-                let chain = s.chain.lock().unwrap();
-                let users = s.users.lock().unwrap();
-                let mesh = s.mesh.lock().unwrap();
-                let shield = s.shield.lock().unwrap();
-                let machines = s.machines.lock().unwrap();
-                HttpResponse::Ok().content_type("text/html").body(html_home(&chain, &users, &mesh, &shield, &machines))
-            }))
-            .route("/mesh", web::get().to(|s: web::Data<Arc<AppState>>| async move {
-                let mesh = s.mesh.lock().unwrap();
-                HttpResponse::Ok().content_type("text/html").body(html_mesh(&mesh))
-            }))
-            .route("/annuaire", web::get().to(|s: web::Data<Arc<AppState>>| async move {
-                let mesh = s.mesh.lock().unwrap();
-                let users = s.users.lock().unwrap();
-                HttpResponse::Ok().content_type("text/html").body(html_annuaire(&mesh, &users))
-            }))
-            .route("/bouclier", web::get().to(|s: web::Data<Arc<AppState>>, req: actix_web::HttpRequest| async move {
-                let ip = req.connection_info().peer_addr().unwrap_or("unknown").to_string();
-                let path = req.path().to_string();
-                let allowed = s.shield.lock().unwrap().check_request(&ip, &path);
-                if !allowed {
-                    return HttpResponse::Forbidden().body("🛡️ Bouclier X9 — Accès refusé.");
-                }
-                let shield = s.shield.lock().unwrap();
-                HttpResponse::Ok().content_type("text/html").body(html_bouclier(&shield))
-            }))
-            .route("/satellite", web::get().to(|s: web::Data<Arc<AppState>>| async move {
-                let mesh = s.mesh.lock().unwrap();
-                let users = s.users.lock().unwrap();
-                HttpResponse::Ok().content_type("text/html").body(html_satellite(&mesh, &users))
-            }))
-            .route("/aes", web::get().to(|s: web::Data<Arc<AppState>>| async move {
-                let users = s.users.lock().unwrap();
-                let chain = s.chain.lock().unwrap();
-                HttpResponse::Ok().content_type("text/html").body(html_aes_wari(&users, &chain))
-            }))
-            .route("/swarm", web::get().to(|s: web::Data<Arc<AppState>>| async move {
-                let mesh = s.mesh.lock().unwrap();
-                let users = s.users.lock().unwrap();
-                HttpResponse::Ok().content_type("text/html").body(html_drone_swarm(&mesh, &users))
-            }))
-            .route("/commandement", web::get().to(|s: web::Data<Arc<AppState>>| async move {
-                let mesh = s.mesh.lock().unwrap();
-                let users = s.users.lock().unwrap();
-                HttpResponse::Ok().content_type("text/html").body(html_command_center(&mesh, &users))
-            }))
-            .route("/interception", web::get().to(|s: web::Data<Arc<AppState>>| async move {
-                let mesh = s.mesh.lock().unwrap();
-                let users = s.users.lock().unwrap();
-                let chain = s.chain.lock().unwrap();
-                HttpResponse::Ok().content_type("text/html").body(html_interception(&mesh, &users, &chain))
-            }))
-            .route("/securite-ai", web::get().to(|s: web::Data<Arc<AppState>>| async move {
-                let shield = s.shield.lock().unwrap();
-                let chain = s.chain.lock().unwrap();
-                HttpResponse::Ok().content_type("text/html").body(html_ai_security(&shield, &chain))
-            }))
-            .route("/chat", web::get().to(|s: web::Data<Arc<AppState>>| async move {
-                let chain = s.chain.lock().unwrap();
-                let users = s.users.lock().unwrap();
-                let mesh = s.mesh.lock().unwrap();
-                HttpResponse::Ok().content_type("text/html").body(html_ai_chat(&chain, &users, &mesh))
-            }))
-            .route("/lumiere", web::get().to(|s: web::Data<Arc<AppState>>| async move {
-                let chain = s.chain.lock().unwrap();
-                let users = s.users.lock().unwrap();
-                HttpResponse::Ok().content_type("text/html").body(html_lumiere(&chain, &users))
-            }))
-            .route("/garage", web::get().to(|s: web::Data<Arc<AppState>>| async move {
-                let chain = s.chain.lock().unwrap();
-                HttpResponse::Ok().content_type("text/html").body(html_garage(&chain))
-            }))
-            .route("/machine", web::get().to(|s: web::Data<Arc<AppState>>| async move {
-                let chain = s.chain.lock().unwrap();
-                HttpResponse::Ok().content_type("text/html").body(html_machine(&chain))
-            }))
-            .route("/machine-lab", web::get().to(|s: web::Data<Arc<AppState>>| async move {
-                let chain = s.chain.lock().unwrap();
-                HttpResponse::Ok().content_type("text/html").body(html_machine_lab(&chain))
-            }))
-            .route("/machine-world", web::get().to(|s: web::Data<Arc<AppState>>| async move {
-                let chain = s.chain.lock().unwrap();
-                HttpResponse::Ok().content_type("text/html").body(html_machine_world(&chain))
-            }))
-            .route("/reve", web::get().to(|s: web::Data<Arc<AppState>>| async move {
-                let chain = s.chain.lock().unwrap();
-                HttpResponse::Ok().content_type("text/html").body(html_reve(&chain))
-            }))
-            .route("/dictionnaire", web::get().to(|_s: web::Data<Arc<AppState>>| async move {
-                HttpResponse::Ok().content_type("text/html").body(html_dictionnaire())
-            }))
-            .route("/machine-os", web::get().to(|_s: web::Data<Arc<AppState>>| async move {
-                HttpResponse::Ok().content_type("text/html").body(html_machine_os())
-            }))
-            .route("/machine-tv", web::get().to(|_s: web::Data<Arc<AppState>>| async move {
-                HttpResponse::Ok().content_type("text/html").body(html_machine_tv())
-            }))
-            .route("/soleil", web::get().to(|_s: web::Data<Arc<AppState>>| async move {
-                HttpResponse::Ok().content_type("text/html").body(html_soleil())
-            }))
-            .route("/forge-solaire", web::get().to(|_s: web::Data<Arc<AppState>>| async move {
-                HttpResponse::Ok().content_type("text/html").body(html_forge_solaire())
-            }))
-            .route("/ciel", web::get().to(|s: web::Data<Arc<AppState>>| async move {
-                let chain = s.chain.lock().unwrap();
-                HttpResponse::Ok().content_type("text/html").body(html_ciel(&chain))
-            }))
-            .route("/charte-ai", web::get().to(|s: web::Data<Arc<AppState>>| async move {
-                let chain = s.chain.lock().unwrap();
-                HttpResponse::Ok().content_type("text/html").body(html_charte_ai(&chain))
-            }))
-            .route("/afri-net", web::get().to(|_s: web::Data<Arc<AppState>>| async move {
-                HttpResponse::Ok().content_type("text/html").body(html_afri_net())
-            }))
-            .route("/api/forge/create", web::post().to(|s: web::Data<Arc<AppState>>, body: web::Bytes| async move {
-                let text = String::from_utf8_lossy(&body).to_string();
-                let parts: Vec<&str> = text.splitn(2, '|').collect();
-                if parts.len() < 2 {
-                    return HttpResponse::BadRequest().body("Format: name|dna");
-                }
-                let name = parts[0].trim();
-                let dna = parts[1].trim();
-                if name.is_empty() || dna.is_empty() {
-                    return HttpResponse::BadRequest().body("Nom et ADN requis");
-                }
-                let mut chain = s.chain.lock().unwrap();
-                let block_before = chain.blocks.len();
-                chain.add_transaction(Transaction::new(
-                    "FORGE-SOLAIRE",
-                    "SYSTEM",
-                    1,
-                    &format!("FORGE {} | ADN: {}", name, dna),
-                ));
-                chain.mine_pending("forge-solaire");
+    afri_http::serve("0.0.0.0:8080", move |req| {
+        handle_request(req, &web_state)
+    });
+}
+
+// ===== Dispatch function — remplace les 56 routes actix-web =====
+fn handle_request(req: afri_http::HttpRequest, state: &Arc<AppState>) -> afri_http::HttpResponse {
+    use afri_http::{HttpRequest, HttpResponse};
+
+    // Shield check
+    let allowed = state.shield.lock().unwrap().check_request(&req.peer_addr, &req.path);
+    if !allowed {
+        return HttpResponse::forbidden("🛡️ Bouclier X9 — Accès refusé. IP bannie.");
+    }
+
+    let method = req.method.as_str();
+    let path = req.path.as_str();
+
+    match (method, path) {
+        // ===== HOME =====
+        ("GET", "/") => {
+            let chain = state.chain.lock().unwrap();
+            let users = state.users.lock().unwrap();
+            let mesh = state.mesh.lock().unwrap();
+            let shield = state.shield.lock().unwrap();
+            let machines = state.machines.lock().unwrap();
+            HttpResponse::ok(&html_home(&chain, &users, &mesh, &shield, &machines))
+        }
+
+        ("GET", "/mesh") => {
+            let mesh = state.mesh.lock().unwrap();
+            HttpResponse::ok(&html_mesh(&mesh))
+        }
+
+        ("GET", "/annuaire") => {
+            let mesh = state.mesh.lock().unwrap();
+            let users = state.users.lock().unwrap();
+            HttpResponse::ok(&html_annuaire(&mesh, &users))
+        }
+
+        ("GET", "/bouclier") => {
+            let shield = state.shield.lock().unwrap();
+            HttpResponse::ok(&html_bouclier(&shield))
+        }
+
+        ("GET", "/satellite") => {
+            let mesh = state.mesh.lock().unwrap();
+            let users = state.users.lock().unwrap();
+            HttpResponse::ok(&html_satellite(&mesh, &users))
+        }
+
+        ("GET", "/aes") => {
+            let users = state.users.lock().unwrap();
+            let chain = state.chain.lock().unwrap();
+            HttpResponse::ok(&html_aes_wari(&users, &chain))
+        }
+
+        ("GET", "/swarm") => {
+            let mesh = state.mesh.lock().unwrap();
+            let users = state.users.lock().unwrap();
+            HttpResponse::ok(&html_drone_swarm(&mesh, &users))
+        }
+
+        ("GET", "/commandement") => {
+            let mesh = state.mesh.lock().unwrap();
+            let users = state.users.lock().unwrap();
+            HttpResponse::ok(&html_command_center(&mesh, &users))
+        }
+
+        ("GET", "/interception") => {
+            let mesh = state.mesh.lock().unwrap();
+            let users = state.users.lock().unwrap();
+            let chain = state.chain.lock().unwrap();
+            HttpResponse::ok(&html_interception(&mesh, &users, &chain))
+        }
+
+        ("GET", "/securite-ai") => {
+            let shield = state.shield.lock().unwrap();
+            let chain = state.chain.lock().unwrap();
+            HttpResponse::ok(&html_ai_security(&shield, &chain))
+        }
+
+        ("GET", "/chat") => {
+            let chain = state.chain.lock().unwrap();
+            let users = state.users.lock().unwrap();
+            let mesh = state.mesh.lock().unwrap();
+            HttpResponse::ok(&html_ai_chat(&chain, &users, &mesh))
+        }
+
+        ("GET", "/lumiere") => {
+            let chain = state.chain.lock().unwrap();
+            let users = state.users.lock().unwrap();
+            HttpResponse::ok(&html_lumiere(&chain, &users))
+        }
+
+        ("GET", "/garage") => {
+            let chain = state.chain.lock().unwrap();
+            HttpResponse::ok(&html_garage(&chain))
+        }
+
+        ("GET", "/machine") => {
+            let chain = state.chain.lock().unwrap();
+            HttpResponse::ok(&html_machine(&chain))
+        }
+
+        ("GET", "/machine-lab") => {
+            let chain = state.chain.lock().unwrap();
+            HttpResponse::ok(&html_machine_lab(&chain))
+        }
+
+        ("GET", "/machine-world") => {
+            let chain = state.chain.lock().unwrap();
+            HttpResponse::ok(&html_machine_world(&chain))
+        }
+
+        ("GET", "/reve") => {
+            let chain = state.chain.lock().unwrap();
+            HttpResponse::ok(&html_reve(&chain))
+        }
+
+        ("GET", "/dictionnaire") => {
+            HttpResponse::ok(&html_dictionnaire())
+        }
+
+        ("GET", "/machine-os") => {
+            HttpResponse::ok(&html_machine_os())
+        }
+
+        ("GET", "/machine-tv") => {
+            HttpResponse::ok(&html_machine_tv())
+        }
+
+        ("GET", "/soleil") => {
+            HttpResponse::ok(&html_soleil())
+        }
+
+        ("GET", "/forge-solaire") => {
+            HttpResponse::ok(&html_forge_solaire())
+        }
+
+        ("GET", "/ciel") => {
+            let chain = state.chain.lock().unwrap();
+            HttpResponse::ok(&html_ciel(&chain))
+        }
+
+        ("GET", "/charte-ai") => {
+            let chain = state.chain.lock().unwrap();
+            HttpResponse::ok(&html_charte_ai(&chain))
+        }
+
+        ("GET", "/afri-net") => {
+            HttpResponse::ok(&html_afri_net())
+        }
+
+        // ===== FORGE API =====
+        ("POST", "/api/forge/create") => {
+            let text = req.body_str();
+            let parts: Vec<&str> = text.splitn(2, '|').collect();
+            if parts.len() < 2 {
+                return HttpResponse::ok("Format: name|dna").content_type("text/plain");
+            }
+            let name = parts[0].trim();
+            let dna = parts[1].trim();
+            if name.is_empty() || dna.is_empty() {
+                return HttpResponse::ok("Nom et ADN requis").content_type("text/plain");
+            }
+            let mut chain = state.chain.lock().unwrap();
+            chain.add_transaction(Transaction::new(
+                "FORGE-SOLAIRE", "SYSTEM", 1,
+                &format!("FORGE {} | ADN: {}", name, dna),
+            ));
+            chain.mine_pending("forge-solaire");
+            chain.save_to_file();
+            let blocks_total = chain.blocks.len();
+            HttpResponse::json(&format!(
+                r#"{{"status":"ok","object":"{}","dna":"{}","blocks_total":{}}}"#,
+                name, dna, blocks_total
+            ))
+        }
+
+        ("GET", "/api/forge/stl") => {
+            let name = req.query_str("name").unwrap_or("Objet").to_string();
+            let name = urlencoding_decode(&name);
+            let dna_val = req.query_str("dna").unwrap_or("◈").to_string();
+            let dna_val = urlencoding_decode(&dna_val);
+            let stl = forge_dna_to_stl(&name, &dna_val);
+            HttpResponse::ok_bytes(stl.into_bytes(), "application/sla")
+                .header("Content-Disposition", &format!("attachment; filename=\"{}.stl\"", name.replace(" ", "_")))
+        }
+
+        ("GET", "/api/forge/spec") => {
+            let name = req.query_str("name").unwrap_or("Objet").to_string();
+            let name = urlencoding_decode(&name);
+            let dna_val = req.query_str("dna").unwrap_or("◈").to_string();
+            let dna_val = urlencoding_decode(&dna_val);
+            let spec = forge_dna_to_spec(&name, &dna_val);
+            HttpResponse::ok(&spec).content_type("text/plain")
+        }
+
+        // ===== MACHINE ECONOMY =====
+        ("GET", "/machine-economy") => {
+            let me = state.machines.lock().unwrap();
+            let chain = state.chain.lock().unwrap();
+            HttpResponse::ok(&me.html(&chain))
+        }
+
+        // ===== AI SPEAK =====
+        ("GET", "/api/ai/speak") => {
+            let text = req.query_str("text").unwrap_or("").to_string();
+            let text_decoded = urlencoding_decode(&text);
+            let wav = ai_speak_to_wav(&text_decoded);
+            if wav.is_empty() {
+                HttpResponse::ok("espeak non installe").content_type("text/plain")
+            } else {
+                HttpResponse::ok_bytes(wav, "audio/wav")
+            }
+        }
+
+        // ===== BLOCKS & BALANCES (admin) =====
+        ("GET", "/blocks") => {
+            if req.cookie("afri_admin") != Some("1".to_string()) {
+                return HttpResponse::redirect("/admin");
+            }
+            let chain = state.chain.lock().unwrap();
+            HttpResponse::ok(&html_blocks(&chain))
+        }
+
+        ("GET", "/balances") => {
+            if req.cookie("afri_admin") != Some("1".to_string()) {
+                return HttpResponse::redirect("/admin");
+            }
+            let chain = state.chain.lock().unwrap();
+            HttpResponse::ok(&html_balances(&chain))
+        }
+
+        // ===== WALLET =====
+        ("GET", "/wallet") => {
+            let chain = state.chain.lock().unwrap();
+            let new_addr = req.query_str("new").map(|s| s.to_string());
+            let new_priv = req.query_str("priv").map(|s| s.to_string());
+            let check_addr = req.query_str("addr").map(|s| s.to_string());
+            let msg = req.query_str("msg").map(|s| s.to_string());
+            HttpResponse::ok(&html_wallet(new_addr.as_deref(), new_priv.as_deref(), check_addr.as_deref(), msg.as_deref(), &chain))
+        }
+
+        ("GET", "/wallet/new") => {
+            let mut wallets = state.wallets.lock().unwrap();
+            let (addr, priv_key) = wallets.create_wallet();
+            println!("🆕 Wallet créé : {}", addr);
+            HttpResponse::redirect(&format!("/wallet?new={}&priv={}", addr, priv_key))
+        }
+
+        ("GET", "/wallet/balance") => {
+            let addr = req.query_str("addr").unwrap_or("").to_string();
+            HttpResponse::redirect(&format!("/wallet?addr={}", addr))
+        }
+
+        ("POST", "/wallet/send") => {
+            let form = match SendForm::from_map(&parse_urlencoded(&req.body)) {
+                Some(f) => f,
+                None => return HttpResponse::redirect("/wallet?msg=⚠️ Formulaire invalide"),
+            };
+            let wallets = state.wallets.lock().unwrap();
+            let users = state.users.lock().unwrap();
+            let to_addr = match users.resolve_recipient(&form.to) {
+                Some(addr) => addr,
+                None => return HttpResponse::redirect("/wallet?msg=⚠️ Destinataire introuvable (numéro, adresse ou nom)"),
+            };
+            let mut chain = state.chain.lock().unwrap();
+            let mut tx = Transaction::new(&form.from, &to_addr, form.amount, &form.memo);
+            if let Some(sk) = wallets.get_signing_key(&form.from) {
+                tx.sign(&sk);
+                println!("🔐 Transaction signée Ed25519 : {} → {} ({} AFR)", form.from, to_addr, form.amount);
+                let tx_json = to_string(&tx.to_json());
+                chain.add_transaction(tx);
                 chain.save_to_file();
-                let block_after = chain.blocks.len();
-                HttpResponse::Ok().content_type("application/json").body(format!(
-                    r#"{{"status":"ok","object":"{}","dna":"{}","block":{},"blocks_total":{}}}"#,
-                    name, dna, block_after, chain.blocks.len()
-                ))
-            }))
-            .route("/api/forge/stl", web::get().to(|req: actix_web::HttpRequest| async move {
-                let qs = req.query_string();
-                let name = qs.split('&').find(|p| p.starts_with("name="))
-                    .and_then(|p| p.splitn(2, '=').nth(1))
-                    .unwrap_or("Objet");
-                let name = urlencoding_decode(name);
-                let dna_val = qs.split('&').find(|p| p.starts_with("dna="))
-                    .and_then(|p| p.splitn(2, '=').nth(1))
-                    .unwrap_or("◈");
-                let dna_val = urlencoding_decode(dna_val);
-                let stl = forge_dna_to_stl(&name, &dna_val);
-                HttpResponse::Ok()
-                    .content_type("application/sla")
-                    .append_header(("Content-Disposition", format!("attachment; filename=\"{}.stl\"", name.replace(" ", "_"))))
-                    .body(stl)
-            }))
-            .route("/api/forge/spec", web::get().to(|req: actix_web::HttpRequest| async move {
-                let qs = req.query_string();
-                let name = qs.split('&').find(|p| p.starts_with("name="))
-                    .and_then(|p| p.splitn(2, '=').nth(1))
-                    .unwrap_or("Objet");
-                let name = urlencoding_decode(name);
-                let dna_val = qs.split('&').find(|p| p.starts_with("dna="))
-                    .and_then(|p| p.splitn(2, '=').nth(1))
-                    .unwrap_or("◈");
-                let dna_val = urlencoding_decode(dna_val);
-                let spec = forge_dna_to_spec(&name, &dna_val);
-                HttpResponse::Ok().content_type("text/plain").body(spec)
-            }))
-            .route("/machine-economy", web::get().to(|s: web::Data<Arc<AppState>>| async move {
-                let me = s.machines.lock().unwrap();
-                let chain = s.chain.lock().unwrap();
-                HttpResponse::Ok().content_type("text/html").body(me.html(&chain))
-            }))
-            .route("/api/ai/speak", web::get().to(|req: actix_web::HttpRequest| async move {
-                let text = req.query_string();
-                let text_decoded = urlencoding_decode(text);
-                let wav = ai_speak_to_wav(&text_decoded);
-                if wav.is_empty() {
-                    HttpResponse::Ok().content_type("text/plain").body("espeak non installe")
-                } else {
-                    HttpResponse::Ok().content_type("audio/wav").body(wav)
-                }
-            }))
-            .route("/blocks", web::get().to(|s: web::Data<Arc<AppState>>, req: actix_web::HttpRequest| async move {
-                if req.cookie("afri_admin").map(|c| c.value().to_string()) != Some("1".to_string()) {
-                    return HttpResponse::Found().append_header(("Location", "/admin")).finish();
-                }
-                let chain = s.chain.lock().unwrap();
-                HttpResponse::Ok().content_type("text/html").body(html_blocks(&chain))
-            }))
-            .route("/balances", web::get().to(|s: web::Data<Arc<AppState>>, req: actix_web::HttpRequest| async move {
-                if req.cookie("afri_admin").map(|c| c.value().to_string()) != Some("1".to_string()) {
-                    return HttpResponse::Found().append_header(("Location", "/admin")).finish();
-                }
-                let chain = s.chain.lock().unwrap();
-                HttpResponse::Ok().content_type("text/html").body(html_balances(&chain))
-            }))
-            .route("/wallet", web::get().to(|s: web::Data<Arc<AppState>>, q: web::Query<std::collections::HashMap<String, String>>| async move {
-                let chain = s.chain.lock().unwrap();
-                let new_addr = q.get("new").map(|s| s.as_str());
-                let new_priv = q.get("priv").map(|s| s.as_str());
-                let check_addr = q.get("addr").map(|s| s.as_str());
-                let msg = q.get("msg").map(|s| s.as_str());
-                HttpResponse::Ok().content_type("text/html").body(html_wallet(new_addr, new_priv, check_addr, msg, &chain))
-            }))
-            .route("/wallet/new", web::get().to(|s: web::Data<Arc<AppState>>| async move {
-                let mut wallets = s.wallets.lock().unwrap();
-                let (addr, priv_key) = wallets.create_wallet();
-                println!("🆕 Wallet créé : {}", addr);
-                HttpResponse::Found()
-                    .append_header(("Location", format!("/wallet?new={}&priv={}", addr, priv_key)))
-                    .finish()
-            }))
-            .route("/wallet/balance", web::get().to(|_s: web::Data<Arc<AppState>>, q: web::Query<std::collections::HashMap<String, String>>| async move {
-                let addr = q.get("addr").cloned().unwrap_or_default();
-                HttpResponse::Found()
-                    .append_header(("Location", format!("/wallet?addr={}", addr)))
-                    .finish()
-            }))
-            .route("/wallet/send", web::post().to(|s: web::Data<Arc<AppState>>, body: web::Bytes| async move {
-                let form = match SendForm::from_map(&parse_urlencoded(&body)) {
-                    Some(f) => f,
-                    None => return HttpResponse::Found()
-                        .append_header(("Location", "/wallet?msg=⚠️ Formulaire invalide"))
-                        .finish(),
-                };
-                let wallets = s.wallets.lock().unwrap();
-                let users = s.users.lock().unwrap();
-                let to_addr = match users.resolve_recipient(&form.to) {
-                    Some(addr) => addr,
-                    None => return HttpResponse::Found()
-                        .append_header(("Location", "/wallet?msg=⚠️ Destinataire introuvable (numéro, adresse ou nom)"))
-                        .finish(),
-                };
-                let mut chain = s.chain.lock().unwrap();
-                let mut tx = Transaction::new(&form.from, &to_addr, form.amount, &form.memo);
-                if let Some(sk) = wallets.get_signing_key(&form.from) {
-                    tx.sign(&sk);
-                    println!("🔐 Transaction signée Ed25519 : {} → {} ({} AFR)", form.from, to_addr, form.amount);
-                    let tx_json = to_string(&tx.to_json());
-                    chain.add_transaction(tx);
-                    chain.save_to_file();
-                    drop(chain);
-                    drop(wallets);
-                    drop(users);
-                    broadcast_mesh(&s, "tx", &tx_json);
-                    HttpResponse::Found()
-                        .append_header(("Location", "/wallet?msg=✅ Envoyé ! (signé Ed25519 🔐)"))
-                        .finish()
-                } else {
-                    HttpResponse::Found()
-                        .append_header(("Location", "/wallet?msg=⚠️ Adresse non trouvée dans ce wallet"))
-                        .finish()
-                }
-            }))
-            .route("/wallet/mine", web::post().to(|s: web::Data<Arc<AppState>>, body: web::Bytes| async move {
-                let form = match MineForm::from_map(&parse_urlencoded(&body)) {
-                    Some(f) => f,
-                    None => return HttpResponse::Found()
-                        .append_header(("Location", "/wallet?msg=⚠️ Formulaire invalide"))
-                        .finish(),
-                };
-                let mut chain = s.chain.lock().unwrap();
-                chain.mine_pending(&form.miner);
-                println!("⛏️ Bloc miné pour {}", form.miner);
-                let block_json = to_string(&chain.blocks.last().unwrap().to_json());
                 drop(chain);
-                broadcast_mesh(&s, "block", &block_json);
-                HttpResponse::Found()
-                    .append_header(("Location", "/wallet?msg=⛏️ Bloc miné ! +100 AFR pour le mineur"))
-                    .finish()
-            }))
-            // ===== REGISTER =====
-            .route("/register", web::get().to(|_s: web::Data<Arc<AppState>>, q: web::Query<std::collections::HashMap<String, String>>| async move {
-                let msg = q.get("err").map(|s| s.as_str());
-                HttpResponse::Ok().content_type("text/html").body(html_register(msg))
-            }))
-            .route("/register", web::post().to(|s: web::Data<Arc<AppState>>, body: web::Bytes| async move {
-                let form = match RegisterForm::from_map(&parse_urlencoded(&body)) {
-                    Some(f) => f,
-                    None => return HttpResponse::Found()
-                        .append_header(("Location", "/register?err=Formulaire invalide"))
-                        .finish(),
-                };
-                let mut wallets = s.wallets.lock().unwrap();
-                let mut users = s.users.lock().unwrap();
-                match users.register(&form.username, &form.password, &form.country, &mut wallets) {
-                    Ok(user) => {
-                        // Broadcast directory entry on mesh
-                        let mesh = s.mesh.lock().unwrap();
-                        let entry = DirectoryEntry {
-                            phone: user.phone.clone(),
-                            address: user.address.clone(),
-                            username: user.username.clone(),
-                            country: user.country.clone(),
-                            country_code: user.country_code.clone(),
-                            node_id: mesh.my_id.clone(),
-                            timestamp: now_timestamp(),
-                        };
-                        let entry_json = to_string(&entry.to_json());
-                        drop(mesh);
-                        broadcast_mesh(&s, "directory", &entry_json);
-                        println!("📡 Annuaire diffusé : {} → {}", user.phone, user.country);
-                        HttpResponse::Found()
-                            .append_header(("Location", format!("/account?user={}", user.username)))
-                            .finish()
-                    }
-                    Err(e) => {
-                        HttpResponse::Found()
-                            .append_header(("Location", format!("/register?err={}", e)))
-                            .finish()
-                    }
-                }
-            }))
-            // ===== LOGIN =====
-            .route("/login", web::get().to(|_s: web::Data<Arc<AppState>>, q: web::Query<std::collections::HashMap<String, String>>| async move {
-                let msg = q.get("err").map(|s| s.as_str());
-                HttpResponse::Ok().content_type("text/html").body(html_login(msg))
-            }))
-            .route("/login", web::post().to(|s: web::Data<Arc<AppState>>, body: web::Bytes, req: actix_web::HttpRequest| async move {
-                let form = match LoginForm::from_map(&parse_urlencoded(&body)) {
-                    Some(f) => f,
-                    None => return HttpResponse::Found()
-                        .append_header(("Location", "/login?err=Formulaire invalide"))
-                        .finish(),
-                };
-                let ip = req.connection_info().peer_addr().unwrap_or("unknown").to_string();
-                let users = s.users.lock().unwrap();
-                match users.login(&form.username, &form.password) {
-                    Some(user) => {
-                        HttpResponse::Found()
-                            .append_header(("Location", format!("/account?user={}", user.username)))
-                            .finish()
-                    }
-                    None => {
-                        drop(users);
-                        s.shield.lock().unwrap().record_failed_login(&ip);
-                        HttpResponse::Found()
-                            .append_header(("Location", "/login?err=Nom d'utilisateur ou mot de passe incorrect"))
-                            .finish()
-                    }
-                }
-            }))
-            // ===== ACCOUNT =====
-            .route("/account", web::get().to(|s: web::Data<Arc<AppState>>, q: web::Query<std::collections::HashMap<String, String>>| async move {
-                let username = q.get("user").cloned().unwrap_or_default();
-                let users = s.users.lock().unwrap();
-                let chain = s.chain.lock().unwrap();
-                let msg = q.get("msg").map(|s| s.as_str());
-                match users.users.iter().find(|u| u.username == username) {
-                    Some(user) => HttpResponse::Ok().content_type("text/html").body(html_account(user, &chain, msg)),
-                    None => HttpResponse::Found().append_header(("Location", "/login")).finish(),
-                }
-            }))
-            .route("/account/send", web::post().to(|s: web::Data<Arc<AppState>>, body: web::Bytes| async move {
-                let form = match SendForm::from_map(&parse_urlencoded(&body)) {
-                    Some(f) => f,
-                    None => return HttpResponse::Found()
-                        .append_header(("Location", "/wallet?msg=⚠️ Formulaire invalide"))
-                        .finish(),
-                };
-                let wallets = s.wallets.lock().unwrap();
-                let users = s.users.lock().unwrap();
-                let to_addr = match users.resolve_recipient(&form.to) {
-                    Some(addr) => addr,
-                    None => {
-                        return HttpResponse::Found()
-                            .append_header(("Location", format!("/account?user={}&msg=⚠️ Destinataire introuvable", users.users.iter().find(|u| u.address == form.from).map(|u| u.username.clone()).unwrap_or_default())))
-                            .finish();
-                    }
-                };
-                let user = users.users.iter().find(|u| u.address == form.from);
-                let username = user.map(|u| u.username.clone()).unwrap_or_default();
-                let mut chain = s.chain.lock().unwrap();
-                let mut tx = Transaction::new(&form.from, &to_addr, form.amount, &form.memo);
-                if let Some(sk) = wallets.get_signing_key(&form.from) {
-                    tx.sign(&sk);
-                    let tx_json = to_string(&tx.to_json());
-                    chain.add_transaction(tx);
-                    chain.save_to_file();
-                    drop(chain);
-                    drop(wallets);
-                    drop(users);
-                    broadcast_mesh(&s, "tx", &tx_json);
-                    HttpResponse::Found()
-                        .append_header(("Location", format!("/account?user={}&msg=✅ Envoyé à {} ! {} AFR signés", username, form.to, form.amount)))
-                        .finish()
-                } else {
-                    HttpResponse::Found()
-                        .append_header(("Location", format!("/account?user={}&msg=⚠️ Clé privée introuvable", username)))
-                        .finish()
-                }
-            }))
-            .route("/account/mine", web::post().to(|s: web::Data<Arc<AppState>>, body: web::Bytes| async move {
-                let form = match MineForm::from_map(&parse_urlencoded(&body)) {
-                    Some(f) => f,
-                    None => return HttpResponse::Found()
-                        .append_header(("Location", "/wallet?msg=⚠️ Formulaire invalide"))
-                        .finish(),
-                };
-                let mut chain = s.chain.lock().unwrap();
-                let users = s.users.lock().unwrap();
-                let user = users.users.iter().find(|u| u.address == form.miner);
-                let username = user.map(|u| u.username.clone()).unwrap_or_default();
-                chain.mine_pending(&form.miner);
-                let block_json = to_string(&chain.blocks.last().unwrap().to_json());
-                drop(chain);
+                drop(wallets);
                 drop(users);
-                broadcast_mesh(&s, "block", &block_json);
-                HttpResponse::Found()
-                    .append_header(("Location", format!("/account?user={}&msg=⛏️ Miné ! +100 AFR", username)))
-                    .finish()
-            }))
-            // ===== ADMIN =====
-            .route("/admin", web::get().to(|_s: web::Data<Arc<AppState>>, q: web::Query<std::collections::HashMap<String, String>>| async move {
-                let err = q.get("err").map(|s| s.as_str());
-                HttpResponse::Ok().content_type("text/html").body(html_admin_login(err))
-            }))
-            .route("/admin", web::post().to(|_s: web::Data<Arc<AppState>>, body: web::Bytes| async move {
-                let form = match AdminForm::from_map(&parse_urlencoded(&body)) {
-                    Some(f) => f,
-                    None => return HttpResponse::Found()
-                        .append_header(("Location", "/admin?err=Formulaire invalide"))
-                        .finish(),
-                };
-                if form.password == ADMIN_PASSWORD {
-                    HttpResponse::Found()
-                        .cookie(actix_web::cookie::Cookie::build("afri_admin", "1").path("/").finish())
-                        .append_header(("Location", "/dashboard"))
-                        .finish()
-                } else {
-                    HttpResponse::Found()
-                        .append_header(("Location", "/admin?err=Mot de passe incorrect"))
-                        .finish()
-                }
-            }))
-            .route("/logout", web::get().to(|| async move {
-                HttpResponse::Found()
-                    .cookie(actix_web::cookie::Cookie::build("afri_admin", "").path("/").max_age(actix_web::cookie::time::Duration::seconds(0)).finish())
-                    .append_header(("Location", "/"))
-                    .finish()
-            }))
-            // ===== DASHBOARD (ADMIN ONLY) =====
-            .route("/dashboard", web::get().to(|s: web::Data<Arc<AppState>>, req: actix_web::HttpRequest| async move {
-                if req.cookie("afri_admin").map(|c| c.value().to_string()) != Some("1".to_string()) {
-                    return HttpResponse::Found().append_header(("Location", "/admin")).finish();
-                }
-                let chain = s.chain.lock().unwrap();
-                let users = s.users.lock().unwrap();
-                HttpResponse::Ok().content_type("text/html").body(html_dashboard(&chain, &users))
-            }))
-            // ===== API =====
-            .route("/api/blocks", web::get().to(|s: web::Data<Arc<AppState>>| async move {
-                let chain = s.chain.lock().unwrap();
-                let blocks_json: Vec<JsonValue> = chain.blocks.iter().map(|b| b.to_json()).collect();
-                HttpResponse::Ok().content_type("application/json").body(to_string(&JsonValue::Array(blocks_json)))
-            }))
-            .route("/api/status", web::get().to(|s: web::Data<Arc<AppState>>| async move {
-                let chain = s.chain.lock().unwrap();
-                let users = s.users.lock().unwrap();
-                let mesh = s.mesh.lock().unwrap();
-                let shield = s.shield.lock().unwrap();
-                let machines = s.machines.lock().unwrap();
-                let (attacks, blocked, blocked_count, level) = shield.stats();
-                let last_block = chain.blocks.last();
-                let (last_country, last_flag) = if let Some(b) = last_block {
-                    if !b.country_code.is_empty() {
-                        if let Some(&(n, _, f, _)) = AFRICAN_SOLAR.iter().find(|(_, c, _, _)| *c == b.country_code) {
-                            (n.to_string(), f.to_string())
-                        } else {
-                            ("Afrique".to_string(), "🌍".to_string())
-                        }
-                    } else {
-                        ("Afrique".to_string(), "🌍".to_string())
-                    }
-                } else {
-                    ("Afrique".to_string(), "🌍".to_string())
-                };
-                let json = format!(r#"{{"name":"AfriChain","blocks":{},"transactions":{},"users":{},"valid":{},"token":"AFR","version":"0.55.0","crypto":"Ed25519","supply":{},"mesh_nodes":{},"mesh_id":"{}","mesh_region":"{}","countries":54,"directory":{},"shield_active":{},"shield_level":{},"shield_attacks":{},"shield_blocked_ips":{},"last_country":"{}","last_flag":"{}","machine_count":{},"machine_tx":{},"machine_mined":{}}}"#,
-                    chain.blocks.len(), chain.total_transactions(), users.count(), chain.is_valid(), chain.total_supply(), mesh.count(), mesh.my_id, mesh.region, mesh.directory_count() + users.count(), shield.active, level, attacks, blocked_count,
-                    last_country, last_flag, machines.machines.len(), machines.tx_count, machines.total_mined);
-                HttpResponse::Ok().content_type("application/json").body(json)
-            }))
-            .route("/api/ai/memory", web::get().to(|s: web::Data<Arc<AppState>>| async move {
-                let mem = s.ai_memory.lock().unwrap();
-                HttpResponse::Ok().content_type("application/json").body(mem.clone())
-            }))
-            .route("/api/ai/memory", web::post().to(|s: web::Data<Arc<AppState>>, body: web::Bytes| async move {
-                let json_str = String::from_utf8_lossy(&body).to_string();
-                let path = data_path("ai_memory.json");
-                let _ = std::fs::write(&path, &json_str);
-                let mut mem = s.ai_memory.lock().unwrap();
-                *mem = json_str;
-                HttpResponse::Ok().content_type("application/json").body(r#"{"status":"saved"}"#)
-            }))
-            .route("/api/directory", web::get().to(|s: web::Data<Arc<AppState>>| async move {
-                let mesh = s.mesh.lock().unwrap();
-                let users = s.users.lock().unwrap();
-                let mut entries: Vec<DirectoryEntry> = Vec::new();
-                // Local users
-                for user in &users.users {
-                    entries.push(DirectoryEntry {
+                broadcast_mesh(state, "tx", &tx_json);
+                HttpResponse::redirect("/wallet?msg=✅ Envoyé ! (signé Ed25519 🔐)")
+            } else {
+                HttpResponse::redirect("/wallet?msg=⚠️ Adresse non trouvée dans ce wallet")
+            }
+        }
+
+        ("POST", "/wallet/mine") => {
+            let form = match MineForm::from_map(&parse_urlencoded(&req.body)) {
+                Some(f) => f,
+                None => return HttpResponse::redirect("/wallet?msg=⚠️ Formulaire invalide"),
+            };
+            let mut chain = state.chain.lock().unwrap();
+            chain.mine_pending(&form.miner);
+            println!("⛏️ Bloc miné pour {}", form.miner);
+            let block_json = to_string(&chain.blocks.last().unwrap().to_json());
+            drop(chain);
+            broadcast_mesh(state, "block", &block_json);
+            HttpResponse::redirect("/wallet?msg=⛏️ Bloc miné ! +100 AFR pour le mineur")
+        }
+
+        // ===== REGISTER =====
+        ("GET", "/register") => {
+            let msg = req.query_str("err").map(|s| s.to_string());
+            HttpResponse::ok(&html_register(msg.as_deref()))
+        }
+
+        ("POST", "/register") => {
+            let form = match RegisterForm::from_map(&parse_urlencoded(&req.body)) {
+                Some(f) => f,
+                None => return HttpResponse::redirect("/register?err=Formulaire invalide"),
+            };
+            let mut wallets = state.wallets.lock().unwrap();
+            let mut users = state.users.lock().unwrap();
+            match users.register(&form.username, &form.password, &form.country, &mut wallets) {
+                Ok(user) => {
+                    let mesh = state.mesh.lock().unwrap();
+                    let entry = DirectoryEntry {
                         phone: user.phone.clone(),
                         address: user.address.clone(),
                         username: user.username.clone(),
                         country: user.country.clone(),
                         country_code: user.country_code.clone(),
                         node_id: mesh.my_id.clone(),
-                        timestamp: user.created_at,
-                    });
+                        timestamp: now_timestamp(),
+                    };
+                    let entry_json = to_string(&entry.to_json());
+                    drop(mesh);
+                    broadcast_mesh(state, "directory", &entry_json);
+                    println!("📡 Annuaire diffusé : {} → {}", user.phone, user.country);
+                    HttpResponse::redirect(&format!("/account?user={}", user.username))
                 }
-                // Mesh directory (dedup by phone)
-                for entry in mesh.directory.values() {
-                    if !entries.iter().any(|e| e.phone == entry.phone) {
-                        entries.push(entry.clone());
+                Err(e) => HttpResponse::redirect(&format!("/register?err={}", e)),
+            }
+        }
+
+        // ===== LOGIN =====
+        ("GET", "/login") => {
+            let msg = req.query_str("err").map(|s| s.to_string());
+            HttpResponse::ok(&html_login(msg.as_deref()))
+        }
+
+        ("POST", "/login") => {
+            let form = match LoginForm::from_map(&parse_urlencoded(&req.body)) {
+                Some(f) => f,
+                None => return HttpResponse::redirect("/login?err=Formulaire invalide"),
+            };
+            let ip = req.peer_addr.clone();
+            let users = state.users.lock().unwrap();
+            match users.login(&form.username, &form.password) {
+                Some(user) => {
+                    HttpResponse::redirect(&format!("/account?user={}", user.username))
+                }
+                None => {
+                    drop(users);
+                    state.shield.lock().unwrap().record_failed_login(&ip);
+                    HttpResponse::redirect("/login?err=Nom d'utilisateur ou mot de passe incorrect")
+                }
+            }
+        }
+
+        // ===== ACCOUNT =====
+        ("GET", "/account") => {
+            let username = req.query_str("user").unwrap_or("").to_string();
+            let users = state.users.lock().unwrap();
+            let chain = state.chain.lock().unwrap();
+            let msg = req.query_str("msg").map(|s| s.to_string());
+            match users.users.iter().find(|u| u.username == username) {
+                Some(user) => HttpResponse::ok(&html_account(user, &chain, msg.as_deref())),
+                None => HttpResponse::redirect("/login"),
+            }
+        }
+
+        ("POST", "/account/send") => {
+            let form = match SendForm::from_map(&parse_urlencoded(&req.body)) {
+                Some(f) => f,
+                None => return HttpResponse::redirect("/wallet?msg=⚠️ Formulaire invalide"),
+            };
+            let wallets = state.wallets.lock().unwrap();
+            let users = state.users.lock().unwrap();
+            let to_addr = match users.resolve_recipient(&form.to) {
+                Some(addr) => addr,
+                None => {
+                    let username = users.users.iter().find(|u| u.address == form.from).map(|u| u.username.clone()).unwrap_or_default();
+                    return HttpResponse::redirect(&format!("/account?user={}&msg=⚠️ Destinataire introuvable", username));
+                }
+            };
+            let user = users.users.iter().find(|u| u.address == form.from);
+            let username = user.map(|u| u.username.clone()).unwrap_or_default();
+            let mut chain = state.chain.lock().unwrap();
+            let mut tx = Transaction::new(&form.from, &to_addr, form.amount, &form.memo);
+            if let Some(sk) = wallets.get_signing_key(&form.from) {
+                tx.sign(&sk);
+                let tx_json = to_string(&tx.to_json());
+                chain.add_transaction(tx);
+                chain.save_to_file();
+                drop(chain);
+                drop(wallets);
+                drop(users);
+                broadcast_mesh(state, "tx", &tx_json);
+                HttpResponse::redirect(&format!("/account?user={}&msg=✅ Envoyé à {} ! {} AFR signés", username, form.to, form.amount))
+            } else {
+                HttpResponse::redirect(&format!("/account?user={}&msg=⚠️ Clé privée introuvable", username))
+            }
+        }
+
+        ("POST", "/account/mine") => {
+            let form = match MineForm::from_map(&parse_urlencoded(&req.body)) {
+                Some(f) => f,
+                None => return HttpResponse::redirect("/wallet?msg=⚠️ Formulaire invalide"),
+            };
+            let mut chain = state.chain.lock().unwrap();
+            let users = state.users.lock().unwrap();
+            let user = users.users.iter().find(|u| u.address == form.miner);
+            let username = user.map(|u| u.username.clone()).unwrap_or_default();
+            chain.mine_pending(&form.miner);
+            let block_json = to_string(&chain.blocks.last().unwrap().to_json());
+            drop(chain);
+            drop(users);
+            broadcast_mesh(state, "block", &block_json);
+            HttpResponse::redirect(&format!("/account?user={}&msg=⛏️ Miné ! +100 AFR", username))
+        }
+
+        // ===== ADMIN =====
+        ("GET", "/admin") => {
+            let err = req.query_str("err").map(|s| s.to_string());
+            HttpResponse::ok(&html_admin_login(err.as_deref()))
+        }
+
+        ("POST", "/admin") => {
+            let form = match AdminForm::from_map(&parse_urlencoded(&req.body)) {
+                Some(f) => f,
+                None => return HttpResponse::redirect("/admin?err=Formulaire invalide"),
+            };
+            if form.password == ADMIN_PASSWORD {
+                HttpResponse::redirect("/dashboard").set_cookie("afri_admin", "1", 86400)
+            } else {
+                HttpResponse::redirect("/admin?err=Mot de passe incorrect")
+            }
+        }
+
+        ("GET", "/logout") => {
+            HttpResponse::redirect("/").set_cookie("afri_admin", "", 0)
+        }
+
+        // ===== DASHBOARD =====
+        ("GET", "/dashboard") => {
+            if req.cookie("afri_admin") != Some("1".to_string()) {
+                return HttpResponse::redirect("/admin");
+            }
+            let chain = state.chain.lock().unwrap();
+            let users = state.users.lock().unwrap();
+            HttpResponse::ok(&html_dashboard(&chain, &users))
+        }
+
+        // ===== API =====
+        ("GET", "/api/blocks") => {
+            let chain = state.chain.lock().unwrap();
+            let blocks_json: Vec<JsonValue> = chain.blocks.iter().map(|b| b.to_json()).collect();
+            HttpResponse::json(&to_string(&JsonValue::Array(blocks_json)))
+        }
+
+        ("GET", "/api/status") => {
+            let chain = state.chain.lock().unwrap();
+            let users = state.users.lock().unwrap();
+            let mesh = state.mesh.lock().unwrap();
+            let shield = state.shield.lock().unwrap();
+            let machines = state.machines.lock().unwrap();
+            let (attacks, _blocked, blocked_count, level) = shield.stats();
+            let last_block = chain.blocks.last();
+            let (last_country, last_flag) = if let Some(b) = last_block {
+                if !b.country_code.is_empty() {
+                    if let Some(&(n, _, f, _)) = AFRICAN_SOLAR.iter().find(|(_, c, _, _)| *c == b.country_code) {
+                        (n.to_string(), f.to_string())
+                    } else {
+                        ("Afrique".to_string(), "🌍".to_string())
                     }
+                } else {
+                    ("Afrique".to_string(), "🌍".to_string())
                 }
-                let entries_json: Vec<JsonValue> = entries.iter().map(|e| e.to_json()).collect();
-                HttpResponse::Ok().content_type("application/json").body(to_string(&JsonValue::Array(entries_json)))
-            }))
-            // ===== PWA =====
-            .route("/manifest.json", web::get().to(|| async move {
-                let manifest = r##"{"name":"AfriRich Wallet","short_name":"AfriRich","start_url":"/wallet","display":"standalone","background_color":"#0d1f17","theme_color":"#1a3d2e","icons":[{"src":"/icon.svg","sizes":"any","type":"image/svg+xml","purpose":"any maskable"}]}"##;
-                HttpResponse::Ok().content_type("application/json").body(manifest)
-            }))
-            .route("/icon.svg", web::get().to(|| async move {
-                let svg = r##"<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><rect width="512" height="512" rx="80" fill="#1a3d2e"/><text x="256" y="360" font-size="320" text-anchor="middle">🦁</text></svg>"##;
-                HttpResponse::Ok().content_type("image/svg+xml").body(svg)
-            }))
-            .route("/sw.js", web::get().to(|| async move {
-                let sw = "const C='afri-v0.12';self.addEventListener('install',e=>{e.waitUntil(caches.open(C).then(c=>c.addAll(['/wallet','/manifest.json','/icon.svg'])))});self.addEventListener('fetch',e=>{e.respondWith(caches.match(e.request).then(r=>r||fetch(e.request)))});";
-                HttpResponse::Ok().content_type("application/javascript").body(sw)
-            }))
-    })
-    .bind("0.0.0.0:8080")?
-    .run()
-    .await
+            } else {
+                ("Afrique".to_string(), "🌍".to_string())
+            };
+            let json = format!(r#"{{"name":"AfriChain","blocks":{},"transactions":{},"users":{},"valid":{},"token":"AFR","version":"0.56.0","crypto":"Ed25519","supply":{},"mesh_nodes":{},"mesh_id":"{}","mesh_region":"{}","countries":54,"directory":{},"shield_active":{},"shield_level":{},"shield_attacks":{},"shield_blocked_ips":{},"last_country":"{}","last_flag":"{}","machine_count":{},"machine_tx":{},"machine_mined":{}}}"#,
+                chain.blocks.len(), chain.total_transactions(), users.count(), chain.is_valid(), chain.total_supply(), mesh.count(), mesh.my_id, mesh.region, mesh.directory_count() + users.count(), shield.active, level, attacks, blocked_count,
+                last_country, last_flag, machines.machines.len(), machines.tx_count, machines.total_mined);
+            HttpResponse::json(&json)
+        }
+
+        ("GET", "/api/ai/memory") => {
+            let mem = state.ai_memory.lock().unwrap();
+            HttpResponse::json(&mem)
+        }
+
+        ("POST", "/api/ai/memory") => {
+            let json_str = String::from_utf8_lossy(&req.body).to_string();
+            let path = data_path("ai_memory.json");
+            let _ = std::fs::write(&path, &json_str);
+            let mut mem = state.ai_memory.lock().unwrap();
+            *mem = json_str;
+            HttpResponse::json(r#"{"status":"saved"}"#)
+        }
+
+        ("GET", "/api/directory") => {
+            let mesh = state.mesh.lock().unwrap();
+            let users = state.users.lock().unwrap();
+            let mut entries: Vec<DirectoryEntry> = Vec::new();
+            for user in &users.users {
+                entries.push(DirectoryEntry {
+                    phone: user.phone.clone(),
+                    address: user.address.clone(),
+                    username: user.username.clone(),
+                    country: user.country.clone(),
+                    country_code: user.country_code.clone(),
+                    node_id: mesh.my_id.clone(),
+                    timestamp: user.created_at,
+                });
+            }
+            for entry in mesh.directory.values() {
+                if !entries.iter().any(|e| e.phone == entry.phone) {
+                    entries.push(entry.clone());
+                }
+            }
+            let entries_json: Vec<JsonValue> = entries.iter().map(|e| e.to_json()).collect();
+            HttpResponse::json(&to_string(&JsonValue::Array(entries_json)))
+        }
+
+        // ===== PWA =====
+        ("GET", "/manifest.json") => {
+            let manifest = r##"{"name":"AfriRich Wallet","short_name":"AfriRich","start_url":"/wallet","display":"standalone","background_color":"#0d1f17","theme_color":"#1a3d2e","icons":[{"src":"/icon.svg","sizes":"any","type":"image/svg+xml","purpose":"any maskable"}]}"##;
+            HttpResponse::json(manifest)
+        }
+
+        ("GET", "/icon.svg") => {
+            let svg = r##"<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><rect width="512" height="512" rx="80" fill="#1a3d2e"/><text x="256" y="360" font-size="320" text-anchor="middle">🦁</text></svg>"##;
+            HttpResponse::ok_bytes(svg.as_bytes().to_vec(), "image/svg+xml")
+        }
+
+        ("GET", "/sw.js") => {
+            let sw = "const C='afri-v0.12';self.addEventListener('install',e=>{e.waitUntil(caches.open(C).then(c=>c.addAll(['/wallet','/manifest.json','/icon.svg'])))});self.addEventListener('fetch',e=>{e.respondWith(caches.match(e.request).then(r=>r||fetch(e.request)))});";
+            HttpResponse::ok_bytes(sw.as_bytes().to_vec(), "application/javascript")
+        }
+
+        _ => HttpResponse::not_found(),
+    }
 }
