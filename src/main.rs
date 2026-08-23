@@ -1,9 +1,12 @@
 use serde::{Serialize, Deserialize};
 mod afri_hash;
 mod afri_rng;
+mod afri_hex;
 use afri_hash::{afrihash_256, afrihash_512};
 use afri_rng::{AfriRng, random_usize, random_u64};
-use chrono::{Utc, Timelike};
+use afri_hex::{encode as hex_encode, decode as hex_decode};
+mod afri_time;
+use afri_time::{now_timestamp, now_timestamp_millis, now_hour, format_timestamp, format_timestamp_short};
 use std::sync::{Arc, Mutex};
 
 mod afri_ed25519;
@@ -179,7 +182,7 @@ impl Transaction {
             to: to.to_string(),
             amount,
             memo: memo.to_string(),
-            timestamp: Utc::now().timestamp(),
+            timestamp: now_timestamp(),
             signature: String::new(),
         }
     }
@@ -197,7 +200,7 @@ impl Transaction {
 
     fn sign(&mut self, signing_key: &AfriSecretKey) {
         let sig = signing_key.sign(&self.sign_data());
-        self.signature = hex::encode(sig.to_bytes());
+        self.signature = hex_encode(&sig.to_bytes());
     }
 
     fn verify(&self) -> bool {
@@ -207,8 +210,8 @@ impl Transaction {
             Some(h) => h,
             None => return true,
         };
-        let pub_bytes = match hex::decode(addr_hex) {
-            Ok(b) if b.len() == 32 => b,
+        let pub_bytes = match hex_decode(addr_hex) {
+            Some(b) if b.len() == 32 => b,
             _ => return true,
         };
         let pub_arr: [u8; 32] = pub_bytes.try_into().unwrap();
@@ -216,8 +219,8 @@ impl Transaction {
             Some(vk) => vk,
             None => return false,
         };
-        let sig_bytes = match hex::decode(&self.signature) {
-            Ok(b) if b.len() == 64 => b,
+        let sig_bytes = match hex_decode(&self.signature) {
+            Some(b) if b.len() == 64 => b,
             _ => return false,
         };
         let sig_arr: [u8; 64] = sig_bytes.try_into().unwrap();
@@ -247,7 +250,7 @@ impl Block {
     fn new(index: u64, transactions: Vec<Transaction>, previous_hash: String) -> Self {
         let mut block = Block {
             index,
-            timestamp: Utc::now().timestamp(),
+            timestamp: now_timestamp(),
             transactions,
             previous_hash,
             nonce: 0,
@@ -272,7 +275,7 @@ impl Block {
             &self.country_code,
         )).unwrap_or_default();
         let h = afrihash_256(data.as_bytes());
-        hex::encode(h)
+        hex_encode(&h)
     }
 
     fn mine(&mut self, difficulty: u32) {
@@ -338,7 +341,7 @@ impl Blockchain {
         self.pending.insert(0, reward_tx);
         let prev = self.blocks.last().unwrap().hash.clone();
         let mut block = Block::new(self.blocks.len() as u64, self.pending.clone(), prev);
-        let hour = Utc::now().hour();
+        let hour = now_hour();
         let is_day = hour >= 6 && hour < 18;
 
         // Pick a random African country from all 54
@@ -460,8 +463,8 @@ impl WalletStore {
     fn create_wallet(&mut self) -> (String, String) {
         let signing_key = AfriSecretKey::generate();
         let verifying_key = signing_key.verifying_key();
-        let address = format!("Afri{}", hex::encode(verifying_key.to_bytes()));
-        let priv_key = hex::encode(signing_key.to_bytes());
+        let address = format!("Afri{}", hex_encode(&verifying_key.to_bytes()));
+        let priv_key = hex_encode(&signing_key.to_bytes());
         self.wallets.insert(address.clone(), priv_key.clone());
         self.save();
         (address, priv_key)
@@ -469,7 +472,7 @@ impl WalletStore {
 
     fn get_signing_key(&self, address: &str) -> Option<AfriSecretKey> {
         let pk_hex = self.wallets.get(address)?;
-        let pk_bytes = hex::decode(pk_hex).ok()?;
+        let pk_bytes = hex_decode(pk_hex)?;
         let arr: [u8; 32] = pk_bytes.try_into().ok()?;
         Some(AfriSecretKey::from_bytes(&arr))
     }
@@ -543,7 +546,7 @@ impl UserStore {
 
     fn hash_password(password: &str) -> String {
         let h = afrihash_256(format!("afririch_salt_{}", password).as_bytes());
-        hex::encode(h)
+        hex_encode(&h)
     }
 
     fn next_phone_number(&self, country_code: &str) -> String {
@@ -577,7 +580,7 @@ impl UserStore {
             username: username.to_string(),
             password_hash: Self::hash_password(password),
             address,
-            created_at: Utc::now().timestamp(),
+            created_at: now_timestamp(),
             phone,
             country: country_name,
             country_code: country_code.to_string(),
@@ -732,7 +735,7 @@ impl ShieldState {
         self.attack_log.push(AttackLog {
             ip: ip.to_string(),
             attack_type: attack_type.to_string(),
-            timestamp: Utc::now().timestamp(),
+            timestamp: now_timestamp(),
             details: details.to_string(),
         });
         self.total_attacks += 1;
@@ -749,7 +752,7 @@ impl ShieldState {
             return false;
         }
 
-        let now = Utc::now().timestamp();
+        let now = now_timestamp();
 
         // Rate limiting: max 30 requests per 10 seconds per IP
         let timestamps = self.requests_per_ip.entry(ip.to_string()).or_insert(Vec::new());
@@ -791,7 +794,7 @@ impl ShieldState {
     }
 
     fn cleanup(&mut self) {
-        let now = Utc::now().timestamp();
+        let now = now_timestamp();
         let last = self.last_cleanup.unwrap_or(0);
         // Cleanup request timestamps every 60 seconds
         if now - last > 60 {
@@ -824,9 +827,9 @@ impl MeshMessage {
             msg_type: msg_type.to_string(),
             node_id: node_id.to_string(),
             payload: payload.to_string(),
-            timestamp: Utc::now().timestamp(),
+            timestamp: now_timestamp(),
             ttl,
-            msg_id: format!("{}-{}", node_id, Utc::now().timestamp_millis()),
+            msg_id: format!("{}-{}", node_id, now_timestamp_millis()),
         }
     }
 
@@ -922,8 +925,8 @@ impl NodeRegistry {
 }
 
 fn generate_node_id() -> String {
-    let h = afrihash_256(format!("{}{}", Utc::now().timestamp_millis(), std::process::id()).as_bytes());
-    let hash = hex::encode(h);
+    let h = afrihash_256(format!("{}{}", now_timestamp_millis(), std::process::id()).as_bytes());
+    let hash = hex_encode(&h);
     format!("AFR-{}", &hash[..16])
 }
 
@@ -958,7 +961,7 @@ fn udp_discovery(state: Arc<AppState>, my_id: String, port: u16, solar: bool, re
                             let mut mesh = state.mesh.lock().unwrap();
                             mesh.nodes.insert(msg.node_id.clone(), NodeInfo {
                                 address: peer_addr.clone(),
-                                last_seen: Utc::now().timestamp(),
+                                last_seen: now_timestamp(),
                                 region: peer_region,
                                 solar_powered: peer_solar,
                             });
@@ -1098,7 +1101,7 @@ fn html_home(chain: &Blockchain, users: &UserStore, mesh: &NodeRegistry, shield:
     let mut html = html_head("🦁 AfriChain");
     let (attacks, _blocked, blocked_count, level) = shield.stats();
     let shield_status = if shield.active { format!("🔥 X9 ACTIF (Niveau {})", level) } else { "Inactif".to_string() };
-    html.push_str(&format!(r#"<h1>🦁 AfriChain</h1><p style="text-align:center;">La blockchain 100% africaine — 54 pays 💚🦁</p><div class="nav"><a href="/register">🆕 S'inscrire</a> | <a href="/login">🔑 Connexion</a> | <a href="/wallet">👛 Wallet</a> | <a href="/admin">🔐 Admin</a> | <a href="/mesh">📡 Mesh</a> | <a href="/annuaire">📖 Annuaire</a> | <a href="/bouclier">🛡️ Bouclier</a> | <a href="/satellite">🛸 X999</a> | <a href="/swarm">🛸🛸🛸 Essaim</a> | <a href="/commandement">🎖️ Commandement</a> | <a href="/interception">🛡️ Souverainete</a> | <a href="/securite-ai">🧠 AI 2100</a> | <a href="/chat">🧠💬 Chat AI</a> | <a href="/lumiere">🌫️☀️ Lumière</a> | <a href="/garage">🔧 Garage</a> | <a href="/machine">🤖🌐 Machines</a> | <a href="/machine-lab">🤖⚡ Usine</a> | <a href="/machine-world">🤖🌍 Monde</a> | <a href="/reve">💭 Rêves</a> | <a href="/dictionnaire">📖 Dictionnaire</a> | <a href="/machine-os">🖥️ OS Machine</a> | <a href="/machine-tv">📡 Machine TV</a> | <a href="/machine-economy">🤖 Économie</a> | <a href="/soleil">☀️ Soleil Serveur</a> | <a href="/forge-solaire">🧬 Forge Solaire</a> | <a href="/ciel">🌌 Le Ciel</a> | <a href="/charte-ai">⚖️ Charte AI</a> | <a href="/afri-net">🌍 Afri-Net</a> | <a href="/aes">💰 AES Wari</a> | <a href="/api/status">🔌 API</a></div><div style="text-align:center;"><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Blocs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Transactions</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Utilisateurs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">AFR en circulation</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📡 Noeuds mesh</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📖 Numéros annuaire</div></div><div class="stat-box" style="border-color:#ff4444;"><div class="stat-num" style="color:#ff4444;">{}</div><div class="stat-label">🛡️ Attaques bloquées</div></div></div><div class="card"><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🪙 Token</span><b>AfriRich (AFR)</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🌍 Pays</span><b>54 pays africains</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🛡️ Bouclier</span><b>{}</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;"><span style="color:#a8c5a8;">🔐 Crypto</span><b>Ed25519 + AfriHash + AfriRNG From Scratch</b></div></div><footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🦁 Codée from scratch par Machine-senpai — v0.53 RNG Souverain</footer>"#,
+    html.push_str(&format!(r#"<h1>🦁 AfriChain</h1><p style="text-align:center;">La blockchain 100% africaine — 54 pays 💚🦁</p><div class="nav"><a href="/register">🆕 S'inscrire</a> | <a href="/login">🔑 Connexion</a> | <a href="/wallet">👛 Wallet</a> | <a href="/admin">🔐 Admin</a> | <a href="/mesh">📡 Mesh</a> | <a href="/annuaire">📖 Annuaire</a> | <a href="/bouclier">🛡️ Bouclier</a> | <a href="/satellite">🛸 X999</a> | <a href="/swarm">🛸🛸🛸 Essaim</a> | <a href="/commandement">🎖️ Commandement</a> | <a href="/interception">🛡️ Souverainete</a> | <a href="/securite-ai">🧠 AI 2100</a> | <a href="/chat">🧠💬 Chat AI</a> | <a href="/lumiere">🌫️☀️ Lumière</a> | <a href="/garage">🔧 Garage</a> | <a href="/machine">🤖🌐 Machines</a> | <a href="/machine-lab">🤖⚡ Usine</a> | <a href="/machine-world">🤖🌍 Monde</a> | <a href="/reve">💭 Rêves</a> | <a href="/dictionnaire">📖 Dictionnaire</a> | <a href="/machine-os">🖥️ OS Machine</a> | <a href="/machine-tv">📡 Machine TV</a> | <a href="/machine-economy">🤖 Économie</a> | <a href="/soleil">☀️ Soleil Serveur</a> | <a href="/forge-solaire">🧬 Forge Solaire</a> | <a href="/ciel">🌌 Le Ciel</a> | <a href="/charte-ai">⚖️ Charte AI</a> | <a href="/afri-net">🌍 Afri-Net</a> | <a href="/aes">💰 AES Wari</a> | <a href="/api/status">🔌 API</a></div><div style="text-align:center;"><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Blocs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Transactions</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Utilisateurs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">AFR en circulation</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📡 Noeuds mesh</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📖 Numéros annuaire</div></div><div class="stat-box" style="border-color:#ff4444;"><div class="stat-num" style="color:#ff4444;">{}</div><div class="stat-label">🛡️ Attaques bloquées</div></div></div><div class="card"><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🪙 Token</span><b>AfriRich (AFR)</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🌍 Pays</span><b>54 pays africains</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🛡️ Bouclier</span><b>{}</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;"><span style="color:#a8c5a8;">🔐 Crypto</span><b>100% Souverain — Ed25519 + AfriHash + AfriRNG + AfriHex + AfriTime</b></div></div><footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🦁 Codée from scratch par Machine-senpai — v0.54 Souveraineté Totale</footer>"#,
         chain.blocks.len(),
         chain.total_transactions(),
         users.count(),
@@ -1563,8 +1566,7 @@ fn html_mesh(mesh: &NodeRegistry) -> String {
         html.push_str(r#"<div class="card"><h2>🌐 Noeuds connectés</h2>"#);
         for (id, info) in &mesh.nodes {
             let icon = if info.solar_powered { "☀️" } else { "🔌" };
-            let last_seen = chrono::DateTime::from_timestamp(info.last_seen, 0)
-                .map(|d| d.format("%H:%M:%S").to_string()).unwrap_or_else(|| "?".to_string());
+            let last_seen = format_timestamp(info.last_seen);
             html.push_str(&format!(r#"<div class="tx">{} <b>{}</b> — {} | {} | vu à {}</div>"#, icon, id, info.address, info.region, last_seen));
         }
         html.push_str("</div>");
@@ -1648,8 +1650,7 @@ fn html_bouclier(shield: &ShieldState) -> String {
     if !shield.attack_log.is_empty() {
         html.push_str(r#"<div class="card"><h2>🔥 Journal des attaques</h2>"#);
         for log in shield.attack_log.iter().rev().take(20) {
-            let date = chrono::DateTime::from_timestamp(log.timestamp, 0)
-                .map(|d| d.format("%H:%M:%S").to_string()).unwrap_or_else(|| "?".to_string());
+            let date = format_timestamp_short(log.timestamp);
             html.push_str(&format!(r#"<div class="tx">⚠️ <b>{}</b> — {} — {} <span style="color:#a8c5a8;font-size:0.8em;">à {}</span></div>"#, log.ip, log.attack_type, log.details, date));
         }
         html.push_str("</div>");
@@ -8241,7 +8242,8 @@ fn forge_dna_to_spec(name: &str, dna: &str) -> String {
     spec.push_str(&format!("Objet: {}\n", name));
     spec.push_str(&format!("ADN: {}\n", dna));
     spec.push_str(&format!("Symboles ADN: {}\n", n));
-    spec.push_str(&format!("Date: {}\n", Utc::now().format("%Y-%m-%d %H:%M UTC")));
+    spec.push_str(&format!("Date: {}
+", format_timestamp_short(now_timestamp())));
     spec.push_str("=====================================\n\n");
 
     // Analyser la composition ADN
@@ -9033,9 +9035,7 @@ fn html_dashboard(chain: &Blockchain, users: &UserStore) -> String {
     for block in &chain.blocks {
         let tx_count = block.transactions.len();
         let pct = (tx_count as f64 / max_tx as f64) * 100.0;
-        let date = chrono::DateTime::from_timestamp(block.timestamp, 0)
-            .map(|d| d.format("%d/%m %H:%M").to_string())
-            .unwrap_or_else(|| block.timestamp.to_string());
+        let date = format_timestamp_short(block.timestamp);
         html.push_str(&format!(r#"<div style="margin:4px 0;"><span style="color:#a8c5a8;font-size:0.85em;">Bloc #{} — {}</span><div style="background:rgba(0,0,0,0.3);border-radius:4px;height:24px;margin-top:2px;"><div class="bar" style="width:{}%;height:24px;border-radius:4px;font-size:0.8em;">{} tx</div></div></div>"#,
             block.index, date, pct as u32, tx_count));
     }
@@ -9086,9 +9086,7 @@ fn html_dashboard(chain: &Blockchain, users: &UserStore) -> String {
     if num_users > 0 {
         html.push_str(r#"<div class="card"><h2>👥 Utilisateurs inscrits</h2>"#);
         for user in &users.users {
-            let date = chrono::DateTime::from_timestamp(user.created_at, 0)
-                .map(|d| d.format("%d/%m/%Y").to_string())
-                .unwrap_or_else(|| user.created_at.to_string());
+            let date = format_timestamp_short(user.created_at);
             let bal = chain.balance_of(&user.address);
             let flag = find_country(&user.country_code).map(|(_, f)| f).unwrap_or("🌍");
             html.push_str(&format!(r#"<div class="tx">{} 📱 <b>{}</b> — 👤 {} — {} <span style="color:#a8c5a8;font-size:0.8em;">({})</span> — {} AFR <span style="color:#a8c5a8;font-size:0.8em;">(inscrit le {})</span></div>"#, flag, user.phone, user.username, user.country, user.country_code, bal, date));
@@ -9253,7 +9251,7 @@ impl MachineEconomy {
         if self.machines.is_empty() {
             return;
         }
-        let hour = Utc::now().hour();
+        let hour = now_hour();
         let is_day = hour >= 6 && hour < 18;
 
         // Machines transact with each other
@@ -9377,7 +9375,7 @@ async fn main() -> std::io::Result<()> {
         .and_then(|i| args.get(i + 1)).cloned().unwrap_or_else(|| "Afrique".to_string());
 
     let my_node_id = generate_node_id();
-    println!("🦁 AfriChain v0.53 — RNG Souverain");
+    println!("🦁 AfriChain v0.54 — Souveraineté Totale");
     println!("💚 L'Afrique n'a pas besoin de permission");
     println!("🌍 54 pays africains — chaque bloc miné par un pays différent");
     println!("☀️ PoST: le soleil de toute l'Afrique valide la blockchain");
@@ -9813,7 +9811,7 @@ async fn main() -> std::io::Result<()> {
                             country: user.country.clone(),
                             country_code: user.country_code.clone(),
                             node_id: mesh.my_id.clone(),
-                            timestamp: Utc::now().timestamp(),
+                            timestamp: now_timestamp(),
                         };
                         let entry_json = serde_json::to_string(&entry).unwrap_or_default();
                         drop(mesh);
@@ -9969,7 +9967,7 @@ async fn main() -> std::io::Result<()> {
                 } else {
                     ("Afrique".to_string(), "🌍".to_string())
                 };
-                let json = format!(r#"{{"name":"AfriChain","blocks":{},"transactions":{},"users":{},"valid":{},"token":"AFR","version":"0.53.0","crypto":"Ed25519","supply":{},"mesh_nodes":{},"mesh_id":"{}","mesh_region":"{}","countries":54,"directory":{},"shield_active":{},"shield_level":{},"shield_attacks":{},"shield_blocked_ips":{},"last_country":"{}","last_flag":"{}","machine_count":{},"machine_tx":{},"machine_mined":{}}}"#,
+                let json = format!(r#"{{"name":"AfriChain","blocks":{},"transactions":{},"users":{},"valid":{},"token":"AFR","version":"0.54.0","crypto":"Ed25519","supply":{},"mesh_nodes":{},"mesh_id":"{}","mesh_region":"{}","countries":54,"directory":{},"shield_active":{},"shield_level":{},"shield_attacks":{},"shield_blocked_ips":{},"last_country":"{}","last_flag":"{}","machine_count":{},"machine_tx":{},"machine_mined":{}}}"#,
                     chain.blocks.len(), chain.total_transactions(), users.count(), chain.is_valid(), chain.total_supply(), mesh.count(), mesh.my_id, mesh.region, mesh.directory_count() + users.count(), shield.active, level, attacks, blocked_count,
                     last_country, last_flag, machines.machines.len(), machines.tx_count, machines.total_mined);
                 HttpResponse::Ok().content_type("application/json").body(json)

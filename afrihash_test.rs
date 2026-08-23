@@ -3,6 +3,16 @@
 // 100% souverain — zéro dépendance externe
 // Sortie: 256 bits (32 bytes) — compatible avec notre minage
 
+fn to_hex(bytes: &[u8]) -> String {
+    let hex_chars = b"0123456789abcdef";
+    let mut s = String::with_capacity(bytes.len() * 2);
+    for &b in bytes {
+        s.push(hex_chars[(b >> 4) as usize] as char);
+        s.push(hex_chars[(b & 0x0f) as usize] as char);
+    }
+    s
+}
+
 // État interne: 5x5 matrice de mots 64-bit = 1600 bits (comme Keccak)
 // Rate: 1088 bits (136 bytes) — Capacity: 512 bits (64 bytes)
 // C'est la même structure que SHA3-256 mais avec nos propres constantes
@@ -227,8 +237,8 @@ fn main() {
     let h1 = afrihash_256(input);
     let h2 = afrihash_256(input);
     println!("  Input: {:?}", std::str::from_utf8(input).unwrap());
-    println!("  Hash 1: {}", hex::encode(&h1));
-    println!("  Hash 2: {}", hex::encode(&h2));
+    println!("  Hash 1: {}", to_hex(&h1));
+    println!("  Hash 2: {}", to_hex(&h2));
     println!("  Match: {}", if h1 == h2 { "✅" } else { "❌" });
 
     // Test 2: Différents inputs donnent différents hashes
@@ -236,8 +246,8 @@ fn main() {
     println!("📋 Test 2: Différents inputs...");
     let h_a = afrihash_256(b"Afrique");
     let h_b = afrihash_256(b"Afrik");
-    println!("  'Afrique': {}", hex::encode(&h_a));
-    println!("  'Afrik':   {}", hex::encode(&h_b));
+    println!("  'Afrique': {}", to_hex(&h_a));
+    println!("  'Afrik':   {}", to_hex(&h_b));
     println!("  Différents: {}", if h_a != h_b { "✅" } else { "❌" });
 
     // Test 3: Effet d'avalanche — 1 bit change → ~50% des bits changent
@@ -258,10 +268,10 @@ fn main() {
     }
     let total_bits = 256;
     let pct = (diff_bits * 100) / total_bits;
-    println!("  Input A: {}", hex::encode(&input_a[..8]));
-    println!("  Input B: {} (1 bit changé)", hex::encode(&input_b[..8]));
-    println!("  Hash A:  {}", hex::encode(&ha));
-    println!("  Hash B:  {}", hex::encode(&hb));
+    println!("  Input A: {}", to_hex(&input_a[..8]));
+    println!("  Input B: {} (1 bit changé)", to_hex(&input_b[..8]));
+    println!("  Hash A:  {}", to_hex(&ha));
+    println!("  Hash B:  {}", to_hex(&hb));
     println!("  Bits différents: {}/{} ({}%)", diff_bits, total_bits, pct);
     println!("  Avalanche: {}", if pct >= 40 && pct <= 60 { "✅" } else { "❌" });
 
@@ -269,20 +279,20 @@ fn main() {
     println!("");
     println!("📋 Test 4: Hash vide...");
     let h_empty = afrihash_256(b"");
-    println!("  Hash(''): {}", hex::encode(&h_empty));
+    println!("  Hash(''): {}", to_hex(&h_empty));
 
     // Test 5: Hash long (1000 bytes)
     println!("");
     println!("📋 Test 5: Hash long (1000 bytes)...");
     let long_input: Vec<u8> = (0..1000).map(|i| (i % 256) as u8).collect();
     let h_long = afrihash_256(&long_input);
-    println!("  Hash(1000 bytes): {}", hex::encode(&h_long));
+    println!("  Hash(1000 bytes): {}", to_hex(&h_long));
 
     // Test 6: AfriHash-512
     println!("");
     println!("📋 Test 6: AfriHash-512...");
     let h512 = afrihash_512(b"Bonjour Afrique!");
-    println!("  Hash 512: {}", hex::encode(&h512));
+    println!("  Hash 512: {}", to_hex(&h512));
     println!("  Length: {} bytes", h512.len());
 
     // Test 7: Pas de collision facile
@@ -293,7 +303,7 @@ fn main() {
     for i in 0..1000 {
         let msg = format!("AfriHash test #{}", i);
         let h = afrihash_256(msg.as_bytes());
-        let key = hex::encode(&h);
+        let key = to_hex(&h);
         if !hashes.insert(key) {
             no_collision = false;
             println!("  ❌ Collision à #{}", i);
@@ -324,7 +334,7 @@ fn main() {
         data.extend_from_slice(&nonce.to_le_bytes());
         let h = afrihash_256(&data);
         if h[0] == 0 {
-            println!("  Nonce trouvé: {} → hash: {}...", nonce, hex::encode(&h[..8]));
+            println!("  Nonce trouvé: {} → hash: {}...", nonce, to_hex(&h[..8]));
             found = true;
             break;
         }
