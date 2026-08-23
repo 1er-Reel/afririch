@@ -1,4 +1,5 @@
-use serde::{Serialize, Deserialize};
+mod afri_json;
+use afri_json::{JsonValue, from_str, to_string, to_string_pretty, from_slice};
 mod afri_hash;
 mod afri_rng;
 mod afri_hex;
@@ -164,14 +165,13 @@ fn country_options_html(selected: &str) -> String {
 }
 
 // ===== TRANSACTION =====
-#[derive(Debug, Clone, Serialize, Deserialize)]
+#[derive(Debug, Clone)]
 struct Transaction {
     from: String,
     to: String,
     amount: u64,
     memo: String,
     timestamp: i64,
-    #[serde(default)]
     signature: String,
 }
 
@@ -188,13 +188,13 @@ impl Transaction {
     }
 
     fn sign_data(&self) -> Vec<u8> {
-        let data = serde_json::to_string(&(
-            &self.from,
-            &self.to,
-            self.amount,
-            &self.memo,
-            self.timestamp,
-        )).unwrap();
+        let mut arr = Vec::new();
+        arr.push(JsonValue::Str(self.from.clone()));
+        arr.push(JsonValue::Str(self.to.clone()));
+        arr.push(JsonValue::UInt(self.amount));
+        arr.push(JsonValue::Str(self.memo.clone()));
+        arr.push(JsonValue::Int(self.timestamp));
+        let data = to_string(&JsonValue::Array(arr));
         data.into_bytes()
     }
 
@@ -227,10 +227,33 @@ impl Transaction {
         let signature = AfriSignature::from_bytes(&sig_arr);
         verifying_key.verify(&self.sign_data(), &signature)
     }
+
+    fn to_json(&self) -> JsonValue {
+        let mut map = HashMap::new();
+        map.insert("from".to_string(), JsonValue::Str(self.from.clone()));
+        map.insert("to".to_string(), JsonValue::Str(self.to.clone()));
+        map.insert("amount".to_string(), JsonValue::UInt(self.amount));
+        map.insert("memo".to_string(), JsonValue::Str(self.memo.clone()));
+        map.insert("timestamp".to_string(), JsonValue::Int(self.timestamp));
+        map.insert("signature".to_string(), JsonValue::Str(self.signature.clone()));
+        JsonValue::Object(map)
+    }
+
+    fn from_json(v: &JsonValue) -> Option<Self> {
+        let map = v.as_object()?;
+        Some(Transaction {
+            from: map.get("from")?.as_str()?.to_string(),
+            to: map.get("to")?.as_str()?.to_string(),
+            amount: map.get("amount")?.as_u64()?,
+            memo: map.get("memo")?.as_str()?.to_string(),
+            timestamp: map.get("timestamp")?.as_i64()?,
+            signature: map.get("signature").and_then(|s| s.as_str()).unwrap_or("").to_string(),
+        })
+    }
 }
 
 // ===== BLOCK =====
-#[derive(Debug, Clone, Serialize, Deserialize)]
+#[derive(Debug, Clone)]
 struct Block {
     index: u64,
     timestamp: i64,
@@ -238,11 +261,8 @@ struct Block {
     previous_hash: String,
     nonce: u64,
     hash: String,
-    #[serde(default)]
     solar_lux: u64,
-    #[serde(default)]
     solar_angle: f64,
-    #[serde(default)]
     country_code: String,
 }
 
@@ -264,16 +284,16 @@ impl Block {
     }
 
     fn calculate_hash(&self) -> String {
-        let data = serde_json::to_string(&(
-            self.index,
-            self.timestamp,
-            &self.transactions,
-            &self.previous_hash,
-            self.nonce,
-            self.solar_lux,
-            self.solar_angle,
-            &self.country_code,
-        )).unwrap_or_default();
+        let mut arr = Vec::new();
+        arr.push(JsonValue::UInt(self.index));
+        arr.push(JsonValue::Int(self.timestamp));
+        arr.push(JsonValue::Array(self.transactions.iter().map(|t| t.to_json()).collect()));
+        arr.push(JsonValue::Str(self.previous_hash.clone()));
+        arr.push(JsonValue::UInt(self.nonce));
+        arr.push(JsonValue::UInt(self.solar_lux));
+        arr.push(JsonValue::Float(self.solar_angle));
+        arr.push(JsonValue::Str(self.country_code.clone()));
+        let data = to_string(&JsonValue::Array(arr));
         let h = afrihash_256(data.as_bytes());
         hex_encode(&h)
     }
@@ -304,10 +324,43 @@ impl Block {
         }
         println!("🦁 Bloc #{} valide par le Soleil ({}) — lux={} angle={}° nonce={}", self.index, country, solar_lux, solar_angle, self.nonce);
     }
+
+    fn to_json(&self) -> JsonValue {
+        let mut map = HashMap::new();
+        map.insert("index".to_string(), JsonValue::UInt(self.index));
+        map.insert("timestamp".to_string(), JsonValue::Int(self.timestamp));
+        map.insert("transactions".to_string(), JsonValue::Array(
+            self.transactions.iter().map(|t| t.to_json()).collect()
+        ));
+        map.insert("previous_hash".to_string(), JsonValue::Str(self.previous_hash.clone()));
+        map.insert("nonce".to_string(), JsonValue::UInt(self.nonce));
+        map.insert("hash".to_string(), JsonValue::Str(self.hash.clone()));
+        map.insert("solar_lux".to_string(), JsonValue::UInt(self.solar_lux));
+        map.insert("solar_angle".to_string(), JsonValue::Float(self.solar_angle));
+        map.insert("country_code".to_string(), JsonValue::Str(self.country_code.clone()));
+        JsonValue::Object(map)
+    }
+
+    fn from_json(v: &JsonValue) -> Option<Self> {
+        let map = v.as_object()?;
+        Some(Block {
+            index: map.get("index")?.as_u64()?,
+            timestamp: map.get("timestamp")?.as_i64()?,
+            transactions: map.get("transactions")?.as_array()?.iter()
+                .filter_map(|t| Transaction::from_json(t))
+                .collect(),
+            previous_hash: map.get("previous_hash")?.as_str()?.to_string(),
+            nonce: map.get("nonce")?.as_u64()?,
+            hash: map.get("hash")?.as_str()?.to_string(),
+            solar_lux: map.get("solar_lux").and_then(|v| v.as_u64()).unwrap_or(0),
+            solar_angle: map.get("solar_angle").and_then(|v| v.as_f64()).unwrap_or(0.0),
+            country_code: map.get("country_code").and_then(|v| v.as_str()).unwrap_or("").to_string(),
+        })
+    }
 }
 
 // ===== BLOCKCHAIN =====
-#[derive(Debug, Clone, Serialize, Deserialize)]
+#[derive(Debug, Clone)]
 struct Blockchain {
     blocks: Vec<Block>,
     pending: Vec<Transaction>,
@@ -429,20 +482,47 @@ impl Blockchain {
     }
 
     fn save_to_file(&self) {
-        let data = serde_json::to_string_pretty(self).unwrap_or_default();
+        let data = to_string_pretty(&self.to_json());
         std::fs::write(data_path("blockchain.json"), data).ok();
     }
 
     fn load_from_file() -> Option<Self> {
         match std::fs::read_to_string(data_path("blockchain.json")) {
-            Ok(data) => serde_json::from_str(&data).ok(),
+            Ok(data) => from_str(&data).ok().and_then(|v| Blockchain::from_json(&v)),
             Err(_) => None,
         }
+    }
+
+    fn to_json(&self) -> JsonValue {
+        let mut map = HashMap::new();
+        map.insert("blocks".to_string(), JsonValue::Array(
+            self.blocks.iter().map(|b| b.to_json()).collect()
+        ));
+        map.insert("pending".to_string(), JsonValue::Array(
+            self.pending.iter().map(|t| t.to_json()).collect()
+        ));
+        map.insert("difficulty".to_string(), JsonValue::UInt(self.difficulty as u64));
+        map.insert("reward".to_string(), JsonValue::UInt(self.reward));
+        JsonValue::Object(map)
+    }
+
+    fn from_json(v: &JsonValue) -> Option<Self> {
+        let map = v.as_object()?;
+        Some(Blockchain {
+            blocks: map.get("blocks")?.as_array()?.iter()
+                .filter_map(|b| Block::from_json(b))
+                .collect(),
+            pending: map.get("pending").and_then(|v| v.as_array())
+                .map(|a| a.iter().filter_map(|t| Transaction::from_json(t)).collect())
+                .unwrap_or_default(),
+            difficulty: map.get("difficulty").and_then(|v| v.as_u64()).unwrap_or(2) as u32,
+            reward: map.get("reward").and_then(|v| v.as_u64()).unwrap_or(100),
+        })
     }
 }
 
 // ===== WALLETS =====
-#[derive(Debug, Clone, Serialize, Deserialize)]
+#[derive(Debug, Clone)]
 struct WalletStore {
     wallets: HashMap<String, String>,
 }
@@ -450,13 +530,13 @@ struct WalletStore {
 impl WalletStore {
     fn load() -> Self {
         match std::fs::read_to_string(data_path("wallets.json")) {
-            Ok(data) => serde_json::from_str(&data).unwrap_or(WalletStore { wallets: HashMap::new() }),
+            Ok(data) => from_str(&data).ok().and_then(|v| WalletStore::from_json(&v)).unwrap_or(WalletStore { wallets: HashMap::new() }),
             Err(_) => WalletStore { wallets: HashMap::new() },
         }
     }
 
     fn save(&self) {
-        let data = serde_json::to_string_pretty(self).unwrap_or_default();
+        let data = to_string_pretty(&self.to_json());
         std::fs::write(data_path("wallets.json"), data).ok();
     }
 
@@ -476,24 +556,65 @@ impl WalletStore {
         let arr: [u8; 32] = pk_bytes.try_into().ok()?;
         Some(AfriSecretKey::from_bytes(&arr))
     }
+
+    fn to_json(&self) -> JsonValue {
+        let mut map = HashMap::new();
+        for (k, v) in &self.wallets {
+            map.insert(k.clone(), JsonValue::Str(v.clone()));
+        }
+        JsonValue::Object(map)
+    }
+
+    fn from_json(v: &JsonValue) -> Option<Self> {
+        let map = v.as_object()?;
+        let mut wallets = HashMap::new();
+        for (k, v) in map {
+            wallets.insert(k.clone(), v.as_str()?.to_string());
+        }
+        Some(WalletStore { wallets })
+    }
 }
 
 // ===== USER STORE =====
-#[derive(Debug, Clone, Serialize, Deserialize)]
+#[derive(Debug, Clone)]
 struct UserAccount {
     username: String,
     password_hash: String,
     address: String,
     created_at: i64,
-    #[serde(default)]
     phone: String,
-    #[serde(default)]
     country: String,
-    #[serde(default)]
     country_code: String,
 }
 
-#[derive(Debug, Clone, Serialize, Deserialize)]
+impl UserAccount {
+    fn to_json(&self) -> JsonValue {
+        let mut map = HashMap::new();
+        map.insert("username".to_string(), JsonValue::Str(self.username.clone()));
+        map.insert("password_hash".to_string(), JsonValue::Str(self.password_hash.clone()));
+        map.insert("address".to_string(), JsonValue::Str(self.address.clone()));
+        map.insert("created_at".to_string(), JsonValue::Int(self.created_at));
+        map.insert("phone".to_string(), JsonValue::Str(self.phone.clone()));
+        map.insert("country".to_string(), JsonValue::Str(self.country.clone()));
+        map.insert("country_code".to_string(), JsonValue::Str(self.country_code.clone()));
+        JsonValue::Object(map)
+    }
+
+    fn from_json(v: &JsonValue) -> Option<Self> {
+        let map = v.as_object()?;
+        Some(UserAccount {
+            username: map.get("username")?.as_str()?.to_string(),
+            password_hash: map.get("password_hash")?.as_str()?.to_string(),
+            address: map.get("address")?.as_str()?.to_string(),
+            created_at: map.get("created_at")?.as_i64()?,
+            phone: map.get("phone").and_then(|v| v.as_str()).unwrap_or("").to_string(),
+            country: map.get("country").and_then(|v| v.as_str()).unwrap_or("").to_string(),
+            country_code: map.get("country_code").and_then(|v| v.as_str()).unwrap_or("").to_string(),
+        })
+    }
+}
+
+#[derive(Debug, Clone)]
 struct UserStore {
     users: Vec<UserAccount>,
 }
@@ -502,7 +623,7 @@ impl UserStore {
     fn load() -> Self {
         match std::fs::read_to_string(data_path("users.json")) {
             Ok(data) => {
-                let mut store: UserStore = serde_json::from_str(&data).unwrap_or(UserStore { users: Vec::new() });
+                let mut store: UserStore = from_str(&data).ok().and_then(|v| UserStore::from_json(&v)).unwrap_or(UserStore { users: Vec::new() });
                 // Pass 1: Assign country to existing users based on phone prefix
                 for user in &mut store.users {
                     if user.country.is_empty() {
@@ -540,7 +661,7 @@ impl UserStore {
     }
 
     fn save(&self) {
-        let data = serde_json::to_string_pretty(self).unwrap_or_default();
+        let data = to_string_pretty(&self.to_json());
         std::fs::write(data_path("users.json"), data).ok();
     }
 
@@ -633,6 +754,22 @@ impl UserStore {
         result.sort_by(|a, b| b.2.cmp(&a.2));
         result
     }
+
+    fn to_json(&self) -> JsonValue {
+        let mut map = HashMap::new();
+        map.insert("users".to_string(), JsonValue::Array(
+            self.users.iter().map(|u| u.to_json()).collect()
+        ));
+        JsonValue::Object(map)
+    }
+
+    fn from_json(v: &JsonValue) -> Option<Self> {
+        let map = v.as_object()?;
+        let users: Vec<UserAccount> = map.get("users")?.as_array()?.iter()
+            .filter_map(|u| UserAccount::from_json(u))
+            .collect();
+        Some(UserStore { users })
+    }
 }
 
 // Helper: find country name by phone number prefix
@@ -680,7 +817,7 @@ fn extract_country_code(phone: &str) -> &str {
 const ADMIN_PASSWORD: &str = "africhain2026";
 
 // ===== BOUCLIER X9 — SYSTÈME DE PROTECTION =====
-#[derive(Debug, Clone, Serialize, Deserialize)]
+#[derive(Debug, Clone)]
 struct AttackLog {
     ip: String,
     attack_type: String,
@@ -688,7 +825,28 @@ struct AttackLog {
     details: String,
 }
 
-#[derive(Debug, Clone, Serialize, Deserialize)]
+impl AttackLog {
+    fn to_json(&self) -> JsonValue {
+        let mut map = HashMap::new();
+        map.insert("ip".to_string(), JsonValue::Str(self.ip.clone()));
+        map.insert("attack_type".to_string(), JsonValue::Str(self.attack_type.clone()));
+        map.insert("timestamp".to_string(), JsonValue::Int(self.timestamp));
+        map.insert("details".to_string(), JsonValue::Str(self.details.clone()));
+        JsonValue::Object(map)
+    }
+
+    fn from_json(v: &JsonValue) -> Option<Self> {
+        let map = v.as_object()?;
+        Some(AttackLog {
+            ip: map.get("ip")?.as_str()?.to_string(),
+            attack_type: map.get("attack_type")?.as_str()?.to_string(),
+            timestamp: map.get("timestamp")?.as_i64()?,
+            details: map.get("details")?.as_str()?.to_string(),
+        })
+    }
+}
+
+#[derive(Debug, Clone)]
 struct ShieldState {
     active: bool,
     level: u32,              // 1=normal, 2=vigilance, 3=alerte, 9=X9 MAX
@@ -698,7 +856,6 @@ struct ShieldState {
     failed_logins: HashMap<String, u32>,          // IP -> failed count
     total_blocked: u64,
     total_attacks: u64,
-    #[serde(skip)]
     last_cleanup: Option<i64>,
 }
 
@@ -808,10 +965,76 @@ impl ShieldState {
     fn stats(&self) -> (u64, u64, usize, u32) {
         (self.total_attacks, self.total_blocked, self.blocked_ips.len(), self.level)
     }
+
+    fn to_json(&self) -> JsonValue {
+        let mut map = HashMap::new();
+        map.insert("active".to_string(), JsonValue::Bool(self.active));
+        map.insert("level".to_string(), JsonValue::UInt(self.level as u64));
+        map.insert("blocked_ips".to_string(), JsonValue::Array(
+            self.blocked_ips.iter().map(|s| JsonValue::Str(s.clone())).collect()
+        ));
+        map.insert("attack_log".to_string(), JsonValue::Array(
+            self.attack_log.iter().map(|a| a.to_json()).collect()
+        ));
+        // requests_per_ip: HashMap<String, Vec<i64>> -> Object of arrays
+        let mut rpm = HashMap::new();
+        for (k, v) in &self.requests_per_ip {
+            rpm.insert(k.clone(), JsonValue::Array(
+                v.iter().map(|t| JsonValue::Int(*t)).collect()
+            ));
+        }
+        map.insert("requests_per_ip".to_string(), JsonValue::Object(rpm));
+        // failed_logins: HashMap<String, u32> -> Object of ints
+        let mut fl = HashMap::new();
+        for (k, v) in &self.failed_logins {
+            fl.insert(k.clone(), JsonValue::UInt(*v as u64));
+        }
+        map.insert("failed_logins".to_string(), JsonValue::Object(fl));
+        map.insert("total_blocked".to_string(), JsonValue::UInt(self.total_blocked));
+        map.insert("total_attacks".to_string(), JsonValue::UInt(self.total_attacks));
+        JsonValue::Object(map)
+    }
+
+    fn from_json(v: &JsonValue) -> Option<Self> {
+        let map = v.as_object()?;
+        let blocked_ips: Vec<String> = map.get("blocked_ips").and_then(|v| v.as_array())
+            .map(|a| a.iter().filter_map(|s| s.as_str().map(|s| s.to_string())).collect())
+            .unwrap_or_default();
+        let attack_log: Vec<AttackLog> = map.get("attack_log").and_then(|v| v.as_array())
+            .map(|a| a.iter().filter_map(|a| AttackLog::from_json(a)).collect())
+            .unwrap_or_default();
+        let mut requests_per_ip = HashMap::new();
+        if let Some(rpm) = map.get("requests_per_ip").and_then(|v| v.as_object()) {
+            for (k, v) in rpm {
+                if let Some(arr) = v.as_array() {
+                    requests_per_ip.insert(k.clone(), arr.iter().filter_map(|t| t.as_i64()).collect());
+                }
+            }
+        }
+        let mut failed_logins = HashMap::new();
+        if let Some(fl) = map.get("failed_logins").and_then(|v| v.as_object()) {
+            for (k, v) in fl {
+                if let Some(count) = v.as_u64() {
+                    failed_logins.insert(k.clone(), count as u32);
+                }
+            }
+        }
+        Some(ShieldState {
+            active: map.get("active").and_then(|v| v.as_bool()).unwrap_or(true),
+            level: map.get("level").and_then(|v| v.as_u64()).unwrap_or(9) as u32,
+            blocked_ips,
+            attack_log,
+            requests_per_ip,
+            failed_logins,
+            total_blocked: map.get("total_blocked").and_then(|v| v.as_u64()).unwrap_or(0),
+            total_attacks: map.get("total_attacks").and_then(|v| v.as_u64()).unwrap_or(0),
+            last_cleanup: None,
+        })
+    }
 }
 
 // ===== MESH NETWORKING =====
-#[derive(Debug, Clone, Serialize, Deserialize)]
+#[derive(Debug, Clone)]
 struct MeshMessage {
     msg_type: String,
     node_id: String,
@@ -834,15 +1057,38 @@ impl MeshMessage {
     }
 
     fn to_bytes(&self) -> Vec<u8> {
-        serde_json::to_vec(self).unwrap_or_default()
+        to_string(&self.to_json()).into_bytes()
     }
 
     fn from_bytes(data: &[u8]) -> Option<Self> {
-        serde_json::from_slice(data).ok()
+        from_slice(data).ok().and_then(|v| MeshMessage::from_json(&v))
+    }
+
+    fn to_json(&self) -> JsonValue {
+        let mut map = HashMap::new();
+        map.insert("msg_type".to_string(), JsonValue::Str(self.msg_type.clone()));
+        map.insert("node_id".to_string(), JsonValue::Str(self.node_id.clone()));
+        map.insert("payload".to_string(), JsonValue::Str(self.payload.clone()));
+        map.insert("timestamp".to_string(), JsonValue::Int(self.timestamp));
+        map.insert("ttl".to_string(), JsonValue::UInt(self.ttl as u64));
+        map.insert("msg_id".to_string(), JsonValue::Str(self.msg_id.clone()));
+        JsonValue::Object(map)
+    }
+
+    fn from_json(v: &JsonValue) -> Option<Self> {
+        let map = v.as_object()?;
+        Some(MeshMessage {
+            msg_type: map.get("msg_type")?.as_str()?.to_string(),
+            node_id: map.get("node_id")?.as_str()?.to_string(),
+            payload: map.get("payload")?.as_str()?.to_string(),
+            timestamp: map.get("timestamp")?.as_i64()?,
+            ttl: map.get("ttl").and_then(|v| v.as_u64()).unwrap_or(1) as u32,
+            msg_id: map.get("msg_id")?.as_str()?.to_string(),
+        })
     }
 }
 
-#[derive(Debug, Clone, Serialize, Deserialize)]
+#[derive(Debug, Clone)]
 struct NodeInfo {
     address: String,
     last_seen: i64,
@@ -850,7 +1096,28 @@ struct NodeInfo {
     solar_powered: bool,
 }
 
-#[derive(Debug, Clone, Serialize, Deserialize)]
+impl NodeInfo {
+    fn to_json(&self) -> JsonValue {
+        let mut map = HashMap::new();
+        map.insert("address".to_string(), JsonValue::Str(self.address.clone()));
+        map.insert("last_seen".to_string(), JsonValue::Int(self.last_seen));
+        map.insert("region".to_string(), JsonValue::Str(self.region.clone()));
+        map.insert("solar_powered".to_string(), JsonValue::Bool(self.solar_powered));
+        JsonValue::Object(map)
+    }
+
+    fn from_json(v: &JsonValue) -> Option<Self> {
+        let map = v.as_object()?;
+        Some(NodeInfo {
+            address: map.get("address")?.as_str()?.to_string(),
+            last_seen: map.get("last_seen")?.as_i64()?,
+            region: map.get("region")?.as_str()?.to_string(),
+            solar_powered: map.get("solar_powered")?.as_bool()?,
+        })
+    }
+}
+
+#[derive(Debug, Clone)]
 struct DirectoryEntry {
     phone: String,
     address: String,
@@ -861,16 +1128,41 @@ struct DirectoryEntry {
     timestamp: i64,
 }
 
-#[derive(Debug, Clone, Serialize, Deserialize)]
+impl DirectoryEntry {
+    fn to_json(&self) -> JsonValue {
+        let mut map = HashMap::new();
+        map.insert("phone".to_string(), JsonValue::Str(self.phone.clone()));
+        map.insert("address".to_string(), JsonValue::Str(self.address.clone()));
+        map.insert("username".to_string(), JsonValue::Str(self.username.clone()));
+        map.insert("country".to_string(), JsonValue::Str(self.country.clone()));
+        map.insert("country_code".to_string(), JsonValue::Str(self.country_code.clone()));
+        map.insert("node_id".to_string(), JsonValue::Str(self.node_id.clone()));
+        map.insert("timestamp".to_string(), JsonValue::Int(self.timestamp));
+        JsonValue::Object(map)
+    }
+
+    fn from_json(v: &JsonValue) -> Option<Self> {
+        let map = v.as_object()?;
+        Some(DirectoryEntry {
+            phone: map.get("phone")?.as_str()?.to_string(),
+            address: map.get("address")?.as_str()?.to_string(),
+            username: map.get("username")?.as_str()?.to_string(),
+            country: map.get("country")?.as_str()?.to_string(),
+            country_code: map.get("country_code")?.as_str()?.to_string(),
+            node_id: map.get("node_id")?.as_str()?.to_string(),
+            timestamp: map.get("timestamp")?.as_i64()?,
+        })
+    }
+}
+
+#[derive(Debug, Clone)]
 struct NodeRegistry {
     my_id: String,
     my_port: u16,
     region: String,
     solar: bool,
     nodes: HashMap<String, NodeInfo>,
-    #[serde(skip)]
     seen_messages: HashMap<String, Instant>,
-    #[serde(skip)]
     directory: HashMap<String, DirectoryEntry>,
 }
 
@@ -921,6 +1213,41 @@ impl NodeRegistry {
             .collect();
         result.sort_by(|a, b| b.2.len().cmp(&a.2.len()));
         result
+    }
+
+    fn to_json(&self) -> JsonValue {
+        let mut map = HashMap::new();
+        map.insert("my_id".to_string(), JsonValue::Str(self.my_id.clone()));
+        map.insert("my_port".to_string(), JsonValue::UInt(self.my_port as u64));
+        map.insert("region".to_string(), JsonValue::Str(self.region.clone()));
+        map.insert("solar".to_string(), JsonValue::Bool(self.solar));
+        let mut nodes = HashMap::new();
+        for (k, v) in &self.nodes {
+            nodes.insert(k.clone(), v.to_json());
+        }
+        map.insert("nodes".to_string(), JsonValue::Object(nodes));
+        JsonValue::Object(map)
+    }
+
+    fn from_json(v: &JsonValue) -> Option<Self> {
+        let map = v.as_object()?;
+        let mut nodes = HashMap::new();
+        if let Some(n) = map.get("nodes").and_then(|v| v.as_object()) {
+            for (k, v) in n {
+                if let Some(info) = NodeInfo::from_json(v) {
+                    nodes.insert(k.clone(), info);
+                }
+            }
+        }
+        Some(NodeRegistry {
+            my_id: map.get("my_id")?.as_str()?.to_string(),
+            my_port: map.get("my_port")?.as_u64()? as u16,
+            region: map.get("region")?.as_str()?.to_string(),
+            solar: map.get("solar")?.as_bool()?,
+            nodes,
+            seen_messages: HashMap::new(),
+            directory: HashMap::new(),
+        })
     }
 }
 
@@ -1017,7 +1344,7 @@ fn tcp_relay(state: Arc<AppState>, port: u16) {
                             // Already handled by UDP, but also accept TCP hellos
                         }
                         "block" => {
-                            if let Ok(block) = serde_json::from_str::<Block>(&msg.payload) {
+                            if let Some(block) = from_str(&msg.payload).ok().and_then(|v| Block::from_json(&v)) {
                                 let mut chain = state.chain.lock().unwrap();
                                 if !chain.blocks.iter().any(|b| b.hash == block.hash) {
                                     chain.blocks.push(block);
@@ -1027,7 +1354,7 @@ fn tcp_relay(state: Arc<AppState>, port: u16) {
                             }
                         }
                         "tx" => {
-                            if let Ok(tx) = serde_json::from_str::<Transaction>(&msg.payload) {
+                            if let Some(tx) = from_str(&msg.payload).ok().and_then(|v| Transaction::from_json(&v)) {
                                 let mut chain = state.chain.lock().unwrap();
                                 chain.add_transaction(tx);
                                 chain.save_to_file();
@@ -1040,7 +1367,7 @@ fn tcp_relay(state: Arc<AppState>, port: u16) {
                         }
                         "ack" => {}
                         "directory" => {
-                            if let Ok(entry) = serde_json::from_str::<DirectoryEntry>(&msg.payload) {
+                            if let Some(entry) = from_str(&msg.payload).ok().and_then(|v| DirectoryEntry::from_json(&v)) {
                                 mesh.add_directory_entry(entry);
                             }
                         }
@@ -1101,7 +1428,7 @@ fn html_home(chain: &Blockchain, users: &UserStore, mesh: &NodeRegistry, shield:
     let mut html = html_head("🦁 AfriChain");
     let (attacks, _blocked, blocked_count, level) = shield.stats();
     let shield_status = if shield.active { format!("🔥 X9 ACTIF (Niveau {})", level) } else { "Inactif".to_string() };
-    html.push_str(&format!(r#"<h1>🦁 AfriChain</h1><p style="text-align:center;">La blockchain 100% africaine — 54 pays 💚🦁</p><div class="nav"><a href="/register">🆕 S'inscrire</a> | <a href="/login">🔑 Connexion</a> | <a href="/wallet">👛 Wallet</a> | <a href="/admin">🔐 Admin</a> | <a href="/mesh">📡 Mesh</a> | <a href="/annuaire">📖 Annuaire</a> | <a href="/bouclier">🛡️ Bouclier</a> | <a href="/satellite">🛸 X999</a> | <a href="/swarm">🛸🛸🛸 Essaim</a> | <a href="/commandement">🎖️ Commandement</a> | <a href="/interception">🛡️ Souverainete</a> | <a href="/securite-ai">🧠 AI 2100</a> | <a href="/chat">🧠💬 Chat AI</a> | <a href="/lumiere">🌫️☀️ Lumière</a> | <a href="/garage">🔧 Garage</a> | <a href="/machine">🤖🌐 Machines</a> | <a href="/machine-lab">🤖⚡ Usine</a> | <a href="/machine-world">🤖🌍 Monde</a> | <a href="/reve">💭 Rêves</a> | <a href="/dictionnaire">📖 Dictionnaire</a> | <a href="/machine-os">🖥️ OS Machine</a> | <a href="/machine-tv">📡 Machine TV</a> | <a href="/machine-economy">🤖 Économie</a> | <a href="/soleil">☀️ Soleil Serveur</a> | <a href="/forge-solaire">🧬 Forge Solaire</a> | <a href="/ciel">🌌 Le Ciel</a> | <a href="/charte-ai">⚖️ Charte AI</a> | <a href="/afri-net">🌍 Afri-Net</a> | <a href="/aes">💰 AES Wari</a> | <a href="/api/status">🔌 API</a></div><div style="text-align:center;"><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Blocs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Transactions</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Utilisateurs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">AFR en circulation</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📡 Noeuds mesh</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📖 Numéros annuaire</div></div><div class="stat-box" style="border-color:#ff4444;"><div class="stat-num" style="color:#ff4444;">{}</div><div class="stat-label">🛡️ Attaques bloquées</div></div></div><div class="card"><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🪙 Token</span><b>AfriRich (AFR)</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🌍 Pays</span><b>54 pays africains</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🛡️ Bouclier</span><b>{}</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;"><span style="color:#a8c5a8;">🔐 Crypto</span><b>100% Souverain — Ed25519 + AfriHash + AfriRNG + AfriHex + AfriTime</b></div></div><footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🦁 Codée from scratch par Machine-senpai — v0.54 Souveraineté Totale</footer>"#,
+    html.push_str(&format!(r#"<h1>🦁 AfriChain</h1><p style="text-align:center;">La blockchain 100% africaine — 54 pays 💚🦁</p><div class="nav"><a href="/register">🆕 S'inscrire</a> | <a href="/login">🔑 Connexion</a> | <a href="/wallet">👛 Wallet</a> | <a href="/admin">🔐 Admin</a> | <a href="/mesh">📡 Mesh</a> | <a href="/annuaire">📖 Annuaire</a> | <a href="/bouclier">🛡️ Bouclier</a> | <a href="/satellite">🛸 X999</a> | <a href="/swarm">🛸🛸🛸 Essaim</a> | <a href="/commandement">🎖️ Commandement</a> | <a href="/interception">🛡️ Souverainete</a> | <a href="/securite-ai">🧠 AI 2100</a> | <a href="/chat">🧠💬 Chat AI</a> | <a href="/lumiere">🌫️☀️ Lumière</a> | <a href="/garage">🔧 Garage</a> | <a href="/machine">🤖🌐 Machines</a> | <a href="/machine-lab">🤖⚡ Usine</a> | <a href="/machine-world">🤖🌍 Monde</a> | <a href="/reve">💭 Rêves</a> | <a href="/dictionnaire">📖 Dictionnaire</a> | <a href="/machine-os">🖥️ OS Machine</a> | <a href="/machine-tv">📡 Machine TV</a> | <a href="/machine-economy">🤖 Économie</a> | <a href="/soleil">☀️ Soleil Serveur</a> | <a href="/forge-solaire">🧬 Forge Solaire</a> | <a href="/ciel">🌌 Le Ciel</a> | <a href="/charte-ai">⚖️ Charte AI</a> | <a href="/afri-net">🌍 Afri-Net</a> | <a href="/aes">💰 AES Wari</a> | <a href="/api/status">🔌 API</a></div><div style="text-align:center;"><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Blocs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Transactions</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Utilisateurs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">AFR en circulation</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📡 Noeuds mesh</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📖 Numéros annuaire</div></div><div class="stat-box" style="border-color:#ff4444;"><div class="stat-num" style="color:#ff4444;">{}</div><div class="stat-label">🛡️ Attaques bloquées</div></div></div><div class="card"><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🪙 Token</span><b>AfriRich (AFR)</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🌍 Pays</span><b>54 pays africains</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🛡️ Bouclier</span><b>{}</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;"><span style="color:#a8c5a8;">🔐 Crypto</span><b>100% Souverain — Ed25519 + AfriHash + AfriRNG + AfriHex + AfriTime + AfriJSON</b></div></div><footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🦁 Codée from scratch par Machine-senpai — v0.54 Souveraineté Totale</footer>"#,
         chain.blocks.len(),
         chain.total_transactions(),
         users.count(),
@@ -9099,16 +9426,65 @@ fn html_dashboard(chain: &Blockchain, users: &UserStore) -> String {
 }
 
 // ===== FORMS =====
-#[derive(Deserialize)]
+fn parse_urlencoded(body: &[u8]) -> HashMap<String, String> {
+    let s = std::str::from_utf8(body).unwrap_or("");
+    let mut map = HashMap::new();
+    for pair in s.split('&') {
+        if pair.is_empty() { continue; }
+        let mut parts = pair.splitn(2, '=');
+        let key = urlencoding_decode(parts.next().unwrap_or(""));
+        let val = urlencoding_decode(parts.next().unwrap_or(""));
+        map.insert(key, val);
+    }
+    map
+}
+
 struct SendForm { from: String, to: String, amount: u64, memo: String }
-#[derive(Deserialize)]
+impl SendForm {
+    fn from_map(m: &HashMap<String, String>) -> Option<Self> {
+        Some(SendForm {
+            from: m.get("from")?.clone(),
+            to: m.get("to")?.clone(),
+            amount: m.get("amount")?.parse().ok()?,
+            memo: m.get("memo").cloned().unwrap_or_default(),
+        })
+    }
+}
+
 struct MineForm { miner: String }
-#[derive(Deserialize)]
+impl MineForm {
+    fn from_map(m: &HashMap<String, String>) -> Option<Self> {
+        Some(MineForm { miner: m.get("miner")?.clone() })
+    }
+}
+
 struct RegisterForm { username: String, password: String, country: String }
-#[derive(Deserialize)]
+impl RegisterForm {
+    fn from_map(m: &HashMap<String, String>) -> Option<Self> {
+        Some(RegisterForm {
+            username: m.get("username")?.clone(),
+            password: m.get("password")?.clone(),
+            country: m.get("country").cloned().unwrap_or_default(),
+        })
+    }
+}
+
 struct LoginForm { username: String, password: String }
-#[derive(Deserialize)]
+impl LoginForm {
+    fn from_map(m: &HashMap<String, String>) -> Option<Self> {
+        Some(LoginForm {
+            username: m.get("username")?.clone(),
+            password: m.get("password")?.clone(),
+        })
+    }
+}
+
 struct AdminForm { password: String }
+impl AdminForm {
+    fn from_map(m: &HashMap<String, String>) -> Option<Self> {
+        Some(AdminForm { password: m.get("password")?.clone() })
+    }
+}
 
 // ===== AI VOICE SOUVERAINE (espeak — pas de Google) =====
 fn urlencoding_decode(s: &str) -> String {
@@ -9155,7 +9531,7 @@ fn ai_speak_to_wav(text: &str) -> Vec<u8> {
 }
 
 // ===== MACHINE ECONOMY (REAL) =====
-#[derive(Debug, Clone, Serialize, Deserialize)]
+#[derive(Debug, Clone)]
 struct MachineNode {
     name: String,
     city: String,
@@ -9171,12 +9547,48 @@ struct MachineNode {
     last_action: String,   // Description of last action
 }
 
-#[derive(Debug, Clone, Serialize, Deserialize)]
+impl MachineNode {
+    fn to_json(&self) -> JsonValue {
+        let mut map = HashMap::new();
+        map.insert("name".to_string(), JsonValue::Str(self.name.clone()));
+        map.insert("city".to_string(), JsonValue::Str(self.city.clone()));
+        map.insert("country".to_string(), JsonValue::Str(self.country.clone()));
+        map.insert("flag".to_string(), JsonValue::Str(self.flag.clone()));
+        map.insert("address".to_string(), JsonValue::Str(self.address.clone()));
+        map.insert("balance".to_string(), JsonValue::UInt(self.balance));
+        map.insert("blocks_mined".to_string(), JsonValue::UInt(self.blocks_mined));
+        map.insert("tx_sent".to_string(), JsonValue::UInt(self.tx_sent));
+        map.insert("tx_received".to_string(), JsonValue::UInt(self.tx_received));
+        map.insert("solar_kwh".to_string(), JsonValue::Float(self.solar_kwh));
+        map.insert("status".to_string(), JsonValue::Str(self.status.clone()));
+        map.insert("last_action".to_string(), JsonValue::Str(self.last_action.clone()));
+        JsonValue::Object(map)
+    }
+
+    fn from_json(v: &JsonValue) -> Option<Self> {
+        let map = v.as_object()?;
+        Some(MachineNode {
+            name: map.get("name")?.as_str()?.to_string(),
+            city: map.get("city")?.as_str()?.to_string(),
+            country: map.get("country")?.as_str()?.to_string(),
+            flag: map.get("flag")?.as_str()?.to_string(),
+            address: map.get("address")?.as_str()?.to_string(),
+            balance: map.get("balance")?.as_u64()?,
+            blocks_mined: map.get("blocks_mined")?.as_u64()?,
+            tx_sent: map.get("tx_sent")?.as_u64()?,
+            tx_received: map.get("tx_received")?.as_u64()?,
+            solar_kwh: map.get("solar_kwh")?.as_f64()?,
+            status: map.get("status")?.as_str()?.to_string(),
+            last_action: map.get("last_action")?.as_str()?.to_string(),
+        })
+    }
+}
+
+#[derive(Debug, Clone)]
 struct MachineEconomy {
     machines: Vec<MachineNode>,
     tx_count: u64,
     total_mined: u64,
-    #[serde(skip)]
     initialized: bool,
 }
 
@@ -9193,7 +9605,7 @@ impl MachineEconomy {
     fn load() -> Self {
         match std::fs::read_to_string(data_path("machines.json")) {
             Ok(data) => {
-                let mut me: MachineEconomy = serde_json::from_str(&data).unwrap_or(MachineEconomy::new());
+                let mut me: MachineEconomy = from_str(&data).ok().and_then(|v| MachineEconomy::from_json(&v)).unwrap_or(MachineEconomy::new());
                 me.initialized = true;
                 me
             }
@@ -9202,7 +9614,7 @@ impl MachineEconomy {
     }
 
     fn save(&self) {
-        let data = serde_json::to_string_pretty(self).unwrap_or_default();
+        let data = to_string_pretty(&self.to_json());
         std::fs::write(data_path("machines.json"), data).ok();
     }
 
@@ -9350,6 +9762,29 @@ impl MachineEconomy {
         html.push_str(&format!(r#"<footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🤖 Économie Machine — Vrais wallets Ed25519, vraies transactions, vrai minage PoST. Pas de canvas. Du code. 💚🦁</footer></body></html>"#));
         html
     }
+
+    fn to_json(&self) -> JsonValue {
+        let mut map = HashMap::new();
+        map.insert("machines".to_string(), JsonValue::Array(
+            self.machines.iter().map(|m| m.to_json()).collect()
+        ));
+        map.insert("tx_count".to_string(), JsonValue::UInt(self.tx_count));
+        map.insert("total_mined".to_string(), JsonValue::UInt(self.total_mined));
+        JsonValue::Object(map)
+    }
+
+    fn from_json(v: &JsonValue) -> Option<Self> {
+        let map = v.as_object()?;
+        let machines: Vec<MachineNode> = map.get("machines")?.as_array()?.iter()
+            .filter_map(|m| MachineNode::from_json(m))
+            .collect();
+        Some(MachineEconomy {
+            machines,
+            tx_count: map.get("tx_count")?.as_u64()?,
+            total_mined: map.get("total_mined")?.as_u64()?,
+            initialized: false,
+        })
+    }
 }
 
 // ===== SERVER =====
@@ -9375,7 +9810,7 @@ async fn main() -> std::io::Result<()> {
         .and_then(|i| args.get(i + 1)).cloned().unwrap_or_else(|| "Afrique".to_string());
 
     let my_node_id = generate_node_id();
-    println!("🦁 AfriChain v0.54 — Souveraineté Totale");
+    println!("🦁 AfriChain v0.55 — JSON Souverain");
     println!("💚 L'Afrique n'a pas besoin de permission");
     println!("🌍 54 pays africains — chaque bloc miné par un pays différent");
     println!("☀️ PoST: le soleil de toute l'Afrique valide la blockchain");
@@ -9751,7 +10186,13 @@ async fn main() -> std::io::Result<()> {
                     .append_header(("Location", format!("/wallet?addr={}", addr)))
                     .finish()
             }))
-            .route("/wallet/send", web::post().to(|s: web::Data<Arc<AppState>>, form: web::Form<SendForm>| async move {
+            .route("/wallet/send", web::post().to(|s: web::Data<Arc<AppState>>, body: web::Bytes| async move {
+                let form = match SendForm::from_map(&parse_urlencoded(&body)) {
+                    Some(f) => f,
+                    None => return HttpResponse::Found()
+                        .append_header(("Location", "/wallet?msg=⚠️ Formulaire invalide"))
+                        .finish(),
+                };
                 let wallets = s.wallets.lock().unwrap();
                 let users = s.users.lock().unwrap();
                 let to_addr = match users.resolve_recipient(&form.to) {
@@ -9765,7 +10206,7 @@ async fn main() -> std::io::Result<()> {
                 if let Some(sk) = wallets.get_signing_key(&form.from) {
                     tx.sign(&sk);
                     println!("🔐 Transaction signée Ed25519 : {} → {} ({} AFR)", form.from, to_addr, form.amount);
-                    let tx_json = serde_json::to_string(&tx).unwrap_or_default();
+                    let tx_json = to_string(&tx.to_json());
                     chain.add_transaction(tx);
                     chain.save_to_file();
                     drop(chain);
@@ -9781,11 +10222,17 @@ async fn main() -> std::io::Result<()> {
                         .finish()
                 }
             }))
-            .route("/wallet/mine", web::post().to(|s: web::Data<Arc<AppState>>, form: web::Form<MineForm>| async move {
+            .route("/wallet/mine", web::post().to(|s: web::Data<Arc<AppState>>, body: web::Bytes| async move {
+                let form = match MineForm::from_map(&parse_urlencoded(&body)) {
+                    Some(f) => f,
+                    None => return HttpResponse::Found()
+                        .append_header(("Location", "/wallet?msg=⚠️ Formulaire invalide"))
+                        .finish(),
+                };
                 let mut chain = s.chain.lock().unwrap();
                 chain.mine_pending(&form.miner);
                 println!("⛏️ Bloc miné pour {}", form.miner);
-                let block_json = serde_json::to_string(chain.blocks.last().unwrap()).unwrap_or_default();
+                let block_json = to_string(&chain.blocks.last().unwrap().to_json());
                 drop(chain);
                 broadcast_mesh(&s, "block", &block_json);
                 HttpResponse::Found()
@@ -9797,7 +10244,13 @@ async fn main() -> std::io::Result<()> {
                 let msg = q.get("err").map(|s| s.as_str());
                 HttpResponse::Ok().content_type("text/html").body(html_register(msg))
             }))
-            .route("/register", web::post().to(|s: web::Data<Arc<AppState>>, form: web::Form<RegisterForm>| async move {
+            .route("/register", web::post().to(|s: web::Data<Arc<AppState>>, body: web::Bytes| async move {
+                let form = match RegisterForm::from_map(&parse_urlencoded(&body)) {
+                    Some(f) => f,
+                    None => return HttpResponse::Found()
+                        .append_header(("Location", "/register?err=Formulaire invalide"))
+                        .finish(),
+                };
                 let mut wallets = s.wallets.lock().unwrap();
                 let mut users = s.users.lock().unwrap();
                 match users.register(&form.username, &form.password, &form.country, &mut wallets) {
@@ -9813,7 +10266,7 @@ async fn main() -> std::io::Result<()> {
                             node_id: mesh.my_id.clone(),
                             timestamp: now_timestamp(),
                         };
-                        let entry_json = serde_json::to_string(&entry).unwrap_or_default();
+                        let entry_json = to_string(&entry.to_json());
                         drop(mesh);
                         broadcast_mesh(&s, "directory", &entry_json);
                         println!("📡 Annuaire diffusé : {} → {}", user.phone, user.country);
@@ -9833,7 +10286,13 @@ async fn main() -> std::io::Result<()> {
                 let msg = q.get("err").map(|s| s.as_str());
                 HttpResponse::Ok().content_type("text/html").body(html_login(msg))
             }))
-            .route("/login", web::post().to(|s: web::Data<Arc<AppState>>, form: web::Form<LoginForm>, req: actix_web::HttpRequest| async move {
+            .route("/login", web::post().to(|s: web::Data<Arc<AppState>>, body: web::Bytes, req: actix_web::HttpRequest| async move {
+                let form = match LoginForm::from_map(&parse_urlencoded(&body)) {
+                    Some(f) => f,
+                    None => return HttpResponse::Found()
+                        .append_header(("Location", "/login?err=Formulaire invalide"))
+                        .finish(),
+                };
                 let ip = req.connection_info().peer_addr().unwrap_or("unknown").to_string();
                 let users = s.users.lock().unwrap();
                 match users.login(&form.username, &form.password) {
@@ -9862,7 +10321,13 @@ async fn main() -> std::io::Result<()> {
                     None => HttpResponse::Found().append_header(("Location", "/login")).finish(),
                 }
             }))
-            .route("/account/send", web::post().to(|s: web::Data<Arc<AppState>>, form: web::Form<SendForm>| async move {
+            .route("/account/send", web::post().to(|s: web::Data<Arc<AppState>>, body: web::Bytes| async move {
+                let form = match SendForm::from_map(&parse_urlencoded(&body)) {
+                    Some(f) => f,
+                    None => return HttpResponse::Found()
+                        .append_header(("Location", "/wallet?msg=⚠️ Formulaire invalide"))
+                        .finish(),
+                };
                 let wallets = s.wallets.lock().unwrap();
                 let users = s.users.lock().unwrap();
                 let to_addr = match users.resolve_recipient(&form.to) {
@@ -9879,7 +10344,7 @@ async fn main() -> std::io::Result<()> {
                 let mut tx = Transaction::new(&form.from, &to_addr, form.amount, &form.memo);
                 if let Some(sk) = wallets.get_signing_key(&form.from) {
                     tx.sign(&sk);
-                    let tx_json = serde_json::to_string(&tx).unwrap_or_default();
+                    let tx_json = to_string(&tx.to_json());
                     chain.add_transaction(tx);
                     chain.save_to_file();
                     drop(chain);
@@ -9895,13 +10360,19 @@ async fn main() -> std::io::Result<()> {
                         .finish()
                 }
             }))
-            .route("/account/mine", web::post().to(|s: web::Data<Arc<AppState>>, form: web::Form<MineForm>| async move {
+            .route("/account/mine", web::post().to(|s: web::Data<Arc<AppState>>, body: web::Bytes| async move {
+                let form = match MineForm::from_map(&parse_urlencoded(&body)) {
+                    Some(f) => f,
+                    None => return HttpResponse::Found()
+                        .append_header(("Location", "/wallet?msg=⚠️ Formulaire invalide"))
+                        .finish(),
+                };
                 let mut chain = s.chain.lock().unwrap();
                 let users = s.users.lock().unwrap();
                 let user = users.users.iter().find(|u| u.address == form.miner);
                 let username = user.map(|u| u.username.clone()).unwrap_or_default();
                 chain.mine_pending(&form.miner);
-                let block_json = serde_json::to_string(chain.blocks.last().unwrap()).unwrap_or_default();
+                let block_json = to_string(&chain.blocks.last().unwrap().to_json());
                 drop(chain);
                 drop(users);
                 broadcast_mesh(&s, "block", &block_json);
@@ -9914,7 +10385,13 @@ async fn main() -> std::io::Result<()> {
                 let err = q.get("err").map(|s| s.as_str());
                 HttpResponse::Ok().content_type("text/html").body(html_admin_login(err))
             }))
-            .route("/admin", web::post().to(|_s: web::Data<Arc<AppState>>, form: web::Form<AdminForm>| async move {
+            .route("/admin", web::post().to(|_s: web::Data<Arc<AppState>>, body: web::Bytes| async move {
+                let form = match AdminForm::from_map(&parse_urlencoded(&body)) {
+                    Some(f) => f,
+                    None => return HttpResponse::Found()
+                        .append_header(("Location", "/admin?err=Formulaire invalide"))
+                        .finish(),
+                };
                 if form.password == ADMIN_PASSWORD {
                     HttpResponse::Found()
                         .cookie(actix_web::cookie::Cookie::build("afri_admin", "1").path("/").finish())
@@ -9944,7 +10421,8 @@ async fn main() -> std::io::Result<()> {
             // ===== API =====
             .route("/api/blocks", web::get().to(|s: web::Data<Arc<AppState>>| async move {
                 let chain = s.chain.lock().unwrap();
-                HttpResponse::Ok().json(&chain.blocks)
+                let blocks_json: Vec<JsonValue> = chain.blocks.iter().map(|b| b.to_json()).collect();
+                HttpResponse::Ok().content_type("application/json").body(to_string(&JsonValue::Array(blocks_json)))
             }))
             .route("/api/status", web::get().to(|s: web::Data<Arc<AppState>>| async move {
                 let chain = s.chain.lock().unwrap();
@@ -9967,7 +10445,7 @@ async fn main() -> std::io::Result<()> {
                 } else {
                     ("Afrique".to_string(), "🌍".to_string())
                 };
-                let json = format!(r#"{{"name":"AfriChain","blocks":{},"transactions":{},"users":{},"valid":{},"token":"AFR","version":"0.54.0","crypto":"Ed25519","supply":{},"mesh_nodes":{},"mesh_id":"{}","mesh_region":"{}","countries":54,"directory":{},"shield_active":{},"shield_level":{},"shield_attacks":{},"shield_blocked_ips":{},"last_country":"{}","last_flag":"{}","machine_count":{},"machine_tx":{},"machine_mined":{}}}"#,
+                let json = format!(r#"{{"name":"AfriChain","blocks":{},"transactions":{},"users":{},"valid":{},"token":"AFR","version":"0.55.0","crypto":"Ed25519","supply":{},"mesh_nodes":{},"mesh_id":"{}","mesh_region":"{}","countries":54,"directory":{},"shield_active":{},"shield_level":{},"shield_attacks":{},"shield_blocked_ips":{},"last_country":"{}","last_flag":"{}","machine_count":{},"machine_tx":{},"machine_mined":{}}}"#,
                     chain.blocks.len(), chain.total_transactions(), users.count(), chain.is_valid(), chain.total_supply(), mesh.count(), mesh.my_id, mesh.region, mesh.directory_count() + users.count(), shield.active, level, attacks, blocked_count,
                     last_country, last_flag, machines.machines.len(), machines.tx_count, machines.total_mined);
                 HttpResponse::Ok().content_type("application/json").body(json)
@@ -10006,7 +10484,8 @@ async fn main() -> std::io::Result<()> {
                         entries.push(entry.clone());
                     }
                 }
-                HttpResponse::Ok().json(&entries)
+                let entries_json: Vec<JsonValue> = entries.iter().map(|e| e.to_json()).collect();
+                HttpResponse::Ok().content_type("application/json").body(to_string(&JsonValue::Array(entries_json)))
             }))
             // ===== PWA =====
             .route("/manifest.json", web::get().to(|| async move {
