@@ -10031,6 +10031,7 @@ fn admin_interface(state: &Arc<AppState>) {
         println!(" 10. 📡 AfriMesh Direct (sans opérateur)");
         println!(" 11. 💬 Envoyer message mesh");
         println!(" 12. 📥 Messages reçus (store-and-forward)");
+        println!(" 13. 🚨 Alertes AI — Détection de menaces");
         println!("  0. ❌ Quitter");
 
         print!("\n👉 Choix: ");
@@ -10053,6 +10054,7 @@ fn admin_interface(state: &Arc<AppState>) {
             "10" => terminal_mesh_direct(state),
             "11" => terminal_mesh_send(state),
             "12" => terminal_mesh_inbox(state),
+            "13" => terminal_threat_alerts(state),
             "0" => {
                 println!("🦁 Au revoir senpai. L'Afrique veille.");
                 std::process::exit(0);
@@ -10249,6 +10251,8 @@ fn client_plante_verte(state: &Arc<AppState>, logged_user: &Option<String>) {
                     }
                     let users = state.users.lock().unwrap();
                     if let Some(user) = users.users.iter().find(|u| &u.username == username) {
+                        // AI veille — scanner le post pour menaces
+                        record_threats(&content, &user.username, &user.country);
                         let mut feed = load_social_feed();
                         feed.push(SocialPost {
                             author: user.username.clone(),
@@ -10380,6 +10384,213 @@ fn client_sahara_afri(state: &Arc<AppState>) {
             "0" => break,
             _ => println!("⚠️ Choix invalide"),
         }
+    }
+}
+
+// ===== AI DÉTECTION DE MENACES — La blockchain veille =====
+
+#[derive(Clone)]
+struct ThreatAlert {
+    timestamp: i64,
+    source: String,      // who sent the message
+    keyword: String,     // what triggered the alert
+    content: String,     // the message content
+    severity: String,    // CRITIQUE / ALERTE / VIGILANCE
+    country: String,     // source country
+}
+
+impl ThreatAlert {
+    fn to_json(&self) -> JsonValue {
+        let mut map = HashMap::new();
+        map.insert("timestamp".to_string(), JsonValue::Int(self.timestamp));
+        map.insert("source".to_string(), JsonValue::Str(self.source.clone()));
+        map.insert("keyword".to_string(), JsonValue::Str(self.keyword.clone()));
+        map.insert("content".to_string(), JsonValue::Str(self.content.clone()));
+        map.insert("severity".to_string(), JsonValue::Str(self.severity.clone()));
+        map.insert("country".to_string(), JsonValue::Str(self.country.clone()));
+        JsonValue::Object(map)
+    }
+
+    fn from_json(v: &JsonValue) -> Option<Self> {
+        let m = v.as_object()?;
+        Some(ThreatAlert {
+            timestamp: m.get("timestamp")?.as_i64()?,
+            source: m.get("source")?.as_str()?.to_string(),
+            keyword: m.get("keyword")?.as_str()?.to_string(),
+            content: m.get("content")?.as_str()?.to_string(),
+            severity: m.get("severity")?.as_str()?.to_string(),
+            country: m.get("country").and_then(|v| v.as_str()).unwrap_or("").to_string(),
+        })
+    }
+}
+
+fn threat_keywords() -> Vec<(&'static str, &'static str)> {
+    // (keyword, severity)
+    vec![
+        // Critique — menaces directes
+        ("coup d'état", "CRITIQUE"),
+        ("coup detat", "CRITIQUE"),
+        ("putsch", "CRITIQUE"),
+        ("renverser", "CRITIQUE"),
+        ("assassiner", "CRITIQUE"),
+        ("tuer le", "CRITIQUE"),
+        ("attentat", "CRITIQUE"),
+        ("bombe", "CRITIQUE"),
+        ("explosif", "CRITIQUE"),
+        // Alerte — armes et violence
+        ("armes", "ALERTE"),
+        ("arme", "ALERTE"),
+        ("fusil", "ALERTE"),
+        ("kalash", "ALERTE"),
+        ("balle", "ALERTE"),
+        ("munition", "ALERTE"),
+        ("guerre", "ALERTE"),
+        ("attaquer", "ALERTE"),
+        ("combat", "ALERTE"),
+        ("tuer", "ALERTE"),
+        ("mort", "ALERTE"),
+        ("sang", "ALERTE"),
+        ("execution", "ALERTE"),
+        // Vigilance — instabilité
+        ("manifestation", "VIGILANCE"),
+        ("émeute", "VIGILANCE"),
+        ("rebellion", "VIGILANCE"),
+        ("terroriste", "VIGILANCE"),
+        ("enlevement", "VIGILANCE"),
+        ("otage", "VIGILANCE"),
+        ("interdit", "VIGILANCE"),
+        ("menace", "VIGILANCE"),
+    ]
+}
+
+fn scan_for_threats(text: &str, source: &str, country: &str) -> Vec<ThreatAlert> {
+    let lower = text.to_lowercase();
+    let keywords = threat_keywords();
+    let mut alerts = Vec::new();
+    let now = now_timestamp();
+
+    for (keyword, severity) in &keywords {
+        if lower.contains(keyword) {
+            alerts.push(ThreatAlert {
+                timestamp: now,
+                source: source.to_string(),
+                keyword: keyword.to_string(),
+                content: text.to_string(),
+                severity: severity.to_string(),
+                country: country.to_string(),
+            });
+        }
+    }
+
+    alerts
+}
+
+fn load_alerts() -> Vec<ThreatAlert> {
+    let data = std::fs::read_to_string(data_path("alerts.json")).unwrap_or_else(|_| "[]".to_string());
+    let v = from_str(&data).unwrap_or(JsonValue::Array(Vec::new()));
+    match v {
+        JsonValue::Array(arr) => arr.iter().filter_map(|a| ThreatAlert::from_json(a)).collect(),
+        _ => Vec::new(),
+    }
+}
+
+fn save_alerts(alerts: &[ThreatAlert]) {
+    let arr: Vec<JsonValue> = alerts.iter().map(|a| a.to_json()).collect();
+    let data = to_string_pretty(&JsonValue::Array(arr));
+    std::fs::write(data_path("alerts.json"), data).ok();
+}
+
+fn record_threats(text: &str, source: &str, country: &str) {
+    let new_alerts = scan_for_threats(text, source, country);
+    if !new_alerts.is_empty() {
+        let mut alerts = load_alerts();
+        for a in &new_alerts {
+            println!("🚨 ALERTE AI — [{}] {} a dit: \"{}\" (mot: {})",
+                a.severity, a.source, &a.content[..a.content.len().min(60)], a.keyword);
+        }
+        alerts.extend(new_alerts);
+        // Garder max 1000 alertes
+        if alerts.len() > 1000 {
+            alerts = alerts[alerts.len() - 1000..].to_vec();
+        }
+        save_alerts(&alerts);
+    }
+}
+
+fn terminal_threat_alerts(state: &Arc<AppState>) {
+    loop {
+        let alerts = load_alerts();
+        let critique = alerts.iter().filter(|a| a.severity == "CRITIQUE").count();
+        let alerte = alerts.iter().filter(|a| a.severity == "ALERTE").count();
+        let vigilance = alerts.iter().filter(|a| a.severity == "VIGILANCE").count();
+
+        println!("\n🚨 AI DÉTECTION DE MENACES — LA BLOCKCHAIN VEILLE");
+        println!("═══════════════════════════════════");
+        println!("  🔴 CRITIQUE: {}", critique);
+        println!("  🟠 ALERTE:   {}", alerte);
+        println!("  🟡 VIGILANCE: {}", vigilance);
+        println!("  📊 Total: {} alertes", alerts.len());
+        println!("═══════════════════════════════════");
+
+        println!("\n  1. 📋 Voir toutes les alertes");
+        println!("  2. 🔴 Voir alertes CRITIQUES");
+        println!("  3. 🟠 Voir alertes ALERTE");
+        println!("  4. 🟡 Voir alertes VIGILANCE");
+        println!("  5. 🔍 Rechercher dans les alertes");
+        println!("  0. ← Retour");
+
+        let choice = read_input("👉 Choix: ");
+        match choice.trim() {
+            "1" => show_alerts(&alerts, None),
+            "2" => show_alerts(&alerts, Some("CRITIQUE")),
+            "3" => show_alerts(&alerts, Some("ALERTE")),
+            "4" => show_alerts(&alerts, Some("VIGILANCE")),
+            "5" => {
+                let q = read_input("🔍 Rechercher: ");
+                let filtered: Vec<&ThreatAlert> = alerts.iter()
+                    .filter(|a| a.content.to_lowercase().contains(&q.to_lowercase())
+                        || a.source.to_lowercase().contains(&q.to_lowercase())
+                        || a.keyword.contains(&q.to_lowercase()))
+                    .collect();
+                show_alert_refs(&filtered, None);
+            }
+            "0" => break,
+            _ => println!("⚠️ Choix invalide"),
+        }
+    }
+}
+
+fn show_alerts(alerts: &[ThreatAlert], filter: Option<&str>) {
+    let filtered: Vec<&ThreatAlert> = if let Some(f) = filter {
+        alerts.iter().filter(|a| a.severity == f).collect()
+    } else {
+        alerts.iter().collect()
+    };
+    show_alert_refs(&filtered, filter);
+}
+
+fn show_alert_refs(alerts: &[&ThreatAlert], _filter: Option<&str>) {
+    if alerts.is_empty() {
+        println!("\n✅ Aucune alerte.");
+        return;
+    }
+
+    println!("\n🚨 ALERTES — {} affichées", alerts.len());
+    println!("═══════════════════════════════════");
+    for (i, a) in alerts.iter().rev().enumerate().take(30) {
+        let icon = match a.severity.as_str() {
+            "CRITIQUE" => "🔴",
+            "ALERTE" => "🟠",
+            "VIGILANCE" => "🟡",
+            _ => "⚪",
+        };
+        println!("  {} {} ─ {} ({})", icon, i + 1, a.source, a.country);
+        println!("    💬 {}", &a.content[..a.content.len().min(80)]);
+        println!("    ⚠️ Mot: {} | ⏱️ {}", a.keyword, format_timestamp_short(a.timestamp));
+        println!();
+    }
+    if alerts.len() > 30 {
+        println!("  ... et {} autres alertes", alerts.len() - 30);
     }
 }
 
@@ -10647,21 +10858,24 @@ fn terminal_mesh_send(state: &Arc<AppState>) {
         "\n💬 Destinataire (Node ID ou * pour broadcast): "
     ));
     let message = read_input("💬 Message: ");
-    
+
+    // AI veille — scanner le message pour menaces
+    record_threats(&message, &mesh.my_id, &mesh.my_country);
+
     let msg = DirectMessage::new(
         afri_mesh_direct::MSG_CHAT,
         &mesh.my_id,
         &recipient,
         &message,
     );
-    
+
     println!("\n✅ Message créé!");
     println!("  📤 De: {}", msg.sender);
     println!("  📥 À: {}", if msg.recipient == "*" { "tout le monde (broadcast)".to_string() } else { msg.recipient.clone() });
     println!("  💬 Contenu: {}", msg.payload);
     println!("  🔑 ID: {}", msg.msg_id);
     println!("  ⏱️ Timestamp: {}", afri_time::format_timestamp(msg.timestamp));
-    
+
     if mesh.nodes.is_empty() {
         println!("\n⚠️ Aucun nœud connecté pour l'instant.");
         println!("   Le message sera stocké (store-and-forward).");
