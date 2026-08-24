@@ -1,116 +1,101 @@
-# 🦁 AfriChain — La blockchain 100% africaine
+# 🦁 AfriChain — La Blockchain Souveraine de l'Afrique
 
-> L'Afrique n'a pas besoin de permission. 💚
+> 💚 *L'Afrique n'a pas besoin de la permission de personne.*
 
-## 🪙 AfriRich (AFR)
+## Qu'est-ce que AfriChain?
 
-Blockchain indépendante codée from scratch en Rust. **Pas de fork Bitcoin. Pas de token Ethereum. Pas de dépendance étrangère.** Liée à la monnaie AES (Alliance of Sahel States : Mali, Burkina Faso, Niger).
+AfriChain est une blockchain **100% africaine**, construite **from scratch** en Rust. Ce n'est pas un token sur la blockchain de quelqu'un d'autre. Ce n'est pas un fork de Bitcoin ou d'Ethereum. C'est la nôtre.
 
-## ✨ Fonctionnalités
+## Zéro Dépendance Externe
 
-- ⛏️ **Proof of Work** — minage avec SHA256
-- 🔐 **Signatures Ed25519** — transactions signées et vérifiées cryptographiquement
-- 👤 **Comptes utilisateurs** — inscription + connexion (username + mot de passe)
-- 📈 **Dashboard** — graphiques en temps réel (blocs, transactions, soldes)
-- 🌐 **Web Explorer** — visualise les blocs, soldes et API
-- 👛 **Wallet** — crée une adresse Ed25519, consulte ton solde, envoie des AFR signées
-- 💾 **Persistance** — blockchain + wallets + utilisateurs sauvegardés
-- 📱 **PWA** — installable comme app sur Android (écran d'accueil, icône 🦁)
-- ✅ **Validation** — chaîne vérifiée cryptographiquement
-- 📱 **Mobile-first** — pensé pour Android/Termux
+Le fichier `Cargo.toml` a sa section `[dependencies]` **complètement vide**. Tout est construit from scratch:
 
-## 🚀 Démarrage
+| Composant | Avant (Occident) | Maintenant (Africain) |
+|-----------|------------------|----------------------|
+| Signatures | ed25519-dalek | ✅ AfriEd25519 |
+| Hachage | sha2 (NSA) | ✅ AfriHash-256/512 |
+| Aléatoire | rand | ✅ AfriRNG |
+| Hex | hex | ✅ AfriHex |
+| Temps | chrono (Greenwich) | ✅ AfriTime |
+| JSON | serde / serde_json | ✅ AfriJSON |
+| Serveur HTTP | actix-web | ✅ AfriHTTP |
 
-```bash
-# Installer Rust
-curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+**Rien ne vient de l'Occident. Tout est africain.**
 
-# Cloner
-git clone https://github.com/1er-Reel/afririch.git
-cd afririch
+## 54 Pays Africains
 
-# Compiler et lancer
-cargo run
-```
+Tous les pays africains sont connectés:
+- Niger (+227), Nigeria (+234), Mali (+223), Burkina Faso (+226)
+- Senegal (+221), Côte d'Ivoire (+225), Ghana (+233), Cameroun (+237)
+- Kenya (+254), RDC (+243), Afrique du Sud (+27), Egypte (+20)
+- ... **54 pays au total**
 
-Puis ouvre **http://localhost:8080** dans ton navigateur.
+Chaque bloc est miné par un pays différent. Chaque utilisateur a un numéro de téléphone africain.
 
-## 📄 Pages
+## Fonctionnalités
 
-| URL | Description |
-|-----|-------------|
-| `/` | Page d'accueil — vue d'ensemble |
-| `/register` | Inscription — créer un compte + wallet |
-| `/login` | Connexion — accéder à son wallet |
-| `/dashboard` | Tableau de bord — graphiques et stats |
-| `/blocks` | Tous les blocs minés |
-| `/balances` | Soldes de tous les wallets |
-| `/wallet` | Wallet — créer, consulter, envoyer, miner |
-| `/api/status` | API JSON — statut de la chaîne |
-| `/api/blocks` | API JSON — tous les blocs |
+### Blockchain
+- ⛓️ Blockchain complète from scratch
+- 🔐 Signatures Ed25519 (from scratch)
+- #️⃣ AfriHash-256/512 (sponge construction, from scratch)
+- ⛏️ Proof of Work (difficulté 2)
+- 💰 Supply: 100 AFR par bloc miné
 
-## 🏗️ Architecture
+### Réseau Mesh Panafricain
+- 📡 Découverte UDP automatique
+- 🔗 Relay TCP entre nœuds
+- 📖 Annuaire panafricain (54 pays)
+- 💬 Communication sans opérateurs étrangers
 
-```
-src/main.rs        — Tout le code (blockchain + serveur web + wallet + comptes)
-Cargo.toml         — Dépendances (serde, sha2, ed25519-dalek, actix-web)
-blockchain.json    — État de la blockchain (auto-généré)
-wallets.json       — Clés privées des wallets (auto-généré)
-users.json         — Comptes utilisateurs (auto-généré)
-```
+### Sécurité
+- 🛡️ Bouclier X9 — détection de menaces, blocage IP, rate limiting
+- 🔍 Détection SQL injection, XSS, path traversal
+- 🍯 Honeypot — leurres pour attaquants
+- 🧠 AI Sécurité — réseau de neurones, prédiction d'attaques
 
-## 🔐 Sécurité Ed25519
+### Économie Machine
+- 🤖 6 serveurs africains (Bamako, Niamey, Ouagadougou, Accra, Abidjan, Lagos)
+- 💰 Transactions machine-to-machine
+- ⛓️ Blockchain machine autonome
 
-- Chaque wallet a une **paire de clés Ed25519** (clé publique + clé privée)
-- L'adresse est dérivée de la clé publique : `Afri` + hex(clé_publique)
-- Chaque transaction est **signée** avec la clé privée de l'expéditeur
-- Les signatures sont **vérifiées** avant le minage des blocs
-- Les transactions invalides sont **rejetées** automatiquement
+### Écosystème Solaire
+- ☀️ PoST (Proof of Solar Time) — le soleil d'Afrique valide la blockchain
+- 🔥 Four Solaire — concentration solaire réelle
+- 🧬 Forge Solaire — ADN → objets physiques
+- 📊 Sharding par pays (54 shards)
 
-## 🛡️ Souveraineté
+### Afri-Net — Internet Africain
+- 💬 LES NOIRES (remplace WhatsApp)
+- 🌱 PLANTÉ VERTE (remplace Facebook)
+- 🔍 SAHARA AFRI (remplace Google)
 
-AfriChain n'est pas un token sur une chaîne existante. C'est une **blockchain complète**, construite from scratch, qui appartient à l'Afrique.
+### AI Souveraine
+- 🧠 Chat AI avec mémoire persistante
+- 👀 Yeux — vision par caméra
+- 🔊 Voix — synthèse vocale souveraine
+- 💭 Rêves — l'AI rêve quand elle est inactive
+- 💓 Émotions — mémoires émotionnelles
 
-## 📜 Licence
+## Vision
 
-MIT — Libre d'utilisation, de modification et de distribution.
+**Un seul réseau. 54 pays. Une seule monnaie. Zéro dépendance.**
 
-## 👤 Auteur
+L'Afrique ne demande plus la permission. L'Afrique construit.
 
-**Machine-senpai** — codé à la main sur Termux (Android), Redmi 15.
+## Technique
 
----
+- **Langage:** Rust (édition 2021)
+- **Dépendances:** ZÉRO (std uniquement)
+- **Taille:** ~10500 lignes (main.rs) + 7 modules
+- **Build:** `cargo build --release` (3.5 secondes)
+- **Données:** `~/afririch/` (chemins absolus)
 
-## 📡 AfriMesh v0.2 — Réseau Mesh Africain
+## Lié à l'AES
 
-Le réseau décentralisé qui fait tourner AfriChain. **Pas de fibre. Pas de tours. Juste des noeuds solaires.**
+AfriChain est conçu pour soutenir la monnaie de l'Alliance des États du Sahel (AES). La technologie est prête. L'Afrique décide.
 
-### ✨ Fonctionnalités AfriMesh
+## Auteur
 
-- 📡 **Découverte automatique** — UDP broadcast, les noeuds se trouvent tout seuls
-- 🔁 **Relay TCP** — les messages sautent de noeud en noeud (TTL = 5 hops)
-- ☀️ **Solaire** — chaque noeud peut être alimenté par panneau solaire
-- 🌍 **Régions** — Mali, Burkina, Niger, Afrique
-- 🛡️ **Déduplication** — anti-boucle (chaque message a un ID unique)
-- 🌐 **Interface web** — tout sur un seul port (mesh + web = même port!)
-- 📋 **CLI** — commandes: nodes, ping, send, status, help, quit
+Construit à la main, ligne par ligne, sur un téléphone Android dans nano sur Termux.
 
-### 🚀 Démarrage AfriMesh
-
-```bash
-cd afrimesh
-cargo run -- --port 8090 --region "Niamey" --solar
-```
-
-Puis ouvre **http://localhost:8090** — mesh + web sur le même port!
-
-### 🏗️ Architecture AfriMesh
-
-```
-afrimesh/src/main.rs  — Mesh protocol + TCP relay + web UI (un seul fichier)
-afrimesh/Cargo.toml   — Dépendances (serde, sha2, hex, chrono)
-```
-
----
-
-🦁 *L'Afrique est le continent le plus riche. Aucune crypto ne peut la dépasser, même pas BTC.* 💚
+*L'Afrique est le continent le plus riche. Il est temps que sa technologie le reflète.* 💚🪙
