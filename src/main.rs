@@ -9,6 +9,8 @@ use afri_hex::{encode as hex_encode, decode as hex_decode};
 mod afri_time;
 use afri_time::{now_timestamp, now_timestamp_millis, now_hour, format_timestamp, format_timestamp_short};
 mod afri_http;
+mod afri_mesh_direct;
+use afri_mesh_direct::{AfriMeshDirect, DirectMessage, DirectNode, LightBlock};
 use std::sync::{Arc, Mutex};
 
 mod afri_ed25519;
@@ -9798,6 +9800,7 @@ struct AppState {
     shield: Mutex<ShieldState>,
     ai_memory: Mutex<String>,
     machines: Mutex<MachineEconomy>,
+    mesh_direct: Mutex<AfriMeshDirect>,
 }
 
 fn main() {
@@ -9871,6 +9874,10 @@ fn main() {
     println!("🤖 {} serveurs machine actifs — {} transactions — {} blocs minés",
         machine_economy.machines.len(), machine_economy.tx_count, machine_economy.total_mined);
 
+    let mesh_direct = AfriMeshDirect::new(
+        &my_node_id, "", "", "Afrique", "+77", "", mesh_port + 20,
+    );
+
     let state = Arc::new(AppState {
         chain: Mutex::new(chain),
         wallets: Mutex::new(wallets),
@@ -9879,6 +9886,7 @@ fn main() {
         shield: Mutex::new(shield),
         ai_memory: Mutex::new(ai_memory_data),
         machines: Mutex::new(machine_economy),
+        mesh_direct: Mutex::new(mesh_direct),
     });
 
     // Start mesh threads
@@ -9997,6 +10005,9 @@ fn terminal_interface(state: &Arc<AppState>) {
         println!("  7. ⛓️  Voir la blockchain");
         println!("  8. 📖 Annuaire panafricain");
         println!("  9. 📊 Statut du réseau");
+        println!(" 10. 📡 AfriMesh Direct (sans opérateur)");
+        println!(" 11. 💬 Envoyer message mesh");
+        println!(" 12. 📥 Messages reçus (store-and-forward)");
         println!("  0. ❌ Quitter");
 
         print!("\n👉 Choix: ");
@@ -10016,6 +10027,9 @@ fn terminal_interface(state: &Arc<AppState>) {
             "7" => terminal_view_chain(state),
             "8" => terminal_directory(state),
             "9" => terminal_status(state),
+            "10" => terminal_mesh_direct(state),
+            "11" => terminal_mesh_send(state),
+            "12" => terminal_mesh_inbox(state),
             "0" => {
                 println!("🦁 Au revoir senpai. L'Afrique veille.");
                 std::process::exit(0);
@@ -10244,6 +10258,102 @@ fn terminal_status(state: &Arc<AppState>) {
     println!("  🛡️  Bouclier: {} | Niveau {} | {} attaques | {} IP bannies", shield.active, level, attacks, blocked_count);
     println!("  🤖 Machines: {} | {} tx | {} blocs minés", machines.machines.len(), machines.tx_count, machines.total_mined);
     println!("═══════════════════════════════════");
+}
+
+fn terminal_mesh_direct(state: &Arc<AppState>) {
+    let mesh = state.mesh_direct.lock().unwrap();
+    let (active, relayed, delivered, stored, discovered) = mesh.stats();
+    
+    println!("\n📡 AFRIMESH DIRECT — RÉSEAU SANS OPÉRATEUR");
+    println!("═══════════════════════════════════");
+    println!("  📡 Mon Node ID: {}", mesh.my_id);
+    println!("  📡 Port d'écoute: {}", mesh.listen_port);
+    println!("  🌍 Pays: {} ({})", mesh.my_country, mesh.my_country_code);
+    println!("  ───────────────────────────────");
+    println!("  📱 Nœuds actifs: {}", active);
+    println!("  📱 Total nœuds découverts: {}", mesh.nodes.len());
+    println!("  ───────────────────────────────");
+    println!("  📤 Messages relayés: {}", relayed);
+    println!("  📥 Messages livrés: {}", delivered);
+    println!("  📦 Messages stockés (store-and-forward): {}", stored);
+    println!("  🔍 Nœuds découverts (total): {}", discovered);
+    println!("═══════════════════════════════════");
+    
+    // Liste par pays
+    let by_country = mesh.nodes_by_country();
+    if !by_country.is_empty() {
+        println!("\n🌍 NŒUDS PAR PAYS:");
+        for (country, nodes) in &by_country {
+            println!("  {} ({} nœuds):", country, nodes.len());
+            for n in nodes.iter().take(5) {
+                let status = if n.is_active() { "🟢" } else { "🔴" };
+                println!("    {} {} — {} — {} sauts", status, n.phone, n.username, n.hop_distance);
+            }
+        }
+    } else {
+        println!("\n💡 Aucun nœud découvert pour l'instant.");
+        println!("   Les autres téléphones AfriChain apparaîtront ici.");
+        println!("   Pas besoin d'Orange, MTN, ou Moov — juste AfriChain.");
+    }
+}
+
+fn terminal_mesh_send(state: &Arc<AppState>) {
+    let mesh = state.mesh_direct.lock().unwrap();
+    let recipient = read_input(&format!(
+        "\n💬 Destinataire (Node ID ou * pour broadcast): "
+    ));
+    let message = read_input("💬 Message: ");
+    
+    let msg = DirectMessage::new(
+        afri_mesh_direct::MSG_CHAT,
+        &mesh.my_id,
+        &recipient,
+        &message,
+    );
+    
+    println!("\n✅ Message créé!");
+    println!("  📤 De: {}", msg.sender);
+    println!("  📥 À: {}", if msg.recipient == "*" { "tout le monde (broadcast)".to_string() } else { msg.recipient.clone() });
+    println!("  💬 Contenu: {}", msg.payload);
+    println!("  🔑 ID: {}", msg.msg_id);
+    println!("  ⏱️ Timestamp: {}", afri_time::format_timestamp(msg.timestamp));
+    
+    if mesh.nodes.is_empty() {
+        println!("\n⚠️ Aucun nœud connecté pour l'instant.");
+        println!("   Le message sera stocké (store-and-forward).");
+        println!("   Il sera livré quand le destinataire se connecte.");
+    } else {
+        println!("\n📡 Relayé à {} nœud(s).", mesh.nodes.len());
+    }
+}
+
+fn terminal_mesh_inbox(state: &Arc<AppState>) {
+    let mesh = state.mesh_direct.lock().unwrap();
+    println!("\n📥 MESSAGES REÇUS (STORE-AND-FORWARD)");
+    println!("═══════════════════════════════════");
+    
+    if mesh.stored.is_empty() {
+        println!("  📭 Aucun message stocké.");
+        println!("   Quand d'autres téléphones AfriChain t'envoient des messages");
+        println!("   et que tu n'es pas connecté, ils sont stockés ici.");
+        println!("   Tu les reçois dès que tu te connectes au mesh.");
+    } else {
+        for (i, s) in mesh.stored.iter().enumerate().take(20) {
+            println!("  {} ─ {} → {}",
+                i + 1,
+                s.message.sender,
+                if s.message.recipient == "*" { "tous" } else { &s.message.recipient }
+            );
+            println!("    💬 {}", s.message.payload);
+            println!("    ⏱️ Stocké le: {}", afri_time::format_timestamp(s.stored_at));
+            println!("    🔑 Type: {} | Hops: {}", s.message.msg_type, s.message.hops);
+        }
+        if mesh.stored.len() > 20 {
+            println!("\n  ... et {} autres messages", mesh.stored.len() - 20);
+        }
+    }
+    println!("═══════════════════════════════════");
+    println!("  Total: {} messages stockés", mesh.stored.len());
 }
 
 // ===== Dispatch function — remplace les 56 routes actix-web =====
