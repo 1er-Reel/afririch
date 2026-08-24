@@ -9976,26 +9976,49 @@ fn main() {
 use std::io::{self, BufRead};
 
 fn terminal_interface(state: &Arc<AppState>) {
+    // Écran de sélection: Admin ou Client
+    println!("\n");
+    println!("╔══════════════════════════════════════╗");
+    println!("║  🦁 AfriChain v0.59                  ║");
+    println!("║  💚 Banque Numérique AES             ║");
+    println!("║  💚 L'Afrique n'a pas besoin de      ║");
+    println!("║     permission                       ║");
+    println!("╠══════════════════════════════════════╣");
+    println!("║  1. 🏦 Centre de Données (Admin)    ║");
+    println!("║  2. 📱 Client (Utilisateur)          ║");
+    println!("╚══════════════════════════════════════╝");
+
+    let mode = read_input("👉 Mode: ");
+    match mode.trim() {
+        "2" => client_interface(state),
+        _ => admin_interface(state),
+    }
+}
+
+fn admin_interface(state: &Arc<AppState>) {
     loop {
         println!("\n");
         println!("╔══════════════════════════════════════╗");
-        println!("║  🦁 AfriChain v0.56 — Souverain     ║");
-        println!("║  💚 L'Afrique n'a pas besoin de      ║");
-        println!("║     permission                       ║");
+        println!("║  🏦 CENTRE DE DONNÉES — Admin       ║");
+        println!("║  🦁 AfriChain v0.59                  ║");
         println!("╠══════════════════════════════════════╣");
         let chain = state.chain.lock().unwrap();
         let users = state.users.lock().unwrap();
         let mesh = state.mesh.lock().unwrap();
+        let mesh_d = state.mesh_direct.lock().unwrap();
+        let (active, relayed, delivered, stored, discovered) = mesh_d.stats();
         println!("║  ⛓️  Blocs: {}                          ║", chain.blocks.len());
         println!("║  👥 Utilisateurs: {}                     ║", users.count());
         println!("║  📡 Mesh: {} noeuds                     ║", mesh.count());
+        println!("║  📡 Mesh Direct: {} actifs / {} stockés ║", active, stored);
         println!("║  💰 Supply: {} AFR                    ║", chain.total_supply());
         println!("╚══════════════════════════════════════╝");
         drop(chain);
         drop(users);
         drop(mesh);
+        drop(mesh_d);
 
-        println!("\n📋 MENU:");
+        println!("\n📋 MENU ADMIN:");
         println!("  1. 👛 Créer un wallet");
         println!("  2. 📤 Envoyer des AFR");
         println!("  3. ⛏️  Miner un bloc");
@@ -10034,6 +10057,115 @@ fn terminal_interface(state: &Arc<AppState>) {
                 println!("🦁 Au revoir senpai. L'Afrique veille.");
                 std::process::exit(0);
             }
+            _ => println!("⚠️ Choix invalide"),
+        }
+    }
+}
+
+fn client_interface(state: &Arc<AppState>) {
+    // Le client ne voit PAS la blockchain.
+    // Il voit juste: son solde, envoyer, recevoir, messages.
+    // Comme Orange Money. Comme Wave. Mais africain.
+    let mut logged_user: Option<String> = None;
+    loop {
+        println!("\n");
+        println!("╔══════════════════════════════════════╗");
+        println!("║  💚 AFRICHAIN — Votre argent,        ║");
+        println!("║     votre continent                  ║");
+        println!("╠══════════════════════════════════════╣");
+
+        // Afficher le solde si connecté
+        if let Some(username) = &logged_user {
+            let users = state.users.lock().unwrap();
+            let chain = state.chain.lock().unwrap();
+            if let Some(user) = users.users.iter().find(|u| &u.username == username) {
+                let bal = chain.balance_of(&user.address);
+                println!("║  👤 {}                              ║", username);
+                println!("║  💰 Solde: {} AFR                  ║", bal);
+            }
+        } else {
+            println!("║  🔑 Non connecté                     ║");
+        }
+        println!("╚══════════════════════════════════════╝");
+
+        println!("\n📋 MENU:");
+        println!("  1. 🔑 Se connecter");
+        println!("  2. 📝 S'inscrire");
+        println!("  3. 📤 Envoyer des AFR");
+        println!("  4. 📥 Mon adresse (pour recevoir)");
+        println!("  5. 💬 Messages");
+        println!("  6. 📖 Annuaire");
+        println!("  0. ❌ Quitter");
+
+        print!("\n👉 Choix: ");
+        io::stdout().flush().unwrap();
+
+        let mut input = String::new();
+        io::stdin().read_line(&mut input).unwrap();
+        let choice = input.trim();
+
+        match choice {
+            "1" => {
+                let username = read_input("\n👤 Nom d'utilisateur: ");
+                let password = read_input("🔑 Mot de passe: ");
+                let users = state.users.lock().unwrap();
+                match users.login(&username, &password) {
+                    Some(user) => {
+                        let chain = state.chain.lock().unwrap();
+                        let bal = chain.balance_of(&user.address);
+                        println!("\n✅ Connecté: {} ({})", user.username, user.phone);
+                        println!("💰 Solde: {} AFR", bal);
+                        logged_user = Some(user.username.clone());
+                    }
+                    None => println!("⚠️ Nom d'utilisateur ou mot de passe incorrect"),
+                }
+            }
+            "2" => terminal_register(state),
+            "3" => terminal_send(state),
+            "4" => client_my_address(state, &logged_user),
+            "5" => client_messages(state),
+            "6" => terminal_directory(state),
+            "0" => {
+                println!("💚 Au revoir. L'Afrique veille.");
+                std::process::exit(0);
+            }
+            _ => println!("⚠️ Choix invalide"),
+        }
+    }
+}
+
+fn client_my_address(state: &Arc<AppState>, logged_user: &Option<String>) {
+    if let Some(username) = logged_user {
+        let users = state.users.lock().unwrap();
+        if let Some(user) = users.users.iter().find(|u| &u.username == username) {
+            println!("\n📥 MON ADRESSE POUR RECEVOIR:");
+            println!("═══════════════════════════════════");
+            println!("  📱 Téléphone: {}", user.phone);
+            println!("  👤 Nom: {}", user.username);
+            println!("  🌍 Pays: {}", user.country);
+            println!("═══════════════════════════════════");
+            println!("  Partage ton numéro de téléphone pour recevoir des AFR.");
+            println!("  Pas d'adresse compliquée. Juste ton numéro. 💚");
+        } else {
+            println!("⚠️ Utilisateur introuvable.");
+        }
+    } else {
+        println!("⚠️ Tu dois te connecter d'abord.");
+    }
+}
+
+fn client_messages(state: &Arc<AppState>) {
+    loop {
+        println!("\n💬 MESSAGES");
+        println!("  1. 📤 Envoyer un message");
+        println!("  2. 📥 Messages reçus");
+        println!("  0. ← Retour");
+
+        let choice = read_input("👉 Choix: ");
+        match choice.trim() {
+            "1" => terminal_mesh_send(state),
+            "2" => terminal_mesh_inbox(state),
+            "0" => break,
             _ => println!("⚠️ Choix invalide"),
         }
     }
