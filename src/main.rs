@@ -10093,8 +10093,10 @@ fn client_interface(state: &Arc<AppState>) {
         println!("  2. 📝 S'inscrire");
         println!("  3. 📤 Envoyer des AFR");
         println!("  4. 📥 Mon adresse (pour recevoir)");
-        println!("  5. 💬 Messages");
+        println!("  5. 💬 LES NOIRES (messages)");
         println!("  6. 📖 Annuaire");
+        println!("  7. 🌱 PLANTÉ VERTE (réseau social)");
+        println!("  8. 🔍 SAHARA AFRI (recherche)");
         println!("  0. ❌ Quitter");
 
         print!("\n👉 Choix: ");
@@ -10125,6 +10127,8 @@ fn client_interface(state: &Arc<AppState>) {
             "4" => client_my_address(state, &logged_user),
             "5" => client_messages(state),
             "6" => terminal_directory(state),
+            "7" => client_plante_verte(state, &logged_user),
+            "8" => client_sahara_afri(state),
             "0" => {
                 println!("💚 Au revoir. L'Afrique veille.");
                 std::process::exit(0);
@@ -10156,7 +10160,7 @@ fn client_my_address(state: &Arc<AppState>, logged_user: &Option<String>) {
 
 fn client_messages(state: &Arc<AppState>) {
     loop {
-        println!("\n💬 MESSAGES");
+        println!("\n💬 LES NOIRES — MESSAGES");
         println!("  1. 📤 Envoyer un message");
         println!("  2. 📥 Messages reçus");
         println!("  0. ← Retour");
@@ -10165,6 +10169,214 @@ fn client_messages(state: &Arc<AppState>) {
         match choice.trim() {
             "1" => terminal_mesh_send(state),
             "2" => terminal_mesh_inbox(state),
+            "0" => break,
+            _ => println!("⚠️ Choix invalide"),
+        }
+    }
+}
+
+// ===== PLANTÉ VERTE — Réseau social africain =====
+// Les créateurs publient, la communauté lit. Pas de likes vides — les créateurs gagnent des AFR.
+
+struct SocialPost {
+    author: String,
+    author_phone: String,
+    author_country: String,
+    content: String,
+    timestamp: i64,
+    likes: u64,
+    tips: u64, // AFR tipped
+}
+
+impl SocialPost {
+    fn to_json(&self) -> JsonValue {
+        let mut map = HashMap::new();
+        map.insert("author".to_string(), JsonValue::Str(self.author.clone()));
+        map.insert("author_phone".to_string(), JsonValue::Str(self.author_phone.clone()));
+        map.insert("author_country".to_string(), JsonValue::Str(self.author_country.clone()));
+        map.insert("content".to_string(), JsonValue::Str(self.content.clone()));
+        map.insert("timestamp".to_string(), JsonValue::Int(self.timestamp));
+        map.insert("likes".to_string(), JsonValue::Int(self.likes as i64));
+        map.insert("tips".to_string(), JsonValue::Int(self.tips as i64));
+        JsonValue::Object(map)
+    }
+
+    fn from_json(v: &JsonValue) -> Option<Self> {
+        let m = v.as_object()?;
+        Some(SocialPost {
+            author: m.get("author")?.as_str()?.to_string(),
+            author_phone: m.get("author_phone").and_then(|v| v.as_str()).unwrap_or("").to_string(),
+            author_country: m.get("author_country").and_then(|v| v.as_str()).unwrap_or("").to_string(),
+            content: m.get("content")?.as_str()?.to_string(),
+            timestamp: m.get("timestamp")?.as_i64()?,
+            likes: m.get("likes").and_then(|v| v.as_i64()).unwrap_or(0) as u64,
+            tips: m.get("tips").and_then(|v| v.as_i64()).unwrap_or(0) as u64,
+        })
+    }
+}
+
+fn load_social_feed() -> Vec<SocialPost> {
+    let data = std::fs::read_to_string(data_path("social_feed.json")).unwrap_or_else(|_| "[]".to_string());
+    let v = from_str(&data).unwrap_or(JsonValue::Array(Vec::new()));
+    match v {
+        JsonValue::Array(arr) => arr.iter().filter_map(|p| SocialPost::from_json(p)).collect(),
+        _ => Vec::new(),
+    }
+}
+
+fn save_social_feed(posts: &[SocialPost]) {
+    let arr: Vec<JsonValue> = posts.iter().map(|p| p.to_json()).collect();
+    let data = to_string_pretty(&JsonValue::Array(arr));
+    std::fs::write(data_path("social_feed.json"), data).ok();
+}
+
+fn client_plante_verte(state: &Arc<AppState>, logged_user: &Option<String>) {
+    loop {
+        println!("\n🌱 PLANTÉ VERTE — Réseau social africain");
+        println!("  1. 📝 Publier un message");
+        println!("  2. 📰 Voir le fil (feed)");
+        println!("  3. ❤️ Aimer un post");
+        println!("  0. ← Retour");
+
+        let choice = read_input("👉 Choix: ");
+        match choice.trim() {
+            "1" => {
+                if let Some(username) = logged_user {
+                    let content = read_input("📝 Ton message: ");
+                    if content.trim().is_empty() {
+                        println!("⚠️ Message vide.");
+                        continue;
+                    }
+                    let users = state.users.lock().unwrap();
+                    if let Some(user) = users.users.iter().find(|u| &u.username == username) {
+                        let mut feed = load_social_feed();
+                        feed.push(SocialPost {
+                            author: user.username.clone(),
+                            author_phone: user.phone.clone(),
+                            author_country: user.country.clone(),
+                            content: content.trim().to_string(),
+                            timestamp: now_timestamp(),
+                            likes: 0,
+                            tips: 0,
+                        });
+                        save_social_feed(&feed);
+                        println!("✅ Publié! Ton message est sur PLANTÉ VERTE.");
+                        println!("   La communauté africaine peut le voir. 💚");
+                    }
+                } else {
+                    println!("⚠️ Tu dois te connecter d'abord.");
+                }
+            }
+            "2" => {
+                let feed = load_social_feed();
+                if feed.is_empty() {
+                    println!("\n📰 Aucun message pour l'instant.");
+                    println!("   Sois le premier à publier sur PLANTÉ VERTE! 🌱");
+                } else {
+                    println!("\n📰 FIL D'ACTUALITÉ — {} messages", feed.len());
+                    println!("═══════════════════════════════════");
+                    for (i, post) in feed.iter().rev().enumerate().take(20) {
+                        println!("  {} ─ {} 🌍 {}", i + 1, post.author, post.author_country);
+                        println!("    💬 {}", post.content);
+                        println!("    ❤️ {} | 💰 {} AFR | ⏱️ {}",
+                            post.likes, post.tips, format_timestamp_short(post.timestamp));
+                        println!();
+                    }
+                    if feed.len() > 20 {
+                        println!("  ... et {} autres messages", feed.len() - 20);
+                    }
+                }
+            }
+            "3" => {
+                let feed = load_social_feed();
+                if feed.is_empty() {
+                    println!("⚠️ Aucun post à aimer.");
+                    continue;
+                }
+                println!("\n❤️ Quel post aimer? (numéro)");
+                for (i, post) in feed.iter().rev().enumerate().take(20) {
+                    println!("  {} ─ {}: {}", i + 1, post.author, &post.content[..post.content.len().min(50)]);
+                }
+                let num = read_input("👉 Numéro: ");
+                if let Ok(n) = num.trim().parse::<usize>() {
+                    if n >= 1 && n <= feed.len().min(20) {
+                        let idx = feed.len() - n;
+                        let mut feed = load_social_feed();
+                        feed[idx].likes += 1;
+                        save_social_feed(&feed);
+                        println!("❤️ Aimé! Le créateur {} gagne en visibilité.", feed[idx].author);
+                    } else {
+                        println!("⚠️ Numéro invalide.");
+                    }
+                } else {
+                    println!("⚠️ Entre un numéro.");
+                }
+            }
+            "0" => break,
+            _ => println!("⚠️ Choix invalide"),
+        }
+    }
+}
+
+// ===== SAHARA AFRI — Recherche africaine =====
+fn client_sahara_afri(state: &Arc<AppState>) {
+    loop {
+        println!("\n🔍 SAHARA AFRI — Recherche africaine");
+        println!("  1. 🔍 Rechercher un utilisateur");
+        println!("  2. 🔍 Rechercher un message (PLANTÉ VERTE)");
+        println!("  0. ← Retour");
+
+        let choice = read_input("👉 Choix: ");
+        match choice.trim() {
+            "1" => {
+                let query = read_input("🔍 Rechercher (nom, téléphone, ou pays): ");
+                let q = query.trim().to_lowercase();
+                if q.is_empty() {
+                    println!("⚠️ Recherche vide.");
+                    continue;
+                }
+                let users = state.users.lock().unwrap();
+                let results: Vec<_> = users.users.iter()
+                    .filter(|u| {
+                        u.username.to_lowercase().contains(&q)
+                        || u.phone.to_lowercase().contains(&q)
+                        || u.country.to_lowercase().contains(&q)
+                    })
+                    .collect();
+                if results.is_empty() {
+                    println!("\n🔍 Aucun résultat pour '{}'", query.trim());
+                } else {
+                    println!("\n🔍 {} RÉSULTAT(S) — '{}'", results.len(), query.trim());
+                    println!("═══════════════════════════════════");
+                    for user in results.iter().take(20) {
+                        println!("  👤 {} — 📱 {} — 🌍 {}", user.username, user.phone, user.country);
+                    }
+                }
+            }
+            "2" => {
+                let query = read_input("🔍 Rechercher dans les messages: ");
+                let q = query.trim().to_lowercase();
+                if q.is_empty() {
+                    println!("⚠️ Recherche vide.");
+                    continue;
+                }
+                let feed = load_social_feed();
+                let results: Vec<_> = feed.iter()
+                    .filter(|p| p.content.to_lowercase().contains(&q) || p.author.to_lowercase().contains(&q))
+                    .collect();
+                if results.is_empty() {
+                    println!("\n🔍 Aucun message trouvé pour '{}'", query.trim());
+                } else {
+                    println!("\n🔍 {} MESSAGE(S) — '{}'", results.len(), query.trim());
+                    println!("═══════════════════════════════════");
+                    for (i, post) in results.iter().rev().enumerate().take(20) {
+                        println!("  {} ─ {} 🌍 {}", i + 1, post.author, post.author_country);
+                        println!("    💬 {}", post.content);
+                        println!("    ❤️ {} | ⏱️ {}", post.likes, format_timestamp_short(post.timestamp));
+                        println!();
+                    }
+                }
+            }
             "0" => break,
             _ => println!("⚠️ Choix invalide"),
         }
