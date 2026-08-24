@@ -9953,9 +9953,297 @@ fn main() {
     println!("🔧 Garage AI 2500 sur http://localhost:8080/garage");
     println!("💰 AES Wari sur http://localhost:8080/aes");
 
-    afri_http::serve("0.0.0.0:8080", move |req| {
-        handle_request(req, &web_state)
+    // Serveur HTTP en arrière-plan (pour mesh + autres utilisateurs)
+    let serve_state = web_state.clone();
+    thread::spawn(move || {
+        afri_http::serve("0.0.0.0:8080", move |req| {
+            handle_request(req, &serve_state)
+        });
     });
+
+    // Interface terminal — souveraine, pas de navigateur
+    terminal_interface(&web_state);
+}
+
+use std::io::{self, BufRead};
+
+fn terminal_interface(state: &Arc<AppState>) {
+    loop {
+        println!("\n");
+        println!("╔══════════════════════════════════════╗");
+        println!("║  🦁 AfriChain v0.56 — Souverain     ║");
+        println!("║  💚 L'Afrique n'a pas besoin de      ║");
+        println!("║     permission                       ║");
+        println!("╠══════════════════════════════════════╣");
+        let chain = state.chain.lock().unwrap();
+        let users = state.users.lock().unwrap();
+        let mesh = state.mesh.lock().unwrap();
+        println!("║  ⛓️  Blocs: {}                          ║", chain.blocks.len());
+        println!("║  👥 Utilisateurs: {}                     ║", users.count());
+        println!("║  📡 Mesh: {} noeuds                     ║", mesh.count());
+        println!("║  💰 Supply: {} AFR                    ║", chain.total_supply());
+        println!("╚══════════════════════════════════════╝");
+        drop(chain);
+        drop(users);
+        drop(mesh);
+
+        println!("\n📋 MENU:");
+        println!("  1. 👛 Créer un wallet");
+        println!("  2. 📤 Envoyer des AFR");
+        println!("  3. ⛏️  Miner un bloc");
+        println!("  4. 👤 S'inscrire");
+        println!("  5. 🔑 Se connecter");
+        println!("  6. 👤 Mon compte");
+        println!("  7. ⛓️  Voir la blockchain");
+        println!("  8. 📖 Annuaire panafricain");
+        println!("  9. 📊 Statut du réseau");
+        println!("  0. ❌ Quitter");
+
+        print!("\n👉 Choix: ");
+        io::stdout().flush().unwrap();
+
+        let mut input = String::new();
+        io::stdin().read_line(&mut input).unwrap();
+        let choice = input.trim();
+
+        match choice {
+            "1" => terminal_create_wallet(state),
+            "2" => terminal_send(state),
+            "3" => terminal_mine(state),
+            "4" => terminal_register(state),
+            "5" => terminal_login(state),
+            "6" => terminal_account(state),
+            "7" => terminal_view_chain(state),
+            "8" => terminal_directory(state),
+            "9" => terminal_status(state),
+            "0" => {
+                println!("🦁 Au revoir senpai. L'Afrique veille.");
+                std::process::exit(0);
+            }
+            _ => println!("⚠️ Choix invalide"),
+        }
+    }
+}
+
+fn read_input(prompt: &str) -> String {
+    print!("{}", prompt);
+    io::stdout().flush().unwrap();
+    let mut input = String::new();
+    io::stdin().read_line(&mut input).unwrap();
+    input.trim().to_string()
+}
+
+fn terminal_create_wallet(state: &Arc<AppState>) {
+    let mut wallets = state.wallets.lock().unwrap();
+    let (addr, priv_key) = wallets.create_wallet();
+    println!("\n👛 Wallet créé!");
+    println!("  📬 Adresse: {}", addr);
+    println!("  🔑 Clé privée: {}", priv_key);
+    println!("  ⚠️ Garde ta clé privée secrète!");
+}
+
+fn terminal_send(state: &Arc<AppState>) {
+    let from = read_input("\n📤 De (adresse): ");
+    let to = read_input("📤 À (numéro/adresse/nom): ");
+    let amount_str = read_input("💰 Montant (AFR): ");
+    let amount: u64 = amount_str.parse().unwrap_or(0);
+    let memo = read_input("📝 Mémo: ");
+
+    if amount == 0 {
+        println!("⚠️ Montant invalide");
+        return;
+    }
+
+    let wallets = state.wallets.lock().unwrap();
+    let users = state.users.lock().unwrap();
+    let to_addr = match users.resolve_recipient(&to) {
+        Some(addr) => addr,
+        None => {
+            println!("⚠️ Destinataire introuvable: {}", to);
+            return;
+        }
+    };
+
+    let mut chain = state.chain.lock().unwrap();
+    let mut tx = Transaction::new(&from, &to_addr, amount, &memo);
+    if let Some(sk) = wallets.get_signing_key(&from) {
+        tx.sign(&sk);
+        let tx_json = to_string(&tx.to_json());
+        chain.add_transaction(tx);
+        chain.save_to_file();
+        drop(chain);
+        drop(wallets);
+        drop(users);
+        broadcast_mesh(&*state, "tx", &tx_json);
+        println!("\n✅ Envoyé! {} AFR → {} (signé Ed25519 🔐)", amount, to);
+    } else {
+        println!("⚠️ Clé privée introuvable pour {}", from);
+    }
+}
+
+fn terminal_mine(state: &Arc<AppState>) {
+    let miner = read_input("\n⛏️  Adresse du mineur: ");
+    let mut chain = state.chain.lock().unwrap();
+    let blocks_before = chain.blocks.len();
+    chain.mine_pending(&miner);
+    let blocks_after = chain.blocks.len();
+    if blocks_after > blocks_before {
+        let block_json = to_string(&chain.blocks.last().unwrap().to_json());
+        chain.save_to_file();
+        drop(chain);
+        broadcast_mesh(&*state, "block", &block_json);
+        println!("\n⛏️  Bloc #{} miné! +100 AFR pour {}", blocks_after - 1, miner);
+    } else {
+        println!("ℹ️ Aucune transaction à miner");
+    }
+}
+
+fn terminal_register(state: &Arc<AppState>) {
+    println!("\n👤 INSCRIPTION");
+    println!("Pays disponibles:");
+    let countries = [
+        "Niger (+227)", "Nigeria (+234)", "Mali (+223)", "Burkina Faso (+226)",
+        "Senegal (+221)", "Côte d'Ivoire (+225)", "Ghana (+233)", "Cameroun (+237)",
+        "Kenya (+254)", "RDC (+243)", "Afrique du Sud (+27)", "Egypte (+20)",
+    ];
+    for (i, c) in countries.iter().enumerate() {
+        print!("  {}.", i + 1);
+        print!("{:<20}", c);
+        if (i + 1) % 3 == 0 { println!(); }
+    }
+    println!("  ... (54 pays)");
+
+    let username = read_input("\n👤 Nom d'utilisateur: ");
+    let password = read_input("🔑 Mot de passe: ");
+    let country = read_input("🌍 Code pays (ex: +227 Niger, +234 Nigeria): ");
+
+    let mut wallets = state.wallets.lock().unwrap();
+    let mut users = state.users.lock().unwrap();
+    match users.register(&username, &password, &country, &mut wallets) {
+        Ok(user) => {
+            println!("\n✅ Inscription réussie!");
+            println!("  👤 {}", user.username);
+            println!("  📱 {}", user.phone);
+            println!("  🌍 {}", user.country);
+            println!("  📬 {}", user.address);
+
+            let mesh = state.mesh.lock().unwrap();
+            let entry = DirectoryEntry {
+                phone: user.phone.clone(),
+                address: user.address.clone(),
+                username: user.username.clone(),
+                country: user.country.clone(),
+                country_code: user.country_code.clone(),
+                node_id: mesh.my_id.clone(),
+                timestamp: now_timestamp(),
+            };
+            let entry_json = to_string(&entry.to_json());
+            drop(mesh);
+            broadcast_mesh(&*state, "directory", &entry_json);
+            println!("📡 Annuaire diffusé sur le mesh");
+        }
+        Err(e) => println!("⚠️ Erreur: {}", e),
+    }
+}
+
+fn terminal_login(state: &Arc<AppState>) {
+    let username = read_input("\n👤 Nom d'utilisateur: ");
+    let password = read_input("🔑 Mot de passe: ");
+
+    let users = state.users.lock().unwrap();
+    match users.login(&username, &password) {
+        Some(user) => {
+            println!("\n✅ Connecté: {} ({})", user.username, user.phone);
+            let chain = state.chain.lock().unwrap();
+            let bal = chain.balance_of(&user.address);
+            println!("💰 Solde: {} AFR", bal);
+        }
+        None => println!("⚠️ Nom d'utilisateur ou mot de passe incorrect"),
+    }
+}
+
+fn terminal_account(state: &Arc<AppState>) {
+    let username = read_input("\n👤 Nom d'utilisateur: ");
+    let users = state.users.lock().unwrap();
+    let chain = state.chain.lock().unwrap();
+
+    match users.users.iter().find(|u| u.username == username) {
+        Some(user) => {
+            let bal = chain.balance_of(&user.address);
+            println!("\n👤 COMPTE");
+            println!("  👤 {}", user.username);
+            println!("  📱 {}", user.phone);
+            println!("  🌍 {} ({})", user.country, user.country_code);
+            println!("  📬 {}", user.address);
+            println!("  💰 Solde: {} AFR", bal);
+            println!("  📅 Inscrit le: {}", format_timestamp_short(user.created_at));
+        }
+        None => println!("⚠️ Utilisateur introuvable"),
+    }
+}
+
+fn terminal_view_chain(state: &Arc<AppState>) {
+    let chain = state.chain.lock().unwrap();
+    println!("\n⛓️  BLOCKCHAIN — {} blocs", chain.blocks.len());
+    println!("═══════════════════════════════════");
+    for block in &chain.blocks {
+        let tx_count = block.transactions.len();
+        let country = if block.country_code.is_empty() {
+            "Afrique".to_string()
+        } else {
+            block.country_code.clone()
+        };
+        println!("Bloc #{} | {} tx | {} | {}", block.index, tx_count, country, format_timestamp_short(block.timestamp));
+        for tx in &block.transactions {
+            println!("  💸 {} → {} ({} AFR) {}", tx.from, tx.to, tx.amount, tx.memo);
+        }
+    }
+    println!("═══════════════════════════════════");
+    println!("En attente: {} transactions", chain.pending.len());
+}
+
+fn terminal_directory(state: &Arc<AppState>) {
+    let mesh = state.mesh.lock().unwrap();
+    let users = state.users.lock().unwrap();
+    println!("\n📖 ANNUAIRE PANAFRICAIN");
+    println!("═══════════════════════════════════");
+
+    // Local users
+    for user in &users.users {
+        println!("  {} 📱 {} — 👤 {} — 🌍 {}", user.phone, user.phone, user.username, user.country);
+    }
+    // Mesh directory
+    for entry in mesh.directory.values() {
+        if !users.users.iter().any(|u| u.phone == entry.phone) {
+            println!("  {} 📱 {} — 👤 {} — 🌍 {} (mesh)", entry.phone, entry.phone, entry.username, entry.country);
+        }
+    }
+    println!("═══════════════════════════════════");
+    println!("Total: {} contacts", mesh.directory_count() + users.count());
+}
+
+fn terminal_status(state: &Arc<AppState>) {
+    let chain = state.chain.lock().unwrap();
+    let users = state.users.lock().unwrap();
+    let mesh = state.mesh.lock().unwrap();
+    let shield = state.shield.lock().unwrap();
+    let machines = state.machines.lock().unwrap();
+    let (attacks, _blocked, blocked_count, level) = shield.stats();
+
+    println!("\n📊 STATUT DU RÉSEAU");
+    println!("═══════════════════════════════════");
+    println!("  ⛓️  Blocs: {}", chain.blocks.len());
+    println!("  💰 Supply: {} AFR", chain.total_supply());
+    println!("  📊 Transactions: {}", chain.total_transactions());
+    println!("  ✅ Valide: {}", chain.is_valid());
+    println!("  👥 Utilisateurs: {}", users.count());
+    println!("  📡 Mesh: {} noeuds", mesh.count());
+    println!("  📡 Node ID: {}", mesh.my_id);
+    println!("  📡 Région: {}", mesh.region);
+    println!("  📖 Annuaire: {} contacts", mesh.directory_count() + users.count());
+    println!("  🛡️  Bouclier: {} | Niveau {} | {} attaques | {} IP bannies", shield.active, level, attacks, blocked_count);
+    println!("  🤖 Machines: {} | {} tx | {} blocs minés", machines.machines.len(), machines.tx_count, machines.total_mined);
+    println!("═══════════════════════════════════");
 }
 
 // ===== Dispatch function — remplace les 56 routes actix-web =====
@@ -10232,7 +10520,7 @@ fn handle_request(req: afri_http::HttpRequest, state: &Arc<AppState>) -> afri_ht
                 drop(chain);
                 drop(wallets);
                 drop(users);
-                broadcast_mesh(state, "tx", &tx_json);
+                broadcast_mesh(&*state, "tx", &tx_json);
                 HttpResponse::redirect("/wallet?msg=✅ Envoyé ! (signé Ed25519 🔐)")
             } else {
                 HttpResponse::redirect("/wallet?msg=⚠️ Adresse non trouvée dans ce wallet")
@@ -10249,7 +10537,7 @@ fn handle_request(req: afri_http::HttpRequest, state: &Arc<AppState>) -> afri_ht
             println!("⛏️ Bloc miné pour {}", form.miner);
             let block_json = to_string(&chain.blocks.last().unwrap().to_json());
             drop(chain);
-            broadcast_mesh(state, "block", &block_json);
+            broadcast_mesh(&*state, "block", &block_json);
             HttpResponse::redirect("/wallet?msg=⛏️ Bloc miné ! +100 AFR pour le mineur")
         }
 
@@ -10280,7 +10568,7 @@ fn handle_request(req: afri_http::HttpRequest, state: &Arc<AppState>) -> afri_ht
                     };
                     let entry_json = to_string(&entry.to_json());
                     drop(mesh);
-                    broadcast_mesh(state, "directory", &entry_json);
+                    broadcast_mesh(&*state, "directory", &entry_json);
                     println!("📡 Annuaire diffusé : {} → {}", user.phone, user.country);
                     HttpResponse::redirect(&format!("/account?user={}", user.username))
                 }
@@ -10351,7 +10639,7 @@ fn handle_request(req: afri_http::HttpRequest, state: &Arc<AppState>) -> afri_ht
                 drop(chain);
                 drop(wallets);
                 drop(users);
-                broadcast_mesh(state, "tx", &tx_json);
+                broadcast_mesh(&*state, "tx", &tx_json);
                 HttpResponse::redirect(&format!("/account?user={}&msg=✅ Envoyé à {} ! {} AFR signés", username, form.to, form.amount))
             } else {
                 HttpResponse::redirect(&format!("/account?user={}&msg=⚠️ Clé privée introuvable", username))
@@ -10371,7 +10659,7 @@ fn handle_request(req: afri_http::HttpRequest, state: &Arc<AppState>) -> afri_ht
             let block_json = to_string(&chain.blocks.last().unwrap().to_json());
             drop(chain);
             drop(users);
-            broadcast_mesh(state, "block", &block_json);
+            broadcast_mesh(&*state, "block", &block_json);
             HttpResponse::redirect(&format!("/account?user={}&msg=⛏️ Miné ! +100 AFR", username))
         }
 
