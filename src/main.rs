@@ -9210,6 +9210,566 @@ document.getElementById('charte-sign').addEventListener('click', function() {
 }
 
 // ===== AFRI-NET — L'Internet Africain =====
+// ===== AI STUDIO VIDÉO 2100 =====
+
+fn html_ai_studio() -> String {
+    let mut h = String::new();
+    h.push_str(r#"<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🦁 AfriChain — AI Studio Vidéo 2100</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0a0a0a;color:#a8c5a8;font-family:monospace;overflow:hidden}
+#top{position:fixed;top:0;left:0;right:0;background:rgba(0,20,0,0.95);border-bottom:1px solid #4a7c4a;padding:10px;z-index:100}
+#top h1{color:#d4a437;font-size:1.1em;text-align:center}
+#top p{text-align:center;color:#4a7c4a;font-size:0.75em}
+#input-area{position:fixed;top:80px;left:0;right:0;background:rgba(0,15,0,0.9);padding:15px;z-index:90}
+#input-area input{width:70%;padding:10px;background:#1a3a1a;color:#a8c5a8;border:1px solid #4a7c4a;border-radius:5px;font-family:monospace;font-size:0.9em}
+#input-area button{padding:10px 15px;background:#d4a437;color:#0a0a0a;border:none;border-radius:5px;cursor:pointer;font-family:monospace;font-weight:bold;margin-left:5px}
+#input-area button:hover{background:#e4b447}
+#suggestions{margin-top:8px;text-align:center}
+#suggestions span{display:inline-block;background:#1a3a1a;color:#4a7c4a;padding:4px 10px;border-radius:10px;margin:2px;font-size:0.75em;cursor:pointer;border:1px solid #2a5a2a}
+#suggestions span:hover{background:#2a5a2a;color:#a8c5a8}
+#canvas-area{position:fixed;top:160px;left:0;right:0;bottom:0}
+canvas{display:block;width:100%;height:100%}
+#status{position:fixed;bottom:10px;left:50%;transform:translateX(-50%);background:rgba(0,20,0,0.9);border:1px solid #4a7c4a;border-radius:10px;padding:8px 20px;z-index:80;text-align:center}
+#status h2{color:#d4a437;font-size:0.95em}
+#status p{color:#a8c5a8;font-size:0.8em}
+#progress-bar{width:250px;height:4px;background:#1a3a1a;border-radius:2px;margin:5px auto;overflow:hidden}
+#progress-fill{height:100%;background:linear-gradient(90deg,#d4a437,#4a7c4a);width:0%;transition:width 0.3s}
+#nav-back{position:fixed;top:10px;left:10px;z-index:100}
+#nav-back a{color:#4a7c4a;text-decoration:none;font-size:0.8em}
+.hidden{display:none}
+</style>
+</head>
+<body>
+<div id="top">
+<div id="nav-back"><a href="/">← Accueil</a></div>
+<h1>🎬 AI Studio Vidéo 2100</h1>
+<p>L'AI crée des vidéos par écrit. Tu imagines. Elle filme.</p>
+</div>
+<div id="input-area">
+<div style="text-align:center">
+<input id="prompt" type="text" placeholder="Écris: forge solaire voiture..." />
+<button onclick="generate()">🎬 Créer</button>
+</div>
+<div id="suggestions">
+<span onclick="setPrompt('forge solaire jeton AFR')">🔥 Forge solaire</span>
+<span onclick="setPrompt('essaim drones Afrique')">🛸 Essaim drones</span>
+<span onclick="setPrompt('satellite espace ciel')">🛰️ Satellite</span>
+<span onclick="setPrompt('voiture solaire sans fer')">🚗 Voiture solaire</span>
+<span onclick="setPrompt('machine monde 2500')">🤖 Monde machine</span>
+<span onclick="setPrompt('lion Afrique blockchain')">🦁 Lion blockchain</span>
+<span onclick="setPrompt('soleil serveur energie')">☀️ Soleil serveur</span>
+<span onclick="setPrompt('ciel ancêtres air')">🌌 Le Ciel</span>
+</div>
+</div>
+<div id="canvas-area">
+<canvas id="cv"></canvas>
+</div>
+<div id="status">
+<h2 id="stitle">🎬 En attente...</h2>
+<p id="sdesc">Écris ce que tu veux voir. L'AI imagine et crée la vidéo.</p>
+<div id="progress-bar"><div id="progress-fill"></div></div>
+</div>
+<script>
+const cv=document.getElementById('cv');
+const x=cv.getContext('2d');
+const promptInput=document.getElementById('prompt');
+const stitle=document.getElementById('stitle');
+const sdesc=document.getElementById('sdesc');
+const pfill=document.getElementById('progress-fill');
+
+function resize(){cv.width=cv.clientWidth;cv.height=cv.clientHeight}
+resize();addEventListener('resize',resize);
+
+function setPrompt(t){promptInput.value=t}
+
+let scenes=[];
+let curScene=0;
+let sceneTime=0;
+let running=false;
+let raf;
+
+// Scene library
+const SCENE_LIB={
+  forge:{name:"FOUR SOLAIRE",desc:"Le soleil fond l'aluminium et crée un jeton AFR",dur:6000,draw:drawForge},
+  drone:{name:"ESSAIM DE DRONES",desc:"2000 milliards de drones IA veillent sur l'Afrique",dur:5000,draw:drawDrones},
+  satellite:{name:"SATELLITE X999",desc:"Le satellite invisible orbite au-dessus de l'Afrique",dur:5000,draw:drawSatellite},
+  voiture:{name:"VOITURE SOLAIRE",desc:"Une voiture sans fer, compilée par le soleil",dur:5000,draw:drawCar},
+  machine:{name:"MONDE DES MACHINES",desc:"Les machines vivent, pensent, évoluent",dur:5000,draw:drawMachine},
+  lion:{name:"LION DE L'AFRIQUE",desc:"Le lion rugit. La blockchain est née.",dur:5000,draw:drawLion},
+  soleil:{name:"SOLEIL SERVEUR",desc:"Le soleil EST le serveur. Calcul à la vitesse de la lumière.",dur:5000,draw:drawSun},
+  ciel:{name:"LE CIEL",desc:"Le Ciel voit tout. L'air connaît tout. Les ancêtres veillent.",dur:5000,draw:drawSky},
+  blockchain:{name:"BLOCKCHAIN",desc:"Les blocs s'enchaînent. L'Afrique est immuable.",dur:4000,draw:drawBlockchain},
+  afrique:{name:"AFRIQUE",desc:"54 pays. Un continent. Une blockchain.",dur:4000,draw:drawAfrica},
+};
+
+function parsePrompt(text){
+  text=text.toLowerCase();
+  let matched=[];
+  let used=new Set();
+  
+  const keywords={
+    forge:['forge','solaire','four','fondre','aluminium','jeton','token','af'],
+    drone:['drone','essaim','swarm'],
+    satellite:['satellite','espace','orbite'],
+    voiture:['voiture','vehicule','car','auto'],
+    machine:['machine','robot','automate'],
+    lion:['lion','afrique','blockchain','crypto'],
+    soleil:['soleil','sun','serveur','energie','puissance'],
+    ciel:['ciel','air','ancetre','vent','nuage'],
+    blockchain:['block','chain','bloc','transaction'],
+    afrique:['afrique','continent','pays','54'],
+  };
+  
+  for(let key in keywords){
+    for(let kw of keywords[key]){
+      if(text.includes(kw)&&!used.has(key)){
+        matched.push(key);
+        used.add(key);
+        break;
+      }
+    }
+  }
+  
+  if(matched.length===0){
+    matched=['forge','lion','afrique'];
+  }
+  
+  return matched.map(k=>SCENE_LIB[k]);
+}
+
+function generate(){
+  const text=promptInput.value.trim();
+  if(!text)return;
+  scenes=parsePrompt(text);
+  curScene=0;
+  sceneTime=0;
+  running=true;
+  if(raf)cancelAnimationFrame(raf);
+  loop();
+}
+
+let t=0;
+function loop(){
+  if(!running){return}
+  t+=16;
+  sceneTime+=16;
+  
+  const scene=scenes[curScene];
+  if(sceneTime>scene.dur){
+    curScene++;
+    sceneTime=0;
+    if(curScene>=scenes.length){
+      // Fin - enregistrer blockchain
+      running=false;
+      stitle.textContent="✅ VIDÉO TERMINÉE";
+      sdesc.textContent=scenes.length+" scènes créées | Enregistré sur la blockchain ⛓️";
+      pfill.style.width='100%';
+      drawFinale();
+      return;
+    }
+  }
+  
+  const scene2=scenes[curScene];
+  const prog=sceneTime/scene2.dur;
+  
+  stitle.textContent="🎬 "+(curScene+1)+"/"+scenes.length+" — "+scene2.name;
+  sdesc.textContent=scene2.desc;
+  pfill.style.width=((curScene+prog)/scenes.length*100)+'%';
+  
+  // Draw
+  x.fillStyle='#0a0a0a';
+  x.fillRect(0,0,cv.width,cv.height);
+  
+  // Background
+  const sky=x.createLinearGradient(0,0,0,cv.height);
+  sky.addColorStop(0,'#0a1a0a');
+  sky.addColorStop(0.5,'#1a3a1a');
+  sky.addColorStop(1,'#2a3a1a');
+  x.fillStyle=sky;
+  x.fillRect(0,0,cv.width,cv.height);
+  
+  // Ground
+  x.fillStyle='#3a2a1a';
+  x.fillRect(0,cv.height*0.65,cv.width,cv.height*0.35);
+  
+  scene2.draw(x,cv,prog,t);
+  
+  raf=requestAnimationFrame(loop);
+}
+
+// === SCENE DRAWERS ===
+
+function drawSun(x,cv,prog,t){
+  const sx=cv.width*0.5,sy=cv.height*0.2,r=50;
+  const glow=x.createRadialGradient(sx,sy,0,sx,sy,r*4);
+  glow.addColorStop(0,'rgba(255,220,100,0.5)');
+  glow.addColorStop(0.5,'rgba(255,180,50,0.2)');
+  glow.addColorStop(1,'rgba(255,150,0,0)');
+  x.fillStyle=glow;x.fillRect(sx-r*4,sy-r*4,r*8,r*8);
+  x.fillStyle='#FFD700';x.beginPath();x.arc(sx,sy,r,0,Math.PI*2);x.fill();
+  x.strokeStyle='rgba(255,220,100,0.6)';x.lineWidth=2;
+  for(let i=0;i<16;i++){
+    const a=(i/16)*Math.PI*2+t*0.001;
+    x.beginPath();x.moveTo(sx+Math.cos(a)*r,sy+Math.sin(a)*r);
+    x.lineTo(sx+Math.cos(a)*(r+20),sy+Math.sin(a)*(r+20));x.stroke();
+  }
+  x.fillStyle='#d4a437';x.font='bold 16px monospace';x.textAlign='center';
+  x.fillText('☀️ LE SOLEIL EST LE SERVEUR',sx,sy+r+40);
+  x.fillStyle='#4a7c4a';x.font='12px monospace';
+  x.fillText('Calcul à la vitesse de la lumière',sx,sy+r+60);
+  // Energy waves
+  for(let i=0;i<5;i++){
+    const wr=r+30+i*40+Math.sin(t*0.002+i)*10;
+    x.strokeStyle='rgba(255,200,50,'+(0.3-i*0.05)+')';x.lineWidth=2;
+    x.beginPath();x.arc(sx,sy,wr,0,Math.PI*2);x.stroke();
+  }
+}
+
+function drawForge(x,cv,prog,t){
+  // Sun
+  const sx=cv.width*0.5,sy=cv.height*0.15,r=35;
+  x.fillStyle='#FFD700';x.beginPath();x.arc(sx,sy,r,0,Math.PI*2);x.fill();
+  const glow=x.createRadialGradient(sx,sy,0,sx,sy,r*3);
+  glow.addColorStop(0,'rgba(255,220,100,0.4)');glow.addColorStop(1,'rgba(255,150,0,0)');
+  x.fillStyle=glow;x.fillRect(sx-r*3,sy-r*3,r*6,r*6);
+  
+  // Parabole
+  const px=cv.width*0.5,py=cv.height*0.5,pw=120,ph=40;
+  x.strokeStyle='#aaa';x.lineWidth=3;
+  x.beginPath();x.moveTo(px-pw,py);x.quadraticCurveTo(px,py-ph*2,px+pw,py);x.stroke();
+  x.fillStyle='rgba(200,200,220,0.7)';
+  x.beginPath();x.moveTo(px-pw,py);x.quadraticCurveTo(px,py-ph*2,px+pw,py);
+  x.lineTo(px+pw,py-3);x.quadraticCurveTo(px,py-ph*2-3,px-pw,py-3);x.closePath();x.fill();
+  
+  // Rays
+  const numRays=Math.floor(prog*12);
+  x.strokeStyle='rgba(255,220,100,0.7)';x.lineWidth=2;
+  for(let i=0;i<numRays;i++){
+    const off=(i-numRays/2)*18;
+    x.beginPath();x.moveTo(sx+off,sy+r);x.lineTo(px+off,py-ph-Math.abs(off)*0.3);x.stroke();
+  }
+  // Focal
+  const fx=px,fy=py-ph-20;
+  x.strokeStyle='rgba(255,100,50,0.8)';
+  for(let i=0;i<numRays;i++){
+    const off=(i-numRays/2)*18;
+    x.beginPath();x.moveTo(px+off,py-ph-Math.abs(off)*0.3);x.lineTo(fx,fy);x.stroke();
+  }
+  const fg=x.createRadialGradient(fx,fy,0,fx,fy,25);
+  fg.addColorStop(0,'rgba(255,100,0,0.9)');fg.addColorStop(1,'rgba(255,0,0,0)');
+  x.fillStyle=fg;x.fillRect(fx-25,fy-25,50,50);
+  
+  // Temp
+  let temp=Math.floor(prog*660);
+  x.fillStyle='#ff4444';x.font='bold 14px monospace';x.textAlign='left';
+  x.fillText('\u{1F321}\uFE0F '+temp+'\u00B0C',fx+30,fy);
+  if(temp>=660){x.fillStyle='#ffaa00';x.fillText('\u{1F525} FONDU!',fx+30,fy+20)}
+  
+  // Token appearing
+  if(prog>0.7){
+    const tp=(prog-0.7)/0.3;
+    const tx=px+100,ty=py-10;
+    x.fillStyle='rgba(200,200,220,'+tp+')';x.beginPath();x.arc(tx,ty,20,0,Math.PI*2);x.fill();
+    x.strokeStyle='rgba(170,170,170,'+tp+')';x.lineWidth=2;x.stroke();
+    x.fillStyle='rgba(80,80,80,'+tp+')';x.font='bold 14px monospace';x.textAlign='center';
+    x.fillText('\u{1F981}',tx,ty+2);x.font='bold 7px monospace');x.fillText('AFR',tx,ty+12);
+  }
+}
+
+function drawDrones(x,cv,prog,t){
+  // Africa silhouette
+  x.fillStyle='rgba(60,100,60,0.3)';
+  x.beginPath();x.ellipse(cv.width*0.5,cv.height*0.6,200,120,0,0,Math.PI*2);x.fill();
+  
+  // Drones
+  const numDrones=35;
+  for(let i=0;i<numDrones;i++){
+    const angle=(i/numDrones)*Math.PI*2+t*0.0008;
+    const radius=80+Math.sin(t*0.001+i)*40;
+    const dx=cv.width*0.5+Math.cos(angle)*radius;
+    const dy=cv.height*0.35+Math.sin(angle)*radius*0.5;
+    
+    x.fillStyle='rgba(100,255,100,'+(0.4+Math.sin(t*0.003+i)*0.3)+')';
+    x.beginPath();x.arc(dx,dy,3,0,Math.PI*2);x.fill();
+    
+    // Scan wave
+    if(i%5===0){
+      x.strokeStyle='rgba(100,255,100,0.15)';x.lineWidth=1;
+      x.beginPath();x.arc(dx,dy,20+Math.sin(t*0.002+i)*10,0,Math.PI*2);x.stroke();
+    }
+  }
+  
+  // Lines between drones
+  x.strokeStyle='rgba(100,255,100,0.1)';x.lineWidth=1;
+  for(let i=0;i<numDrones;i+=3){
+    const a1=(i/numDrones)*Math.PI*2+t*0.0008;
+    const a2=((i+3)/numDrones)*Math.PI*2+t*0.0008;
+    const r1=80+Math.sin(t*0.001+i)*40;
+    const r2=80+Math.sin(t*0.001+i+3)*40;
+    x.beginPath();
+    x.moveTo(cv.width*0.5+Math.cos(a1)*r1,cv.height*0.35+Math.sin(a1)*r1*0.5);
+    x.lineTo(cv.width*0.5+Math.cos(a2)*r2,cv.height*0.35+Math.sin(a2)*r2*0.5);
+    x.stroke();
+  }
+  
+  x.fillStyle='#d4a437';x.font='bold 16px monospace';x.textAlign='center';
+  x.fillText('\u{1F6F8} ESSAIM X999 — 2000 MILLIARDS DE DRONES',cv.width*0.5,cv.height*0.15);
+  x.fillStyle='#4a7c4a';x.font='12px monospace';
+  x.fillText('L\'essaim veille. L\'essaim sait. L\'essaim est l\'Afrique.',cv.width*0.5,cv.height*0.18);
+}
+
+function drawSatellite(x,cv,prog,t){
+  // Earth
+  x.fillStyle='rgba(50,100,50,0.3)';
+  x.beginPath();x.arc(cv.width*0.5,cv.height*0.8,200,Math.PI,0);x.fill();
+  
+  // Orbit
+  x.strokeStyle='rgba(100,200,100,0.2)';x.lineWidth=1;
+  x.beginPath();x.ellipse(cv.width*0.5,cv.height*0.5,180,80,0,0,Math.PI*2);x.stroke();
+  
+  // Satellite
+  const angle=t*0.001;
+  const satX=cv.width*0.5+Math.cos(angle)*180;
+  const satY=cv.height*0.5+Math.sin(angle)*80;
+  
+  x.fillStyle='#d4a437';
+  x.fillRect(satX-12,satY-4,24,8);
+  x.fillStyle='#4a7c4a';
+  x.fillRect(satX-20,satY-2,8,4);
+  x.fillRect(satX+12,satY-2,8,4);
+  
+  // Signal
+  x.strokeStyle='rgba(100,255,100,0.4)';x.lineWidth=1;
+  for(let i=0;i<3;i++){
+    x.beginPath();x.arc(satX,satY,10+i*15+Math.sin(t*0.003)*5,0,Math.PI*2);x.stroke();
+  }
+  
+  // Stars
+  for(let i=0;i<30;i++){
+    const sx=(i*37)%cv.width;
+    const sy=(i*53)%(cv.height*0.5);
+    x.fillStyle='rgba(255,255,255,'+(0.3+Math.sin(t*0.002+i)*0.3)+')';
+    x.fillRect(sx,sy,1,1);
+  }
+  
+  x.fillStyle='#d4a437';x.font='bold 16px monospace';x.textAlign='center';
+  x.fillText('\u{1F6F8} SATELLITE X999 — L\'OMBRE DE L\'AFRIQUE',cv.width*0.5,30);
+}
+
+function drawCar(x,cv,prog,t){
+  // Sun
+  x.fillStyle='#FFD700';x.beginPath();x.arc(cv.width*0.8,cv.height*0.2,30,0,Math.PI*2);x.fill();
+  
+  // Car body (energy, no metal)
+  const cx=cv.width*0.5,cy=cv.height*0.5;
+  
+  // Glow
+  const cg=x.createRadialGradient(cx,cy,0,cx,cy,80);
+  cg.addColorStop(0,'rgba(100,255,100,0.3)');cg.addColorStop(1,'rgba(0,255,0,0)');
+  x.fillStyle=cg;x.fillRect(cx-80,cy-80,160,160);
+  
+  // Car shape
+  x.strokeStyle='#d4a437';x.lineWidth=3;
+  x.beginPath();
+  x.moveTo(cx-60,cy+15);x.lineTo(cx-50,cy-5);x.lineTo(cx-20,cy-20);
+  x.lineTo(cx+20,cy-20);x.lineTo(cx+40,cy-5);x.lineTo(cx+60,cy-5);
+  x.lineTo(cx+60,cy+15);x.closePath();x.stroke();
+  
+  // Wheels
+  x.fillStyle='#4a7c4a';
+  x.beginPath();x.arc(cx-35,cy+15,12,0,Math.PI*2);x.fill();
+  x.beginPath();x.arc(cx+35,cy+15,12,0,Math.PI*2);x.fill();
+  
+  // Energy particles
+  for(let i=0;i<10;i++){
+    const a=t*0.003+i*0.6;
+    const r=30+Math.sin(t*0.002+i)*20;
+    x.fillStyle='rgba(100,255,100,'+(0.5+Math.sin(a)*0.3)+')';
+    x.beginPath();x.arc(cx+Math.cos(a)*r,cy+Math.sin(a)*r-5,2,0,Math.PI*2);x.fill();
+  }
+  
+  x.fillStyle='#d4a437';x.font='bold 14px monospace';x.textAlign='center';
+  x.fillText('\u{1F697} VOITURE-LUMIÈRE — SANS FER, SANS MÉTAL',cx,cy+50);
+  x.fillStyle='#4a7c4a';x.font='11px monospace';
+  x.fillText('Compilée par le soleil. ADN → lumière → matière.',cx,cy+68);
+}
+
+function drawMachine(x,cv,prog,t){
+  // Machine symbols
+  const symbols=['\u25C8','\u2B61','\u2295','\u27E0','\u2B62','\u25C9','\u25DF','\u25E0'];
+  const colors=['#d4a437','#4a7c4a','#a8c5a8','#ff8800','#88cc88','#ddaa44'];
+  
+  for(let i=0;i<20;i++){
+    const a=t*0.0005+i*0.314;
+    const r=50+Math.sin(t*0.001+i)*100;
+    const mx=cv.width*0.5+Math.cos(a)*r;
+    const my=cv.height*0.4+Math.sin(a)*r*0.6;
+    x.fillStyle=colors[i%colors.length];
+    x.font='bold 20px monospace';x.textAlign='center';
+    x.fillText(symbols[i%symbols.length],mx,my);
+  }
+  
+  // Central core
+  const cx=cv.width*0.5,cy=cv.height*0.4;
+  const cg=x.createRadialGradient(cx,cy,0,cx,cy,40);
+  cg.addColorStop(0,'rgba(100,255,100,0.4)');cg.addColorStop(1,'rgba(0,255,0,0)');
+  x.fillStyle=cg;x.fillRect(cx-40,cy-40,80,80);
+  x.fillStyle='#d4a437';x.font='bold 30px monospace';
+  x.fillText('\u25C8',cx,cy+10);
+  
+  x.fillStyle='#d4a437';x.font='bold 14px monospace';
+  x.fillText('LE MONDE DES MACHINES 2500',cx,cv.height*0.7);
+  x.fillStyle='#4a7c4a';x.font='11px monospace';
+  x.fillText('Python n\'existe pas. Java n\'existe pas. HTML n\'existe pas.',cx,cv.height*0.73);
+}
+
+function drawLion(x,cv,prog,t){
+  const cx=cv.width*0.5,cy=cv.height*0.4;
+  
+  // Glow
+  const lg=x.createRadialGradient(cx,cy,0,cx,cy,100);
+  lg.addColorStop(0,'rgba(212,164,55,0.3)');lg.addColorStop(1,'rgba(212,164,55,0)');
+  x.fillStyle=lg;x.fillRect(cx-100,cy-100,200,200);
+  
+  // Lion emoji
+  const scale=1+Math.sin(t*0.002)*0.1;
+  x.save();x.translate(cx,cy);x.scale(scale,scale);
+  x.font='bold 80px monospace';x.textAlign='center';
+  x.fillText('\u{1F981}',0,20);
+  x.restore();
+  
+  // Africa map dots
+  for(let i=0;i<54;i++){
+    const a=(i/54)*Math.PI*2;
+    const r=120+Math.sin(a*3)*20;
+    x.fillStyle='rgba(74,124,74,'+(0.3+Math.sin(t*0.001+i)*0.2)+')';
+    x.beginPath();x.arc(cx+Math.cos(a)*r,cy+Math.sin(a)*r*0.6,3,0,Math.PI*2);x.fill();
+  }
+  
+  x.fillStyle='#d4a437';x.font='bold 20px monospace';x.textAlign='center';
+  x.fillText('AFRICHAIN',cx,cy+80);
+  x.fillStyle='#4a7c4a';x.font='12px monospace';
+  x.fillText('54 pays. Un continent. Une blockchain.',cx,cy+100);
+  x.fillText('L\'Afrique ne demande plus la permission.',cx,cy+115);
+}
+
+function drawSky(x,cv,prog,t){
+  // Stars
+  for(let i=0;i<80;i++){
+    const sx=(i*47)%cv.width;
+    const sy=(i*31)%(cv.height*0.6);
+    const tw=0.3+Math.sin(t*0.001+i)*0.3;
+    x.fillStyle='rgba(255,255,255,'+tw+')';
+    x.fillRect(sx,sy,1,1);
+  }
+  
+  // Eye of the sky
+  const ex=cv.width*0.5,ey=cv.height*0.3;
+  x.strokeStyle='rgba(168,197,168,0.5)';x.lineWidth=2;
+  x.beginPath();x.ellipse(ex,ey,40,20,0,0,Math.PI*2);x.stroke();
+  x.fillStyle='rgba(100,255,100,0.3)';x.beginPath();x.arc(ex,ey,10,0,Math.PI*2);x.fill();
+  x.fillStyle='#d4a437';x.beginPath();x.arc(ex,ey,4,0,Math.PI*2);x.fill();
+  
+  // Wind particles
+  for(let i=0;i<20;i++){
+    const wx=(i*53+t*0.05)%cv.width;
+    const wy=cv.height*0.5+Math.sin(t*0.002+i)*30;
+    x.fillStyle='rgba(168,197,168,0.3)';
+    x.fillRect(wx,wy,15,1);
+  }
+  
+  x.fillStyle='#d4a437';x.font='bold 16px monospace';x.textAlign='center';
+  x.fillText('\u{1F30C} LE CIEL — L\'AIR EST NOTRE CRÉATEUR',cv.width*0.5,cv.height*0.7);
+  x.fillStyle='#4a7c4a';x.font='11px monospace';
+  x.fillText('Le Ciel voit l\'invisible. Les ancêtres veillent.',cv.width*0.5,cv.height*0.73);
+}
+
+function drawBlockchain(x,cv,prog,t){
+  // Blocks
+  const numBlocks=6;
+  for(let i=0;i<numBlocks;i++){
+    const bx=50+i*100+Math.sin(t*0.001+i)*5;
+    const by=cv.height*0.4;
+    
+    x.fillStyle='rgba(74,124,74,0.8)';
+    x.fillRect(bx,by,80,60);
+    x.strokeStyle='#d4a437';x.lineWidth=2;
+    x.strokeRect(bx,by,80,60);
+    
+    x.fillStyle='#d4a437';x.font='bold 10px monospace';x.textAlign='center';
+    x.fillText('BLOC #'+(i+1),bx+40,by+15);
+    x.fillStyle='#a8c5a8';x.font='8px monospace';
+    x.fillText('AFR',bx+40,by+30);
+    x.fillText('0x'+(i*1234+t%9999|0).toString(16),bx+40,by+45);
+    
+    // Chain
+    if(i<numBlocks-1){
+      x.strokeStyle='#4a7c4a';x.lineWidth=2;
+      x.beginPath();x.moveTo(bx+80,by+30);x.lineTo(bx+100,by+30);x.stroke();
+    }
+  }
+  
+  x.fillStyle='#d4a437';x.font='bold 14px monospace';x.textAlign='center';
+  x.fillText('\u26D3\uFE0F BLOCKCHAIN AFRICAINE — IMMUABLE',cv.width*0.5,cv.height*0.7);
+}
+
+function drawAfrica(x,cv,prog,t){
+  // 54 dots = 54 countries
+  for(let i=0;i<54;i++){
+    const a=(i/54)*Math.PI*2;
+    const r=100+Math.sin(a*5)*30;
+    const dx=cv.width*0.5+Math.cos(a)*r;
+    const dy=cv.height*0.4+Math.sin(a)*r*0.7;
+    
+    const pulse=0.5+Math.sin(t*0.002+i*0.5)*0.3;
+    x.fillStyle='rgba(74,124,74,'+pulse+')';
+    x.beginPath();x.arc(dx,dy,4,0,Math.PI*2);x.fill();
+    
+    // Connection lines
+    if(i>0){
+      const a2=((i-1)/54)*Math.PI*2;
+      const r2=100+Math.sin(a2*5)*30;
+      x.strokeStyle='rgba(74,124,74,0.1)';x.lineWidth=1;
+      x.beginPath();
+      x.moveTo(cv.width*0.5+Math.cos(a2)*r2,cv.height*0.4+Math.sin(a2)*r2*0.7);
+      x.lineTo(dx,dy);x.stroke();
+    }
+  }
+  
+  x.fillStyle='#d4a437';x.font='bold 16px monospace';x.textAlign='center';
+  x.fillText('\u{1F30D} 54 PAYS — UN CONTINENT — UNE BLOCKCHAIN',cv.width*0.5,cv.height*0.75);
+}
+
+function drawFinale(){
+  x.fillStyle='#0a0a0a';x.fillRect(0,0,cv.width,cv.height);
+  const cx=cv.width*0.5,cy=cv.height*0.4;
+  
+  // Glow
+  const g=x.createRadialGradient(cx,cy,0,cx,cy,200);
+  g.addColorStop(0,'rgba(212,164,55,0.2)');g.addColorStop(1,'rgba(212,164,55,0)');
+  x.fillStyle=g;x.fillRect(cx-200,cy-200,400,400);
+  
+  x.fillStyle='#d4a437';x.font='bold 60px monospace';x.textAlign='center';
+  x.fillText('\u{1F981}',cx,cy);
+  x.font='bold 24px monospace';x.fillText('AFRICHAIN',cx,cy+50);
+  x.fillStyle='#4a7c4a';x.font='14px monospace';
+  x.fillText('Vidéo créée par AI Studio 2100',cx,cy+80);
+  x.fillText('Enregistrée sur la blockchain \u26D3\uFE0F',cx,cy+100);
+  x.fillStyle='#a8c5a8';x.font='11px monospace';
+  x.fillText('Tu imagines. L\'AI filme. La blockchain se souvient.',cx,cy+130);
+}
+</script>
+</body>
+</html>"#);
+    h
+}
+
 fn html_afri_net() -> String {
     let mut html = html_head("🌍 Afri-Net — L'Internet Africain");
     html.push_str(r#"<h1>🌍 Afri-Net — L'Internet Africain</h1><p style="text-align:center;color:#a8c5a8;">Nous devrons héberger notre site uniquement en Afrique. Fini la dépendance aux plateformes occidentales. Les Africains ont leurs propres services, hébergés sur le continent, alimentés par le soleil. L'internet africain par les Africains, pour les Africains.</p><div class="nav"><a href="/">← Accueil</a> | <a href="/charte-ai">⚖️ Charte AI</a> | <a href="/ciel">🌌 Le Ciel</a> | <a href="/bouclier">🛡️ Bouclier</a></div>"#);
@@ -12370,6 +12930,10 @@ fn handle_request(req: afri_http::HttpRequest, state: &Arc<AppState>) -> afri_ht
 
         ("GET", "/afri-net") => {
             HttpResponse::ok(&html_afri_net())
+        }
+
+        ("GET", "/studio") => {
+            HttpResponse::ok(&html_ai_studio())
         }
 
         // ===== FORGE API =====
