@@ -9979,7 +9979,7 @@ fn terminal_interface(state: &Arc<AppState>) {
     // Écran de sélection: Admin ou Client
     println!("\n");
     println!("╔══════════════════════════════════════╗");
-    println!("║  🦁 AfriChain v0.67                  ║");
+    println!("║  🦁 AfriChain v0.68                  ║");
     println!("║  💚 Banque Numérique AES             ║");
     println!("║  💚 L'Afrique n'a pas besoin de      ║");
     println!("║     permission                       ║");
@@ -10053,7 +10053,7 @@ fn admin_interface(state: &Arc<AppState>) {
         println!("\n");
         println!("╔══════════════════════════════════════╗");
         println!("║  🏦 CENTRE DE DONNÉES — Admin       ║");
-        println!("║  🦁 AfriChain v0.67                  ║");
+        println!("║  🦁 AfriChain v0.68                  ║");
         println!("╠══════════════════════════════════════╣");
         let chain = state.chain.lock().unwrap();
         let users = state.users.lock().unwrap();
@@ -10093,6 +10093,7 @@ fn admin_interface(state: &Arc<AppState>) {
         println!(" 19. ❄️ Geler/Dégeler un compte");
         println!(" 20. ℹ️  Info Système — Carte d'identité");
         println!(" 21. 🔑 Changer mot de passe admin");
+        println!(" 22. 🦁 AES — Alliance des États du Sahel");
         println!("  0. ❌ Quitter");
 
         print!("\n👉 Choix: ");
@@ -10124,6 +10125,7 @@ fn admin_interface(state: &Arc<AppState>) {
             "19" => terminal_freeze_account(state),
             "20" => terminal_system_info(state),
             "21" => terminal_change_admin_password(),
+            "22" => terminal_aes_alliance(state),
             "0" => {
                 println!("🦁 Au revoir senpai. L'Afrique veille.");
                 std::process::exit(0);
@@ -10680,6 +10682,130 @@ fn client_sahara_afri(state: &Arc<AppState>) {
             _ => println!("⚠️ Choix invalide"),
         }
     }
+}
+
+// ===== AES — ALLIANCE DES ÉTATS DU SAHEL =====
+
+fn aes_member_states() -> Vec<(&'static str, &'static str, &'static str)> {
+    // (code, nom, drapeau)
+    vec![
+        ("+223", "Mali", "🇲🇱"),
+        ("+227", "Niger", "🇳🇪"),
+        ("+226", "Burkina Faso", "🇧🇫"),
+    ]
+}
+
+fn is_aes_member(country_code: &str) -> bool {
+    aes_member_states().iter().any(|(code, _, _)| *code == country_code)
+}
+
+fn terminal_aes_alliance(state: &Arc<AppState>) {
+    let chain = state.chain.lock().unwrap();
+    let users = state.users.lock().unwrap();
+    let logs = load_activity();
+    let alerts = load_alerts();
+
+    let aes = aes_member_states();
+
+    println!("\n");
+    println!("╔══════════════════════════════════════════════════╗");
+    println!("║  🦁 AES — ALLIANCE DES ÉTATS DU SAHEL           ║");
+    println!("║  🇲🇱 🇳🇪 🇧🇫 — Mali · Niger · Burkina Faso      ║");
+    println!("╠══════════════════════════════════════════════════╣");
+    println!("║                                                  ║");
+    println!("║  \"L'Afrique ne demande plus la permission.\"     ║");
+    println!("║  Trois nations. Une souveraineté.               ║");
+    println!("║  Une monnaie: AFR.                               ║");
+    println!("║                                                  ║");
+    println!("╠══════════════════════════════════════════════════╣");
+
+    // Stats par pays AES
+    let mut total_aes_users = 0;
+    let mut total_aes_supply = 0i64;
+    let mut total_aes_txs = 0;
+    let mut total_aes_alerts = 0;
+
+    for (code, name, flag) in &aes {
+        let country_users: Vec<_> = users.users.iter().filter(|u| u.country_code == *code).collect();
+        let user_count = country_users.len();
+        total_aes_users += user_count;
+
+        let mut country_supply = 0i64;
+        let mut country_txs = 0;
+        for u in &country_users {
+            country_supply += chain.balance_of(&u.address);
+        }
+        total_aes_supply += country_supply;
+
+        for block in &chain.blocks {
+            for tx in &block.transactions {
+                if let Some(sender) = users.users.iter().find(|u| u.address == tx.from) {
+                    if sender.country_code == *code {
+                        country_txs += 1;
+                    }
+                }
+            }
+        }
+        total_aes_txs += country_txs;
+
+        let country_alerts = alerts.iter().filter(|a| {
+            users.users.iter().any(|u| u.username == a.source && u.country_code == *code)
+        }).count();
+        total_aes_alerts += country_alerts;
+
+        println!("║  {} {} ({})                            ║", flag, name, code);
+        println!("║    👥 {} utilisateurs  💰 {} AFR  📋 {} tx  🚨 {} alertes ║",
+            user_count, country_supply, country_txs, country_alerts);
+        println!("║                                                  ║");
+    }
+
+    println!("╠══════════════════════════════════════════════════╣");
+    println!("║  📊 TOTAL AES:                                   ║");
+    println!("║    👥 {} utilisateurs                             ║", total_aes_users);
+    println!("║    💰 {} AFR en circulation                       ║", total_aes_supply);
+    println!("║    📋 {} transactions                             ║", total_aes_txs);
+    println!("║    🚨 {} alertes de sécurité                     ║", total_aes_alerts);
+    println!("╠══════════════════════════════════════════════════╣");
+
+    // Activité récente dans l'AES
+    let aes_activity: Vec<_> = logs.iter().filter(|l| {
+        aes.iter().any(|(code, _, _)| {
+            users.users.iter().any(|u| u.username == l.user && u.country_code == *code)
+        })
+    }).collect();
+
+    if aes_activity.is_empty() {
+        println!("║  📋 Aucune activité récente dans l'AES.           ║");
+    } else {
+        println!("║  📋 DERNIÈRE ACTIVITÉ AES:                      ║");
+        for l in aes_activity.iter().rev().take(5) {
+            let icon = match l.action.as_str() {
+                "MESSAGE" => "💬",
+                "TRANSACTION" => "💰",
+                "POST" => "🌱",
+                "LOGIN" => "🔑",
+                "REGISTER" => "📝",
+                "MINT" => "🏦",
+                "FREEZE" => "❄️",
+                "UNFREEZE" => "✅",
+                _ => "📋",
+            };
+            println!("║    {} {} — {} ({})              ║", icon, l.user, &l.detail[..l.detail.len().min(30)], l.country);
+        }
+    }
+
+    println!("╠══════════════════════════════════════════════════╣");
+    println!("║  🦁 OBJECTIF AES:                                ║");
+    println!("║    1. Monnaie souveraine — AFR remplace FCFA     ║");
+    println!("║    2. Réseau mesh — sans Orange/MTN/Moov        ║");
+    println!("║    3. Banque invisible — l'utilisateur voit rien ║");
+    println!("║    4. AI veille — protection contre les ennemis  ║");
+    println!("║    5. Zéro dépendance — 100% africain           ║");
+    println!("║                                                  ║");
+    println!("║  \"Trois lions. Une blockchain. Un avenir.\"      ║");
+    println!("╚══════════════════════════════════════════════════╝");
+
+    read_input("\n👉 Appuie sur Entrée pour continuer...");
 }
 
 // ===== INFO SYSTÈME — Carte d'identité d'AfriChain =====
