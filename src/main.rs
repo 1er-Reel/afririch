@@ -10000,7 +10000,7 @@ fn admin_interface(state: &Arc<AppState>) {
         println!("\n");
         println!("╔══════════════════════════════════════╗");
         println!("║  🏦 CENTRE DE DONNÉES — Admin       ║");
-        println!("║  🦁 AfriChain v0.62                  ║");
+        println!("║  🦁 AfriChain v0.63                  ║");
         println!("╠══════════════════════════════════════╣");
         let chain = state.chain.lock().unwrap();
         let users = state.users.lock().unwrap();
@@ -10033,6 +10033,7 @@ fn admin_interface(state: &Arc<AppState>) {
         println!(" 12. 📥 Messages reçus (store-and-forward)");
         println!(" 13. 🚨 Alertes AI — Détection de menaces");
         println!(" 14. 📋 Journal d'activité — Surveillance totale");
+        println!(" 15. 📊 Tableau de bord — Vue d'ensemble");
         println!("  0. ❌ Quitter");
 
         print!("\n👉 Choix: ");
@@ -10057,6 +10058,7 @@ fn admin_interface(state: &Arc<AppState>) {
             "12" => terminal_mesh_inbox(state),
             "13" => terminal_threat_alerts(state),
             "14" => terminal_activity_journal(state),
+            "15" => terminal_dashboard(state),
             "0" => {
                 println!("🦁 Au revoir senpai. L'Afrique veille.");
                 std::process::exit(0);
@@ -10389,6 +10391,97 @@ fn client_sahara_afri(state: &Arc<AppState>) {
             _ => println!("⚠️ Choix invalide"),
         }
     }
+}
+
+// ===== TABLEAU DE BORD — Vue d'ensemble du Centre de Données =====
+
+fn terminal_dashboard(state: &Arc<AppState>) {
+    println!("\n");
+    println!("╔══════════════════════════════════════════════════╗");
+    println!("║  🏦 TABLEAU DE BORD — CENTRE DE DONNÉES AES      ║");
+    println!("╠══════════════════════════════════════════════════╣");
+
+    // Stats globales
+    let chain = state.chain.lock().unwrap();
+    let users = state.users.lock().unwrap();
+    let mesh = state.mesh.lock().unwrap();
+    let mesh_d = state.mesh_direct.lock().unwrap();
+    let (active, relayed, delivered, stored, _discovered) = mesh_d.stats();
+    let alerts = load_alerts();
+    let logs = load_activity();
+
+    let critique = alerts.iter().filter(|a| a.severity == "CRITIQUE").count();
+    let alerte = alerts.iter().filter(|a| a.severity == "ALERTE").count();
+    let vigilance = alerts.iter().filter(|a| a.severity == "VIGILANCE").count();
+
+    println!("║  ⛓️  Blocs: {}     👥 Users: {}     💰 Supply: {} AFR  ║",
+        chain.blocks.len(), users.count(), chain.total_supply());
+    println!("║  📡 Mesh: {} nœuds   📡 Direct: {} actifs / {} stockés  ║",
+        mesh.count(), active, stored);
+    println!("║  🚨 Alertes: 🔴{} 🟠{} 🟡{} (total: {})                ║",
+        critique, alerte, vigilance, alerts.len());
+    println!("║  📋 Activité: {} actions enregistrées               ║", logs.len());
+    println!("╠══════════════════════════════════════════════════╣");
+
+    // Distribution par pays
+    let dist = users.country_distribution();
+    println!("║  🌍 RÉPARTITION PAR PAYS:                       ║");
+    for (code, name, count) in dist.iter().take(6) {
+        println!("║    {} {}: {} utilisateurs                          ║", code, name, count);
+    }
+    if dist.len() > 6 {
+        println!("║    ... et {} autres pays                           ║", dist.len() - 6);
+    }
+
+    println!("╠══════════════════════════════════════════════════╣");
+
+    // Top 5 utilisateurs par solde
+    let mut user_balances: Vec<(String, String, i64)> = Vec::new();
+    for u in users.users.iter().take(50) {
+        let bal = chain.balance_of(&u.address);
+        user_balances.push((u.username.clone(), u.country.clone(), bal));
+    }
+    user_balances.sort_by(|a, b| b.2.cmp(&a.2));
+    println!("║  💰 TOP 5 UTILISATEURS (par solde):              ║");
+    for (i, (name, country, bal)) in user_balances.iter().take(5).enumerate() {
+        println!("║    {}. {} — {} AFR — {}                           ║", i + 1, name, bal, country);
+    }
+
+    println!("╠══════════════════════════════════════════════════╣");
+
+    // Dernières activités
+    println!("║  📋 DERNIÈRES ACTIVITÉS:                         ║");
+    for l in logs.iter().rev().take(5) {
+        let icon = match l.action.as_str() {
+            "MESSAGE" => "💬",
+            "TRANSACTION" => "💰",
+            "POST" => "🌱",
+            "LOGIN" => "🔑",
+            "REGISTER" => "📝",
+            "WALLET" => "👛",
+            _ => "📋",
+        };
+        println!("║    {} {} — {} ({})                    ║", icon, l.user, &l.detail[..l.detail.len().min(30)], l.country);
+    }
+
+    println!("╠══════════════════════════════════════════════════╣");
+
+    // Dernières alertes critiques
+    let recent_critique: Vec<_> = alerts.iter().rev().filter(|a| a.severity == "CRITIQUE" || a.severity == "ALERTE").take(3).collect();
+    if recent_critique.is_empty() {
+        println!("║  🚨 AUCUNE ALERTE RÉCENTE — tout est calme ✅     ║");
+    } else {
+        println!("║  🚨 DERNIÈRES ALERTES:                          ║");
+        for a in &recent_critique {
+            let icon = if a.severity == "CRITIQUE" { "🔴" } else { "🟠" };
+            println!("║    {} {} — \"{}\" (mot: {})         ║", icon, a.source, &a.content[..a.content.len().min(30)], a.keyword);
+        }
+    }
+
+    println!("╚══════════════════════════════════════════════════╝");
+
+    // Pause
+    read_input("\n👉 Appuie sur Entrée pour continuer...");
 }
 
 // ===== JOURNAL D'ACTIVITÉ — Surveillance totale du Centre de Données =====
