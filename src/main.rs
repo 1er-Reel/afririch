@@ -10221,11 +10221,44 @@ fn client_interface(state: &Arc<AppState>) {
             let chain = state.chain.lock().unwrap();
             if let Some(user) = users.users.iter().find(|u| &u.username == username) {
                 let bal = chain.balance_of(&user.address);
-                println!("║  👤 {}                              ║", username);
+                let my_addr = user.address.clone();
+                let my_phone = user.phone.clone();
+                let my_country = user.country.clone();
+                drop(users);
+
+                // Compter les transactions
+                let mut tx_count = 0;
+                let mut last_tx: Option<(i64, String, i64)> = None;
+                for block in &chain.blocks {
+                    for tx in &block.transactions {
+                        if tx.from == my_addr || tx.to == my_addr {
+                            tx_count += 1;
+                            let is_newer = match last_tx {
+                                Some((ts, _, _)) => tx.timestamp > ts,
+                                None => true,
+                            };
+                            if is_newer {
+                                let dir = if tx.to == my_addr { "📥 Reçu".to_string() } else { "📤 Envoyé".to_string() };
+                                last_tx = Some((tx.timestamp, dir, tx.amount as i64));
+                            }
+                        }
+                    }
+                }
+
+                // Compter les messages stockés
+                let mesh_d = state.mesh_direct.lock().unwrap();
+                let msg_count = mesh_d.stored.len();
+
+                println!("║  👤 {} 🌍 {}              ║", username, my_country);
+                println!("║  📱 {}                    ║", my_phone);
                 println!("║  💰 Solde: {} AFR                  ║", bal);
+                println!("║  📋 Transactions: {}  💬 Messages: {} ║", tx_count, msg_count);
+                if let Some((ts, dir, amt)) = last_tx {
+                    println!("║  🕐 Dernière: {} {} AFR — {}  ║", dir, amt, format_timestamp_short(ts));
+                }
             }
         } else {
-            println!("║  🔑 Non connecté                     ║");
+            println!("║  🔑 Non connecté — Menu 1 pour se connecter ║");
         }
         println!("╚══════════════════════════════════════╝");
 
