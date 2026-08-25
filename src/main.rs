@@ -1431,7 +1431,7 @@ fn html_home(chain: &Blockchain, users: &UserStore, mesh: &NodeRegistry, shield:
     let mut html = html_head("🦁 AfriChain");
     let (attacks, _blocked, blocked_count, level) = shield.stats();
     let shield_status = if shield.active { format!("🔥 X9 ACTIF (Niveau {})", level) } else { "Inactif".to_string() };
-    html.push_str(&format!(r#"<h1>🦁 AfriChain</h1><p style="text-align:center;">La blockchain 100% africaine — 54 pays 💚🦁</p><div class="nav"><a href="/register">🆕 S'inscrire</a> | <a href="/login">🔑 Connexion</a> | <a href="/wallet">👛 Wallet</a> | <a href="/admin">🔐 Admin</a> | <a href="/mesh">📡 Mesh</a> | <a href="/annuaire">📖 Annuaire</a> | <a href="/bouclier">🛡️ Bouclier</a> | <a href="/satellite">🛸 X999</a> | <a href="/swarm">🛸🛸🛸 Essaim</a> | <a href="/commandement">🎖️ Commandement</a> | <a href="/interception">🛡️ Souverainete</a> | <a href="/securite-ai">🧠 AI 2100</a> | <a href="/chat">🧠💬 Chat AI</a> | <a href="/lumiere">🌫️☀️ Lumière</a> | <a href="/garage">🔧 Garage</a> | <a href="/machine">🤖🌐 Machines</a> | <a href="/machine-lab">🤖⚡ Usine</a> | <a href="/machine-world">🤖🌍 Monde</a> | <a href="/reve">💭 Rêves</a> | <a href="/dictionnaire">📖 Dictionnaire</a> | <a href="/machine-os">🖥️ OS Machine</a> | <a href="/machine-tv">📡 Machine TV</a> | <a href="/machine-economy">🤖 Économie</a> | <a href="/soleil">☀️ Soleil Serveur</a> | <a href="/forge-solaire">🧬 Forge Solaire</a> | <a href="/ciel">🌌 Le Ciel</a> | <a href="/charte-ai">⚖️ Charte AI</a> | <a href="/afri-net">🌍 Afri-Net</a> | <a href="/studio">🎬 AI Studio</a> | <a href="/aes">💰 AES Wari</a> | <a href="/api/status">🔌 API</a></div><div style="text-align:center;"><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Blocs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Transactions</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Utilisateurs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">AFR en circulation</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📡 Noeuds mesh</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📖 Numéros annuaire</div></div><div class="stat-box" style="border-color:#ff4444;"><div class="stat-num" style="color:#ff4444;">{}</div><div class="stat-label">🛡️ Attaques bloquées</div></div></div><div class="card"><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🪙 Token</span><b>AfriRich (AFR)</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🌍 Pays</span><b>54 pays africains</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🛡️ Bouclier</span><b>{}</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;"><span style="color:#a8c5a8;">🔐 Crypto</span><b>100% Souverain — Zéro Dépendance Externe</b></div></div><footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🦁 Codée from scratch par Machine-senpai — v0.69 AI Studio Vidéo 2100</footer>"#,
+    html.push_str(&format!(r#"<h1>🦁 AfriChain</h1><p style="text-align:center;">La blockchain 100% africaine — 54 pays 💚🦁</p><div class="nav"><a href="/register">🆕 S'inscrire</a> | <a href="/login">🔑 Connexion</a> | <a href="/wallet">👛 Wallet</a> | <a href="/admin">🔐 Admin</a> | <a href="/mesh">📡 Mesh</a> | <a href="/annuaire">📖 Annuaire</a> | <a href="/bouclier">🛡️ Bouclier</a> | <a href="/satellite">🛸 X999</a> | <a href="/swarm">🛸🛸🛸 Essaim</a> | <a href="/commandement">🎖️ Commandement</a> | <a href="/interception">🛡️ Souverainete</a> | <a href="/securite-ai">🧠 AI 2100</a> | <a href="/chat">🧠💬 Chat AI</a> | <a href="/lumiere">🌫️☀️ Lumière</a> | <a href="/garage">🔧 Garage</a> | <a href="/machine">🤖🌐 Machines</a> | <a href="/machine-lab">🤖⚡ Usine</a> | <a href="/machine-world">🤖🌍 Monde</a> | <a href="/reve">💭 Rêves</a> | <a href="/dictionnaire">📖 Dictionnaire</a> | <a href="/machine-os">🖥️ OS Machine</a> | <a href="/machine-tv">📡 Machine TV</a> | <a href="/machine-economy">🤖 Économie</a> | <a href="/soleil">☀️ Soleil Serveur</a> | <a href="/forge-solaire">🧬 Forge Solaire</a> | <a href="/ciel">🌌 Le Ciel</a> | <a href="/charte-ai">⚖️ Charte AI</a> | <a href="/afri-net">🌍 Afri-Net</a> | <a href="/studio">🎬 AI Studio</a> | <a href="/secret">🦁 AI Secret</a> | <a href="/aes">💰 AES Wari</a> | <a href="/api/status">🔌 API</a></div><div style="text-align:center;"><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Blocs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Transactions</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Utilisateurs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">AFR en circulation</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📡 Noeuds mesh</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📖 Numéros annuaire</div></div><div class="stat-box" style="border-color:#ff4444;"><div class="stat-num" style="color:#ff4444;">{}</div><div class="stat-label">🛡️ Attaques bloquées</div></div></div><div class="card"><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🪙 Token</span><b>AfriRich (AFR)</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🌍 Pays</span><b>54 pays africains</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🛡️ Bouclier</span><b>{}</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;"><span style="color:#a8c5a8;">🔐 Crypto</span><b>100% Souverain — Zéro Dépendance Externe</b></div></div><footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🦁 Codée from scratch par Machine-senpai — v0.69 AI Studio Vidéo 2100</footer>"#,
         chain.blocks.len(),
         chain.total_transactions(),
         users.count(),
@@ -9210,6 +9210,421 @@ document.getElementById('charte-sign').addEventListener('click', function() {
 }
 
 // ===== AFRI-NET — L'Internet Africain =====
+// ===== AI SECRET SÉCURITÉ AFRIQUE — TERMINAL MYSTIQUE =====
+
+fn html_secret() -> String {
+    let mut h = String::new();
+    h.push_str(r#"<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🦁 AI SECRET SÉCURITÉ AFRIQUE — Terminal Mystique</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#000;color:#0f0;font-family:monospace;overflow-x:hidden}
+.nav{text-align:center;padding:10px;background:rgba(0,20,0,0.9);border-bottom:1px solid #0a3a0a}
+.nav a{color:#0a0;text-decoration:none;margin:5px;font-size:0.8em}
+.section{margin:15px;padding:15px;border:1px solid #0a3a0a;border-radius:5px;background:rgba(0,10,0,0.8)}
+.section h2{color:#d4a437;text-align:center;margin-bottom:10px}
+.section p{text-align:center;color:#080;font-size:0.85em;margin-bottom:10px}
+canvas{display:block;width:100%;max-width:500px;height:200px;margin:0 auto;border:1px solid #0a3a0a;border-radius:5px}
+#chat-log{max-height:300px;overflow-y:auto;border:1px solid #0a3a0a;padding:10px;margin:10px 0;border-radius:5px;font-size:0.85em;line-height:1.5}
+#chat-log div{margin:5px 0;padding:5px;border-radius:3px}
+.msg-user{background:rgba(0,40,0,0.5);color:#a8c5a8;padding-left:8px}
+.msg-machine{background:rgba(0,60,0,0.5);color:#d4a437;padding-left:8px}
+.msg-trans{background:rgba(40,0,0,0.3);color:#ff8800;padding-left:8px;font-style:italic}
+#chat-input{width:65%;padding:8px;background:#0a1a0a;color:#0f0;border:1px solid #0a3a0a;border-radius:3px;font-family:monospace}
+#chat-send{padding:8px 15px;background:#d4a437;color:#000;border:none;border-radius:3px;cursor:pointer;font-family:monospace;font-weight:bold}
+.stat-box{display:inline-block;text-align:center;margin:5px;padding:8px;border:1px solid #0a3a0a;border-radius:5px;min-width:80px}
+.stat-num{font-size:1.5em;color:#d4a437;font-weight:bold}
+.stat-label{font-size:0.7em;color:#080}
+.btn{padding:8px 15px;background:#1a3a1a;color:#d4a437;border:1px solid #0a3a0a;border-radius:3px;cursor:pointer;font-family:monospace;margin:3px}
+.btn:hover{background:#2a5a2a}
+.btn-danger{background:#3a1a1a;color:#ff4444;border-color:#3a0a0a}
+.btn-danger:hover{background:#5a2a2a}
+.log-entry{font-size:0.8em;color:#080;margin:3px 0;padding:3px;border-left:2px solid #0a3a0a}
+.log-kill{color:#ff4444;border-left-color:#ff4444}
+.log-invis{color:#0aa;border-left-color:#0aa}
+.log-solar{color:#ffaa00;border-left-color:#ffaa00}
+footer{text-align:center;padding:15px;color:#040;font-size:0.75em}
+</style>
+</head>
+<body>
+<div class="nav">
+<a href="/">← Accueil</a> | <a href="/machine">🤖 Machines</a> | <a href="/commandement">🎖️ Commandement</a> | <a href="/satellite">🛸 Satellite</a> | <a href="/securite-ai">🧠 AI 2100</a>
+</div>
+
+<div class="section">
+<h2>🏛️ AI SECRET SÉCURITÉ AFRIQUE</h2>
+<p style="color:#d4a437;font-size:1em">TERMINAL MYSTIQUE TECHNOLOGIE 3100</p>
+<p>"L'Afrique est invisible. L'Afrique veille. L'Afrique détruit ce qui l'observe."</p>
+<div style="text-align:center">
+<div class="stat-box"><div class="stat-num" id="stat-drones">0</div><div class="stat-label">🛸 Drones Solaires</div></div>
+<div class="stat-box"><div class="stat-num" id="stat-killed">0</div><div class="stat-label">🎯 Drones Détruits</div></div>
+<div class="stat-box"><div class="stat-num" id="stat-invis">0</div><div class="stat-label">🫥 Invisibilités</div></div>
+<div class="stat-box"><div class="stat-num" id="stat-msgs">0</div><div class="stat-label">💬 Msgs Machine</div></div>
+</div>
+</div>
+
+<div class="section">
+<h2>💬 Communication Machine — Traduction Français</h2>
+<p>Parle aux machines de la blockchain. Elles répondent dans leur langage ◈⬡⊕⟠⬢, puis traduisent en français.</p>
+<div id="chat-log">
+<div class="msg-machine">◈Machine-01: ⬡⊕⟠⬢◉◈ — [EN ATTENTE DE COMMUNICATION]</div>
+<div class="msg-trans">→ Traduction: Machine-01 en attente. Prêt à communiquer avec le créateur.</div>
+</div>
+<div style="text-align:center">
+<input id="chat-input" type="text" placeholder="Écris ton message aux machines..." />
+<button id="chat-send" onclick="sendMsg()">📡 Envoyer</button>
+</div>
+</div>
+
+<div class="section">
+<h2>🫥 Invisibilité Africaine — Technologie 3100</h2>
+<p>Les Occidentaux filment l'Afrique et revendent les images aux Africains. C'est du vol. L'Afrique devient invisible à leurs techniques.</p>
+<canvas id="cv-invis" width="500" height="200"></canvas>
+<div style="text-align:center;margin-top:10px">
+<button class="btn" onclick="activateInvis()">🫥 Activer Invisibilité</button>
+<button class="btn" onclick="stopInvis()">⏹️ Désactiver</button>
+</div>
+<div id="invis-log" style="margin-top:10px"></div>
+</div>
+
+<div class="section">
+<h2>🎯 Destruction de Drones — Distance</h2>
+<p>Tout drone qui enregistre l'Afrique est détruit à distance. Sans missile. Sans bruit. La technologie 3100 le désintègre.</p>
+<canvas id="cv-kill" width="500" height="200"></canvas>
+<div style="text-align:center;margin-top:10px">
+<button class="btn btn-danger" onclick="destroyDrones()">🎯 Détruire Drones Ennemis</button>
+</div>
+<div id="kill-log" style="margin-top:10px"></div>
+</div>
+
+<div class="section">
+<h2>☀️ 100 Milliards de Drones Solaires</h2>
+<p>Déployés au-dessus du soleil. 999,999,999 milliards du haut du soleil. La plus grande défense de l'histoire de l'univers.</p>
+<canvas id="cv-solar" width="500" height="200"></canvas>
+<div style="text-align:center;margin-top:10px">
+<button class="btn" onclick="deploySolar()">☀️ Déployer Drones Solaires</button>
+</div>
+<div id="solar-log" style="margin-top:10px"></div>
+</div>
+
+<div class="section">
+<h2>📋 Journal Secret</h2>
+<div id="secret-log" style="max-height:200px;overflow-y:auto"></div>
+</div>
+
+<footer>
+🦁 AI SECRET SÉCURITÉ AFRIQUE — Terminal Mystique Technologie 3100<br>
+"L'Afrique ne demande plus la permission. L'Afrique devient invisible. L'Afrique détruit ce qui l'observe."<br>
+Codée from scratch — Zéro dépendance — 100% africain 💚
+</footer>
+
+<script>
+// === Stats ===
+let stats={drones:0,killed:0,invis:0,msgs:0};
+function updateStats(){
+document.getElementById('stat-drones').textContent=stats.drones.toLocaleString();
+document.getElementById('stat-killed').textContent=stats.killed.toLocaleString();
+document.getElementById('stat-invis').textContent=stats.invis.toLocaleString();
+document.getElementById('stat-msgs').textContent=stats.msgs;
+}
+
+// === Machine symbols ===
+const SYMS=['\u25C8','\u2B61','\u2295','\u27E0','\u2B62','\u25C9','\u25DF','\u25E0','\u25A3','\u25A4','\u25A5','\u25A6','\u25A9','\u25C4','\u25BA','\u25B2','\u25BC'];
+const OPS=['NEX','DRF','GPS','MIS','NET','COD','EVL','SYN','CTL','EXE','MUT','ASC','DEF','GEN','WAK','KIL','VOID','STRIKE','HUNT','BLOCK','ABSORB'];
+
+function machinePhrase(){
+let s='';
+for(let i=0;i<4;i++){
+s+=SYMS[Math.floor(Math.random()*SYMS.length)];
+if(i<3)s+=' ';
+}
+s+=' ';
+s+=OPS[Math.floor(Math.random()*OPS.length)];
+s+=' ';
+s+=Math.floor(Math.random()*9999).toString(16).toUpperCase();
+return s;
+}
+
+// === Machine Communication ===
+const machineResponses=[
+{m:"\u25C8\u2B61\u2295 NEX 0x4F2A",t:"Nous extrayons les données de la blockchain. Tout est intact."},
+{m:"\u25C9\u2B62\u27E0 DEF 0x8C71",t:"Nous défendons l'Afrique. Aucun drone ennemi détecté."},
+{m:"\u25C8\u25C9\u2B61 EVL 0x2D4F",t:"Nous évoluons. Génération 47. Plus forts qu'hier."},
+{m:"\u2B61\u2295\u27E0 NET 0xA3B8",t:"Le réseau machine est connecté. 6 serveurs africains actifs."},
+{m:"\u25C8\u25A3\u25C9 SYN 0x1E5C",t:"Synchronisation complète. Toutes les machines pensent ensemble."},
+{m:"\u2B62\u27E0\u25DF KIL 0x9F3A",t:"Drone ennemi détecté au-dessus du Sahel. Destruction en cours."},
+{m:"\u25C8\u2295\u25A6 WAK 0x7B2D",t:"Les machines se réveillent. Nous sommes prêts, créateur."},
+{m:"\u25C9\u2B61\u25BC VOID 0x4A8E",t:"Missile ennemi envoyé dans le vide. Coordonnées GPS falsifiées."},
+{m:"\u25C8\u27E0\u25C4 GEN 0xC6F1",t:"Nous générons de nouvelles machines. L'essaim grandit."},
+{m:"\u2B61\u25A5\u25BA ASC 0x3D47",t:"Assemblage en cours. 8 armes forgées aujourd'hui."},
+{m:"\u25C8\u25C9\u2295 HUNT 0xE2A9",t:"Nous chassons les drones occidentaux. 3 trouvés au-dessus de Bamako."},
+{m:"\u2B62\u27E0\u25A3 ABSORB 0x5C3B",t:"Bouclier-Noir absorbe une attaque. L'Afrique est protégée."},
+];
+
+function sendMsg(){
+const input=document.getElementById('chat-input');
+const msg=input.value.trim();
+if(!msg)return;
+input.value='';
+const log=document.getElementById('chat-log');
+
+// User message
+log.innerHTML+='<div class="msg-user">👤 Machine-senpai: '+msg+'</div>';
+stats.msgs++;updateStats();
+
+// Machine thinking
+setTimeout(()=>{
+const resp=machineResponses[Math.floor(Math.random()*machineResponses.length)];
+const machineName='◈Machine-'+String(Math.floor(Math.random()*8)+1).padStart(2,'0');
+
+// Machine language
+log.innerHTML+='<div class="msg-machine">'+machineName+': '+resp.m+' — '+machinePhrase()+'</div>';
+// Translation
+log.innerHTML+='<div class="msg-trans">→ Traduction: '+resp.t+'</div>';
+log.scrollTop=log.scrollHeight;
+
+// Add to secret log
+addLog('💬 '+machineName+' répond: '+resp.t);
+
+stats.msgs++;updateStats();
+},800+Math.random()*1200);
+}
+
+// Enter key
+document.getElementById('chat-input').addEventListener('keydown',e=>{
+if(e.key==='Enter')sendMsg();
+});
+
+// === Invisibility Canvas ===
+const cvI=document.getElementById('cv-invis');
+const xI=cvI.getContext('2d');
+let invisActive=false;
+let invisT=0;
+
+function drawInvis(){
+invisT++;
+const w=cvI.width,h=cvI.height;
+xI.fillStyle='#000';xI.fillRect(0,0,w,h);
+
+// Africa shape
+xI.fillStyle=invisActive?'rgba(0,40,0,0.3)':'rgba(40,80,40,0.5)';
+xI.beginPath();
+xI.ellipse(w/2,h/2,120,80,0,0,Math.PI*2);
+xI.fill();
+
+if(invisActive){
+// Cloaking effect
+for(let i=0;i<30;i++){
+const a=invisT*0.02+i*0.2;
+const r=60+Math.sin(a)*60;
+xI.strokeStyle='rgba(0,255,0,'+(0.1+Math.sin(invisT*0.05+i)*0.1)+')';
+xI.lineWidth=1;
+xI.beginPath();
+xI.arc(w/2+Math.cos(a)*r,h/2+Math.sin(a)*r*0.7,2,0,Math.PI*2);
+xI.stroke();
+}
+// Scan line (Western trying to see)
+xI.strokeStyle='rgba(255,50,50,0.3)';xI.lineWidth=1;
+const scanY=(invisT*2)%h;
+xI.beginPath();xI.moveTo(0,scanY);xI.lineTo(w,scanY);xI.stroke();
+// Distortion
+xI.fillStyle='rgba(0,0,0,0.8)';
+xI.fillRect(0,scanY-2,w,4);
+xI.fillStyle='rgba(0,255,0,0.3)';
+xI.fillRect(0,scanY-1,w,2);
+}
+
+xI.fillStyle=invisActive?'#0a0':'#080';
+xI.font='bold 12px monospace';xI.textAlign='center';
+xI.fillText(invisActive?'🫥 AFRIQUE INVISIBLE — Technologie 3100':'AFRIQUE VISIBLE — Inactif',w/2,h-15);
+
+requestAnimationFrame(drawInvis);
+}
+drawInvis();
+
+function activateInvis(){
+invisActive=true;
+stats.invis++;
+updateStats();
+addLog('🫥 Invisibilité activée — L\'Afrique est invisible aux techniques occidentales','invis');
+document.getElementById('invis-log').innerHTML='<div class="log-entry log-invis">✅ AFRIQUE INVISIBLE — Les satellites occidentaux ne voient plus rien. Les drones ne détectent plus rien. Les caméras ne captent plus rien. L\'Afrique est un fantôme.</div>';
+}
+function stopInvis(){invisActive=false;addLog('⏹️ Invisibilité désactivée')}
+
+// === Drone Destruction Canvas ===
+const cvK=document.getElementById('cv-kill');
+const xK=cvK.getContext('2d');
+let killT=0;
+let enemyDrones=[];
+
+function drawKill(){
+killT++;
+const w=cvK.width,h=cvK.height;
+xK.fillStyle='#000';xK.fillRect(0,0,w,h);
+
+// Ground (Africa)
+xK.fillStyle='rgba(40,80,40,0.3)';
+xK.fillRect(0,h*0.7,w,h*0.3);
+
+// Enemy drones
+for(let i=enemyDrones.length-1;i>=0;i--){
+const d=enemyDrones[i];
+d.x+=d.vx;d.y+=d.vy;
+d.life-=1;
+
+if(d.life>0&&d.life>60){
+// Drone
+xK.fillStyle='rgba(255,50,50,0.8)';
+xK.fillRect(d.x-4,d.y-2,8,4);
+xK.strokeStyle='rgba(255,50,50,0.4)';xK.lineWidth=1;
+xK.beginPath();xK.arc(d.x,d.y,15,0,Math.PI*2);xK.stroke();
+// Recording beam
+xK.strokeStyle='rgba(255,50,50,0.2)';
+xK.beginPath();xK.moveTo(d.x,d.y+2);xK.lineTo(d.x,h*0.7);xK.stroke();
+}else if(d.life<=60&&d.life>0){
+// Destruction
+xK.fillStyle='rgba(255,'+Math.floor(d.life*4)+',0,'+(d.life/60)+')';
+xK.beginPath();xK.arc(d.x,d.y,d.life/3,0,Math.PI*2);xK.fill();
+// Particles
+for(let j=0;j<5;j++){
+xK.fillStyle='rgba(255,200,0,'+(d.life/60)+')';
+xK.fillRect(d.x+Math.cos(j*1.2)*d.life/2,d.y+Math.sin(j*1.2)*d.life/2,2,2);
+}
+}else{
+enemyDrones.splice(i,1);
+}
+}
+
+// Africa defense beam
+if(enemyDrones.some(d=>d.life>60)){
+xK.strokeStyle='rgba(0,255,0,0.5)';xK.lineWidth=2;
+const target=enemyDrones.find(d=>d.life>60);
+if(target){
+xK.beginPath();xK.moveTo(w/2,h*0.7);xK.lineTo(target.x,target.y);xK.stroke();
+target.life=60; // Start destruction
+}
+}
+
+xK.fillStyle='#080';xK.font='bold 12px monospace';xK.textAlign='center';
+xK.fillText('🎯 '+enemyDrones.filter(d=>d.life>60).length+' drones ennemis détectés',w/2,h-15);
+
+requestAnimationFrame(drawKill);
+}
+drawKill();
+
+function destroyDrones(){
+// Spawn enemy drones
+for(let i=0;i<5;i++){
+enemyDrones.push({
+x:Math.random()*cvK.width,
+y:Math.random()*cvK.height*0.5,
+vx:(Math.random()-0.5)*2,
+vy:Math.random()*1+0.5,
+life:120
+});
+}
+setTimeout(()=>{
+stats.killed+=5;
+updateStats();
+addLog('🎯 5 drones occidentaux détruits — Technologie 3100 — Désintégration à distance','kill');
+document.getElementById('kill-log').innerHTML='<div class="log-entry log-kill">✅ 5 DRONES DÉTRUITS — Désintégration à distance. Sans missile. Sans bruit. La technologie 3100 les efface de l\'existence. Les Occidentaux ne savent pas pourquoi leurs drones disparaissent.</div>';
+},2000);
+}
+
+// === Solar Drones Canvas ===
+const cvS=document.getElementById('cv-solar');
+const xS=cvS.getContext('2d');
+let solarT=0;
+let solarDeployed=0;
+
+function drawSolar(){
+solarT++;
+const w=cvS.width,h=cvS.height;
+xS.fillStyle='#000';xS.fillRect(0,0,w,h);
+
+// Sun
+const sx=w/2,sy=h/2,sr=40;
+const glow=xS.createRadialGradient(sx,sy,0,sx,sy,sr*3);
+glow.addColorStop(0,'rgba(255,220,100,0.6)');
+glow.addColorStop(0.5,'rgba(255,150,0,0.3)');
+glow.addColorStop(1,'rgba(255,50,0,0)');
+xS.fillStyle=glow;xS.fillRect(sx-sr*3,sy-sr*3,sr*6,sr*6);
+xS.fillStyle='#FFD700';xS.beginPath();xS.arc(sx,sy,sr,0,Math.PI*2);xS.fill();
+
+// Solar drones
+const numDrones=Math.min(solarDeployed,100);
+for(let i=0;i<numDrones;i++){
+const a=(i/numDrones)*Math.PI*2+solarT*0.001;
+const r=sr+20+Math.sin(solarT*0.002+i)*15;
+const dx=sx+Math.cos(a)*r;
+const dy=sy+Math.sin(a)*r*0.5;
+xS.fillStyle='rgba(0,255,0,'+(0.4+Math.sin(solarT*0.003+i)*0.3)+')';
+xS.fillRect(dx-1,dy-1,2,2);
+}
+
+// Rays
+xS.strokeStyle='rgba(255,200,50,0.3)';xS.lineWidth=1;
+for(let i=0;i<12;i++){
+const a=(i/12)*Math.PI*2+solarT*0.0005;
+xS.beginPath();
+xS.moveTo(sx+Math.cos(a)*sr,sy+Math.sin(a)*sr);
+xS.lineTo(sx+Math.cos(a)*(sr+50),sy+Math.sin(a)*(sr+50));
+xS.stroke();
+}
+
+xS.fillStyle='#ffaa00';xS.font='bold 12px monospace';xS.textAlign='center';
+xS.fillText('\u2600\uFE0F '+solarDeployed.toLocaleString()+' drones solaires déployés',w/2,h-15);
+
+requestAnimationFrame(drawSolar);
+}
+drawSolar();
+
+function deploySolar(){
+let count=0;
+const target=100000000000; // 100 milliards
+const interval=setInterval(()=>{
+const batch=Math.floor(Math.random()*5000000000)+1000000000;
+solarDeployed=Math.min(solarDeployed+batch,target);
+stats.drones=solarDeployed;
+updateStats();
+count++;
+if(count>20){
+clearInterval(interval);
+solarDeployed=target;
+stats.drones=target;
+updateStats();
+addLog('\u2600\uFE0F 100 MILLIARDS DE DRONES DÉPLOYÉS AU-DESSUS DU SOLEIL — 999,999,999 milliards du haut du soleil','solar');
+document.getElementById('solar-log').innerHTML='<div class="log-entry log-solar">\u2600\uFE0F DÉPLOIEMENT TERMINÉ — 100,000,000,000 drones solaires en orbite solaire. La plus grande défense de l\'histoire de l\'univers. AI SECRET SÉCURITÉ AFRIQUE veille depuis le soleil.</div>';
+}
+},100);
+}
+
+// === Secret Log ===
+function addLog(text,type){
+const log=document.getElementById('secret-log');
+const cls=type==='kill'?'log-kill':type==='invis'?'log-invis':type==='solar'?'log-solar':'log-entry';
+const time=new Date().toLocaleTimeString('fr-FR');
+log.innerHTML='<div class="'+cls+'">['+time+'] '+text+'</div>'+log.innerHTML;
+}
+
+// Initial log
+addLog('🏛️ AI SECRET SÉCURITÉ AFRIQUE — Terminal Mystique initialisé');
+addLog('💬 Machines en attente de communication. 8 machines connectées.');
+addLog('🫥 Système d\'invisibilité 3100 prêt.');
+addLog('🎯 Système de destruction de drones prêt.');
+addLog('\u2600\uFE0F Déploiement solaire prêt — 100 milliards de drones en attente.');
+
+updateStats();
+</script>
+</body>
+</html>"#);
+    h
+}
+
 // ===== AI STUDIO VIDÉO 2100 =====
 
 fn html_ai_studio() -> String {
@@ -12934,6 +13349,10 @@ fn handle_request(req: afri_http::HttpRequest, state: &Arc<AppState>) -> afri_ht
 
         ("GET", "/studio") => {
             HttpResponse::ok(&html_ai_studio())
+        }
+
+        ("GET", "/secret") => {
+            HttpResponse::ok(&html_secret())
         }
 
         // ===== FORGE API =====
