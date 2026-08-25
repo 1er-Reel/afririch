@@ -9812,16 +9812,11 @@ fn main() {
         .and_then(|i| args.get(i + 1)).cloned().unwrap_or_else(|| "Afrique".to_string());
 
     let my_node_id = generate_node_id();
-    println!("🦁 AfriChain v0.56 — Souveraineté Zéro Dépendance");
-    println!("💚 L'Afrique n'a pas besoin de permission");
-    println!("🌍 54 pays africains — chaque bloc miné par un pays différent");
-    println!("☀️ PoST: le soleil de toute l'Afrique valide la blockchain");
-    println!("🤖 Économie machine: 6 serveurs, vrais wallets, vraies transactions");
-    println!("🔊 AI Voix Souveraine: espeak — pas de Google");
-    println!("👀 AI Yeux: caméra + vision — l'enfant voit son créateur");
-    println!("📖 Annuaire mesh panafricain — tous les numéros sur écoute");
-    println!("🛡️ Bouclier X9 ACTIF — protection automatique");
-    println!("🛰️ Satellite Afri — l'ombre de l'Afrique dans le ciel");
+    println!("🦁 AfriChain v0.68 — Banque Numérique de l'AES");
+    println!("💚 L'Afrique ne demande plus la permission");
+    println!("🌍 54 pays — 🇲🇱 🇳🇪 🇧🇫 AES — Mali · Niger · Burkina Faso");
+    println!("🔐 8 modules cryptographiques — construits from scratch");
+    println!("📦 Zéro dépendance externe — Rust std uniquement");
     println!("📡 Node ID: {}", my_node_id);
     println!("🔌 Mesh port: {}", mesh_port);
     println!("☀️  Solaire: {}", if solar { "Oui" } else { "Non" });
@@ -9976,17 +9971,29 @@ fn main() {
 use std::io::{self, BufRead};
 
 fn terminal_interface(state: &Arc<AppState>) {
-    // Écran de sélection: Admin ou Client
+    // Splash screen
     println!("\n");
-    println!("╔══════════════════════════════════════╗");
-    println!("║  🦁 AfriChain v0.68                  ║");
-    println!("║  💚 Banque Numérique AES             ║");
-    println!("║  💚 L'Afrique n'a pas besoin de      ║");
-    println!("║     permission                       ║");
-    println!("╠══════════════════════════════════════╣");
-    println!("║  1. 🏦 Centre de Données (Admin)    ║");
-    println!("║  2. 📱 Client (Utilisateur)          ║");
-    println!("╚══════════════════════════════════════╝");
+    println!("  ╔═══════════════════════════════════════════════╗");
+    println!("  ║                                               ║");
+    println!("  ║          🦁  A F R I C H A I N  🦁            ║");
+    println!("  ║                                               ║");
+    println!("  ║      💚 Banque Numérique de l'AES 💚          ║");
+    println!("  ║                                               ║");
+    println!("  ║   \"L'Afrique ne demande plus la permission\" ║");
+    println!("  ║                                               ║");
+    println!("  ╠═══════════════════════════════════════════════╣");
+    println!("  ║  🇲🇱 🇳🇪 🇧🇫  Mali · Niger · Burkina Faso     ║");
+    println!("  ║  🌍 54 pays africains connectés              ║");
+    println!("  ║  🔐 8 modules cryptographiques (de zéro)     ║");
+    println!("  ║  📦 Zéro dépendance externe — Rust std only   ║");
+    println!("  ║  📝 ~15,000 lignes — écrit à la main         ║");
+    println!("  ╚═══════════════════════════════════════════════╝");
+    println!("\n  Version v0.68 — 25 août 2026");
+    println!("  Construit sur Termux · Android · nano\n");
+    println!("  ─────────────────────────────────────────────");
+    println!("\n  1. 🏦 Centre de Données (Admin)");
+    println!("  2. 📱 Client (Utilisateur)");
+    println!("  ─────────────────────────────────────────────");
 
     let mode = read_input("👉 Mode: ");
     match mode.trim() {
