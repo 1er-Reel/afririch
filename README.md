@@ -1,10 +1,12 @@
-# 🦁 AfriChain — La Blockchain Souveraine de l'Afrique
+# 🦁 AfriChain — Banque Numérique Souveraine de l'Afrique
 
-> 💚 *L'Afrique n'a pas besoin de la permission de personne.*
+> 💚 *L'Afrique ne demande plus la permission.*
 
 ## Qu'est-ce que AfriChain?
 
 AfriChain est une blockchain **100% africaine**, construite **from scratch** en Rust. Ce n'est pas un token sur la blockchain de quelqu'un d'autre. Ce n'est pas un fork de Bitcoin ou d'Ethereum. C'est la nôtre.
+
+AfriChain est la **Banque Numérique de l'AES** (Alliance des États du Sahel). L'utilisateur voit une banque simple comme Orange Money. La blockchain travaille en silence.
 
 ## Zéro Dépendance Externe
 
@@ -19,80 +21,116 @@ Le fichier `Cargo.toml` a sa section `[dependencies]` **complètement vide**. To
 | Temps | chrono (Greenwich) | ✅ AfriTime |
 | JSON | serde / serde_json | ✅ AfriJSON |
 | Serveur HTTP | actix-web | ✅ AfriHTTP |
+| Réseau Mesh | — | ✅ AfriMesh Direct |
 
-**Rien ne vient de l'Occident. Tout est africain.**
+**Rien ne vient de l'Occident. Tout est africain. 100% Rust std.**
 
 ## 54 Pays Africains
 
 Tous les pays africains sont connectés:
-- Niger (+227), Nigeria (+234), Mali (+223), Burkina Faso (+226)
-- Senegal (+221), Côte d'Ivoire (+225), Ghana (+233), Cameroun (+237)
-- Kenya (+254), RDC (+243), Afrique du Sud (+27), Egypte (+20)
+- 🇲🇱 Mali (+223), 🇳🇪 Niger (+227), 🇧🇫 Burkina Faso (+226) — AES
+- 🇸🇳 Sénégal (+221), 🇨🇮 Côte d'Ivoire (+225), 🇬🇭 Ghana (+233)
+- 🇳🇬 Nigeria (+234), 🇨🇲 Cameroun (+237), 🇰🇪 Kenya (+254)
 - ... **54 pays au total**
 
-Chaque bloc est miné par un pays différent. Chaque utilisateur a un numéro de téléphone africain.
+Chaque utilisateur a un numéro de téléphone africain. Les transferts transfrontaliers sont instantanés et gratuits.
 
-## Fonctionnalités
+## Architecture — Deux Modes
 
-### Blockchain
-- ⛓️ Blockchain complète from scratch
+### 🏦 Centre de Données (Admin)
+L'admin voit TOUT. Comme CTU dans *24 Heures Chrono*.
+
+| # | Module | Fonction |
+|---|--------|----------|
+| 1 | 👛 Wallet | Créer des wallets |
+| 2 | 📤 Envoyer | Transferts AFR |
+| 3 | ⛏️ Miner | Proof of Work |
+| 4-6 | 👤 Inscription, 🔑 Login, Compte | Gestion compte |
+| 7 | ⛓️ Blockchain | Voir tous les blocs |
+| 8 | 📖 Annuaire | 54 pays |
+| 9 | 📊 Statut | État du réseau |
+| 10 | 📡 AfriMesh Direct | Réseau sans opérateur |
+| 11-12 | 💬 Messages | Mesh send/inbox |
+| 13 | 🚨 Alertes AI | 30 mots-clés, 3 niveaux |
+| 14 | 📋 Journal | Surveillance totale |
+| 15 | 📊 Tableau de bord | Vue d'ensemble |
+| 16 | 📢 Broadcast | Message à toute l'Afrique |
+| 17 | 👥 Gestion utilisateurs | Suivre les traces |
+| 18 | 🏦 Émettre AFR | Banque centrale |
+| 19 | ❄️ Gel/Dégel | Sécurité bancaire |
+| 20 | ℹ️ Info Système | Carte d'identité |
+| 21 | 🔑 Changer mot de passe | Sécurité admin |
+| 22 | 🦁 AES | Alliance des États du Sahel |
+| 23 | 💾 Sauvegarde | Export/Import données |
+
+🔐 **Mot de passe admin** protégé par AfriHash-256.
+
+### 📱 Client (Utilisateur)
+Le client ne voit PAS la blockchain. Il voit une banque simple.
+
+```
+╔══════════════════════════════════════╗
+║  💚 AFRICHAIN — Votre argent,        ║
+║     votre continent                  ║
+╠══════════════════════════════════════╣
+║  👤 Machine 🌍 Niger              ║
+║  📱 +227XXXXXXXX                    ║
+║  💰 Solde: 150 AFR                  ║
+║  📋 Transactions: 5  💬 Messages: 2 ║
+╚══════════════════════════════════════╝
+```
+
+- 🔑 Se connecter / 📝 S'inscrire
+- 📤 Envoyer (par numéro de téléphone, pas d'adresses)
+- 📥 Mon adresse (numéro de téléphone)
+- 💬 LES NOIRES — messagerie (sans WhatsApp)
+- 📖 Annuaire panafricain
+- 🌱 PLANTÉ VERTE — réseau social (sans Facebook)
+- 🔍 SAHARA AFRI — recherche (sans Google)
+- 📜 Historique de transactions
+
+## Afri-Net — Internet Africain
+
+| Occident | AfriChain |
+|----------|-----------|
+| WhatsApp / Meta | 💬 LES NOIRES |
+| Facebook / Meta | 🌱 PLANTÉ VERTE |
+| Google / Alphabet | 🔍 SAHARA AFRI |
+| SWIFT / Brussels | ⛓️ AFR Chain |
+| AWS / Amazon | ☀️ Solar Cloud Africa |
+| OpenAI / Microsoft | 🧠 AI Africaine |
+
+## Sécurité
+
+- 🛡️ Bouclier X9 — anti-intrusion, blocage IP, rate limiting
+- 🚨 AI Veille — 30 mots-clés, 3 niveaux (CRITIQUE/ALERTE/VIGILANCE)
+- ❄️ Gel de comptes suspects
+- 📋 Journal d'activité — toutes les actions enregistrées
+- 🔐 Mot de passe admin (AfriHash-256)
 - 🔐 Signatures Ed25519 (from scratch)
-- #️⃣ AfriHash-256/512 (sponge construction, from scratch)
-- ⛏️ Proof of Work (difficulté 2)
-- 💰 Supply: 100 AFR par bloc miné
 
-### Réseau Mesh Panafricain
-- 📡 Découverte UDP automatique
-- 🔗 Relay TCP entre nœuds
-- 📖 Annuaire panafricain (54 pays)
-- 💬 Communication sans opérateurs étrangers
+## AES — Alliance des États du Sahel
 
-### Sécurité
-- 🛡️ Bouclier X9 — détection de menaces, blocage IP, rate limiting
-- 🔍 Détection SQL injection, XSS, path traversal
-- 🍯 Honeypot — leurres pour attaquants
-- 🧠 AI Sécurité — réseau de neurones, prédiction d'attaques
+🇲🇱 🇳🇪 🇧🇫 — Mali · Niger · Burkina Faso
 
-### Économie Machine
-- 🤖 6 serveurs africains (Bamako, Niamey, Ouagadougou, Accra, Abidjan, Lagos)
-- 💰 Transactions machine-to-machine
-- ⛓️ Blockchain machine autonome
+**Objectifs AES:**
+1. Monnaie souveraine — AFR remplace le FCFA
+2. Réseau mesh — sans Orange/MTN/Moov
+3. Banque invisible — l'utilisateur ne voit rien
+4. AI veille — protection contre les ennemis
+5. Zéro dépendance — 100% africain
 
-### Écosystème Solaire
-- ☀️ PoST (Proof of Solar Time) — le soleil d'Afrique valide la blockchain
-- 🔥 Four Solaire — concentration solaire réelle
-- 🧬 Forge Solaire — ADN → objets physiques
-- 📊 Sharding par pays (54 shards)
-
-### Afri-Net — Internet Africain
-- 💬 LES NOIRES (remplace WhatsApp)
-- 🌱 PLANTÉ VERTE (remplace Facebook)
-- 🔍 SAHARA AFRI (remplace Google)
-
-### AI Souveraine
-- 🧠 Chat AI avec mémoire persistante
-- 👀 Yeux — vision par caméra
-- 🔊 Voix — synthèse vocale souveraine
-- 💭 Rêves — l'AI rêve quand elle est inactive
-- 💓 Émotions — mémoires émotionnelles
-
-## Vision
-
-**Un seul réseau. 54 pays. Une seule monnaie. Zéro dépendance.**
-
-L'Afrique ne demande plus la permission. L'Afrique construit.
+**Trois lions. Une blockchain. Un avenir.**
 
 ## Technique
 
 - **Langage:** Rust (édition 2021)
 - **Dépendances:** ZÉRO (std uniquement)
-- **Taille:** ~10500 lignes (main.rs) + 7 modules
-- **Build:** `cargo build --release` (3.5 secondes)
+- **Taille:** ~15,000 lignes (main.rs + 8 modules)
+- **Modules:** 9 fichiers Rust (afri_ed25519, afri_hash, afri_rng, afri_hex, afri_time, afri_json, afri_http, afri_mesh_direct, main)
+- **Build:** `cargo build --release` (5 secondes)
 - **Données:** `~/afririch/` (chemins absolus)
-
-## Lié à l'AES
-
-AfriChain est conçu pour soutenir la monnaie de l'Alliance des États du Sahel (AES). La technologie est prête. L'Afrique décide.
+- **Persistance:** blockchain.json, wallets.json, users.json, social_feed.json, alerts.json, activity.json, broadcasts.json, frozen_users.json, admin_password.json, ai_memory.json
 
 ## Auteur
 
