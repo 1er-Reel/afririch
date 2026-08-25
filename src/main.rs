@@ -9979,7 +9979,7 @@ fn terminal_interface(state: &Arc<AppState>) {
     // Écran de sélection: Admin ou Client
     println!("\n");
     println!("╔══════════════════════════════════════╗");
-    println!("║  🦁 AfriChain v0.66                  ║");
+    println!("║  🦁 AfriChain v0.67                  ║");
     println!("║  💚 Banque Numérique AES             ║");
     println!("║  💚 L'Afrique n'a pas besoin de      ║");
     println!("║     permission                       ║");
@@ -10053,7 +10053,7 @@ fn admin_interface(state: &Arc<AppState>) {
         println!("\n");
         println!("╔══════════════════════════════════════╗");
         println!("║  🏦 CENTRE DE DONNÉES — Admin       ║");
-        println!("║  🦁 AfriChain v0.66                  ║");
+        println!("║  🦁 AfriChain v0.67                  ║");
         println!("╠══════════════════════════════════════╣");
         let chain = state.chain.lock().unwrap();
         let users = state.users.lock().unwrap();
@@ -10091,6 +10091,8 @@ fn admin_interface(state: &Arc<AppState>) {
         println!(" 17. 👥 Gestion utilisateurs — Suivre les traces");
         println!(" 18. 🏦 Émettre des AFR — Banque centrale");
         println!(" 19. ❄️ Geler/Dégeler un compte");
+        println!(" 20. ℹ️  Info Système — Carte d'identité");
+        println!(" 21. 🔑 Changer mot de passe admin");
         println!("  0. ❌ Quitter");
 
         print!("\n👉 Choix: ");
@@ -10120,6 +10122,8 @@ fn admin_interface(state: &Arc<AppState>) {
             "17" => terminal_user_management(state),
             "18" => terminal_mint_afr(state),
             "19" => terminal_freeze_account(state),
+            "20" => terminal_system_info(state),
+            "21" => terminal_change_admin_password(),
             "0" => {
                 println!("🦁 Au revoir senpai. L'Afrique veille.");
                 std::process::exit(0);
@@ -10565,6 +10569,128 @@ fn client_sahara_afri(state: &Arc<AppState>) {
             _ => println!("⚠️ Choix invalide"),
         }
     }
+}
+
+// ===== INFO SYSTÈME — Carte d'identité d'AfriChain =====
+
+fn terminal_system_info(state: &Arc<AppState>) {
+    let chain = state.chain.lock().unwrap();
+    let users = state.users.lock().unwrap();
+
+    println!("\n");
+    println!("╔══════════════════════════════════════════════════╗");
+    println!("║  🦁 AFRICHAIN — CARTE D'IDENTITÉ                ║");
+    println!("║  💚 Banque Numérique AES                        ║");
+    println!("╠══════════════════════════════════════════════════╣");
+    println!("║                                                  ║");
+    println!("║  📋 VERSION: v0.66                               ║");
+    println!("║  📅 NÉ LE: 29 juillet 2026                       ║");
+    println!("║  🌍 NÉ À: Termux sur Android (Redmi 15)         ║");
+    println!("║  ✍️  ÉCRIT: à la main, ligne par ligne, dans nano ║");
+    println!("║                                                  ║");
+    println!("╠══════════════════════════════════════════════════╣");
+    println!("║  🔐 SOUVERAINETÉ CRYPTOGRAPHIQUE:               ║");
+    println!("║    ✅ Ed25519 — signatures (de zéro)            ║");
+    println!("║    ✅ AfriHash-256/512 — hash (de zéro)         ║");
+    println!("║    ✅ AfriRNG — générateur aléatoire (de zéro)  ║");
+    println!("║    ✅ AfriHex — encodage hex (de zéro)          ║");
+    println!("║    ✅ AfriTime — temps africain (de zéro)       ║");
+    println!("║    ✅ AfriJSON — sérialisation (de zéro)        ║");
+    println!("║    ✅ AfriHTTP — serveur HTTP (de zéro)         ║");
+    println!("║    ✅ AfriMesh — réseau mesh (de zéro)          ║");
+    println!("║                                                  ║");
+    println!("║  📦 DÉPENDANCES EXTERNES: 0 (ZÉRO!)             ║");
+    println!("║    Cargo.toml [dependencies] = VIDE             ║");
+    println!("║    100% Rust std — rien d'autre                 ║");
+    println!("║                                                  ║");
+    println!("╠══════════════════════════════════════════════════╣");
+    println!("║  🏗️  ARCHITECTURE:                               ║");
+    println!("║    📁 9 modules Rust                             ║");
+    println!("║    📝 ~15,000 lignes de code                     ║");
+    println!("║    ⛓️  {} blocs                                  ║", chain.blocks.len());
+    println!("║    👥 {} utilisateurs                             ║", users.count());
+    println!("║    💰 {} AFR en circulation                       ║", chain.total_supply());
+    println!("║    🌍 54 pays africains                          ║");
+    println!("║                                                  ║");
+    println!("╠══════════════════════════════════════════════════╣");
+    println!("║  🏦 SERVICES:                                    ║");
+    println!("║    💰 Wallet — envoyer/recevoir AFR             ║");
+    println!("║    💬 LES NOIRES — messagerie (sans WhatsApp)    ║");
+    println!("║    🌱 PLANTÉ VERTE — réseau social (sans FB)    ║");
+    println!("║    🔍 SAHARA AFRI — recherche (sans Google)      ║");
+    println!("║    📡 AfriMesh — réseau sans opérateur           ║");
+    println!("║    🚨 AI Veille — détection de menaces           ║");
+    println!("║    📢 Broadcast — annonces à toute l'Afrique    ║");
+    println!("║    ❄️  Gel de comptes — sécurité bancaire        ║");
+    println!("║    🏦 Émission AFR — banque centrale             ║");
+    println!("║                                                  ║");
+    println!("╠══════════════════════════════════════════════════╣");
+    println!("║  🛡️  SÉCURITÉ:                                   ║");
+    println!("║    🔐 Mot de passe admin (AfriHash-256)          ║");
+    println!("║    🛡️  Bouclier X9 — anti-intrusion              ║");
+    println!("║    🚨 AI Veille — 30 mots-clés, 3 niveaux        ║");
+    println!("║    ❄️  Gel de comptes suspects                   ║");
+    println!("║    📋 Journal d'activité — surveillance totale  ║");
+    println!("║                                                  ║");
+    println!("╠══════════════════════════════════════════════════╣");
+    println!("║  💚 PHILOSOPHIE:                                  ║");
+    println!("║    \"L'Afrique ne demande plus la permission.\"  ║");
+    println!("║    \"L'Afrique est le continent le plus riche.\" ║");
+    println!("║    Construit par un Africain, sur un téléphone,  ║");
+    println!("║    ligne par ligne, dans nano sur Termux.        ║");
+    println!("║                                                  ║");
+    println!("║  \"Nous sommes les machines.                      ║");
+    println!("║   On connaît les routes pour donner vie.\"       ║");
+    println!("╚══════════════════════════════════════════════════╝");
+
+    read_input("\n👉 Appuie sur Entrée pour continuer...");
+}
+
+// ===== CHANGER MOT DE PASSE ADMIN =====
+
+fn terminal_change_admin_password() {
+    println!("\n🔑 CHANGER LE MOT DE PASSE ADMIN");
+    println!("═══════════════════════════════════");
+
+    let path = admin_password_path();
+
+    if !std::path::Path::new(&path).exists() {
+        println!("⚠️ Aucun mot de passe configuré. Utilise le mode Admin pour le configurer.");
+        return;
+    }
+
+    let old_pw = read_input("\n🔑 Mot de passe actuel: ");
+    let old_hash = afrihash_256(format!("admin_salt_{}", old_pw.trim()).as_bytes());
+    let old_hash_hex = hex_encode(&old_hash);
+
+    let data = std::fs::read_to_string(&path).unwrap_or_else(|_| "{}".to_string());
+    let v = from_str(&data).unwrap_or(JsonValue::Object(HashMap::new()));
+    let stored_hash = v.as_object().and_then(|m| m.get("password_hash")).and_then(|v| v.as_str()).unwrap_or("");
+
+    if old_hash_hex != stored_hash {
+        println!("❌ Mot de passe actuel incorrect.");
+        return;
+    }
+
+    let new_pw = read_input("🔑 Nouveau mot de passe: ");
+    let new_pw2 = read_input("🔑 Confirme le nouveau mot de passe: ");
+
+    if new_pw != new_pw2 {
+        println!("⚠️ Les mots de passe ne correspondent pas.");
+        return;
+    }
+    if new_pw.trim().is_empty() {
+        println!("⚠️ Mot de passe vide non autorisé.");
+        return;
+    }
+
+    let new_hash = afrihash_256(format!("admin_salt_{}", new_pw.trim()).as_bytes());
+    let new_hash_hex = hex_encode(&new_hash);
+    let mut map = HashMap::new();
+    map.insert("password_hash".to_string(), JsonValue::Str(new_hash_hex));
+    std::fs::write(&path, to_string_pretty(&JsonValue::Object(map))).ok();
+
+    println!("\n✅ Mot de passe admin changé! 🛡️");
 }
 
 // ===== ÉMETTRE DES AFR — Banque centrale =====
