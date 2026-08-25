@@ -10094,6 +10094,7 @@ fn admin_interface(state: &Arc<AppState>) {
         println!(" 20. ℹ️  Info Système — Carte d'identité");
         println!(" 21. 🔑 Changer mot de passe admin");
         println!(" 22. 🦁 AES — Alliance des États du Sahel");
+        println!(" 23. 💾 Sauvegarde — Export/Import des données");
         println!("  0. ❌ Quitter");
 
         print!("\n👉 Choix: ");
@@ -10126,6 +10127,7 @@ fn admin_interface(state: &Arc<AppState>) {
             "20" => terminal_system_info(state),
             "21" => terminal_change_admin_password(),
             "22" => terminal_aes_alliance(state),
+            "23" => terminal_backup(state),
             "0" => {
                 println!("🦁 Au revoir senpai. L'Afrique veille.");
                 std::process::exit(0);
@@ -10675,6 +10677,168 @@ fn client_sahara_afri(state: &Arc<AppState>) {
                         println!("    💬 {}", post.content);
                         println!("    ❤️ {} | ⏱️ {}", post.likes, format_timestamp_short(post.timestamp));
                         println!();
+                    }
+                }
+            }
+            "0" => break,
+            _ => println!("⚠️ Choix invalide"),
+        }
+    }
+}
+
+// ===== SAUVEGARDE — Export/Import des données =====
+
+fn backup_files() -> Vec<&'static str> {
+    vec![
+        "blockchain.json",
+        "wallets.json",
+        "users.json",
+        "social_feed.json",
+        "alerts.json",
+        "activity.json",
+        "broadcasts.json",
+        "frozen_users.json",
+        "admin_password.json",
+        "ai_memory.json",
+    ]
+}
+
+fn terminal_backup(state: &Arc<AppState>) {
+    loop {
+        println!("\n💾 SAUVEGARDE — PROTECTION DES DONNÉES");
+        println!("═══════════════════════════════════");
+
+        // Vérifier les fichiers existants
+        let files = backup_files();
+        let mut total_size = 0u64;
+        let mut existing = 0;
+        for f in &files {
+            let path = data_path(f);
+            if let Ok(meta) = std::fs::metadata(&path) {
+                total_size += meta.len();
+                existing += 1;
+            }
+        }
+
+        println!("  📁 {} fichiers de données ({} existants)", files.len(), existing);
+        println!("  💾 Taille totale: {} octets ({:.1} KB)", total_size, total_size as f64 / 1024.0);
+
+        // Vérifier les backups existants
+        let backup_dir = data_path("backups");
+        if let Ok(entries) = std::fs::read_dir(&backup_dir) {
+            let backups: Vec<_> = entries.filter_map(|e| e.ok()).collect();
+            println!("  📦 Backups existants: {}", backups.len());
+            if !backups.is_empty() {
+                for b in backups.iter().rev().take(3) {
+                    let name = b.file_name().to_string_lossy().to_string();
+                    let size = b.metadata().map(|m| m.len()).unwrap_or(0);
+                    println!("    📦 {} ({:.1} KB)", name, size as f64 / 1024.0);
+                }
+            }
+        }
+
+        println!("═══════════════════════════════════");
+        println!("\n  1. 💾 Créer un backup (exporter)");
+        println!("  2. 📥 Restaurer un backup (importer)");
+        println!("  0. ← Retour");
+
+        let choice = read_input("👉 Choix: ");
+        match choice.trim() {
+            "1" => {
+                let backup_dir = data_path("backups");
+                std::fs::create_dir_all(&backup_dir).ok();
+
+                let ts = now_timestamp();
+                let backup_name = format!("africhain_backup_{}.json", ts);
+                let backup_path = format!("{}/{}", backup_dir, backup_name);
+
+                let mut backup_data: HashMap<String, JsonValue> = HashMap::new();
+                backup_data.insert("backup_timestamp".to_string(), JsonValue::Int(ts));
+                backup_data.insert("backup_version".to_string(), JsonValue::Str("v0.68".to_string()));
+
+                let mut file_count = 0;
+                for f in &files {
+                    let path = data_path(f);
+                    if let Ok(data) = std::fs::read_to_string(&path) {
+                        let v = from_str(&data).unwrap_or(JsonValue::Null);
+                        backup_data.insert(f.to_string(), v);
+                        file_count += 1;
+                    }
+                }
+
+                let backup_json = to_string_pretty(&JsonValue::Object(backup_data));
+                std::fs::write(&backup_path, &backup_json).ok();
+
+                let size = std::fs::metadata(&backup_path).map(|m| m.len()).unwrap_or(0);
+                println!("\n✅ BACKUP CRÉÉ!");
+                println!("  📦 Fichier: {}", backup_name);
+                println!("  💾 Taille: {:.1} KB", size as f64 / 1024.0);
+                println!("  📁 {} fichiers sauvegardés", file_count);
+                println!("  📍 Emplacement: {}/", backup_dir);
+                println!("\n  💚 Tes données sont protégées. L'Afrique ne perd rien.");
+            }
+            "2" => {
+                let backup_dir = data_path("backups");
+                if !std::path::Path::new(&backup_dir).exists() {
+                    println!("\n📭 Aucun backup trouvé.");
+                    continue;
+                }
+
+                let entries: Vec<_> = std::fs::read_dir(&backup_dir).unwrap_or_else(|_| {
+                    println!("\n📭 Aucun backup trouvé.");
+                    std::process::exit(0);
+                }).filter_map(|e| e.ok()).collect();
+
+                if entries.is_empty() {
+                    println!("\n📭 Aucun backup trouvé.");
+                    continue;
+                }
+
+                println!("\n📦 BACKUPS DISPONIBLES:");
+                let mut sorted: Vec<_> = entries.iter().collect();
+                sorted.sort_by_key(|e| e.file_name());
+
+                for (i, e) in sorted.iter().enumerate().rev().take(10) {
+                    let name = e.file_name().to_string_lossy().to_string();
+                    let size = e.metadata().map(|m| m.len()).unwrap_or(0);
+                    println!("  {} ─ 📦 {} ({:.1} KB)", i + 1, name, size as f64 / 1024.0);
+                }
+
+                let num = read_input("\n👉 Numéro du backup à restaurer (0 = retour): ");
+                if num.trim() == "0" { continue; }
+
+                if let Ok(n) = num.trim().parse::<usize>() {
+                    if n >= 1 && n <= sorted.len() {
+                        let entry = sorted[sorted.len() - n];
+                        let path = entry.path();
+                        let name = entry.file_name().to_string_lossy().to_string();
+
+                        let confirm = read_input(&format!("\n⚠️  Restaurer {}? (oui/non): ", name));
+                        if confirm.trim() != "oui" {
+                            println!("❌ Restauration annulée.");
+                            continue;
+                        }
+
+                        let data = std::fs::read_to_string(&path).unwrap_or_else(|_| "{}".to_string());
+                        let v = from_str(&data).unwrap_or(JsonValue::Object(HashMap::new()));
+
+                        if let Some(obj) = v.as_object() {
+                            let mut restored = 0;
+                            for f in &files {
+                                if let Some(file_data) = obj.get(*f) {
+                                    let file_path = data_path(f);
+                                    std::fs::write(&file_path, to_string_pretty(file_data)).ok();
+                                    restored += 1;
+                                }
+                            }
+                            println!("\n✅ RESTAURATION TERMINÉE!");
+                            println!("  📦 {} fichiers restaurés depuis {}", restored, name);
+                            println!("  💚 Les données sont de retour. L'Afrique veille.");
+                        } else {
+                            println!("⚠️ Backup invalide.");
+                        }
+                    } else {
+                        println!("⚠️ Numéro invalide.");
                     }
                 }
             }
