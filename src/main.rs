@@ -10000,7 +10000,7 @@ fn admin_interface(state: &Arc<AppState>) {
         println!("\n");
         println!("╔══════════════════════════════════════╗");
         println!("║  🏦 CENTRE DE DONNÉES — Admin       ║");
-        println!("║  🦁 AfriChain v0.63                  ║");
+        println!("║  🦁 AfriChain v0.64                  ║");
         println!("╠══════════════════════════════════════╣");
         let chain = state.chain.lock().unwrap();
         let users = state.users.lock().unwrap();
@@ -10034,6 +10034,8 @@ fn admin_interface(state: &Arc<AppState>) {
         println!(" 13. 🚨 Alertes AI — Détection de menaces");
         println!(" 14. 📋 Journal d'activité — Surveillance totale");
         println!(" 15. 📊 Tableau de bord — Vue d'ensemble");
+        println!(" 16. 📢 Broadcast — Message à toute l'Afrique");
+        println!(" 17. 👥 Gestion utilisateurs — Suivre les traces");
         println!("  0. ❌ Quitter");
 
         print!("\n👉 Choix: ");
@@ -10059,6 +10061,8 @@ fn admin_interface(state: &Arc<AppState>) {
             "13" => terminal_threat_alerts(state),
             "14" => terminal_activity_journal(state),
             "15" => terminal_dashboard(state),
+            "16" => terminal_broadcast(state),
+            "17" => terminal_user_management(state),
             "0" => {
                 println!("🦁 Au revoir senpai. L'Afrique veille.");
                 std::process::exit(0);
@@ -10073,6 +10077,16 @@ fn client_interface(state: &Arc<AppState>) {
     // Il voit juste: son solde, envoyer, recevoir, messages.
     // Comme Orange Money. Comme Wave. Mais africain.
     let mut logged_user: Option<String> = None;
+
+    // Afficher le dernier broadcast au démarrage
+    if let Some(b) = latest_broadcast() {
+        println!("\n📢 MESSAGE DE LA BANQUE AES:");
+        println!("═══════════════════════════════════");
+        println!("  \"{}\"", &b.message[..b.message.len().min(100)]);
+        println!("  ⏱️ {}", format_timestamp_short(b.timestamp));
+        println!("═══════════════════════════════════");
+    }
+
     loop {
         println!("\n");
         println!("╔══════════════════════════════════════╗");
@@ -10389,6 +10403,207 @@ fn client_sahara_afri(state: &Arc<AppState>) {
             }
             "0" => break,
             _ => println!("⚠️ Choix invalide"),
+        }
+    }
+}
+
+// ===== BROADCAST — Message à toute l'Afrique =====
+
+#[derive(Clone)]
+struct Broadcast {
+    timestamp: i64,
+    message: String,
+    author: String,
+}
+
+impl Broadcast {
+    fn to_json(&self) -> JsonValue {
+        let mut map = HashMap::new();
+        map.insert("timestamp".to_string(), JsonValue::Int(self.timestamp));
+        map.insert("message".to_string(), JsonValue::Str(self.message.clone()));
+        map.insert("author".to_string(), JsonValue::Str(self.author.clone()));
+        JsonValue::Object(map)
+    }
+
+    fn from_json(v: &JsonValue) -> Option<Self> {
+        let m = v.as_object()?;
+        Some(Broadcast {
+            timestamp: m.get("timestamp")?.as_i64()?,
+            message: m.get("message")?.as_str()?.to_string(),
+            author: m.get("author")?.as_str()?.to_string(),
+        })
+    }
+}
+
+fn load_broadcasts() -> Vec<Broadcast> {
+    let data = std::fs::read_to_string(data_path("broadcasts.json")).unwrap_or_else(|_| "[]".to_string());
+    let v = from_str(&data).unwrap_or(JsonValue::Array(Vec::new()));
+    match v {
+        JsonValue::Array(arr) => arr.iter().filter_map(|b| Broadcast::from_json(b)).collect(),
+        _ => Vec::new(),
+    }
+}
+
+fn save_broadcasts(broadcasts: &[Broadcast]) {
+    let arr: Vec<JsonValue> = broadcasts.iter().map(|b| b.to_json()).collect();
+    let data = to_string_pretty(&JsonValue::Array(arr));
+    std::fs::write(data_path("broadcasts.json"), data).ok();
+}
+
+fn latest_broadcast() -> Option<Broadcast> {
+    let broadcasts = load_broadcasts();
+    broadcasts.last().cloned()
+}
+
+fn terminal_broadcast(state: &Arc<AppState>) {
+    loop {
+        let broadcasts = load_broadcasts();
+        println!("\n📢 BROADCAST — MESSAGE À TOUTE L'AFRIQUE");
+        println!("═══════════════════════════════════");
+        println!("  📡 Total broadcasts envoyés: {}", broadcasts.len());
+
+        if let Some(last) = broadcasts.last() {
+            println!("  📢 Dernier broadcast:");
+            println!("    \"{}\"", &last.message[..last.message.len().min(80)]);
+            println!("    ⏱️ {}", format_timestamp_short(last.timestamp));
+        }
+
+        println!("═══════════════════════════════════");
+        println!("\n  1. 📢 Envoyer un broadcast");
+        println!("  2. 📋 Voir tous les broadcasts");
+        println!("  0. ← Retour");
+
+        let choice = read_input("👉 Choix: ");
+        match choice.trim() {
+            "1" => {
+                let msg = read_input("📢 Ton message pour toute l'Afrique: ");
+                if msg.trim().is_empty() {
+                    println!("⚠️ Message vide.");
+                    continue;
+                }
+                let mut broadcasts = load_broadcasts();
+                let b = Broadcast {
+                    timestamp: now_timestamp(),
+                    message: msg.trim().to_string(),
+                    author: "Centre de Données AES".to_string(),
+                };
+                broadcasts.push(b);
+                save_broadcasts(&broadcasts);
+                log_activity("BROADCAST", "Admin", &format!("Broadcast: {}", &msg.trim()[..msg.trim().len().min(60)]), "");
+                println!("\n📢 BROADCAST ENVOYÉ!");
+                println!("  Tous les utilisateurs verront ce message.");
+                println!("  \"{}\"", msg.trim());
+                println!("  🌍 L'Afrique t'entend. 💚");
+            }
+            "2" => {
+                if broadcasts.is_empty() {
+                    println!("\n📭 Aucun broadcast envoyé.");
+                } else {
+                    println!("\n📋 HISTORIQUE DES BROADCASTS:");
+                    for (i, b) in broadcasts.iter().rev().enumerate().take(20) {
+                        println!("  {} ─ ⏱️ {}", i + 1, format_timestamp_short(b.timestamp));
+                        println!("    📢 \"{}\"", &b.message[..b.message.len().min(80)]);
+                        println!();
+                    }
+                }
+            }
+            "0" => break,
+            _ => println!("⚠️ Choix invalide"),
+        }
+    }
+}
+
+// ===== GESTION UTILISATEURS — Suivre les traces =====
+
+fn terminal_user_management(state: &Arc<AppState>) {
+    loop {
+        let users = state.users.lock().unwrap();
+        let chain = state.chain.lock().unwrap();
+        let logs = load_activity();
+
+        println!("\n👥 GESTION UTILISATEURS — SUIVRE LES TRACES");
+        println!("═══════════════════════════════════");
+        println!("  👥 Total utilisateurs: {}", users.count());
+
+        if users.count() == 0 {
+            println!("\n  Aucun utilisateur inscrit.");
+            println!("  Les utilisateurs apparaîtront ici quand ils s'inscriront.");
+            println!("═══════════════════════════════════");
+            drop(chain);
+            drop(logs);
+            read_input("\n👉 Appuie sur Entrée...");
+            break;
+        }
+
+        println!("\n  📋 LISTE DES UTILISATEURS:");
+        for (i, u) in users.users.iter().enumerate().take(30) {
+            let bal = chain.balance_of(&u.address);
+            let activity_count = logs.iter().filter(|l| l.user == u.username).count();
+            println!("  {} ─ {} 🌍 {} 📱 {} 💰 {} AFR 📋 {} actions",
+                i + 1, u.username, u.country, u.phone, bal, activity_count);
+        }
+        if users.count() > 30 {
+            println!("  ... et {} autres", users.count() - 30);
+        }
+        println!("═══════════════════════════════════");
+
+        let num = read_input("\n👉 Numéro pour voir le profil (0 = retour): ");
+        if num.trim() == "0" {
+            break;
+        }
+        if let Ok(n) = num.trim().parse::<usize>() {
+            if n >= 1 && n <= users.users.len() {
+                let u = &users.users[n - 1];
+                let bal = chain.balance_of(&u.address);
+                let user_logs: Vec<_> = logs.iter().filter(|l| l.user == u.username).collect();
+
+                println!("\n👤 PROFIL UTILISATEUR");
+                println!("═══════════════════════════════════");
+                println!("  👤 Nom: {}", u.username);
+                println!("  📱 Téléphone: {}", u.phone);
+                println!("  🌍 Pays: {} ({})", u.country, u.country_code);
+                println!("  📬 Adresse: {}", u.address);
+                println!("  💰 Solde: {} AFR", bal);
+                println!("  📅 Inscrit le: {}", format_timestamp_short(u.created_at));
+                println!("  📋 Activité: {} actions", user_logs.len());
+                println!("═══════════════════════════════════");
+
+                if !user_logs.is_empty() {
+                    println!("\n  📋 SES DERNIÈRES ACTIONS:");
+                    for l in user_logs.iter().rev().take(10) {
+                        let icon = match l.action.as_str() {
+                            "MESSAGE" => "💬",
+                            "TRANSACTION" => "💰",
+                            "POST" => "🌱",
+                            "LOGIN" => "🔑",
+                            "REGISTER" => "📝",
+                            "WALLET" => "👛",
+                            "BROADCAST" => "📢",
+                            _ => "📋",
+                        };
+                        println!("    {} {} — {}", icon, l.action, &l.detail[..l.detail.len().min(50)]);
+                        println!("       ⏱️ {} ({})", format_timestamp_short(l.timestamp), l.country);
+                    }
+                }
+
+                // Voir les alertes de cet utilisateur
+                let all_alerts = load_alerts();
+                let user_alerts: Vec<_> = all_alerts.iter().filter(|a| a.source == u.username).collect();
+                if !user_alerts.is_empty() {
+                    println!("\n  🚨 ALERTES DE CET UTILISATEUR: {}", user_alerts.len());
+                    for a in user_alerts.iter().rev().take(5) {
+                        let icon = if a.severity == "CRITIQUE" { "🔴" } else if a.severity == "ALERTE" { "🟠" } else { "🟡" };
+                        println!("    {} [{}] mot: {} — \"{}\"", icon, a.severity, a.keyword, &a.content[..a.content.len().min(50)]);
+                    }
+                }
+
+                println!("═══════════════════════════════════");
+                read_input("\n👉 Appuie sur Entrée pour continuer...");
+            } else {
+                println!("⚠️ Numéro invalide.");
+            }
+        } else {
+            println!("⚠️ Entre un numéro.");
         }
     }
 }
