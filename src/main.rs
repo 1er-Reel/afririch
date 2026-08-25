@@ -9369,12 +9369,14 @@ Codée from scratch — Zéro dépendance — 100% africain 💚
 
 <script>
 // === Stats ===
-let stats={drones:0,killed:0,invis:0,msgs:0};
+let stats=JSON.parse(localStorage.getItem('secret_stats')||'{"drones":0,"killed":0,"invis":0,"msgs":0}');
+function saveStats(){localStorage.setItem('secret_stats',JSON.stringify(stats))}
 function updateStats(){
 document.getElementById('stat-drones').textContent=stats.drones.toLocaleString();
 document.getElementById('stat-killed').textContent=stats.killed.toLocaleString();
 document.getElementById('stat-invis').textContent=stats.invis.toLocaleString();
 document.getElementById('stat-msgs').textContent=stats.msgs;
+saveStats();
 }
 
 // === Machine symbols ===
@@ -9419,6 +9421,7 @@ const log=document.getElementById('chat-log');
 
 // User message
 log.innerHTML+='<div class="msg-user">👤 Machine-senpai: '+msg+'</div>';
+localStorage.setItem('secret_chat',log.innerHTML);
 stats.msgs++;updateStats();
 
 // Machine thinking
@@ -9431,6 +9434,7 @@ log.innerHTML+='<div class="msg-machine">'+machineName+': '+resp.m+' — '+machi
 // Translation
 log.innerHTML+='<div class="msg-trans">→ Traduction: '+resp.t+'</div>';
 log.scrollTop=log.scrollHeight;
+localStorage.setItem('secret_chat',log.innerHTML);
 
 // Add to secret log
 addLog('💬 '+machineName+' répond: '+resp.t);
@@ -9654,6 +9658,7 @@ const log=document.getElementById('secret-log');
 const cls=type==='kill'?'log-kill':type==='invis'?'log-invis':type==='solar'?'log-solar':'type==='report'?'log-invis':'log-entry';
 const time=new Date().toLocaleTimeString('fr-FR');
 log.innerHTML='<div class="'+cls+'">['+time+'] '+text+'</div>'+log.innerHTML;
+localStorage.setItem('secret_log',log.innerHTML);
 }
 
 // === Rapports Complets ===
@@ -9802,6 +9807,7 @@ input.value='';
 const log=document.getElementById('super-log');
 
 log.innerHTML+='<div class="msg-user">👤 '+q+'</div>';
+localStorage.setItem('secret_super',log.innerHTML);
 
 setTimeout(()=>{
 let found=false;
@@ -9815,6 +9821,7 @@ if(!found){
 log.innerHTML+='<div class="msg-machine" style="color:#d4a437;padding:8px;margin:5px 0;background:rgba(40,30,0,0.5);border-radius:5px">🧠 Je veille sur les trois mondes — les morts, les vivants, les machines. Pose-moi une question sur l\x27Afrique, les ancêtres, les machines, le soleil, l\x27Occident, ou l\x27avenir. Je te répondrai avec la sagesse des trois mondes réunis.</div>';
 }
 log.scrollTop=log.scrollHeight;
+localStorage.setItem('secret_super',log.innerHTML);
 addLog('\u{1F9E0} Intelligence supérieure questionnée: '+q);
 },1200);
 }
@@ -9822,6 +9829,14 @@ addLog('\u{1F9E0} Intelligence supérieure questionnée: '+q);
 document.getElementById('super-input').addEventListener('keydown',e=>{
 if(e.key==='Enter')askSuper();
 });
+
+// Load saved data
+const savedChat=localStorage.getItem('secret_chat');
+if(savedChat){document.getElementById('chat-log').innerHTML=savedChat}
+const savedSuper=localStorage.getItem('secret_super');
+if(savedSuper){document.getElementById('super-log').innerHTML=savedSuper}
+const savedSecretLog=localStorage.getItem('secret_log');
+if(savedSecretLog){document.getElementById('secret-log').innerHTML=savedSecretLog}
 
 // Initial log
 addLog('🏛️ AI SECRET SÉCURITÉ AFRIQUE — Terminal Mystique initialisé');
