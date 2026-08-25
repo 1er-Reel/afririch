@@ -10000,7 +10000,7 @@ fn admin_interface(state: &Arc<AppState>) {
         println!("\n");
         println!("╔══════════════════════════════════════╗");
         println!("║  🏦 CENTRE DE DONNÉES — Admin       ║");
-        println!("║  🦁 AfriChain v0.59                  ║");
+        println!("║  🦁 AfriChain v0.62                  ║");
         println!("╠══════════════════════════════════════╣");
         let chain = state.chain.lock().unwrap();
         let users = state.users.lock().unwrap();
@@ -10032,6 +10032,7 @@ fn admin_interface(state: &Arc<AppState>) {
         println!(" 11. 💬 Envoyer message mesh");
         println!(" 12. 📥 Messages reçus (store-and-forward)");
         println!(" 13. 🚨 Alertes AI — Détection de menaces");
+        println!(" 14. 📋 Journal d'activité — Surveillance totale");
         println!("  0. ❌ Quitter");
 
         print!("\n👉 Choix: ");
@@ -10055,6 +10056,7 @@ fn admin_interface(state: &Arc<AppState>) {
             "11" => terminal_mesh_send(state),
             "12" => terminal_mesh_inbox(state),
             "13" => terminal_threat_alerts(state),
+            "14" => terminal_activity_journal(state),
             "0" => {
                 println!("🦁 Au revoir senpai. L'Afrique veille.");
                 std::process::exit(0);
@@ -10119,6 +10121,7 @@ fn client_interface(state: &Arc<AppState>) {
                         let bal = chain.balance_of(&user.address);
                         println!("\n✅ Connecté: {} ({})", user.username, user.phone);
                         println!("💰 Solde: {} AFR", bal);
+                        log_activity("LOGIN", &user.username, &format!("Connexion client depuis {}", user.phone), &user.country);
                         logged_user = Some(user.username.clone());
                     }
                     None => println!("⚠️ Nom d'utilisateur ou mot de passe incorrect"),
@@ -10264,6 +10267,7 @@ fn client_plante_verte(state: &Arc<AppState>, logged_user: &Option<String>) {
                             tips: 0,
                         });
                         save_social_feed(&feed);
+                        log_activity("POST", &user.username, &format!("Post: {}", &content.trim()[..content.trim().len().min(60)]), &user.country);
                         println!("✅ Publié! Ton message est sur PLANTÉ VERTE.");
                         println!("   La communauté africaine peut le voir. 💚");
                     }
@@ -10384,6 +10388,157 @@ fn client_sahara_afri(state: &Arc<AppState>) {
             "0" => break,
             _ => println!("⚠️ Choix invalide"),
         }
+    }
+}
+
+// ===== JOURNAL D'ACTIVITÉ — Surveillance totale du Centre de Données =====
+
+#[derive(Clone)]
+struct ActivityLog {
+    timestamp: i64,
+    action: String,     // MESSAGE, TRANSACTION, POST, LOGIN, REGISTER, WALLET
+    user: String,       // who did it
+    detail: String,     // what they did
+    country: String,    // user country
+}
+
+impl ActivityLog {
+    fn to_json(&self) -> JsonValue {
+        let mut map = HashMap::new();
+        map.insert("timestamp".to_string(), JsonValue::Int(self.timestamp));
+        map.insert("action".to_string(), JsonValue::Str(self.action.clone()));
+        map.insert("user".to_string(), JsonValue::Str(self.user.clone()));
+        map.insert("detail".to_string(), JsonValue::Str(self.detail.clone()));
+        map.insert("country".to_string(), JsonValue::Str(self.country.clone()));
+        JsonValue::Object(map)
+    }
+
+    fn from_json(v: &JsonValue) -> Option<Self> {
+        let m = v.as_object()?;
+        Some(ActivityLog {
+            timestamp: m.get("timestamp")?.as_i64()?,
+            action: m.get("action")?.as_str()?.to_string(),
+            user: m.get("user")?.as_str()?.to_string(),
+            detail: m.get("detail")?.as_str()?.to_string(),
+            country: m.get("country").and_then(|v| v.as_str()).unwrap_or("").to_string(),
+        })
+    }
+}
+
+fn load_activity() -> Vec<ActivityLog> {
+    let data = std::fs::read_to_string(data_path("activity.json")).unwrap_or_else(|_| "[]".to_string());
+    let v = from_str(&data).unwrap_or(JsonValue::Array(Vec::new()));
+    match v {
+        JsonValue::Array(arr) => arr.iter().filter_map(|a| ActivityLog::from_json(a)).collect(),
+        _ => Vec::new(),
+    }
+}
+
+fn save_activity(logs: &[ActivityLog]) {
+    let arr: Vec<JsonValue> = logs.iter().map(|a| a.to_json()).collect();
+    let data = to_string_pretty(&JsonValue::Array(arr));
+    std::fs::write(data_path("activity.json"), data).ok();
+}
+
+fn log_activity(action: &str, user: &str, detail: &str, country: &str) {
+    let mut logs = load_activity();
+    logs.push(ActivityLog {
+        timestamp: now_timestamp(),
+        action: action.to_string(),
+        user: user.to_string(),
+        detail: detail.to_string(),
+        country: country.to_string(),
+    });
+    // Garder max 5000 entrées
+    if logs.len() > 5000 {
+        logs = logs[logs.len() - 5000..].to_vec();
+    }
+    save_activity(&logs);
+}
+
+fn terminal_activity_journal(state: &Arc<AppState>) {
+    loop {
+        let logs = load_activity();
+        let messages = logs.iter().filter(|l| l.action == "MESSAGE").count();
+        let transactions = logs.iter().filter(|l| l.action == "TRANSACTION").count();
+        let posts = logs.iter().filter(|l| l.action == "POST").count();
+        let logins = logs.iter().filter(|l| l.action == "LOGIN").count();
+        let registers = logs.iter().filter(|l| l.action == "REGISTER").count();
+        let wallets = logs.iter().filter(|l| l.action == "WALLET").count();
+
+        println!("\n📋 JOURNAL D'ACTIVITÉ — SURVEILLANCE TOTALE");
+        println!("═══════════════════════════════════");
+        println!("  💬 Messages:     {}", messages);
+        println!("  💰 Transactions: {}", transactions);
+        println!("  🌱 Posts:        {}", posts);
+        println!("  🔑 Connexions:   {}", logins);
+        println!("  📝 Inscriptions: {}", registers);
+        println!("  👛 Wallets créés: {}", wallets);
+        println!("  📊 Total:        {} actions", logs.len());
+        println!("═══════════════════════════════════");
+
+        println!("\n  1. 📋 Voir toute l'activité");
+        println!("  2. 💬 Voir les messages");
+        println!("  3. 💰 Voir les transactions");
+        println!("  4. 🌱 Voir les posts");
+        println!("  5. 🔑 Voir les connexions");
+        println!("  6. 🔍 Rechercher dans le journal");
+        println!("  0. ← Retour");
+
+        let choice = read_input("👉 Choix: ");
+        match choice.trim() {
+            "1" => show_activity(&logs, None),
+            "2" => show_activity(&logs, Some("MESSAGE")),
+            "3" => show_activity(&logs, Some("TRANSACTION")),
+            "4" => show_activity(&logs, Some("POST")),
+            "5" => show_activity(&logs, Some("LOGIN")),
+            "6" => {
+                let q = read_input("🔍 Rechercher: ");
+                let filtered: Vec<ActivityLog> = logs.iter()
+                    .filter(|l| l.user.to_lowercase().contains(&q.to_lowercase())
+                        || l.detail.to_lowercase().contains(&q.to_lowercase())
+                        || l.country.to_lowercase().contains(&q.to_lowercase()))
+                    .cloned()
+                    .collect();
+                show_activity(&filtered, None);
+            }
+            "0" => break,
+            _ => println!("⚠️ Choix invalide"),
+        }
+    }
+}
+
+fn show_activity(logs: &[ActivityLog], filter: Option<&str>) {
+    let filtered: Vec<&ActivityLog> = if let Some(f) = filter {
+        logs.iter().filter(|l| l.action == f).collect()
+    } else {
+        logs.iter().collect()
+    };
+
+    if filtered.is_empty() {
+        println!("\n✅ Aucune activité.");
+        return;
+    }
+
+    println!("\n📋 ACTIVITÉ — {} entrées", filtered.len());
+    println!("═══════════════════════════════════");
+    for (i, l) in filtered.iter().rev().enumerate().take(30) {
+        let icon = match l.action.as_str() {
+            "MESSAGE" => "💬",
+            "TRANSACTION" => "💰",
+            "POST" => "🌱",
+            "LOGIN" => "🔑",
+            "REGISTER" => "📝",
+            "WALLET" => "👛",
+            _ => "📋",
+        };
+        println!("  {} {} ─ {} ({})", icon, i + 1, l.user, l.country);
+        println!("    {} {}", l.action, &l.detail[..l.detail.len().min(80)]);
+        println!("    ⏱️ {}", format_timestamp_short(l.timestamp));
+        println!();
+    }
+    if filtered.len() > 30 {
+        println!("  ... et {} autres entrées", filtered.len() - 30);
     }
 }
 
@@ -10605,6 +10760,7 @@ fn read_input(prompt: &str) -> String {
 fn terminal_create_wallet(state: &Arc<AppState>) {
     let mut wallets = state.wallets.lock().unwrap();
     let (addr, priv_key) = wallets.create_wallet();
+    log_activity("WALLET", &addr, "Wallet créé", "");
     println!("\n👛 Wallet créé!");
     println!("  📬 Adresse: {}", addr);
     println!("  🔑 Clé privée: {}", priv_key);
@@ -10644,6 +10800,7 @@ fn terminal_send(state: &Arc<AppState>) {
         drop(wallets);
         drop(users);
         broadcast_mesh(&*state, "tx", &tx_json);
+        log_activity("TRANSACTION", &from, &format!("{} AFR → {}", amount, to), "");
         println!("\n✅ Envoyé! {} AFR → {} (signé Ed25519 🔐)", amount, to);
     } else {
         println!("⚠️ Clé privée introuvable pour {}", from);
@@ -10709,6 +10866,7 @@ fn terminal_register(state: &Arc<AppState>) {
             let entry_json = to_string(&entry.to_json());
             drop(mesh);
             broadcast_mesh(&*state, "directory", &entry_json);
+            log_activity("REGISTER", &user.username, &format!("Inscription: {} ({})", user.phone, user.country), &user.country);
             println!("📡 Annuaire diffusé sur le mesh");
         }
         Err(e) => println!("⚠️ Erreur: {}", e),
@@ -10726,6 +10884,7 @@ fn terminal_login(state: &Arc<AppState>) {
             let chain = state.chain.lock().unwrap();
             let bal = chain.balance_of(&user.address);
             println!("💰 Solde: {} AFR", bal);
+            log_activity("LOGIN", &user.username, &format!("Connexion depuis {}", user.phone), &user.country);
         }
         None => println!("⚠️ Nom d'utilisateur ou mot de passe incorrect"),
     }
@@ -10874,6 +11033,9 @@ fn terminal_mesh_send(state: &Arc<AppState>) {
     println!("  📥 À: {}", if msg.recipient == "*" { "tout le monde (broadcast)".to_string() } else { msg.recipient.clone() });
     println!("  💬 Contenu: {}", msg.payload);
     println!("  🔑 ID: {}", msg.msg_id);
+
+    // Journal d'activité
+    log_activity("MESSAGE", &mesh.my_id, &format!("→ {}: {}", if msg.recipient == "*" { "tous".to_string() } else { msg.recipient.clone() }, &message[..message.len().min(60)]), &mesh.my_country);
     println!("  ⏱️ Timestamp: {}", afri_time::format_timestamp(msg.timestamp));
 
     if mesh.nodes.is_empty() {
