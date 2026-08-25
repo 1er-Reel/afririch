@@ -10133,6 +10133,117 @@ fn admin_interface(state: &Arc<AppState>) {
     }
 }
 
+fn client_send(state: &Arc<AppState>, logged_user: &Option<String>) {
+    let username = match logged_user {
+        Some(u) => u.clone(),
+        None => {
+            println!("\n⚠️ Tu dois te connecter d'abord. (Menu 1)");
+            return;
+        }
+    };
+
+    let users = state.users.lock().unwrap();
+    let user = match users.users.iter().find(|u| u.username == username) {
+        Some(u) => u.clone(),
+        None => {
+            println!("\n⚠️ Utilisateur introuvable.");
+            return;
+        }
+    };
+
+    // Vérifier si gelé
+    if is_frozen(&username) {
+        println!("\n❄️ Ton compte est gelé. Tu ne peux pas envoyer d'AFR.");
+        println!("   Contacte la banque pour plus d'informations.");
+        return;
+    }
+
+    let my_address = user.address.clone();
+    let my_country = user.country.clone();
+    drop(users);
+
+    let chain = state.chain.lock().unwrap();
+    let bal = chain.balance_of(&my_address);
+    drop(chain);
+
+    println!("\n📤 ENVOYER DES AFR");
+    println!("═══════════════════════════════════");
+    println!("  💰 Ton solde: {} AFR", bal);
+    println!("═══════════════════════════════════");
+
+    let to_phone = read_input("📱 Numéro du destinataire (ex: +227XXXXXXXX): ");
+    let to_phone = to_phone.trim().to_string();
+    if to_phone.is_empty() {
+        println!("⚠️ Numéro vide.");
+        return;
+    }
+
+    let amount_str = read_input("💰 Montant (AFR): ");
+    let amount: u64 = match amount_str.trim().parse() {
+        Ok(a) if a > 0 => a,
+        _ => { println!("⚠️ Montant invalide"); return; }
+    };
+
+    if amount > bal as u64 {
+        println!("⚠️ Solde insuffisant! Tu as {} AFR.", bal);
+        return;
+    }
+
+    let memo = read_input("📝 Mémo (optionnel): ");
+
+    // Résoudre le destinataire par téléphone
+    let users = state.users.lock().unwrap();
+    let to_addr = match users.users.iter().find(|u| u.phone == to_phone) {
+        Some(u) => {
+            let addr = u.address.clone();
+            let to_country = u.country.clone();
+            let to_name = u.username.clone();
+            drop(users);
+
+            // Message transfrontalier?
+            if to_country != my_country {
+                println!("\n🌍 TRANSFERT TRANSFRONTALIER!");
+                println!("   {} → {} 🌍 Instantané. Sans Western Union.", my_country, to_country);
+                println!("   Sans frais. Sans attente. Sans permission. 💚");
+            }
+
+            println!("\n📤 {} AFR → {} ({})", amount, to_name, to_phone);
+            addr
+        }
+        None => {
+            drop(users);
+            // Essayer par adresse directe
+            let chain = state.chain.lock().unwrap();
+            if chain.blocks.iter().any(|b| b.transactions.iter().any(|t| t.from == to_phone || t.to == to_phone)) {
+                to_phone.clone()
+            } else {
+                println!("⚠️ Destinataire introuvable: {}", to_phone);
+                println!("   L'utilisateur doit s'inscrire d'abord.");
+                return;
+            }
+        }
+    };
+
+    let wallets = state.wallets.lock().unwrap();
+    let mut chain = state.chain.lock().unwrap();
+    let mut tx = Transaction::new(&my_address, &to_addr, amount, &memo);
+    if let Some(sk) = wallets.get_signing_key(&my_address) {
+        tx.sign(&sk);
+        let tx_json = to_string(&tx.to_json());
+        chain.add_transaction(tx);
+        chain.save_to_file();
+        drop(chain);
+        drop(wallets);
+
+        broadcast_mesh(&*state, "tx", &tx_json);
+        log_activity("TRANSACTION", &username, &format!("{} AFR → {}", amount, to_phone), &my_country);
+        println!("\n✅ Envoyé! {} AFR 🔐 (signé Ed25519)", amount);
+        println!("   ⛏️  La transaction sera confirmée au prochain bloc.");
+    } else {
+        println!("⚠️ Clé privée introuvable. Crée un wallet d'abord.");
+    }
+}
+
 fn client_transaction_history(state: &Arc<AppState>, logged_user: &Option<String>) {
     let username = match logged_user {
         Some(u) => u,
@@ -10307,7 +10418,7 @@ fn client_interface(state: &Arc<AppState>) {
                 }
             }
             "2" => terminal_register(state),
-            "3" => terminal_send(state),
+            "3" => client_send(state, &logged_user),
             "4" => client_my_address(state, &logged_user),
             "5" => client_messages(state),
             "6" => terminal_directory(state),
