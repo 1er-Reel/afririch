@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🦁 AfriChain — Simulation Four Solaire</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0a0a0a;color:#a8c5a8;font-family:monospace;overflow:hidden}
+canvas{display:block;width:100vw;height:100vh}
+#info{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:rgba(0,20,0,0.9);border:1px solid #4a7c4a;border-radius:10px;padding:15px 30px;text-align:center;max-width:90vw;z-index:10}
+#info h2{color:#d4a437;font-size:1.2em;margin-bottom:5px}
+#info p{color:#a8c5a8;font-size:0.85em;line-height:1.4}
+#progress{position:fixed;top:15px;left:50%;transform:translateX(-50%);background:rgba(0,20,0,0.9);border:1px solid #4a7c4a;border-radius:20px;padding:8px 20px;z-index:10}
+#bar{width:200px;height:6px;background:#1a3a1a;border-radius:3px;overflow:hidden;margin-top:5px}
+#fill{height:100%;background:linear-gradient(90deg,#d4a437,#4a7c4a);width:0%;transition:width 0.3s}
+#controls{position:fixed;top:15px;right:15px;z-index:10}
+button{background:#1a3a1a;color:#d4a437;border:1px solid #4a7c4a;padding:8px 15px;border-radius:5px;cursor:pointer;font-family:monospace;margin:2px}
+button:hover{background:#2a5a2a}
+</style>
+</head>
+<body>
+<div id="controls">
+<button onclick="restart()">🔄 Recommencer</button>
+</div>
+<div id="progress">
+<div id="bar"><div id="fill"></div></div>
+</div>
+<canvas id="c"></canvas>
+<div id="info">
+<h2 id="title">🦁 AfriChain — Four Solaire</h2>
+<p id="desc">Simulation du forgeage réel</p>
+</div>
+<script>
+const cv=document.getElementById('c');
+const x=cv.getContext('2d');
+const titleEl=document.getElementById('title');
+const descEl=document.getElementById('desc');
+const fillEl=document.getElementById('fill');
+
+function resize(){cv.width=innerWidth;cv.height=innerHeight}
+resize();
+addEventListener('resize',resize);
+
+let t=0;
+let phase=0;
+const phases=[
+  {name:"PRÉPARATION",desc:"Récupère une parabole satellite + papier aluminium",dur:3000},
+  {name:"ÉTAPE 1: Parabole",desc:"Colle le papier aluminium sur toute la surface intérieure",dur:3000},
+  {name:"ÉTAPE 2: Point focal",desc:"Le soleil se reflète sur la parabole — trouve le point le plus chaud",dur:4000},
+  {name:"ÉTAPE 3: Creuset",desc:"Place une boîte de conserve au point focal",dur:3000},
+  {name:"ÉTAPE 4: Canettes",desc:"Mets les canettes en aluminium dans le creuset",dur:3000},
+  {name:"ÉTAPE 5: Fonte",desc:"660°C — l'aluminium devient liquide! Argent brillant, fluide",dur:5000},
+  {name:"ÉTAPE 6: Coulée",desc:"Verse l'aluminium liquide dans le moule en argile",dur:4000},
+  {name:"ÉTAPE 7: Solidification",desc:"L'aluminium refroidit et durcit en 2-3 minutes",dur:3000},
+  {name:"JETON AFR CRÉÉ!",desc:"🦁 1 AFR physique — forgé par le soleil d'Afrique ☀️",dur:4000},
+  {name:"BLOCKCHAIN",desc:"Enregistrement: FORGE-SOLAIRE | Poids: 3.2g | Niger 🇳🇪",dur:3000},
+  {name:"TERMINÉ",desc:"Le numérique est devenu physique. L'Afrique forge sa propre monnaie. 🦁💚",dur:5000},
+];
+
+let phaseStart=0;
+
+function restart(){t=0;phase=0;phaseStart=0}
+
+function loop(){
+  t+=16;
+  const elapsed=t-phaseStart;
+  const cur=phases[phase];
+  
+  if(elapsed>cur.dur){
+    phaseStart=t;
+    phase++;
+    if(phase>=phases.length){phase=phases.length-1;phaseStart=t-cur.dur}
+  }
+  
+  const p=phases[phase];
+  const prog=elapsed/p.dur;
+  titleEl.textContent=`${phase+1}/${phases.length} — ${p.name}`;
+  descEl.textContent=p.desc;
+  fillEl.style.width=((phase+prog)/phases.length*100)+'%';
+  
+  // Clear
+  x.fillStyle='#0a0a0a';
+  x.fillRect(0,0,cv.width,cv.height);
+  
+  // Sky gradient
+  const sky=x.createLinearGradient(0,0,0,cv.height*0.6);
+  sky.addColorStop(0,'#0a1a0a');
+  sky.addColorStop(0.5,'#1a3a1a');
+  sky.addColorStop(1,'#2a4a2a');
+  x.fillStyle=sky;
+  x.fillRect(0,0,cv.width,cv.height*0.6);
+  
+  // Ground
+  x.fillStyle='#3a2a1a';
+  x.fillRect(0,cv.height*0.6,cv.width,cv.height*0.4);
+  
+  // Ground texture
+  x.strokeStyle='rgba(100,70,30,0.3)';
+  x.lineWidth=1;
+  for(let i=0;i<20;i++){
+    x.beginPath();
+    x.moveTo(Math.random()*cv.width,cv.height*0.6+Math.random()*cv.height*0.4);
+    x.lineTo(Math.random()*cv.width,cv.height*0.6+Math.random()*cv.height*0.4);
+    x.stroke();
+  }
+  
+  // Sun
+  const sunX=cv.width*0.5;
+  const sunY=cv.height*0.15;
+  const sunR=40;
+  
+  // Sun glow
+  const glow=x.createRadialGradient(sunX,sunY,0,sunX,sunY,sunR*3);
+  glow.addColorStop(0,'rgba(255,220,100,0.4)');
+  glow.addColorStop(0.5,'rgba(255,180,50,0.2)');
+  glow.addColorStop(1,'rgba(255,150,0,0)');
+  x.fillStyle=glow;
+  x.fillRect(sunX-sunR*3,sunY-sunR*3,sunR*6,sunR*6);
+  
+  // Sun body
+  x.fillStyle='#FFD700';
+  x.beginPath();
+  x.arc(sunX,sunY,sunR,0,Math.PI*2);
+  x.fill();
+  
+  // Sun rays animation
+  x.strokeStyle='rgba(255,220,100,0.6)';
+  x.lineWidth=2;
+  for(let i=0;i<12;i++){
+    const a=(i/12)*Math.PI*2+t*0.0005;
+    x.beginPath();
+    x.moveTo(sunX+Math.cos(a)*sunR,sunY+Math.sin(a)*sunR);
+    x.lineTo(sunX+Math.cos(a)*(sunR+15),sunY+Math.sin(a)*(sunR+15));
+    x.stroke();
+  }
+  
+  // Parabole
+  const px=cv.width*0.5;
+  const py=cv.height*0.55;
+  const pw=180;
+  const ph=60;
+  
+  // Parabole dish (curve)
+  x.strokeStyle='#888';
+  x.lineWidth=3;
+  x.beginPath();
+  x.moveTo(px-pw,py);
+  x.quadraticCurveTo(px,py-ph*2,px+pw,py);
+  x.stroke();
+  
+  // Phase 1: Apply foil
+  if(phase>=1){
+    const foilProg=phase===1?prog:1;
+    x.fillStyle=`rgba(200,200,220,${foilProg*0.8})`;
+    x.beginPath();
+    x.moveTo(px-pw,py);
+    x.quadraticCurveTo(px,py-ph*2,px+pw,py);
+    x.lineTo(px+pw,py-3);
+    x.quadraticCurveTo(px,py-ph*2-3,px-pw,py-3);
+    x.closePath();
+    x.fill();
+    
+    // Shimmer
+    if(phase===1){
+      for(let i=0;i<5;i++){
+        const sx=px-pw+(Math.random()*pw*2);
+        const sy=py-ph-(Math.random()*ph);
+        x.fillStyle=`rgba(255,255,255,${Math.random()*0.5})`;
+        x.beginPath();
+        x.arc(sx,sy,2,0,Math.PI*2);
+        x.fill();
+      }
+    }
+  }
+  
+  // Phase 2: Sun rays hitting parabole and concentrating
+  if(phase>=2){
+    const rayProg=phase===2?prog:1;
+    const numRays=Math.floor(rayProg*15);
+    
+    x.strokeStyle='rgba(255,220,100,0.7)';
+    x.lineWidth=2;
+    
+    // Rays from sun to parabole
+    for(let i=0;i<numRays;i++){
+      const offset=(i-numRays/2)*20;
+      const startX=sunX+offset;
+      const endX=px+offset;
+      
+      x.beginPath();
+      x.moveTo(startX,sunY+sunR);
+      x.lineTo(endX,py-ph-Math.abs(offset)*0.3);
+      x.stroke();
+    }
+    
+    // Reflected rays converging to focal point
+    const focalX=px;
+    const focalY=py-ph-30;
+    
+    x.strokeStyle='rgba(255,100,50,0.8)';
+    x.lineWidth=2;
+    for(let i=0;i<numRays;i++){
+      const offset=(i-numRays/2)*20;
+      const startX=px+offset;
+      const startY=py-ph-Math.abs(offset)*0.3;
+      
+      x.beginPath();
+      x.moveTo(startX,startY);
+      x.lineTo(focalX,focalY);
+      x.stroke();
+    }
+    
+    // Focal point glow
+    const focalGlow=x.createRadialGradient(focalX,focalY,0,focalX,focalY,30);
+    focalGlow.addColorStop(0,'rgba(255,100,0,0.9)');
+    focalGlow.addColorStop(0.5,'rgba(255,50,0,0.5)');
+    focalGlow.addColorStop(1,'rgba(255,0,0,0)');
+    x.fillStyle=focalGlow;
+    x.fillRect(focalX-30,focalY-30,60,60);
+    
+    // Temperature indicator
+    if(phase>=2){
+      x.fillStyle='#ff4444';
+      x.font='bold 14px monospace';
+      x.textAlign='left';
+      let temp=0;
+      if(phase===2)temp=Math.floor(prog*300);
+      else if(phase===3)temp=300+Math.floor(prog*100);
+      else if(phase===4)temp=400+Math.floor(prog*260);
+      else if(phase>=5)temp=660;
+      x.fillText(`🌡️ ${temp}°C`,focalX+35,focalY);
+      
+      if(temp>=660){
+        x.fillStyle='#ffaa00';
+        x.fillText('🔥 ALUMINIUM FONDU!',focalX+35,focalY+20);
+      }else if(temp>=300){
+        x.fillStyle='#ff8800';
+        x.fillText('⚡ Chaud...',focalX+35,focalY+20);
+      }
+    }
+  }
+  
+  // Phase 3: Crucible at focal point
+  if(phase>=3){
+    const crucibleY=py-ph-25;
+    const crucibleW=30;
+    const crucibleH=25;
+    
+    // Crucible (can)
+    x.fillStyle='#555';
+    x.fillRect(px-crucibleW/2,crucibleY-crucibleH,crucibleW,crucibleH);
+    x.strokeStyle='#333';
+    x.lineWidth=2;
+    x.strokeRect(px-crucibleW/2,crucibleY-crucibleH,crucibleW,crucibleH);
+    
+    // Crucible top
+    x.strokeStyle='#444';
+    x.beginPath();
+    x.moveTo(px-crucibleW/2-3,crucibleY-crucibleH);
+    x.lineTo(px+crucibleW/2+3,crucibleY-crucibleH);
+    x.stroke();
+    
+    // Phase 4: Cans in crucible
+    if(phase>=4){
+      const canProg=phase===4?prog:1;
+      const numCans=Math.floor(canProg*4);
+      
+      for(let i=0;i<numCans;i++){
+        const cx=px-10+i*7;
+        const cy=crucibleY-crucibleH+5;
+        
+        if(phase<5){
+          // Solid cans
+          x.fillStyle='#c0c0c0';
+          x.fillRect(cx,cy,5,15);
+          x.strokeStyle='#999';
+          x.strokeRect(cx,cy,5,15);
+        }
+      }
+    }
+    
+    // Phase 5: Melting
+    if(phase===5){
+      const meltProg=prog;
+      
+      // Liquid aluminum
+      x.fillStyle=`rgba(200,200,220,${0.7+meltProg*0.3})`;
+      x.fillRect(px-crucibleW/2+2,crucibleY-5,crucibleW-4,3);
+      
+      // Bubbles
+      for(let i=0;i<3;i++){
+        const bx=px-10+Math.random()*20;
+        const by=crucibleY-5-Math.random()*5;
+        x.fillStyle='rgba(255,255,255,0.6)';
+        x.beginPath();
+        x.arc(bx,by,1+Math.random()*2,0,Math.PI*2);
+        x.fill();
+      }
+      
+      // Glow from melt
+      const meltGlow=x.createRadialGradient(px,crucibleY-5,0,px,crucibleY-5,20);
+      meltGlow.addColorStop(0,'rgba(255,200,100,0.5)');
+      meltGlow.addColorStop(1,'rgba(255,100,0,0)');
+      x.fillStyle=meltGlow;
+      x.fillRect(px-20,crucibleY-25,40,30);
+    }
+    
+    if(phase>=6){
+      // Empty crucible (poured out)
+      x.fillStyle='#333';
+      x.fillRect(px-crucibleW/2+2,crucibleY-5,crucibleW-4,3);
+    }
+  }
+  
+  // Phase 6: Pouring into mold
+  if(phase===6){
+    const pourProg=prog;
+    const moldX=px+80;
+    const moldY=py-20;
+    
+    // Mold
+    x.fillStyle='#8B4513';
+    x.fillRect(moldX-20,moldY-10,40,20);
+    x.strokeStyle='#5a2d0a';
+    x.lineWidth=2;
+    x.strokeRect(moldX-20,moldY-10,40,20);
+    
+    // Mold cavity
+    x.fillStyle='#3a1a0a';
+    x.beginPath();
+    x.arc(moldX,moldY-5,8,0,Math.PI*2);
+    x.fill();
+    
+    // Pouring stream
+    if(pourProg<0.7){
+      x.strokeStyle='rgba(200,200,220,0.9)';
+      x.lineWidth=3;
+      x.beginPath();
+      x.moveTo(px,py-ph-25);
+      const pourEnd=pourProg/0.7;
+      x.lineTo(px+(moldX-px)*pourEnd,py-ph-25+(moldY-py+ph+5)*pourEnd);
+      x.stroke();
+      
+      // Drops
+      for(let i=0;i<3;i++){
+        const dx=px+(moldX-px)*pourEnd+Math.random()*4-2;
+        const dy=py-ph-25+(moldY-py+ph+5)*pourEnd+Math.random()*4;
+        x.fillStyle='rgba(200,200,220,0.7)';
+        x.beginPath();
+        x.arc(dx,dy,2,0,Math.PI*2);
+        x.fill();
+      }
+    }
+    
+    // Filling mold
+    if(pourProg>0.3){
+      const fillProg=(pourProg-0.3)/0.7;
+      x.fillStyle=`rgba(200,200,220,${fillProg*0.9})`;
+      x.beginPath();
+      x.arc(moldX,moldY-5,8*fillProg,0,Math.PI*2);
+      x.fill();
+    }
+  }
+  
+  // Phase 7-8: Solidifying token
+  if(phase>=7){
+    const tokenX=phase>=8?cv.width*0.5:px+80;
+    const tokenY=phase>=8?cv.height*0.4:py-20;
+    const tokenR=25;
+    
+    // Token
+    let tokenColor='rgba(200,200,220,0.9)';
+    if(phase===7){
+      // Cooling - gradient from silver to solid
+      tokenColor=`rgba(${200-prog*20},${200-prog*20},${220-prog*20},${0.9})`;
+    }
+    
+    x.fillStyle=tokenColor;
+    x.beginPath();
+    x.arc(tokenX,tokenY,tokenR,0,Math.PI*2);
+    x.fill();
+    
+    x.strokeStyle='#aaa';
+    x.lineWidth=2;
+    x.stroke();
+    
+    // Engraving
+    if(phase>=7){
+      const engraveProg=phase===7?prog:1;
+      x.fillStyle=`rgba(80,80,80,${engraveProg})`;
+      x.font='bold 16px monospace';
+      x.textAlign='center';
+      x.fillText('🦁',tokenX,tokenY-2);
+      x.font='bold 8px monospace';
+      x.fillText('AFR',tokenX,tokenY+12);
+    }
+    
+    // Phase 8: Spinning token
+    if(phase===8){
+      x.save();
+      x.translate(tokenX,tokenY);
+      const spin=t*0.002;
+      x.scale(Math.cos(spin),1);
+      
+      // Glow
+      const tokenGlow=x.createRadialGradient(0,0,0,0,0,tokenR*2);
+      tokenGlow.addColorStop(0,'rgba(100,255,100,0.3)');
+      tokenGlow.addColorStop(1,'rgba(0,255,0,0)');
+      x.fillStyle=tokenGlow;
+      x.fillRect(-tokenR*2,-tokenR*2,tokenR*4,tokenR*4);
+      
+      x.fillStyle='rgba(200,200,220,0.95)';
+      x.beginPath();
+      x.arc(0,0,tokenR,0,Math.PI*2);
+      x.fill();
+      
+      x.strokeStyle='#aaa';
+      x.lineWidth=2;
+      x.stroke();
+      
+      x.fillStyle='#444';
+      x.font='bold 16px monospace';
+      x.textAlign='center';
+      x.fillText('🦁',0,-2);
+      x.font='bold 8px monospace';
+      x.fillText('AFR',0,12);
+      x.restore();
+    }
+  }
+  
+  // Phase 9: Blockchain record
+  if(phase===9){
+    const bcProg=prog;
+    
+    // Blockchain visual
+    x.fillStyle='rgba(0,40,0,0.8)';
+    x.fillRect(cv.width*0.2,cv.height*0.5,cv.width*0.6,80);
+    x.strokeStyle='#4a7c4a';
+    x.lineWidth=2;
+    x.strokeRect(cv.width*0.2,cv.height*0.5,cv.width*0.6,80);
+    
+    // Block
+    x.fillStyle='#d4a437';
+    x.font='bold 12px monospace';
+    x.textAlign='center';
+    x.fillText('⛓️ BLOC #'+(Math.floor(t/100)%999),cv.width*0.5,cv.height*0.5+20);
+    
+    x.fillStyle='#a8c5a8';
+    x.font='10px monospace';
+    x.fillText('FORGE-SOLAIRE | 1 AFR | 3.2g | 680°C | Niger 🇳🇪',cv.width*0.5,cv.height*0.5+40);
+    
+    // Hash animation
+    let hashStr='0x';
+    for(let i=0;i<8;i++){
+      hashStr+=Math.floor(Math.random()*16).toString(16);
+    }
+    x.fillStyle='#4a7c4a';
+    x.fillText('Hash: '+hashStr+'...',cv.width*0.5,cv.height*0.5+60);
+  }
+  
+  // Phase 10: Final
+  if(phase===10){
+    const finalProg=prog;
+    
+    // Big lion
+    x.fillStyle=`rgba(212,164,55,${finalProg})`;
+    x.font='bold 60px monospace';
+    x.textAlign='center';
+    x.fillText('🦁',cv.width*0.5,cv.height*0.35);
+    
+    x.fillStyle=`rgba(168,197,168,${finalProg})`;
+    x.font='bold 20px monospace';
+    x.fillText('AFRICHAIN',cv.width*0.5,cv.height*0.5);
+    
+    x.font='14px monospace';
+    x.fillText('Le numérique est devenu physique',cv.width*0.5,cv.height*0.58);
+    x.fillText('L\'Afrique forge sa propre monnaie',cv.width*0.5,cv.height*0.63);
+    
+    x.fillStyle=`rgba(74,124,74,${finalProg})`;
+    x.font='12px monospace';
+    x.fillText('☀️ Construit par le soleil · 🦁 Par les mains africaines · 💚 Sans permission',cv.width*0.5,cv.height*0.72);
+  }
+  
+  requestAnimationFrame(loop);
+}
+loop();
+</script>
+</body>
+</html>
