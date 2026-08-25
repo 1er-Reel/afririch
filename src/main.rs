@@ -9979,7 +9979,7 @@ fn terminal_interface(state: &Arc<AppState>) {
     // Écran de sélection: Admin ou Client
     println!("\n");
     println!("╔══════════════════════════════════════╗");
-    println!("║  🦁 AfriChain v0.65                  ║");
+    println!("║  🦁 AfriChain v0.66                  ║");
     println!("║  💚 Banque Numérique AES             ║");
     println!("║  💚 L'Afrique n'a pas besoin de      ║");
     println!("║     permission                       ║");
@@ -10053,7 +10053,7 @@ fn admin_interface(state: &Arc<AppState>) {
         println!("\n");
         println!("╔══════════════════════════════════════╗");
         println!("║  🏦 CENTRE DE DONNÉES — Admin       ║");
-        println!("║  🦁 AfriChain v0.65                  ║");
+        println!("║  🦁 AfriChain v0.66                  ║");
         println!("╠══════════════════════════════════════╣");
         let chain = state.chain.lock().unwrap();
         let users = state.users.lock().unwrap();
@@ -10089,6 +10089,8 @@ fn admin_interface(state: &Arc<AppState>) {
         println!(" 15. 📊 Tableau de bord — Vue d'ensemble");
         println!(" 16. 📢 Broadcast — Message à toute l'Afrique");
         println!(" 17. 👥 Gestion utilisateurs — Suivre les traces");
+        println!(" 18. 🏦 Émettre des AFR — Banque centrale");
+        println!(" 19. ❄️ Geler/Dégeler un compte");
         println!("  0. ❌ Quitter");
 
         print!("\n👉 Choix: ");
@@ -10116,6 +10118,8 @@ fn admin_interface(state: &Arc<AppState>) {
             "15" => terminal_dashboard(state),
             "16" => terminal_broadcast(state),
             "17" => terminal_user_management(state),
+            "18" => terminal_mint_afr(state),
+            "19" => terminal_freeze_account(state),
             "0" => {
                 println!("🦁 Au revoir senpai. L'Afrique veille.");
                 std::process::exit(0);
@@ -10559,6 +10563,140 @@ fn client_sahara_afri(state: &Arc<AppState>) {
             }
             "0" => break,
             _ => println!("⚠️ Choix invalide"),
+        }
+    }
+}
+
+// ===== ÉMETTRE DES AFR — Banque centrale =====
+
+fn terminal_mint_afr(state: &Arc<AppState>) {
+    println!("\n🏦 ÉMISSION DE AFR — BANQUE CENTRALE AES");
+    println!("═══════════════════════════════════");
+    println!("  En tant que gouverneur, tu peux créer des AFR");
+    println!("  et les distribuer aux utilisateurs.");
+    println!("═══════════════════════════════════");
+
+    let users = state.users.lock().unwrap();
+    if users.count() == 0 {
+        println!("\n  📭 Aucun utilisateur. Inscris d'abord des utilisateurs.");
+        return;
+    }
+
+    println!("\n  📋 UTILISATEURS:");
+    for (i, u) in users.users.iter().enumerate().take(30) {
+        let chain = state.chain.lock().unwrap();
+        let bal = chain.balance_of(&u.address);
+        drop(chain);
+        println!("  {} ─ {} 🌍 {} 💰 {} AFR", i + 1, u.username, u.country, bal);
+    }
+
+    let num = read_input("\n👉 Numéro de l'utilisateur (0 = retour): ");
+    if num.trim() == "0" { return; }
+
+    let n: usize = match num.trim().parse() {
+        Ok(n) if n >= 1 && n <= users.users.len() => n,
+        _ => { println!("⚠️ Numéro invalide"); return; }
+    };
+
+    let user = &users.users[n - 1];
+    let username = user.username.clone();
+    let address = user.address.clone();
+    let country = user.country.clone();
+    drop(users);
+
+    let amount_str = read_input(&format!("💰 Combien de AFR pour {}? ", username));
+    let amount: u64 = match amount_str.trim().parse() {
+        Ok(a) if a > 0 => a,
+        _ => { println!("⚠️ Montant invalide"); return; }
+    };
+
+    // Créer la transaction d'émission
+    let mut chain = state.chain.lock().unwrap();
+    let mint_tx = Transaction {
+        from: "BANQUE_CENTRALE_AES".to_string(),
+        to: address.clone(),
+        amount,
+        memo: format!("Émission banque centrale → {}", username),
+        timestamp: now_timestamp(),
+        signature: String::new(),
+    };
+
+    chain.pending.push(mint_tx);
+    println!("\n✅ {} AFR émis pour {} 🌍 {}", amount, username, country);
+    println!("   ⛏️  Mine un bloc pour confirmer la transaction.");
+    println!("   📋 Menu 3 pour miner.");
+
+    log_activity("MINT", "Banque Centrale", &format!("Émission de {} AFR pour {}", amount, username), &country);
+}
+
+// ===== GELER/DÉGELER UN COMPTE =====
+
+fn load_frozen() -> Vec<String> {
+    let data = std::fs::read_to_string(data_path("frozen_users.json")).unwrap_or_else(|_| "[]".to_string());
+    let v = from_str(&data).unwrap_or(JsonValue::Array(Vec::new()));
+    match v {
+        JsonValue::Array(arr) => arr.iter().filter_map(|x| x.as_str().map(|s| s.to_string())).collect(),
+        _ => Vec::new(),
+    }
+}
+
+fn save_frozen(frozen: &[String]) {
+    let arr: Vec<JsonValue> = frozen.iter().map(|s| JsonValue::Str(s.clone())).collect();
+    std::fs::write(data_path("frozen_users.json"), to_string_pretty(&JsonValue::Array(arr))).ok();
+}
+
+fn is_frozen(username: &str) -> bool {
+    load_frozen().iter().any(|u| u == username)
+}
+
+fn terminal_freeze_account(state: &Arc<AppState>) {
+    loop {
+        let users = state.users.lock().unwrap();
+        let frozen = load_frozen();
+
+        println!("\n❄️ GELER/DÉGELER UN COMPTE");
+        println!("═══════════════════════════════════");
+        println!("  ❄️ Comptes gelés: {}", frozen.len());
+
+        if users.count() == 0 {
+            println!("\n  📭 Aucun utilisateur.");
+            return;
+        }
+
+        println!("\n  📋 UTILISATEURS:");
+        for (i, u) in users.users.iter().enumerate().take(30) {
+            let chain = state.chain.lock().unwrap();
+            let bal = chain.balance_of(&u.address);
+            drop(chain);
+            let status = if frozen.iter().any(|f| f == &u.username) { "❄️ GELÉ" } else { "✅ Actif" };
+            println!("  {} ─ {} 🌍 {} 💰 {} AFR ─ {}", i + 1, u.username, u.country, bal, status);
+        }
+
+        let num = read_input("\n👉 Numéro à geler/dégeler (0 = retour): ");
+        if num.trim() == "0" { return; }
+
+        let n: usize = match num.trim().parse() {
+            Ok(n) if n >= 1 && n <= users.users.len() => n,
+            _ => { println!("⚠️ Numéro invalide"); continue; }
+        };
+
+        let username = users.users[n - 1].username.clone();
+        let country = users.users[n - 1].country.clone();
+        drop(users);
+
+        let mut frozen = load_frozen();
+        if frozen.iter().any(|f| f == &username) {
+            frozen.retain(|f| f != &username);
+            save_frozen(&frozen);
+            println!("\n✅ Compte DÉGELÉ: {}", username);
+            println!("   L'utilisateur peut maintenant envoyer des AFR.");
+            log_activity("UNFREEZE", "Admin", &format!("Compte dégelé: {}", username), &country);
+        } else {
+            frozen.push(username.clone());
+            save_frozen(&frozen);
+            println!("\n❄️ Compte GELÉ: {}", username);
+            println!("   L'utilisateur ne peut plus envoyer des AFR.");
+            log_activity("FREEZE", "Admin", &format!("Compte gelé: {}", username), &country);
         }
     }
 }
@@ -11242,6 +11380,17 @@ fn terminal_send(state: &Arc<AppState>) {
         println!("⚠️ Montant invalide");
         return;
     }
+
+    // Vérifier si l'envoyeur est gelé
+    let users = state.users.lock().unwrap();
+    if let Some(sender) = users.users.iter().find(|u| u.address == from.trim()) {
+        if is_frozen(&sender.username) {
+            println!("\n❄️ Compte gelé. Tu ne peux pas envoyer d'AFR.");
+            println!("   Contacte la banque pour plus d'informations.");
+            return;
+        }
+    }
+    drop(users);
 
     let wallets = state.wallets.lock().unwrap();
     let users = state.users.lock().unwrap();
