@@ -9979,7 +9979,7 @@ fn terminal_interface(state: &Arc<AppState>) {
     // Écran de sélection: Admin ou Client
     println!("\n");
     println!("╔══════════════════════════════════════╗");
-    println!("║  🦁 AfriChain v0.59                  ║");
+    println!("║  🦁 AfriChain v0.65                  ║");
     println!("║  💚 Banque Numérique AES             ║");
     println!("║  💚 L'Afrique n'a pas besoin de      ║");
     println!("║     permission                       ║");
@@ -9991,7 +9991,60 @@ fn terminal_interface(state: &Arc<AppState>) {
     let mode = read_input("👉 Mode: ");
     match mode.trim() {
         "2" => client_interface(state),
-        _ => admin_interface(state),
+        _ => {
+            // Authentification admin requise
+            if check_admin_auth() {
+                admin_interface(state);
+            } else {
+                println!("\n🛡️ Accès refusé. Mot de passe incorrect.");
+                println!("   Le Centre de Données est protégé. 🦁");
+            }
+        }
+    }
+}
+
+fn admin_password_path() -> String {
+    data_path("admin_password.json")
+}
+
+fn check_admin_auth() -> bool {
+    let path = admin_password_path();
+
+    // Si pas de mot de passe configuré, le créer maintenant
+    if !std::path::Path::new(&path).exists() {
+        println!("\n🔐 PREMIÈRE CONFIGURATION — Centre de Données");
+        println!("   C'est la première fois que tu accèdes au mode Admin.");
+        println!("   Choisis un mot de passe pour protéger le Centre de Données.");
+        let pw = read_input("\n🔑 Mot de passe admin: ");
+        let pw2 = read_input("🔑 Confirme le mot de passe: ");
+        if pw != pw2 {
+            println!("⚠️ Les mots de passe ne correspondent pas.");
+            return false;
+        }
+        if pw.trim().is_empty() {
+            println!("⚠️ Mot de passe vide non autorisé.");
+            return false;
+        }
+        let hash = afrihash_256(format!("admin_salt_{}", pw.trim()).as_bytes());
+        let hash_hex = hex_encode(&hash);
+        let mut map = HashMap::new();
+        map.insert("password_hash".to_string(), JsonValue::Str(hash_hex));
+        std::fs::write(&path, to_string_pretty(&JsonValue::Object(map))).ok();
+        println!("\n✅ Mot de passe admin configuré! Le Centre de Données est protégé. 🛡️");
+        return true;
+    }
+
+    // Vérifier le mot de passe
+    let pw = read_input("\n🔑 Mot de passe admin: ");
+    let hash = afrihash_256(format!("admin_salt_{}", pw.trim()).as_bytes());
+    let hash_hex = hex_encode(&hash);
+
+    let data = std::fs::read_to_string(&path).unwrap_or_else(|_| "{}".to_string());
+    let v = from_str(&data).unwrap_or(JsonValue::Object(HashMap::new()));
+    if let Some(stored_hash) = v.as_object().and_then(|m| m.get("password_hash")).and_then(|v| v.as_str()) {
+        hash_hex == stored_hash
+    } else {
+        false
     }
 }
 
@@ -10000,7 +10053,7 @@ fn admin_interface(state: &Arc<AppState>) {
         println!("\n");
         println!("╔══════════════════════════════════════╗");
         println!("║  🏦 CENTRE DE DONNÉES — Admin       ║");
-        println!("║  🦁 AfriChain v0.64                  ║");
+        println!("║  🦁 AfriChain v0.65                  ║");
         println!("╠══════════════════════════════════════╣");
         let chain = state.chain.lock().unwrap();
         let users = state.users.lock().unwrap();
@@ -10072,6 +10125,74 @@ fn admin_interface(state: &Arc<AppState>) {
     }
 }
 
+fn client_transaction_history(state: &Arc<AppState>, logged_user: &Option<String>) {
+    let username = match logged_user {
+        Some(u) => u,
+        None => {
+            println!("\n⚠️ Tu dois te connecter d'abord. (Menu 1)");
+            return;
+        }
+    };
+
+    let users = state.users.lock().unwrap();
+    let user = match users.users.iter().find(|u| &u.username == username) {
+        Some(u) => u,
+        None => {
+            println!("\n⚠️ Utilisateur introuvable.");
+            return;
+        }
+    };
+    let my_address = user.address.clone();
+    drop(users);
+
+    let chain = state.chain.lock().unwrap();
+
+    println!("\n📜 MON HISTORIQUE DE TRANSACTIONS");
+    println!("═══════════════════════════════════");
+
+    let mut txs: Vec<(i64, String, String, i64, String)> = Vec::new();
+
+    for block in &chain.blocks {
+        for tx in &block.transactions {
+            if tx.from == my_address || tx.to == my_address {
+                let direction = if tx.to == my_address { "📥 Reçu" } else { "📤 Envoyé" };
+                let other = if tx.to == my_address { tx.from.clone() } else { tx.to.clone() };
+                let other_user = state.users.lock().unwrap().users.iter()
+                    .find(|u| u.address == other)
+                    .map(|u| u.username.clone())
+                    .unwrap_or_else(|| other[..other.len().min(16)].to_string());
+                let memo = tx.memo.clone();
+                let memo_short: String = memo.chars().take(40).collect();
+                txs.push((tx.timestamp, direction.to_string(), other_user, tx.amount as i64, memo_short));
+            }
+        }
+    }
+
+    if txs.is_empty() {
+        println!("  📭 Aucune transaction pour le moment.");
+        println!("  💡 Tu peux recevoir des AFR en partageant ton numéro.");
+    } else {
+        println!("  📋 {} transactions trouvées:\n", txs.len());
+        for (i, (ts, dir, other, amount, msg)) in txs.iter().rev().enumerate().take(20) {
+            println!("  {}. {} ─ {} AFR", i + 1, dir, amount);
+            println!("     {} ─ ⏱️ {}", other, format_timestamp_short(*ts));
+            if !msg.is_empty() {
+                println!("     💬 \"{}\"", msg);
+            }
+            println!();
+        }
+        if txs.len() > 20 {
+            println!("  ... et {} autres transactions", txs.len() - 20);
+        }
+    }
+
+    let bal = chain.balance_of(&my_address);
+    println!("═══════════════════════════════════");
+    println!("  💰 Solde actuel: {} AFR", bal);
+    println!("═══════════════════════════════════");
+    read_input("\n👉 Appuie sur Entrée pour continuer...");
+}
+
 fn client_interface(state: &Arc<AppState>) {
     // Le client ne voit PAS la blockchain.
     // Il voit juste: son solde, envoyer, recevoir, messages.
@@ -10117,6 +10238,7 @@ fn client_interface(state: &Arc<AppState>) {
         println!("  6. 📖 Annuaire");
         println!("  7. 🌱 PLANTÉ VERTE (réseau social)");
         println!("  8. 🔍 SAHARA AFRI (recherche)");
+        println!("  9. 📜 Mon historique de transactions");
         println!("  0. ❌ Quitter");
 
         print!("\n👉 Choix: ");
@@ -10150,6 +10272,7 @@ fn client_interface(state: &Arc<AppState>) {
             "6" => terminal_directory(state),
             "7" => client_plante_verte(state, &logged_user),
             "8" => client_sahara_afri(state),
+            "9" => client_transaction_history(state, &logged_user),
             "0" => {
                 println!("💚 Au revoir. L'Afrique veille.");
                 std::process::exit(0);
