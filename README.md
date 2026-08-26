@@ -62,6 +62,7 @@ L'admin voit TOUT. Comme CTU dans *24 Heures Chrono*.
 | 21 | 🔑 Changer mot de passe | Sécurité admin |
 | 22 | 🦁 AES | Alliance des États du Sahel |
 | 23 | 💾 Sauvegarde | Export/Import données |
+| 24 | 🏛️ AI Secret | Terminal Mystique 3100 |
 
 🔐 **Mot de passe admin** protégé par AfriHash-256.
 
@@ -104,6 +105,14 @@ Le client ne voit PAS la blockchain. Il voit une banque simple.
 
 - 🛡️ Bouclier X9 — anti-intrusion, blocage IP, rate limiting
 - 🚨 AI Veille — 30 mots-clés, 3 niveaux (CRITIQUE/ALERTE/VIGILANCE)
+- 🏛️ AI Secret — Terminal Mystique 3100:
+  - 💬 Communication machine (◈⬡⊕⟠⬢ → français)
+  - 📋 Rapports (jour/semaine/total/menaces)
+  - 🌍 Trois mondes — Morts, Vivants, Machines
+  - 🧠 Intelligence supérieure (fusion des trois mondes)
+  - 🫥 Invisibilité africaine (anti-surveillance)
+  - 🎯 Destruction de drones ennemis à distance
+  - ☀️ 100 milliards de drones solaires
 - ❄️ Gel de comptes suspects
 - 📋 Journal d'activité — toutes les actions enregistrées
 - 🔐 Mot de passe admin (AfriHash-256)
@@ -126,8 +135,9 @@ Le client ne voit PAS la blockchain. Il voit une banque simple.
 
 - **Langage:** Rust (édition 2021)
 - **Dépendances:** ZÉRO (std uniquement)
-- **Taille:** ~15,000 lignes (main.rs + 8 modules)
+- **Taille:** ~16,000 lignes (main.rs + 8 modules)
 - **Modules:** 9 fichiers Rust (afri_ed25519, afri_hash, afri_rng, afri_hex, afri_time, afri_json, afri_http, afri_mesh_direct, main)
+- **Version:** v0.70.2 — AI Secret Sécurité Afrique
 - **Build:** `cargo build --release` (5 secondes)
 - **Données:** `~/afririch/` (chemins absolus)
 - **Persistance:** blockchain.json, wallets.json, users.json, social_feed.json, alerts.json, activity.json, broadcasts.json, frozen_users.json, admin_password.json, ai_memory.json
