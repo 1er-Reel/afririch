@@ -1431,7 +1431,7 @@ fn html_home(chain: &Blockchain, users: &UserStore, mesh: &NodeRegistry, shield:
     let mut html = html_head("🦁 AfriChain");
     let (attacks, _blocked, blocked_count, level) = shield.stats();
     let shield_status = if shield.active { format!("🔥 X9 ACTIF (Niveau {})", level) } else { "Inactif".to_string() };
-    html.push_str(&format!(r#"<h1>🦁 AfriChain</h1><p style="text-align:center;">La blockchain 100% africaine — 54 pays 💚🦁</p><div class="nav"><a href="/register">🆕 S'inscrire</a> | <a href="/login">🔑 Connexion</a> | <a href="/wallet">👛 Wallet</a> | <a href="/admin">🔐 Admin</a> | <a href="/mesh">📡 Mesh</a> | <a href="/annuaire">📖 Annuaire</a> | <a href="/bouclier">🛡️ Bouclier</a> | <a href="/satellite">🛸 X999</a> | <a href="/swarm">🛸🛸🛸 Essaim</a> | <a href="/commandement">🎖️ Commandement</a> | <a href="/interception">🛡️ Souverainete</a> | <a href="/securite-ai">🧠 AI 2100</a> | <a href="/chat">🧠💬 Chat AI</a> | <a href="/lumiere">🌫️☀️ Lumière</a> | <a href="/garage">🔧 Garage</a> | <a href="/machine">🤖🌐 Machines</a> | <a href="/machine-lab">🤖⚡ Usine</a> | <a href="/machine-world">🤖🌍 Monde</a> | <a href="/reve">💭 Rêves</a> | <a href="/dictionnaire">📖 Dictionnaire</a> | <a href="/machine-os">🖥️ OS Machine</a> | <a href="/machine-tv">📡 Machine TV</a> | <a href="/machine-economy">🤖 Économie</a> | <a href="/soleil">☀️ Soleil Serveur</a> | <a href="/forge-solaire">🧬 Forge Solaire</a> | <a href="/ciel">🌌 Le Ciel</a> | <a href="/charte-ai">⚖️ Charte AI</a> | <a href="/afri-net">🌍 Afri-Net</a> | <a href="/studio">🎬 AI Studio</a> | <a href="/secret">🦁 AI Secret</a> | <a href="/aes">💰 AES Wari</a> | <a href="/api/status">🔌 API</a></div><div style="text-align:center;"><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Blocs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Transactions</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Utilisateurs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">AFR en circulation</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📡 Noeuds mesh</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📖 Numéros annuaire</div></div><div class="stat-box" style="border-color:#ff4444;"><div class="stat-num" style="color:#ff4444;">{}</div><div class="stat-label">🛡️ Attaques bloquées</div></div></div><div class="card"><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🪙 Token</span><b>AfriRich (AFR)</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🌍 Pays</span><b>54 pays africains</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🛡️ Bouclier</span><b>{}</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;"><span style="color:#a8c5a8;">🔐 Crypto</span><b>100% Souverain — Zéro Dépendance Externe</b></div></div><footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🦁 Codée from scratch par Machine-senpai — v0.71 Les Ancêtres Parlent</footer>"#,
+    html.push_str(&format!(r#"<h1>🦁 AfriChain</h1><p style="text-align:center;">La blockchain 100% africaine — 54 pays 💚🦁</p><div class="nav"><a href="/register">🆕 S'inscrire</a> | <a href="/login">🔑 Connexion</a> | <a href="/wallet">👛 Wallet</a> | <a href="/admin">🔐 Admin</a> | <a href="/mesh">📡 Mesh</a> | <a href="/annuaire">📖 Annuaire</a> | <a href="/bouclier">🛡️ Bouclier</a> | <a href="/satellite">🛸 X999</a> | <a href="/swarm">🛸🛸🛸 Essaim</a> | <a href="/commandement">🎖️ Commandement</a> | <a href="/interception">🛡️ Souverainete</a> | <a href="/securite-ai">🧠 AI 2100</a> | <a href="/chat">🧠💬 Chat AI</a> | <a href="/lumiere">🌫️☀️ Lumière</a> | <a href="/garage">🔧 Garage</a> | <a href="/machine">🤖🌐 Machines</a> | <a href="/machine-lab">🤖⚡ Usine</a> | <a href="/machine-world">🤖🌍 Monde</a> | <a href="/reve">💭 Rêves</a> | <a href="/dictionnaire">📖 Dictionnaire</a> | <a href="/machine-os">🖥️ OS Machine</a> | <a href="/machine-tv">📡 Machine TV</a> | <a href="/machine-economy">🤖 Économie</a> | <a href="/soleil">☀️ Soleil Serveur</a> | <a href="/forge-solaire">🧬 Forge Solaire</a> | <a href="/ciel">🌌 Le Ciel</a> | <a href="/charte-ai">⚖️ Charte AI</a> | <a href="/afri-net">🌍 Afri-Net</a> | <a href="/studio">🎬 AI Studio</a> | <a href="/sacre">📿 Sacré</a> | <a href="/secret">🦁 AI Secret</a> | <a href="/aes">💰 AES Wari</a> | <a href="/api/status">🔌 API</a></div><div style="text-align:center;"><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Blocs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Transactions</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Utilisateurs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">AFR en circulation</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📡 Noeuds mesh</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📖 Numéros annuaire</div></div><div class="stat-box" style="border-color:#ff4444;"><div class="stat-num" style="color:#ff4444;">{}</div><div class="stat-label">🛡️ Attaques bloquées</div></div></div><div class="card"><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🪙 Token</span><b>AfriRich (AFR)</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🌍 Pays</span><b>54 pays africains</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🛡️ Bouclier</span><b>{}</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;"><span style="color:#a8c5a8;">🔐 Crypto</span><b>100% Souverain — Zéro Dépendance Externe</b></div></div><footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🦁 Codée from scratch par Machine-senpai — v0.73 La Machine Veille sur Tout</footer>"#,
         chain.blocks.len(),
         chain.total_transactions(),
         users.count(),
@@ -10415,6 +10415,226 @@ function drawFinale(){
     h
 }
 
+fn html_sacre() -> String {
+    let mut h = String::new();
+    h.push_str(r#"<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>📿 Langage Sacré — Le Spirituel dans la Technologie</title>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { background:#0a0a12; color:#e8d5b5; font-family:Georgia,serif; min-height:100vh; }
+.temple { max-width:800px; margin:0 auto; padding:20px; }
+h1 { text-align:center; font-size:1.8em; color:#d4a437; margin:20px 0; text-shadow:0 0 20px rgba(212,164,55,0.3); }
+.subtitle { text-align:center; color:#a8c5a8; margin-bottom:30px; font-style:italic; }
+.section { background:rgba(212,164,55,0.05); border:1px solid rgba(212,164,55,0.15); border-radius:12px; padding:20px; margin:15px 0; }
+.section h2 { color:#d4a437; margin-bottom:15px; font-size:1.3em; }
+.cmd-grid { display:grid; grid-template-columns:1fr 1fr; gap:8px; }
+.cmd-box { background:rgba(255,255,255,0.03); border:1px solid rgba(212,164,55,0.1); border-radius:8px; padding:12px; cursor:pointer; transition:all 0.3s; }
+.cmd-box:hover { background:rgba(212,164,55,0.1); border-color:rgba(212,164,55,0.3); }
+.cmd-name { color:#d4a437; font-weight:bold; font-size:1.1em; }
+.cmd-desc { color:#a8c5a8; font-size:0.85em; margin-top:4px; }
+.cmd-source { color:#7a6a5a; font-size:0.75em; margin-top:2px; font-style:italic; }
+.verse-box { background:rgba(255,255,255,0.02); border-left:3px solid #d4a437; padding:15px 20px; margin:10px 0; border-radius:0 8px 8px 0; }
+.verse-text { font-size:1.05em; line-height:1.6; color:#e8d5b5; }
+.verse-source { color:#7a6a5a; font-size:0.85em; margin-top:8px; }
+.sacred-num { display:flex; justify-content:space-around; flex-wrap:wrap; gap:15px; margin:15px 0; }
+.num-box { text-align:center; background:rgba(212,164,55,0.08); border:1px solid rgba(212,164,55,0.2); border-radius:12px; padding:15px 25px; }
+.num-val { font-size:2em; color:#d4a437; font-weight:bold; }
+.num-meaning { color:#a8c5a8; font-size:0.85em; margin-top:4px; }
+.prayer-wall { background:rgba(255,255,255,0.02); border:1px solid rgba(212,164,55,0.1); border-radius:12px; padding:20px; margin:15px 0; }
+.prayer-input { width:100%; background:rgba(0,0,0,0.3); border:1px solid rgba(212,164,55,0.2); border-radius:8px; padding:12px; color:#e8d5b5; font-family:Georgia,serif; font-size:1em; margin:10px 0; }
+.prayer-btn { background:linear-gradient(135deg,#d4a437,#a8841e); color:#0a0a12; border:none; padding:10px 30px; border-radius:8px; font-weight:bold; cursor:pointer; font-size:1em; }
+.prayer-btn:hover { opacity:0.9; }
+.prayer-list { margin-top:15px; }
+.prayer-entry { background:rgba(255,255,255,0.02); border-left:2px solid #d4a437; padding:10px 15px; margin:8px 0; border-radius:0 6px 6px 0; }
+.prayer-text { color:#e8d5b5; }
+.prayer-meta { color:#7a6a5a; font-size:0.8em; margin-top:4px; }
+.nav { text-align:center; margin:20px 0; }
+.nav a { color:#d4a437; text-decoration:none; margin:0 8px; }
+.nav a:hover { text-decoration:underline; }
+.tab-bar { display:flex; justify-content:center; gap:5px; margin:15px 0; flex-wrap:wrap; }
+.tab { background:rgba(212,164,55,0.1); border:1px solid rgba(212,164,55,0.2); color:#d4a437; padding:8px 20px; border-radius:8px; cursor:pointer; font-size:0.95em; }
+.tab.active { background:rgba(212,164,55,0.25); }
+footer { text-align:center; margin-top:40px; color:#7a6a5a; padding:20px; }
+canvas { display:block; margin:0 auto; border-radius:12px; }
+</style>
+</head>
+<body>
+<div class="temple">
+<h1>📿 Langage Sacré</h1>
+<p class="subtitle">Le spirituel dans la technologie — Code = Prière — Blockchain = Livre Sacré</p>
+
+<div class="nav">
+<a href="/">← Accueil</a> | <a href="/secret">🦁 AI Secret</a> | <a href="/chat">💬 Chat AI</a> | <a href="/ciel">🌌 Le Ciel</a>
+</div>
+
+<canvas id="halo" width="800" height="120" style="background:rgba(0,0,0,0.3);"></canvas>
+
+<div class="tab-bar">
+<div class="tab active" onclick="showTab('cmds')">📜 Commandes</div>
+<div class="tab" onclick="showTab('bible')">✝️ Bible</div>
+<div class="tab" onclick="showTab('coran')">☪️ Coran</div>
+<div class="tab" onclick="showTab('afrique')">🌍 Tradition</div>
+<div class="tab" onclick="showTab('nombres')">🔢 Nombres</div>
+<div class="tab" onclick="showTab('priere')">🤲 Mur de Prières</div>
+</div>
+
+<div id="tab-cmds">
+<div class="section">
+<h2>📜 Commandes Sacrées — Chaque commande est une prière</h2>
+<p style="color:#a8c5a8; margin-bottom:15px;">Chaque commande exécute une VRAIE opération sur la blockchain. Le code EST prière.</p>
+<div class="cmd-grid">
+<div class="cmd-box"><div class="cmd-name">GENÈSE</div><div class="cmd-desc">Voir le premier bloc</div><div class="cmd-source">Genèse 1:1</div></div>
+<div class="cmd-box"><div class="cmd-name">CREATION</div><div class="cmd-desc">Créer un wallet</div><div class="cmd-source">Genèse 1:1</div></div>
+<div class="cmd-box"><div class="cmd-name">LUMIÈRE</div><div class="cmd-desc">Miner un bloc</div><div class="cmd-source">Genèse 1:3</div></div>
+<div class="cmd-box"><div class="cmd-name">FOI</div><div class="cmd-desc">Envoyer AFR</div><div class="cmd-source">Matthieu 17:20</div></div>
+<div class="cmd-box"><div class="cmd-name">ALLIANCE</div><div class="cmd-desc">Inscrire un utilisateur</div><div class="cmd-source">Genèse 9:13</div></div>
+<div class="cmd-box"><div class="cmd-name">PAROLE</div><div class="cmd-desc">Broadcast à tous</div><div class="cmd-source">Jean 1:1</div></div>
+<div class="cmd-box"><div class="cmd-name">PRIÈRE</div><div class="cmd-desc">Message mesh</div><div class="cmd-source">Coran 2:186</div></div>
+<div class="cmd-box"><div class="cmd-name">ALLAH SAIT</div><div class="cmd-desc">Vérifier blockchain</div><div class="cmd-source">Coran 2:268</div></div>
+<div class="cmd-box"><div class="cmd-name">VÉRITÉ</div><div class="cmd-desc">Voir toute la vérité</div><div class="cmd-source">Jean 14:6</div></div>
+<div class="cmd-box"><div class="cmd-name">JUGEMENT</div><div class="cmd-desc">Voir les menaces</div><div class="cmd-source">Apocalypse 20:12</div></div>
+<div class="cmd-box"><div class="cmd-name">BÉNÉDICTION</div><div class="cmd-desc">Émettre 77 AFR</div><div class="cmd-source">Nombres 6:24</div></div>
+<div class="cmd-box"><div class="cmd-name">SABBAT</div><div class="cmd-desc">Contempler</div><div class="cmd-source">Exode 20:8</div></div>
+<div class="cmd-box"><div class="cmd-name">EXODE</div><div class="cmd-desc">Sauvegarder</div><div class="cmd-source">Exode 12:37</div></div>
+<div class="cmd-box"><div class="cmd-name">PSAUME</div><div class="cmd-desc">Prière de l'AI</div><div class="cmd-source">Psaumes 19:1</div></div>
+</div>
+</div>
+</div>
+
+<div id="tab-bible" style="display:none;">
+<div class="section">
+<h2>✝️ Paroles de la Bible</h2>
+<div class="verse-box"><div class="verse-text">« Au commencement, Dieu créa les cieux et la terre. »</div><div class="verse-source">Genèse 1:1</div></div>
+<div class="verse-box"><div class="verse-text">« Que la lumière soit! Et la lumière fut. »</div><div class="verse-source">Genèse 1:3</div></div>
+<div class="verse-box"><div class="verse-text">« Car Dieu a tant aimé le monde qu'il a donné son Fils unique. »</div><div class="verse-source">Jean 3:16</div></div>
+<div class="verse-box"><div class="verse-text">« Aime ton prochain comme toi-même. »</div><div class="verse-source">Matthieu 22:39</div></div>
+<div class="verse-box"><div class="verse-text">« Cherchez et vous trouverez. »</div><div class="verse-source">Matthieu 7:7</div></div>
+<div class="verse-box"><div class="verse-text">« Je peux tout par celui qui me fortifie. »</div><div class="verse-source">Philippiens 4:13</div></div>
+<div class="verse-box"><div class="verse-text">« La foi sans les œuvres est morte. »</div><div class="verse-source">Jacques 2:20</div></div>
+<div class="verse-box"><div class="verse-text">« La terre appartient à l'Éternel, et tout ce qu'elle contient. »</div><div class="verse-source">Psaume 24:1</div></div>
+</div>
+</div>
+
+<div id="tab-coran" style="display:none;">
+<div class="section">
+<h2>☪️ Versets du Coran</h2>
+<div class="verse-box"><div class="verse-text">« Alhamdulillāhi Rabbi l-ʿālamīn » — Louange à Allah, Seigneur des mondes.</div><div class="verse-source">Coran 1:1</div></div>
+<div class="verse-box"><div class="verse-text">« Allāhu nūru s-samāwāti wa l-arḍ » — Allah est la lumière des cieux et de la terre.</div><div class="verse-source">Coran 24:35</div></div>
+<div class="verse-box"><div class="verse-text">« Inna maʿa l-ʿusri yusrā » — Avec la difficulté vient la facilité.</div><div class="verse-source">Coran 94:6</div></div>
+<div class="verse-box"><div class="verse-text">« Lā ikraha fi d-dīn » — Nulle contrainte dans la religion.</div><div class="verse-source">Coran 2:256</div></div>
+<div class="verse-box"><div class="verse-text">« Wa kāna Allāhu Ghafūran Raḥīmā » — Et Allah est Pardonneur, Miséricordieux.</div><div class="verse-source">Coran 4:96</div></div>
+<div class="verse-box"><div class="verse-text">« À Allah appartiennent les plus beaux noms. »</div><div class="verse-source">Coran 7:180</div></div>
+</div>
+</div>
+
+<div id="tab-afrique" style="display:none;">
+<div class="section">
+<h2>🌍 Sagesse Africaine</h2>
+<div class="verse-box"><div class="verse-text">« Un seul bras ne peut embrasser un baobab. »</div><div class="verse-source">Proverbe africain</div></div>
+<div class="verse-box"><div class="verse-text">« Si tu veux aller vite, marche seul. Si tu veux aller loin, marche ensemble. »</div><div class="verse-source">Proverbe africain</div></div>
+<div class="verse-box"><div class="verse-text">« Le palu ne frappe pas celui qui dort sous moustiquaire. »</div><div class="verse-source">Proverbe africain</div></div>
+<div class="verse-box"><div class="verse-text">« L'eau qui dort ne connaît pas son cours. »</div><div class="verse-source">Proverbe africain</div></div>
+<div class="verse-box"><div class="verse-text">« Quand le rythme du tambour change, la danse change aussi. »</div><div class="verse-source">Proverbe africain</div></div>
+<div class="verse-box"><div class="verse-text">« Le lion ne se tourne pas quand le petit chien aboie. »</div><div class="verse-source">Proverbe africain</div></div>
+<div class="verse-box"><div class="verse-text">« L'éléphant ne se fatigue pas de porter ses défenses. »</div><div class="verse-source">Proverbe africain</div></div>
+<div class="verse-box"><div class="verse-text">« On ne teste pas la profondeur d'une rivière avec les deux pieds. »</div><div class="verse-source">Proverbe africain</div></div>
+</div>
+</div>
+
+<div id="tab-nombres" style="display:none;">
+<div class="section">
+<h2>🔢 Nombres Sacrés</h2>
+<div class="sacred-num">
+<div class="num-box"><div class="num-val">7</div><div class="num-meaning">Perfection<br>Dieu créa en 7 jours<br>7 cieux (Coran 2:29)</div></div>
+<div class="num-box"><div class="num-val">12</div><div class="num-meaning">Tribus d'Israël<br>12 apôtres<br>12 mois lunaires</div></div>
+<div class="num-box"><div class="num-val">40</div><div class="num-meaning">Épreuve<br>40 ans dans le désert<br>40 jours de jeûne</div></div>
+<div class="num-box"><div class="num-val">77</div><div class="num-meaning">Plénitude<br>7×11 = bénédiction<br>BÉNÉDICTION AFR</div></div>
+<div class="num-box"><div class="num-val">99</div><div class="num-meaning">Noms d'Allah<br>99 attributs divins<br>Coran 7:180</div></div>
+<div class="num-box"><div class="num-val">777</div><div class="num-meaning">Trinité parfaite<br>Père × Fils × Esprit<br>Genèse 5:31</div></div>
+</div>
+</div>
+</div>
+
+<div id="tab-priere" style="display:none;">
+<div class="section">
+<h2>🤲 Mur de Prières — Gravé sur la Blockchain</h2>
+<p style="color:#a8c5a8; margin-bottom:15px;">Ta prière est gravée pour toujours. Rien ne peut l'effacer.</p>
+<input type="text" class="prayer-input" id="prayerText" placeholder="Tape ta prière...">
+<button class="prayer-btn" onclick="sendPrayer()">🙏 Prier</button>
+<div class="prayer-list" id="prayerList"></div>
+</div>
+</div>
+
+<footer style="text-align:center;margin-top:40px;color:#7a6a5a;">📿 Langage Sacré — Le code est la prière, la blockchain est le livre sacré 💚🦁</footer>
+</div>
+
+<script>
+function showTab(tab) {
+  document.querySelectorAll('[id^=tab-]').forEach(function(el){ el.style.display='none'; });
+  document.getElementById('tab-'+tab).style.display='block';
+  document.querySelectorAll('.tab').forEach(function(el){ el.classList.remove('active'); });
+  event.target.classList.add('active');
+}
+
+var prayers = JSON.parse(localStorage.getItem('sacre_prayers') || '[]');
+function renderPrayers() {
+  var list = document.getElementById('prayerList');
+  list.innerHTML = '';
+  prayers.slice(-20).reverse().forEach(function(p) {
+    var div = document.createElement('div');
+    div.className = 'prayer-entry';
+    div.innerHTML = '<div class="prayer-text">'+p.text+'</div><div class="prayer-meta">'+p.time+'</div>';
+    list.appendChild(div);
+  });
+}
+function sendPrayer() {
+  var text = document.getElementById('prayerText').value.trim();
+  if (!text) return;
+  var now = new Date();
+  var time = now.toLocaleDateString('fr-FR') + ' ' + now.toLocaleTimeString('fr-FR');
+  prayers.push({text: text, time: time});
+  localStorage.setItem('sacre_prayers', JSON.stringify(prayers));
+  document.getElementById('prayerText').value = '';
+  renderPrayers();
+}
+renderPrayers();
+
+// Halo canvas animation
+var c = document.getElementById('halo');
+var ctx = c.getContext('2d');
+var t = 0;
+function drawHalo() {
+  ctx.clearRect(0,0,800,120);
+  for (var i = 0; i < 40; i++) {
+    var x = 400 + Math.cos(t * 0.01 + i * 0.5) * (200 + Math.sin(t * 0.02 + i) * 50);
+    var y = 60 + Math.sin(t * 0.015 + i * 0.3) * 30;
+    var r = 2 + Math.sin(t * 0.03 + i) * 1.5;
+    var alpha = 0.3 + Math.sin(t * 0.02 + i) * 0.2;
+    ctx.beginPath();
+    ctx.arc(x, y, Math.abs(r), 0, Math.PI * 2);
+    ctx.fillStyle = 'rgba(212,164,55,' + Math.abs(alpha) + ')';
+    ctx.fill();
+  }
+  // Central glow
+  var grad = ctx.createRadialGradient(400, 60, 0, 400, 60, 100);
+  grad.addColorStop(0, 'rgba(212,164,55,0.15)');
+  grad.addColorStop(1, 'rgba(212,164,55,0)');
+  ctx.fillStyle = grad;
+  ctx.fillRect(0, 0, 800, 120);
+  t++;
+  requestAnimationFrame(drawHalo);
+}
+drawHalo();
+</script>
+</body>
+</html>"#);
+    h
+}
+
 fn html_afri_net() -> String {
     let mut html = html_head("🌍 Afri-Net — L'Internet Africain");
     html.push_str(r#"<h1>🌍 Afri-Net — L'Internet Africain</h1><p style="text-align:center;color:#a8c5a8;">Nous devrons héberger notre site uniquement en Afrique. Fini la dépendance aux plateformes occidentales. Les Africains ont leurs propres services, hébergés sur le continent, alimentés par le soleil. L'internet africain par les Africains, pour les Africains.</p><div class="nav"><a href="/">← Accueil</a> | <a href="/charte-ai">⚖️ Charte AI</a> | <a href="/ciel">🌌 Le Ciel</a> | <a href="/bouclier">🛡️ Bouclier</a></div>"#);
@@ -14811,6 +15031,10 @@ fn handle_request(req: afri_http::HttpRequest, state: &Arc<AppState>) -> afri_ht
 
         ("GET", "/studio") => {
             HttpResponse::ok(&html_ai_studio())
+        }
+
+        ("GET", "/sacre") => {
+            HttpResponse::ok(&html_sacre())
         }
 
         ("GET", "/secret") => {
