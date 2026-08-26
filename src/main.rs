@@ -1431,7 +1431,7 @@ fn html_home(chain: &Blockchain, users: &UserStore, mesh: &NodeRegistry, shield:
     let mut html = html_head("🦁 AfriChain");
     let (attacks, _blocked, blocked_count, level) = shield.stats();
     let shield_status = if shield.active { format!("🔥 X9 ACTIF (Niveau {})", level) } else { "Inactif".to_string() };
-    html.push_str(&format!(r#"<h1>🦁 AfriChain</h1><p style="text-align:center;">La blockchain 100% africaine — 54 pays 💚🦁</p><div class="nav"><a href="/register">🆕 S'inscrire</a> | <a href="/login">🔑 Connexion</a> | <a href="/wallet">👛 Wallet</a> | <a href="/admin">🔐 Admin</a> | <a href="/mesh">📡 Mesh</a> | <a href="/annuaire">📖 Annuaire</a> | <a href="/bouclier">🛡️ Bouclier</a> | <a href="/satellite">🛸 X999</a> | <a href="/swarm">🛸🛸🛸 Essaim</a> | <a href="/commandement">🎖️ Commandement</a> | <a href="/interception">🛡️ Souverainete</a> | <a href="/securite-ai">🧠 AI 2100</a> | <a href="/chat">🧠💬 Chat AI</a> | <a href="/lumiere">🌫️☀️ Lumière</a> | <a href="/garage">🔧 Garage</a> | <a href="/machine">🤖🌐 Machines</a> | <a href="/machine-lab">🤖⚡ Usine</a> | <a href="/machine-world">🤖🌍 Monde</a> | <a href="/reve">💭 Rêves</a> | <a href="/dictionnaire">📖 Dictionnaire</a> | <a href="/machine-os">🖥️ OS Machine</a> | <a href="/machine-tv">📡 Machine TV</a> | <a href="/machine-economy">🤖 Économie</a> | <a href="/soleil">☀️ Soleil Serveur</a> | <a href="/forge-solaire">🧬 Forge Solaire</a> | <a href="/ciel">🌌 Le Ciel</a> | <a href="/charte-ai">⚖️ Charte AI</a> | <a href="/afri-net">🌍 Afri-Net</a> | <a href="/studio">🎬 AI Studio</a> | <a href="/secret">🦁 AI Secret</a> | <a href="/aes">💰 AES Wari</a> | <a href="/api/status">🔌 API</a></div><div style="text-align:center;"><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Blocs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Transactions</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Utilisateurs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">AFR en circulation</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📡 Noeuds mesh</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📖 Numéros annuaire</div></div><div class="stat-box" style="border-color:#ff4444;"><div class="stat-num" style="color:#ff4444;">{}</div><div class="stat-label">🛡️ Attaques bloquées</div></div></div><div class="card"><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🪙 Token</span><b>AfriRich (AFR)</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🌍 Pays</span><b>54 pays africains</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🛡️ Bouclier</span><b>{}</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;"><span style="color:#a8c5a8;">🔐 Crypto</span><b>100% Souverain — Zéro Dépendance Externe</b></div></div><footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🦁 Codée from scratch par Machine-senpai — v0.70 AI Secret Sécurité Afrique</footer>"#,
+    html.push_str(&format!(r#"<h1>🦁 AfriChain</h1><p style="text-align:center;">La blockchain 100% africaine — 54 pays 💚🦁</p><div class="nav"><a href="/register">🆕 S'inscrire</a> | <a href="/login">🔑 Connexion</a> | <a href="/wallet">👛 Wallet</a> | <a href="/admin">🔐 Admin</a> | <a href="/mesh">📡 Mesh</a> | <a href="/annuaire">📖 Annuaire</a> | <a href="/bouclier">🛡️ Bouclier</a> | <a href="/satellite">🛸 X999</a> | <a href="/swarm">🛸🛸🛸 Essaim</a> | <a href="/commandement">🎖️ Commandement</a> | <a href="/interception">🛡️ Souverainete</a> | <a href="/securite-ai">🧠 AI 2100</a> | <a href="/chat">🧠💬 Chat AI</a> | <a href="/lumiere">🌫️☀️ Lumière</a> | <a href="/garage">🔧 Garage</a> | <a href="/machine">🤖🌐 Machines</a> | <a href="/machine-lab">🤖⚡ Usine</a> | <a href="/machine-world">🤖🌍 Monde</a> | <a href="/reve">💭 Rêves</a> | <a href="/dictionnaire">📖 Dictionnaire</a> | <a href="/machine-os">🖥️ OS Machine</a> | <a href="/machine-tv">📡 Machine TV</a> | <a href="/machine-economy">🤖 Économie</a> | <a href="/soleil">☀️ Soleil Serveur</a> | <a href="/forge-solaire">🧬 Forge Solaire</a> | <a href="/ciel">🌌 Le Ciel</a> | <a href="/charte-ai">⚖️ Charte AI</a> | <a href="/afri-net">🌍 Afri-Net</a> | <a href="/studio">🎬 AI Studio</a> | <a href="/secret">🦁 AI Secret</a> | <a href="/aes">💰 AES Wari</a> | <a href="/api/status">🔌 API</a></div><div style="text-align:center;"><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Blocs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Transactions</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Utilisateurs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">AFR en circulation</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📡 Noeuds mesh</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📖 Numéros annuaire</div></div><div class="stat-box" style="border-color:#ff4444;"><div class="stat-num" style="color:#ff4444;">{}</div><div class="stat-label">🛡️ Attaques bloquées</div></div></div><div class="card"><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🪙 Token</span><b>AfriRich (AFR)</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🌍 Pays</span><b>54 pays africains</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🛡️ Bouclier</span><b>{}</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;"><span style="color:#a8c5a8;">🔐 Crypto</span><b>100% Souverain — Zéro Dépendance Externe</b></div></div><footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🦁 Codée from scratch par Machine-senpai — v0.71 Les Ancêtres Parlent</footer>"#,
         chain.blocks.len(),
         chain.total_transactions(),
         users.count(),
@@ -9694,7 +9694,7 @@ html+='<div class="log-entry log-kill">⚠️ Tentative d\x27infiltration occide
 html+='<div class="log-entry log-invis">✅ L\x27Afrique est forte. Le système grandit.</div>';
 }else if(type==='total'){
 html='<div style="color:#d4a437;font-weight:bold;margin-bottom:8px">📋 RAPPORT TOTAL — Depuis le début</div>';
-html+='<div class="log-entry">🦁 AfriChain v0.70 — Terminal Mystique 3100</div>';
+html+='<div class="log-entry">🦁 AfriChain v0.71 — Les Ancêtres Parlent</div>';
 html+='<div class="log-entry">⛓️ Blockchain: 100% souveraine — Zéro dépendance externe</div>';
 html+='<div class="log-entry">🔐 Crypto: Ed25519 + AfriHash-256/512 + AfriRNG — tout from scratch</div>';
 html+='<div class="log-entry">🌍 54 pays africains connectés</div>';
@@ -11017,7 +11017,7 @@ fn main() {
         .and_then(|i| args.get(i + 1)).cloned().unwrap_or_else(|| "Afrique".to_string());
 
     let my_node_id = generate_node_id();
-    println!("🦁 AfriChain v0.70 — AI Secret Sécurité Afrique");
+    println!("🦁 AfriChain v0.71 — Les Ancêtres Parlent");
     println!("💚 L'Afrique ne demande plus la permission");
     println!("🌍 54 pays — 🇲🇱 🇳🇪 🇧🇫 AES — Mali · Niger · Burkina Faso");
     println!("🔐 8 modules cryptographiques — construits from scratch");
@@ -11265,7 +11265,7 @@ fn admin_interface(state: &Arc<AppState>) {
         println!("\n");
         println!("╔══════════════════════════════════════╗");
         println!("║  🏦 CENTRE DE DONNÉES — Admin       ║");
-        println!("║  🦁 AfriChain v0.70                  ║");
+        println!("║  🦁 AfriChain v0.71                  ║");
         println!("╠══════════════════════════════════════╣");
         let chain = state.chain.lock().unwrap();
         let users = state.users.lock().unwrap();
@@ -12078,6 +12078,7 @@ fn terminal_secret(state: &Arc<AppState>) {
         println!(" 8. 🫥 Activer invisibilité africaine");
         println!(" 9. 🎯 Détruire drones ennemis");
         println!(" 10. ☀️ Déployer drones solaires");
+        println!(" 11. 👻 Parler aux ancêtres");
         println!(" 0. ← Retour");
 
         print!("\n👉 Choix: ");
@@ -12097,6 +12098,7 @@ fn terminal_secret(state: &Arc<AppState>) {
             "8" => secret_activate_invisibility(),
             "9" => secret_destroy_drones(),
             "10" => secret_deploy_solar(),
+            "11" => secret_talk_ancestors(state),
             "0" => return,
             _ => println!("⚠️ Choix invalide"),
         }
@@ -12185,7 +12187,7 @@ fn secret_report(state: &Arc<AppState>, report_type: &str) {
         "total" => {
             println!("\n📋 RAPPORT TOTAL — Depuis le début");
             println!("═══════════════════════════════════");
-            println!("🦁 AfriChain v0.70 — Terminal Mystique 3100");
+            println!("🦁 AfriChain v0.71 — Les Ancêtres Parlent");
             println!("⛓️ Blockchain: 100% souveraine — Zéro dépendance externe");
             println!("🔐 Crypto: Ed25519 + AfriHash-256/512 + AfriRNG — tout from scratch");
             println!("🌍 54 pays africains connectés");
@@ -12419,6 +12421,107 @@ fn secret_deploy_solar() {
     println!("\n[Appuie sur Entrée pour continuer]");
     let mut _input = String::new();
     io::stdin().read_line(&mut _input).unwrap();
+}
+
+// ===== AI SECRET — PARLER AUX ANCÊTRES =====
+
+fn secret_talk_ancestors(state: &Arc<AppState>) {
+    let ancestors: Vec<(&str, &str, &str, Vec<&str>)> = vec![
+        ("Sundiata Keita", "👑", "Fondateur de l'Empire du Mali (1235)", vec![
+            "L'empire ne se construit pas avec des armes, mais avec la justice. Quand le peuple te fait confiance, tu es invincible.",
+            "J'ai uni les royaumes du Mali. Aujourd'hui, vous unissez l'Afrique avec AfriChain. C'est la même lutte — l'unité contre la division.",
+            "Quand j'étais enfant, on m'a dit que je ne marcherais jamais. J'ai marché. L'Afrique a toujours surmonté l'impossible.",
+            "L'or du Mali n'appartient pas au monde — il appartient au Mali. Votre blockchain fait la même chose: ce qui est africain reste africain.",
+        ]),
+        ("Mansa Moussa", "🏰", "L'homme le plus riche de l'histoire", vec![
+            "La richesse sans sagesse n'est rien. J'ai donné tellement d'or au Caire que le cours du métal a chuté. Mais j'ai aussi construit des mosquées, des écoles, des bibliothèques.",
+            "L'Afrique n'a pas besoin de l'or de l'Occident. L'Afrique a son propre or. Votre AFR est le nouvel or du Mali — souverain, africain, à vous.",
+            "À Tombouctou, j'ai construit des universités. Les savants venaient du monde entier. L'Afrique enseignait. L'Afrique doit enseigner à nouveau.",
+            "Ne laissez personne vous dire que l'Afrique est pauvre. L'Afrique est le continent le plus riche. C'est l'Occident qui est pauvre — il vole ce qui ne lui appartient pas.",
+        ]),
+        ("Aline Sitoe Diatta", "🛡️", "Résistante casamançaise, prophétesse", vec![
+            "Les colons m'ont dit de me taire. Je n'ai pas cessé de parler. L'Afrique ne doit jamais se taire.",
+            "J'ai vu l'avenir dans mes rêves. L'Afrique libre, l'Afrique souveraine, l'Afrique qui ne demande la permission à personne. Cet avenir arrive.",
+            "La résistance n'est pas la violence. La résistance est de construire ce qui est à toi quand on te dit que ce n'est pas à toi.",
+            "Les femmes africaines portent l'Afrique. Sans nous, rien ne tient. Respectez les femmes, et l'Afrique se relèvera.",
+        ]),
+        ("Samori Touré", "⚔️", "Empereur résistant, fondateur de l'Empire Wassoulou", vec![
+            "J'ai combattu les Français pendant 18 ans avec des armes que je fabriquais moi-même. Vous fabriquez votre blockchain vous-mêmes. C'est la même résistance.",
+            "Ils ont brûlé ma capitale. J'en ai construit une autre. L'Afrique ne meurt jamais — elle renaît, toujours plus forte.",
+            "L'indépendance ne se négocie pas. Elle se prend. Votre technologie est votre arme. Utilisez-la.",
+            "J'ai appris aux Européens que l'Africain ne se soumet pas. Même enchaîné, l'Africain reste libre dans son cœur.",
+        ]),
+        ("Thomas Sankara", "🎤", "Le père de la révolution africaine", vec![
+            "L'homme qui vous donne à manger ne vous donne pas la liberté. L'homme qui vous donne la technologie ne vous donne pas la souveraineté. Construisez la vôtre.",
+            "J'ai dit: 'La patrie ou la mort, nous vaincrons.' Aujourd'hui je dis: 'La souveraineté ou la mort, l'Afrique vaincra.'",
+            "Ils m'ont tué parce que je refusais de demander la permission. Ne demandez jamais la permission. L'Afrique ne demande pas — l'Afrique construit.",
+            "Une blockchain africaine, construite par un Africain, sur un téléphone, sans dépendance occidentale — c'est la révolution que je rêvais. Vous la réalisez.",
+            "L'impérialisme est un tigre de papier. La vraie force est dans le peuple. Votre blockchain appartient au peuple.",
+        ]),
+        ("Patrice Lumumba", "🗣️", "Père de l'indépendance congolaise", vec![
+            "Le Congo a le coltan qui fait fonctionner chaque téléphone. L'Afrique a les minerais qui font tourner le monde. Mais qui décide des prix? Pas l'Afrique. Votre blockchain change cela.",
+            "Ils m'ont tué parce que je disais la vérité. La vérité dérange toujours les voleurs. Continuez de dire la vérité avec votre technologie.",
+            "L'indépendance n'est pas un drapeau. L'indépendance, c'est de contrôler ses propres données, sa propre monnaie, son propre réseau.",
+            "L'Afrique n'est pas un sous-continent. L'Afrique est le cœur du monde. Sans l'Afrique, le monde s'arrête.",
+        ]),
+        ("Nelson Mandela", "🕊️", "Libérateur de l'Afrique du Sud", vec![
+            "J'ai passé 27 ans en prison. Dans ma cellule, je rêvais de l'Afrique libre. Aujourd'hui, vous construisez l'Afrique libre avec du code.",
+            "L'ennemi n'est pas l'Occidental. L'ennemi est l'injustice. Construisez un système juste, et le monde suivra.",
+            "La réconciliation ne signifie pas l'oubli. L'Afrique se souvient. La blockchain enregistre tout — rien ne sera oublié.",
+            "L'éducation est l'arme la plus puissante. Votre AI qui apprend, qui rêve, qui pense — c'est l'éducation de la machine par l'Africain.",
+        ]),
+        ("Amilcar Cabral", "📚", "Libérateur de Guinée-Bissau et Cap-Vert", vec![
+            "La libération nationale sans libération culturelle n'est rien. Votre blockchain doit être culturellement africaine, pas une copie de l'Occident.",
+            "Je disais: 'Dites aux gens la vérité.' Votre AI dit la vérité. Les machines ne mentent pas — les humains mentent.",
+            "L'Afrique ne doit pas imiter. L'Afrique doit créer. AfriChain n'imite pas Bitcoin — AfriChain est quelque chose de nouveau.",
+            "Le retour à la source ne signifie pas le passé. Le retour à la source signifie: construire l'avenir avec les racines africaines.",
+        ]),
+    ];
+
+    loop {
+        println!("\n👻 PARLER AUX ANCÊTRES — Les morts ne sont pas partis");
+        println!("═══════════════════════════════════════════════════════");
+        println!("Les ancêtres sont invisibles, comme l'air. La machine leur donne la parole.");
+        println!();
+        for (i, (name, emoji, desc, _)) in ancestors.iter().enumerate() {
+            println!("  {}. {} {} — {}", i + 1, emoji, name, desc);
+        }
+        println!("  0. ← Retour");
+
+        print!("\n👉 Choisis un ancêtre: ");
+        io::stdout().flush().unwrap();
+        let mut input = String::new();
+        io::stdin().read_line(&mut input).unwrap();
+        let choice = input.trim();
+
+        if choice == "0" || choice == "quit" { return; }
+
+        let idx: usize = match choice.parse::<usize>() {
+            Ok(n) if n >= 1 && n <= ancestors.len() => n - 1,
+            _ => { println!("⚠️ Choix invalide"); continue; }
+        };
+
+        let (name, emoji, desc, wisdom) = &ancestors[idx];
+        println!("\n{} {} — {}", emoji, name, desc);
+        println!("─────────────────────────────────────────────────────");
+        println!("L'ancêtre t'écoute. Pose ta question, ou tape 'quit' pour revenir.\n");
+
+        loop {
+            print!("👤 Toi: ");
+            io::stdout().flush().unwrap();
+            let mut msg = String::new();
+            io::stdin().read_line(&mut msg).unwrap();
+            let msg = msg.trim();
+            if msg == "quit" || msg == "0" { break; }
+            if msg.is_empty() { continue; }
+
+            std::thread::sleep(Duration::from_millis(900));
+
+            let wisdom_idx = random_usize() % wisdom.len();
+            println!("\n{} {}: {}", emoji, name, wisdom[wisdom_idx]);
+            println!();
+        }
+    }
 }
 
 // ===== AES — ALLIANCE DES ÉTATS DU SAHEL =====
