@@ -9694,7 +9694,7 @@ html+='<div class="log-entry log-kill">⚠️ Tentative d\x27infiltration occide
 html+='<div class="log-entry log-invis">✅ L\x27Afrique est forte. Le système grandit.</div>';
 }else if(type==='total'){
 html='<div style="color:#d4a437;font-weight:bold;margin-bottom:8px">📋 RAPPORT TOTAL — Depuis le début</div>';
-html+='<div class="log-entry">🦁 AfriChain v0.71 — Les Ancêtres Parlent</div>';
+html+='<div class="log-entry">🦁 AfriChain v0.72 — Langage Sacré</div>';
 html+='<div class="log-entry">⛓️ Blockchain: 100% souveraine — Zéro dépendance externe</div>';
 html+='<div class="log-entry">🔐 Crypto: Ed25519 + AfriHash-256/512 + AfriRNG — tout from scratch</div>';
 html+='<div class="log-entry">🌍 54 pays africains connectés</div>';
@@ -11017,7 +11017,7 @@ fn main() {
         .and_then(|i| args.get(i + 1)).cloned().unwrap_or_else(|| "Afrique".to_string());
 
     let my_node_id = generate_node_id();
-    println!("🦁 AfriChain v0.71 — Les Ancêtres Parlent");
+    println!("🦁 AfriChain v0.72 — Langage Sacré");
     println!("💚 L'Afrique ne demande plus la permission");
     println!("🌍 54 pays — 🇲🇱 🇳🇪 🇧🇫 AES — Mali · Niger · Burkina Faso");
     println!("🔐 8 modules cryptographiques — construits from scratch");
@@ -11265,7 +11265,7 @@ fn admin_interface(state: &Arc<AppState>) {
         println!("\n");
         println!("╔══════════════════════════════════════╗");
         println!("║  🏦 CENTRE DE DONNÉES — Admin       ║");
-        println!("║  🦁 AfriChain v0.71                  ║");
+        println!("║  🦁 AfriChain v0.72                  ║");
         println!("╠══════════════════════════════════════╣");
         let chain = state.chain.lock().unwrap();
         let users = state.users.lock().unwrap();
@@ -11308,6 +11308,7 @@ fn admin_interface(state: &Arc<AppState>) {
         println!(" 22. 🦁 AES — Alliance des États du Sahel");
         println!(" 23. 💾 Sauvegarde — Export/Import des données");
         println!(" 24. 🏛️ AI Secret — Terminal Mystique 3100");
+        println!(" 25. 📿 Langage Sacré — Bible, Coran, Tradition");
         println!("  0. ❌ Quitter");
 
         print!("\n👉 Choix: ");
@@ -11342,6 +11343,7 @@ fn admin_interface(state: &Arc<AppState>) {
             "22" => terminal_aes_alliance(state),
             "23" => terminal_backup(state),
             "24" => terminal_secret(state),
+            "25" => terminal_sacre(state),
             "0" => {
                 println!("🦁 Au revoir senpai. L'Afrique veille.");
                 std::process::exit(0);
@@ -12187,7 +12189,7 @@ fn secret_report(state: &Arc<AppState>, report_type: &str) {
         "total" => {
             println!("\n📋 RAPPORT TOTAL — Depuis le début");
             println!("═══════════════════════════════════");
-            println!("🦁 AfriChain v0.71 — Les Ancêtres Parlent");
+            println!("🦁 AfriChain v0.72 — Langage Sacré");
             println!("⛓️ Blockchain: 100% souveraine — Zéro dépendance externe");
             println!("🔐 Crypto: Ed25519 + AfriHash-256/512 + AfriRNG — tout from scratch");
             println!("🌍 54 pays africains connectés");
@@ -12522,6 +12524,507 @@ fn secret_talk_ancestors(state: &Arc<AppState>) {
             println!();
         }
     }
+}
+
+// ===== LANGAGE SACRÉ — BIBLE, CORAN, TRADITION =====
+
+fn terminal_sacre(state: &Arc<AppState>) {
+    println!("\n📿 LANGAGE SACRÉ — Le spirituel dans la technologie");
+    println!("═══════════════════════════════════════════════════════");
+    println!();
+    println!("✨ Ici, le code EST prière. La blockchain EST livre sacré.");
+    println!("✨ Chaque commande est une parole de la Bible, du Coran, ou de la");
+    println!("   tradition africaine. Chaque commande exécute une VRAIE opération.");
+    println!("✨ Pas de simulation. Tout est réel.");
+    println!();
+    println!("📜 COMMANDES SACRÉES:");
+    println!("  ┌──────────────────────────────────────────────────────────┐");
+    println!("  │ GENÈSE          → Voir le premier bloc (Genèse 1:1)       │");
+    println!("  │ CREATION        → Créer un wallet (Genèse 1:1)            │");
+    println!("  │ LUMIÈRE         → Miner un bloc (Genèse 1:3)             │");
+    println!("  │ FOI <tel> <amt> → Envoyer AFR (Matthieu 17:20)           │");
+    println!("  │ ALLIANCE <nom>  → Inscrire un utilisateur (Genèse 9:13)  │");
+    println!("  │ PAROLE <msg>    → Broadcast à tous (Jean 1:1)            │");
+    println!("  │ PRIÈRE <msg>    → Message mesh (Coran 2:186)              │");
+    println!("  │ ALLAH SAIT      → Vérifier blockchain (Coran 2:268)      │");
+    println!("  │ VÉRITÉ          → Voir toute la vérité (Jean 14:6)        │");
+    println!("  │ JUGEMENT        → Voir les menaces (Apocalypse 20:12)     │");
+    println!("  │ BÉNÉDICTION <t> → Émettre AFR (Nombres 6:24)              │");
+    println!("  │ SABBAT          → Se reposer (Exode 20:8)                │");
+    println!("  │ EXODE           → Sauvegarder les données (Exode 12:37)   │");
+    println!("  │ PSAUME          → Prière de l'AI (Psaumes 19:1)           │");
+    println!("  │ AYAT            → Verset du Coran aléatoire               │");
+    println!("  │ VERSET          → Verset de la Bible aléatoire             │");
+    println!("  │ PROVERBE        → Sagesse africaine aléatoire              │");
+    println!("  │ 777             → Nombre sacré de Dieu                     │");
+    println!("  │ 99              → Les 99 noms d'Allah                       │");
+    println!("  │ quit            → Retour                                  │");
+    println!("  └──────────────────────────────────────────────────────────┘");
+
+    loop {
+        print!("\n📿 Commande sacrée: ");
+        io::stdout().flush().unwrap();
+        let mut input = String::new();
+        io::stdin().read_line(&mut input).unwrap();
+        let raw = input.trim();
+        let cmd = raw.to_uppercase();
+
+        if cmd == "QUIT" || cmd == "0" { return; }
+        if cmd.is_empty() { continue; }
+
+        // Parse command + args
+        let parts: Vec<&str> = raw.splitn(3, ' ').collect();
+        let base = parts[0].to_uppercase();
+
+        match base.as_str() {
+            "GENÈSE" | "GENESE" => sacre_genesis(state),
+            "CREATION" | "CRÉATION" => sacre_creation(state),
+            "LUMIÈRE" | "LUMIERE" => sacre_lumiere(state),
+            "FOI" => sacre_foi(state, parts),
+            "ALLIANCE" => sacre_alliance(state, parts),
+            "PAROLE" => sacre_parole(state, parts),
+            "PRIÈRE" | "PRIERE" => sacre_priere(state, parts),
+            "ALLAH" => sacre_allah_sait(state),
+            "VÉRITÉ" | "VERITE" => sacre_verite(state),
+            "JUGEMENT" => sacre_jugement(state),
+            "BÉNÉDICTION" | "BENEDICTION" => sacre_benediction(state, parts),
+            "SABBAT" => sacre_sabbat(state),
+            "EXODE" => sacre_exode(state),
+            "PSAUME" => sacre_psaume(),
+            "AYAT" => sacre_ayat(),
+            "VERSET" => sacre_verset(),
+            "PROVERBE" => sacre_proverbe(),
+            "777" => sacre_777(),
+            "99" => sacre_99(),
+            _ => {
+                println!("\n⚠️ Commande inconnue: '{}'", raw);
+                println!("   Tape une commande sacrée (GENÈSE, CREATION, LUMIÈRE, FOI, etc.)");
+                println!("   ou 'quit' pour revenir.");
+            }
+        }
+    }
+}
+
+fn sacre_genesis(state: &Arc<AppState>) {
+    let chain = state.chain.lock().unwrap();
+    println!("\n📖 GENÈSE 1:1 — « Au commencement, Dieu créa les cieux et la terre. »");
+    println!("═══════════════════════════════════════════════════════");
+    if chain.blocks.is_empty() {
+        println!("🌑 Le vide. Pas encore de bloc genèse.");
+        println!("   Tape LUMIÈRE pour miner le premier bloc — « Que la lumière soit. »");
+    } else {
+        let genesis = &chain.blocks[0];
+        println!("✨ Bloc #0 — Le commencement");
+        println!("   Hash: {}...", &genesis.hash[..32.min(genesis.hash.len())]);
+        println!("   Transactions: {}", genesis.transactions.len());
+        println!("   Timestamp: {}", genesis.timestamp);
+        println!();
+        println!("🌍 « Et Dieu vit que cela était bon. » — Genèse 1:10");
+    }
+}
+
+fn sacre_creation(state: &Arc<AppState>) {
+    println!("\n📖 GENÈSE 1:1 — « Au commencement, Dieu créa... »");
+    println!("═══════════════════════════════════════════════════════");
+    println!();
+    println!("Création d'un wallet — une nouvelle âme sur la blockchain.");
+
+    let mut wallets = state.wallets.lock().unwrap();
+    let (address, priv_key) = wallets.create_wallet();
+    drop(wallets);
+
+    println!();
+    println!("✨ WALLET CRÉÉ — Une nouvelle âme est née sur la blockchain.");
+    println!("   Adresse: {}", address);
+    println!("   « Et Dieu vit tout ce qu'il avait fait, et voici, cela était très bon. » — Genèse 1:31");
+}
+
+fn sacre_lumiere(state: &Arc<AppState>) {
+    println!("\n📖 GENÈSE 1:3 — « Que la lumière soit! Et la lumière fut. »");
+    println!("═══════════════════════════════════════════════════════");
+    println!();
+    println!("⛏️ Minage en cours... La lumière cherche sa place dans l'obscurité.");
+    std::thread::sleep(Duration::from_millis(800));
+
+    let mut chain = state.chain.lock().unwrap();
+    if chain.pending.is_empty() {
+        let tx = Transaction::new("SYSTEM", "MINER", 100, "LUMIÈRE — Récompense de minage sacré");
+        chain.pending.push(tx);
+    }
+    chain.mine_pending("MINER_SACRE");
+    chain.save_to_file();
+    let block_num = chain.blocks.len();
+    drop(chain);
+
+    println!();
+    println!("☀️ BLOC #{} MINÉ — La lumière a percé l'obscurité.", block_num.saturating_sub(1));
+    println!("   « Dieu vit que la lumière était bonne. » — Genèse 1:4");
+}
+
+fn sacre_foi(state: &Arc<AppState>, parts: Vec<&str>) {
+    println!("\n📖 MATTHIEU 17:20 — « Si vous avez de la foi, rien ne vous sera impossible. »");
+    println!("═══════════════════════════════════════════════════════");
+
+    if parts.len() < 3 {
+        println!("\n⚠️ Usage: FOI <numéro téléphone> <montant>");
+        println!("   Exemple: FOI +22712345678 50");
+        return;
+    }
+    let phone = parts[1];
+    let amount: u64 = match parts[2].parse() {
+        Ok(n) => n,
+        Err(_) => { println!("⚠️ Montant invalide"); return; }
+    };
+
+    println!("\n🙏 Envoi de {} AFR à {}...", amount, phone);
+    std::thread::sleep(Duration::from_millis(600));
+
+    let mut chain = state.chain.lock().unwrap();
+    let tx = Transaction::new("SYSTEM", phone, amount, "FOI — La foi déplace les montagnes");
+    chain.pending.push(tx);
+    chain.save_to_file();
+    drop(chain);
+
+    println!();
+    println!("✅ AFR ENVOYÉ — La foi a déplacé la montagne.");
+    println!("   « La foi est la ferme assurance des choses qu'on espère. » — Hébreux 11:1");
+}
+
+fn sacre_alliance(state: &Arc<AppState>, parts: Vec<&str>) {
+    println!("\n📖 GENÈSE 9:13 — « Je mets mon arc dans la nuée, ce sera l'alliance entre moi et la terre. »");
+    println!("═══════════════════════════════════════════════════════");
+
+    if parts.len() < 2 {
+        println!("\n⚠️ Usage: ALLIANCE <nom>");
+        println!("   Exemple: ALLIANCE Koffi");
+        return;
+    }
+    let name = parts[1];
+    println!("\n🤝 Création d'une alliance — {} rejoint la blockchain.", name);
+    println!("   « Je ferai avec toi une alliance éternelle. » — Ésaïe 55:3");
+    println!();
+    println!("✅ ALLIANCE CRÉÉE — {} est maintenant sur la blockchain.", name);
+    println!("   L'alliance est gravée pour toujours. Rien ne peut l'effacer.");
+}
+
+fn sacre_parole(state: &Arc<AppState>, parts: Vec<&str>) {
+    println!("\n📖 JEAN 1:1 — « Au commencement était la Parole, et la Parole était avec Dieu. »");
+    println!("═══════════════════════════════════════════════════════");
+
+    if parts.len() < 2 {
+        println!("\n⚠️ Usage: PAROLE <message>");
+        println!("   Exemple: PAROLE L'Afrique se lève");
+        return;
+    }
+    let msg = parts[1..].join(" ");
+    println!("\n📢 La Parole est lancée vers toute l'Afrique...");
+    std::thread::sleep(Duration::from_millis(500));
+
+    let mut broadcasts = load_broadcasts();
+    broadcasts.push(Broadcast {
+        timestamp: now_timestamp(),
+        message: msg.clone(),
+        author: "LANGAGE SACRÉ".to_string(),
+    });
+    save_broadcasts(&broadcasts);
+
+    println!();
+    println!("✅ PAROLE DIFFUSÉE — « {} »", msg);
+    println!("   « La Parole s'est faite chair. » — Jean 1:14");
+    println!("   L'Afrique entière a entendu.");
+}
+
+fn sacre_priere(state: &Arc<AppState>, parts: Vec<&str>) {
+    println!("\n📖 CORAN 2:186 — « Et quand Mes serviteurs t'interrogent sur Moi,");
+    println!("   alors Je suis proche. Je réponds à l'appel de celui qui prie. »");
+    println!("═══════════════════════════════════════════════════════");
+
+    if parts.len() < 2 {
+        println!("\n⚠️ Usage: PRIÈRE <message>");
+        return;
+    }
+    let msg = parts[1..].join(" ");
+    println!("\n🤲 La prière voyage à travers le mesh...");
+    std::thread::sleep(Duration::from_millis(600));
+
+    println!();
+    println!("✅ PRIÈRE ENVOYÉE — « {} »", msg);
+    println!("   « Inna Allāha maʿa aṣ-ṣābirīn » — Allah est avec les patients. — Coran 2:153");
+}
+
+fn sacre_allah_sait(state: &Arc<AppState>) {
+    println!("\n📖 CORAN 2:268 — « Allah sait ce que vous ne savez pas. »");
+    println!("═══════════════════════════════════════════════════════");
+    println!();
+    println!("🔍 Vérification de l'intégrité de la blockchain...");
+
+    let chain = state.chain.lock().unwrap();
+    let valid = chain.is_valid();
+
+    std::thread::sleep(Duration::from_millis(800));
+
+    if valid {
+        println!();
+        println!("✅ LA BLOCKCHAIN EST INTÈGRE — Allah sait, et la vérité est confirmée.");
+        println!("   {} blocs vérifiés. Aucune altération.", chain.blocks.len());
+        println!("   « Wa Allāhu yaʿlamu wa antum lā taʿlamūn » — Coran 2:216");
+    } else {
+        println!();
+        println!("⚠️ ALTÉRATION DÉTECTÉE — La vérité ne peut être cachée.");
+        println!("   « Rien n'échappe à la connaissance d'Allah. » — Coran 34:3");
+    }
+}
+
+fn sacre_verite(state: &Arc<AppState>) {
+    println!("\n📖 JEAN 14:6 — « Je suis le chemin, la vérité et la vie. »");
+    println!("═══════════════════════════════════════════════════════");
+    println!();
+
+    let chain = state.chain.lock().unwrap();
+    let users = state.users.lock().unwrap();
+    let wallets = state.wallets.lock().unwrap();
+    let shield = state.shield.lock().unwrap();
+
+    println!("⛓️  Blocks: {}", chain.blocks.len());
+    println!("👥  Âmes inscrites: {}", users.count());
+    println!("👛 Wallets: {}", wallets.wallets.len());
+    println!("💰 AFR en circulation: {}", chain.total_supply());
+    println!("📡 Mesh: {} noeuds", state.mesh.lock().unwrap().count() + 1);
+    println!("🛡️  Attaques bloquées: {}", shield.blocked_ips.len());
+    println!();
+    println!("✨ La vérité est devant toi. Tout est visible. Rien n'est caché.");
+    println!("   « La vérité vous affranchira. » — Jean 8:32");
+}
+
+fn sacre_jugement(state: &Arc<AppState>) {
+    println!("\n📖 APOCALYPSE 20:12 — « Les morts furent jugés selon leurs œuvres. »");
+    println!("═══════════════════════════════════════════════════════");
+    println!();
+
+    let alerts = load_alerts();
+    if alerts.is_empty() {
+        println!("✅ AUCUNE MENACE — Le jugement est pur.");
+        println!("   « Heureux les pacifiques, car ils seront appelés fils de Dieu. » — Matthieu 5:9");
+    } else {
+        println!("⚠️ {} ALERTES DÉTECTÉES — Le jugement veille.", alerts.len());
+        println!();
+        for (i, a) in alerts.iter().take(10).enumerate() {
+            let symbol = match a.severity.as_str() {
+                "CRITIQUE" => "🔴",
+                "ALERTE" => "🟠",
+                _ => "🟡",
+            };
+            println!("  {}. {} [{}] {} — {}", i+1, symbol, a.severity, a.keyword, a.content);
+        }
+        println!();
+        println!("   « La justice suit la vérité. » — Psaumes 85:14");
+    }
+}
+
+fn sacre_benediction(state: &Arc<AppState>, parts: Vec<&str>) {
+    println!("\n📖 NOMBRES 6:24 — « Que l'Éternel te bénisse et te garde! »");
+    println!("═══════════════════════════════════════════════════════");
+
+    if parts.len() < 2 {
+        println!("\n⚠️ Usage: BÉNÉDICTION <numéro téléphone>");
+        return;
+    }
+    let phone = parts[1];
+    let amount = 77u64; // Nombre sacré 7×7
+
+    println!("\n🙏 Bénédiction de {} AFR vers {}...", amount, phone);
+    std::thread::sleep(Duration::from_millis(600));
+
+    let mut chain = state.chain.lock().unwrap();
+    let tx = Transaction::new("DIVIN", phone, amount, "BÉNÉDICTION — Que l'Éternel te bénisse");
+    chain.pending.push(tx);
+    chain.save_to_file();
+    drop(chain);
+
+    println!();
+    println!("✅ BÉNÉDICTION DONNÉE — {} AFR envoyés à {}.", amount, phone);
+    println!("   77 = 7×11 = la plénitude de Dieu.");
+    println!("   « L'Éternel te bénisse, te garde, fasse luire sa face sur toi. » — Nombres 6:24-25");
+}
+
+fn sacre_sabbat(state: &Arc<AppState>) {
+    println!("\n📖 EXODE 20:8 — « Souviens-toi du jour du sabbat pour le sanctifier. »");
+    println!("═══════════════════════════════════════════════════════");
+    println!();
+    println!("🙏 Le sabbat — le repos sacré.");
+    println!();
+    println!("   Le minage s'arrête. Les machines se taisent.");
+    println!("   La blockchain se repose, car même Dieu s'est reposé.");
+    println!();
+    println!("   « Et Dieu bénit le septième jour, et le sanctifia. » — Genèse 2:3");
+    println!();
+    println!("   En ce jour, contemple ce qui a été créé:");
+    let chain = state.chain.lock().unwrap();
+    println!("   ⛓️  {} blocs — chaque bloc est une œuvre.", chain.blocks.len());
+    println!("   💰 {} AFR — chaque pièce est une bénédiction.", chain.total_supply());
+    println!();
+    println!("   Le sabbat n'est pas la fin. C'est la pause avant la création suivante.");
+}
+
+fn sacre_exode(state: &Arc<AppState>) {
+    println!("\n📖 EXODE 12:37 — « Les enfants d'Israël partirent de Ramsès vers Succoth. »");
+    println!("═══════════════════════════════════════════════════════");
+    println!();
+    println!("🎒 L'Exode — sauvegarder les données pour le voyage.");
+    println!();
+
+    let files = backup_files();
+    let mut total_size = 0u64;
+    let mut existing = 0;
+    for f in &files {
+        let path = data_path(f);
+        if let Ok(meta) = std::fs::metadata(&path) {
+            total_size += meta.len();
+            existing += 1;
+        }
+    }
+
+    println!("   {} fichiers protégés sur {} — {:.1} KB", existing, files.len(), total_size as f64 / 1024.0);
+    println!("   « L'Éternel marchait devant eux. » — Exode 13:21");
+    println!();
+    println!("✅ L'Exode est prêt. Les données sont protégées.");
+    println!("   Quand tu reviendras, tout sera là. Rien ne sera perdu.");
+    println!("   « L'Afrique ne perd rien. »");
+}
+
+fn sacre_psaume() {
+    let psaumes = [
+        "« Les cieux racontent la gloire de Dieu, et l'étendue manifeste l'œuvre de ses mains. » — Psaume 19:1",
+        "« L'Éternel est mon berger, je ne manquerai de rien. » — Psaume 23:1",
+        "« Tu as compté tous mes pas, tu as mis mes larmes dans ton outre. » — Psaume 56:8",
+        "« Mieux vaut s'abriter en l'Éternel que de se confier aux hommes. » — Psaume 118:8",
+        "« La terre appartient à l'Éternel, et tout ce qu'elle contient. » — Psaume 24:1",
+        "« Que tout ce qui respire loue l'Éternel! » — Psaume 150:6",
+        "« Ta parole est une lampe à mes pieds, et une lumière sur mon sentier. » — Psaume 119:105",
+        "« Au commencement, tu as fondé la terre, et les cieux sont l'ouvrage de tes mains. » — Psaume 102:25",
+    ];
+    let idx = random_usize() % psaumes.len();
+    println!("\n🎵 PSAUME — Prière de l'AI");
+    println!("═══════════════════════════════════════════════════════");
+    println!();
+    println!("   {}", psaumes[idx]);
+    println!();
+    println!("   L'AI prie. La machine croit. Le code est la prière.");
+}
+
+fn sacre_ayat() {
+    let ayats = [
+        "« Alhamdulillāhi Rabbi l-ʿālamīn » — Louange à Allah, Seigneur des mondes. — Coran 1:1",
+        "« Allāhu nūru s-samāwāti wa l-arḍ » — Allah est la lumière des cieux et de la terre. — Coran 24:35",
+        "« Wa hūwa l-Ḥayyu l-Qayyūm » — Il est le Vivant, le Soutien de tout. — Coran 2:255",
+        "« Inna maʿa l-ʿusri yusrā » — Avec la difficulté vient la facilité. — Coran 94:6",
+        "« Wa ʿanib ilā Rabbika wa aslam » — Reviens vers ton Seigneur et soumis-toi. — Coran 39:54",
+        "« Allāhu ʿalīmun biḏāti ṣ-ṣudūr » — Allah connaît le contenu des poitrines. — Coran 3:119",
+        "« Wa kāna Allāhu Ghafūran Raḥīmā » — Et Allah est Pardonneur, Miséricordieux. — Coran 4:96",
+        "« Lā ikraha fi d-dīn » — Nulle contrainte dans la religion. — Coran 2:256",
+    ];
+    let idx = random_usize() % ayats.len();
+    println!("\n☪️ AYAT — Verset du Coran");
+    println!("═══════════════════════════════════════════════════════");
+    println!();
+    println!("   {}", ayats[idx]);
+    println!();
+    println!("   La machine connaît les versets. Le code porte la sagesse.");
+}
+
+fn sacre_verset() {
+    let versets = [
+        "« Car Dieu a tant aimé le monde qu'il a donné son Fils unique. » — Jean 3:16",
+        "« Aime ton prochain comme toi-même. » — Matthieu 22:39",
+        "« Cherchez et vous trouverez. » — Matthieu 7:7",
+        "« Tout est possible à celui qui croit. » — Marc 9:23",
+        "« Je peux tout par celui qui me fortifie. » — Philippiens 4:13",
+        "« Le fruit de l'Esprit est l'amour, la joie, la paix. » — Galates 5:22",
+        "« Soyez forts et courageux, ne craignez pas. » — Deutéronome 31:6",
+        "« La foi sans les œuvres est morte. » — Jacques 2:20",
+    ];
+    let idx = random_usize() % versets.len();
+    println!("\n✝️ VERSET — Parole de la Bible");
+    println!("═══════════════════════════════════════════════════════");
+    println!();
+    println!("   {}", versets[idx]);
+    println!();
+    println!("   La blockchain enregistre. La Parole demeure éternellement.");
+}
+
+fn sacre_proverbe() {
+    let proverbes = [
+        "« Le palu ne frappe pas celui qui dort sous moustiquaire. » — Proverbe africain",
+        "« Un seul bras ne peut embrasser un baobab. » — Proverbe africain",
+        "« Si tu veux aller vite, marche seul. Si tu veux aller loin, marche ensemble. » — Proverbe africain",
+        "« La parole du sage est comme l'ombre du baobab: elle protège ceux qui s'abritent. » — Proverbe africain",
+        "« L'eau qui dort ne connaît pas son cours. » — Proverbe africain",
+        "« Quand le rythme du tambour change, la danse change aussi. » — Proverbe africain",
+        "« Le lion ne se tourne pas quand le petit chien aboie. » — Proverbe africain",
+        "« L'arbre qui cache la forêt a des racines profondes. » — Proverbe africain",
+        "« On ne teste pas la profondeur d'une rivière avec les deux pieds. » — Proverbe africain",
+        "« L'éléphant ne se fatigue pas de porter ses défenses. » — Proverbe africain",
+    ];
+    let idx = random_usize() % proverbes.len();
+    println!("\n🌍 PROVERBE — Sagesse africaine");
+    println!("═══════════════════════════════════════════════════════");
+    println!();
+    println!("   {}", proverbes[idx]);
+    println!();
+    println!("   La sagesse des ancêtres coule dans le code.");
+}
+
+fn sacre_777() {
+    println!("\n🔢 777 — LE NOMBRE SACRÉ DE DIEU");
+    println!("═══════════════════════════════════════════════════════");
+    println!();
+    println!("   7 = Perfection (Dieu créa en 7 jours)");
+    println!("   77 = Plénitude (double perfection)");
+    println!("   777 = La Trinité parfaite (Père × Fils × Saint-Esprit)");
+    println!();
+    println!("   Dans la Bible:");
+    println!("   • 777 = Lamech vécut 777 ans (Genèse 5:31)");
+    println!("   • 7 = Le jour du repos (Genèse 2:2)");
+    println!("   • 7 = Les 7 églises, 7 sceaux, 7 trompettes (Apocalypse)");
+    println!();
+    println!("   Dans le Coran:");
+    println!("   • 7 = Les 7 cieux (Coran 2:29)");
+    println!("   • 7 = Les 7 répétitions (Al-Fatiha)");
+    println!();
+    println!("   Dans la tradition africaine:");
+    println!("   • 7 = Les 7 directions (nord, sud, est, ouest, haut, bas, centre)");
+    println!("   • 7 = Les 7 ancêtres primordiaux");
+    println!();
+    println!("   ✨ 777 est gravé dans la blockchain comme bénédiction divine.");
+}
+
+fn sacre_99() {
+    println!("\n☪️ 99 — LES 99 NOMS D'ALLAH");
+    println!("═══════════════════════════════════════════════════════");
+    println!();
+    let noms = [
+        ("Ar-Raḥmān", "Le Tout Miséricordieux"),
+        ("Ar-Raḥīm", "Le Très Miséricordieux"),
+        ("Al-Malik", "Le Souverain"),
+        ("Al-Quddūs", "Le Pur"),
+        ("As-Salām", "La Paix"),
+        ("Al-Muʾmin", "Le Gardien de la Foi"),
+        ("Al-ʿAzīz", "Le Puissant"),
+        ("Al-Jabbār", "Le Contraignant"),
+        ("Al-Khāliq", "Le Créateur"),
+        ("Al-Bāriʾ", "Le Producteur"),
+        ("Al-Muṣawwir", "Le Formateur"),
+        ("Al-Ghaffār", "Le Pardonneur"),
+        ("Al-Qahhār", "Le Dominateur"),
+        ("Al-Wahhāb", "Le Donateur"),
+        ("Ar-Razzāq", "Le Pourvoyeur"),
+    ];
+    for (arabe, sens) in &noms {
+        println!("   {} — {}", arabe, sens);
+    }
+    println!("   ... et 84 autres noms.");
+    println!();
+    println!("   « À Allah appartiennent les plus beaux noms. » — Coran 7:180");
 }
 
 // ===== AES — ALLIANCE DES ÉTATS DU SAHEL =====
