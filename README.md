@@ -138,7 +138,7 @@ Le client ne voit PAS la blockchain. Il voit une banque simple.
 - **Dépendances:** ZÉRO (std uniquement)
 - **Taille:** ~16,000 lignes (main.rs + 8 modules)
 - **Modules:** 9 fichiers Rust (afri_ed25519, afri_hash, afri_rng, afri_hex, afri_time, afri_json, afri_http, afri_mesh_direct, main)
-- **Version:** v0.73 — La Machine Veille sur Tout
+- **Version:** v0.74 — AfriTime — UTC est Mort
 - **Build:** `cargo build --release` (5 secondes)
 - **Données:** `~/afririch/` (chemins absolus)
 - **Persistance:** blockchain.json, wallets.json, users.json, social_feed.json, alerts.json, activity.json, broadcasts.json, frozen_users.json, admin_password.json, ai_memory.json

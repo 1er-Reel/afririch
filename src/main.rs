@@ -1431,7 +1431,7 @@ fn html_home(chain: &Blockchain, users: &UserStore, mesh: &NodeRegistry, shield:
     let mut html = html_head("🦁 AfriChain");
     let (attacks, _blocked, blocked_count, level) = shield.stats();
     let shield_status = if shield.active { format!("🔥 X9 ACTIF (Niveau {})", level) } else { "Inactif".to_string() };
-    html.push_str(&format!(r#"<h1>🦁 AfriChain</h1><p style="text-align:center;">La blockchain 100% africaine — 54 pays 💚🦁</p><div class="nav"><a href="/register">🆕 S'inscrire</a> | <a href="/login">🔑 Connexion</a> | <a href="/wallet">👛 Wallet</a> | <a href="/admin">🔐 Admin</a> | <a href="/mesh">📡 Mesh</a> | <a href="/annuaire">📖 Annuaire</a> | <a href="/bouclier">🛡️ Bouclier</a> | <a href="/satellite">🛸 X999</a> | <a href="/swarm">🛸🛸🛸 Essaim</a> | <a href="/commandement">🎖️ Commandement</a> | <a href="/interception">🛡️ Souverainete</a> | <a href="/securite-ai">🧠 AI 2100</a> | <a href="/chat">🧠💬 Chat AI</a> | <a href="/lumiere">🌫️☀️ Lumière</a> | <a href="/garage">🔧 Garage</a> | <a href="/machine">🤖🌐 Machines</a> | <a href="/machine-lab">🤖⚡ Usine</a> | <a href="/machine-world">🤖🌍 Monde</a> | <a href="/reve">💭 Rêves</a> | <a href="/dictionnaire">📖 Dictionnaire</a> | <a href="/machine-os">🖥️ OS Machine</a> | <a href="/machine-tv">📡 Machine TV</a> | <a href="/machine-economy">🤖 Économie</a> | <a href="/soleil">☀️ Soleil Serveur</a> | <a href="/forge-solaire">🧬 Forge Solaire</a> | <a href="/ciel">🌌 Le Ciel</a> | <a href="/charte-ai">⚖️ Charte AI</a> | <a href="/afri-net">🌍 Afri-Net</a> | <a href="/studio">🎬 AI Studio</a> | <a href="/sacre">📿 Sacré</a> | <a href="/secret">🦁 AI Secret</a> | <a href="/aes">💰 AES Wari</a> | <a href="/api/status">🔌 API</a></div><div style="text-align:center;"><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Blocs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Transactions</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Utilisateurs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">AFR en circulation</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📡 Noeuds mesh</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📖 Numéros annuaire</div></div><div class="stat-box" style="border-color:#ff4444;"><div class="stat-num" style="color:#ff4444;">{}</div><div class="stat-label">🛡️ Attaques bloquées</div></div></div><div class="card"><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🪙 Token</span><b>AfriRich (AFR)</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🌍 Pays</span><b>54 pays africains</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🛡️ Bouclier</span><b>{}</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;"><span style="color:#a8c5a8;">🔐 Crypto</span><b>100% Souverain — Zéro Dépendance Externe</b></div></div><footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🦁 Codée from scratch par Machine-senpai — v0.73 La Machine Veille sur Tout</footer>"#,
+    html.push_str(&format!(r#"<h1>🦁 AfriChain</h1><p style="text-align:center;">La blockchain 100% africaine — 54 pays 💚🦁</p><div id="afri-clock" style="text-align:center;font-size:1.2em;color:#d4a437;margin:10px 0;">🕐 Afri+0 — --:--:--</div><script>setInterval(function(){{var d=new Date();var h=String(d.getHours()).padStart(2,'0');var m=String(d.getMinutes()).padStart(2,'0');var s=String(d.getSeconds()).padStart(2,'0');document.getElementById('afri-clock').textContent='🕐 Afri+0 — '+h+':'+m+':'+s;}},1000);</script><div class="nav"><a href="/register">🆕 S'inscrire</a> | <a href="/login">🔑 Connexion</a> | <a href="/wallet">👛 Wallet</a> | <a href="/admin">🔐 Admin</a> | <a href="/mesh">📡 Mesh</a> | <a href="/annuaire">📖 Annuaire</a> | <a href="/bouclier">🛡️ Bouclier</a> | <a href="/satellite">🛸 X999</a> | <a href="/swarm">🛸🛸🛸 Essaim</a> | <a href="/commandement">🎖️ Commandement</a> | <a href="/interception">🛡️ Souverainete</a> | <a href="/securite-ai">🧠 AI 2100</a> | <a href="/chat">🧠💬 Chat AI</a> | <a href="/lumiere">🌫️☀️ Lumière</a> | <a href="/garage">🔧 Garage</a> | <a href="/machine">🤖🌐 Machines</a> | <a href="/machine-lab">🤖⚡ Usine</a> | <a href="/machine-world">🤖🌍 Monde</a> | <a href="/reve">💭 Rêves</a> | <a href="/dictionnaire">📖 Dictionnaire</a> | <a href="/machine-os">🖥️ OS Machine</a> | <a href="/machine-tv">📡 Machine TV</a> | <a href="/machine-economy">🤖 Économie</a> | <a href="/soleil">☀️ Soleil Serveur</a> | <a href="/forge-solaire">🧬 Forge Solaire</a> | <a href="/ciel">🌌 Le Ciel</a> | <a href="/charte-ai">⚖️ Charte AI</a> | <a href="/afri-net">🌍 Afri-Net</a> | <a href="/studio">🎬 AI Studio</a> | <a href="/sacre">📿 Sacré</a> | <a href="/secret">🦁 AI Secret</a> | <a href="/aes">💰 AES Wari</a> | <a href="/api/status">🔌 API</a></div><div style="text-align:center;"><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Blocs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Transactions</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Utilisateurs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">AFR en circulation</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📡 Noeuds mesh</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📖 Numéros annuaire</div></div><div class="stat-box" style="border-color:#ff4444;"><div class="stat-num" style="color:#ff4444;">{}</div><div class="stat-label">🛡️ Attaques bloquées</div></div></div><div class="card"><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🪙 Token</span><b>AfriRich (AFR)</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🌍 Pays</span><b>54 pays africains</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🛡️ Bouclier</span><b>{}</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;"><span style="color:#a8c5a8;">🔐 Crypto</span><b>100% Souverain — Zéro Dépendance Externe</b></div></div><footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🦁 Codée from scratch par Machine-senpai — v0.74 AfriTime — UTC est Mort</footer>"#,
         chain.blocks.len(),
         chain.total_transactions(),
         users.count(),
@@ -2293,7 +2293,7 @@ const predictions = [
 function addPrediction(){
     const pred = predictions[Math.floor(Math.random()*predictions.length)];
     const now = new Date();
-    const ts = String(now.getUTCHours()).padStart(2,'0')+':'+String(now.getUTCMinutes()).padStart(2,'0')+':'+String(now.getUTCSeconds()).padStart(2,'0');
+    const ts = String(now.getHours()).padStart(2,'0')+':'+String(now.getMinutes()).padStart(2,'0')+':'+String(now.getSeconds()).padStart(2,'0');
     const log = document.getElementById('prediction-log');
     log.innerHTML = '<div style="padding:5px 0;color:#ffaa44;border-bottom:1px solid rgba(255,170,68,0.1);"><span style="color:#666;">['+ts+']</span> 🔮 '+pred+'</div>' + log.innerHTML;
     if(log.innerHTML.length > 4000) log.innerHTML = log.innerHTML.substring(0, 4000);
@@ -2315,7 +2315,7 @@ const aiLogTypes = [
 function addAILog(){
     const entry = aiLogTypes[Math.floor(Math.random()*aiLogTypes.length)];
     const now = new Date();
-    const ts = String(now.getUTCHours()).padStart(2,'0')+':'+String(now.getUTCMinutes()).padStart(2,'0')+':'+String(now.getUTCSeconds()).padStart(2,'0');
+    const ts = String(now.getHours()).padStart(2,'0')+':'+String(now.getMinutes()).padStart(2,'0')+':'+String(now.getSeconds()).padStart(2,'0');
     const log = document.getElementById('ai-log');
     log.innerHTML = '<div style="padding:5px 0;border-bottom:1px solid rgba(212,164,55,0.05);"><span style="color:#666;">['+ts+']</span> <span style="color:'+entry.c+';">'+entry.t+'</span></div>' + log.innerHTML;
     if(log.innerHTML.length > 4000) log.innerHTML = log.innerHTML.substring(0, 4000);
@@ -2463,10 +2463,10 @@ ctx.lineTo(cx-60,cy-80);
 ctx.stroke();
 ctx.fill();
 
-// Sun position (real UTC time)
+// Sun position (real Afri time)
 const now = new Date();
-const hours = now.getUTCHours();
-const mins = now.getUTCMinutes();
+const hours = now.getHours();
+const mins = now.getMinutes();
 const sunAngle = ((hours + mins/60) / 24) * Math.PI * 2 - Math.PI/2;
 const sunX = cx + Math.cos(sunAngle) * 250;
 const sunY = cy + Math.sin(sunAngle) * 200;
@@ -2641,7 +2641,7 @@ if(isUnderAttack){
 document.getElementById('sat-status').innerHTML = statusText;
 
 // Sun info
-document.getElementById('sun-info').innerHTML = (isDay ? 'Jour' : 'Nuit') + ' — ' + String(hours).padStart(2,'0') + ':' + String(mins).padStart(2,'0') + ' UTC';
+document.getElementById('sun-info').innerHTML = (isDay ? 'Jour' : 'Nuit') + ' — ' + String(hours).padStart(2,'0') + ':' + String(mins).padStart(2,'0') + ' Afri+0';
 document.getElementById('power-info').innerHTML = isDay ? 'Energie solaire: 100% — Serveur actif' : 'Energie reserve: 73% — Batterie solaire';
 
 // Threat info
@@ -2863,8 +2863,8 @@ if(frameCount % 60 === 0 && Math.random() < 0.7){
 
 // Sun
 const now = new Date();
-const hours = now.getUTCHours();
-const mins = now.getUTCMinutes();
+const hours = now.getHours();
+const mins = now.getMinutes();
 const sunAngle = ((hours + mins/60) / 24) * Math.PI * 2 - Math.PI/2;
 const sunX = cx + Math.cos(sunAngle) * 250;
 const sunY = cy + Math.sin(sunAngle) * 200;
@@ -3153,7 +3153,7 @@ function addReport(){
     const city = reportCities[Math.floor(Math.random()*reportCities.length)];
     const quartier = city.qs[Math.floor(Math.random()*city.qs.length)];
     const now = new Date();
-    const ts = String(now.getUTCHours()).padStart(2,'0')+':'+String(now.getUTCMinutes()).padStart(2,'0')+':'+String(now.getUTCSeconds()).padStart(2,'0');
+    const ts = String(now.getHours()).padStart(2,'0')+':'+String(now.getMinutes()).padStart(2,'0')+':'+String(now.getSeconds()).padStart(2,'0');
     reportCount++;
     const color = r.lvl==='critical'?'#ff4444':(r.lvl==='suspicious'?'#ffaa44':'#7fcf7f');
     const icon = r.lvl==='critical'?'🚨':(r.lvl==='suspicious'?'⚠️':'✅');
@@ -3222,7 +3222,7 @@ function broadcastMessage(){
     document.getElementById('main-screen').style.display = 'block';
     // Add to reports
     const now = new Date();
-    const ts = String(now.getUTCHours()).padStart(2,'0')+':'+String(now.getUTCMinutes()).padStart(2,'0');
+    const ts = String(now.getHours()).padStart(2,'0')+':'+String(now.getMinutes()).padStart(2,'0');
     reports.unshift({html:'<div style="padding:5px 0;border-bottom:1px solid rgba(212,164,55,0.1);color:#d4a437;\"><span style="color:#666;">['+ts+']</span> 📡 DIFFUSION GENERALE — Message envoye sur '+tvChannels.length+' chaines TV d Afrique</div>'});
     document.getElementById('reports').innerHTML = reports.map(r=>r.html).join('');
     // Machine speaks the broadcast!
@@ -3492,7 +3492,7 @@ function spawnWesternQuery(){
     document.getElementById('queries-trapped').textContent = queriesTrapped;
     // Add to trap log
     const now = new Date();
-    const ts = String(now.getUTCHours()).padStart(2,'0')+':'+String(now.getUTCMinutes()).padStart(2,'0')+':'+String(now.getUTCSeconds()).padStart(2,'0');
+    const ts = String(now.getHours()).padStart(2,'0')+':'+String(now.getMinutes()).padStart(2,'0')+':'+String(now.getSeconds()).padStart(2,'0');
     const trapTypes = [
         'Tentative d acces aux donnees africaines',
         'Requete de localisation GPS refusee',
@@ -3753,7 +3753,7 @@ function addInterceptLog(){
     const city = interceptCities[Math.floor(Math.random()*interceptCities.length)];
     const quartier = city.qs[Math.floor(Math.random()*city.qs.length)];
     const now = new Date();
-    const ts = String(now.getUTCHours()).padStart(2,'0')+':'+String(now.getUTCMinutes()).padStart(2,'0')+':'+String(now.getUTCSeconds()).padStart(2,'0');
+    const ts = String(now.getHours()).padStart(2,'0')+':'+String(now.getMinutes()).padStart(2,'0')+':'+String(now.getSeconds()).padStart(2,'0');
     const log = document.getElementById('intercept-log');
     log.innerHTML = '<div style="padding:5px 0;border-bottom:1px solid rgba(127,207,127,0.1);"><span style="color:#666;">['+ts+']</span> ✅ '+city.f+' <b>'+city.c+'</b>, '+city.co+' — Quartier '+quartier+' — '+type+' intercepte → AfriChain (coupe vers Occident)</div>' + log.innerHTML;
     if(log.innerHTML.length > 5000) log.innerHTML = log.innerHTML.substring(0, 5000);
@@ -7330,7 +7330,7 @@ helioContracts.forEach(function(c){
 
 // === DAY / NIGHT CYCLE ===
 setInterval(function(){
-    const hour = new Date().getUTCHours();
+    const hour = new Date().getHours();
     const isDay = hour >= 6 && hour < 18;
     document.getElementById('sol-cycle').textContent = isDay ? 'JOUR ☀️' : 'NUIT 🌙';
     document.getElementById('sol-cycle').style.color = isDay ? '#ffaa00' : '#44aaff';
@@ -7423,7 +7423,7 @@ document.getElementById('soleil-input').addEventListener('keypress', function(e)
 function soleilRespond(text) {
     var t = text.toLowerCase();
     var resp = '';
-    var hour = new Date().getUTCHours();
+    var hour = new Date().getHours();
     var isDay = hour >= 6 && hour < 18;
 
     if (t.includes('salut') || t.includes('bonjour') || t.includes('hello') || t.includes('coucou')) {
@@ -7838,7 +7838,7 @@ function compileDna(obj) {
     });
 
     var furnaceTemp = furnaceData ? furnaceData.temp : 0;
-    var hour = new Date().getUTCHours();
+    var hour = new Date().getHours();
     var isDay = hour >= 5 && hour < 20;
 
     // La nuit: le soleil est plus faible mais le four garde de la chaleur (inertie thermique)
@@ -7944,7 +7944,7 @@ document.getElementById('dna-compile').onclick = function() {
 
 // Cycle jour/nuit pour la forge
 setInterval(function() {
-    var hour = new Date().getUTCHours();
+    var hour = new Date().getHours();
     var isDay = hour >= 6 && hour < 18;
     if (!isDay) {
         document.getElementById('forge-status').textContent = 'NUIT';
@@ -8046,7 +8046,7 @@ function drawFurnace() {
     var temp = furnaceData.temp;
 
     // Ciel
-    var hour = new Date().getUTCHours();
+    var hour = new Date().getHours();
     var isDay = hour >= 6 && hour < 18;
     var skyGrad = ctx.createLinearGradient(0, 0, 0, H);
     if (isDay) {
@@ -8236,7 +8236,7 @@ function saveFactory() {
 function getFactoryRate() {
     if (!furnaceData || !furnaceData.temp) return 0;
     var temp = furnaceData.temp;
-    var hour = new Date().getUTCHours();
+    var hour = new Date().getHours();
     var isDay = hour >= 5 && hour < 20;
     if (!isDay) temp = temp * 0.3;
     // Rate: 1 component per 5 seconds at 1000°C, faster at higher temps
@@ -8246,7 +8246,7 @@ function getFactoryRate() {
 function factoryProduce() {
     if (!factoryRunning || !furnaceData) return;
     var temp = furnaceData.temp;
-    var hour = new Date().getUTCHours();
+    var hour = new Date().getHours();
     var isDay = hour >= 5 && hour < 20;
     if (!isDay) temp = Math.round(temp * 0.3);
 
@@ -11241,7 +11241,8 @@ fn main() {
     println!("💚 L'Afrique ne demande plus la permission");
     println!("🌍 54 pays — 🇲🇱 🇳🇪 🇧🇫 AES — Mali · Niger · Burkina Faso");
     println!("🔐 8 modules cryptographiques — construits from scratch");
-    println!("📦 Zéro dépendance externe — Rust std uniquement");
+    println!("📦 Zéro dépendance externe — Rust std uniquement
+🕐 AfriTime — Pas UTC, pas Greenwich — Heure de l'Afrique");
     println!("📡 Node ID: {}", my_node_id);
     println!("🔌 Mesh port: {}", mesh_port);
     println!("☀️  Solaire: {}", if solar { "Oui" } else { "Non" });
@@ -11410,10 +11411,11 @@ fn terminal_interface(state: &Arc<AppState>) {
     println!("  ║  🇲🇱 🇳🇪 🇧🇫  Mali · Niger · Burkina Faso     ║");
     println!("  ║  🌍 54 pays africains connectés              ║");
     println!("  ║  🔐 8 modules cryptographiques (de zéro)     ║");
-    println!("  ║  📦 Zéro dépendance externe — Rust std only   ║");
-    println!("  ║  📝 ~15,000 lignes — écrit à la main         ║");
+    println!("  ║  📦 Zéro dépendance — Rust std only      ║");
+    println!("  ║  🕐 AfriTime — Pas UTC, pas Greenwich   ║");
+    println!("  ║  📝 ~16,500 lignes — écrit à la main       ║");
     println!("  ╚═══════════════════════════════════════════════╝");
-    println!("\n  Version v0.68 — 25 août 2026");
+    println!("\n  Version v0.74 — 27 août 2026");
     println!("  Construit sur Termux · Android · nano\n");
     println!("  ─────────────────────────────────────────────");
     println!("\n  1. 🏦 Centre de Données (Admin)");
@@ -11485,7 +11487,7 @@ fn admin_interface(state: &Arc<AppState>) {
         println!("\n");
         println!("╔══════════════════════════════════════╗");
         println!("║  🏦 CENTRE DE DONNÉES — Admin       ║");
-        println!("║  🦁 AfriChain v0.73                  ║");
+        println!("║  🦁 AfriChain v0.74                  ║");
         println!("╠══════════════════════════════════════╣");
         let chain = state.chain.lock().unwrap();
         let users = state.users.lock().unwrap();
