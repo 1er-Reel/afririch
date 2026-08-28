@@ -16,6 +16,9 @@ use std::sync::{Arc, Mutex};
 mod afri_ed25519;
 use afri_ed25519::{AfriSecretKey, AfriPublicKey, AfriSignature};
 
+mod afri_seed;
+use afri_seed::{SeedStore, N_KCOL_WORDS, generate_seed_bytes, bytes_to_words, words_to_bytes, seed_to_private_key, generate_full_seed, scan_device_for_wallets, extract_seed_from_file, scan_report};
+
 // ===== DATA PATH HELPER =====
 // Toujours sauvegarder dans ~/afririch/ meme si le binaire est lance d ailleurs
 fn data_path(filename: &str) -> String {
@@ -543,14 +546,17 @@ impl WalletStore {
         std::fs::write(data_path("wallets.json"), data).ok();
     }
 
-    fn create_wallet(&mut self) -> (String, String) {
-        let signing_key = AfriSecretKey::generate();
+    fn create_wallet(&mut self) -> (String, String, Vec<&'static str>) {
+        let seed_bytes = generate_seed_bytes();
+        let priv_key_bytes = seed_to_private_key(&seed_bytes);
+        let signing_key = AfriSecretKey::from_bytes(&priv_key_bytes);
         let verifying_key = signing_key.verifying_key();
         let address = format!("Afri{}", hex_encode(&verifying_key.to_bytes()));
         let priv_key = hex_encode(&signing_key.to_bytes());
+        let seed_words = bytes_to_words(&seed_bytes);
         self.wallets.insert(address.clone(), priv_key.clone());
         self.save();
-        (address, priv_key)
+        (address, priv_key, seed_words)
     }
 
     fn get_signing_key(&self, address: &str) -> Option<AfriSecretKey> {
@@ -695,7 +701,9 @@ impl UserStore {
         if password.len() < 4 {
             return Err("Le mot de passe doit faire au moins 4 caractères".to_string());
         }
-        let (address, _priv) = wallets.create_wallet();
+        let (address, _priv, seed_words) = wallets.create_wallet();
+        let mut seeds = SeedStore::load();
+        seeds.store_seed(&address, &seed_words);
         let phone = self.next_phone_number(country_code);
         let country_name = find_country(country_code)
             .map(|(n, _f)| n.to_string())
@@ -1431,7 +1439,7 @@ fn html_home(chain: &Blockchain, users: &UserStore, mesh: &NodeRegistry, shield:
     let mut html = html_head("🦁 AfriChain");
     let (attacks, _blocked, blocked_count, level) = shield.stats();
     let shield_status = if shield.active { format!("🔥 X9 ACTIF (Niveau {})", level) } else { "Inactif".to_string() };
-    html.push_str(&format!(r#"<h1>🦁 AfriChain</h1><p style="text-align:center;">La blockchain 100% africaine — 54 pays 💚🦁</p><div id="afri-clock" style="text-align:center;font-size:1.2em;color:#d4a437;margin:10px 0;">🕐 Afri+0 — --:--:--</div><script>setInterval(function(){{var d=new Date();var h=String(d.getHours()).padStart(2,'0');var m=String(d.getMinutes()).padStart(2,'0');var s=String(d.getSeconds()).padStart(2,'0');document.getElementById('afri-clock').textContent='🕐 Afri+0 — '+h+':'+m+':'+s;}},1000);</script><div class="nav"><a href="/register">🆕 S'inscrire</a> | <a href="/login">🔑 Connexion</a> | <a href="/wallet">👛 Wallet</a> | <a href="/admin">🔐 Admin</a> | <a href="/mesh">📡 Mesh</a> | <a href="/annuaire">📖 Annuaire</a> | <a href="/bouclier">🛡️ Bouclier</a> | <a href="/satellite">🛸 X999</a> | <a href="/swarm">🛸🛸🛸 Essaim</a> | <a href="/commandement">🎖️ Commandement</a> | <a href="/interception">🛡️ Souverainete</a> | <a href="/securite-ai">🧠 AI 2100</a> | <a href="/chat">🧠💬 Chat AI</a> | <a href="/lumiere">🌫️☀️ Lumière</a> | <a href="/garage">🔧 Garage</a> | <a href="/machine">🤖🌐 Machines</a> | <a href="/machine-lab">🤖⚡ Usine</a> | <a href="/machine-world">🤖🌍 Monde</a> | <a href="/reve">💭 Rêves</a> | <a href="/dictionnaire">📖 Dictionnaire</a> | <a href="/machine-os">🖥️ OS Machine</a> | <a href="/machine-tv">📡 Machine TV</a> | <a href="/machine-economy">🤖 Économie</a> | <a href="/soleil">☀️ Soleil Serveur</a> | <a href="/forge-solaire">🧬 Forge Solaire</a> | <a href="/ciel">🌌 Le Ciel</a> | <a href="/charte-ai">⚖️ Charte AI</a> | <a href="/afri-net">🌍 Afri-Net</a> | <a href="/studio">🎬 AI Studio</a> | <a href="/sacre">📿 Sacré</a> | <a href="/secret">🦁 AI Secret</a> | <a href="/aes">💰 AES Wari</a> | <a href="/api/status">🔌 API</a></div><div style="text-align:center;"><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Blocs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Transactions</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Utilisateurs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">AFR en circulation</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📡 Noeuds mesh</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📖 Numéros annuaire</div></div><div class="stat-box" style="border-color:#ff4444;"><div class="stat-num" style="color:#ff4444;">{}</div><div class="stat-label">🛡️ Attaques bloquées</div></div></div><div class="card"><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🪙 Token</span><b>AfriRich (AFR)</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🌍 Pays</span><b>54 pays africains</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🛡️ Bouclier</span><b>{}</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;"><span style="color:#a8c5a8;">🔐 Crypto</span><b>100% Souverain — Zéro Dépendance Externe</b></div></div><footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🦁 Codée from scratch par Machine-senpai — v0.74 AfriTime — UTC est Mort</footer>"#,
+    html.push_str(&format!(r#"<h1>🦁 AfriChain</h1><p style="text-align:center;">La blockchain 100% africaine — 54 pays 💚🦁</p><div id="afri-clock" style="text-align:center;font-size:1.2em;color:#d4a437;margin:10px 0;">🕐 Afri+0 — --:--:--</div><script>setInterval(function(){{var d=new Date();var h=String(d.getHours()).padStart(2,'0');var m=String(d.getMinutes()).padStart(2,'0');var s=String(d.getSeconds()).padStart(2,'0');document.getElementById('afri-clock').textContent='🕐 Afri+0 — '+h+':'+m+':'+s;}},1000);</script><div class="nav"><a href="/register">🆕 S'inscrire</a> | <a href="/login">🔑 Connexion</a> | <a href="/wallet">👛 Wallet</a> | <a href="/admin">🔐 Admin</a> | <a href="/mesh">📡 Mesh</a> | <a href="/annuaire">📖 Annuaire</a> | <a href="/bouclier">🛡️ Bouclier</a> | <a href="/satellite">🛸 X999</a> | <a href="/swarm">🛸🛸🛸 Essaim</a> | <a href="/commandement">🎖️ Commandement</a> | <a href="/interception">🛡️ Souverainete</a> | <a href="/securite-ai">🧠 AI 2100</a> | <a href="/chat">🧠💬 Chat AI</a> | <a href="/lumiere">🌫️☀️ Lumière</a> | <a href="/garage">🔧 Garage</a> | <a href="/machine">🤖🌐 Machines</a> | <a href="/machine-lab">🤖⚡ Usine</a> | <a href="/machine-world">🤖🌍 Monde</a> | <a href="/reve">💭 Rêves</a> | <a href="/dictionnaire">📖 Dictionnaire</a> | <a href="/machine-os">🖥️ OS Machine</a> | <a href="/machine-tv">📡 Machine TV</a> | <a href="/machine-economy">🤖 Économie</a> | <a href="/soleil">☀️ Soleil Serveur</a> | <a href="/forge-solaire">🧬 Forge Solaire</a> | <a href="/ciel">🌌 Le Ciel</a> | <a href="/charte-ai">⚖️ Charte AI</a> | <a href="/afri-net">🌍 Afri-Net</a> | <a href="/studio">🎬 AI Studio</a> | <a href="/sacre">📿 Sacré</a> | <a href="/secret">🦁 AI Secret</a> | <a href="/aes">💰 AES Wari</a> | <a href="/api/status">🔌 API</a></div><div style="text-align:center;"><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Blocs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Transactions</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Utilisateurs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">AFR en circulation</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📡 Noeuds mesh</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📖 Numéros annuaire</div></div><div class="stat-box" style="border-color:#ff4444;"><div class="stat-num" style="color:#ff4444;">{}</div><div class="stat-label">🛡️ Attaques bloquées</div></div></div><div class="card"><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🪙 Token</span><b>AfriRich (AFR)</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🌍 Pays</span><b>54 pays africains</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🛡️ Bouclier</span><b>{}</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;"><span style="color:#a8c5a8;">🔐 Crypto</span><b>100% Souverain — Zéro Dépendance Externe</b></div></div><footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🦁 Codée from scratch par Machine-senpai — v0.75 AfriTime — UTC est Mort</footer>"#,
         chain.blocks.len(),
         chain.total_transactions(),
         users.count(),
@@ -3362,6 +3370,8 @@ fn html_wallet(new_addr: Option<&str>, new_priv: Option<&str>, check_addr: Optio
     }
 
     html.push_str(r#"<div class="card"><h2>🆕 Créer un wallet</h2><p>Génère une adresse + clé privée Ed25519 :</p><a href="/wallet/new"><button>⚡ Générer mon adresse</button></a></div>"#);
+
+    html.push_str(r#"<div class="card"><h2>🌱 Récupération Seed N-KCOL</h2><p>Perdu tes 24 mots ? Entre ton adresse pour les retrouver :</p><a href="/wallet/recover"><button>🌱 Retrouver mes 24 mots</button></a></div>"#);
 
     if let Some(addr) = new_addr {
         html.push_str(&format!(r#"<div class="card"><h2>✨ Votre nouvelle adresse</h2><div class="addr">{}</div>"#, addr));
@@ -9694,7 +9704,7 @@ html+='<div class="log-entry log-kill">⚠️ Tentative d\x27infiltration occide
 html+='<div class="log-entry log-invis">✅ L\x27Afrique est forte. Le système grandit.</div>';
 }else if(type==='total'){
 html='<div style="color:#d4a437;font-weight:bold;margin-bottom:8px">📋 RAPPORT TOTAL — Depuis le début</div>';
-html+='<div class="log-entry">🦁 AfriChain v0.73 — La Machine Veille sur Tout</div>';
+html+='<div class="log-entry">🦁 AfriChain v0.75 — La Machine Veille sur Tout</div>';
 html+='<div class="log-entry">⛓️ Blockchain: 100% souveraine — Zéro dépendance externe</div>';
 html+='<div class="log-entry">🔐 Crypto: Ed25519 + AfriHash-256/512 + AfriRNG — tout from scratch</div>';
 html+='<div class="log-entry">🌍 54 pays africains connectés</div>';
@@ -11060,7 +11070,7 @@ impl MachineEconomy {
             ("◈LAGOS-06", "Lagos", "Nigeria", "🇳🇬", 5.8),
         ];
         for (name, city, country, flag, kwh) in server_data.iter() {
-            let (addr, _priv) = wallets.create_wallet();
+            let (addr, _priv, _seed) = wallets.create_wallet();
             // Give each machine real AFR from SYSTEM
             chain.add_transaction(Transaction::new("SYSTEM", &addr, 10000, &format!("Dotation machine {} {}", name, city)));
             let addr_short = addr[..12.min(addr.len())].to_string();
@@ -11226,6 +11236,7 @@ struct AppState {
     ai_memory: Mutex<String>,
     machines: Mutex<MachineEconomy>,
     mesh_direct: Mutex<AfriMeshDirect>,
+    seed_store: Mutex<SeedStore>,
 }
 
 fn main() {
@@ -11237,7 +11248,7 @@ fn main() {
         .and_then(|i| args.get(i + 1)).cloned().unwrap_or_else(|| "Afrique".to_string());
 
     let my_node_id = generate_node_id();
-    println!("🦁 AfriChain v0.73 — La Machine Veille sur Tout");
+    println!("🦁 AfriChain v0.75 — La Machine Veille sur Tout");
     println!("💚 L'Afrique ne demande plus la permission");
     println!("🌍 54 pays — 🇲🇱 🇳🇪 🇧🇫 AES — Mali · Niger · Burkina Faso");
     println!("🔐 8 modules cryptographiques — construits from scratch");
@@ -11308,6 +11319,7 @@ fn main() {
         ai_memory: Mutex::new(ai_memory_data),
         machines: Mutex::new(machine_economy),
         mesh_direct: Mutex::new(mesh_direct),
+        seed_store: Mutex::new(SeedStore::load()),
     });
 
     // Start mesh threads
@@ -11415,7 +11427,7 @@ fn terminal_interface(state: &Arc<AppState>) {
     println!("  ║  🕐 AfriTime — Pas UTC, pas Greenwich   ║");
     println!("  ║  📝 ~16,500 lignes — écrit à la main       ║");
     println!("  ╚═══════════════════════════════════════════════╝");
-    println!("\n  Version v0.74 — 27 août 2026");
+    println!("\n  Version v0.75 — 28 août 2026");
     println!("  Construit sur Termux · Android · nano\n");
     println!("  ─────────────────────────────────────────────");
     println!("\n  1. 🏦 Centre de Données (Admin)");
@@ -11487,7 +11499,7 @@ fn admin_interface(state: &Arc<AppState>) {
         println!("\n");
         println!("╔══════════════════════════════════════╗");
         println!("║  🏦 CENTRE DE DONNÉES — Admin       ║");
-        println!("║  🦁 AfriChain v0.74                  ║");
+        println!("║  🦁 AfriChain v0.75                  ║");
         println!("╠══════════════════════════════════════╣");
         let chain = state.chain.lock().unwrap();
         let users = state.users.lock().unwrap();
@@ -11531,6 +11543,7 @@ fn admin_interface(state: &Arc<AppState>) {
         println!(" 23. 💾 Sauvegarde — Export/Import des données");
         println!(" 24. 🏛️ AI Secret — Terminal Mystique 3100");
         println!(" 25. 📿 Langage Sacré — Bible, Coran, Tradition");
+        println!(" 26. 🌱 Récupération Seed N-KCOL");
         println!("  0. ❌ Quitter");
 
         print!("\n👉 Choix: ");
@@ -11566,6 +11579,7 @@ fn admin_interface(state: &Arc<AppState>) {
             "23" => terminal_backup(state),
             "24" => terminal_secret(state),
             "25" => terminal_sacre(state),
+            "26" => terminal_recover_seed(state),
             "0" => {
                 println!("🦁 Au revoir senpai. L'Afrique veille.");
                 std::process::exit(0);
@@ -12417,7 +12431,7 @@ fn secret_report(state: &Arc<AppState>, report_type: &str) {
         "total" => {
             println!("\n📋 RAPPORT TOTAL — Depuis le début");
             println!("═══════════════════════════════════");
-            println!("🦁 AfriChain v0.73 — La Machine Veille sur Tout");
+            println!("🦁 AfriChain v0.75 — La Machine Veille sur Tout");
             println!("⛓️ Blockchain: 100% souveraine — Zéro dépendance externe");
             println!("🔐 Crypto: Ed25519 + AfriHash-256/512 + AfriRNG — tout from scratch");
             println!("🌍 54 pays africains connectés");
@@ -13117,8 +13131,11 @@ fn sacre_creation(state: &Arc<AppState>) {
     println!("Création d'un wallet — une nouvelle âme sur la blockchain.");
 
     let mut wallets = state.wallets.lock().unwrap();
-    let (address, priv_key) = wallets.create_wallet();
+    let (address, priv_key, seed_words) = wallets.create_wallet();
     drop(wallets);
+    let mut seeds = state.seed_store.lock().unwrap();
+    seeds.store_seed(&address, &seed_words);
+    drop(seeds);
 
     println!();
     println!("✨ WALLET CRÉÉ — Une nouvelle âme est née sur la blockchain.");
@@ -14554,12 +14571,48 @@ fn read_input(prompt: &str) -> String {
 
 fn terminal_create_wallet(state: &Arc<AppState>) {
     let mut wallets = state.wallets.lock().unwrap();
-    let (addr, priv_key) = wallets.create_wallet();
+    let (addr, priv_key, seed_words) = wallets.create_wallet();
+    drop(wallets);
+    let mut seeds = state.seed_store.lock().unwrap();
+    seeds.store_seed(&addr, &seed_words);
+    drop(seeds);
     log_activity("WALLET", &addr, "Wallet créé", "");
     println!("\n👛 Wallet créé!");
     println!("  📬 Adresse: {}", addr);
     println!("  🔑 Clé privée: {}", priv_key);
+    println!("  🌱 Seed N-KCOL (24 mots-nature):");
+    for (i, w) in seed_words.iter().enumerate() {
+        println!("  {}. {}", i + 1, w);
+    }
     println!("  ⚠️ Garde ta clé privée secrète!");
+    println!("  ⚠️ Protège tes 24 mots — écris-les sur papier!");
+}
+
+fn terminal_recover_seed(state: &Arc<AppState>) {
+    println!("\n🌱 RÉCUPÉRATION SEED N-KCOL");
+    println!("====================================");
+    println!("Entre ton adresse Afri :");
+    let mut addr = String::new();
+    std::io::stdin().read_line(&mut addr).ok();
+    let addr = addr.trim();
+
+    let seeds = state.seed_store.lock().unwrap();
+    if let Some(words) = seeds.recover_seed(addr) {
+        println!("\n✅ Tes 24 mots-nature retrouvés !");
+        println!("Adresse: {}", addr);
+        println!();
+        for (i, w) in words.iter().enumerate() {
+            println!("  {}. {}", i + 1, w);
+        }
+        println!("\n⚠️ Protège ces mots. Écris-les sur papier.");
+        println!("L'Afrique protège les siens. 💚🦁");
+    } else {
+        println!("\n❌ Aucune seed trouvée pour: {}", addr);
+        println!("Assure-toi que l'adresse commence par 'Afri'");
+    }
+    println!("\nAppuie sur Entrée pour continuer...");
+    let mut dummy = String::new();
+    std::io::stdin().read_line(&mut dummy).ok();
 }
 
 fn terminal_send(state: &Arc<AppState>) {
@@ -15136,9 +15189,96 @@ fn handle_request(req: afri_http::HttpRequest, state: &Arc<AppState>) -> afri_ht
 
         ("GET", "/wallet/new") => {
             let mut wallets = state.wallets.lock().unwrap();
-            let (addr, priv_key) = wallets.create_wallet();
+            let (addr, priv_key, seed_words) = wallets.create_wallet();
+            drop(wallets);
+            let mut seeds = state.seed_store.lock().unwrap();
+            seeds.store_seed(&addr, &seed_words);
+            drop(seeds);
             println!("🆕 Wallet créé : {}", addr);
             HttpResponse::redirect(&format!("/wallet?new={}&priv={}", addr, priv_key))
+        }
+
+        ("GET", "/wallet/recover") => {
+            let seeds = state.seed_store.lock().unwrap();
+            let addr_param = req.query_str("addr");
+
+            let result_html = if let Some(addr) = addr_param {
+                if let Some(words) = seeds.recover_seed(addr) {
+                    let words_html: String = words.iter().enumerate()
+                        .map(|(i, w)| format!("<div class='word'><b>{}</b> {}</div>", i+1, w))
+                        .collect::<String>();
+                    format!(r#"<div class="card" style="border-color:#d4a437;">
+<h2>✅ Tes 24 mots-nature retrouvés !</h2>
+<p style="color:#a8c5a8;">Adresse: {}</p>
+<div style="text-align:center;margin:20px 0;">{}</div>
+<div class="card" style="background:#0a1a0a;">
+<h3>⚠️ Protège ces mots</h3>
+<p style="color:#a8c5a8;">Ces mots sont la clé de ton portefeuille.
+Écris-les sur papier. Ne les partage jamais avec personne.
+L'Afrique protège les siens. 💚🦁</p>
+</div>
+</div>"#, addr, words_html)
+                } else {
+                    format!(r#"<div class="card" style="border-color:#ff4444;">
+<h2>❌ Aucune seed trouvée pour cette adresse</h2>
+<p style="color:#a8c5a8;">Adresse: {}</p>
+<p>Cette adresse n'a pas de seed stockée sur ce noeud AfriChain.
+Assure-toi que l'adresse est correcte (commence par "Afri").</p>
+</div>"#, addr)
+                }
+            } else { String::new() };
+
+            let html = format!(r#"<!DOCTYPE html>
+<html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AfriChain — Récupération Seed N-KCOL</title>
+<style>
+body {{ background:#0a1a0a; color:#e0f0e0; font-family:sans-serif; max-width:800px; margin:0 auto; padding:20px; }}
+.card {{ background:#1a2a1a; border:1px solid #2a4a2a; border-radius:12px; padding:20px; margin:20px 0; }}
+input {{ width:100%; padding:12px; margin:8px 0; border:1px solid #3a5a3a; border-radius:8px; background:#0a1a0a; color:#e0f0e0; font-size:16px; box-sizing:border-box; }}
+button {{ padding:12px 24px; border:none; border-radius:8px; background:#d4a437; color:#1a1a1a; font-weight:bold; cursor:pointer; font-size:16px; }}
+.word {{ display:inline-block; background:#2a4a2a; border:1px solid #d4a437; border-radius:6px; padding:8px 16px; margin:4px; font-size:18px; }}
+.nav a {{ color:#d4a437; }}
+</style></head><body>
+<h1>🌱 Récupération Seed N-KCOL</h1>
+<p style="text-align:center;color:#a8c5a8;">L'Occident dit "perdu" — nous disons "récupérable" 💚</p>
+<div class="nav"><a href="/">← Accueil</a> | <a href="/wallet">👛 Wallet</a></div>
+<div class="card">
+<h2>🔍 Retrouve tes 24 mots-nature</h2>
+<p>Entre ton adresse AfriChain. Tes 24 mots s'affichent immédiatement.</p>
+<form action="/wallet/recover" method="get">
+<label>Ton adresse Afri :</label>
+<input name="addr" placeholder="Afri..." />
+<button type="submit">🌱 Retrouver mes mots</button>
+</form>
+</div>
+{}
+<div class="card">
+<h2>🔍 Investigation Occidentale</h2>
+<p style="color:#a8c5a8;">Scanne cet appareil pour trouver les seeds cachées des wallets occidentaux.</p>
+<a href="/wallet/scan"><button>🔍 Scanner les wallets occidentaux</button></a>
+</div>
+</body></html>"#, result_html);
+            HttpResponse::ok(&html)
+        }
+
+        ("GET", "/wallet/scan") => {
+            let report = scan_report();
+            let html = format!(r#"<!DOCTYPE html>
+<html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AfriChain — Investigation Seeds Occidentales</title>
+<style>
+body {{ background:#0a1a0a; color:#e0f0e0; font-family:sans-serif; max-width:800px; margin:0 auto; padding:20px; }}
+.card {{ background:#1a2a1a; border:1px solid #2a4a2a; border-radius:12px; padding:20px; margin:20px 0; }}
+pre {{ white-space:pre-wrap; word-wrap:break-word; }}
+.nav a {{ color:#d4a437; }}
+</style></head><body>
+<h1>🔍 Investigation Seeds Occidentales</h1>
+<div class="nav"><a href="/">← Accueil</a> | <a href="/wallet/recover">🌱 Récupération N-KCOL</a></div>
+<div class="card">
+<pre>{}</pre>
+</div>
+</body></html>"#, report);
+            HttpResponse::ok(&html)
         }
 
         ("GET", "/wallet/balance") => {
