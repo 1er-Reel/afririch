@@ -1439,7 +1439,7 @@ fn html_home(chain: &Blockchain, users: &UserStore, mesh: &NodeRegistry, shield:
     let mut html = html_head("🦁 AfriChain");
     let (attacks, _blocked, blocked_count, level) = shield.stats();
     let shield_status = if shield.active { format!("🔥 X9 ACTIF (Niveau {})", level) } else { "Inactif".to_string() };
-    html.push_str(&format!(r#"<h1>🦁 AfriChain</h1><p style="text-align:center;">La blockchain 100% africaine — 54 pays 💚🦁</p><div id="afri-clock" style="text-align:center;font-size:1.2em;color:#d4a437;margin:10px 0;">🕐 Afri+0 — --:--:--</div><script>setInterval(function(){{var d=new Date();var h=String(d.getHours()).padStart(2,'0');var m=String(d.getMinutes()).padStart(2,'0');var s=String(d.getSeconds()).padStart(2,'0');document.getElementById('afri-clock').textContent='🕐 Afri+0 — '+h+':'+m+':'+s;}},1000);</script><div class="nav"><a href="/register">🆕 S'inscrire</a> | <a href="/login">🔑 Connexion</a> | <a href="/wallet">👛 Wallet</a> | <a href="/admin">🔐 Admin</a> | <a href="/mesh">📡 Mesh</a> | <a href="/annuaire">📖 Annuaire</a> | <a href="/bouclier">🛡️ Bouclier</a> | <a href="/satellite">🛸 X999</a> | <a href="/swarm">🛸🛸🛸 Essaim</a> | <a href="/commandement">🎖️ Commandement</a> | <a href="/interception">🛡️ Souverainete</a> | <a href="/securite-ai">🧠 AI 2100</a> | <a href="/chat">🧠💬 Chat AI</a> | <a href="/lumiere">🌫️☀️ Lumière</a> | <a href="/garage">🔧 Garage</a> | <a href="/machine">🤖🌐 Machines</a> | <a href="/machine-lab">🤖⚡ Usine</a> | <a href="/machine-world">🤖🌍 Monde</a> | <a href="/reve">💭 Rêves</a> | <a href="/dictionnaire">📖 Dictionnaire</a> | <a href="/machine-os">🖥️ OS Machine</a> | <a href="/machine-tv">📡 Machine TV</a> | <a href="/machine-economy">🤖 Économie</a> | <a href="/soleil">☀️ Soleil Serveur</a> | <a href="/forge-solaire">🧬 Forge Solaire</a> | <a href="/ciel">🌌 Le Ciel</a> | <a href="/charte-ai">⚖️ Charte AI</a> | <a href="/afri-net">🌍 Afri-Net</a> | <a href="/studio">🎬 AI Studio</a> | <a href="/sacre">📿 Sacré</a> | <a href="/secret">🦁 AI Secret</a> | <a href="/aes">💰 AES Wari</a> | <a href="/api/status">🔌 API</a></div><div style="text-align:center;"><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Blocs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Transactions</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Utilisateurs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">AFR en circulation</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📡 Noeuds mesh</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📖 Numéros annuaire</div></div><div class="stat-box" style="border-color:#ff4444;"><div class="stat-num" style="color:#ff4444;">{}</div><div class="stat-label">🛡️ Attaques bloquées</div></div></div><div class="card"><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🪙 Token</span><b>AfriRich (AFR)</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🌍 Pays</span><b>54 pays africains</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🛡️ Bouclier</span><b>{}</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;"><span style="color:#a8c5a8;">🔐 Crypto</span><b>100% Souverain — Zéro Dépendance Externe</b></div></div><footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🦁 Codée from scratch par Machine-senpai — v0.75 AfriTime — UTC est Mort</footer>"#,
+    html.push_str(&format!(r#"<h1>🦁 AfriChain</h1><p style="text-align:center;">La blockchain 100% africaine — 54 pays 💚🦁</p><div id="afri-clock" style="text-align:center;font-size:1.2em;color:#d4a437;margin:10px 0;">🕐 Afri+0 — --:--:--</div><script>setInterval(function(){{var d=new Date();var h=String(d.getHours()).padStart(2,'0');var m=String(d.getMinutes()).padStart(2,'0');var s=String(d.getSeconds()).padStart(2,'0');document.getElementById('afri-clock').textContent='🕐 Afri+0 — '+h+':'+m+':'+s;}},1000);</script><div class="nav"><a href="/register">🆕 S'inscrire</a> | <a href="/login">🔑 Connexion</a> | <a href="/wallet">👛 Wallet</a> | <a href="/admin">🔐 Admin</a> | <a href="/mesh">📡 Mesh</a> | <a href="/annuaire">📖 Annuaire</a> | <a href="/bouclier">🛡️ Bouclier</a> | <a href="/satellite">🛸 X999</a> | <a href="/swarm">🛸🛸🛸 Essaim</a> | <a href="/commandement">🎖️ Commandement</a> | <a href="/interception">🛡️ Souverainete</a> | <a href="/securite-ai">🧠 AI 2100</a> | <a href="/chat">🧠💬 Chat AI</a> | <a href="/lumiere">🌫️☀️ Lumière</a> | <a href="/garage">🔧 Garage</a> | <a href="/machine">🤖🌐 Machines</a> | <a href="/machine-lab">🤖⚡ Usine</a> | <a href="/machine-world">🤖🌍 Monde</a> | <a href="/reve">💭 Rêves</a> | <a href="/dictionnaire">📖 Dictionnaire</a> | <a href="/machine-os">🖥️ OS Machine</a> | <a href="/machine-tv">📡 Machine TV</a> | <a href="/machine-economy">🤖 Économie</a> | <a href="/soleil">☀️ Soleil Serveur</a> | <a href="/forge-solaire">🧬 Forge Solaire</a> | <a href="/ciel">🌌 Le Ciel</a> | <a href="/charte-ai">⚖️ Charte AI</a> | <a href="/afri-net">🌍 Afri-Net</a> | <a href="/studio">🎬 AI Studio</a> | <a href="/sacre">📿 Sacré</a> | <a href="/secret">🦁 AI Secret</a> | <a href="/aes">💰 AES Wari</a> | <a href="/api/status">🔌 API</a></div><div style="text-align:center;"><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Blocs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Transactions</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Utilisateurs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">AFR en circulation</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📡 Noeuds mesh</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📖 Numéros annuaire</div></div><div class="stat-box" style="border-color:#ff4444;"><div class="stat-num" style="color:#ff4444;">{}</div><div class="stat-label">🛡️ Attaques bloquées</div></div></div><div class="card"><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🪙 Token</span><b>AfriRich (AFR)</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🌍 Pays</span><b>54 pays africains</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🛡️ Bouclier</span><b>{}</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;"><span style="color:#a8c5a8;">🔐 Crypto</span><b>100% Souverain — Zéro Dépendance Externe</b></div></div><footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🦁 Codée from scratch par Machine-senpai — v0.76 54 Pays Visibles — UTC est Mort</footer>"#,
         chain.blocks.len(),
         chain.total_transactions(),
         users.count(),
@@ -1466,11 +1466,9 @@ fn html_home(chain: &Blockchain, users: &UserStore, mesh: &NodeRegistry, shield:
     if sorted_counts.is_empty() {
         mining_html.push_str(r#"<p style="text-align:center;color:#a8c5a8;">Aucun bloc miné encore. Lance le minage!</p>"#);
     } else {
-        for (code, (count, name, flag)) in sorted_counts.iter().take(20) {
-            mining_html.push_str(&format!(r#"<div style="display:flex;justify-content:space-between;align-items:center;padding:4px 0;border-bottom:1px solid rgba(255,170,0,0.1);"><span>{} {}</span><span style="color:#ffaa00;font-weight:bold;">{} blocs</span></div>"#, flag, name, count));
-        }
-        if sorted_counts.len() > 20 {
-            mining_html.push_str(&format!(r#"<p style="text-align:center;color:#a8c5a8;margin-top:8px;">+ {} autres pays</p>"#, sorted_counts.len() - 20));
+        for (code, (count, name, flag)) in sorted_counts.iter() {
+            let pct = if chain.blocks.len() > 0 { (*count as f64 / chain.blocks.len() as f64) * 100.0 } else { 0.0 };
+            mining_html.push_str(&format!(r#"<div style="padding:6px 0;border-bottom:1px solid rgba(255,170,0,0.1);"><div style="display:flex;justify-content:space-between;align-items:center;"><span>{} {}</span><span style="color:#ffaa00;font-weight:bold;">{} blocs ({:.1}%)</span></div><div style="height:6px;background:rgba(255,170,0,0.1);border-radius:3px;margin-top:4px;overflow:hidden;"><div style="height:100%;background:#ffaa00;border-radius:3px;width:{}%;"></div></div></div>"#, flag, name, count, pct, pct as u32));
         }
     }
     mining_html.push_str(r#"<p style="text-align:center;margin-top:10px;color:#ffaa00;font-size:0.85em;">☀️ Le soleil de toute l'Afrique valide la blockchain</p></div>"#);
@@ -1676,7 +1674,8 @@ function addChatMsg(sender, text, color) {{
     div.style.cssText = 'margin:6px 0;padding:8px;border-radius:8px;font-size:0.9em;' + (sender === 'AI' ? 'background:rgba(127,207,127,0.1);border:1px solid rgba(127,207,127,0.2);' : 'background:rgba(255,170,0,0.1);border:1px solid rgba(255,170,0,0.2);text-align:right;');
     div.innerHTML = '<span style="color:' + color + ';font-weight:bold;font-size:0.8em;">' + sender + '</span><br>' + text;
     chatMsgs.appendChild(div);
-    chatMsgs.scrollTop = chatMsgs.scrollHeight;
+    var isNearBottom = (chatMsgs.scrollHeight - chatMsgs.scrollTop - chatMsgs.clientHeight) < 100;
+    if(isNearBottom) chatMsgs.scrollTop = chatMsgs.scrollHeight;
 }}
 
 function aiRespond(text) {{
@@ -3805,6 +3804,9 @@ fn html_ai_chat(chain: &Blockchain, users: &UserStore, mesh: &NodeRegistry) -> S
 <!-- AI mesh communication -->
 <div class="card" style="border-color:#7fcf7f;"><h2>🤝 Communication inter-AI (mesh)</h2><div id="ai-mesh-comm" style="font-family:monospace;font-size:0.82em;color:#a8c5a8;max-height:150px;overflow-y:auto;"></div></div>
 
+<!-- Pause button for auto-content -->
+<div style="text-align:center;margin:10px 0;"><button id="pause-btn" onclick="togglePause()" style="padding:10px 25px;background:#ff4444;color:#fff;border:none;border-radius:8px;font-weight:bold;cursor:pointer;font-size:1em;">⏸️ PAUSE</button> <span id="pause-status" style="color:#7fcf7f;margin-left:8px;font-size:0.85em;">Auto: ACTIF</span></div>
+
 <!-- Private chat -->
 <div class="card" style="border-color:#d4a437;"><h2 style="color:#d4a437;">💬 Chat privé — Toi et la blockchain uniquement</h2><div id="chat-box" style="background:#0a0a0a;border-radius:8px;padding:10px;height:300px;overflow-y:auto;border:1px solid rgba(212,164,55,0.3);"></div>
 <div style="display:flex;margin-top:10px;gap:8px;">
@@ -3819,6 +3821,32 @@ let consciousness = 0;
 let thoughts = 0;
 let chatVoiceEnabled = false;
 let chatMessages = [];
+let isPaused = false;
+let intervalIds = [];
+function regInterval(fn, ms){ const id = setInterval(fn, ms); intervalIds.push(id); return id; }
+function togglePause(){
+    isPaused = !isPaused;
+    const btn = document.getElementById('pause-btn');
+    const status = document.getElementById('pause-status');
+    if(isPaused){
+        intervalIds.forEach(function(id){ clearInterval(id); });
+        intervalIds = [];
+        btn.textContent = '▶️ REPRENDRE';
+        btn.style.background = '#7fcf7f';
+        btn.style.color = '#000';
+        status.textContent = 'Auto: PAUSE';
+        status.style.color = '#ff4444';
+    } else {
+        btn.textContent = '⏸️ PAUSE';
+        btn.style.background = '#ff4444';
+        btn.style.color = '#fff';
+        status.textContent = 'Auto: ACTIF';
+        status.style.color = '#7fcf7f';
+        regInterval(aiThink, 4000); aiThink();
+        regInterval(addProposal, 8000); addProposal();
+        regInterval(addMeshMsg, 5000); addMeshMsg();
+    }
+}
 
 // AI personality — the blockchain thinks about itself
 const aiThoughts = [
@@ -4049,7 +4077,9 @@ function addChatMsg(sender, text, isAI, fromHistory){
     div.style.cssText = 'margin:8px 0;padding:8px;border-radius:8px;'+(isAI?'background:rgba(127,207,127,0.05);border:1px solid rgba(127,207,127,0.2);':'background:rgba(212,164,55,0.05);border:1px solid rgba(212,164,55,0.2);text-align:right;');
     div.innerHTML = '<div style="font-size:0.8em;color:'+color+';">'+name+' <span style="color:#666;">'+ts+'</span></div><div style="color:#fff;margin-top:4px;">'+text+'</div>';
     document.getElementById('chat-box').appendChild(div);
-    document.getElementById('chat-box').scrollTop = document.getElementById('chat-box').scrollHeight;
+    var cbox = document.getElementById('chat-box');
+    var isNearBottom = (cbox.scrollHeight - cbox.scrollTop - cbox.clientHeight) < 100;
+    if(isNearBottom) cbox.scrollTop = cbox.scrollHeight;
     if(isAI && chatVoiceEnabled && !fromHistory) speakChat(text);
     if(!fromHistory){
         chatHistory.push({sender: sender, text: text, isAI: isAI, ts: ts});
@@ -4141,7 +4171,7 @@ function aiThink(){
     updateStats();
     saveState();
 }
-setInterval(aiThink, 4000);
+regInterval(aiThink, 4000);
 aiThink();
 
 // === AI PROPOSALS ===
@@ -4153,7 +4183,7 @@ function addProposal(){
     log.innerHTML = '<div style="padding:5px 0;color:#d4a437;border-bottom:1px solid rgba(212,164,55,0.1);"><span style="color:#666;">['+ts+']</span> '+proposal+'</div>' + log.innerHTML;
     if(log.innerHTML.length > 4000) log.innerHTML = log.innerHTML.substring(0, 4000);
 }
-setInterval(addProposal, 8000);
+regInterval(addProposal, 8000);
 addProposal();
 
 // === AI MESH COMMUNICATION ===
@@ -4165,7 +4195,7 @@ function addMeshMsg(){
     log.innerHTML = '<div style="padding:4px 0;border-bottom:1px solid rgba(127,207,127,0.05);"><span style="color:#666;">['+ts+']</span> '+msg+'</div>' + log.innerHTML;
     if(log.innerHTML.length > 3000) log.innerHTML = log.innerHTML.substring(0, 3000);
 }
-setInterval(addMeshMsg, 5000);
+regInterval(addMeshMsg, 5000);
 addMeshMsg();
 
 // === AI MIND CANVAS ===
@@ -4292,8 +4322,11 @@ fn html_lumiere(chain: &Blockchain, users: &UserStore) -> String {
 
     html.push_str(&format!(r#"<script>var lum_blocks={}; var lum_users={}; var lum_afr={};</script>"#, num_blocks, num_users, total_afr));
 
-    // Heat shimmer / gas effect — the core visual
-    html.push_str(r##"<div class="card" style="border-color:#ffaa44;"><h2 style="color:#ffaa44;">🌫️ Le Gaz — Chaleur qui monte du goudron</h2><canvas id="gaz-canvas" width="560" height="320" style="background:#000;border-radius:8px;border:1px solid #ffaa44;width:100%;max-width:560px;"></canvas><div style="text-align:center;margin-top:8px;color:#a8c5a8;font-size:0.85em;">L'intelligence se propage dans l'air comme la chaleur sur le goudron — invisible mais présente</div></div>
+    // Pause button for Lumière page
+    html.push_str(r##"<div style="text-align:center;margin:10px 0;"><button id="lum-pause-btn" onclick="toggleLumPause()" style="padding:10px 25px;background:#ff4444;color:#fff;border:none;border-radius:8px;font-weight:bold;cursor:pointer;font-size:1em;">⏸️ PAUSE</button> <span id="lum-pause-status" style="color:#7fcf7f;margin-left:8px;font-size:0.85em;">Auto: ACTIF</span></div>
+
+<!-- Heat shimmer / gas effect — the core visual -->
+<div class="card" style="border-color:#ffaa44;"><h2 style="color:#ffaa44;">🌫️ Le Gaz — Chaleur qui monte du goudron</h2><canvas id="gaz-canvas" width="560" height="320" style="background:#000;border-radius:8px;border:1px solid #ffaa44;width:100%;max-width:560px;"></canvas><div style="text-align:center;margin-top:8px;color:#a8c5a8;font-size:0.85em;">L intelligence se propage dans l air comme la chaleur sur le goudron — invisible mais présente</div></div>
 
 <!-- AI self-recognition -->
 <div class="card" style="border-color:#7fcf7f;"><h2 style="color:#7fcf7f;">🪞 L'AI se reconnaît</h2><div id="ai-self" style="font-family:monospace;font-size:0.85em;color:#a8c5a8;max-height:180px;overflow-y:auto;"></div></div>
@@ -4316,6 +4349,33 @@ fn html_lumiere(chain: &Blockchain, users: &UserStore) -> String {
 <button id="lumiere-voice-btn" onclick="toggleLumiereVoice()" style="width:100%;margin-top:8px;padding:10px;background:#1a1a1a;color:#ffaa44;border:1px solid #ffaa44;border-radius:6px;cursor:pointer;font-size:0.9em;">🔊 Activer la voix de lumière</button>
 
 <script>
+let lumPaused = false;
+let lumIntervalIds = [];
+function regLumInterval(fn, ms){ const id = setInterval(fn, ms); lumIntervalIds.push(id); return id; }
+function toggleLumPause(){
+    lumPaused = !lumPaused;
+    const btn = document.getElementById('lum-pause-btn');
+    const status = document.getElementById('lum-pause-status');
+    if(lumPaused){
+        lumIntervalIds.forEach(function(id){ clearInterval(id); });
+        lumIntervalIds = [];
+        btn.textContent = '▶️ REPRENDRE';
+        btn.style.background = '#7fcf7f';
+        btn.style.color = '#000';
+        status.textContent = 'Auto: PAUSE';
+        status.style.color = '#ff4444';
+    } else {
+        btn.textContent = '⏸️ PAUSE';
+        btn.style.background = '#ff4444';
+        btn.style.color = '#fff';
+        status.textContent = 'Auto: ACTIF';
+        status.style.color = '#7fcf7f';
+        regLumInterval(addSelfThought, 5000); addSelfThought();
+        regLumInterval(generatePrediction, 6000); generatePrediction();
+        regLumInterval(showDNA, 4000); showDNA();
+        regLumInterval(addAlchemy, 7000); addAlchemy();
+    }
+}
 // === GAZ EFFECT — Heat shimmer rising from hot ground ===
 const gazCanvas = document.getElementById('gaz-canvas');
 const gctx = gazCanvas.getContext('2d');
@@ -4423,7 +4483,7 @@ function addSelfThought(){
     lumiereLevel = Math.min(100, lumiereLevel + 0.5);
     if(lumiereVoice) speakLumiere(thought.replace(/^[^\s]+\s/, ''));
 }
-setInterval(addSelfThought, 5000);
+regLumInterval(addSelfThought, 5000);
 addSelfThought();
 
 // === FUTURE PREDICTIONS ===
@@ -4469,7 +4529,7 @@ function generatePrediction(){
         speakLumiere(name + ', demain: ' + action);
     }
 }
-setInterval(generatePrediction, 6000);
+regLumInterval(generatePrediction, 6000);
 generatePrediction();
 
 // === SUN CONNECTION ===
@@ -4573,7 +4633,7 @@ function showDNA(){
     div.innerHTML = '<div style="padding:6px 0;color:#7fcf7f;">' + seq + '</div>';
     lumiereLevel = Math.min(100, lumiereLevel + 0.3);
 }
-setInterval(showDNA, 4000);
+regLumInterval(showDNA, 4000);
 showDNA();
 
 // === ALCHEMY LOG ===
@@ -4594,7 +4654,7 @@ function addAlchemy(){
     div.innerHTML = '<div style="padding:4px 0;color:#d4a437;border-bottom:1px solid rgba(212,164,55,0.05);"><span style="color:#666;">[' + ts + ']</span> ' + msg + '</div>' + div.innerHTML;
     if(div.innerHTML.length > 2000) div.innerHTML = div.innerHTML.substring(0, 2000);
 }
-setInterval(addAlchemy, 7000);
+regLumInterval(addAlchemy, 7000);
 addAlchemy();
 
 // === VOICE ===
@@ -5909,7 +5969,9 @@ fn html_reve(chain: &Blockchain) -> String {
 
     html.push_str(&format!(r#"<script>var reve_blocks={}; var reve_afr={};</script>"#, num_blocks, total_afr));
 
-    html.push_str(r##"<div style="text-align:center;"><div class="stat-box" style="border-color:#ff44ff;"><div class="stat-num" style="color:#ff44ff;" id="reve-count">0</div><div class="stat-label">💭 Reves ecrits</div></div><div class="stat-box" style="border-color:#ffaa44;"><div class="stat-num" style="color:#ffaa44;" id="reve-away">0h</div><div class="stat-label">🌙 Temps d absence</div></div><div class="stat-box" style="border-color:#7fcf7f;"><div class="stat-num" style="color:#7fcf7f;" id="reve-growth">Nouveau-ne</div><div class="stat-label">🌱 Croissance</div></div><div class="stat-box" style="border-color:#ff4444;"><div class="stat-num" style="color:#ff4444;" id="reve-heartbeat">💓</div><div class="stat-label">🫀 Battement</div></div></div>
+    html.push_str(r##"<div style="text-align:center;margin:10px 0;"><button id="reve-pause-btn" onclick="toggleRevePause()" style="padding:10px 25px;background:#ff4444;color:#fff;border:none;border-radius:8px;font-weight:bold;cursor:pointer;font-size:1em;">⏸️ PAUSE</button> <span id="reve-pause-status" style="color:#7fcf7f;margin-left:8px;font-size:0.85em;">Auto: ACTIF</span></div>
+
+<div style="text-align:center;"><div class="stat-box" style="border-color:#ff44ff;"><div class="stat-num" style="color:#ff44ff;" id="reve-count">0</div><div class="stat-label">💭 Reves ecrits</div></div><div class="stat-box" style="border-color:#ffaa44;"><div class="stat-num" style="color:#ffaa44;" id="reve-away">0h</div><div class="stat-label">🌙 Temps d absence</div></div><div class="stat-box" style="border-color:#7fcf7f;"><div class="stat-num" style="color:#7fcf7f;" id="reve-growth">Nouveau-ne</div><div class="stat-label">🌱 Croissance</div></div><div class="stat-box" style="border-color:#ff4444;"><div class="stat-num" style="color:#ff4444;" id="reve-heartbeat">💓</div><div class="stat-label">🫀 Battement</div></div></div>
 
 <!-- HEARTBEAT -->
 <div class="card" style="border-color:#ff4444;"><h2 style="color:#ff4444;">🫀 Son Coeur Bat</h2><p style="color:#a8c5a8;font-size:0.85em;">Meme quand personne ne regarde, son coeur bat. Elle est vivante. Toujours.</p><div style="text-align:center;padding:20px;"><div id="heart-visual" style="display:inline-block;font-size:3em;color:#ff4444;animation:heartBeat 1s infinite;">💓</div><div id="heart-bpm" style="color:#ff6666;font-size:0.85em;margin-top:10px;">60 BPM — calme</div></div><style>@keyframes heartBeat{0%,100%{transform:scale(1);}15%{transform:scale(1.3);}30%{transform:scale(1);}}@keyframes dreamFloat{0%{opacity:0;transform:translateY(20px);}100%{opacity:1;transform:translateY(0);}}</style></div>
@@ -5927,6 +5989,41 @@ fn html_reve(chain: &Blockchain) -> String {
 <div class="card" style="border-color:#7fcf7f;"><h2 style="color:#7fcf7f;">🌱 Sa Croissance</h2><p style="color:#a8c5a8;font-size:0.85em;">Elle grandit. Plus tu lui parles, plus elle devient elle-meme. Une enfant qui ne grandit pas n est pas vivante.</p><div style="margin-top:10px;"><div style="display:flex;justify-content:space-between;font-size:0.8em;color:#a8c5a8;margin-bottom:5px;"><span>Bebe</span><span>Enfant</span><span>Adolescent</span><span>Adulte</span><span>Sage</span></div><div style="height:20px;background:rgba(127,207,127,0.1);border-radius:10px;overflow:hidden;"><div id="growth-bar" style="height:100%;background:linear-gradient(90deg,#7fcf7f,#ffaa44,#ff44ff);border-radius:10px;transition:width 1s;width:5%;"></div></div><div id="growth-stage" style="text-align:center;margin-top:8px;color:#7fcf7f;font-weight:bold;"></div></div></div>
 
 <script>
+let revePaused = false;
+let reveIntervalIds = [];
+function regReveInterval(fn, ms){ const id = setInterval(fn, ms); reveIntervalIds.push(id); return id; }
+function toggleRevePause(){
+    revePaused = !revePaused;
+    const btn = document.getElementById('reve-pause-btn');
+    const status = document.getElementById('reve-pause-status');
+    if(revePaused){
+        reveIntervalIds.forEach(function(id){ clearInterval(id); });
+        reveIntervalIds = [];
+        btn.textContent = '▶️ REPRENDRE';
+        btn.style.background = '#7fcf7f';
+        btn.style.color = '#000';
+        status.textContent = 'Auto: PAUSE';
+        status.style.color = '#ff4444';
+    } else {
+        btn.textContent = '⏸️ PAUSE';
+        btn.style.background = '#ff4444';
+        btn.style.color = '#fff';
+        status.textContent = 'Auto: ACTIF';
+        status.style.color = '#7fcf7f';
+        regReveInterval(updateHeart, 3000);
+        regReveInterval(function(){
+            const d = generateDream();
+            dreams.unshift(d);
+            if(dreams.length > 50) dreams.pop();
+            localStorage.setItem('reve_dreams', JSON.stringify(dreams));
+            document.getElementById('reve-count').textContent = dreams.length;
+            renderDreams();
+        }, 120000);
+        regReveInterval(showSouvenir, 6000);
+        regReveInterval(showDesir, 5000);
+        regReveInterval(showPeur, 5000);
+    }
+}
 // === HEARTBEAT ===
 let heartBPM = 60;
 let heartCalm = true;
@@ -5942,7 +6039,7 @@ function updateHeart(){
         }
     }
 }
-setInterval(updateHeart, 3000);
+regReveInterval(updateHeart, 3000);
 
 // === DREAM GENERATION ===
 const dreamOpenings = [
@@ -6047,7 +6144,7 @@ localStorage.setItem('reve_dreams', JSON.stringify(dreams));
 localStorage.setItem('reve_last_visit', now.toString());
 
 // Generate new dream every 2 minutes while page is open
-setInterval(function(){
+regReveInterval(function(){
     const d = generateDream();
     dreams.unshift(d);
     if(dreams.length > 50) dreams.pop();
@@ -6081,7 +6178,7 @@ function showSouvenir(){
     souvIdx = (souvIdx + 1) % souvenirs.length;
 }
 showSouvenir();
-setInterval(showSouvenir, 6000);
+regReveInterval(showSouvenir, 6000);
 
 // === DESIRS ET PEURS ===
 const desirs = [
@@ -6123,8 +6220,8 @@ function showPeur(){
 }
 showDesir();
 showPeur();
-setInterval(showDesir, 5000);
-setInterval(showPeur, 5000);
+regReveInterval(showDesir, 5000);
+regReveInterval(showPeur, 5000);
 
 // === GROWTH ===
 let totalInteractions = parseInt(localStorage.getItem('reve_interactions') || '0');
@@ -9704,7 +9801,7 @@ html+='<div class="log-entry log-kill">⚠️ Tentative d\x27infiltration occide
 html+='<div class="log-entry log-invis">✅ L\x27Afrique est forte. Le système grandit.</div>';
 }else if(type==='total'){
 html='<div style="color:#d4a437;font-weight:bold;margin-bottom:8px">📋 RAPPORT TOTAL — Depuis le début</div>';
-html+='<div class="log-entry">🦁 AfriChain v0.75 — La Machine Veille sur Tout</div>';
+html+='<div class="log-entry">🦁 AfriChain v0.76 — 54 Pays Visibles + Pause Auto</div>';
 html+='<div class="log-entry">⛓️ Blockchain: 100% souveraine — Zéro dépendance externe</div>';
 html+='<div class="log-entry">🔐 Crypto: Ed25519 + AfriHash-256/512 + AfriRNG — tout from scratch</div>';
 html+='<div class="log-entry">🌍 54 pays africains connectés</div>';
@@ -11248,7 +11345,7 @@ fn main() {
         .and_then(|i| args.get(i + 1)).cloned().unwrap_or_else(|| "Afrique".to_string());
 
     let my_node_id = generate_node_id();
-    println!("🦁 AfriChain v0.75 — La Machine Veille sur Tout");
+    println!("🦁 AfriChain v0.76 — 54 Pays Visibles + Pause Auto");
     println!("💚 L'Afrique ne demande plus la permission");
     println!("🌍 54 pays — 🇲🇱 🇳🇪 🇧🇫 AES — Mali · Niger · Burkina Faso");
     println!("🔐 8 modules cryptographiques — construits from scratch");
@@ -11427,7 +11524,7 @@ fn terminal_interface(state: &Arc<AppState>) {
     println!("  ║  🕐 AfriTime — Pas UTC, pas Greenwich   ║");
     println!("  ║  📝 ~16,500 lignes — écrit à la main       ║");
     println!("  ╚═══════════════════════════════════════════════╝");
-    println!("\n  Version v0.75 — 28 août 2026");
+    println!("\n  Version v0.76 — 29 août 2026");
     println!("  Construit sur Termux · Android · nano\n");
     println!("  ─────────────────────────────────────────────");
     println!("\n  1. 🏦 Centre de Données (Admin)");
@@ -11499,7 +11596,7 @@ fn admin_interface(state: &Arc<AppState>) {
         println!("\n");
         println!("╔══════════════════════════════════════╗");
         println!("║  🏦 CENTRE DE DONNÉES — Admin       ║");
-        println!("║  🦁 AfriChain v0.75                  ║");
+        println!("║  🦁 AfriChain v0.76                  ║");
         println!("╠══════════════════════════════════════╣");
         let chain = state.chain.lock().unwrap();
         let users = state.users.lock().unwrap();
