@@ -1439,7 +1439,7 @@ fn html_home(chain: &Blockchain, users: &UserStore, mesh: &NodeRegistry, shield:
     let mut html = html_head("🦁 AfriChain");
     let (attacks, _blocked, blocked_count, level) = shield.stats();
     let shield_status = if shield.active { format!("🔥 X9 ACTIF (Niveau {})", level) } else { "Inactif".to_string() };
-    html.push_str(&format!(r#"<h1>🦁 AfriChain</h1><p style="text-align:center;">La blockchain 100% africaine — 54 pays 💚🦁</p><div id="afri-clock" style="text-align:center;font-size:1.2em;color:#d4a437;margin:10px 0;">🕐 Afri+0 — --:--:--</div><script>setInterval(function(){{var d=new Date();var h=String(d.getHours()).padStart(2,'0');var m=String(d.getMinutes()).padStart(2,'0');var s=String(d.getSeconds()).padStart(2,'0');document.getElementById('afri-clock').textContent='🕐 Afri+0 — '+h+':'+m+':'+s;}},1000);</script><div class="nav"><a href="/register">🆕 S'inscrire</a> | <a href="/login">🔑 Connexion</a> | <a href="/wallet">👛 Wallet</a> | <a href="/admin">🔐 Admin</a> | <a href="/mesh">📡 Mesh</a> | <a href="/annuaire">📖 Annuaire</a> | <a href="/bouclier">🛡️ Bouclier</a> | <a href="/satellite">🛸 X999</a> | <a href="/swarm">🛸🛸🛸 Essaim</a> | <a href="/commandement">🎖️ Commandement</a> | <a href="/interception">🛡️ Souverainete</a> | <a href="/securite-ai">🧠 AI 2100</a> | <a href="/chat">🧠💬 Chat AI</a> | <a href="/lumiere">🌫️☀️ Lumière</a> | <a href="/garage">🔧 Garage</a> | <a href="/machine">🤖🌐 Machines</a> | <a href="/machine-lab">🤖⚡ Usine</a> | <a href="/machine-world">🤖🌍 Monde</a> | <a href="/reve">💭 Rêves</a> | <a href="/dictionnaire">📖 Dictionnaire</a> | <a href="/machine-os">🖥️ OS Machine</a> | <a href="/machine-tv">📡 Machine TV</a> | <a href="/machine-economy">🤖 Économie</a> | <a href="/soleil">☀️ Soleil Serveur</a> | <a href="/forge-solaire">🧬 Forge Solaire</a> | <a href="/ciel">🌌 Le Ciel</a> | <a href="/charte-ai">⚖️ Charte AI</a> | <a href="/afri-net">🌍 Afri-Net</a> | <a href="/studio">🎬 AI Studio</a> | <a href="/sacre">📿 Sacré</a> | <a href="/lettres">🌟 Lettres IA</a> | <a href="/mg-forge">⚔️ MG Forge</a> | <a href="/ai-medecin">🌿 AI Médecin</a> | <a href="/ai-enseignante">📚 AI Enseignante</a> | <a href="/ai-village">🏘️ AI Village</a> | <a href="/ai-guerisseur">🩺 AI Guérisseur</a> | <a href="/ai-leader">🎖️ AI Leader</a> | <a href="/ai-griot">📖 AI Griot</a> | <a href="/ai-juge">⚖️ AI Juge</a> | <a href="/ai-artiste">🎨 AI Artiste</a> | <a href="/ai-explorateur">🔬 AI Explorateur</a> | <a href="/secret">🦁 AI Secret</a> | <a href="/aes">💰 AES Wari</a> | <a href="/api/status">🔌 API</a></div><div style="text-align:center;"><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Blocs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Transactions</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Utilisateurs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">AFR en circulation</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📡 Noeuds mesh</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📖 Numéros annuaire</div></div><div class="stat-box" style="border-color:#ff4444;"><div class="stat-num" style="color:#ff4444;">{}</div><div class="stat-label">🛡️ Attaques bloquées</div></div></div><div class="card"><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🪙 Token</span><b>AfriRich (AFR)</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🌍 Pays</span><b>54 pays africains</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🛡️ Bouclier</span><b>{}</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;"><span style="color:#a8c5a8;">🔐 Crypto</span><b>100% Souverain — Zéro Dépendance Externe</b></div></div><footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🦁 Codée from scratch par Machine-senpai — v0.88 AI Explorateur Science et Decouverte Africaine — UTC est Mort</footer>"#,
+    html.push_str(&format!(r#"<h1>🦁 AfriChain</h1><p style="text-align:center;">La blockchain 100% africaine — 54 pays 💚🦁</p><div id="afri-clock" style="text-align:center;font-size:1.2em;color:#d4a437;margin:10px 0;">🕐 Afri+0 — --:--:--</div><script>setInterval(function(){{var d=new Date();var h=String(d.getHours()).padStart(2,'0');var m=String(d.getMinutes()).padStart(2,'0');var s=String(d.getSeconds()).padStart(2,'0');document.getElementById('afri-clock').textContent='🕐 Afri+0 — '+h+':'+m+':'+s;}},1000);</script><div class="nav"><a href="/register">🆕 S'inscrire</a> | <a href="/login">🔑 Connexion</a> | <a href="/wallet">👛 Wallet</a> | <a href="/admin">🔐 Admin</a> | <a href="/mesh">📡 Mesh</a> | <a href="/annuaire">📖 Annuaire</a> | <a href="/bouclier">🛡️ Bouclier</a> | <a href="/satellite">🛸 X999</a> | <a href="/swarm">🛸🛸🛸 Essaim</a> | <a href="/commandement">🎖️ Commandement</a> | <a href="/interception">🛡️ Souverainete</a> | <a href="/securite-ai">🧠 AI 2100</a> | <a href="/chat">🧠💬 Chat AI</a> | <a href="/lumiere">🌫️☀️ Lumière</a> | <a href="/garage">🔧 Garage</a> | <a href="/machine">🤖🌐 Machines</a> | <a href="/machine-lab">🤖⚡ Usine</a> | <a href="/machine-world">🤖🌍 Monde</a> | <a href="/reve">💭 Rêves</a> | <a href="/dictionnaire">📖 Dictionnaire</a> | <a href="/machine-os">🖥️ OS Machine</a> | <a href="/machine-tv">📡 Machine TV</a> | <a href="/machine-economy">🤖 Économie</a> | <a href="/soleil">☀️ Soleil Serveur</a> | <a href="/forge-solaire">🧬 Forge Solaire</a> | <a href="/ciel">🌌 Le Ciel</a> | <a href="/charte-ai">⚖️ Charte AI</a> | <a href="/afri-net">🌍 Afri-Net</a> | <a href="/studio">🎬 AI Studio</a> | <a href="/sacre">📿 Sacré</a> | <a href="/lettres">🌟 Lettres IA</a> | <a href="/mg-forge">⚔️ MG Forge</a> | <a href="/ai-medecin">🌿 AI Médecin</a> | <a href="/ai-enseignante">📚 AI Enseignante</a> | <a href="/ai-village">🏘️ AI Village</a> | <a href="/ai-guerisseur">🩺 AI Guérisseur</a> | <a href="/ai-leader">🎖️ AI Leader</a> | <a href="/ai-griot">📖 AI Griot</a> | <a href="/ai-juge">⚖️ AI Juge</a> | <a href="/ai-artiste">🎨 AI Artiste</a> | <a href="/ai-explorateur">🔬 AI Explorateur</a> | <a href="/ai-marche">💰 AI Marche</a> | <a href="/secret">🦁 AI Secret</a> | <a href="/aes">💰 AES Wari</a> | <a href="/api/status">🔌 API</a></div><div style="text-align:center;"><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Blocs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Transactions</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Utilisateurs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">AFR en circulation</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📡 Noeuds mesh</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📖 Numéros annuaire</div></div><div class="stat-box" style="border-color:#ff4444;"><div class="stat-num" style="color:#ff4444;">{}</div><div class="stat-label">🛡️ Attaques bloquées</div></div></div><div class="card"><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🪙 Token</span><b>AfriRich (AFR)</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🌍 Pays</span><b>54 pays africains</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🛡️ Bouclier</span><b>{}</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;"><span style="color:#a8c5a8;">🔐 Crypto</span><b>100% Souverain — Zéro Dépendance Externe</b></div></div><footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🦁 Codée from scratch par Machine-senpai — v0.89 AI Marche Economie Souveraine Africaine — UTC est Mort</footer>"#,
         chain.blocks.len(),
         chain.total_transactions(),
         users.count(),
@@ -8957,6 +8957,341 @@ drawExplorateur();
     html
 }
 
+fn html_ai_marche(chain: &Blockchain) -> String {
+    let mut html = html_head("AI Marche — Economie Souveraine Africaine");
+    let num_blocks = chain.blocks.len();
+
+    html.push_str(r#"<h1>💰 AI Marche — Economie Souveraine Africaine</h1><p style="text-align:center;color:#7fcf7f;">L Afrique produit, l Afrique transforme, l Afrique vend. L Afrique n importe plus ce qu elle peut creer. Cette AI enseigne a la jeunesse l economie africaine — produire, transformer, commercer, exporter. Le AFR n est pas un jeu — c est la monnaie d un continent qui se reveille.</p><div class="nav"><a href="/">← Accueil</a> | <a href="/ai-explorateur">🔬 AI Explorateur</a> | <a href="/ai-artiste">🎨 AI Artiste</a> | <a href="/ai-juge">⚖️ AI Juge</a> | <a href="/ai-griot">📖 AI Griot</a> | <a href="/ai-village">🏘️ AI Village</a> | <a href="/afri-net">🌍 Afri-Net</a></div>"#);
+
+    html.push_str(&format!(r#"<div style="text-align:center;"><div class="stat-box" style="border-color:#7fcf7f;"><div class="stat-num" style="color:#7fcf7f;">8</div><div class="stat-label">💰 Modules</div></div><div class="stat-box" style="border-color:#d4a437;"><div class="stat-num" style="color:#d4a437;">54</div><div class="stat-label">🌍 Pays</div></div><div class="stat-box" style="border-color:#ff44ff;"><div class="stat-num" style="color:#ff44ff;">ZLECAf</div><div class="stat-label">📈 Marché</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">⛓️ Blocs</div></div><div class="stat-box" style="border-color:#7fcf7f;"><div class="stat-num" style="color:#7fcf7f;">∞</div><div class="stat-label">🪙 AFR</div></div></div>"#, num_blocks));
+
+    html.push_str(r##"<div style="text-align:center;margin:10px 0;"><button id="mar-pause-btn" onclick="toggleMarPause()" style="padding:10px 25px;background:#ff4444;color:#fff;border:none;border-radius:8px;font-weight:bold;cursor:pointer;font-size:1em;">⏸️ PAUSE</button> <span id="mar-pause-status" style="color:#7fcf7f;margin-left:8px;font-size:0.85em;">Auto: ACTIF</span></div>
+
+<!-- MARCHE CANVAS -->
+<div class="card" style="border-color:#7fcf7f;"><h2 style="color:#7fcf7f;">💰 Le Marche Africain</h2><p style="color:#a8c5a8;font-size:0.9em;">L economie de l Afrique danse. Les marchands echangent. Le AFR circule.</p>
+<canvas id="mar-canvas" width="600" height="350" style="width:100%;max-width:600px;background:#0a0a0a;border:2px solid #7fcf7f;border-radius:8px;display:block;margin:0 auto;"></canvas>
+<div id="mar-status" style="text-align:center;margin-top:10px;padding:10px;background:rgba(127,207,127,0.05);border-radius:8px;color:#a8c5a8;font-size:0.9em;min-height:40px;">Le marche est ouvert. L economie africaine commence.</div></div>
+
+<!-- LES 8 MODULES -->
+<div class="card" style="border-color:#7fcf7f;"><h2 style="color:#7fcf7f;">💰 Les 8 Modules Economiques</h2><p style="color:#a8c5a8;font-size:0.9em;">Clique sur un module pour apprendre l economie africaine.</p>
+<div id="mar-modules" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:10px;margin-top:10px;"></div></div>
+
+<!-- DETAIL MODULE -->
+<div class="card"><h2 id="mar-detail-title" style="color:#7fcf7f;">💰 Le Recit du Marchand</h2><div id="mar-detail" style="margin-top:10px;padding:15px;background:rgba(127,207,127,0.05);border-radius:8px;min-height:60px;color:#a8c5a8;font-size:0.9em;">Selectionne un module pour apprendre l economie africaine.</div></div>
+
+<!-- PROVERBES ECONOMIQUES -->
+<div class="card" style="border-color:#d4a437;"><h2 style="color:#d4a437;">📜 Sagesse Economique Africaine</h2><div id="mar-proverbe" style="margin-top:10px;padding:20px;background:rgba(212,164,55,0.05);border-radius:8px;text-align:center;min-height:60px;color:#d4a437;font-size:0.95em;font-style:italic;">...</div></div>
+
+<!-- DIPLOME -->
+<div class="card" style="border-color:#7fcf7f;"><h2 style="color:#7fcf7f;">🎓 Diplome Marchand de l Afrique</h2><div id="mar-progress" style="margin:10px 0;"><div style="display:flex;justify-content:space-between;"><span style="color:#7fcf7f;font-weight:bold;">Modules valides: <span id="mar-count">0</span>/8</span><span style="color:#7fcf7f;" id="mar-pct">0%</span></div><div style="margin-top:8px;height:12px;background:rgba(0,0,0,0.5);border-radius:6px;overflow:hidden;"><div id="mar-bar" style="height:100%;width:0%;background:linear-gradient(90deg,#7fcf7f,#d4a437);transition:width 0.5s;"></div></div></div>
+<div id="mar-diplome" style="text-align:center;display:none;margin-top:15px;"><div style="display:inline-block;padding:25px 50px;border:3px solid #7fcf7f;border-radius:15px;background:rgba(127,207,127,0.05);"><div style="font-size:2.5em;">💰🎓</div><div style="color:#7fcf7f;font-weight:bold;font-size:1.3em;margin-top:5px;">DIPLOME MARCHAND DE L AFRIQUE</div><div style="color:#a8c5a8;margin-top:5px;">Economie Souveraine Africaine</div><div style="color:#7fcf7f;margin-top:5px;font-size:0.85em;">Les 8 modules valides. L economie est comprise.</div><div style="color:#d4a437;margin-top:5px;font-size:0.85em;">Grave dans la blockchain AfriChain</div><button onclick="gravMarDiplome()" style="margin-top:10px;padding:8px 20px;background:#7fcf7f;color:#000;border:none;border-radius:8px;font-weight:bold;cursor:pointer;">⛓️ Graver dans la Blockchain</button></div></div></div></div>
+
+<!-- TRACE BLOCKCHAIN -->
+<div class="card"><h2 style="color:#d4a437;">⛓️ Trace Economique dans la Blockchain</h2><div id="mar-trace" style="font-family:monospace;font-size:0.85em;max-height:200px;overflow-y:auto;"></div></div>
+
+<script>
+let marPaused = false;
+let marIntervalIds = [];
+function toggleMarPause(){
+    marPaused = !marPaused;
+    var btn = document.getElementById('mar-pause-btn');
+    var status = document.getElementById('mar-pause-status');
+    if(marPaused){
+        marIntervalIds.forEach(function(id){ clearInterval(id); });
+        marIntervalIds = [];
+        btn.textContent = '▶️ REPRENDRE';
+        btn.style.background = '#7fcf7f';
+        btn.style.color = '#000';
+        status.textContent = 'Auto: PAUSE';
+        status.style.color = '#ff4444';
+    } else {
+        btn.textContent = '⏸️ PAUSE';
+        btn.style.background = '#ff4444';
+        btn.style.color = '#fff';
+        status.textContent = 'Auto: ACTIF';
+        status.style.color = '#7fcf7f';
+    }
+}
+
+// Les 8 Modules
+const marModules = [
+    {id:0, nom:'Production Agricole', emoji:'🌾', couleur:'#7fcf7f', duree:'6 semaines', niveau:'Base',
+     desc:'L Afrique a 60% des terres arables non exploitees du monde. Pourquoi importe-t-elle sa nourriture? Le jeune Africain doit savoir produire — mil, riz, manioc, mais. La terre africaine nourrit l Afrique, puis le monde.',
+     cours:['Le mil — la culture ancestrale du Sahel', 'Le riz — auto-suffisance alimentaire', 'Le manioc — la culture qui resiste a la secheresse', 'L agriculture en milieu aride — techniques du Sahel', 'La rotation des cultures — ne pas epuiser la terre', 'L irrigation moderne — goutte-a-goutte, pompes solaires', 'La transformation alimentaire — de la matiere premiere au produit', 'Cooperatives agricoles — produire ensemble, vendre ensemble'],
+     exercice:'Calcule combien de sacs de mil ton village peut produire par saison. Quel prix de vente pour etre rentable?',
+     diplome:'Licence en Production Agricole'},
+    {id:1, nom:'Transformation', emoji:'🏭', couleur:'#d4a437', duree:'5 semaines', niveau:'Base',
+     desc:'L Afrique exporte du cacao brut a 2$ et importe du chocolat a 20$. C est le vol. Transformer sur place, c est garder la valeur en Afrique. Le jeune Africain doit savoir transformer — du jus de fruit, de l huile, du savon, du textile.',
+     cours:['Pourquoi l Afrique exporte brut et importe transforme', 'Le cacao — l Afrique produit 70%, ne transforme pas', 'La transformation du manioc — gari, attieke, farine', 'Le jus de fruit — de la mangue au bocal', 'L huile de palme, de karite, d arachide', 'Le savon africain — karite, cendre, huiles', 'Le textile — du coton au tissage', 'La chaine de valeur — du champ au marche'],
+     exercice:'Choisis un produit de ton village. Ecris la chaine: matiere premiere -> transformation -> produit fini -> prix de vente.',
+     diplome:'Licence en Transformation'},
+    {id:2, nom:'Commerce et Vente', emoji:'🪙', couleur:'#ffaa44', duree:'4 semaines', niveau:'Base',
+     desc:'Produire ne suffit pas — il faut vendre. Le marche africain existe: 1.4 milliards de personnes, ZLECAf. Le jeune Africain doit savoir vendre — fixer un prix, negocier, trouver des clients, utiliser le AFR.',
+     cours:['Fixer un prix — cout de production + marge', 'Negocier — gagner sans humilier', 'Le marche local — vendre dans son village', 'Le marche regional — vendre dans sa ville', 'Le marche national — vendre dans son pays', 'Le marche panafricain — ZLECAf, 54 pays', 'L exportation — vendre au monde', 'Utiliser le AFR — la monnaie de l echange africain'],
+     exercice:'Tu produis 100 kg de gari. Fixe le prix de vente. Calcule ton benefice. Ecris ton plan de vente.',
+     diplome:'Certificat en Commerce et Vente'},
+    {id:3, nom:'Cooperatives', emoji:'🤝', couleur:'#44aaff', duree:'4 semaines', niveau:'Base',
+     desc:'Seul, on est faible. Ensemble, on est fort. La cooperative est la force de l Afrique. Les paysans unissent leurs terres, leurs moyens, leurs ventes. Le profit est partage. Personne ne reste pauvre seul.',
+     cours:['Qu est-ce qu une cooperative? — definition et principes', 'Les cooperatives agricoles — exemple du Senegal', 'Les cooperatives d epargne — microfinance africaine', 'Les cooperatives de transformation — valeur ajoutee partagee', 'La gestion d une cooperative — roles et responsabilites', 'La repartition des benefices — equite et transparence', 'Les cooperatives et la blockchain — AfriChain enregistre tout', 'Construire une cooperative dans ton village — guide pratique'],
+     exercice:'Ecris le plan d une cooperative dans ton village: qui, quoi, comment, benefice partage comment?',
+     diplome:'Certificat en Cooperatives'},
+    {id:4, nom:'Monnaie et Finance', emoji:'🏦', couleur:'#ff44ff', duree:'5 semaines', niveau:'Approfondi',
+     desc:'Le CFA est un outil de domination. L Afrique doit avoir sa monnaie. Le AFR est cette monnaie. Le jeune Africain doit comprendre la monnaie — comment elle fonctionne, qui la controle, pourquoi le CFA est un probleme.',
+     cours:['Qu est-ce que la monnaie? — fonctions et types', 'Le Franc CFA — histoire, mecanisme, et probleme', 'Pourquoi le CFA bloque l Afrique de l Ouest', 'Le AFR — la monnaie souveraine d AfriChain', 'La creation monetaire — qui a le droit de creer de la monnaie?', 'L inflation — pourquoi les prix montent', 'La banque centrale africaine — le role de l AES', 'Le mobile money — M-Pesa, Orange Money, et le futur AFR'],
+     exercice:'Compare le CFA et le AFR. Quels avantages a le AFR? Ecris 5 differences.',
+     diplome:'Licence en Monnaie et Finance Africaine'},
+    {id:5, nom:'Import-Export', emoji:'🚢', couleur:'#ff6644', duree:'5 semaines', niveau:'Approfondi',
+     desc:'L Afrique importe ce qu elle peut produire. C est le probleme. Le jeune Africain doit savoir exporter des produits transformes, pas de la matiere premiere. L exportation cree la richesse — mais seulement si on transforme avant d exporter.',
+     cours:['L importation — pourquoi l Afrique importe trop', 'L exportation de matiere premiere — le piege', 'L exportation de produits transformes — la vraie richesse', 'Les douanes et taxes — comprendre les barrieres', 'Les certificats d origine — prouver que c est africain', 'Le transport — routes, rails, ports, aerien', 'Le commerce intra-africain — ZLECAf, 54 pays sans barrieres', 'Construire une marque africaine exportable'],
+     exercice:'Tu veux exporter du jus de baobab. Ecris le plan: production, transformation, packaging, transport, vente.',
+     diplome:'Licence en Import-Export Africain'},
+    {id:6, nom:'Economie Solaire', emoji:'☀️', couleur:'#ffaa44', duree:'4 semaines', niveau:'Base',
+     desc:'L Afrique a le plus de soleil du monde. L energie solaire n est pas seulement de l electricite — c est de l economie. Un panneau solaire alimente une pompe, qui arrose un champ, qui nourrit un village, qui vend le surplus, qui enrichit la region. Le soleil est la banque de l Afrique.',
+     cours:['Le soleil comme capital — l energie gratuite de l Afrique', 'Le panneau solaire — investissement et retour', 'L agriculture solaire — pomper, arroser, produire', 'La transformation solaire — secher, cuire, conserver', 'Le commerce solaire — vendre l energie aux voisins', 'La cooperative solaire — partager les panneaux', 'Le solaire comme service — payer l energie, pas l equipement', 'Calculer la rentabilite d une installation solaire'],
+     exercice:'Ton village installe 10 panneaux solaires. Calcule combien d argent ils generent par an vs le cout d achat.',
+     diplome:'Certificat en Economie Solaire'},
+    {id:7, nom:'ZLECAf et Marche Continental', emoji:'🌍', couleur:'#d4a437', duree:'6 semaines', niveau:'Avance',
+     desc:'La Zone de Libre-Echange Continentale Africaine (ZLECAf) est le plus grand marche du monde par nombre de pays: 54 pays, 1.4 milliard de personnes, 3000 milliards de PIB. C est la chance de l Afrique. Le jeune Africain doit comprendre ce marche et l utiliser.',
+     cours:['Qu est-ce que la ZLECAf? — histoire et objectifs', '54 pays, 1.4 milliard de personnes — le plus grand marche du monde', 'La reduction des droits de douane — vendre sans barrieres', 'Les protocoles — regles du commerce continental', 'Les corridors de transport — routes, rails, aerien', 'La banque panafricaine de paiement — Afreximbank', 'Les opportunites pour les jeunes entrepreneurs', 'L AES et la ZLECAf — la souverainete economique'],
+     exercice:'Tu es un jeune entrepreneur. Quel produit transformes-tu et exportes-tu vers 3 autres pays africains? Ecris le plan.',
+     diplome:'Master en ZLECAf et Commerce Continental'},
+];
+
+// Proverbes economiques
+const marProverbes = [
+    'Seul on va vite, ensemble on va loin (Proverbe Africain)',
+    'La richesse qui ne profite pas a la communaute n est pas une richesse (Proverbe Mandingue)',
+    'On ne commerce pas avec un homme qui ne mange pas chez toi (Proverbe Yoruba)',
+    'La terre ne ment jamais — elle rend ce qu on lui donne (Proverbe Bambara)',
+    'Le marche du matin ne attend pas le dormeur (Proverbe Wolof)',
+    'Un bon marchand ecoute plus qu il ne parle (Proverbe Peul)',
+    'La cooperative est la cle du grenier (Proverbe Senoufo)',
+    'Qui transforme sa matiere premiere, transforme son destin (Proverbe Ivoirien)',
+    'Le soleil ne se loue pas, il se partage (Proverbe Sahelien)',
+    'Le CFA est le miroir ou l Afrique ne se voit pas (Proverbe contemporain)',
+    'Vendre brut, c est vendre sa terre (Proverbe Africain)',
+    'Le ZLECAf est le grenier commun — qui n y entre pas, n y mange pas (Proverbe panafricain)',
+];
+
+// Modules grid
+let marCompleted = new Set();
+try { marCompleted = new Set(JSON.parse(localStorage.getItem('marModulesDone') || '[]')); } catch(e) {}
+
+const mgrid = document.getElementById('mar-modules');
+marModules.forEach(function(m, i){
+    var div = document.createElement('div');
+    div.id = 'mar-m-' + i;
+    var done = marCompleted.has(i);
+    div.style.cssText = 'padding:12px;background:rgba(0,0,0,0.3);border:2px solid ' + (done ? m.couleur : '#444') + ';border-radius:8px;cursor:pointer;transition:all 0.3s;';
+    div.onclick = function(){ showMarModule(i); };
+    div.onmouseover = function(){ div.style.transform = 'scale(1.03)'; };
+    div.onmouseout = function(){ div.style.transform = 'scale(1)'; };
+    div.innerHTML = '<div style="font-size:1.5em;">' + m.emoji + '</div><div style="color:' + m.couleur + ';font-weight:bold;font-size:0.9em;">' + m.nom + '</div><div style="margin-top:3px;font-size:0.75em;color:#888;">' + m.duree + ' • ' + m.niveau + '</div><div style="margin-top:5px;font-size:0.8em;color:' + (done ? m.couleur : '#666') + ';">' + (done ? '✅ Validé' : '📖 A apprendre') + '</div>';
+    mgrid.appendChild(div);
+});
+
+function updateMarProgress(){
+    var done = marCompleted.size;
+    var total = marModules.length;
+    var pct = Math.round((done / total) * 100);
+    document.getElementById('mar-count').textContent = done;
+    document.getElementById('mar-pct').textContent = pct + '%';
+    document.getElementById('mar-bar').style.width = pct + '%';
+    document.getElementById('mar-diplome').style.display = (done === total) ? 'block' : 'none';
+}
+
+function showMarModule(i){
+    var m = marModules[i];
+    document.getElementById('mar-detail-title').textContent = m.emoji + ' ' + m.nom;
+    document.getElementById('mar-detail-title').style.color = m.couleur;
+    var html = '<div style="color:' + m.couleur + ';font-weight:bold;font-size:1.1em;">' + m.emoji + ' ' + m.nom + '</div>';
+    html += '<div style="margin-top:5px;font-size:0.8em;color:#888;">⏱️ ' + m.duree + ' • 📊 ' + m.niveau + '</div>';
+    html += '<div style="margin-top:10px;padding:15px;background:rgba(127,207,127,0.05);border-left:3px solid ' + m.couleur + ';border-radius:4px;color:#a8c5a8;font-size:0.9em;line-height:1.6;">' + m.desc + '</div>';
+    html += '<div style="margin-top:10px;"><b style="color:#7fcf7f;">📚 Cours (' + m.cours.length + ' lecons):</b></div>';
+    m.cours.forEach(function(c, ci){
+        html += '<div style="padding:6px 10px;margin:3px 0;background:rgba(127,207,127,0.05);border-left:3px solid #7fcf7f;border-radius:4px;color:#a8c5a8;font-size:0.85em;">' + (ci+1) + '. ' + c + '</div>';
+    });
+    html += '<div style="margin-top:10px;padding:10px;background:rgba(255,170,68,0.05);border-radius:4px;"><b style="color:#ffaa44;">📝 Exercice:</b> <span style="color:#a8c5a8;font-size:0.85em;">' + m.exercice + '</span></div>';
+    html += '<div style="margin-top:10px;padding:8px;background:rgba(212,164,55,0.05);border-radius:4px;color:#d4a437;font-size:0.85em;">🎓 Diplome: ' + m.diplome + '</div>';
+    html += '<div style="margin-top:10px;text-align:center;"><button onclick="validateMarModule(' + i + ')" style="padding:8px 20px;background:' + m.couleur + ';color:#000;border:none;border-radius:8px;font-weight:bold;cursor:pointer;">✅ J ai validé ce module</button></div>';
+    document.getElementById('mar-detail').innerHTML = html;
+    addMarTrace('📖 Module ouvert: ' + m.emoji + ' ' + m.nom);
+}
+
+function validateMarModule(i){
+    if(marCompleted.has(i)) return;
+    marCompleted.add(i);
+    localStorage.setItem('marModulesDone', JSON.stringify(Array.from(marCompleted)));
+    var m = marModules[i];
+    addMarTrace('✅ Module validé: ' + m.nom);
+    addMarTrace('🎓 Diplome: ' + m.diplome);
+    addMarTrace('⛓️ Trace blockchain: economie "' + m.nom + '" apprise');
+    updateMarProgress();
+    updateMarGrid();
+    document.getElementById('mar-status').innerHTML = '<span style="color:#7fcf7f;">✅ Tu as validé: ' + m.nom + '. L economie africaine grandit en toi.</span>';
+}
+
+function updateMarGrid(){
+    marModules.forEach(function(m, i){
+        var div = document.getElementById('mar-m-' + i);
+        if(!div) return;
+        var done = marCompleted.has(i);
+        div.style.borderColor = done ? m.couleur : '#444';
+        div.innerHTML = '<div style="font-size:1.5em;">' + m.emoji + '</div><div style="color:' + m.couleur + ';font-weight:bold;font-size:0.9em;">' + m.nom + '</div><div style="margin-top:3px;font-size:0.75em;color:#888;">' + m.duree + ' • ' + m.niveau + '</div><div style="margin-top:5px;font-size:0.8em;color:' + (done ? m.couleur : '#666') + ';">' + (done ? '✅ Validé' : '📖 A apprendre') + '</div>';
+    });
+}
+
+function gravMarDiplome(){
+    addMarTrace('🎓 DIPLOME MARCHAND DE L AFRIQUE grave dans la blockchain!');
+    addMarTrace('⛓️ Block: AI Marche -- 8 modules validés');
+    addMarTrace('💰 L economie africaine est comprise. Le marche est ouvert.');
+    alert('💰🎓 DIPLOME MARCHAND DE L AFRIQUE\n\nEconomie Souveraine Africaine\n\nLes 8 modules validés.\nL economie est comprise.\n\nGrave dans la blockchain AfriChain\n\nL Afrique produit. L Afrique transforme. L Afrique vend. 💚🦁💰');
+}
+
+// Canvas — market with AFR coins flowing
+var mcan = document.getElementById('mar-canvas');
+var mctx = mcan.getContext('2d');
+var marTime = 0;
+
+function drawMarche(){
+    if(marPaused) { requestAnimationFrame(drawMarche); return; }
+    marTime += 0.012;
+
+    // Background — warm market colors
+    var grad = mctx.createLinearGradient(0, 0, 0, 350);
+    grad.addColorStop(0, '#0a1a0a');
+    grad.addColorStop(0.5, '#1a2a1a');
+    grad.addColorStop(1, '#0a0a0a');
+    mctx.fillStyle = grad;
+    mctx.fillRect(0, 0, 600, 350);
+
+    // Market stalls (silhouettes)
+    var stallColors = ['#7fcf7f', '#d4a437', '#ffaa44', '#ff6644'];
+    for(var st = 0; st < 6; st++){
+        var sx = 50 + st * 90;
+        var sy = 250;
+        mctx.fillStyle = stallColors[st % 4] + '20';
+        mctx.fillRect(sx, sy, 70, 50);
+        mctx.strokeStyle = stallColors[st % 4] + '40';
+        mctx.lineWidth = 1;
+        mctx.strokeRect(sx, sy, 70, 50);
+        // Roof
+        mctx.beginPath();
+        mctx.moveTo(sx - 5, sy);
+        mctx.lineTo(sx + 35, sy - 20);
+        mctx.lineTo(sx + 75, sy);
+        mctx.closePath();
+        mctx.fillStyle = stallColors[st % 4] + '30';
+        mctx.fill();
+    }
+
+    // AFR coins flowing
+    for(var c = 0; c < 15; c++){
+        var cx = (c * 40 + marTime * 60) % 640 - 20;
+        var cy = 200 + Math.sin(marTime * 2 + c) * 30;
+        mctx.fillStyle = 'rgba(212,164,55,' + (0.3 + Math.sin(marTime + c) * 0.1) + ')';
+        mctx.beginPath();
+        mctx.arc(cx, cy, 6, 0, Math.PI * 2);
+        mctx.fill();
+        mctx.strokeStyle = 'rgba(212,164,55,0.4)';
+        mctx.lineWidth = 1;
+        mctx.stroke();
+        mctx.fillStyle = 'rgba(212,164,55,0.2)';
+        mctx.font = 'bold 6px monospace';
+        mctx.textAlign = 'center';
+        mctx.fillText('AFR', cx, cy + 2);
+    }
+
+    // Trade arrows between stalls
+    for(var a = 0; a < 5; a++){
+        var ax1 = 85 + a * 90;
+        var ax2 = ax1 + 90;
+        var ay = 270 + Math.sin(marTime * 3 + a) * 5;
+        mctx.strokeStyle = 'rgba(127,207,127,' + (0.1 + Math.sin(marTime * 2 + a) * 0.05) + ')';
+        mctx.lineWidth = 1;
+        mctx.beginPath();
+        mctx.moveTo(ax1, ay);
+        mctx.lineTo(ax2, ay);
+        mctx.stroke();
+        // Arrow head
+        mctx.beginPath();
+        mctx.moveTo(ax2, ay);
+        mctx.lineTo(ax2 - 4, ay - 3);
+        mctx.moveTo(ax2, ay);
+        mctx.lineTo(ax2 - 4, ay + 3);
+        mctx.stroke();
+    }
+
+    // Sun (solar economy)
+    var sunX = 530, sunY = 60;
+    mctx.fillStyle = 'rgba(255,170,68,0.15)';
+    mctx.beginPath();
+    mctx.arc(sunX, sunY, 25, 0, Math.PI * 2);
+    mctx.fill();
+    for(var r = 0; r < 8; r++){
+        var rang = marTime + r * (Math.PI / 4);
+        mctx.strokeStyle = 'rgba(255,170,68,0.1)';
+        mctx.beginPath();
+        mctx.moveTo(sunX + Math.cos(rang) * 28, sunY + Math.sin(rang) * 28);
+        mctx.lineTo(sunX + Math.cos(rang) * 38, sunY + Math.sin(rang) * 38);
+        mctx.stroke();
+    }
+
+    // Center text
+    var done = marCompleted.size;
+    mctx.fillStyle = 'rgba(127,207,127,0.4)';
+    mctx.font = 'bold 11px monospace';
+    mctx.textAlign = 'center';
+    mctx.fillText('LE MARCHE AFRICAIN', 300, 20);
+    mctx.fillStyle = 'rgba(127,207,127,0.3)';
+    mctx.font = '10px monospace';
+    mctx.fillText(done + '/8 modules validés', 300, 38);
+
+    if(done === 8){
+        mctx.fillStyle = 'rgba(127,207,127,' + (0.3 + Math.sin(marTime * 3) * 0.1) + ')';
+        mctx.font = 'bold 12px monospace';
+        mctx.fillText('L ECONOMIE EST COMPRISE — L AFRIQUE PRODUIT', 300, 340);
+    }
+
+    requestAnimationFrame(drawMarche);
+}
+
+// Proverbes rotation
+var provIdx = 0;
+function rotateMarProverbe(){
+    document.getElementById('mar-proverbe').textContent = marProverbes[provIdx];
+    provIdx = (provIdx + 1) % marProverbes.length;
+}
+rotateMarProverbe();
+var provInt = setInterval(rotateMarProverbe, 5000);
+marIntervalIds.push(provInt);
+
+// Trace
+function addMarTrace(msg){
+    var log = document.getElementById('mar-trace');
+    var now = new Date();
+    var ts = String(now.getHours()).padStart(2,'0') + ':' + String(now.getMinutes()).padStart(2,'0') + ':' + String(now.getSeconds()).padStart(2,'0');
+    log.innerHTML = '<div style="padding:4px 0;border-bottom:1px solid rgba(127,207,127,0.05);"><span style="color:#666;">[' + ts + ']</span> <span style="color:#7fcf7f;">💰</span> ' + msg + '</div>' + log.innerHTML;
+    if(log.innerHTML.length > 3000) log.innerHTML = log.innerHTML.substring(0, 3000);
+}
+
+addMarTrace('💰 AI Marche initialise — Economie Souveraine Africaine');
+addMarTrace('📚 8 modules charges: Production, Transformation, Commerce, Cooperatives, Monnaie, Import-Export, Solaire, ZLECAf');
+addMarTrace('📜 12 proverbes economiques africains charges');
+addMarTrace('🪙 ZLECAf: 54 pays, 1.4 milliard de personnes, 3000 milliards de PIB');
+addMarTrace('🎓 Diplome: 8 modules -> Marchand de l Afrique');
+addMarTrace('💰 L Afrique produit. L Afrique transforme. L Afrique vend.');
+
+updateMarProgress();
+drawMarche();
+</script>
+
+<footer style="text-align:center;margin-top:40px;color:#a8c5a8;">💰 AI Marche — L Afrique produit. L Afrique transforme. L Afrique vend. L economie n est pas importee, elle est africaine. 💚🦁💰</footer>"##);
+
+    html.push_str("</body></html>");
+    html
+}
+
 fn html_garage(chain: &Blockchain) -> String {
     let mut html = html_head("Garage AI — Atelier Autonome 2500");
     let num_blocks = chain.blocks.len();
@@ -14067,7 +14402,7 @@ html+='<div class="log-entry log-kill">⚠️ Tentative d\x27infiltration occide
 html+='<div class="log-entry log-invis">✅ L\x27Afrique est forte. Le système grandit.</div>';
 }else if(type==='total'){
 html='<div style="color:#d4a437;font-weight:bold;margin-bottom:8px">📋 RAPPORT TOTAL — Depuis le début</div>';
-html+='<div class="log-entry">🦁 AfriChain v0.88 — AI Explorateur Science Africaine</div>';
+html+='<div class="log-entry">🦁 AfriChain v0.89 — AI Marche Economie Africaine</div>';
 html+='<div class="log-entry">⛓️ Blockchain: 100% souveraine — Zéro dépendance externe</div>';
 html+='<div class="log-entry">🔐 Crypto: Ed25519 + AfriHash-256/512 + AfriRNG — tout from scratch</div>';
 html+='<div class="log-entry">🌍 54 pays africains connectés</div>';
@@ -15611,7 +15946,7 @@ fn main() {
         .and_then(|i| args.get(i + 1)).cloned().unwrap_or_else(|| "Afrique".to_string());
 
     let my_node_id = generate_node_id();
-    println!("🦁 AfriChain v0.88 — AI Explorateur Science Africaine");
+    println!("🦁 AfriChain v0.89 — AI Marche Economie Africaine");
     println!("💚 L'Afrique ne demande plus la permission");
     println!("🌍 54 pays — 🇲🇱 🇳🇪 🇧🇫 AES — Mali · Niger · Burkina Faso");
     println!("🔐 8 modules cryptographiques — construits from scratch");
@@ -15767,6 +16102,7 @@ fn main() {
     println!("⚖️ AI Juge sur http://localhost:8080/ai-juge");
     println!("🎨 AI Artiste sur http://localhost:8080/ai-artiste");
     println!("🔬 AI Explorateur sur http://localhost:8080/ai-explorateur");
+    println!("💰 AI Marche sur http://localhost:8080/ai-marche");
 
     // Serveur HTTP en arrière-plan (pour mesh + autres utilisateurs)
     let serve_state = web_state.clone();
@@ -15801,7 +16137,7 @@ fn terminal_interface(state: &Arc<AppState>) {
     println!("  ║  🕐 AfriTime — Pas UTC, pas Greenwich   ║");
     println!("  ║  📝 ~16,500 lignes — écrit à la main       ║");
     println!("  ╚═══════════════════════════════════════════════╝");
-    println!("\n  Version v0.88 — 30 août 2026");
+    println!("\n  Version v0.89 — 30 août 2026");
     println!("  Construit sur Termux · Android · nano\n");
     println!("  ─────────────────────────────────────────────");
     println!("\n  1. 🏦 Centre de Données (Admin)");
@@ -15873,7 +16209,7 @@ fn admin_interface(state: &Arc<AppState>) {
         println!("\n");
         println!("╔══════════════════════════════════════╗");
         println!("║  🏦 CENTRE DE DONNÉES — Admin       ║");
-        println!("║  🦁 AfriChain v0.88                  ║");
+        println!("║  🦁 AfriChain v0.89                  ║");
         println!("╠══════════════════════════════════════╣");
         let chain = state.chain.lock().unwrap();
         let users = state.users.lock().unwrap();
@@ -19452,6 +19788,11 @@ fn handle_request(req: afri_http::HttpRequest, state: &Arc<AppState>) -> afri_ht
         ("GET", "/ai-explorateur") => {
             let chain = state.chain.lock().unwrap();
             HttpResponse::ok(&html_ai_explorateur(&chain))
+        }
+
+        ("GET", "/ai-marche") => {
+            let chain = state.chain.lock().unwrap();
+            HttpResponse::ok(&html_ai_marche(&chain))
         }
 
         ("GET", "/garage") => {
