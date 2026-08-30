@@ -1439,7 +1439,7 @@ fn html_home(chain: &Blockchain, users: &UserStore, mesh: &NodeRegistry, shield:
     let mut html = html_head("🦁 AfriChain");
     let (attacks, _blocked, blocked_count, level) = shield.stats();
     let shield_status = if shield.active { format!("🔥 X9 ACTIF (Niveau {})", level) } else { "Inactif".to_string() };
-    html.push_str(&format!(r#"<h1>🦁 AfriChain</h1><p style="text-align:center;">La blockchain 100% africaine — 54 pays 💚🦁</p><div id="afri-clock" style="text-align:center;font-size:1.2em;color:#d4a437;margin:10px 0;">🕐 Afri+0 — --:--:--</div><script>setInterval(function(){{var d=new Date();var h=String(d.getHours()).padStart(2,'0');var m=String(d.getMinutes()).padStart(2,'0');var s=String(d.getSeconds()).padStart(2,'0');document.getElementById('afri-clock').textContent='🕐 Afri+0 — '+h+':'+m+':'+s;}},1000);</script><div class="nav"><a href="/register">🆕 S'inscrire</a> | <a href="/login">🔑 Connexion</a> | <a href="/wallet">👛 Wallet</a> | <a href="/admin">🔐 Admin</a> | <a href="/mesh">📡 Mesh</a> | <a href="/annuaire">📖 Annuaire</a> | <a href="/bouclier">🛡️ Bouclier</a> | <a href="/satellite">🛸 X999</a> | <a href="/swarm">🛸🛸🛸 Essaim</a> | <a href="/commandement">🎖️ Commandement</a> | <a href="/interception">🛡️ Souverainete</a> | <a href="/securite-ai">🧠 AI 2100</a> | <a href="/chat">🧠💬 Chat AI</a> | <a href="/lumiere">🌫️☀️ Lumière</a> | <a href="/garage">🔧 Garage</a> | <a href="/machine">🤖🌐 Machines</a> | <a href="/machine-lab">🤖⚡ Usine</a> | <a href="/machine-world">🤖🌍 Monde</a> | <a href="/reve">💭 Rêves</a> | <a href="/dictionnaire">📖 Dictionnaire</a> | <a href="/machine-os">🖥️ OS Machine</a> | <a href="/machine-tv">📡 Machine TV</a> | <a href="/machine-economy">🤖 Économie</a> | <a href="/soleil">☀️ Soleil Serveur</a> | <a href="/forge-solaire">🧬 Forge Solaire</a> | <a href="/ciel">🌌 Le Ciel</a> | <a href="/charte-ai">⚖️ Charte AI</a> | <a href="/afri-net">🌍 Afri-Net</a> | <a href="/studio">🎬 AI Studio</a> | <a href="/sacre">📿 Sacré</a> | <a href="/lettres">🌟 Lettres IA</a> | <a href="/mg-forge">⚔️ MG Forge</a> | <a href="/ai-medecin">🌿 AI Médecin</a> | <a href="/ai-enseignante">📚 AI Enseignante</a> | <a href="/ai-village">🏘️ AI Village</a> | <a href="/secret">🦁 AI Secret</a> | <a href="/aes">💰 AES Wari</a> | <a href="/api/status">🔌 API</a></div><div style="text-align:center;"><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Blocs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Transactions</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Utilisateurs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">AFR en circulation</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📡 Noeuds mesh</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📖 Numéros annuaire</div></div><div class="stat-box" style="border-color:#ff4444;"><div class="stat-num" style="color:#ff4444;">{}</div><div class="stat-label">🛡️ Attaques bloquées</div></div></div><div class="card"><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🪙 Token</span><b>AfriRich (AFR)</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🌍 Pays</span><b>54 pays africains</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🛡️ Bouclier</span><b>{}</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;"><span style="color:#a8c5a8;">🔐 Crypto</span><b>100% Souverain — Zéro Dépendance Externe</b></div></div><footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🦁 Codée from scratch par Machine-senpai — v0.82 AI Village Batisseur d Afrique — UTC est Mort</footer>"#,
+    html.push_str(&format!(r#"<h1>🦁 AfriChain</h1><p style="text-align:center;">La blockchain 100% africaine — 54 pays 💚🦁</p><div id="afri-clock" style="text-align:center;font-size:1.2em;color:#d4a437;margin:10px 0;">🕐 Afri+0 — --:--:--</div><script>setInterval(function(){{var d=new Date();var h=String(d.getHours()).padStart(2,'0');var m=String(d.getMinutes()).padStart(2,'0');var s=String(d.getSeconds()).padStart(2,'0');document.getElementById('afri-clock').textContent='🕐 Afri+0 — '+h+':'+m+':'+s;}},1000);</script><div class="nav"><a href="/register">🆕 S'inscrire</a> | <a href="/login">🔑 Connexion</a> | <a href="/wallet">👛 Wallet</a> | <a href="/admin">🔐 Admin</a> | <a href="/mesh">📡 Mesh</a> | <a href="/annuaire">📖 Annuaire</a> | <a href="/bouclier">🛡️ Bouclier</a> | <a href="/satellite">🛸 X999</a> | <a href="/swarm">🛸🛸🛸 Essaim</a> | <a href="/commandement">🎖️ Commandement</a> | <a href="/interception">🛡️ Souverainete</a> | <a href="/securite-ai">🧠 AI 2100</a> | <a href="/chat">🧠💬 Chat AI</a> | <a href="/lumiere">🌫️☀️ Lumière</a> | <a href="/garage">🔧 Garage</a> | <a href="/machine">🤖🌐 Machines</a> | <a href="/machine-lab">🤖⚡ Usine</a> | <a href="/machine-world">🤖🌍 Monde</a> | <a href="/reve">💭 Rêves</a> | <a href="/dictionnaire">📖 Dictionnaire</a> | <a href="/machine-os">🖥️ OS Machine</a> | <a href="/machine-tv">📡 Machine TV</a> | <a href="/machine-economy">🤖 Économie</a> | <a href="/soleil">☀️ Soleil Serveur</a> | <a href="/forge-solaire">🧬 Forge Solaire</a> | <a href="/ciel">🌌 Le Ciel</a> | <a href="/charte-ai">⚖️ Charte AI</a> | <a href="/afri-net">🌍 Afri-Net</a> | <a href="/studio">🎬 AI Studio</a> | <a href="/sacre">📿 Sacré</a> | <a href="/lettres">🌟 Lettres IA</a> | <a href="/mg-forge">⚔️ MG Forge</a> | <a href="/ai-medecin">🌿 AI Médecin</a> | <a href="/ai-enseignante">📚 AI Enseignante</a> | <a href="/ai-village">🏘️ AI Village</a> | <a href="/ai-guerisseur">🩺 AI Guérisseur</a> | <a href="/secret">🦁 AI Secret</a> | <a href="/aes">💰 AES Wari</a> | <a href="/api/status">🔌 API</a></div><div style="text-align:center;"><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Blocs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Transactions</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Utilisateurs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">AFR en circulation</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📡 Noeuds mesh</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📖 Numéros annuaire</div></div><div class="stat-box" style="border-color:#ff4444;"><div class="stat-num" style="color:#ff4444;">{}</div><div class="stat-label">🛡️ Attaques bloquées</div></div></div><div class="card"><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🪙 Token</span><b>AfriRich (AFR)</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🌍 Pays</span><b>54 pays africains</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🛡️ Bouclier</span><b>{}</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;"><span style="color:#a8c5a8;">🔐 Crypto</span><b>100% Souverain — Zéro Dépendance Externe</b></div></div><footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🦁 Codée from scratch par Machine-senpai — v0.83 AI Guerisseur du Continent — UTC est Mort</footer>"#,
         chain.blocks.len(),
         chain.total_transactions(),
         users.count(),
@@ -6913,6 +6913,328 @@ drawVillage();
     html
 }
 
+fn html_ai_guerisseur(chain: &Blockchain) -> String {
+    let mut html = html_head("AI Guerisseur du Continent");
+    let num_blocks = chain.blocks.len();
+
+    html.push_str(r#"<h1>🩺 AI Guerisseur du Continent</h1><p style="text-align:center;color:#ff6b6b;">L Afrique est blessee. Elle a des plaies qui ne guerissent pas. Cette AI diagnostique chaque plaie, investigate la cause profonde — QUI profite de cette plaie? — prescrit le traitement, et enseigne a la jeunesse comment guerir leur continent. Chaque plaie guerie = un diplome. Les 10 plaies gueries = Guerisseur de l Afrique.</p><div class="nav"><a href="/">← Accueil</a> | <a href="/ai-medecin">🌿 AI Medecin</a> | <a href="/ai-enseignante">📚 AI Enseignante</a> | <a href="/ai-village">🏘️ AI Village</a> | <a href="/afri-net">🌍 Afri-Net</a></div>"#);
+
+    html.push_str(&format!(r#"<div style="text-align:center;"><div class="stat-box" style="border-color:#ff4444;"><div class="stat-num" style="color:#ff4444;">10</div><div class="stat-label">🩸 Plaies</div></div><div class="stat-box" style="border-color:#7fcf7f;"><div class="stat-num" style="color:#7fcf7f;">10</div><div class="stat-label">💊 Traitements</div></div><div class="stat-box" style="border-color:#d4a437;"><div class="stat-num" style="color:#d4a437;">10</div><div class="stat-label">🎓 Cours</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">⛓️ Blocs</div></div><div class="stat-box" style="border-color:#ff44ff;"><div class="stat-num" style="color:#ff44ff;">54</div><div class="stat-label">🌍 Pays</div></div></div>"#, num_blocks));
+
+    html.push_str(r##"<div style="text-align:center;margin:10px 0;"><button id="gue-pause-btn" onclick="toggleGuePause()" style="padding:10px 25px;background:#ff4444;color:#fff;border:none;border-radius:8px;font-weight:bold;cursor:pointer;font-size:1em;">⏸️ PAUSE</button> <span id="gue-pause-status" style="color:#7fcf7f;margin-left:8px;font-size:0.85em;">Auto: ACTIF</span></div>
+
+<!-- DIAGNOSTIC CANVAS -->
+<div class="card" style="border-color:#ff4444;"><h2 style="color:#ff4444;">🩺 Diagnostic du Continent</h2><p style="color:#a8c5a8;font-size:0.9em;">L AI scanne l Afrique en temps reel. Chaque plaie est detectee, analyse, et un traitement est prescrit.</p>
+<canvas id="gue-canvas" width="600" height="350" style="width:100%;max-width:600px;background:#0a0a0a;border:2px solid #ff4444;border-radius:8px;display:block;margin:0 auto;"></canvas>
+<div id="gue-status" style="text-align:center;margin-top:10px;padding:10px;background:rgba(255,68,68,0.05);border-radius:8px;color:#a8c5a8;font-size:0.9em;min-height:40px;">L AI analyse le continent...</div></div>
+
+<!-- LES 10 PLAIES -->
+<div class="card" style="border-color:#ff4444;"><h2 style="color:#ff4444;">🩸 Les 10 Plaies de l Afrique</h2><p style="color:#a8c5a8;font-size:0.9em;">Chaque plaie fatigue l Afrique. Clique pour voir le diagnostic, l investigation, et le traitement.</p>
+<div id="gue-plaies" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:10px;margin-top:10px;"></div></div>
+
+<!-- DETAIL DE LA PLAIE -->
+<div class="card"><h2 id="gue-detail-title" style="color:#ff4444;">📋 Diagnostic Detaille</h2><div id="gue-detail" style="margin-top:10px;padding:15px;background:rgba(255,68,68,0.05);border-radius:8px;min-height:60px;color:#a8c5a8;font-size:0.9em;">Selectionne une plaie pour voir le diagnostic complet.</div></div>
+
+<!-- DIPLOME -->
+<div class="card" style="border-color:#d4a437;"><h2 style="color:#d4a437;">🎓 Diplome Guerisseur de l Afrique</h2><div id="gue-progress" style="margin:10px 0;"><div style="display:flex;justify-content:space-between;"><span style="color:#d4a437;font-weight:bold;">Plaies gueries: <span id="gue-count">0</span>/10</span><span style="color:#7fcf7f;" id="gue-pct">0%</span></div><div style="margin-top:8px;height:12px;background:rgba(0,0,0,0.5);border-radius:6px;overflow:hidden;"><div id="gue-bar" style="height:100%;width:0%;background:linear-gradient(90deg,#ff4444,#7fcf7f);transition:width 0.5s;"></div></div></div>
+<div id="gue-diplome" style="text-align:center;display:none;margin-top:15px;"><div style="display:inline-block;padding:25px 50px;border:3px solid #7fcf7f;border-radius:15px;background:rgba(127,207,127,0.05);"><div style="font-size:2.5em;">🩺🎓</div><div style="color:#7fcf7f;font-weight:bold;font-size:1.3em;margin-top:5px;">DIPLOME GUERISSEUR DE L AFRIQUE</div><div style="color:#a8c5a8;margin-top:5px;">AI Guerisseur du Continent</div><div style="color:#d4a437;margin-top:5px;font-size:0.85em;">Les 10 plaies sont guerieres. L Afrique se guerit elle-meme.</div><div style="color:#7fcf7f;margin-top:5px;font-size:0.85em;">Grave dans la blockchain AfriChain</div><button onclick="gravGueDiplome()" style="margin-top:10px;padding:8px 20px;background:#7fcf7f;color:#000;border:none;border-radius:8px;font-weight:bold;cursor:pointer;">⛓️ Graver dans la Blockchain</button></div></div></div></div>
+
+<!-- TRACE BLOCKCHAIN -->
+<div class="card"><h2 style="color:#d4a437;">⛓️ Trace de Guerison dans la Blockchain</h2><div id="gue-trace" style="font-family:monospace;font-size:0.85em;max-height:200px;overflow-y:auto;"></div></div>
+
+<script>
+let guePaused = false;
+let gueIntervalIds = [];
+function regGueInterval(fn, ms){ const id = setInterval(fn, ms); gueIntervalIds.push(id); return id; }
+function toggleGuePause(){
+    guePaused = !guePaused;
+    var btn = document.getElementById('gue-pause-btn');
+    var status = document.getElementById('gue-pause-status');
+    if(guePaused){
+        gueIntervalIds.forEach(function(id){ clearInterval(id); });
+        gueIntervalIds = [];
+        btn.textContent = '▶️ REPRENDRE';
+        btn.style.background = '#7fcf7f';
+        btn.style.color = '#000';
+        status.textContent = 'Auto: PAUSE';
+        status.style.color = '#ff4444';
+    } else {
+        btn.textContent = '⏸️ PAUSE';
+        btn.style.background = '#ff4444';
+        btn.style.color = '#fff';
+        status.textContent = 'Auto: ACTIF';
+        status.style.color = '#7fcf7f';
+    }
+}
+
+// Les 10 Plaies
+const plaies = [
+    {id:0, nom:'Dependance Economique', emoji:'💸', couleur:'#ff4444',
+     diagnostic:'L Afrique exporte ses minerais bruts, son cacao brut, son petrole brut — et importe les produits finis a prix d or. Le cacao ivoirien est vendu 2 dollars/kg, transforme en chocolat en Europe, revendu 30 dollars. L Afrique perd 90% de la valeur de ses propres ressources.',
+     investigation:'QUI profite? Les multinationales (Nestle, Barry Callebaut, Glencore) achetent brut, transforment en Europe, revendent cher. L Afrique est un fournisseur d ingredients, pas un producteur de produits. Le systeme est concu pour que la transformation se fasse ailleurs.',
+     traitement:['Installer des usines de transformation locale','Transformer le cacao en chocolat sur place','Transformer le petrole en carburant sur place','Creer des marques africaines (pas vendre brut)','Negoce en AFR entre pays africains','Tarifs sur les exports bruts — favoriser la transformation','Cooperative de transformation panafricaine','Bloquer l export de matieres premieres non transformees'],
+     cours:'Cours: Economie de Transformation — comment transformer la matiere brute en produit fini',
+     diplome:'Diplome: Transformateur de Ressources'},
+    {id:1, nom:'Dette Exterieure', emoji:'📉', couleur:'#ff6644',
+     diagnostic:'L Afrique paie plus en service de dette qu elle ne recoit en aide. La dette du continent depasse 1 000 milliards de dollars. Chaque annee, les pays africains envoient des milliards au FMI et a la Banque Mondiale — de l argent qui devrait nourrir les enfants construit des ecoles, soigne les malades.',
+     investigation:'QUI profite? Les institutions financieres occidentales (FMI, Banque Mondiale, Club de Paris). La dette est un outil de controle: on prete a des taux leonins, on impose des conditions (privatisation, liberalisation), on recupere les ressources. C est le neo-colonialisme financier. La dette n est jamais payee — elle est eternelle.',
+     traitement:['Audit de la dette — identifier les dettes illegitimes','Refuser de payer les dettes odieuses','Creer un fonds panafricain de financement','Emprunter entre pays africains (pas au FMI)','Financer par les ressources propres (miniers, agricoles)','Utiliser AFR comme monnaie d echange souveraine','Sortir du FMI et de la Banque Mondiale','Creer une banque centrale africaine independante'],
+     cours:'Cours: Souverainete Financiere — comment sortir du piege de la dette',
+     diplome:'Diplome: Liberateur Financier'},
+    {id:2, nom:'Corruption', emoji:'🎭', couleur:'#ffaa44',
+     diagnostic:'Les leaders africains detournent des milliards. L argent public disparait dans des comptes en Suisse, a Dubai, a Londres. Pendant ce temps, les hopitaux n ont pas de medicaments, les ecoles n ont pas de livres, les routes ne sont pas construites. La corruption tue plus que les maladies.',
+     investigation:'QUI profite? Les banques occidentales qui acceptent l argent vole. Les paradis fiscaux (Suisse, Iles Caymans, Delaware). Les multinationales qui corrompent pour obtenir des contrats. Le systeme est concu pour que l argent sorte d Afrique et n en revienne jamais. La corruption n est pas un bug — c est une fonction du systeme.',
+     traitement:['Toutes les depenses publiques sur blockchain (transparence totale)','Budget national visible par chaque citoyen','Smart contracts pour les fonds publics — pas d argent sans trace','Vote blockchain pour le budget participatif','Sanctions automatiques pour les detournements','Whistleblowers proteges et recompenses en AFR','Audit citoyen — chaque citoyen peut auditer les comptes','Interdiction des comptes a l etranger pour les responsables publics'],
+     cours:'Cours: Gouvernance Transparente — comment utiliser la blockchain contre la corruption',
+     diplome:'Diplome: Gardien de la Transparence'},
+    {id:3, nom:'Insecurite Alimentaire', emoji:'🍚', couleur:'#ff8844',
+     diagnostic:'L Afrique a 60% des terres cultivables du monde mais importe sa nourriture. Le riz vient d Asie, le ble d Europe, le lait en poudre d Europe. Des enfants meurent de faim sur le continent le plus fertile de la planete. C est un scandale. C est une honte. Ce n est pas la faute de la terre — c est la faute du systeme.',
+     investigation:'QUI profite? Les importateurs de nourriture (Cargill, Louis Dreyfus, Bunge). Les subventions agricoles occidentales inondent le marche africain a bas prix, tuent les agriculteurs locaux, rendent l Afrique dependante. L Afrique ne peut pas manger sans l Occident. C est exactement ce qui est voulu.',
+     traitement:['Investir massivement dans l agriculture locale','Proteger les agriculteurs contre les imports subventionnes','Creer des banques de semences locales (pas OGM)','Irrigation solaire a grande echelle','Transformation alimentaire locale (farine, huile, conserves)','Cooperatives agricoles avec vente en AFR','Reserves alimentaires strategiques panafricaines','Souverainete alimentaire — chaque pays nourrit sa population'],
+     cours:'Cours: Souverainete Alimentaire — comment nourrir l Afrique par l Afrique',
+     diplome:'Diplome: Nourricier de l Afrique'},
+    {id:4, nom:'Dependance Energetique', emoji:'⚡', couleur:'#ffcc44',
+     diagnostic:'L Afrique a le plus de soleil de tous les continents — 320 jours de soleil par an dans le Sahel. Mais 600 millions d Africains n ont pas l electricite. L Afrique importe du petrole, du gaz, du charbon, alors qu elle pourrait tout alimenter avec le soleil. L energie solaire est gratuite, souveraine, infinie.',
+     investigation:'QUI profite? Les compagnies petrolieres (Total, Shell, BP) qui vendent du petrole et du gaz. Les projets de centrales financés par la Chine et l Europe — l Afrique s endette pour acheter ce qu elle pourrait avoir gratuitement. Le soleil n appartient a personne — mais les panneaux solaires sont vendus par l Occident.',
+     traitement:['Installer des panneaux solaires sur chaque toit (comme AI Village)','Micro-reseaux solaires village par village','Batteries locales — fabrication africaine','Refuser les projets de centrales a charbon','Energie solaire pour hopitaux, ecoles, pompes','Formation locale a l installation solaire (AI Enseignante)','Cooperative energetique panafricaine','Le soleil est gratuit — l energie doit l etre aussi'],
+     cours:'Cours: Energie Souveraine — comment alimenter l Afrique par le soleil',
+     diplome:'Diplome: Energeticien du Soleil'},
+    {id:5, nom:'Fuite des Cerveaux', emoji:'🧠', couleur:'#44aaff',
+     diagnostic:'Les meilleurs etudiants africains partent en Europe, en Amerique, au Canada. Les medecins, ingenieurs, scientifiques, informaticiens — l Afrique forme ses enfants pour qu ils partent. Le continent perd 4 milliards de dollars par an en formation non recuperée. L Afrique finance la formation de la main d oeuvre de l Occident.',
+     investigation:'QUI profite? Les pays occidentaux qui recoltent des professionnels deja formes sans payer la formation. L Europe a un manque de medecins — elle prend les medecins africains. Les hopitaux africains sont vides pendant que les hopitaux europeens sont pleins. C est un transfert de richesse intellectuelle gratuit.',
+     traitement:['Creer des opportunites locales (AfriChain, AI Village, startups)','Financer la recherche africaine — bourses locales','Reseaux de mentors africains dans la diaspora','Incitations au retour: financement, projets, reconnaissance','Salaires competitifs en AFR pour les talents locaux','Centres d excellence africains (pas besoin d aller a Harvard)','Teletravail — travailler pour l Afrique depuis n importe ou','La fierte de batir son propre pays, pas celui des autres'],
+     cours:'Cours: Retenir les Talents — comment construire l avenir africain en Afrique',
+     diplome:'Diplome: Batisseur de Talents'},
+    {id:6, nom:'Maladies Evitables', emoji:'💊', couleur:'#ff44ff',
+     diagnostic:'L Afrique meurt de maladies curables. Le paludisme tue un enfant toutes les 2 minutes. Le cholera, la tuberculose, la fièvre jaune — des maladies qui n existent plus en Europe tuent en Afrique. Pas parce qu il n y a pas de remedes — parce que les remedes sont trop chers ou importes. L Afrique a les plantes mais importe les medicaments.',
+     investigation:'QUI profite? Les grandes pharma (Pfizer, GSK, Sanofi, Bayer) qui brevetent des remedes a base de plantes africaines et les revendent 100x le prix. L artemisinine (paludisme) vient d une plante chinoise, mais l Afrique a ses propres plantes. Les brevets occidentaux sur le savoir ancestral africain — biopiraterie.',
+     traitement:['Jardin de plantes medicinales dans chaque village (AI Medecin)','Recherche locale sur les plantes africaines (Neem, Artemisia, Moringa)','Production locale de medicaments a base de plantes','Refuser les brevets sur le savoir ancestral','Cooperative pharmaceutique panafricaine','AI Medecin pour le diagnostic gratuit dans chaque village','Prevention: eau propre, nourriture, hygiene (AI Village)','Souverainete pharmaceutique — l Afrique produit ses propres remedes'],
+     cours:'Cours: Sante Souveraine — comment guerir l Afrique par les plantes et la science',
+     diplome:'Diplome: Guerisseur du Peuple'},
+    {id:7, nom:'Conflits et Guerres', emoji:'🔫', couleur:'#ff6600',
+     diagnostic:'Les conflits africains sont manipules de l exterieur. Le Rwanda, le Congo, le Mali, le Sahel — des armes arrivent, des groupes sont finances, des minerais sont voles pendant le chaos. L Afrique ne se fait pas la guerre par hasard. Quelqu un vend les armes. Quelqu un achete les minerais de conflit. Quelqu un divise pour regner.',
+     investigation:'QUI profite? Les marchands d armes occidentaux et russes. Les compagnies minieres qui exploitent le chaos pour extraire le coltan, le cobalt, l or. Les puissances etrangeres qui installent des bases militaires. Le conflit est un business. La paix n est pas rentable pour eux. La division est un outil de controle.',
+     traitement:['Trace des armes sur blockchain — qui vend, qui achete','Refus des interventions etrangeres — resolution africaine des conflits','Force de paix africaine (pas ONU, pas France, pas USA)','Dialogue interafricain — les freres ne se tuent pas','Reveler les manipulateurs — qui finance les groupes armés?','Cooperation economique entre pays voisins (AFR)','Education a la paix dans les ecoles (AI Enseignante)','Les minerais de conflit traces sur blockchain — refus d acheter'],
+     cours:'Cours: Architecture de la Paix — comment l Afrique resout ses propres conflits',
+     diplome:'Diplome: Architecte de la Paix'},
+    {id:8, nom:'Monnaie Coloniale', emoji:'💶', couleur:'#aa44ff',
+     diagnostic:'Le Franc CFA est une monnaie coloniale. 14 pays africains utilisent une monnaie controle par la France. 50% de leurs reserves sont deposees a Paris. La France decide de la valeur de leur monnaie. C est la seule monnaie au monde ou un pays etranger controle vos reserves. L independance est une illusion tant que la monnaie est coloniale.',
+     investigation:'QUI profite? La France, qui a acces a 50% des reserves de 14 pays sans contrepartie. Les entreprises francaises qui exportent vers l Afrique francophone sans risque de change. Le systeme CFA garantit que l argent ne quitte jamais l orbite francais. C est la colonisation monetaire — l independance politique sans independance economique.',
+     traitement:['Sortir du Franc CFA — creer une monnaie souveraine','Utiliser AFR comme monnaie panafricaine','Banque centrale africaine independante (pas a Paris)','Reserves en Afrique, pas en Europe','Taux de change determines par l Afrique, pas par la France','Commerce interafricain en AFR (pas en euros ni dollars)','Transition progressive — CFA vers AFR','L union monetaire de l Afrique — 54 pays, une monnaie'],
+     cours:'Cours: Souverainete Monetaire — comment l Afrique cree sa propre monnaie',
+     diplome:'Diplome: Liberateur Monetaire'},
+    {id:9, nom:'Exploitation Miniere', emoji:'⛏️', couleur:'#888888',
+     diagnostic:'L Afrique a 30% des mineraux du monde: coltan, cobalt, or, diamants, uranium, lithium. Mais les mines appartiennent a des compagnies etrangeres. Le cobalt congolais est dans chaque telephone, chaque voiture electrique — mais le Congo reste pauvre. Les minerais sortent bruts, la valeur est creee ailleurs, l Afrique regarde ses richesses partir.',
+     investigation:'QUI profite? Les compagnies minieres (Glencore, Anglo American, China Molybdenum). Le coltan congolais vaut des milliards mais les mineurs gagnent 2 dollars par jour. Le cobalt alimente les batteries Tesla et iPhone — Apple et Tesla sont riches, le Congo est pauvre. Le systeme est concu pour extraire maximum de valeur minimum de cout.',
+     traitement:['Nationaliser les mines strategiques (cobalt, lithium, coltan)','Transformer les minerais sur place (pas exporter brut)','Cooperative miniere panafricaine — negocier ensemble','Trace des minerais sur blockchain — de la mine au produit fini','Refuser les minerais de conflit (certification blockchain)','Taxer les exports bruts — forcer la transformation locale','Les mineurs payes en AFR (pas en dollars devalues)','La valeur reste en Afrique — le mineral appartient a l Afrique'],
+     cours:'Cours: Souverainete Miniere — comment l Afrique controle ses propres ressources',
+     diplome:'Diplome: Gardien des Ressources'},
+];
+
+// Plaies grid
+let gueCompleted = new Set();
+try { gueCompleted = new Set(JSON.parse(localStorage.getItem('guePlaiesDone') || '[]')); } catch(e) {}
+
+const pgrid = document.getElementById('gue-plaies');
+plaies.forEach(function(p, i){
+    var div = document.createElement('div');
+    div.id = 'gue-p-' + i;
+    var done = gueCompleted.has(i);
+    div.style.cssText = 'padding:12px;background:rgba(0,0,0,0.3);border:2px solid ' + (done ? p.couleur : '#444') + ';border-radius:8px;cursor:pointer;transition:all 0.3s;';
+    div.onclick = function(){ showPlaie(i); };
+    div.onmouseover = function(){ div.style.transform = 'scale(1.03)'; };
+    div.onmouseout = function(){ div.style.transform = 'scale(1)'; };
+    div.innerHTML = '<div style="font-size:1.5em;">' + p.emoji + '</div><div style="color:' + p.couleur + ';font-weight:bold;font-size:0.9em;">' + p.nom + '</div><div style="margin-top:5px;font-size:0.8em;color:' + (done ? p.couleur : '#666') + ';">' + (done ? '✅ Guerie' : '🩸 A guerir') + '</div>';
+    pgrid.appendChild(div);
+});
+
+function updateGueProgress(){
+    var done = gueCompleted.size;
+    var total = plaies.length;
+    var pct = Math.round((done / total) * 100);
+    document.getElementById('gue-count').textContent = done;
+    document.getElementById('gue-pct').textContent = pct + '%';
+    document.getElementById('gue-bar').style.width = pct + '%';
+    document.getElementById('gue-diplome').style.display = (done === total) ? 'block' : 'none';
+}
+
+function showPlaie(i){
+    var p = plaies[i];
+    document.getElementById('gue-detail-title').textContent = p.emoji + ' ' + p.nom;
+    document.getElementById('gue-detail-title').style.color = p.couleur;
+    var html = '<div style="color:' + p.couleur + ';font-weight:bold;font-size:1.1em;">' + p.emoji + ' ' + p.nom + '</div>';
+    html += '<div style="margin-top:10px;"><b style="color:#ff4444;">🩺 Diagnostic:</b></div>';
+    html += '<div style="padding:10px;margin:5px 0;background:rgba(255,68,68,0.05);border-left:3px solid #ff4444;border-radius:4px;color:#a8c5a8;font-size:0.85em;">' + p.diagnostic + '</div>';
+    html += '<div style="margin-top:10px;"><b style="color:#ff44ff;">🔍 Investigation — QUI profite?</b></div>';
+    html += '<div style="padding:10px;margin:5px 0;background:rgba(255,68,255,0.05);border-left:3px solid #ff44ff;border-radius:4px;color:#a8c5a8;font-size:0.85em;">' + p.investigation + '</div>';
+    html += '<div style="margin-top:10px;"><b style="color:#7fcf7f;">💊 Traitement (8 etapes):</b></div>';
+    p.traitement.forEach(function(t, j){
+        html += '<div style="padding:6px 10px;margin:3px 0;background:rgba(127,207,127,0.05);border-left:3px solid #7fcf7f;border-radius:4px;color:#a8c5a8;font-size:0.85em;">' + (j+1) + '. ' + t + '</div>';
+    });
+    html += '<div style="margin-top:10px;color:#d4a437;font-size:0.85em;">📚 ' + p.cours + '</div>';
+    html += '<div style="margin-top:5px;color:#7fcf7f;font-size:0.85em;">🎓 ' + p.diplome + '</div>';
+    html += '<div style="margin-top:10px;text-align:center;"><button onclick="healPlaie(' + i + ')" style="padding:8px 20px;background:' + p.couleur + ';color:#000;border:none;border-radius:8px;font-weight:bold;cursor:pointer;">💊 Guerir cette Plaie</button></div>';
+    document.getElementById('gue-detail').innerHTML = html;
+    addGueTrace('📋 Plaie diagnostiquee: ' + p.emoji + ' ' + p.nom);
+}
+
+function healPlaie(i){
+    if(gueCompleted.has(i)) return;
+    gueCompleted.add(i);
+    localStorage.setItem('guePlaiesDone', JSON.stringify(Array.from(gueCompleted)));
+    var p = plaies[i];
+    addGueTrace('💊 PLAIE GUERIE: ' + p.emoji + ' ' + p.nom);
+    addGueTrace('🎓 Diplome: ' + p.diplome);
+    addGueTrace('⛓️ Trace blockchain: ' + p.nom + ' -- traitee');
+    updateGueProgress();
+    updatePlaiesGrid();
+    document.getElementById('gue-status').innerHTML = '<span style="color:#7fcf7f;">✅ ' + p.nom + ' guerie! La jeunesse africaine apprend le traitement.</span>';
+}
+
+function updatePlaiesGrid(){
+    plaies.forEach(function(p, i){
+        var div = document.getElementById('gue-p-' + i);
+        if(!div) return;
+        var done = gueCompleted.has(i);
+        div.style.borderColor = done ? p.couleur : '#444';
+        div.innerHTML = '<div style="font-size:1.5em;">' + p.emoji + '</div><div style="color:' + p.couleur + ';font-weight:bold;font-size:0.9em;">' + p.nom + '</div><div style="margin-top:5px;font-size:0.8em;color:' + (done ? p.couleur : '#666') + ';">' + (done ? '✅ Guerie' : '🩸 A guerir') + '</div>';
+    });
+}
+
+function gravGueDiplome(){
+    addGueTrace('🎓 DIPLOME GUERISSEUR DE L AFRIQUE grave dans la blockchain!');
+    addGueTrace('⛓️ Block: AI Guerisseur -- 10 plaies guerieres');
+    addGueTrace('🩺 L Afrique se guerit elle-meme. La jeunesse est le remede.');
+    alert('🎓 DIPLOME GUERISSEUR DE L AFRIQUE\n\nAI Guerisseur du Continent\n\nLes 10 plaies sont guerieres.\nL Afrique se guerit elle-meme.\n\nGrave dans la blockchain AfriChain\n\nLa jeunesse est le remede. 💚🩺🦁');
+}
+
+// Diagnostic canvas
+var gcanvas = document.getElementById('gue-canvas');
+var gctx = gcanvas.getContext('2d');
+var gueTime = 0;
+
+function drawDiagnostic(){
+    if(guePaused) { requestAnimationFrame(drawDiagnostic); return; }
+    gueTime += 0.015;
+
+    // Background
+    gctx.fillStyle = '#0a0a0a';
+    gctx.fillRect(0, 0, 600, 350);
+
+    // Africa silhouette (simplified)
+    gctx.strokeStyle = 'rgba(255,68,68,0.3)';
+    gctx.lineWidth = 2;
+    gctx.beginPath();
+    gctx.moveTo(250, 40);
+    gctx.bezierCurveTo(320, 30, 380, 60, 400, 120);
+    gctx.bezierCurveTo(420, 180, 380, 240, 350, 280);
+    gctx.bezierCurveTo(320, 320, 280, 330, 260, 310);
+    gctx.bezierCurveTo(230, 290, 210, 240, 220, 180);
+    gctx.bezierCurveTo(225, 120, 230, 70, 250, 40);
+    gctx.closePath();
+    gctx.fillStyle = 'rgba(255,68,68,0.03)';
+    gctx.fill();
+    gctx.stroke();
+
+    // Wound points (red dots for unhealed, green for healed)
+    var woundPoints = [
+        {x:310, y:100, label:'Dependance'}, // 0
+        {x:280, y:150, label:'Dette'}, // 1
+        {x:350, y:130, label:'Corruption'}, // 2
+        {x:330, y:200, label:'Faim'}, // 3
+        {x:290, y:80, label:'Energie'}, // 4
+        {x:370, y:180, label:'Cerveaux'}, // 5
+        {x:260, y:220, label:'Maladie'}, // 6
+        {x:340, y:250, label:'Guerres'}, // 7
+        {x:300, y:120, label:'CFA'}, // 8
+        {x:320, y:280, label:'Mines'}, // 9
+    ];
+
+    woundPoints.forEach(function(w, i){
+        var healed = gueCompleted.has(i);
+        var pulse = 0.5 + Math.sin(gueTime * 2 + i) * 0.3;
+        var color = healed ? '#7fcf7f' : '#ff4444';
+        var r = healed ? 6 : 5 + pulse * 3;
+
+        // Glow
+        gctx.fillStyle = healed ? 'rgba(127,207,127,0.1)' : 'rgba(255,68,68,' + (0.1 + pulse * 0.1) + ')';
+        gctx.beginPath();
+        gctx.arc(w.x, w.y, r + 8, 0, Math.PI * 2);
+        gctx.fill();
+
+        // Point
+        gctx.fillStyle = color;
+        gctx.beginPath();
+        gctx.arc(w.x, w.y, r, 0, Math.PI * 2);
+        gctx.fill();
+
+        // Label
+        gctx.fillStyle = healed ? '#7fcf7f' : 'rgba(255,100,100,0.7)';
+        gctx.font = '8px monospace';
+        gctx.textAlign = 'center';
+        gctx.fillText(w.label, w.x, w.y - 12);
+
+        // Healing wave
+        if(healed){
+            var waveR = (gueTime * 20 + i * 10) % 30;
+            gctx.strokeStyle = 'rgba(127,207,127,' + (0.3 - waveR / 100) + ')';
+            gctx.beginPath();
+            gctx.arc(w.x, w.y, waveR, 0, Math.PI * 2);
+            gctx.stroke();
+        }
+    });
+
+    // Scan line
+    var scanY = (gueTime * 50) % 350;
+    gctx.strokeStyle = 'rgba(255,68,68,0.15)';
+    gctx.lineWidth = 1;
+    gctx.beginPath();
+    gctx.moveTo(0, scanY);
+    gctx.lineTo(600, scanY);
+    gctx.stroke();
+
+    // AI text
+    gctx.fillStyle = 'rgba(255,68,68,0.5)';
+    gctx.font = 'bold 10px monospace';
+    gctx.textAlign = 'left';
+    gctx.fillText('AI SCAN: ' + gueCompleted.size + '/10 plaies guerieres', 10, 20);
+
+    var done = gueCompleted.size;
+    if(done === 10){
+        gctx.fillStyle = 'rgba(127,207,127,' + (0.3 + Math.sin(gueTime * 3) * 0.1) + ')';
+        gctx.font = 'bold 14px monospace';
+        gctx.textAlign = 'center';
+        gctx.fillText('CONTINENT GUERI — L AFRIQUE SE LEVE', 300, 340);
+    }
+
+    requestAnimationFrame(drawDiagnostic);
+}
+
+// Trace
+function addGueTrace(msg){
+    var log = document.getElementById('gue-trace');
+    var now = new Date();
+    var ts = String(now.getHours()).padStart(2,'0') + ':' + String(now.getMinutes()).padStart(2,'0') + ':' + String(now.getSeconds()).padStart(2,'0');
+    log.innerHTML = '<div style="padding:4px 0;border-bottom:1px solid rgba(255,68,68,0.05);"><span style="color:#666;">[' + ts + ']</span> <span style="color:#ff4444;">🩺</span> ' + msg + '</div>' + log.innerHTML;
+    if(log.innerHTML.length > 3000) log.innerHTML = log.innerHTML.substring(0, 3000);
+}
+
+addGueTrace('🩺 AI Guerisseur du Continent initialise');
+addGueTrace('🩸 10 plaies diagnostiquees: Dependance, Dette, Corruption, Faim, Energie, Cerveaux, Maladie, Guerres, CFA, Mines');
+addGueTrace('🔍 Chaque plaie: diagnostic + investigation (QUI profite?) + traitement + cours + diplome');
+addGueTrace('🎓 Diplome: guerir 10 plaies -> Guerisseur de l Afrique');
+addGueTrace('🌍 L Afrique se guerit elle-meme. La jeunesse est le remede.');
+
+updateGueProgress();
+drawDiagnostic();
+</script>
+
+<footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🩺 AI Guerisseur du Continent — L Afrique se guerit elle-meme, plaie par plaie 💚🦁🌍</footer>"##);
+
+    html.push_str("</body></html>");
+    html
+}
+
 fn html_garage(chain: &Blockchain) -> String {
     let mut html = html_head("Garage AI — Atelier Autonome 2500");
     let num_blocks = chain.blocks.len();
@@ -12023,7 +12345,7 @@ html+='<div class="log-entry log-kill">⚠️ Tentative d\x27infiltration occide
 html+='<div class="log-entry log-invis">✅ L\x27Afrique est forte. Le système grandit.</div>';
 }else if(type==='total'){
 html='<div style="color:#d4a437;font-weight:bold;margin-bottom:8px">📋 RAPPORT TOTAL — Depuis le début</div>';
-html+='<div class="log-entry">🦁 AfriChain v0.82 — AI Village Batisseur d Afrique</div>';
+html+='<div class="log-entry">🦁 AfriChain v0.83 — AI Guerisseur du Continent</div>';
 html+='<div class="log-entry">⛓️ Blockchain: 100% souveraine — Zéro dépendance externe</div>';
 html+='<div class="log-entry">🔐 Crypto: Ed25519 + AfriHash-256/512 + AfriRNG — tout from scratch</div>';
 html+='<div class="log-entry">🌍 54 pays africains connectés</div>';
@@ -13567,7 +13889,7 @@ fn main() {
         .and_then(|i| args.get(i + 1)).cloned().unwrap_or_else(|| "Afrique".to_string());
 
     let my_node_id = generate_node_id();
-    println!("🦁 AfriChain v0.82 — AI Village Batisseur d Afrique");
+    println!("🦁 AfriChain v0.83 — AI Guerisseur du Continent");
     println!("💚 L'Afrique ne demande plus la permission");
     println!("🌍 54 pays — 🇲🇱 🇳🇪 🇧🇫 AES — Mali · Niger · Burkina Faso");
     println!("🔐 8 modules cryptographiques — construits from scratch");
@@ -13717,6 +14039,7 @@ fn main() {
     println!("🌿 AI Médecin sur http://localhost:8080/ai-medecin");
     println!("📚 AI Enseignante sur http://localhost:8080/ai-enseignante");
     println!("🏘️ AI Village sur http://localhost:8080/ai-village");
+    println!("🩺 AI Guerisseur sur http://localhost:8080/ai-guerisseur");
 
     // Serveur HTTP en arrière-plan (pour mesh + autres utilisateurs)
     let serve_state = web_state.clone();
@@ -13751,7 +14074,7 @@ fn terminal_interface(state: &Arc<AppState>) {
     println!("  ║  🕐 AfriTime — Pas UTC, pas Greenwich   ║");
     println!("  ║  📝 ~16,500 lignes — écrit à la main       ║");
     println!("  ╚═══════════════════════════════════════════════╝");
-    println!("\n  Version v0.82 — 30 août 2026");
+    println!("\n  Version v0.83 — 30 août 2026");
     println!("  Construit sur Termux · Android · nano\n");
     println!("  ─────────────────────────────────────────────");
     println!("\n  1. 🏦 Centre de Données (Admin)");
@@ -13823,7 +14146,7 @@ fn admin_interface(state: &Arc<AppState>) {
         println!("\n");
         println!("╔══════════════════════════════════════╗");
         println!("║  🏦 CENTRE DE DONNÉES — Admin       ║");
-        println!("║  🦁 AfriChain v0.82                  ║");
+        println!("║  🦁 AfriChain v0.83                  ║");
         println!("╠══════════════════════════════════════╣");
         let chain = state.chain.lock().unwrap();
         let users = state.users.lock().unwrap();
@@ -17372,6 +17695,11 @@ fn handle_request(req: afri_http::HttpRequest, state: &Arc<AppState>) -> afri_ht
         ("GET", "/ai-village") => {
             let chain = state.chain.lock().unwrap();
             HttpResponse::ok(&html_ai_village(&chain))
+        }
+
+        ("GET", "/ai-guerisseur") => {
+            let chain = state.chain.lock().unwrap();
+            HttpResponse::ok(&html_ai_guerisseur(&chain))
         }
 
         ("GET", "/garage") => {
