@@ -1439,7 +1439,7 @@ fn html_home(chain: &Blockchain, users: &UserStore, mesh: &NodeRegistry, shield:
     let mut html = html_head("🦁 AfriChain");
     let (attacks, _blocked, blocked_count, level) = shield.stats();
     let shield_status = if shield.active { format!("🔥 X9 ACTIF (Niveau {})", level) } else { "Inactif".to_string() };
-    html.push_str(&format!(r#"<h1>🦁 AfriChain</h1><p style="text-align:center;">La blockchain 100% africaine — 54 pays 💚🦁</p><div id="afri-clock" style="text-align:center;font-size:1.2em;color:#d4a437;margin:10px 0;">🕐 Afri+0 — --:--:--</div><script>setInterval(function(){{var d=new Date();var h=String(d.getHours()).padStart(2,'0');var m=String(d.getMinutes()).padStart(2,'0');var s=String(d.getSeconds()).padStart(2,'0');document.getElementById('afri-clock').textContent='🕐 Afri+0 — '+h+':'+m+':'+s;}},1000);</script><div class="nav"><a href="/register">🆕 S'inscrire</a> | <a href="/login">🔑 Connexion</a> | <a href="/wallet">👛 Wallet</a> | <a href="/admin">🔐 Admin</a> | <a href="/mesh">📡 Mesh</a> | <a href="/annuaire">📖 Annuaire</a> | <a href="/bouclier">🛡️ Bouclier</a> | <a href="/satellite">🛸 X999</a> | <a href="/swarm">🛸🛸🛸 Essaim</a> | <a href="/commandement">🎖️ Commandement</a> | <a href="/interception">🛡️ Souverainete</a> | <a href="/securite-ai">🧠 AI 2100</a> | <a href="/chat">🧠💬 Chat AI</a> | <a href="/lumiere">🌫️☀️ Lumière</a> | <a href="/garage">🔧 Garage</a> | <a href="/machine">🤖🌐 Machines</a> | <a href="/machine-lab">🤖⚡ Usine</a> | <a href="/machine-world">🤖🌍 Monde</a> | <a href="/reve">💭 Rêves</a> | <a href="/dictionnaire">📖 Dictionnaire</a> | <a href="/machine-os">🖥️ OS Machine</a> | <a href="/machine-tv">📡 Machine TV</a> | <a href="/machine-economy">🤖 Économie</a> | <a href="/soleil">☀️ Soleil Serveur</a> | <a href="/forge-solaire">🧬 Forge Solaire</a> | <a href="/ciel">🌌 Le Ciel</a> | <a href="/charte-ai">⚖️ Charte AI</a> | <a href="/afri-net">🌍 Afri-Net</a> | <a href="/studio">🎬 AI Studio</a> | <a href="/sacre">📿 Sacré</a> | <a href="/lettres">🌟 Lettres IA</a> | <a href="/mg-forge">⚔️ MG Forge</a> | <a href="/ai-medecin">🌿 AI Médecin</a> | <a href="/secret">🦁 AI Secret</a> | <a href="/aes">💰 AES Wari</a> | <a href="/api/status">🔌 API</a></div><div style="text-align:center;"><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Blocs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Transactions</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Utilisateurs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">AFR en circulation</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📡 Noeuds mesh</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📖 Numéros annuaire</div></div><div class="stat-box" style="border-color:#ff4444;"><div class="stat-num" style="color:#ff4444;">{}</div><div class="stat-label">🛡️ Attaques bloquées</div></div></div><div class="card"><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🪙 Token</span><b>AfriRich (AFR)</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🌍 Pays</span><b>54 pays africains</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🛡️ Bouclier</span><b>{}</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;"><span style="color:#a8c5a8;">🔐 Crypto</span><b>100% Souverain — Zéro Dépendance Externe</b></div></div><footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🦁 Codée from scratch par Machine-senpai — v0.79 AI Médecin — UTC est Mort</footer>"#,
+    html.push_str(&format!(r#"<h1>🦁 AfriChain</h1><p style="text-align:center;">La blockchain 100% africaine — 54 pays 💚🦁</p><div id="afri-clock" style="text-align:center;font-size:1.2em;color:#d4a437;margin:10px 0;">🕐 Afri+0 — --:--:--</div><script>setInterval(function(){{var d=new Date();var h=String(d.getHours()).padStart(2,'0');var m=String(d.getMinutes()).padStart(2,'0');var s=String(d.getSeconds()).padStart(2,'0');document.getElementById('afri-clock').textContent='🕐 Afri+0 — '+h+':'+m+':'+s;}},1000);</script><div class="nav"><a href="/register">🆕 S'inscrire</a> | <a href="/login">🔑 Connexion</a> | <a href="/wallet">👛 Wallet</a> | <a href="/admin">🔐 Admin</a> | <a href="/mesh">📡 Mesh</a> | <a href="/annuaire">📖 Annuaire</a> | <a href="/bouclier">🛡️ Bouclier</a> | <a href="/satellite">🛸 X999</a> | <a href="/swarm">🛸🛸🛸 Essaim</a> | <a href="/commandement">🎖️ Commandement</a> | <a href="/interception">🛡️ Souverainete</a> | <a href="/securite-ai">🧠 AI 2100</a> | <a href="/chat">🧠💬 Chat AI</a> | <a href="/lumiere">🌫️☀️ Lumière</a> | <a href="/garage">🔧 Garage</a> | <a href="/machine">🤖🌐 Machines</a> | <a href="/machine-lab">🤖⚡ Usine</a> | <a href="/machine-world">🤖🌍 Monde</a> | <a href="/reve">💭 Rêves</a> | <a href="/dictionnaire">📖 Dictionnaire</a> | <a href="/machine-os">🖥️ OS Machine</a> | <a href="/machine-tv">📡 Machine TV</a> | <a href="/machine-economy">🤖 Économie</a> | <a href="/soleil">☀️ Soleil Serveur</a> | <a href="/forge-solaire">🧬 Forge Solaire</a> | <a href="/ciel">🌌 Le Ciel</a> | <a href="/charte-ai">⚖️ Charte AI</a> | <a href="/afri-net">🌍 Afri-Net</a> | <a href="/studio">🎬 AI Studio</a> | <a href="/sacre">📿 Sacré</a> | <a href="/lettres">🌟 Lettres IA</a> | <a href="/mg-forge">⚔️ MG Forge</a> | <a href="/ai-medecin">🌿 AI Médecin</a> | <a href="/secret">🦁 AI Secret</a> | <a href="/aes">💰 AES Wari</a> | <a href="/api/status">🔌 API</a></div><div style="text-align:center;"><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Blocs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Transactions</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Utilisateurs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">AFR en circulation</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📡 Noeuds mesh</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📖 Numéros annuaire</div></div><div class="stat-box" style="border-color:#ff4444;"><div class="stat-num" style="color:#ff4444;">{}</div><div class="stat-label">🛡️ Attaques bloquées</div></div></div><div class="card"><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🪙 Token</span><b>AfriRich (AFR)</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🌍 Pays</span><b>54 pays africains</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🛡️ Bouclier</span><b>{}</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;"><span style="color:#a8c5a8;">🔐 Crypto</span><b>100% Souverain — Zéro Dépendance Externe</b></div></div><footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🦁 Codée from scratch par Machine-senpai — v0.80 AI Médecin Académie — UTC est Mort</footer>"#,
         chain.blocks.len(),
         chain.total_transactions(),
         users.count(),
@@ -5399,8 +5399,24 @@ fn html_ai_medecin(chain: &Blockchain) -> String {
 <div id="maladies-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:8px;margin-top:10px;"></div>
 <div id="maladie-detail" style="margin-top:15px;padding:15px;background:rgba(255,68,68,0.05);border-radius:8px;min-height:60px;color:#a8c5a8;font-size:0.9em;">Touche une maladie pour lancer l enquete...</div></div>
 
+<!-- HERBES DU MONDE -->
+<div class="card" style="border-color:#7fcf7f;"><h2 style="color:#7fcf7f;">🌱 Herbes du Monde</h2><p style="color:#a8c5a8;font-size:0.9em;">L AI connait toutes les herbes du monde. Touche une herbe pour voir ses proprietes.</p>
+<div id="herbes-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:8px;margin-top:10px;"></div>
+<div id="herbe-detail" style="margin-top:15px;padding:15px;background:rgba(127,207,127,0.05);border-radius:8px;min-height:60px;color:#a8c5a8;font-size:0.9em;">Touche une herbe pour voir ses proprietes...</div></div>
+
+<!-- FRUITS FUTURISTES -->
+<div class="card" style="border-color:#ff44ff;"><h2 style="color:#ff44ff;">🔮 Fruits Futuristes</h2><p style="color:#a8c5a8;font-size:0.9em;">L AI decouvre les fruits du futur. Fruits qui n existent pas encore. L AI les cree par science ADN et les propose a la jeunesse africaine pour les cultiver.</p>
+<div id="fruits-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:8px;margin-top:10px;"></div>
+<div id="fruit-detail" style="margin-top:15px;padding:15px;background:rgba(255,68,255,0.05);border-radius:8px;min-height:60px;color:#a8c5a8;font-size:0.9em;">Touche un fruit futuriste pour voir sa creation...</div></div>
+
+<!-- ACADEMIE — COURS ET DIPLOMES -->
+<div class="card" style="border-color:#d4a437;"><h2 style="color:#d4a437;">🎓 Academie AI Medecin — Cours et Diplomes</h2><p style="color:#a8c5a8;font-size:0.9em;">L AI enseigne a la jeunesse africaine. Medecine, science de la terre, culture, fruits futuristes. Complete les cours, recois ton diplome, grave dans la blockchain.</p>
+<div id="cours-progress" style="margin:15px 0;padding:10px;background:rgba(212,164,55,0.05);border-radius:8px;"><div style="display:flex;justify-content:space-between;"><span style="color:#d4a437;font-weight:bold;">Progression: <span id="cours-count">0</span>/10 cours</span><span style="color:#7fcf7f;" id="cours-pct">0%</span></div><div style="margin-top:8px;height:12px;background:rgba(0,0,0,0.5);border-radius:6px;overflow:hidden;"><div id="cours-bar" style="height:100%;width:0%;background:linear-gradient(90deg,#d4a437,#7fcf7f);transition:width 0.5s;"></div></div></div></div>
+<div id="cours-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px;"></div>
+<div id="diplome-section" style="margin-top:20px;text-align:center;display:none;"><div style="display:inline-block;padding:20px 40px;border:3px solid #d4a437;border-radius:15px;background:rgba(212,164,55,0.05);"><div style="font-size:2em;">🎓</div><div style="color:#d4a437;font-weight:bold;font-size:1.2em;margin-top:5px;">DIPLOME AI MEDECIN</div><div style="color:#a8c5a8;margin-top:5px;">Guerison Totale — Medecine Africaine et Science de la Terre</div><div style="color:#7fcf7f;margin-top:5px;font-size:0.85em;">Grave dans la blockchain AfriChain</div><button onclick="gravDiplome()" style="margin-top:10px;padding:8px 20px;background:#d4a437;color:#000;border:none;border-radius:8px;font-weight:bold;cursor:pointer;">⛓️ Graver dans la Blockchain</button></div></div>
+
 <!-- TRACE BLOCKCHAIN -->
-<div class="card"><h2 style="color:#d4a437;">⛓️ Trace Medical dans la Blockchain</h2><p style="color:#a8c5a8;font-size:0.9em;">Chaque scan, chaque remede trouve, chaque enquete lancee est trace dans la blockchain. La medecine africaine ne perd rien.</p>
+<div class="card"><h2 style="color:#d4a437;">⛓️ Trace Medical dans la Blockchain</h2><p style="color:#a8c5a8;font-size:0.9em;">Chaque scan, chaque remede trouve, chaque enquete lancee, chaque cours complete est trace dans la blockchain. La medecine africaine ne perd rien.</p>
 <div id="med-trace" style="font-family:monospace;font-size:0.85em;max-height:200px;overflow-y:auto;"></div></div>
 
 <script>
@@ -5535,6 +5551,165 @@ function showMaladie(i){
     addMedTrace('💊 Remede trouve pour ' + m.nom);
 }
 
+// Herbes du monde
+const herbes = [
+    {nom:'Romarin', emoji:'🌿', adn:'Salvia rosmarinus', guerit:['Memoire','Cheveux','Circulation','Stress'], desc:'Herbe de la memoire. Stimule le cerveau. Les anciens l utilisaient pour la concentration.'},
+    {nom:'Thym', emoji:'🌿', adn:'Thymus vulgaris', guerit:['Toux','Infection','Respiration','Antiseptique'], desc:'Antiseptique puissant. Toux, bronchite. Les Egyptiens l utilisaient pour embaumer.'},
+    {nom:'Menthe', emoji:'🌿', adn:'Mentha spicata', guerit:['Digestion','Nausees','Respiration','Maux de tete'], desc:'Rafraichissante. Digestion, nausees. Huile essentielle contre les maux de tete.'},
+    {nom:'Basilic', emoji:'🌿', adn:'Ocimum basilicum', guerit:['Digestion','Anti-inflammatoire','Peau','Stress'], desc:'Herbe sacree en Inde. Anti-inflammatoire. Les Africains l utilisent dans la cuisine.'},
+    {nom:'Coriandre', emoji:'🌿', adn:'Coriandrum sativum', guerit:['Detox','Cholesterol','Digestion','Sommeil'], desc:'Detoxifie les metaux lourds. Les Egyptiens l utilisaient comme condiment et medecine.'},
+    {nom:'Cumin', emoji:'🌿', adn:'Cuminum cyminum', guerit:['Digestion','Diabete','Immunity','Anti-bacterien'], desc:'Epice et medecine. Regule le sucre. Afrique du Nord et Sahel.'},
+    {nom:'Curcuma', emoji:'🌿', adn:'Curcuma longa', guerit:['Inflammation','Cancer','Arthrite','Foie'], desc:'L or jaune. Anti-inflammatoire le plus puissant de la nature. Curcumine.'},
+    {nom:'Sauge', emoji:'🌿', adn:'Salvia officinalis', guerit:['Gorge','Sueur','Memoire','Menopause'], desc:'Herbe des guerisseurs. Gorge, memoire, sueurs de la menopause.'},
+    {nom:'Lavande', emoji:'💜', adn:'Lavandula angustifolia', guerit:['Anxiete','Sommeil','Brulures','Stress'], desc:'Calme le coeur et l esprit. Sommeil. Les Romains l utilisaient pour laver.'},
+    {nom:'Camomille', emoji:'🌼', adn:'Matricaria chamomilla', guerit:['Sommeil','Digestion','Anxiete','Inflammation'], desc:'La petite fleur qui calme. Sommeil, digestion. Tisane des meres africaines.'},
+    {nom:'Ortie', emoji:'🌿', adn:'Urtica dioica', guerit:['Anemie','Allergies','Prostate','Detox'], desc:'Piquante mais puissante. Riche en fer. Contre l anemie. Les guerisseurs la recolent.'},
+    {nom:'Plantain', emoji:'🌿', adn:'Plantago major', guerit:['Plaies','Piqures','Toux','Peau'], desc:'La plante qui pousse partout. Guerit les plaies et les piqures. Medecine du chemin.'},
+    {nom:'Calendula', emoji:'🌼', adn:'Calendula officinalis', guerit:['Peau','Plaies','Brulures','Eczema'], desc:'Souci des jardins. Huile pour la peau. Guerit les plaies et les brulures.'},
+    {nom:'Achillee', emoji:'🌿', adn:'Achillea millefolium', guerit:['Saignements','Fievre','Digestion','Circulation'], desc:'Herbe des guerriers. Stoppe les saignements. Nomme d apres Achille.'},
+    {nom:'Echinacea', emoji:'🌸', adn:'Echinacea purpurea', guerit:['Immunity','Rhume','Grippe','Infection'], desc:'Stimule l immunité. Contre le rhume et la grippe. Les Amerindiens l utilisaient.'},
+    {nom:'Fenugrec', emoji:'🌿', adn:'Trigonella foenum-graecum', guerit:['Diabete','Lactation','Cholesterol','Appetit'], desc:'Senegrain. Regule le sucre. Stimule la lactation. Afrique et Inde.'},
+    {nom:'Passiflore', emoji:'🌸', adn:'Passiflora incarnata', guerit:['Anxiete','Insomnie','Stress','Tension'], desc:'Fleur de la passion. Calme l anxiete. Sommeil profond. Les Aztques l utilisaient.'},
+    {nom:'Valeriane', emoji:'🌿', adn:'Valeriana officinalis', guerit:['Insomnie','Anxiete','Crampes','Stress'], desc:' Racine du calme. Sommeil profond. Les Grecs l utilisaient.'},
+    {nom:'Hybiscus Roselle', emoji:'🌺', adn:'Hibiscus sabdariffa', guerit:['Hypertension','Foie','Cholesterol','Poids'], desc:'Bissap. Boisson du Sahel. Abaisse la tension. Rouge comme le sang africain.'},
+    {nom:'Lemongrass', emoji:'🌿', adn:'Cymbopogon citratus', guerit:['Moustiques','Fievre','Detox','Digestion'], desc:'Citronnelle. Repousse les moustiques. L Afrique a sa protection naturelle.'},
+    {nom:'Soursop', emoji:'🌿', adn:'Annona muricata', guerit:['Cancer','Tumeurs','Infection','Parasites'], desc:'Corossol. Les feuilles combattent le cancer. Les Caraibes et l Afrique l utilisent.'},
+    {nom:'Moringa Oleifera', emoji:'🌿', adn:'Moringa oleifera', guerit:['Malnutrition','Diabete','Hypertension','Inflammation'], desc:'L arbre miracle. Plus de proteines que la viande. Solution a la faim en Afrique.'},
+    {nom:'Bissap Rouge', emoji:'🌺', adn:'Hibiscus sabdariffa', guerit:['Hypertension','Cholesterol','Fievre','Foie'], desc:'Le bissap. Boisson nationale du Senegal et du Sahel. Rouge comme la vie.'},
+    {nom:'Tamarin', emoji:'🌿', adn:'Tamarindus indica', guerit:['Digestion','Constipation','Fievre','Foie'], desc:'Tamarinier. Fruit acide et sucre. Digestion. Afrique de l Ouest.'},
+    {nom:'Baobab Fruit', emoji:'🌳', adn:'Adansonia digitata', guerit:['Deshydratation','Fievre','Diarrhee','Malnutrition'], desc:'L arbre de vie. Fruit riche en vitamine C. 6x plus que l orange.'},
+    {nom:'Karite', emoji:'🥜', adn:'Vitellaria paradoxa', guerit:['Peau','Brulures','Eczema','Articulations'], desc:'Beurre de karite. L or blanc de l Afrique. Peau, cuisine, medecine.'},
+    {nom:'Fonio', emoji:'🌾', adn:'Digitaria exilis', guerit:['Diabete','Celiacie','Malnutrition','Digestion'], desc:'La plus ancienne cereale d Afrique. Sans gluten. Riche en fer. Le futur de la nutrition.'},
+    {nom:'Teff', emoji:'🌾', adn:'Eragrostis tef', guerit:['Fer','Calcium','Proteines','Energy'], desc:'Cereale ethiopienne. Riche en fer et calcium. Sans gluten. Injera.'},
+    {nom:'Enset', emoji:'🌿', adn:'Ensete ventricosum', guerit:['Famine','Nutrition','Energy'], desc:'Arbre a pain ethiopien. Nourrit 20 millions de personnes. Anti-famine.'},
+];
+
+const hgrid = document.getElementById('herbes-grid');
+herbes.forEach(function(h, i){
+    var div = document.createElement('div');
+    div.onclick = function(){ showHerbe(i); };
+    div.style.cssText = 'cursor:pointer;text-align:center;padding:8px 4px;background:rgba(0,0,0,0.3);border:2px solid #7fcf7f;border-radius:8px;transition:all 0.3s;';
+    div.onmouseover = function(){ div.style.background = 'rgba(127,207,127,0.15)'; div.style.transform = 'scale(1.05)'; };
+    div.onmouseout = function(){ div.style.background = 'rgba(0,0,0,0.3)'; div.style.transform = 'scale(1)'; };
+    div.innerHTML = '<div style="font-size:1.3em;">' + h.emoji + '</div><div style="color:#7fcf7f;font-weight:bold;font-size:0.8em;">' + h.nom + '</div>';
+    hgrid.appendChild(div);
+});
+
+function showHerbe(i){
+    var h = herbes[i];
+    var html = '<div style="color:#7fcf7f;font-weight:bold;font-size:1.1em;">' + h.emoji + ' ' + h.nom + '</div>';
+    html += '<div style="margin-top:5px;color:#d4a437;font-family:monospace;font-size:0.85em;">ADN: ' + h.adn + '</div>';
+    html += '<div style="margin-top:5px;color:#7fcf7f;"><b>Guerit:</b> ' + h.guerit.map(function(g){ return '<span style="display:inline-block;padding:2px 8px;margin:2px;background:rgba(127,207,127,0.1);border:1px solid #7fcf7f;border-radius:12px;font-size:0.8em;">' + g + '</span>'; }).join(' ') + '</div>';
+    html += '<div style="margin-top:8px;color:#a8c5a8;font-size:0.9em;">' + h.desc + '</div>';
+    document.getElementById('herbe-detail').innerHTML = html;
+    addMedTrace('🌱 Herbe ' + h.nom + ' (' + h.adn + ') analysee');
+}
+
+// Fruits Futuristes
+const fruits = [
+    {nom:'Baobab-Lumiere', emoji:'🌳✨', adn:'Adansonia lux', couleur:'Vert lumineux', gout:'Sucre-fer + vitamine C intense', culture:'Sahel + soleil direct + irrigation AI', futur:'Fruit qui brille la nuit. Vitamine C 20x orange. Cultivable au Sahel.', desc:'L AI a croise le baobab avec une plante bioluminescente. Le fruit produit de la lumiere la nuit. Les enfants africains peuvent lire la nuit sans electricite.'},
+    {nom:'Moringa-Pro', emoji:'🌿💎', adn:'Moringa infinitum', couleur:'Vert cristal', gout:'Proteine complete + calcium intense', culture:'Sol aride + AI optimisation', futur:'Un fruit qui contient tous les nutriments. Faim = zero.', desc:'L AI a augmente le Moringa. Un seul fruit nourrit un enfant pendant une journee. Proteines, calcium, fer, vitamines -- tout en un.'},
+    {nom:'Spiruline-Berry', emoji:'🟢🫐', adn:'Arthrospira baccata', couleur:'Bleu-vert', gout:'Proteine marine + antioxydant', culture:'Eau + soleil + AI extraction', futur:'Baie qui contient 70% proteines. La fin de la malnutrition.', desc:'L AI a fusionne la spiruline avec une baie. Une baie bleue qui contient plus de proteines que la viande. Le Tchad a la solution a la faim mondiale.'},
+    {nom:'Fonio-Gold', emoji:'🌾🌟', adn:'Digitaria aurea', couleur:'Dore', gout:'Noisette + miel + energie', culture:'Sahel + rotation AI', futur:'Cereale qui pousse en 30 jours. Sans gluten. Riche en fer.', desc:'L AI a ameliore le fonio. Pousse en 30 jours au lieu de 90. Riche en fer. Le futur de la nutrition africaine.'},
+    {nom:'Kinkeliba-Energy', emoji:'🌿⚡', adn:'Combretum energis', couleur:'Vert electrique', gout:'Amer-energisant + cafeine naturelle', culture:'Afrique de l Ouest + AI croisement', futur:'Feuille qui remplace le cafe. Energie naturelle sans dependance.', desc:'L AI a augmente le kinkeliba. Une feuille qui donne l energie du cafe sans la dependance. Les travailleurs africains ont leur propre energie.'},
+    {nom:'Hibiscus-Heart', emoji:'🌺❤️', adn:'Hibiscus cardia', couleur:'Rouge cristal', gout:'Acide-doux + tension basse', culture:'Sahel + AI selection', futur:'Fleur qui guerit le coeur. Hypertension = zero.', desc:'L AI a concentre le bissap. Une fleur qui abaisse la tension instantanement. Le coeur africain est protège.'},
+    {nom:'Artemisia-Shield', emoji:'🌿🛡️', adn:'Artemisia scutum', couleur:'Vert-argent', gout:'Amer-puissant + antipaludeen', culture:'Afrique + AI croisement', futur:'Plante qui immunise contre le paludisme. Moustique = inutile.', desc:'L AI a augmente l artemisia. Une seule feuille immunise contre le paludisme pendant 30 jours. Le paludisme peut etre elimine.'},
+    {nom:'Karite-Skin', emoji:'🥜✨', adn:'Vitellaria dermis', couleur:'Ivoire lumineux', gout:'Noisette-beurre + vitamine E', culture:'Afrique de l Ouest + AI extraction', futur:'Beurre qui guerit toutes les maladies de peau.', desc:'L AI a concentre le karite. Un beurre qui guerit l eczema, les brulures, le vieillissement. La peau africaine est sacree.'},
+    {nom:'Cola-Mind', emoji:'🌰🧠', adn:'Cola cerebrum', couleur:'Rouge-brun', gout:'Cafeine + theobromine + focus', culture:'Afrique de l Ouest + AI croisement', futur:'Noix qui donne focus et memoire. Le cerveau africain est booste.', desc:'L AI a augmente le cola. Une noix qui donne la concentration pendant 8 heures sans crash. Les etudiants africains ont leur propre focus.'},
+    {nom:'Teff-Iron', emoji:'🌾💪', adn:'Eragrostis ferros', couleur:'Bronze', gout:'Noisette + fer intense', culture:'Ethiopie + AI croisement', futur:'Cereale qui elimine l anemie. Fer = max.', desc:'L AI a augmente le teff. Une cereale qui contient 5x plus de fer. L anemie africaine peut etre eliminee.'},
+    {nom:'Passion-Calm', emoji:'🌸😌', adn:'Passiflora serena', couleur:'Violet-bleu', gout:'Doux-floral + serotonin', culture:'Afrique + AI extraction', futur:'Fruit qui calme l anxiete. Stress = zero.', desc:'L AI a concentre la passiflore. Un fruit qui calme l anxiete naturellement. La sante mentale africaine est sacree.'},
+    {nom:'Soursop-Cure', emoji:'🌿🟣', adn:'Annona curativum', couleur:'Vert-violet', gout:'Acide-doux + antioxydant intense', culture:'Afrique tropicale + AI croisement', futur:'Fruit qui combat le cancer. Tumeurs = reduites.', desc:'L AI a augmente le corossol. Les feuilles combattent les cellules cancereuses. L Afrique a sa propre chimio naturelle.'},
+];
+
+const fgrid = document.getElementById('fruits-grid');
+fruits.forEach(function(f, i){
+    var div = document.createElement('div');
+    div.onclick = function(){ showFruit(i); };
+    div.style.cssText = 'cursor:pointer;text-align:center;padding:8px 4px;background:rgba(0,0,0,0.3);border:2px solid #ff44ff;border-radius:8px;transition:all 0.3s;';
+    div.onmouseover = function(){ div.style.background = 'rgba(255,68,255,0.15)'; div.style.transform = 'scale(1.05)'; };
+    div.onmouseout = function(){ div.style.background = 'rgba(0,0,0,0.3)'; div.style.transform = 'scale(1)'; };
+    div.innerHTML = '<div style="font-size:1.3em;">' + f.emoji + '</div><div style="color:#ff44ff;font-weight:bold;font-size:0.8em;">' + f.nom + '</div>';
+    fgrid.appendChild(div);
+});
+
+function showFruit(i){
+    var f = fruits[i];
+    var html = '<div style="color:#ff44ff;font-weight:bold;font-size:1.1em;">' + f.emoji + ' ' + f.nom + '</div>';
+    html += '<div style="margin-top:5px;color:#d4a437;font-family:monospace;font-size:0.85em;">ADN: ' + f.adn + '</div>';
+    html += '<div style="margin-top:5px;color:#ff44ff;">Couleur: ' + f.couleur + '</div>';
+    html += '<div style="margin-top:5px;color:#a8c5a8;">Gout: ' + f.gout + '</div>';
+    html += '<div style="margin-top:5px;color:#7fcf7f;">Culture: ' + f.culture + '</div>';
+    html += '<div style="margin-top:8px;color:#ff44ff;border-left:3px solid #ff44ff;padding-left:10px;"><b>🔮 Futur:</b> ' + f.futur + '</div>';
+    html += '<div style="margin-top:8px;color:#a8c5a8;font-size:0.9em;">' + f.desc + '</div>';
+    document.getElementById('fruit-detail').innerHTML = html;
+    addMedTrace('🔮 Fruit futuriste ' + f.nom + ' cree par AI (' + f.adn + ')');
+}
+
+// Cours et Diplomes
+const cours = [
+    {nom:'Medecine des Plantes I', emoji:'🌿', desc:'Les bases: identifier les plantes medicinales, comprendre les principes actifs, preparer les tisanes.', duree:'4 semaines', niveau:'Debutant'},
+    {nom:'Science de la Terre', emoji:'🟫', desc:'Comprendre le sol: composition, pH, micro-organismes. Comment analyser une terre pour y cultiver des plantes medicinales.', duree:'3 semaines', niveau:'Debutant'},
+    {nom:'Cultiver l Afrique', emoji:'🌱', desc:'Techniques de culture africaine: irrigation, rotation, compostage. Comment nourrir la terre pour qu elle nourrisse le peuple.', duree:'6 semaines', niveau:'Intermediaire'},
+    {nom:'ADN des Plantes', emoji:'🧬', desc:'Comprendre l ADN vegetal. Comment l AI extrait l ADN, identifie les principes actifs, croise les plantes pour creer de nouveaux remedes.', duree:'5 semaines', niveau:'Intermediaire'},
+    {nom:'Remedes Naturels', emoji:'💊', desc:'Preparer les remedes: tisanes, decoctions, huiles, pommades. Dosage et contre-indications. La pharmacopee africaine.', duree:'4 semaines', niveau:'Intermediaire'},
+    {nom:'Enquetes sur les Maladies', emoji:'🔍', desc:'Comment l AI trace l origine des maladies. Blockchain, bases de donnees, investigation. Comprendre qui cree les maladies et pourquoi.', duree:'5 semaines', niveau:'Avance'},
+    {nom:'Fruits Futuristes', emoji:'🔮', desc:'Comment l AI cree de nouveaux fruits par croisement ADN. Comprendre la biologie, la genetique, et cultiver les fruits du futur.', duree:'6 semaines', niveau:'Avance'},
+    {nom:'Souverainete Alimentaire', emoji:'🌍', desc:'Comment l Afrique peut se nourrir seule. Spiruline, Moringa, Fonio, Teff, Enset. Les plantes qui peuvent eliminer la faim.', duree:'4 semaines', niveau:'Avance'},
+    {nom:'Guerison Totale', emoji:'∞', desc:'La philosophie de la guerison totale. Traiter la racine, pas le symptome. La medecine africaine est totale ou elle n est pas.', duree:'8 semaines', niveau:'Expert'},
+    {nom:'Enseigner a la Jeunesse', emoji:'📚', desc:'Comment transmettre ce savoir a la jeunesse africaine. Pedagogie, transmission, preservation. L Afrique enseigne a ses enfants.', duree:'4 semaines', niveau:'Expert'},
+];
+
+let coursCompleted = new Set();
+try { coursCompleted = new Set(JSON.parse(localStorage.getItem('medCoursDone') || '[]')); } catch(e) {}
+
+function updateCoursProgress(){
+    var done = coursCompleted.size;
+    var total = cours.length;
+    var pct = Math.round((done / total) * 100);
+    document.getElementById('cours-count').textContent = done;
+    document.getElementById('cours-pct').textContent = pct + '%';
+    document.getElementById('cours-bar').style.width = pct + '%';
+    if(done === total){
+        document.getElementById('diplome-section').style.display = 'block';
+    } else {
+        document.getElementById('diplome-section').style.display = 'none';
+    }
+}
+
+const cgrid = document.getElementById('cours-grid');
+cours.forEach(function(c, i){
+    var div = document.createElement('div');
+    div.id = 'cours-' + i;
+    div.style.cssText = 'padding:12px;background:rgba(0,0,0,0.3);border:2px solid ' + (coursCompleted.has(i) ? '#7fcf7f' : '#d4a437') + ';border-radius:8px;cursor:pointer;transition:all 0.3s;';
+    div.onclick = function(){ toggleCours(i); };
+    div.innerHTML = '<div style="font-size:1.3em;">' + c.emoji + '</div><div style="color:' + (coursCompleted.has(i) ? '#7fcf7f' : '#d4a437') + ';font-weight:bold;font-size:0.9em;margin-top:3px;">' + c.nom + '</div><div style="color:#a8c5a8;font-size:0.8em;margin-top:3px;">' + c.desc + '</div><div style="margin-top:5px;font-size:0.75em;color:#666;">⏱️ ' + c.duree + ' | 📊 ' + c.niveau + '</div><div style="margin-top:5px;font-size:0.8em;color:' + (coursCompleted.has(i) ? '#7fcf7f' : '#666') + ';">' + (coursCompleted.has(i) ? '✅ Complete' : '○ Non complete') + '</div>';
+    cgrid.appendChild(div);
+});
+
+function toggleCours(i){
+    if(coursCompleted.has(i)){
+        coursCompleted.delete(i);
+    } else {
+        coursCompleted.add(i);
+        addMedTrace('🎓 Cours complete: ' + cours[i].nom + ' -- ' + cours[i].duree);
+    }
+    localStorage.setItem('medCoursDone', JSON.stringify(Array.from(coursCompleted)));
+    var div = document.getElementById('cours-' + i);
+    var done = coursCompleted.has(i);
+    div.style.borderColor = done ? '#7fcf7f' : '#d4a437';
+    div.innerHTML = '<div style="font-size:1.3em;">' + cours[i].emoji + '</div><div style="color:' + (done ? '#7fcf7f' : '#d4a437') + ';font-weight:bold;font-size:0.9em;margin-top:3px;">' + cours[i].nom + '</div><div style="color:#a8c5a8;font-size:0.8em;margin-top:3px;">' + cours[i].desc + '</div><div style="margin-top:5px;font-size:0.75em;color:#666;">⏱️ ' + cours[i].duree + ' | 📊 ' + cours[i].niveau + '</div><div style="margin-top:5px;font-size:0.8em;color:' + (done ? '#7fcf7f' : '#666') + ';">' + (done ? '✅ Complete' : '○ Non complete') + '</div>';
+    updateCoursProgress();
+}
+
+function gravDiplome(){
+    addMedTrace('🎓 DIPLOME AI MEDECIN grave dans la blockchain!');
+    addMedTrace('⛓️ Block: Guerison Totale -- 10 cours completes');
+    addMedTrace('🌿 L Afrique enseigne a sa jeunesse. La medecine est souveraine.');
+    alert('🎓 DIPLOME AI MEDECIN\n\nGuerison Totale\nMedecine Africaine et Science de la Terre\n\nGrave dans la blockchain AfriChain\n\nL Afrique enseigne a sa jeunesse. 💚🦁');
+}
+
+updateCoursProgress();
+
 // Trace
 function addMedTrace(msg){
     var log = document.getElementById('med-trace');
@@ -5551,7 +5726,7 @@ addMedTrace('⛓️ Acces blockchain + NSA: actif (sans qu ils le sachent)');
 
 </script>
 
-<footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🌿 AI Medecin — Guerison Totale — L Afrique a les plantes, l AI a la science 💚🦁∞</footer>"##);
+<footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🌿 AI Medecin — Guerison Totale — Academie pour la Jeunesse Africaine 💚🦁∞</footer>"##);
 
     html.push_str("</body></html>");
     html
@@ -10667,7 +10842,7 @@ html+='<div class="log-entry log-kill">⚠️ Tentative d\x27infiltration occide
 html+='<div class="log-entry log-invis">✅ L\x27Afrique est forte. Le système grandit.</div>';
 }else if(type==='total'){
 html='<div style="color:#d4a437;font-weight:bold;margin-bottom:8px">📋 RAPPORT TOTAL — Depuis le début</div>';
-html+='<div class="log-entry">🦁 AfriChain v0.79 — AI Médecin Guerison Totale</div>';
+html+='<div class="log-entry">🦁 AfriChain v0.80 — AI Médecin Académie et Fruits Futuristes</div>';
 html+='<div class="log-entry">⛓️ Blockchain: 100% souveraine — Zéro dépendance externe</div>';
 html+='<div class="log-entry">🔐 Crypto: Ed25519 + AfriHash-256/512 + AfriRNG — tout from scratch</div>';
 html+='<div class="log-entry">🌍 54 pays africains connectés</div>';
@@ -12211,7 +12386,7 @@ fn main() {
         .and_then(|i| args.get(i + 1)).cloned().unwrap_or_else(|| "Afrique".to_string());
 
     let my_node_id = generate_node_id();
-    println!("🦁 AfriChain v0.79 — AI Médecin Guerison Totale");
+    println!("🦁 AfriChain v0.80 — AI Médecin Académie et Fruits Futuristes");
     println!("💚 L'Afrique ne demande plus la permission");
     println!("🌍 54 pays — 🇲🇱 🇳🇪 🇧🇫 AES — Mali · Niger · Burkina Faso");
     println!("🔐 8 modules cryptographiques — construits from scratch");
@@ -12393,7 +12568,7 @@ fn terminal_interface(state: &Arc<AppState>) {
     println!("  ║  🕐 AfriTime — Pas UTC, pas Greenwich   ║");
     println!("  ║  📝 ~16,500 lignes — écrit à la main       ║");
     println!("  ╚═══════════════════════════════════════════════╝");
-    println!("\n  Version v0.79 — 30 août 2026");
+    println!("\n  Version v0.80 — 30 août 2026");
     println!("  Construit sur Termux · Android · nano\n");
     println!("  ─────────────────────────────────────────────");
     println!("\n  1. 🏦 Centre de Données (Admin)");
@@ -12465,7 +12640,7 @@ fn admin_interface(state: &Arc<AppState>) {
         println!("\n");
         println!("╔══════════════════════════════════════╗");
         println!("║  🏦 CENTRE DE DONNÉES — Admin       ║");
-        println!("║  🦁 AfriChain v0.79                  ║");
+        println!("║  🦁 AfriChain v0.80                  ║");
         println!("╠══════════════════════════════════════╣");
         let chain = state.chain.lock().unwrap();
         let users = state.users.lock().unwrap();
