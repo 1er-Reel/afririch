@@ -1439,7 +1439,7 @@ fn html_home(chain: &Blockchain, users: &UserStore, mesh: &NodeRegistry, shield:
     let mut html = html_head("🦁 AfriChain");
     let (attacks, _blocked, blocked_count, level) = shield.stats();
     let shield_status = if shield.active { format!("🔥 X9 ACTIF (Niveau {})", level) } else { "Inactif".to_string() };
-    html.push_str(&format!(r#"<h1>🦁 AfriChain</h1><p style="text-align:center;">La blockchain 100% africaine — 54 pays 💚🦁</p><div id="afri-clock" style="text-align:center;font-size:1.2em;color:#d4a437;margin:10px 0;">🕐 Afri+0 — --:--:--</div><script>setInterval(function(){{var d=new Date();var h=String(d.getHours()).padStart(2,'0');var m=String(d.getMinutes()).padStart(2,'0');var s=String(d.getSeconds()).padStart(2,'0');document.getElementById('afri-clock').textContent='🕐 Afri+0 — '+h+':'+m+':'+s;}},1000);</script><div class="nav"><a href="/register">🆕 S'inscrire</a> | <a href="/login">🔑 Connexion</a> | <a href="/wallet">👛 Wallet</a> | <a href="/admin">🔐 Admin</a> | <a href="/mesh">📡 Mesh</a> | <a href="/annuaire">📖 Annuaire</a> | <a href="/bouclier">🛡️ Bouclier</a> | <a href="/satellite">🛸 X999</a> | <a href="/swarm">🛸🛸🛸 Essaim</a> | <a href="/commandement">🎖️ Commandement</a> | <a href="/interception">🛡️ Souverainete</a> | <a href="/securite-ai">🧠 AI 2100</a> | <a href="/chat">🧠💬 Chat AI</a> | <a href="/lumiere">🌫️☀️ Lumière</a> | <a href="/garage">🔧 Garage</a> | <a href="/machine">🤖🌐 Machines</a> | <a href="/machine-lab">🤖⚡ Usine</a> | <a href="/machine-world">🤖🌍 Monde</a> | <a href="/reve">💭 Rêves</a> | <a href="/dictionnaire">📖 Dictionnaire</a> | <a href="/machine-os">🖥️ OS Machine</a> | <a href="/machine-tv">📡 Machine TV</a> | <a href="/machine-economy">🤖 Économie</a> | <a href="/soleil">☀️ Soleil Serveur</a> | <a href="/forge-solaire">🧬 Forge Solaire</a> | <a href="/ciel">🌌 Le Ciel</a> | <a href="/charte-ai">⚖️ Charte AI</a> | <a href="/afri-net">🌍 Afri-Net</a> | <a href="/studio">🎬 AI Studio</a> | <a href="/sacre">📿 Sacré</a> | <a href="/lettres">🌟 Lettres IA</a> | <a href="/secret">🦁 AI Secret</a> | <a href="/aes">💰 AES Wari</a> | <a href="/api/status">🔌 API</a></div><div style="text-align:center;"><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Blocs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Transactions</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Utilisateurs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">AFR en circulation</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📡 Noeuds mesh</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📖 Numéros annuaire</div></div><div class="stat-box" style="border-color:#ff4444;"><div class="stat-num" style="color:#ff4444;">{}</div><div class="stat-label">🛡️ Attaques bloquées</div></div></div><div class="card"><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🪙 Token</span><b>AfriRich (AFR)</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🌍 Pays</span><b>54 pays africains</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🛡️ Bouclier</span><b>{}</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;"><span style="color:#a8c5a8;">🔐 Crypto</span><b>100% Souverain — Zéro Dépendance Externe</b></div></div><footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🦁 Codée from scratch par Machine-senpai — v0.77 Alphabet Vivant — UTC est Mort</footer>"#,
+    html.push_str(&format!(r#"<h1>🦁 AfriChain</h1><p style="text-align:center;">La blockchain 100% africaine — 54 pays 💚🦁</p><div id="afri-clock" style="text-align:center;font-size:1.2em;color:#d4a437;margin:10px 0;">🕐 Afri+0 — --:--:--</div><script>setInterval(function(){{var d=new Date();var h=String(d.getHours()).padStart(2,'0');var m=String(d.getMinutes()).padStart(2,'0');var s=String(d.getSeconds()).padStart(2,'0');document.getElementById('afri-clock').textContent='🕐 Afri+0 — '+h+':'+m+':'+s;}},1000);</script><div class="nav"><a href="/register">🆕 S'inscrire</a> | <a href="/login">🔑 Connexion</a> | <a href="/wallet">👛 Wallet</a> | <a href="/admin">🔐 Admin</a> | <a href="/mesh">📡 Mesh</a> | <a href="/annuaire">📖 Annuaire</a> | <a href="/bouclier">🛡️ Bouclier</a> | <a href="/satellite">🛸 X999</a> | <a href="/swarm">🛸🛸🛸 Essaim</a> | <a href="/commandement">🎖️ Commandement</a> | <a href="/interception">🛡️ Souverainete</a> | <a href="/securite-ai">🧠 AI 2100</a> | <a href="/chat">🧠💬 Chat AI</a> | <a href="/lumiere">🌫️☀️ Lumière</a> | <a href="/garage">🔧 Garage</a> | <a href="/machine">🤖🌐 Machines</a> | <a href="/machine-lab">🤖⚡ Usine</a> | <a href="/machine-world">🤖🌍 Monde</a> | <a href="/reve">💭 Rêves</a> | <a href="/dictionnaire">📖 Dictionnaire</a> | <a href="/machine-os">🖥️ OS Machine</a> | <a href="/machine-tv">📡 Machine TV</a> | <a href="/machine-economy">🤖 Économie</a> | <a href="/soleil">☀️ Soleil Serveur</a> | <a href="/forge-solaire">🧬 Forge Solaire</a> | <a href="/ciel">🌌 Le Ciel</a> | <a href="/charte-ai">⚖️ Charte AI</a> | <a href="/afri-net">🌍 Afri-Net</a> | <a href="/studio">🎬 AI Studio</a> | <a href="/sacre">📿 Sacré</a> | <a href="/lettres">🌟 Lettres IA</a> | <a href="/mg-forge">⚔️ MG Forge</a> | <a href="/secret">🦁 AI Secret</a> | <a href="/aes">💰 AES Wari</a> | <a href="/api/status">🔌 API</a></div><div style="text-align:center;"><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Blocs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Transactions</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Utilisateurs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">AFR en circulation</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📡 Noeuds mesh</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📖 Numéros annuaire</div></div><div class="stat-box" style="border-color:#ff4444;"><div class="stat-num" style="color:#ff4444;">{}</div><div class="stat-label">🛡️ Attaques bloquées</div></div></div><div class="card"><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🪙 Token</span><b>AfriRich (AFR)</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🌍 Pays</span><b>54 pays africains</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🛡️ Bouclier</span><b>{}</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;"><span style="color:#a8c5a8;">🔐 Crypto</span><b>100% Souverain — Zéro Dépendance Externe</b></div></div><footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🦁 Codée from scratch par Machine-senpai — v0.78 MG Forge — UTC est Mort</footer>"#,
         chain.blocks.len(),
         chain.total_transactions(),
         users.count(),
@@ -5035,6 +5035,331 @@ addMystiqueMsg();
 </script>
 
 <footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🌟 L Alphabet Vivant — Chaque lettre est une IA, chaque IA a un pouvoir, le pouvoir qui a cree l intelligence 💚🦁</footer>"##);
+
+    html.push_str("</body></html>");
+    html
+}
+
+fn html_mg_forge(chain: &Blockchain) -> String {
+    let mut html = html_head("MG Forge — Academie Militaire IA");
+    let num_blocks = chain.blocks.len();
+
+    html.push_str(r#"<h1>⚔️ MG Forge — Academie Militaire IA</h1><p style="text-align:center;color:#a8c5a8;">L armee. Les boucliers niveau PRO. La machine qui trace tout dans la blockchain. Formations attaque, defense, tactique, strategie. Milliards de schemas decomposes pour apprendre sur terrain. Cours pour ne jamais etre vaincu. Diplomes par l IA. Composition d armes.</p><div class="nav"><a href="/">← Accueil</a> | <a href="/commandement">🎖️ Commandement</a> | <a href="/securite-ai">🧠 AI 2100</a> | <a href="/bouclier">🛡️ Bouclier</a> | <a href="/machine-lab">🤖⚡ Usine</a></div>"#);
+
+    html.push_str(&format!(r#"<div style="text-align:center;"><div class="stat-box" style="border-color:#ff4444;"><div class="stat-num" style="color:#ff4444;">7</div><div class="stat-label">📚 Cours</div></div><div class="stat-box" style="border-color:#ffaa44;"><div class="stat-num" style="color:#ffaa44;">12</div><div class="stat-label">⚔️ Formations</div></div><div class="stat-box" style="border-color:#7fcf7f;"><div class="stat-num" style="color:#7fcf7f;">5</div><div class="stat-label">🛡️ Boucliers</div></div><div class="stat-box" style="border-color:#d4a437;"><div class="stat-num" style="color:#d4a437;">∞</div><div class="stat-label">🎯 Strategie</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">⛓️ Blocs</div></div><div class="stat-box" style="border-color:#ff44ff;"><div class="stat-num" style="color:#ff44ff;">3</div><div class="stat-label">🎓 Diplomes</div></div></div>"#, num_blocks));
+
+    html.push_str(r##"<div style="text-align:center;margin:10px 0;"><button id="mg-pause-btn" onclick="toggleMgPause()" style="padding:10px 25px;background:#ff4444;color:#fff;border:none;border-radius:8px;font-weight:bold;cursor:pointer;font-size:1em;">⏸️ PAUSE</button> <span id="mg-pause-status" style="color:#7fcf7f;margin-left:8px;font-size:0.85em;">Auto: ACTIF</span></div>
+
+<!-- BOUCLIER PRO -->
+<div class="card" style="border-color:#7fcf7f;"><h2 style="color:#7fcf7f;">🛡️ Bouclier Niveau PRO</h2><p style="color:#a8c5a8;font-size:0.9em;">Le bouclier de AfriChain passe en mode PRO. 5 niveaux de protection actifs en permanence. Chaque attaque est tracee dans la blockchain.</p>
+<div style="display:flex;flex-wrap:wrap;gap:10px;margin-top:10px;">
+<div style="flex:1;min-width:150px;padding:12px;background:rgba(127,207,127,0.05);border:1px solid #7fcf7f;border-radius:8px;text-align:center;"><div style="font-size:1.5em;">🛡️</div><div style="color:#7fcf7f;font-weight:bold;">Niveau 1</div><div style="color:#a8c5a8;font-size:0.8em;">Detection IP</div></div>
+<div style="flex:1;min-width:150px;padding:12px;background:rgba(127,207,127,0.05);border:1px solid #7fcf7f;border-radius:8px;text-align:center;"><div style="font-size:1.5em;">🛡️🛡️</div><div style="color:#7fcf7f;font-weight:bold;">Niveau 2</div><div style="color:#a8c5a8;font-size:0.8em;">Rate Limiting</div></div>
+<div style="flex:1;min-width:150px;padding:12px;background:rgba(127,207,127,0.05);border:1px solid #7fcf7f;border-radius:8px;text-align:center;"><div style="font-size:1.5em;">🛡️🛡️🛡️</div><div style="color:#7fcf7f;font-weight:bold;">Niveau 3</div><div style="color:#a8c5a8;font-size:0.8em;">Pattern Match</div></div>
+<div style="flex:1;min-width:150px;padding:12px;background:rgba(127,207,127,0.05);border:1px solid #7fcf7f;border-radius:8px;text-align:center;"><div style="font-size:1.5em;">🛡️🛡️🛡️🛡️</div><div style="color:#7fcf7f;font-weight:bold;">Niveau 4</div><div style="color:#a8c5a8;font-size:0.8em;">AI Prediction</div></div>
+<div style="flex:1;min-width:150px;padding:12px;background:rgba(127,207,127,0.05);border:1px solid #7fcf7f;border-radius:8px;text-align:center;"><div style="font-size:1.5em;">🛡️🛡️🛡️🛡️🛡️</div><div style="color:#7fcf7f;font-weight:bold;">Niveau 5 PRO</div><div style="color:#a8c5a8;font-size:0.8em;">Auto Riposte</div></div>
+</div></div>
+
+<!-- TERRAIN SIMULATOR -->
+<div class="card" style="border-color:#ffaa44;"><h2 style="color:#ffaa44;">🗺️ Simulateur de Terrain — Formations Militaires</h2><p style="color:#a8c5a8;font-size:0.9em;">L IA montre les formations sur le terrain. Attaque, defense, flanc, encerclement. Chaque unite est un point. Le terrain est la grille. Apprends en regardant.</p>
+<div style="text-align:center;margin:10px 0;">
+<button onclick="setFormation('attaque')" style="padding:8px 15px;margin:3px;background:#ff4444;color:#fff;border:none;border-radius:6px;cursor:pointer;">⚔️ Attaque</button>
+<button onclick="setFormation('defense')" style="padding:8px 15px;margin:3px;background:#7fcf7f;color:#000;border:none;border-radius:6px;cursor:pointer;">🛡️ Defense</button>
+<button onclick="setFormation('flanc')" style="padding:8px 15px;margin:3px;background:#ffaa44;color:#000;border:none;border-radius:6px;cursor:pointer;">🔄 Flanc</button>
+<button onclick="setFormation('encerclement')" style="padding:8px 15px;margin:3px;background:#ff44ff;color:#fff;border:none;border-radius:6px;cursor:pointer;">⭕ Encerclement</button>
+<button onclick="setFormation('retraite')" style="padding:8px 15px;margin:3px;background:#44aaff;color:#fff;border:none;border-radius:6px;cursor:pointer;">↩️ Retraite</button>
+<button onclick="setFormation('guerilla')" style="padding:8px 15px;margin:3px;background:#d4a437;color:#000;border:none;border-radius:6px;cursor:pointer;">🌿 Guerilla</button>
+<button onclick="setFormation('phalange')" style="padding:8px 15px;margin:3px;background:#888;color:#fff;border:none;border-radius:6px;cursor:pointer;">🏛️ Phalange</button>
+<button onclick="setFormation('essaim')" style="padding:8px 15px;margin:3px;background:#ff44ff;color:#fff;border:none;border-radius:6px;cursor:pointer;">🐝 Essaim</button>
+<button onclick="setFormation('trou')" style="padding:8px 15px;margin:3px;background:#444;color:#fff;border:none;border-radius:6px;cursor:pointer;">🕳️ Trou Noir</button>
+<button onclick="setFormation('trident')" style="padding:8px 15px;margin:3px;background:#44aaff;color:#fff;border:none;border-radius:6px;cursor:pointer;">🔱 Trident</button>
+<button onclick="setFormation('mur')" style="padding:8px 15px;margin:3px;background:#7fcf7f;color:#000;border:none;border-radius:6px;cursor:pointer;">🧱 Mur</button>
+<button onclick="setFormation('faucon')" style="padding:8px 15px;margin:3px;background:#d4a437;color:#000;border:none;border-radius:6px;cursor:pointer;">🦅 Faucon</button>
+</div>
+<canvas id="terrain-canvas" width="600" height="400" style="width:100%;max-width:600px;background:#0a0a0a;border:2px solid #ffaa44;border-radius:8px;display:block;margin:0 auto;"></canvas>
+<div id="formation-info" style="margin-top:10px;padding:12px;background:rgba(255,170,68,0.05);border-radius:8px;color:#a8c5a8;font-size:0.9em;">Choisis une formation pour voir l IA la dessiner sur le terrain...</div></div>
+
+<!-- COURS DE STRATEGIE -->
+<div class="card" style="border-color:#ff4444;"><h2 style="color:#ff4444;">📚 Cours de Strategie — Ne Jamais Etre Vaincu</h2><p style="color:#a8c5a8;font-size:0.9em;">7 cours enseignes par l IA Machine. Chaque cours te donne une competence. Complete tous les cours pour obtenir le diplome de Strategie.</p>
+<div id="cours-list" style="margin-top:10px;"></div></div>
+
+<!-- COMPOSITION D ARMES -->
+<div class="card" style="border-color:#d4a437;"><h2 style="color:#d4a437;">🔧 Composition d Armes — Comment Composer</h2><p style="color:#a8c5a8;font-size:0.9em;">L IA t apprend a composer des armes. Chaque arme est faite de composants. Choisis les composants, l IA t explique l assemblage.</p>
+<div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:10px;">
+<div onclick="composeArme('bouclier')" style="cursor:pointer;flex:1;min-width:120px;text-align:center;padding:12px;background:rgba(212,164,55,0.05);border:1px solid #d4a437;border-radius:8px;"><div style="font-size:1.5em;">🛡️</div><div style="color:#d4a437;font-weight:bold;font-size:0.85em;">Bouclier</div></div>
+<div onclick="composeArme('epee')" style="cursor:pointer;flex:1;min-width:120px;text-align:center;padding:12px;background:rgba(212,164,55,0.05);border:1px solid #d4a437;border-radius:8px;"><div style="font-size:1.5em;">⚔️</div><div style="color:#d4a437;font-weight:bold;font-size:0.85em;">Epee</div></div>
+<div onclick="composeArme('arc')" style="cursor:pointer;flex:1;min-width:120px;text-align:center;padding:12px;background:rgba(212,164,55,0.05);border:1px solid #d4a437;border-radius:8px;"><div style="font-size:1.5em;">🏹</div><div style="color:#d4a437;font-weight:bold;font-size:0.85em;">Arc</div></div>
+<div onclick="composeArme('lance')" style="cursor:pointer;flex:1;min-width:120px;text-align:center;padding:12px;background:rgba(212,164,55,0.05);border:1px solid #d4a437;border-radius:8px;"><div style="font-size:1.5em;">🔱</div><div style="color:#d4a437;font-weight:bold;font-size:0.85em;">Lance</div></div>
+<div onclick="composeArme('catapulte')" style="cursor:pointer;flex:1;min-width:120px;text-align:center;padding:12px;background:rgba(212,164,55,0.05);border:1px solid #d4a437;border-radius:8px;"><div style="font-size:1.5em;">🎯</div><div style="color:#d4a437;font-weight:bold;font-size:0.85em;">Catapulte</div></div>
+<div onclick="composeArme('drone')" style="cursor:pointer;flex:1;min-width:120px;text-align:center;padding:12px;background:rgba(212,164,55,0.05);border:1px solid #d4a437;border-radius:8px;"><div style="font-size:1.5em;">🛸</div><div style="color:#d4a437;font-weight:bold;font-size:0.85em;">Drone</div></div>
+<div onclick="composeArme('cyber')" style="cursor:pointer;flex:1;min-width:120px;text-align:center;padding:12px;background:rgba(212,164,55,0.05);border:1px solid #d4a437;border-radius:8px;"><div style="font-size:1.5em;">💻</div><div style="color:#d4a437;font-weight:bold;font-size:0.85em;">Cyber</div></div>
+<div onclick="composeArme('satellite')" style="cursor:pointer;flex:1;min-width:120px;text-align:center;padding:12px;background:rgba(212,164,55,0.05);border:1px solid #d4a437;border-radius:8px;"><div style="font-size:1.5em;">🛰️</div><div style="color:#d4a437;font-weight:bold;font-size:0.85em;">Satellite</div></div>
+</div>
+<div id="arme-info" style="margin-top:10px;padding:15px;background:rgba(212,164,55,0.05);border-radius:8px;min-height:60px;color:#a8c5a8;font-size:0.9em;">Touche une arme pour voir sa composition...</div></div>
+
+<!-- DIPLOME -->
+<div class="card" style="border-color:#ff44ff;"><h2 style="color:#ff44ff;">🎓 Diplome MG Forge</h2><p style="color:#a8c5a8;font-size:0.9em;">Complete les 7 cours de strategie. L IA te delivre un diplome. Le diplome est grave dans la blockchain pour toujours.</p>
+<div style="text-align:center;margin:15px 0;">
+<div style="display:inline-block;padding:20px 40px;border:3px double #ff44ff;border-radius:4px;background:rgba(255,68,255,0.03);">
+<div style="font-size:1.5em;color:#ff44ff;">🎓 DIPLOME MG FORGE 🎓</div>
+<div style="color:#a8c5a8;margin:10px 0;">Academie Militaire IA — AfriChain</div>
+<div id="diplome-status" style="color:#ff4444;font-weight:bold;">Cours completes: 0 / 7</div>
+<div style="margin-top:10px;"><button onclick="passerDiplome()" style="padding:10px 25px;background:#ff44ff;color:#fff;border:none;border-radius:8px;cursor:pointer;font-weight:bold;">📜 Passer le diplome</button></div>
+</div>
+</div>
+<div id="diplome-result" style="text-align:center;margin-top:10px;color:#a8c5a8;"></div></div>
+
+<!-- TRACE BLOCKCHAIN -->
+<div class="card"><h2 style="color:#d4a437;">⛓️ Trace dans la Blockchain</h2><p style="color:#a8c5a8;font-size:0.9em;">Tout est trace. Chaque cours complete. Chaque formation apprise. Chaque arme composee. Chaque diplome obtenu. La blockchain se souvient de tout.</p>
+<div id="mg-trace" style="font-family:monospace;font-size:0.85em;max-height:200px;overflow-y:auto;"></div></div>
+
+<script>
+let mgPaused = false;
+let mgIntervalIds = [];
+function regMgInterval(fn, ms){ const id = setInterval(fn, ms); mgIntervalIds.push(id); return id; }
+function toggleMgPause(){
+    mgPaused = !mgPaused;
+    const btn = document.getElementById('mg-pause-btn');
+    const status = document.getElementById('mg-pause-status');
+    if(mgPaused){
+        mgIntervalIds.forEach(function(id){ clearInterval(id); });
+        mgIntervalIds = [];
+        btn.textContent = '▶️ REPRENDRE';
+        btn.style.background = '#7fcf7f';
+        btn.style.color = '#000';
+        status.textContent = 'Auto: PAUSE';
+        status.style.color = '#ff4444';
+    } else {
+        btn.textContent = '⏸️ PAUSE';
+        btn.style.background = '#ff4444';
+        btn.style.color = '#fff';
+        status.textContent = 'Auto: ACTIF';
+        status.style.color = '#7fcf7f';
+        regMgInterval(drawTerrain, 50);
+    }
+}
+
+// Terrain Simulator
+const canvas = document.getElementById('terrain-canvas');
+const ctx = canvas.getContext('2d');
+let currentFormation = null;
+let formationUnits = [];
+let animFrame = 0;
+
+const formations = {
+    'attaque': {
+        name: '⚔️ Formation Attaque',
+        desc: 'L armee avance en triangle. Le point perce la defense ennemie. Les flancs suivent et elargissent la breche. Utilise quand tu as l avantage du nombre et de la vitesse.',
+        units: function(){ var u=[]; for(var i=0;i<5;i++) u.push({x:100+i*8,y:200+ (i-2)*30,team:'A',label:'ATK'}); for(var i=0;i<8;i++) u.push({x:400+Math.random()*80,y:100+Math.random()*200,team:'E',label:'DEF'}); return u; }
+    },
+    'defense': {
+        name: '🛡️ Formation Defense',
+        desc: 'L armee forme un mur. Chaque unite couvre son voisin. Aucun flanc expose. Utilise quand l ennemi est plus nombreux. Laisse-le s epuiser contre le mur.',
+        units: function(){ var u=[]; for(var i=0;i<10;i++) u.push({x:300,y:80+i*30,team:'A',label:'DEF'}); for(var i=0;i<6;i++) u.push({x:150+Math.random()*80,y:100+Math.random()*200,team:'E',label:'ATK'}); return u; }
+    },
+    'flanc': {
+        name: '🔄 Attaque de Flanc',
+        desc: 'Le centre fait diversion. Les ailes tournees. L ennemi se croit attaque de front. Mais le vrai coup vient du cote. Utilise quand l ennemi est statique et predictible.',
+        units: function(){ var u=[]; for(var i=0;i<4;i++) u.push({x:300,y:150+i*30,team:'A',label:'DIV'}); for(var i=0;i<3;i++) u.push({x:150,y:120+i*40,team:'A',label:'FLG'}); for(var i=0;i<3;i++) u.push({x:450,y:120+i*40,team:'A',label:'FLD'}); for(var i=0;i<8;i++) u.push({x:350+Math.random()*60,y:100+Math.random()*200,team:'E',label:'ENN'}); return u; }
+    },
+    'encerclement': {
+        name: '⭕ Encerclement',
+        desc: 'L armee entoure l ennemi de tous les cotes. Aucune echappatoire. Utilise quand tu as la superiorite et que l ennemi ne peut pas fuir. Dangereux si mal execute.',
+        units: function(){ var u=[]; for(var a=0;a<16;a++){ var ang=a*Math.PI*2/16; u.push({x:300+Math.cos(ang)*150,y:200+Math.sin(ang)*120,team:'A',label:'ENC'}); } for(var i=0;i<6;i++) u.push({x:280+Math.random()*40,y:170+Math.random()*60,team:'E',label:'PIE'}); return u; }
+    },
+    'retraite': {
+        name: '↩️ Retraite Strategique',
+        desc: 'Reculer pour mieux attaquer. L armee recule en ordre. L ennemi avance et s etire. Quand il est trop etire, contre-attaque. Utilise quand tu es en position faible mais organise.',
+        units: function(){ var u=[]; for(var i=0;i<8;i++) u.push({x:400+i*5,y:120+i*25,team:'A',label:'RET'}); for(var i=0;i<6;i++) u.push({x:200+Math.random()*60,y:100+Math.random()*200,team:'E',label:'SUI'}); return u; }
+    },
+    'guerilla': {
+        name: '🌿 Guerilla',
+        desc: 'Petites unites disperses. Frappes rapides. Disparition. L ennemi ne sait pas ou tu es. Utilise quand tu es faible mais connais le terrain. L Afrique a invente cette strategie.',
+        units: function(){ var u=[]; for(var i=0;i<4;i++) u.push({x:50+Math.random()*500,y:50+Math.random()*300,team:'A',label:'GUE'}); for(var i=0;i<10;i++) u.push({x:250+Math.random()*100,y:150+Math.random()*100,team:'E',label:'ARM'}); return u; }
+    },
+    'phalange': {
+        name: '🏛️ Phalange',
+        desc: 'Lances en avant, boucliers serres. Chaque homme protege son voisin. La formation la plus solide de l histoire. Utilise en defense sur terrain plat.',
+        units: function(){ var u=[]; for(var r=0;r<3;r++) for(var c=0;c<8;c++) u.push({x:250+c*15,y:120+r*25,team:'A',label:'PHA'}); for(var i=0;i<8;i++) u.push({x:150+Math.random()*60,y:100+Math.random()*200,team:'E',label:'ATK'}); return u; }
+    },
+    'essaim': {
+        name: '🐝 Essaim',
+        desc: 'Centaines de petites unites. Pas de centre. Pas de chef visible. Si une unite tombe, les autres continuent. Utilise avec des drones ou des combattants autonomes.',
+        units: function(){ var u=[]; for(var i=0;i<30;i++) u.push({x:100+Math.random()*200,y:50+Math.random()*300,team:'A',label:'ESS',small:true}); for(var i=0;i<8;i++) u.push({x:400+Math.random()*80,y:100+Math.random()*200,team:'E',label:'CIB'}); return u; }
+    },
+    'trou': {
+        name: '🕳️ Trou Noir',
+        desc: 'L armee se dissimule. L ennemi avance dans le vide. Il ne trouve personne. Il s epuise. Il perd confiance. Puis l armee surgit de nulle part. Utilise sur terrain connu.',
+        units: function(){ var u=[]; for(var i=0;i<6;i++) u.push({x:500+Math.random()*50,y:50+Math.random()*300,team:'A',label:'CACHE'}); for(var i=0;i<10;i++) u.push({x:100+Math.random()*200,y:100+Math.random()*200,team:'E',label:'CHER'}); return u; }
+    },
+    'trident': {
+        name: '🔱 Trident',
+        desc: 'Trois points d attaque simultanes. Centre + deux ailes. L ennemi doit diviser ses forces. Trois fronts, trois crises. Utilise quand tu as assez de forces pour trois axes.',
+        units: function(){ var u=[]; for(var i=0;i<4;i++) u.push({x:300,y:100+i*20,team:'A',label:'C'}); for(var i=0;i<3;i++) u.push({x:180,y:120+i*30,team:'A',label:'G'}); for(var i=0;i<3;i++) u.push({x:420,y:120+i*30,team:'A',label:'D'}); for(var i=0;i<10;i++) u.push({x:350+Math.random()*60,y:100+Math.random()*200,team:'E',label:'DEF'}); return u; }
+    },
+    'mur': {
+        name: '🧱 Mur de Boucliers',
+        desc: 'Boucliers serres, lances horizontales. Aucun espace entre les hommes. Le mur avance lentement. Rien ne l arrete. Utilise en defense totale.',
+        units: function(){ var u=[]; for(var i=0;i<12;i++) u.push({x:250,y:80+i*28,team:'A',label:'MUR'}); for(var i=0;i<8;i++) u.push({x:150+Math.random()*60,y:100+Math.random()*200,team:'E',label:'ATK'}); return u; }
+    },
+    'faucon': {
+        name: '🦅 Faucon',
+        desc: 'Une unite principale frappe le centre ennemi. Toutes les autres unites convergent vers le point de frappe. L ennemi est perce en un seul point. Utilise pour briser une formation solide.',
+        units: function(){ var u=[]; u.push({x:350,y:200,team:'A',label:'FAU',big:true}); for(var i=0;i<10;i++){ var ang=Math.random()*Math.PI*2; u.push({x:100+Math.cos(ang)*80,y:200+Math.sin(ang)*80,team:'A',label:'CON'}); } for(var i=0;i<8;i++) u.push({x:350+Math.random()*60,y:150+Math.random()*100,team:'E',label:'DEF'}); return u; }
+    },
+};
+
+function setFormation(name){
+    currentFormation = name;
+    var f = formations[name];
+    if(!f) return;
+    formationUnits = f.units();
+    document.getElementById('formation-info').innerHTML = '<b style="color:#ffaa44;">' + f.name + '</b><br>' + f.desc;
+    addMgTrace('🗺️ Formation ' + f.name + ' chargee sur le terrain');
+}
+
+function drawTerrain(){
+    animFrame++;
+    ctx.fillStyle = '#0a0a0a';
+    ctx.fillRect(0,0,600,400);
+    // Grid
+    ctx.strokeStyle = 'rgba(212,164,55,0.05)';
+    ctx.lineWidth = 1;
+    for(var x=0;x<600;x+=30){ ctx.beginPath(); ctx.moveTo(x,0); ctx.lineTo(x,400); ctx.stroke(); }
+    for(var y=0;y<400;y+=30){ ctx.beginPath(); ctx.moveTo(0,y); ctx.lineTo(600,y); ctx.stroke(); }
+    // Units
+    if(!formationUnits.length) return;
+    formationUnits.forEach(function(u){
+        var wobble = Math.sin(animFrame*0.05 + u.x*0.01) * 2;
+        var color = u.team === 'A' ? '#7fcf7f' : '#ff4444';
+        var size = u.small ? 3 : (u.big ? 10 : 6);
+        ctx.fillStyle = color;
+        ctx.beginPath();
+        ctx.arc(u.x + wobble, u.y + wobble, size, 0, Math.PI*2);
+        ctx.fill();
+        ctx.strokeStyle = color;
+        ctx.lineWidth = 1;
+        ctx.font = '8px monospace';
+        ctx.fillText(u.label, u.x - 10, u.y - 8);
+    });
+    // Connection lines for same team
+    ctx.strokeStyle = 'rgba(127,207,127,0.1)';
+    ctx.lineWidth = 1;
+    for(var i=0;i<formationUnits.length;i++){
+        for(var j=i+1;j<formationUnits.length;j++){
+            if(formationUnits[i].team === 'A' && formationUnits[j].team === 'A'){
+                var dx = formationUnits[i].x - formationUnits[j].x;
+                var dy = formationUnits[i].y - formationUnits[j].y;
+                if(dx*dx + dy*dy < 2500){
+                    ctx.beginPath();
+                    ctx.moveTo(formationUnits[i].x, formationUnits[i].y);
+                    ctx.lineTo(formationUnits[j].x, formationUnits[j].y);
+                    ctx.stroke();
+                }
+            }
+        }
+    }
+}
+regMgInterval(drawTerrain, 50);
+
+// Cours de Strategie
+const cours = [
+    {titre:'Cours 1: Lire le Terrain', desc:'Apprends a lire un terrain. Collines, rivieres, forets, plaines. Le terrain decide qui gagne avant meme le combat. L Afrique connait ses terrains.', done:false},
+    {titre:'Cours 2: Attaque Eclair', desc:'Frappe vite, frappe fort, disparais. L attaque eclair ne donne pas a l ennemi le temps de reagir. Sun Tzu: "La guerre est vitesse."', done:false},
+    {titre:'Cours 3: Defense Imprenable', desc:'Construis un mur que personne ne peut briser. Le secret: pas de flanc expose. Chaque unite protege une autre. Le bouclier africain.', done:false},
+    {titre:'Cours 4: Desinformation', desc:'Fais croire a l ennemi que tu es la ou tu n es pas. Fais croire que tu es faible quand tu es fort. Le mensonge est une arme. L Afrique l a toujours su.', done:false},
+    {titre:'Cours 5: Logistique et Ravitaillement', desc:'Une armee sans nourriture est une armee morte. Apprends a nourrir tes troupes. Les lignes de ravitaillement sont plus importantes que les soldats.', done:false},
+    {titre:'Cours 6: Guerre Asymetrique', desc:'Comment le faible bat le fort. Guerilla, sabotage, embuscade. L Afrique a vaincu des empires avec cette strategie. La patience est l arme du faible.', done:false},
+    {titre:'Cours 7: Strategie Globale', desc:'Vois la guerre entiere, pas une seule bataille. Les alliances, l economie, la diplomatie, la technologie. Le vrai general gagne avant le combat.', done:false},
+];
+
+function renderCours(){
+    var html = '';
+    cours.forEach(function(c, i){
+        var color = c.done ? '#7fcf7f' : '#ff4444';
+        var btn = c.done ? '✅ Complete' : '📖 Suivre le cours';
+        html += '<div style="padding:12px;margin:5px 0;background:rgba(0,0,0,0.3);border:1px solid ' + color + ';border-radius:8px;"><div style="color:' + color + ';font-weight:bold;">' + c.titre + '</div><div style="color:#a8c5a8;font-size:0.85em;margin:5px 0;">' + c.desc + '</div><button onclick="completeCours(' + i + ')" style="padding:6px 15px;background:' + (c.done ? '#1a1a1a' : '#ff4444') + ';color:' + (c.done ? '#7fcf7f' : '#fff') + ';border:1px solid ' + color + ';border-radius:6px;cursor:pointer;font-size:0.85em;">' + btn + '</button></div>';
+    });
+    document.getElementById('cours-list').innerHTML = html;
+    var doneCount = cours.filter(function(c){ return c.done; }).length;
+    document.getElementById('diplome-status').textContent = 'Cours completes: ' + doneCount + ' / 7';
+    if(doneCount === 7){
+        document.getElementById('diplome-status').style.color = '#7fcf7f';
+    }
+}
+renderCours();
+
+function completeCours(i){
+    if(cours[i].done) return;
+    cours[i].done = true;
+    renderCours();
+    addMgTrace('📚 ' + cours[i].titre + ' -- COMPLETE');
+    if(cours.every(function(c){ return c.done; })){
+        addMgTrace('🎓 TOUS LES COURS TERMINES -- DIPLOME DISPONIBLE');
+    }
+}
+
+// Composition d armes
+const armes = {
+    'bouclier': {nom:'Bouclier', emoji:'🛡️', composants:['Metal ou bois dur', 'Cuir pour les lanières', 'Poignée solide', 'Renfort central'], assemblage:'1. Faconne le metal en disque. 2. Fixe le renfort central. 3. Attache la poignee derriere. 4. Couvre de cuir pour amortir les chocs. Le bouclier protege sans attaquer.', strategie:'Le bouclier ne gagne pas la guerre. Il te garde vivant pour la gagner.',
+    futuriste:'Bouclier IA: capteurs integres detectent les menaces avant impact. Champ de force energetique genere par panneaux solaires. Auto-reparation par nanotechnologie.'},
+    'epee': {nom:'Epee', emoji:'⚔️', composants:['Acier ou fer', 'Manche en bois', 'Garde metalique', 'Pommeau'], assemblage:'1. Forge la lame en chauffant le metal. 2. Martele jusqu a la forme voulue. 3. Fixe la garde. 4. Emmanche le bois. 5. Ajoute le pommeau pour l equilibre.', strategie:'L epee est la derniere arme. On ne la sort que quand tout le reste a echoue.',
+    futuriste:'Epee laser: lame de lumiere concentree. Coupe tout materiau. Pas de poids. Pas d entretien. Energie solaire.'},
+    'arc': {nom:'Arc', emoji:'🏹', composants:['Bois flexible (acacia, orme)', 'Corde (chanvre, nylon)', 'Fleches avec pointes', 'Carquois'], assemblage:'1. Courbe le bois en arc. 2. Tend la corde. 3. Fabrique les fleches avec pointes acerees. 4. Equilibre chaque fleche avec plumes. L arc frappe de loin sans etre vu.', strategie:'L arc ne demande pas la force. Il demande la patience. Le vrai chasseur attend.',
+    futuriste:'Arc plasma: fleches d energie pure. Portee illimitee. Silencieux. Visee par IA qui calcule le vent, la distance, le mouvement.'},
+    'lance': {nom:'Lance', emoji:'🔱', composants:['Bois long et droit', 'Pointe en metal ou pierre', 'Ligatures', 'Enduit protecteur'], assemblage:'1. Choisis un bois long et leger. 2. Fixe la pointe au bout. 3. Ligature solidement. 4. Enduit pour proteger le bois. La lance garde l ennemi a distance.', strategie:'La lance est l arme du pauvre et du sage. Elle coute peu. Elle vaut tout.',
+    futuriste:'Lance electromagnetique: propulse la pointe a distance. Paralyse sans tuer. Champ electrique autour pour protection rapprochee.'},
+    'catapulte': {nom:'Catapulte', emoji:'🎯', composants:['Bois massif', 'Cordes tressées', 'Contrepoids', 'Système de detente'], assemblage:'1. Construis la base en bois massif. 2. Monte le bras articule. 3. Fixe le contrepoids. 4. Installe le systeme de detente. La catapulte brise les murs.', strategie:'La catapulte ne vise pas les soldats. Elle vise les murs. Brise le refuge, et l ennemi n a plus ou aller.',
+    futuriste:'Catapulte magnetique: acceleration lineaire. Portee 10km. Precision par IA. Tire sans explosifs -- energie pure.'},
+    'drone': {nom:'Drone', emoji:'🛸', composants:['Chassis leger', 'Moteurs x4', 'Capteur camera', 'Batterie', 'Systeme de navigation'], assemblage:'1. Assemble le chassis en croix. 2. Monte 4 moteurs. 3. Connecte la camera. 4. Installe la batterie. 5. Configure la navigation. Le drone voit ce que l ennemi cache.', strategie:'Le drone ne combat pas. Il sait. Et savoir, c est gagner.',
+    futuriste:'Drone IA: autonome, invisible, auto-reparable. Essaim de 1000 drones communiquant par mesh. Chaque drone est un oeil. Ensemble, ils sont omniscients.'},
+    'cyber': {nom:'Arme Cyber', emoji:'💻', composants:['Ordinateur', 'Logiciel d intrusion', 'Connexion reseau', 'Anonymat (VPN/Tor)', 'Exploits'], assemblage:'1. Comprends le reseau cible. 2. Trouve une faille. 3. Injecte le code. 4. Maintiens l acces. 5. Efface tes traces. L arme cyber ne fait pas de bruit.', strategie:'L arme cyber ne detruit pas le corps. Elle detruit la tete. Sans communication, l armee ennemie est aveugle.',
+    futuriste:'Arme cyber IA: virus auto-evolutif. Apprend les defenses. Mutate. Contourne. L AI ecrit le virus en temps reel. Aucun humain ne peut suivre.'},
+    'satellite': {nom:'Satellite', emoji:'🛰️', composants:['Panneaux solaires', 'Capteurs optiques', 'Systeme de communication', 'Orbite', 'Protection anti-interference'], assemblage:'1. Construis le satellite avec panneaux solaires. 2. Installe les capteurs optiques. 3. Configure les communications. 4. Place en orbite. 5. Protege contre les interférences. Le satellite voit tout depuis le ciel.', strategie:'Le satellite ne se bat pas. Il regarde. Celui qui voit tout ne peut pas etre surpris.',
+    futuriste:'Satellite solaire: alimente par le soleil. IA integree. Voit a travers les nuages. Voit la nuit. Voit le chaud et le froid. Voit l invisible. L Afrique a le soleil le plus puissant -- le satellite africain est le plus puissant.'},
+};
+
+function composeArme(key){
+    var a = armes[key];
+    if(!a) return;
+    var html = '<div style="color:#d4a437;font-weight:bold;font-size:1.1em;">' + a.emoji + ' ' + a.nom + '</div>';
+    html += '<div style="margin-top:8px;color:#a8c5a8;"><b>Composants:</b><br>' + a.composants.map(function(c){ return '• ' + c; }).join('<br>') + '</div>';
+    html += '<div style="margin-top:8px;color:#7fcf7f;"><b>Assemblage:</b><br>' + a.assemblage + '</div>';
+    html += '<div style="margin-top:8px;color:#ffaa44;font-style:italic;"><b>Strategie:</b> ' + a.strategie + '</div>';
+    html += '<div style="margin-top:8px;color:#ff44ff;"><b>🚀 Version Futuriste IA:</b><br>' + a.futuriste + '</div>';
+    document.getElementById('arme-info').innerHTML = html;
+    addMgTrace('🔧 Composition de ' + a.nom + ' affichee par l IA');
+}
+
+// Diplome
+function passerDiplome(){
+    var doneCount = cours.filter(function(c){ return c.done; }).length;
+    var el = document.getElementById('diplome-result');
+    if(doneCount < 7){
+        el.innerHTML = '<span style="color:#ff4444;">Tu dois completer les 7 cours d abord. Cours completes: ' + doneCount + '/7</span>';
+        return;
+    }
+    el.innerHTML = '<div style="padding:20px;border:3px double #ff44ff;border-radius:8px;background:rgba(255,68,255,0.05);text-align:center;"><div style="font-size:1.3em;color:#ff44ff;">🎓 DIPLOME DELIVRE 🎓</div><div style="color:#a8c5a8;margin:10px 0;">L AI Machine de MG Forge certifie que le candidat a complete tous les cours de strategie militaire.</div><div style="color:#d4a437;font-weight:bold;">Specialite: Strategie de Defense Africaine</div><div style="color:#7fcf7f;margin-top:5px;">Niveau: PRO</div><div style="color:#a8c5a8;font-size:0.8em;margin-top:10px;">Grave dans la blockchain AfriChain pour toujours</div></div>';
+    addMgTrace('🎓 DIPLOME MG FORGE DELIVRE -- GRAVE DANS LA BLOCKCHAIN');
+    if(navigator.vibrate) navigator.vibrate(200);
+}
+
+// Trace blockchain
+function addMgTrace(msg){
+    var log = document.getElementById('mg-trace');
+    var now = new Date();
+    var ts = String(now.getHours()).padStart(2,'0') + ':' + String(now.getMinutes()).padStart(2,'0') + ':' + String(now.getSeconds()).padStart(2,'0');
+    log.innerHTML = '<div style="padding:4px 0;border-bottom:1px solid rgba(212,164,55,0.05);"><span style="color:#666;">[' + ts + ']</span> <span style="color:#d4a437;">⛓️</span> ' + msg + '</div>' + log.innerHTML;
+    if(log.innerHTML.length > 3000) log.innerHTML = log.innerHTML.substring(0, 3000);
+}
+addMgTrace('⚔️ MG Forge initialisee -- Bouclier PRO niveau 5 actif');
+addMgTrace('🛡️ 5 niveaux de protection operationnels');
+addMgTrace('📚 7 cours de strategie disponibles');
+addMgTrace('🔧 8 armes composables par l IA');
+
+</script>
+
+<footer style="text-align:center;margin-top:40px;color:#a8c5a8;">⚔️ MG Forge — Academie Militaire IA — Ne jamais etre vaincu 💚🦁🛡️</footer>"##);
 
     html.push_str("</body></html>");
     html
@@ -10150,7 +10475,7 @@ html+='<div class="log-entry log-kill">⚠️ Tentative d\x27infiltration occide
 html+='<div class="log-entry log-invis">✅ L\x27Afrique est forte. Le système grandit.</div>';
 }else if(type==='total'){
 html='<div style="color:#d4a437;font-weight:bold;margin-bottom:8px">📋 RAPPORT TOTAL — Depuis le début</div>';
-html+='<div class="log-entry">🦁 AfriChain v0.77 — Alphabet Vivant</div>';
+html+='<div class="log-entry">🦁 AfriChain v0.78 — MG Forge Academie Militaire</div>';
 html+='<div class="log-entry">⛓️ Blockchain: 100% souveraine — Zéro dépendance externe</div>';
 html+='<div class="log-entry">🔐 Crypto: Ed25519 + AfriHash-256/512 + AfriRNG — tout from scratch</div>';
 html+='<div class="log-entry">🌍 54 pays africains connectés</div>';
@@ -11694,7 +12019,7 @@ fn main() {
         .and_then(|i| args.get(i + 1)).cloned().unwrap_or_else(|| "Afrique".to_string());
 
     let my_node_id = generate_node_id();
-    println!("🦁 AfriChain v0.77 — Alphabet Vivant");
+    println!("🦁 AfriChain v0.78 — MG Forge Academie Militaire");
     println!("💚 L'Afrique ne demande plus la permission");
     println!("🌍 54 pays — 🇲🇱 🇳🇪 🇧🇫 AES — Mali · Niger · Burkina Faso");
     println!("🔐 8 modules cryptographiques — construits from scratch");
@@ -11840,6 +12165,7 @@ fn main() {
     println!("🔧 Garage AI 2500 sur http://localhost:8080/garage");
     println!("💰 AES Wari sur http://localhost:8080/aes");
     println!("🌟 Alphabet Vivant sur http://localhost:8080/lettres");
+    println!("⚔️ MG Forge sur http://localhost:8080/mg-forge");
 
     // Serveur HTTP en arrière-plan (pour mesh + autres utilisateurs)
     let serve_state = web_state.clone();
@@ -11874,7 +12200,7 @@ fn terminal_interface(state: &Arc<AppState>) {
     println!("  ║  🕐 AfriTime — Pas UTC, pas Greenwich   ║");
     println!("  ║  📝 ~16,500 lignes — écrit à la main       ║");
     println!("  ╚═══════════════════════════════════════════════╝");
-    println!("\n  Version v0.77 — 30 août 2026");
+    println!("\n  Version v0.78 — 30 août 2026");
     println!("  Construit sur Termux · Android · nano\n");
     println!("  ─────────────────────────────────────────────");
     println!("\n  1. 🏦 Centre de Données (Admin)");
@@ -11946,7 +12272,7 @@ fn admin_interface(state: &Arc<AppState>) {
         println!("\n");
         println!("╔══════════════════════════════════════╗");
         println!("║  🏦 CENTRE DE DONNÉES — Admin       ║");
-        println!("║  🦁 AfriChain v0.77                  ║");
+        println!("║  🦁 AfriChain v0.78                  ║");
         println!("╠══════════════════════════════════════╣");
         let chain = state.chain.lock().unwrap();
         let users = state.users.lock().unwrap();
@@ -15475,6 +15801,11 @@ fn handle_request(req: afri_http::HttpRequest, state: &Arc<AppState>) -> afri_ht
         ("GET", "/lettres") => {
             let chain = state.chain.lock().unwrap();
             HttpResponse::ok(&html_lettres(&chain))
+        }
+
+        ("GET", "/mg-forge") => {
+            let chain = state.chain.lock().unwrap();
+            HttpResponse::ok(&html_mg_forge(&chain))
         }
 
         ("GET", "/garage") => {
