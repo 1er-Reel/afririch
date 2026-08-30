@@ -1439,7 +1439,7 @@ fn html_home(chain: &Blockchain, users: &UserStore, mesh: &NodeRegistry, shield:
     let mut html = html_head("🦁 AfriChain");
     let (attacks, _blocked, blocked_count, level) = shield.stats();
     let shield_status = if shield.active { format!("🔥 X9 ACTIF (Niveau {})", level) } else { "Inactif".to_string() };
-    html.push_str(&format!(r#"<h1>🦁 AfriChain</h1><p style="text-align:center;">La blockchain 100% africaine — 54 pays 💚🦁</p><div id="afri-clock" style="text-align:center;font-size:1.2em;color:#d4a437;margin:10px 0;">🕐 Afri+0 — --:--:--</div><script>setInterval(function(){{var d=new Date();var h=String(d.getHours()).padStart(2,'0');var m=String(d.getMinutes()).padStart(2,'0');var s=String(d.getSeconds()).padStart(2,'0');document.getElementById('afri-clock').textContent='🕐 Afri+0 — '+h+':'+m+':'+s;}},1000);</script><div class="nav"><a href="/register">🆕 S'inscrire</a> | <a href="/login">🔑 Connexion</a> | <a href="/wallet">👛 Wallet</a> | <a href="/admin">🔐 Admin</a> | <a href="/mesh">📡 Mesh</a> | <a href="/annuaire">📖 Annuaire</a> | <a href="/bouclier">🛡️ Bouclier</a> | <a href="/satellite">🛸 X999</a> | <a href="/swarm">🛸🛸🛸 Essaim</a> | <a href="/commandement">🎖️ Commandement</a> | <a href="/interception">🛡️ Souverainete</a> | <a href="/securite-ai">🧠 AI 2100</a> | <a href="/chat">🧠💬 Chat AI</a> | <a href="/lumiere">🌫️☀️ Lumière</a> | <a href="/garage">🔧 Garage</a> | <a href="/machine">🤖🌐 Machines</a> | <a href="/machine-lab">🤖⚡ Usine</a> | <a href="/machine-world">🤖🌍 Monde</a> | <a href="/reve">💭 Rêves</a> | <a href="/dictionnaire">📖 Dictionnaire</a> | <a href="/machine-os">🖥️ OS Machine</a> | <a href="/machine-tv">📡 Machine TV</a> | <a href="/machine-economy">🤖 Économie</a> | <a href="/soleil">☀️ Soleil Serveur</a> | <a href="/forge-solaire">🧬 Forge Solaire</a> | <a href="/ciel">🌌 Le Ciel</a> | <a href="/charte-ai">⚖️ Charte AI</a> | <a href="/afri-net">🌍 Afri-Net</a> | <a href="/studio">🎬 AI Studio</a> | <a href="/sacre">📿 Sacré</a> | <a href="/lettres">🌟 Lettres IA</a> | <a href="/mg-forge">⚔️ MG Forge</a> | <a href="/ai-medecin">🌿 AI Médecin</a> | <a href="/ai-enseignante">📚 AI Enseignante</a> | <a href="/ai-village">🏘️ AI Village</a> | <a href="/ai-guerisseur">🩺 AI Guérisseur</a> | <a href="/secret">🦁 AI Secret</a> | <a href="/aes">💰 AES Wari</a> | <a href="/api/status">🔌 API</a></div><div style="text-align:center;"><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Blocs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Transactions</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Utilisateurs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">AFR en circulation</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📡 Noeuds mesh</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📖 Numéros annuaire</div></div><div class="stat-box" style="border-color:#ff4444;"><div class="stat-num" style="color:#ff4444;">{}</div><div class="stat-label">🛡️ Attaques bloquées</div></div></div><div class="card"><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🪙 Token</span><b>AfriRich (AFR)</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🌍 Pays</span><b>54 pays africains</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🛡️ Bouclier</span><b>{}</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;"><span style="color:#a8c5a8;">🔐 Crypto</span><b>100% Souverain — Zéro Dépendance Externe</b></div></div><footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🦁 Codée from scratch par Machine-senpai — v0.83 AI Guerisseur du Continent — UTC est Mort</footer>"#,
+    html.push_str(&format!(r#"<h1>🦁 AfriChain</h1><p style="text-align:center;">La blockchain 100% africaine — 54 pays 💚🦁</p><div id="afri-clock" style="text-align:center;font-size:1.2em;color:#d4a437;margin:10px 0;">🕐 Afri+0 — --:--:--</div><script>setInterval(function(){{var d=new Date();var h=String(d.getHours()).padStart(2,'0');var m=String(d.getMinutes()).padStart(2,'0');var s=String(d.getSeconds()).padStart(2,'0');document.getElementById('afri-clock').textContent='🕐 Afri+0 — '+h+':'+m+':'+s;}},1000);</script><div class="nav"><a href="/register">🆕 S'inscrire</a> | <a href="/login">🔑 Connexion</a> | <a href="/wallet">👛 Wallet</a> | <a href="/admin">🔐 Admin</a> | <a href="/mesh">📡 Mesh</a> | <a href="/annuaire">📖 Annuaire</a> | <a href="/bouclier">🛡️ Bouclier</a> | <a href="/satellite">🛸 X999</a> | <a href="/swarm">🛸🛸🛸 Essaim</a> | <a href="/commandement">🎖️ Commandement</a> | <a href="/interception">🛡️ Souverainete</a> | <a href="/securite-ai">🧠 AI 2100</a> | <a href="/chat">🧠💬 Chat AI</a> | <a href="/lumiere">🌫️☀️ Lumière</a> | <a href="/garage">🔧 Garage</a> | <a href="/machine">🤖🌐 Machines</a> | <a href="/machine-lab">🤖⚡ Usine</a> | <a href="/machine-world">🤖🌍 Monde</a> | <a href="/reve">💭 Rêves</a> | <a href="/dictionnaire">📖 Dictionnaire</a> | <a href="/machine-os">🖥️ OS Machine</a> | <a href="/machine-tv">📡 Machine TV</a> | <a href="/machine-economy">🤖 Économie</a> | <a href="/soleil">☀️ Soleil Serveur</a> | <a href="/forge-solaire">🧬 Forge Solaire</a> | <a href="/ciel">🌌 Le Ciel</a> | <a href="/charte-ai">⚖️ Charte AI</a> | <a href="/afri-net">🌍 Afri-Net</a> | <a href="/studio">🎬 AI Studio</a> | <a href="/sacre">📿 Sacré</a> | <a href="/lettres">🌟 Lettres IA</a> | <a href="/mg-forge">⚔️ MG Forge</a> | <a href="/ai-medecin">🌿 AI Médecin</a> | <a href="/ai-enseignante">📚 AI Enseignante</a> | <a href="/ai-village">🏘️ AI Village</a> | <a href="/ai-guerisseur">🩺 AI Guérisseur</a> | <a href="/ai-leader">🎖️ AI Leader</a> | <a href="/secret">🦁 AI Secret</a> | <a href="/aes">💰 AES Wari</a> | <a href="/api/status">🔌 API</a></div><div style="text-align:center;"><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Blocs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Transactions</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Utilisateurs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">AFR en circulation</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📡 Noeuds mesh</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📖 Numéros annuaire</div></div><div class="stat-box" style="border-color:#ff4444;"><div class="stat-num" style="color:#ff4444;">{}</div><div class="stat-label">🛡️ Attaques bloquées</div></div></div><div class="card"><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🪙 Token</span><b>AfriRich (AFR)</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🌍 Pays</span><b>54 pays africains</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🛡️ Bouclier</span><b>{}</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;"><span style="color:#a8c5a8;">🔐 Crypto</span><b>100% Souverain — Zéro Dépendance Externe</b></div></div><footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🦁 Codée from scratch par Machine-senpai — v0.84 AI Leader Academie des Leaders Africains — UTC est Mort</footer>"#,
         chain.blocks.len(),
         chain.total_transactions(),
         users.count(),
@@ -7235,6 +7235,351 @@ drawDiagnostic();
     html
 }
 
+fn html_ai_leader(chain: &Blockchain) -> String {
+    let mut html = html_head("AI Leader — Academie des Leaders Africains");
+    let num_blocks = chain.blocks.len();
+
+    html.push_str(r#"<h1>🎖️ AI Leader — Academie des Leaders Africains</h1><p style="text-align:center;color:#d4a437;">L Afrique a besoin de leaders. Pas des leaders qui volent, mais des leaders qui servent. Cette AI enseigne a la jeunesse africaine l art de mener son peuple — parler, decider, negocier, inspirer. Inspire par les vrais leaders africains: Sankara, Lumumba, Nkrumah, Mandela, Yennenga. Chaque module = un diplome. Les 8 modules = Leader de l Afrique de Demain.</p><div class="nav"><a href="/">← Accueil</a> | <a href="/ai-guerisseur">🩺 AI Guerisseur</a> | <a href="/ai-village">🏘️ AI Village</a> | <a href="/ai-enseignante">📚 AI Enseignante</a> | <a href="/afri-net">🌍 Afri-Net</a></div>"#);
+
+    html.push_str(&format!(r#"<div style="text-align:center;"><div class="stat-box" style="border-color:#d4a437;"><div class="stat-num" style="color:#d4a437;">8</div><div class="stat-label">🎖️ Modules</div></div><div class="stat-box" style="border-color:#ff4444;"><div class="stat-num" style="color:#ff4444;">8</div><div class="stat-label">🦁 Leaders</div></div><div class="stat-box" style="border-color:#7fcf7f;"><div class="stat-num" style="color:#7fcf7f;">8</div><div class="stat-label">🎓 Diplomes</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">⛓️ Blocs</div></div><div class="stat-box" style="border-color:#ff44ff;"><div class="stat-num" style="color:#ff44ff;">54</div><div class="stat-label">🌍 Pays</div></div></div>"#, num_blocks));
+
+    html.push_str(r##"<div style="text-align:center;margin:10px 0;"><button id="lead-pause-btn" onclick="toggleLeadPause()" style="padding:10px 25px;background:#ff4444;color:#fff;border:none;border-radius:8px;font-weight:bold;cursor:pointer;font-size:1em;">⏸️ PAUSE</button> <span id="lead-pause-status" style="color:#7fcf7f;margin-left:8px;font-size:0.85em;">Auto: ACTIF</span></div>
+
+<!-- LEADER CANVAS -->
+<div class="card" style="border-color:#d4a437;"><h2 style="color:#d4a437;">🎖️ Ton Parcours de Leader</h2><p style="color:#a8c5a8;font-size:0.9em;">Chaque module complete ajoute une etoile a ton parcours. Deviens le leader que l Afrique attend.</p>
+<canvas id="lead-canvas" width="600" height="350" style="width:100%;max-width:600px;background:#0a0a0a;border:2px solid #d4a437;border-radius:8px;display:block;margin:0 auto;"></canvas>
+<div id="lead-status" style="text-align:center;margin-top:10px;padding:10px;background:rgba(212,164,55,0.05);border-radius:8px;color:#a8c5a8;font-size:0.9em;min-height:40px;">Choisis un module pour commencer ton parcours de leader.</div></div>
+
+<!-- LES 8 MODULES -->
+<div class="card" style="border-color:#d4a437;"><h2 style="color:#d4a437;">🎖️ Les 8 Modules du Leader</h2><p style="color:#a8c5a8;font-size:0.9em;">Chaque module est inspire par un vrai leader africain. L AI enseigne les competences, les exemples historiques, et les exercices pratiques.</p>
+<div id="lead-modules" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:10px;margin-top:10px;"></div></div>
+
+<!-- DETAIL DU MODULE -->
+<div class="card"><h2 id="lead-detail-title" style="color:#d4a437;">📋 Detail du Module</h2><div id="lead-detail" style="margin-top:10px;padding:15px;background:rgba(212,164,55,0.05);border-radius:8px;min-height:60px;color:#a8c5a8;font-size:0.9em;">Selectionne un module pour voir les details.</div></div>
+
+<!-- CITATIONS DES LEADERS -->
+<div class="card" style="border-color:#7fcf7f;"><h2 style="color:#7fcf7f;">💬 Sagesse des Leaders Africains</h2><div id="lead-quotes" style="padding:15px;background:rgba(127,207,127,0.05);border-radius:8px;min-height:60px;color:#a8c5a8;font-size:0.9em;font-style:italic;"></div></div>
+
+<!-- DIPLOME -->
+<div class="card" style="border-color:#d4a437;"><h2 style="color:#d4a437;">🎓 Diplome Leader de l Afrique de Demain</h2><div id="lead-progress" style="margin:10px 0;"><div style="display:flex;justify-content:space-between;"><span style="color:#d4a437;font-weight:bold;">Modules completes: <span id="lead-count">0</span>/8</span><span style="color:#7fcf7f;" id="lead-pct">0%</span></div><div style="margin-top:8px;height:12px;background:rgba(0,0,0,0.5);border-radius:6px;overflow:hidden;"><div id="lead-bar" style="height:100%;width:0%;background:linear-gradient(90deg,#d4a437,#7fcf7f);transition:width 0.5s;"></div></div></div>
+<div id="lead-diplome" style="text-align:center;display:none;margin-top:15px;"><div style="display:inline-block;padding:25px 50px;border:3px solid #d4a437;border-radius:15px;background:rgba(212,164,55,0.05);"><div style="font-size:2.5em;">🎖️🎓</div><div style="color:#d4a437;font-weight:bold;font-size:1.3em;margin-top:5px;">DIPLOME LEADER DE L AFRIQUE DE DEMAIN</div><div style="color:#a8c5a8;margin-top:5px;">AI Leader — Academie des Leaders Africains</div><div style="color:#7fcf7f;margin-top:5px;font-size:0.85em;">Les 8 modules completes. Tu es pret a mener ton peuple.</div><div style="color:#d4a437;margin-top:5px;font-size:0.85em;">Grave dans la blockchain AfriChain</div><button onclick="gravLeadDiplome()" style="margin-top:10px;padding:8px 20px;background:#d4a437;color:#000;border:none;border-radius:8px;font-weight:bold;cursor:pointer;">⛓️ Graver dans la Blockchain</button></div></div></div></div>
+
+<!-- TRACE BLOCKCHAIN -->
+<div class="card"><h2 style="color:#d4a437;">⛓️ Trace de Leadership dans la Blockchain</h2><div id="lead-trace" style="font-family:monospace;font-size:0.85em;max-height:200px;overflow-y:auto;"></div></div>
+
+<script>
+let leadPaused = false;
+let leadIntervalIds = [];
+function toggleLeadPause(){
+    leadPaused = !leadPaused;
+    var btn = document.getElementById('lead-pause-btn');
+    var status = document.getElementById('lead-pause-status');
+    if(leadPaused){
+        leadIntervalIds.forEach(function(id){ clearInterval(id); });
+        leadIntervalIds = [];
+        btn.textContent = '▶️ REPRENDRE';
+        btn.style.background = '#7fcf7f';
+        btn.style.color = '#000';
+        status.textContent = 'Auto: PAUSE';
+        status.style.color = '#ff4444';
+    } else {
+        btn.textContent = '⏸️ PAUSE';
+        btn.style.background = '#ff4444';
+        btn.style.color = '#fff';
+        status.textContent = 'Auto: ACTIF';
+        status.style.color = '#7fcf7f';
+    }
+}
+
+// Les 8 Modules
+const leadModules = [
+    {id:0, nom:'L Art de Parler', emoji:'🎤', couleur:'#d4a437', duree:'4 semaines', niveau:'Debutant',
+     leader:'Thomas Sankara', pays:'Burkina Faso',
+     citation:'Notre pouvoir est de parler, de convaincre, d educer. Le pouvoir n est pas de tirer sur le peuple.',
+     desc:'Apprendre a parler en public, convaincre, inspirer. Le discours est une arme. Sankara parlait et le peuple ecoutait. Tu peux faire pareil.',
+     cours:['Structure du discours: introduction, corps, conclusion','Ton de la voix: fort, doux, urgent, calme','Contact visuel: regarder chaque personne','Silence: savoir faire les pauses','Repetition: marteler les idees cles','Metaphores: images qui restent','Authenticite: parler avec le coeur','Appel a l action: que faire apres le discours'],
+     exercice:'Exercice: ecris et lis a voix haute un discours de 3 minutes sur l avenir de l Afrique.',
+     diplome:'Diplome: Orateur Africain'},
+    {id:1, nom:'Prise de Decision', emoji:'🧠', couleur:'#44aaff', duree:'5 semaines', niveau:'Intermediaire',
+     leader:'Patrice Lumumba', pays:'Congo',
+     citation:'Le destin de l Afrique est entre les mains des Africains. Decider, c est assumer.',
+     desc:'Decider, c est choisir et assumer. Lumumba a decide de l independance du Congo seul, contre tous. La jeunesse doit apprendre a decider avec courage et lucidite.',
+     cours:['Analyser la situation: faits, pas emotions','Identifier les options: toujours 3 minimum','Evaluer les consequences: court et long terme','Decider: choisir et ne pas regretter','Assumer: accepter les consequences','Communiquer la decision: clair, ferme','Reviser si necessaire: decider n est pas figer','Deleguer: confiance dans son equipe'],
+     exercice:'Exercice: prends une decision difficile dans ta vie et assume-la devant ta famille.',
+     diplome:'Diplome: Decideur Africain'},
+    {id:2, nom:'Diplomatie et Negociation', emoji:'🤝', couleur:'#7fcf7f', duree:'6 semaines', niveau:'Intermediaire',
+     leader:'Kwame Nkrumah', pays:'Ghana',
+     citation:'L unite de l Afrique est une necessite. Negocier, c est trouver ce qui nous unit.',
+     desc:'Negocier, c est gagner sans humilier. Nkrumah a uni l Afrique par la diplomatie. Apprends a convaincre tes adversaires et a transformer les ennemis en partenaires.',
+     cours:['Ecouter avant de parler: comprendre l autre','Identifier les interets caches: que veut VRAIMENT l autre?','Trouver le terrain commun: ou sommes-nous d accord?','Proposer des solutions gagnant-gagnant','Ne jamais humilier: laisser l autre sauver la face','Patience: la negocie prend le temps qu il faut','Savoir quitter la table: la meilleure option','Sceller l accord: par ecrit, sur blockchain'],
+     exercice:'Exercice: negocie avec un ami pour resoudre un conflit reel. Trouve le terrain commun.',
+     diplome:'Diplome: Diplomate Africain'},
+    {id:3, nom:'Gestion de Crise', emoji:'⚡', couleur:'#ff4444', duree:'4 semaines', niveau:'Avance',
+     leader:'Nelson Mandela', pays:'Afrique du Sud',
+     citation:'Le courage ce n est pas l absence de peur, mais la capacity de la vaincre.',
+     desc:'La crise revele le leader. Mandela a guide l Afrique du Sud hors de l apartheid sans guerre. Apprends a rester calme quand tout s effondre et a voir clair dans le chaos.',
+     cours:['Reconnaitre la crise: ne pas la nier','Garder le calme: respirer, analyser, pas paniquer','Prioriser: qu est-ce qui est urgent VRAIMENT?','Communiquer: informer, rassurer, guider','Mobiliser les ressources: qui peut aider?','Decider vite: en crise, l hesitation tue','Se relever: echec = lecon, pas fin','Prevenir la prochaine crise: apprendre de celle-ci'],
+     exercice:'Exercice: imagine une crise dans ton village. Ecris ton plan d action en 8 etapes.',
+     diplome:'Diplome: Gestionnaire de Crise'},
+    {id:4, nom:'Vision et Strategie', emoji:'🎯', couleur:'#ff44ff', duree:'8 semaines', niveau:'Expert',
+     leader:'Thomas Sankara', pays:'Burkina Faso',
+     citation:'Il faut oser inventer l avenir. Qui ne voit pas loin ne va pas loin.',
+     desc:'Penser en siecles, pas en trimestres. Sankara voyait l avenir de l Afrique en 100 ans. La jeunesse doit apprendre a voir loin, a construire ce qui dure.',
+     cours:['Definir la vision: ou va l Afrique dans 100 ans?','Analyser le present: ou sommes-nous VRAIMENT?','Identifier les obstacles: qu est-ce qui bloque?','Construire la route: etape par etape','Ressources: de quoi a-t-on besoin?','Risques: qu est-ce qui peut mal tourner?','Reviser: la vision s adapte, ne change pas','Transmettre: la vision doit survivre au leader'],
+     exercice:'Exercice: ecris ta vision pour l Afrique en 2080. 1 page, pas plus.',
+     diplome:'Diplome: Visionnaire Africain'},
+    {id:5, nom:'Ethique et Integrite', emoji:'🛡️', couleur:'#ffaa44', duree:'3 semaines', niveau:'Debutant',
+     leader:'Amilcar Cabral', pays:'Guinee-Bissau / Cap-Vert',
+     citation:'Dites toujours la verite. Il n y a pas de dignite sans liberte, pas de liberte sans integrite.',
+     desc:'Le pouvoir sans ethique est une maladie. Cabral disait: dire la verite, toujours. La jeunesse doit apprendre que le pouvoir est un service, pas un privilege.',
+     cours:['Le pouvoir est un service: servir, pas se servir','Transparence: le peuple a le droit de savoir','Verite: dire la verite meme quand c est dur','Justice: traiter tous egalement, amis et ennemis','Refuser la corruption: l argent vole detruit','Responsabilite: assumer ses erreurs','Humilite: le leader n est pas au-dessus du peuple','Exemple: etre le changement qu on demande'],
+     exercice:'Exercice: fais quelque chose de desinteresse pour quelqu un sans rien attendre en retour.',
+     diplome:'Diplome: Homme Integre'},
+    {id:6, nom:'Mobilisation du Peuple', emoji:'📢', couleur:'#7fcf7f', duree:'5 semaines', niveau:'Avance',
+     leader:'Aline Sitoe Diatta', pays:'Senegal',
+     citation:'Le peuple uni ne sera jamais vaincu. Resister, c est exister.',
+     desc:'Un leader seul ne fait rien. Il faut mobiliser le peuple. Aline Sitoe Diatta a uni les villageois contre la colonisation. Apprends a rassembler, inspirer, transformer.',
+     cours:['Connaitre le peuple: ses besoins, ses reves, ses peurs','Parler la langue du peuple: pas de mots compliques','Donner l exemple: agir avant de demander','Creer du sens: pourquoi on se bat?','Organiser: comites, groupes, structures locales','Communiquer: radio, mesh, bouche a oreille','Celebrer les petites victoires: garder l espoir','Ne jamais abandonner: la perserverance vainc'],
+     exercice:'Exercice: organise une action collective dans ton quartier ou village. Rassemble 5 personnes minimum.',
+     diplome:'Diplome: Mobilisateur du Peuple'},
+    {id:7, nom:'Geopolitique Africaine', emoji:'🌍', couleur:'#44aaff', duree:'8 semaines', niveau:'Expert',
+     leader:'Muammar Kadhafi', pays:'Libye',
+     citation:'L Afrique doit parler d une seule voix. 54 pays, 1 milliard de voix, 1 destinee.',
+     desc:'Comprendre le jeu mondial. Pourquoi l Afrique est divisee? Qui beneficie de la division? Comment 54 pays peuvent negocier comme un seul bloc. La geopolitique est l art de voir les forces invisibles.',
+     cours:['Les puissances en Afrique: USA, Chine, France, Russie — que veulent-ils?','Les ressources strategiques: cobalt, lithium, or, uranium','Le jeu energetique: petrole, gaz, solaire','Les bases militaires etrangeres: qui est installe ou?','Les accords economiques piegeux: APE, CFA','L unite panafricaine: 54 pays = 1 voix','La diplomatie africaine: negocier ensemble','L avenir: l Afrique comme puissance mondiale'],
+     exercice:'Exercice: analyse une decision d un pays africain. Qui y gagne? Qui y perd? Ecris ton analyse.',
+     diplome:'Diplome: Strategiste Geopolitique'},
+];
+
+// Modules grid
+let leadCompleted = new Set();
+try { leadCompleted = new Set(JSON.parse(localStorage.getItem('leadModulesDone') || '[]')); } catch(e) {}
+
+const lgrid = document.getElementById('lead-modules');
+leadModules.forEach(function(m, i){
+    var div = document.createElement('div');
+    div.id = 'lead-m-' + i;
+    var done = leadCompleted.has(i);
+    div.style.cssText = 'padding:12px;background:rgba(0,0,0,0.3);border:2px solid ' + (done ? m.couleur : '#444') + ';border-radius:8px;cursor:pointer;transition:all 0.3s;';
+    div.onclick = function(){ showLeadModule(i); };
+    div.onmouseover = function(){ div.style.transform = 'scale(1.03)'; };
+    div.onmouseout = function(){ div.style.transform = 'scale(1)'; };
+    div.innerHTML = '<div style="font-size:1.5em;">' + m.emoji + '</div><div style="color:' + m.couleur + ';font-weight:bold;font-size:0.9em;">' + m.nom + '</div><div style="color:#a8c5a8;font-size:0.75em;margin-top:3px;">' + m.niveau + ' — ' + m.duree + '</div><div style="color:#7fcf7f;font-size:0.75em;margin-top:3px;">🦁 ' + m.leader + ' (' + m.pays + ')</div><div style="margin-top:5px;font-size:0.8em;color:' + (done ? m.couleur : '#666') + ';">' + (done ? '✅ Complete' : '○ A faire') + '</div>';
+    lgrid.appendChild(div);
+});
+
+// Quotes rotation
+var quoteIdx = 0;
+function rotateQuote(){
+    var m = leadModules[quoteIdx % leadModules.length];
+    document.getElementById('lead-quotes').innerHTML = '<div style="color:#7fcf7f;font-size:1em;margin-bottom:5px;">' + m.leader + ' (' + m.pays + ')</div><div style="color:#a8c5a8;">"' + m.citation + '"</div>';
+    quoteIdx++;
+}
+rotateQuote();
+var quoteInterval = setInterval(rotateQuote, 5000);
+leadIntervalIds.push(quoteInterval);
+
+function updateLeadProgress(){
+    var done = leadCompleted.size;
+    var total = leadModules.length;
+    var pct = Math.round((done / total) * 100);
+    document.getElementById('lead-count').textContent = done;
+    document.getElementById('lead-pct').textContent = pct + '%';
+    document.getElementById('lead-bar').style.width = pct + '%';
+    document.getElementById('lead-diplome').style.display = (done === total) ? 'block' : 'none';
+}
+
+function showLeadModule(i){
+    var m = leadModules[i];
+    document.getElementById('lead-detail-title').textContent = m.emoji + ' ' + m.nom;
+    document.getElementById('lead-detail-title').style.color = m.couleur;
+    var html = '<div style="color:' + m.couleur + ';font-weight:bold;font-size:1.1em;">' + m.emoji + ' ' + m.nom + '</div>';
+    html += '<div style="margin-top:5px;color:#7fcf7f;">🦁 Inspire par: <b>' + m.leader + '</b> (' + m.pays + ')</div>';
+    html += '<div style="margin-top:8px;padding:10px;background:rgba(127,207,127,0.05);border-left:3px solid #7fcf7f;border-radius:4px;color:#a8c5a8;font-style:italic;font-size:0.85em;">"' + m.citation + '"</div>';
+    html += '<div style="margin-top:10px;color:#a8c5a8;font-size:0.85em;">' + m.desc + '</div>';
+    html += '<div style="margin-top:10px;color:#d4a437;font-size:0.85em;">⏱️ ' + m.duree + ' | 📊 ' + m.niveau + '</div>';
+    html += '<div style="margin-top:10px;"><b style="color:' + m.couleur + ';">📋 Cours (8 lecons):</b></div>';
+    m.cours.forEach(function(c, j){
+        html += '<div style="padding:6px 10px;margin:3px 0;background:rgba(0,0,0,0.3);border-left:3px solid ' + m.couleur + ';border-radius:4px;color:#a8c5a8;font-size:0.85em;">' + (j+1) + '. ' + c + '</div>';
+    });
+    html += '<div style="margin-top:10px;padding:10px;background:rgba(212,164,55,0.05);border-radius:4px;color:#d4a437;font-size:0.85em;">📝 ' + m.exercice + '</div>';
+    html += '<div style="margin-top:5px;color:#7fcf7f;font-size:0.85em;">🎓 ' + m.diplome + '</div>';
+    html += '<div style="margin-top:10px;text-align:center;"><button onclick="completeLeadModule(' + i + ')" style="padding:8px 20px;background:' + m.couleur + ';color:#000;border:none;border-radius:8px;font-weight:bold;cursor:pointer;">✅ Completer ce Module</button></div>';
+    document.getElementById('lead-detail').innerHTML = html;
+    addLeadTrace('📋 Module consulte: ' + m.emoji + ' ' + m.nom + ' (inspire par ' + m.leader + ')');
+}
+
+function completeLeadModule(i){
+    if(leadCompleted.has(i)) return;
+    leadCompleted.add(i);
+    localStorage.setItem('leadModulesDone', JSON.stringify(Array.from(leadCompleted)));
+    var m = leadModules[i];
+    addLeadTrace('🎖️ Module complete: ' + m.emoji + ' ' + m.nom);
+    addLeadTrace('🎓 Diplome: ' + m.diplome);
+    addLeadTrace('⛓️ Trace blockchain: ' + m.leader + ' -- ' + m.nom + ' -- complete');
+    updateLeadProgress();
+    updateLeadModulesGrid();
+    document.getElementById('lead-status').innerHTML = '<span style="color:#7fcf7f;">✅ ' + m.nom + ' complete! Tu apprends de ' + m.leader + '.</span>';
+}
+
+function updateLeadModulesGrid(){
+    leadModules.forEach(function(m, i){
+        var div = document.getElementById('lead-m-' + i);
+        if(!div) return;
+        var done = leadCompleted.has(i);
+        div.style.borderColor = done ? m.couleur : '#444';
+        div.innerHTML = '<div style="font-size:1.5em;">' + m.emoji + '</div><div style="color:' + m.couleur + ';font-weight:bold;font-size:0.9em;">' + m.nom + '</div><div style="color:#a8c5a8;font-size:0.75em;margin-top:3px;">' + m.niveau + ' — ' + m.duree + '</div><div style="color:#7fcf7f;font-size:0.75em;margin-top:3px;">🦁 ' + m.leader + ' (' + m.pays + ')</div><div style="margin-top:5px;font-size:0.8em;color:' + (done ? m.couleur : '#666') + ';">' + (done ? '✅ Complete' : '○ A faire') + '</div>';
+    });
+}
+
+function gravLeadDiplome(){
+    addLeadTrace('🎓 DIPLOME LEADER DE L AFRIQUE DE DEMAIN grave dans la blockchain!');
+    addLeadTrace('⛓️ Block: AI Leader -- 8 modules completes');
+    addLeadTrace('🎖️ Les 8 leaders africains ont inspire un nouveau leader. L Afrique a un avenir.');
+    alert('🎓 DIPLOME LEADER DE L AFRIQUE DE DEMAIN\n\nAI Leader — Academie des Leaders Africains\n\nLes 8 modules completes.\nTu es pret a mener ton peuple.\n\nGrave dans la blockchain AfriChain\n\nL Afrique a un avenir. 💚🦁🎖️');
+}
+
+// Canvas
+var lcanvas = document.getElementById('lead-canvas');
+var lctx = lcanvas.getContext('2d');
+var leadTime = 0;
+
+function drawLeader(){
+    if(leadPaused) { requestAnimationFrame(drawLeader); return; }
+    leadTime += 0.015;
+
+    // Background
+    lctx.fillStyle = '#0a0a0a';
+    lctx.fillRect(0, 0, 600, 350);
+
+    // Star path (leadership journey)
+    var cx = 300, cy = 175;
+    var totalModules = leadModules.length;
+    var done = leadCompleted.size;
+
+    // Draw path
+    for(var i = 0; i < totalModules; i++){
+        var angle = (i / totalModules) * Math.PI * 2 - Math.PI / 2;
+        var r = 120;
+        var x = cx + Math.cos(angle) * r;
+        var y = cy + Math.sin(angle) * r;
+
+        var completed = leadCompleted.has(i);
+        var m = leadModules[i];
+
+        // Connection line
+        var nextAngle = ((i + 1) / totalModules) * Math.PI * 2 - Math.PI / 2;
+        var nx = cx + Math.cos(nextAngle) * r;
+        var ny = cy + Math.sin(nextAngle) * r;
+        var nextDone = leadCompleted.has((i + 1) % totalModules);
+        lctx.strokeStyle = (completed && nextDone) ? 'rgba(212,164,55,0.5)' : 'rgba(212,164,55,0.1)';
+        lctx.lineWidth = 2;
+        lctx.beginPath();
+        lctx.moveTo(x, y);
+        lctx.lineTo(nx, ny);
+        lctx.stroke();
+
+        // Star point
+        var pulse = 0.5 + Math.sin(leadTime * 2 + i) * 0.3;
+        var starR = completed ? 12 : 8 + pulse * 2;
+        var color = completed ? m.couleur : '#444';
+
+        // Glow
+        lctx.fillStyle = completed ? m.couleur + '20' : 'rgba(100,100,100,0.1)';
+        lctx.beginPath();
+        lctx.arc(x, y, starR + 6, 0, Math.PI * 2);
+        lctx.fill();
+
+        // Star
+        lctx.fillStyle = color;
+        lctx.beginPath();
+        lctx.arc(x, y, starR, 0, Math.PI * 2);
+        lctx.fill();
+
+        // Star shape (if completed)
+        if(completed){
+            lctx.fillStyle = '#000';
+            lctx.font = 'bold 10px monospace';
+            lctx.textAlign = 'center';
+            lctx.fillText(m.emoji, x, y + 4);
+        }
+
+        // Label
+        lctx.fillStyle = completed ? m.couleur : '#666';
+        lctx.font = '8px monospace';
+        lctx.textAlign = 'center';
+        var labelY = y < cy ? y - 18 : y + 22;
+        lctx.fillText(m.nom.substring(0, 15), x, labelY);
+    }
+
+    // Center
+    lctx.fillStyle = 'rgba(212,164,55,0.05)';
+    lctx.beginPath();
+    lctx.arc(cx, cy, 40, 0, Math.PI * 2);
+    lctx.fill();
+
+    lctx.strokeStyle = 'rgba(212,164,55,0.2)';
+    lctx.lineWidth = 1;
+    lctx.beginPath();
+    lctx.arc(cx, cy, 40, 0, Math.PI * 2);
+    lctx.stroke();
+
+    // Center text
+    lctx.fillStyle = '#d4a437';
+    lctx.font = 'bold 14px monospace';
+    lctx.textAlign = 'center';
+    lctx.fillText(done + '/8', cx, cy - 5);
+    lctx.fillStyle = '#a8c5a8';
+    lctx.font = '9px monospace';
+    lctx.fillText('MODULES', cx, cy + 10);
+
+    // Completion
+    if(done === totalModules){
+        lctx.fillStyle = 'rgba(212,164,55,' + (0.3 + Math.sin(leadTime * 3) * 0.1) + ')';
+        lctx.font = 'bold 13px monospace';
+        lctx.fillText('LEADER PRET — L AFRIQUE T ATTEND', cx, 340);
+    }
+
+    // Sparkle particles
+    for(var s = 0; s < 10; s++){
+        var sa = leadTime + s * 0.6;
+        var sr = 50 + Math.sin(sa) * 30;
+        var sx = cx + Math.cos(sa * 2) * sr;
+        var sy = cy + Math.sin(sa * 2) * sr;
+        lctx.fillStyle = 'rgba(212,164,55,' + (0.2 + Math.sin(leadTime * 3 + s) * 0.1) + ')';
+        lctx.beginPath();
+        lctx.arc(sx, sy, 1.5, 0, Math.PI * 2);
+        lctx.fill();
+    }
+
+    requestAnimationFrame(drawLeader);
+}
+
+// Trace
+function addLeadTrace(msg){
+    var log = document.getElementById('lead-trace');
+    var now = new Date();
+    var ts = String(now.getHours()).padStart(2,'0') + ':' + String(now.getMinutes()).padStart(2,'0') + ':' + String(now.getSeconds()).padStart(2,'0');
+    log.innerHTML = '<div style="padding:4px 0;border-bottom:1px solid rgba(212,164,55,0.05);"><span style="color:#666;">[' + ts + ']</span> <span style="color:#d4a437;">🎖️</span> ' + msg + '</div>' + log.innerHTML;
+    if(log.innerHTML.length > 3000) log.innerHTML = log.innerHTML.substring(0, 3000);
+}
+
+addLeadTrace('🎖️ AI Leader — Academie des Leaders Africains initialise');
+addLeadTrace('🦁 8 modules charges, inspires par 8 leaders africains:');
+addLeadTrace('   Sankara, Lumumba, Nkrumah, Mandela, Sankara, Cabral, Aline Sitoe Diatta, Kadhafi');
+addLeadTrace('🎓 Diplome: completer 8 modules -> Leader de l Afrique de Demain');
+addLeadTrace('🌍 L Afrique a besoin de leaders. La jeunesse est prete.');
+
+updateLeadProgress();
+drawLeader();
+</script>
+
+<footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🎖️ AI Leader — L Afrique a besoin de leaders qui servent, pas qui volent 💚🦁🌍</footer>"##);
+
+    html.push_str("</body></html>");
+    html
+}
+
 fn html_garage(chain: &Blockchain) -> String {
     let mut html = html_head("Garage AI — Atelier Autonome 2500");
     let num_blocks = chain.blocks.len();
@@ -12345,7 +12690,7 @@ html+='<div class="log-entry log-kill">⚠️ Tentative d\x27infiltration occide
 html+='<div class="log-entry log-invis">✅ L\x27Afrique est forte. Le système grandit.</div>';
 }else if(type==='total'){
 html='<div style="color:#d4a437;font-weight:bold;margin-bottom:8px">📋 RAPPORT TOTAL — Depuis le début</div>';
-html+='<div class="log-entry">🦁 AfriChain v0.83 — AI Guerisseur du Continent</div>';
+html+='<div class="log-entry">🦁 AfriChain v0.84 — AI Leader Academie des Leaders</div>';
 html+='<div class="log-entry">⛓️ Blockchain: 100% souveraine — Zéro dépendance externe</div>';
 html+='<div class="log-entry">🔐 Crypto: Ed25519 + AfriHash-256/512 + AfriRNG — tout from scratch</div>';
 html+='<div class="log-entry">🌍 54 pays africains connectés</div>';
@@ -13889,7 +14234,7 @@ fn main() {
         .and_then(|i| args.get(i + 1)).cloned().unwrap_or_else(|| "Afrique".to_string());
 
     let my_node_id = generate_node_id();
-    println!("🦁 AfriChain v0.83 — AI Guerisseur du Continent");
+    println!("🦁 AfriChain v0.84 — AI Leader Academie des Leaders");
     println!("💚 L'Afrique ne demande plus la permission");
     println!("🌍 54 pays — 🇲🇱 🇳🇪 🇧🇫 AES — Mali · Niger · Burkina Faso");
     println!("🔐 8 modules cryptographiques — construits from scratch");
@@ -14040,6 +14385,7 @@ fn main() {
     println!("📚 AI Enseignante sur http://localhost:8080/ai-enseignante");
     println!("🏘️ AI Village sur http://localhost:8080/ai-village");
     println!("🩺 AI Guerisseur sur http://localhost:8080/ai-guerisseur");
+    println!("🎖️ AI Leader sur http://localhost:8080/ai-leader");
 
     // Serveur HTTP en arrière-plan (pour mesh + autres utilisateurs)
     let serve_state = web_state.clone();
@@ -14074,7 +14420,7 @@ fn terminal_interface(state: &Arc<AppState>) {
     println!("  ║  🕐 AfriTime — Pas UTC, pas Greenwich   ║");
     println!("  ║  📝 ~16,500 lignes — écrit à la main       ║");
     println!("  ╚═══════════════════════════════════════════════╝");
-    println!("\n  Version v0.83 — 30 août 2026");
+    println!("\n  Version v0.84 — 30 août 2026");
     println!("  Construit sur Termux · Android · nano\n");
     println!("  ─────────────────────────────────────────────");
     println!("\n  1. 🏦 Centre de Données (Admin)");
@@ -14146,7 +14492,7 @@ fn admin_interface(state: &Arc<AppState>) {
         println!("\n");
         println!("╔══════════════════════════════════════╗");
         println!("║  🏦 CENTRE DE DONNÉES — Admin       ║");
-        println!("║  🦁 AfriChain v0.83                  ║");
+        println!("║  🦁 AfriChain v0.84                  ║");
         println!("╠══════════════════════════════════════╣");
         let chain = state.chain.lock().unwrap();
         let users = state.users.lock().unwrap();
@@ -17700,6 +18046,11 @@ fn handle_request(req: afri_http::HttpRequest, state: &Arc<AppState>) -> afri_ht
         ("GET", "/ai-guerisseur") => {
             let chain = state.chain.lock().unwrap();
             HttpResponse::ok(&html_ai_guerisseur(&chain))
+        }
+
+        ("GET", "/ai-leader") => {
+            let chain = state.chain.lock().unwrap();
+            HttpResponse::ok(&html_ai_leader(&chain))
         }
 
         ("GET", "/garage") => {
