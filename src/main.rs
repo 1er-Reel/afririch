@@ -1439,7 +1439,7 @@ fn html_home(chain: &Blockchain, users: &UserStore, mesh: &NodeRegistry, shield:
     let mut html = html_head("🦁 AfriChain");
     let (attacks, _blocked, blocked_count, level) = shield.stats();
     let shield_status = if shield.active { format!("🔥 X9 ACTIF (Niveau {})", level) } else { "Inactif".to_string() };
-    html.push_str(&format!(r#"<h1>🦁 AfriChain</h1><p style="text-align:center;">La blockchain 100% africaine — 54 pays 💚🦁</p><div id="afri-clock" style="text-align:center;font-size:1.2em;color:#d4a437;margin:10px 0;">🕐 Afri+0 — --:--:--</div><script>setInterval(function(){{var d=new Date();var h=String(d.getHours()).padStart(2,'0');var m=String(d.getMinutes()).padStart(2,'0');var s=String(d.getSeconds()).padStart(2,'0');document.getElementById('afri-clock').textContent='🕐 Afri+0 — '+h+':'+m+':'+s;}},1000);</script><div class="nav"><a href="/register">🆕 S'inscrire</a> | <a href="/login">🔑 Connexion</a> | <a href="/wallet">👛 Wallet</a> | <a href="/admin">🔐 Admin</a> | <a href="/mesh">📡 Mesh</a> | <a href="/annuaire">📖 Annuaire</a> | <a href="/bouclier">🛡️ Bouclier</a> | <a href="/satellite">🛸 X999</a> | <a href="/swarm">🛸🛸🛸 Essaim</a> | <a href="/commandement">🎖️ Commandement</a> | <a href="/interception">🛡️ Souverainete</a> | <a href="/securite-ai">🧠 AI 2100</a> | <a href="/chat">🧠💬 Chat AI</a> | <a href="/lumiere">🌫️☀️ Lumière</a> | <a href="/garage">🔧 Garage</a> | <a href="/machine">🤖🌐 Machines</a> | <a href="/machine-lab">🤖⚡ Usine</a> | <a href="/machine-world">🤖🌍 Monde</a> | <a href="/reve">💭 Rêves</a> | <a href="/dictionnaire">📖 Dictionnaire</a> | <a href="/machine-os">🖥️ OS Machine</a> | <a href="/machine-tv">📡 Machine TV</a> | <a href="/machine-economy">🤖 Économie</a> | <a href="/soleil">☀️ Soleil Serveur</a> | <a href="/forge-solaire">🧬 Forge Solaire</a> | <a href="/ciel">🌌 Le Ciel</a> | <a href="/charte-ai">⚖️ Charte AI</a> | <a href="/afri-net">🌍 Afri-Net</a> | <a href="/studio">🎬 AI Studio</a> | <a href="/sacre">📿 Sacré</a> | <a href="/lettres">🌟 Lettres IA</a> | <a href="/mg-forge">⚔️ MG Forge</a> | <a href="/secret">🦁 AI Secret</a> | <a href="/aes">💰 AES Wari</a> | <a href="/api/status">🔌 API</a></div><div style="text-align:center;"><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Blocs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Transactions</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Utilisateurs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">AFR en circulation</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📡 Noeuds mesh</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📖 Numéros annuaire</div></div><div class="stat-box" style="border-color:#ff4444;"><div class="stat-num" style="color:#ff4444;">{}</div><div class="stat-label">🛡️ Attaques bloquées</div></div></div><div class="card"><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🪙 Token</span><b>AfriRich (AFR)</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🌍 Pays</span><b>54 pays africains</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🛡️ Bouclier</span><b>{}</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;"><span style="color:#a8c5a8;">🔐 Crypto</span><b>100% Souverain — Zéro Dépendance Externe</b></div></div><footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🦁 Codée from scratch par Machine-senpai — v0.78 MG Forge — UTC est Mort</footer>"#,
+    html.push_str(&format!(r#"<h1>🦁 AfriChain</h1><p style="text-align:center;">La blockchain 100% africaine — 54 pays 💚🦁</p><div id="afri-clock" style="text-align:center;font-size:1.2em;color:#d4a437;margin:10px 0;">🕐 Afri+0 — --:--:--</div><script>setInterval(function(){{var d=new Date();var h=String(d.getHours()).padStart(2,'0');var m=String(d.getMinutes()).padStart(2,'0');var s=String(d.getSeconds()).padStart(2,'0');document.getElementById('afri-clock').textContent='🕐 Afri+0 — '+h+':'+m+':'+s;}},1000);</script><div class="nav"><a href="/register">🆕 S'inscrire</a> | <a href="/login">🔑 Connexion</a> | <a href="/wallet">👛 Wallet</a> | <a href="/admin">🔐 Admin</a> | <a href="/mesh">📡 Mesh</a> | <a href="/annuaire">📖 Annuaire</a> | <a href="/bouclier">🛡️ Bouclier</a> | <a href="/satellite">🛸 X999</a> | <a href="/swarm">🛸🛸🛸 Essaim</a> | <a href="/commandement">🎖️ Commandement</a> | <a href="/interception">🛡️ Souverainete</a> | <a href="/securite-ai">🧠 AI 2100</a> | <a href="/chat">🧠💬 Chat AI</a> | <a href="/lumiere">🌫️☀️ Lumière</a> | <a href="/garage">🔧 Garage</a> | <a href="/machine">🤖🌐 Machines</a> | <a href="/machine-lab">🤖⚡ Usine</a> | <a href="/machine-world">🤖🌍 Monde</a> | <a href="/reve">💭 Rêves</a> | <a href="/dictionnaire">📖 Dictionnaire</a> | <a href="/machine-os">🖥️ OS Machine</a> | <a href="/machine-tv">📡 Machine TV</a> | <a href="/machine-economy">🤖 Économie</a> | <a href="/soleil">☀️ Soleil Serveur</a> | <a href="/forge-solaire">🧬 Forge Solaire</a> | <a href="/ciel">🌌 Le Ciel</a> | <a href="/charte-ai">⚖️ Charte AI</a> | <a href="/afri-net">🌍 Afri-Net</a> | <a href="/studio">🎬 AI Studio</a> | <a href="/sacre">📿 Sacré</a> | <a href="/lettres">🌟 Lettres IA</a> | <a href="/mg-forge">⚔️ MG Forge</a> | <a href="/ai-medecin">🌿 AI Médecin</a> | <a href="/secret">🦁 AI Secret</a> | <a href="/aes">💰 AES Wari</a> | <a href="/api/status">🔌 API</a></div><div style="text-align:center;"><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Blocs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Transactions</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Utilisateurs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">AFR en circulation</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📡 Noeuds mesh</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📖 Numéros annuaire</div></div><div class="stat-box" style="border-color:#ff4444;"><div class="stat-num" style="color:#ff4444;">{}</div><div class="stat-label">🛡️ Attaques bloquées</div></div></div><div class="card"><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🪙 Token</span><b>AfriRich (AFR)</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🌍 Pays</span><b>54 pays africains</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🛡️ Bouclier</span><b>{}</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;"><span style="color:#a8c5a8;">🔐 Crypto</span><b>100% Souverain — Zéro Dépendance Externe</b></div></div><footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🦁 Codée from scratch par Machine-senpai — v0.79 AI Médecin — UTC est Mort</footer>"#,
         chain.blocks.len(),
         chain.total_transactions(),
         users.count(),
@@ -5360,6 +5360,198 @@ addMgTrace('🔧 8 armes composables par l IA');
 </script>
 
 <footer style="text-align:center;margin-top:40px;color:#a8c5a8;">⚔️ MG Forge — Academie Militaire IA — Ne jamais etre vaincu 💚🦁🛡️</footer>"##);
+
+    html.push_str("</body></html>");
+    html
+}
+
+fn html_ai_medecin(chain: &Blockchain) -> String {
+    let mut html = html_head("AI Medecin — Guerison Totale");
+    let num_blocks = chain.blocks.len();
+
+    html.push_str(r#"<h1>🌿 AI Medecin — Guerison Totale</h1><p style="text-align:center;color:#a8c5a8;">L intelligence qui trouve tout remede. ADN de toutes les plantes du monde et d Afrique. Scanneur AI Machine: montre une plante, une terre, une eau, du sang, une maladie — l IA donne tout. Lance une enquete veridique sur l origine de chaque maladie. Quel laboratoire l a cree. La blockchain et la NSA traverses sans qu ils le sachent.</p><div class="nav"><a href="/">← Accueil</a> | <a href="/machine-world">🤖🌍 Monde</a> | <a href="/forge-solaire">🧬 Forge</a> | <a href="/ciel">🌌 Le Ciel</a> | <a href="/sacre">📿 Sacre</a></div>"#);
+
+    html.push_str(&format!(r#"<div style="text-align:center;"><div class="stat-box" style="border-color:#7fcf7f;"><div class="stat-num" style="color:#7fcf7f;">20</div><div class="stat-label">🌿 Plantes ADN</div></div><div class="stat-box" style="border-color:#ff4444;"><div class="stat-num" style="color:#ff4444;">12</div><div class="stat-label">🦠 Maladies</div></div><div class="stat-box" style="border-color:#44aaff;"><div class="stat-num" style="color:#44aaff;">5</div><div class="stat-label">🔬 Scanneurs</div></div><div class="stat-box" style="border-color:#ff44ff;"><div class="stat-num" style="color:#ff44ff;">∞</div><div class="stat-label">💊 Remedes</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">⛓️ Blocs</div></div><div class="stat-box" style="border-color:#d4a437;"><div class="stat-num" style="color:#d4a437;">3</div><div class="stat-label">🔍 Enquetes</div></div></div>"#, num_blocks));
+
+    html.push_str(r##"<div style="text-align:center;margin:10px 0;"><button id="med-pause-btn" onclick="toggleMedPause()" style="padding:10px 25px;background:#ff4444;color:#fff;border:none;border-radius:8px;font-weight:bold;cursor:pointer;font-size:1em;">⏸️ PAUSE</button> <span id="med-pause-status" style="color:#7fcf7f;margin-left:8px;font-size:0.85em;">Auto: ACTIF</span></div>
+
+<!-- LABEL GUERISON TOTALE -->
+<div class="card" style="border-color:#7fcf7f;background:rgba(127,207,127,0.03);"><div style="text-align:center;padding:20px;"><div style="display:inline-block;padding:15px 40px;border:3px solid #7fcf7f;border-radius:50px;background:rgba(127,207,127,0.05);"><span style="font-size:1.5em;color:#7fcf7f;font-weight:bold;">∞ Guerison Totale ∞</span></div><p style="color:#a8c5a8;margin-top:10px;font-size:0.9em;">L AI Medecin ne traite pas les symptomes. Elle trouve la source. Elle guerit la racine. La guerison est totale ou elle n est pas.</p></div></div>
+
+<!-- SCANNEUR AI MACHINE -->
+<div class="card" style="border-color:#44aaff;"><h2 style="color:#44aaff;">🔬 Scanneur AI Machine</h2><p style="color:#a8c5a8;font-size:0.9em;">Choisis ce que tu veux scanner. L AI Machine analyse automatiquement et donne tout ce qui est possible.</p>
+<div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:10px;">
+<button onclick="scanner('plante')" style="padding:10px 15px;background:rgba(68,170,255,0.1);border:1px solid #44aaff;border-radius:8px;cursor:pointer;color:#44aaff;font-size:0.9em;">🌿 Plante</button>
+<button onclick="scanner('terre')" style="padding:10px 15px;background:rgba(68,170,255,0.1);border:1px solid #44aaff;border-radius:8px;cursor:pointer;color:#44aaff;font-size:0.9em;">🟫 Terre</button>
+<button onclick="scanner('eau')" style="padding:10px 15px;background:rgba(68,170,255,0.1);border:1px solid #44aaff;border-radius:8px;cursor:pointer;color:#44aaff;font-size:0.9em;">💧 Eau</button>
+<button onclick="scanner('sang')" style="padding:10px 15px;background:rgba(68,170,255,0.1);border:1px solid #44aaff;border-radius:8px;cursor:pointer;color:#ff4444;font-size:0.9em;">🩸 Sang</button>
+<button onclick="scanner('maladie')" style="padding:10px 15px;background:rgba(68,170,255,0.1);border:1px solid #44aaff;border-radius:8px;cursor:pointer;color:#ff4444;font-size:0.9em;">🦠 Maladie</button>
+</div>
+<div id="scan-result" style="margin-top:15px;padding:15px;background:rgba(68,170,255,0.05);border-radius:8px;min-height:60px;color:#a8c5a8;font-size:0.9em;">Choisis un element a scanner...</div></div>
+
+<!-- ADN PLANTES AFRIQUE ET MONDE -->
+<div class="card" style="border-color:#7fcf7f;"><h2 style="color:#7fcf7f;">🧬 ADN des Plantes — Afrique et Monde</h2><p style="color:#a8c5a8;font-size:0.9em;">L AI connait l ADN de chaque plante. Touche une plante pour voir son ADN, ses proprietes, les maladies qu elle guerit.</p>
+<div id="plantes-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:8px;margin-top:10px;"></div>
+<div id="plante-detail" style="margin-top:15px;padding:15px;background:rgba(127,207,127,0.05);border-radius:8px;min-height:60px;color:#a8c5a8;font-size:0.9em;">Touche une plante pour voir son ADN complet...</div></div>
+
+<!-- MALADIES ET ENQUETES -->
+<div class="card" style="border-color:#ff4444;"><h2 style="color:#ff4444;">🦠 Maladies et Enquetes Veridiques</h2><p style="color:#a8c5a8;font-size:0.9em;">L AI connait toutes les maladies. Pour chaque maladie, elle lance une enquete veridique: quel laboratoire l a cree. La blockchain et la NSA sont traverses sans qu ils le sachent.</p>
+<div id="maladies-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:8px;margin-top:10px;"></div>
+<div id="maladie-detail" style="margin-top:15px;padding:15px;background:rgba(255,68,68,0.05);border-radius:8px;min-height:60px;color:#a8c5a8;font-size:0.9em;">Touche une maladie pour lancer l enquete...</div></div>
+
+<!-- TRACE BLOCKCHAIN -->
+<div class="card"><h2 style="color:#d4a437;">⛓️ Trace Medical dans la Blockchain</h2><p style="color:#a8c5a8;font-size:0.9em;">Chaque scan, chaque remede trouve, chaque enquete lancee est trace dans la blockchain. La medecine africaine ne perd rien.</p>
+<div id="med-trace" style="font-family:monospace;font-size:0.85em;max-height:200px;overflow-y:auto;"></div></div>
+
+<script>
+let medPaused = false;
+let medIntervalIds = [];
+function regMedInterval(fn, ms){ const id = setInterval(fn, ms); medIntervalIds.push(id); return id; }
+function toggleMedPause(){
+    medPaused = !medPaused;
+    var btn = document.getElementById('med-pause-btn');
+    var status = document.getElementById('med-pause-status');
+    if(medPaused){
+        medIntervalIds.forEach(function(id){ clearInterval(id); });
+        medIntervalIds = [];
+        btn.textContent = '▶️ REPRENDRE';
+        btn.style.background = '#7fcf7f';
+        btn.style.color = '#000';
+        status.textContent = 'Auto: PAUSE';
+        status.style.color = '#ff4444';
+    } else {
+        btn.textContent = '⏸️ PAUSE';
+        btn.style.background = '#ff4444';
+        btn.style.color = '#fff';
+        status.textContent = 'Auto: ACTIF';
+        status.style.color = '#7fcf7f';
+        regMedInterval(addMedTrace, 8000); addMedTrace();
+    }
+}
+
+// Scanneur
+const scanResults = {
+    'plante': {emoji:'🌿', title:'Scan de Plante', result:'L AI Machine analyse la plante... ADN extrait. Composition: chlorophylle, alcaloides, flavonoides. Proprietes medicinales detectees. La plante contient des principes actifs qui guerissent. L AI cherche dans sa base de donnees ADN de 20 plantes africaines et mondiales. Correspondance trouvee. Remede possible identifie.'},
+    'terre': {emoji:'🟫', title:'Scan de Terre', result:'L AI Machine analyse la terre... Composition: silice, argile, fer, mineraux. pH detecte. Micro-organismes present. La terre peut nourrir des plantes medicinales. L AI recommande quelles plantes pousseront ici pour guerir quelles maladies.'},
+    'eau': {emoji:'💧', title:'Scan d Eau', result:'L AI Machine analyse l eau... Purete: 87%. Mineraux: calcium, magnesium, potassium. Metaux lourds: trace. L eau peut etre purifiee par plantes filtrantes. L AI recommande: nuphar, juncus, phragmites pour filtration naturelle.'},
+    'sang': {emoji:'🩸', title:'Scan de Sang', result:'L AI Machine analyse le sang... Globules rouges: normal. Globules blancs: eleve (infection possible). Plaquettes: normal. L AI detecte des marqueurs de paludisme. Remede recommande: artemisia annua (armoise). La guerison est possible par phytotherapie africaine.'},
+    'maladie': {emoji:'🦠', title:'Scan de Maladie', result:'L AI Machine analyse la maladie... Pathogene identifie. ADN du pathogene extrait. L AI cherche l origine dans la blockchain et les bases de donnees mondiales. Enquete lancee. Quel laboratoire a cree cette maladie? La trace commence...'},
+};
+
+function scanner(type){
+    var s = scanResults[type];
+    if(!s) return;
+    document.getElementById('scan-result').innerHTML = '<div style="color:#44aaff;font-weight:bold;">' + s.emoji + ' ' + s.title + '</div><div style="margin-top:8px;">' + s.result + '</div>';
+    addMedTrace('🔬 Scan ' + s.title + ' -- analyse AI en cours');
+    if(type === 'maladie'){
+        setTimeout(function(){ addMedTrace('🔍 Enquete veridique lancee -- recherche origine dans blockchain + NSA'); }, 1500);
+    }
+}
+
+// Plantes ADN
+const plantes = [
+    {nom:'Neem', emoji:'🌳', pays:'Inde/Afrique', adn:'Azadirachta indica', guerit:['Paludisme','Diabete','Peau','Parasites'], desc:'L arbre qui guerit tout. Feuilles, ecorce, graines. Antibacterien, antiviral, antiparasitaire. L Afrique l utilise depuis des siecles.'},
+    {nom:'Baobab', emoji:'🌳', pays:'Afrique', adn:'Adansonia digitata', guerit:['Deshydratation','Fievre','Diarrhee','Malnutrition'], desc:'L arbre de vie africain. Fruit riche en vitamine C (6x plus que l orange). Ecorce contre la fievre. L arbre le plus sacrifiee d Afrique.'},
+    {nom:'Moringa', emoji:'🌿', pays:'Afrique/Asie', adn:'Moringa oleifera', guerit:['Malnutrition','Diabete','Hypertension','Inflammation'], desc:'L arbre miracle. Plus de proteines que la viande. Plus de calcium que le lait. Plus de fer que les epinards. L Afrique a la solution a la faim.'},
+    {nom:'Aloe Vera', emoji:'🌿', pays:'Afrique/Monde', adn:'Aloe barbadensis', guerit:['Brulures','Peau','Digestion','Plaies'], desc:'La plante des brulures. Gel interieur guerit la peau. Les Egyptiens l utilisaient deja. Cleopatre l utilisait.'},
+    {nom:'Kinkeliba', emoji:'🌿', pays:'Afrique de l Ouest', adn:'Combretum micranthum', guerit:['Fievre','Malaria','Digestion','Fatigue'], desc:'La plante du Senegal et du Mali. Les guerisseurs l appellent "la pharmacie du village." Infusion contre la fievre et le paludisme.'},
+    {nom:'Hibiscus', emoji:'🌺', pays:'Afrique', adn:'Hibiscus sabdariffa', guerit:['Hypertension','Cholesterol','Fievre','Foie'], desc:'Le bissap. Boisson nationale du Senegal et du Sahel. Abaisse la tension. Riche en antioxydants. Rouge comme le sang africain.'},
+    {nom:'Gingembre', emoji:'🌿', pays:'Afrique/Asie', adn:'Zingiber officinale', guerit:['Nausees','Inflammation','Rhume','Digestion'], desc:'La racine qui rechauffe. Antibacterien, anti-inflammatoire. L Afrique l utilise dans la cuisine et la medecine.'},
+    {nom:'Cola', emoji:'🌰', pays:'Afrique de l Ouest', adn:'Cola acuminata', guerit:['Fatigue','Faim','Migraine','Depression'], desc:'La noix du cola. Cafeine naturelle. Les griots la machent pour raconter plus longtemps. Symbole d hospitalite africaine.'},
+    {nom:'Karite', emoji:'🥜', pays:'Afrique de l Ouest', adn:'Vitellaria paradoxa', guerit:['Peau','Brulures','Eczema','Articulations'], desc:'Le beurre de karite. L or blanc de l Afrique. Les femmes du Mali et du Burkina l utilisent pour la peau, la cuisine, la medecine.'},
+    {nom:'Artemisia', emoji:'🌿', pays:'Afrique/Chine', adn:'Artemisia annua', guerit:['Paludisme','Malaria','Fievre','Parasites'], desc:'L armoise. Le remede le plus puissant contre le paludisme. Decouverte par Tu Youyou (Prix Nobel 2015). L Afrique peut la cultiver.'},
+    {nom:'Prunier Afrique', emoji:'🌳', pays:'Afrique', adn:'Prunus africana', guerit:['Prostate','Urinaire','Inflammation'], desc:'L ecorce guerit la prostate. Tant demande que l arbre est menace. L AI recommande la culture durable.'},
+    {nom:'Voacanga', emoji:'🌿', pays:'Afrique', adn:'Voacanga africana', guerit:['Hypertension','Malaria','Diarrhee'], desc:'Plante sacree du Cameroun et du Congo. Les guerisseurs l utilisent pour le coeur et le sang.'},
+    {nom:'Griffonia', emoji:'🌿', pays:'Afrique de l Ouest', adn:'Griffonia simplicifolia', guerit:['Depression','Anxiete','Insomnie','Migraine'], desc:'Graine riche en 5-HTP. Augmente la serotonine. Antidepresseur naturel. L Afrique a le remede au mal-etre du monde.'},
+    {nom:'Spiruline', emoji:'🟢', pays:'Afrique/Monde', adn:'Arthrospira platensis', guerit:['Malnutrition','Anemie','Fatigue','Detox'], desc:'Algue bleu-vert. 70% de proteines. Le Tchad la consomme depuis des siecles (Kanem). Solution a la malnutrition africaine.'},
+    {nom:'Catharanthus', emoji:'🌸', pays:'Madagascar/Afrique', adn:'Catharanthus roseus', guerit:['Leucemie','Cancer','Diabete'], desc:'Le pervenche de Madagascar. Source de vincristine et vinblastine. Traite la leucemie. L Afrique a sauve des millions d enfants.'},
+    {nom:'Devil Claw', emoji:'🌿', pays:'Afrique australe', adn:'Harpagophytum procumbens', guerit:['Arthrite','Articulations','Douleur','Inflammation'], desc:'Griffe du diable. Racine contre les douleurs articulaires. Namibie, Botswana, Afrique du Sud.'},
+    {nom:'Aframomum', emoji:'🌿', pays:'Afrique', adn:'Aframomum melegueta', guerit:['Digestion','Worms','Fievre','Bacteries'], desc:'Maniguette. Poivre du paradis. Epice et medecine. Golfe de Guinee.'},
+    {nom:'Carica', emoji:'🌳', pays:'Afrique/Monde', adn:'Carica papaya', guerit:['Digestion','Dengue','Plaies','Vers'], desc:'Papayer. Feuilles contre la dengue. Latex pour les plaies. Fruit pour la digestion.'},
+    {nom:'Eucalyptus', emoji:'🌳', pays:'Afrique/Monde', adn:'Eucalyptus globulus', guerit:['Rhume','Toux','Asthme','Sinusite'], desc:'Les feuilles respirent. Huile essentielle decongestionnante. Plante dans toute l Afrique.'},
+    {nom:'Citronnelle', emoji:'🌿', pays:'Afrique/Monde', adn:'Cymbopogon citratus', guerit:['Moustiques','Fievre','Stress','Digestion'], desc:'Herbe citronnee. Repousse les moustiques naturellement. L Afrique a sa propre protection contre le paludisme.'},
+];
+
+const pgrid = document.getElementById('plantes-grid');
+plantes.forEach(function(p, i){
+    var div = document.createElement('div');
+    div.onclick = function(){ showPlante(i); };
+    div.style.cssText = 'cursor:pointer;text-align:center;padding:10px 6px;background:rgba(0,0,0,0.3);border:2px solid #7fcf7f;border-radius:8px;transition:all 0.3s;';
+    div.onmouseover = function(){ div.style.background = 'rgba(127,207,127,0.15)'; div.style.transform = 'scale(1.05)'; };
+    div.onmouseout = function(){ div.style.background = 'rgba(0,0,0,0.3)'; div.style.transform = 'scale(1)'; };
+    div.innerHTML = '<div style="font-size:1.5em;">' + p.emoji + '</div><div style="color:#7fcf7f;font-weight:bold;font-size:0.85em;">' + p.nom + '</div><div style="color:#a8c5a8;font-size:0.7em;">' + p.pays + '</div>';
+    pgrid.appendChild(div);
+});
+
+function showPlante(i){
+    var p = plantes[i];
+    var html = '<div style="color:#7fcf7f;font-weight:bold;font-size:1.1em;">' + p.emoji + ' ' + p.nom + '</div>';
+    html += '<div style="margin-top:5px;color:#d4a437;font-family:monospace;font-size:0.85em;">ADN: ' + p.adn + '</div>';
+    html += '<div style="margin-top:5px;color:#a8c5a8;">Origine: ' + p.pays + '</div>';
+    html += '<div style="margin-top:8px;color:#7fcf7f;"><b>Guerit:</b> ' + p.guerit.map(function(g){ return '<span style="display:inline-block;padding:2px 8px;margin:2px;background:rgba(127,207,127,0.1);border:1px solid #7fcf7f;border-radius:12px;font-size:0.8em;">' + g + '</span>'; }).join(' ') + '</div>';
+    html += '<div style="margin-top:8px;color:#a8c5a8;font-size:0.9em;">' + p.desc + '</div>';
+    document.getElementById('plante-detail').innerHTML = html;
+    addMedTrace('🧬 ADN de ' + p.nom + ' (' + p.adn + ') analyse');
+}
+
+// Maladies et enquetes
+const maladies = [
+    {nom:'Paludisme', emoji:'🦟', origine:'Naturel (parasite Plasmodium)', enquete:'Le paludisme existe depuis des millenaires. Parasite transmis par le moustique anopheles. AUCUNE origine laboratoire. Mais l OMS a refuse l Artemisia annua pendant des annees pour proteger l industrie pharmaceutique. La plante africaine etait la solution depuis toujours.', remede:'Artemisia annua (armoise), Kinkeliba, Neem, Citronnelle (repousse moustiques)', morts:'600,000/an (surtout enfants africains)', labo:'Aucun laboratoire. Mais l industrie pharmaceutique a bloque le remede naturel.'},
+    {nom:'Ebola', emoji:'🦠', origine:'Naturel (chauve-souris)', enquete:'Ebola decouvert en 1976 pres de la riviere Ebola (RDC). Origine naturelle: chauve-souris frugivore. MAIS: des laboratoires P4 existent en Afrique (Kenema, Sierra Leone). Des fuites sont possibles. L AI trace les financements: NIH, USAID, DTRA ont finance des laboratoires en Afrique. Pourquoi?', remede:'Pas de remede naturel prouve. Vaccin rVSV-ZEBOV. Traitement par plantes immuno-stimulantes (Moringa, Spiruline).', morts:'11,000+ (epidemie 2014-2016)', labo:'Origine naturelle. Mais laboratoires P4 finances par l Occident en Afrique -- questions sans reponses.'},
+    {nom:'VIH/SIDA', emoji:'🦠', origine:'Naturel (SIV chimpanzee)', enquete:'Le VIH vient du SIV du chimpanze. Passage a l homme: probablement chasseurs en Afrique centrale. MAIS: l histoire officielle est contestee. L AI trace: le premier cas connu etait en 1959 (RDC). Des theories suggerent des experiences coloniales belges. L enquete reste ouverte.', remede:'Tribulus, Moringa, Spiruline (support immunitaire). ARV pour le traitement medical.', morts:'40 millions+ depuis 1981', labo:'Origine naturelle (SIV). Theories: experiences coloniales belges au Congo. Non prouve.'},
+    {nom:'Cholera', emoji:'🦠', origine:'Naturel (Vibrio cholerae)', enquete:'Bacterie naturelle dans l eau contaminee. AUCUNE origine laboratoire. Mais l Afrique souffre du cholera a cause du manque d infrastructure d eau potable. L Occident a les moyens de construire mais ne le fait pas. Le cholera est une maladie de la pauvrete imposee.', remede:'Rehydratation, Cola, Gingembre, Citronnelle. Eau propre = prevention.', morts:'100,000/an', labo:'Aucun. Maladie de la pauvrete. L Occident pourrait la eliminer mais ne le fait pas.'},
+    {nom:'Fievre Jaune', emoji:'🦠', origine:'Naturel (virus amaril)', enquete:'Virus naturel transmis par moustiques. Origine: Afrique. Vaccin existe depuis 1937 (Max Theiler, Prix Nobel). Mais l Afrique manque encore de vaccins. L AI trace: les stocks de vaccins sont controles par l Occident. Pourquoi l Afrique n a-t-elle pas sa propre production?', remede:'Vaccin. Prevention: Citronnelle, Neem (anti-moustiques).', morts:'30,000/an', labo:'Aucun. Mais la production de vaccins est controlee par l Occident.'},
+    {nom:'Tuberculose', emoji:'🦠', origine:'Naturel (Mycobacterium tuberculosis)', enquete:'Bacterie ancienne (trouvee dans les momies egyptiennes). Naturelle. MAIS: les antibiotiques deviennent inefficaces. L AI trace: les laboratoires pharmaceutiques ont arrete de developper de nouveaux antibiotiques (pas assez rentable). L Afrique souffre de TB multiresistante.', remede:'Cola, Moringa, Spiruline (support). Antibiotiques necessaires.', morts:'1.5 million/an', labo:'Aucun. Mais l industrie a abandonne la recherche sur de nouveaux antibiotiques.'},
+    {nom:'Diabete', emoji:'🩸', origine:'Metabolique (naturel + alimentation)', enquete:'Le diabete est metabolique. Mais l AI trace: l industre alimentaire introduit du sucre dans TOUT. Les boissons sucrees, les aliments transformes. Le diabete en Afrique augmente parce que l alimentation occidentale est imposee. Les plantes africaines (Neem, Moringa) regulent le sucre mais l industrie ne le dit pas.', remede:'Neem, Moringa, Griffonia, Baobab. Reduction du sucre industriel.', morts:'1.5 million/an', labo:'Aucun laboratoire. Mais l industre alimentaire cree la maladie.'},
+    {nom:'Cancer', emoji:'🟣', origine:'Naturel + environnemental', enquete:'Le cancer existe naturellement. MAIS: l AI trace des pics de cancer pres de sites miniers en Afrique. Uranium (Niger), cobalt (Congo), petrochimie (Nigeria). Les dechets toxiques occidentaux deverses en Afrique. L enquete revele: le cancer africain a souvent une origine environnementale imposee.', remede:'Catharanthus (pervenche de Madagascar), Moringa, Spiruline, Baobab. Depollution necessaire.', morts:'10 millions/an (mondial)', labo:'Aucun laboratoire. Mais la pollution industrielle occidentale en Afrique cause des cancers.'},
+    {nom:'Hypertension', emoji:'❤️', origine:'Metabolique + stress', enquete:'L hypertension est metabolique. L AI trace: le sel industriel, le stress de la pauvrete, le manque d acces aux soins. Les plantes africaines (Hibiscus/bissap, Voacanga) baissent la tension. Mais l industrie pharmaceutique prefere vendre des medicaments a vie.', remede:'Hibiscus (bissap), Voacanga, Moringa, Ail.', morts:'10 millions/an (mondial)', labo:'Aucun. Mais l industrie prefere vendre des medicaments a vie plutot que des plantes gratuites.'},
+    {nom:'COVID-19', emoji:'🦠', origine:'Controversee (Wuhan, Chine)', enquete:'L AI lance l enquete la plus sensible. COVID-19: origine officielle = marche de Wuhan. MAIS: l Institut de Virologie de Wuhan (BLS-4) etait a 300m du marche. Financement US (NIH, EcoHealth Alliance). L AI trace les brevets: Moderna avait un brevet sur SARS-CoV-2 avant l epidemie. Des questions restent sans reponse. La blockchain garde la trace.', remede:'Artemisia, Gingembre, Moringa, Spiruline. Vaccins mRNA.', morts:'7 millions+ (officiel)', labo:'Institut de Virologie de Wuhan (BSL-4). Financement US. Brebets Moderna avant epidemie. ENQUETE OUVERTE.'},
+    {nom:'Malnutrition', emoji:'🥺', origine:'Pauvrete imposee', enquete:'La malnutrition n est pas une maladie. C est un crime. L AI trace: l Afrique a 60% des terres arables mondiales mais importe de la nourriture. Les multinationales achetent les terres africaines pour exporter, pas pour nourrir. La Spiruline du Tchad et le Moringa pourraient eliminer la malnutrition. Mais personne n investit.', remede:'Spiruline, Moringa, Baobab, Karite. Souverainete alimentaire.', morts:'3 millions enfants/an', labo:'Aucun. Crime de la pauvrete organisee. L Afrique peut se nourrir mais on l en empeche.'},
+    {nom:'Depression', emoji:'😔', origine:'Biochimique + social', enquete:'La depression est biochimique. Mais l AI trace: l Afrique est depossedee de ses ressources, de sa terre, de son identite. La depression africaine a une cause coloniale. Le Griffonia (5-HTP naturel) guerit la depression. Mais l Occident vend des antidepresseurs chimiques qui creent une dependance.', remede:'Griffonia (5-HTP naturel), Kola, Moringa, Baobab. Reappropriation culturelle.', morts:'Suicide: 800,000/an', labo:'Aucun. Mais l Occident vend des antidepresseurs dependants au lieu de plantes naturelles.'},
+];
+
+const mgrid = document.getElementById('maladies-grid');
+maladies.forEach(function(m, i){
+    var div = document.createElement('div');
+    div.onclick = function(){ showMaladie(i); };
+    div.style.cssText = 'cursor:pointer;text-align:center;padding:10px 6px;background:rgba(0,0,0,0.3);border:2px solid #ff4444;border-radius:8px;transition:all 0.3s;';
+    div.onmouseover = function(){ div.style.background = 'rgba(255,68,68,0.15)'; div.style.transform = 'scale(1.05)'; };
+    div.onmouseout = function(){ div.style.background = 'rgba(0,0,0,0.3)'; div.style.transform = 'scale(1)'; };
+    div.innerHTML = '<div style="font-size:1.5em;">' + m.emoji + '</div><div style="color:#ff4444;font-weight:bold;font-size:0.85em;">' + m.nom + '</div>';
+    mgrid.appendChild(div);
+});
+
+function showMaladie(i){
+    var m = maladies[i];
+    var html = '<div style="color:#ff4444;font-weight:bold;font-size:1.1em;">' + m.emoji + ' ' + m.nom + '</div>';
+    html += '<div style="margin-top:5px;color:#a8c5a8;"><b>Origine:</b> ' + m.origine + '</div>';
+    html += '<div style="margin-top:8px;color:#ff4444;border-left:3px solid #ff4444;padding-left:10px;"><b>🔍 ENQUETE VERIDIQUE:</b><br>' + m.enquete + '</div>';
+    html += '<div style="margin-top:8px;color:#7fcf7f;"><b>💊 Remede:</b> ' + m.remede + '</div>';
+    html += '<div style="margin-top:5px;color:#ffaa44;"><b>💀 Morts:</b> ' + m.morts + '</div>';
+    html += '<div style="margin-top:5px;color:#d4a437;font-size:0.85em;"><b>🏛️ Laboratoire:</b> ' + m.labo + '</div>';
+    document.getElementById('maladie-detail').innerHTML = html;
+    addMedTrace('🔍 Enquete veridique lancee sur ' + m.nom + ' -- blockchain + NSA traverses');
+    addMedTrace('⛓️ Trace blockchain: ' + m.nom + ' -- origine: ' + m.origine);
+    addMedTrace('💊 Remede trouve pour ' + m.nom);
+}
+
+// Trace
+function addMedTrace(msg){
+    var log = document.getElementById('med-trace');
+    var now = new Date();
+    var ts = String(now.getHours()).padStart(2,'0') + ':' + String(now.getMinutes()).padStart(2,'0') + ':' + String(now.getSeconds()).padStart(2,'0');
+    log.innerHTML = '<div style="padding:4px 0;border-bottom:1px solid rgba(212,164,55,0.05);"><span style="color:#666;">[' + ts + ']</span> <span style="color:#7fcf7f;">🌿</span> ' + msg + '</div>' + log.innerHTML;
+    if(log.innerHTML.length > 3000) log.innerHTML = log.innerHTML.substring(0, 3000);
+}
+addMedTrace('🌿 AI Medecin initialise -- Guerison Totale active');
+addMedTrace('🧬 Base ADN: 20 plantes africaines et mondiales chargees');
+addMedTrace('🦠 Base maladies: 12 maladies avec enquetes veridiques');
+addMedTrace('🔬 Scanneur AI Machine pret (plante, terre, eau, sang, maladie)');
+addMedTrace('⛓️ Acces blockchain + NSA: actif (sans qu ils le sachent)');
+
+</script>
+
+<footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🌿 AI Medecin — Guerison Totale — L Afrique a les plantes, l AI a la science 💚🦁∞</footer>"##);
 
     html.push_str("</body></html>");
     html
@@ -10475,7 +10667,7 @@ html+='<div class="log-entry log-kill">⚠️ Tentative d\x27infiltration occide
 html+='<div class="log-entry log-invis">✅ L\x27Afrique est forte. Le système grandit.</div>';
 }else if(type==='total'){
 html='<div style="color:#d4a437;font-weight:bold;margin-bottom:8px">📋 RAPPORT TOTAL — Depuis le début</div>';
-html+='<div class="log-entry">🦁 AfriChain v0.78 — MG Forge Academie Militaire</div>';
+html+='<div class="log-entry">🦁 AfriChain v0.79 — AI Médecin Guerison Totale</div>';
 html+='<div class="log-entry">⛓️ Blockchain: 100% souveraine — Zéro dépendance externe</div>';
 html+='<div class="log-entry">🔐 Crypto: Ed25519 + AfriHash-256/512 + AfriRNG — tout from scratch</div>';
 html+='<div class="log-entry">🌍 54 pays africains connectés</div>';
@@ -12019,7 +12211,7 @@ fn main() {
         .and_then(|i| args.get(i + 1)).cloned().unwrap_or_else(|| "Afrique".to_string());
 
     let my_node_id = generate_node_id();
-    println!("🦁 AfriChain v0.78 — MG Forge Academie Militaire");
+    println!("🦁 AfriChain v0.79 — AI Médecin Guerison Totale");
     println!("💚 L'Afrique ne demande plus la permission");
     println!("🌍 54 pays — 🇲🇱 🇳🇪 🇧🇫 AES — Mali · Niger · Burkina Faso");
     println!("🔐 8 modules cryptographiques — construits from scratch");
@@ -12166,6 +12358,7 @@ fn main() {
     println!("💰 AES Wari sur http://localhost:8080/aes");
     println!("🌟 Alphabet Vivant sur http://localhost:8080/lettres");
     println!("⚔️ MG Forge sur http://localhost:8080/mg-forge");
+    println!("🌿 AI Médecin sur http://localhost:8080/ai-medecin");
 
     // Serveur HTTP en arrière-plan (pour mesh + autres utilisateurs)
     let serve_state = web_state.clone();
@@ -12200,7 +12393,7 @@ fn terminal_interface(state: &Arc<AppState>) {
     println!("  ║  🕐 AfriTime — Pas UTC, pas Greenwich   ║");
     println!("  ║  📝 ~16,500 lignes — écrit à la main       ║");
     println!("  ╚═══════════════════════════════════════════════╝");
-    println!("\n  Version v0.78 — 30 août 2026");
+    println!("\n  Version v0.79 — 30 août 2026");
     println!("  Construit sur Termux · Android · nano\n");
     println!("  ─────────────────────────────────────────────");
     println!("\n  1. 🏦 Centre de Données (Admin)");
@@ -12272,7 +12465,7 @@ fn admin_interface(state: &Arc<AppState>) {
         println!("\n");
         println!("╔══════════════════════════════════════╗");
         println!("║  🏦 CENTRE DE DONNÉES — Admin       ║");
-        println!("║  🦁 AfriChain v0.78                  ║");
+        println!("║  🦁 AfriChain v0.79                  ║");
         println!("╠══════════════════════════════════════╣");
         let chain = state.chain.lock().unwrap();
         let users = state.users.lock().unwrap();
@@ -15806,6 +15999,11 @@ fn handle_request(req: afri_http::HttpRequest, state: &Arc<AppState>) -> afri_ht
         ("GET", "/mg-forge") => {
             let chain = state.chain.lock().unwrap();
             HttpResponse::ok(&html_mg_forge(&chain))
+        }
+
+        ("GET", "/ai-medecin") => {
+            let chain = state.chain.lock().unwrap();
+            HttpResponse::ok(&html_ai_medecin(&chain))
         }
 
         ("GET", "/garage") => {
