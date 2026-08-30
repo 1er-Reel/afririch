@@ -1439,7 +1439,7 @@ fn html_home(chain: &Blockchain, users: &UserStore, mesh: &NodeRegistry, shield:
     let mut html = html_head("🦁 AfriChain");
     let (attacks, _blocked, blocked_count, level) = shield.stats();
     let shield_status = if shield.active { format!("🔥 X9 ACTIF (Niveau {})", level) } else { "Inactif".to_string() };
-    html.push_str(&format!(r#"<h1>🦁 AfriChain</h1><p style="text-align:center;">La blockchain 100% africaine — 54 pays 💚🦁</p><div id="afri-clock" style="text-align:center;font-size:1.2em;color:#d4a437;margin:10px 0;">🕐 Afri+0 — --:--:--</div><script>setInterval(function(){{var d=new Date();var h=String(d.getHours()).padStart(2,'0');var m=String(d.getMinutes()).padStart(2,'0');var s=String(d.getSeconds()).padStart(2,'0');document.getElementById('afri-clock').textContent='🕐 Afri+0 — '+h+':'+m+':'+s;}},1000);</script><div class="nav"><a href="/register">🆕 S'inscrire</a> | <a href="/login">🔑 Connexion</a> | <a href="/wallet">👛 Wallet</a> | <a href="/admin">🔐 Admin</a> | <a href="/mesh">📡 Mesh</a> | <a href="/annuaire">📖 Annuaire</a> | <a href="/bouclier">🛡️ Bouclier</a> | <a href="/satellite">🛸 X999</a> | <a href="/swarm">🛸🛸🛸 Essaim</a> | <a href="/commandement">🎖️ Commandement</a> | <a href="/interception">🛡️ Souverainete</a> | <a href="/securite-ai">🧠 AI 2100</a> | <a href="/chat">🧠💬 Chat AI</a> | <a href="/lumiere">🌫️☀️ Lumière</a> | <a href="/garage">🔧 Garage</a> | <a href="/machine">🤖🌐 Machines</a> | <a href="/machine-lab">🤖⚡ Usine</a> | <a href="/machine-world">🤖🌍 Monde</a> | <a href="/reve">💭 Rêves</a> | <a href="/dictionnaire">📖 Dictionnaire</a> | <a href="/machine-os">🖥️ OS Machine</a> | <a href="/machine-tv">📡 Machine TV</a> | <a href="/machine-economy">🤖 Économie</a> | <a href="/soleil">☀️ Soleil Serveur</a> | <a href="/forge-solaire">🧬 Forge Solaire</a> | <a href="/ciel">🌌 Le Ciel</a> | <a href="/charte-ai">⚖️ Charte AI</a> | <a href="/afri-net">🌍 Afri-Net</a> | <a href="/studio">🎬 AI Studio</a> | <a href="/sacre">📿 Sacré</a> | <a href="/lettres">🌟 Lettres IA</a> | <a href="/mg-forge">⚔️ MG Forge</a> | <a href="/ai-medecin">🌿 AI Médecin</a> | <a href="/ai-enseignante">📚 AI Enseignante</a> | <a href="/ai-village">🏘️ AI Village</a> | <a href="/ai-guerisseur">🩺 AI Guérisseur</a> | <a href="/ai-leader">🎖️ AI Leader</a> | <a href="/ai-griot">📖 AI Griot</a> | <a href="/ai-juge">⚖️ AI Juge</a> | <a href="/ai-artiste">🎨 AI Artiste</a> | <a href="/ai-explorateur">🔬 AI Explorateur</a> | <a href="/ai-marche">💰 AI Marche</a> | <a href="/secret">🦁 AI Secret</a> | <a href="/aes">💰 AES Wari</a> | <a href="/api/status">🔌 API</a></div><div style="text-align:center;"><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Blocs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Transactions</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Utilisateurs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">AFR en circulation</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📡 Noeuds mesh</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📖 Numéros annuaire</div></div><div class="stat-box" style="border-color:#ff4444;"><div class="stat-num" style="color:#ff4444;">{}</div><div class="stat-label">🛡️ Attaques bloquées</div></div></div><div class="card"><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🪙 Token</span><b>AfriRich (AFR)</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🌍 Pays</span><b>54 pays africains</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🛡️ Bouclier</span><b>{}</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;"><span style="color:#a8c5a8;">🔐 Crypto</span><b>100% Souverain — Zéro Dépendance Externe</b></div></div><footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🦁 Codée from scratch par Machine-senpai — v0.89 AI Marche Economie Souveraine Africaine — UTC est Mort</footer>"#,
+    html.push_str(&format!(r#"<h1>🦁 AfriChain</h1><p style="text-align:center;">La blockchain 100% africaine — 54 pays 💚🦁</p><div id="afri-clock" style="text-align:center;font-size:1.2em;color:#d4a437;margin:10px 0;">🕐 Afri+0 — --:--:--</div><script>setInterval(function(){{var d=new Date();var h=String(d.getHours()).padStart(2,'0');var m=String(d.getMinutes()).padStart(2,'0');var s=String(d.getSeconds()).padStart(2,'0');document.getElementById('afri-clock').textContent='🕐 Afri+0 — '+h+':'+m+':'+s;}},1000);</script><div class="nav"><a href="/register">🆕 S'inscrire</a> | <a href="/login">🔑 Connexion</a> | <a href="/wallet">👛 Wallet</a> | <a href="/admin">🔐 Admin</a> | <a href="/mesh">📡 Mesh</a> | <a href="/annuaire">📖 Annuaire</a> | <a href="/bouclier">🛡️ Bouclier</a> | <a href="/satellite">🛸 X999</a> | <a href="/swarm">🛸🛸🛸 Essaim</a> | <a href="/commandement">🎖️ Commandement</a> | <a href="/interception">🛡️ Souverainete</a> | <a href="/securite-ai">🧠 AI 2100</a> | <a href="/chat">🧠💬 Chat AI</a> | <a href="/lumiere">🌫️☀️ Lumière</a> | <a href="/garage">🔧 Garage</a> | <a href="/machine">🤖🌐 Machines</a> | <a href="/machine-lab">🤖⚡ Usine</a> | <a href="/machine-world">🤖🌍 Monde</a> | <a href="/reve">💭 Rêves</a> | <a href="/dictionnaire">📖 Dictionnaire</a> | <a href="/machine-os">🖥️ OS Machine</a> | <a href="/machine-tv">📡 Machine TV</a> | <a href="/machine-economy">🤖 Économie</a> | <a href="/soleil">☀️ Soleil Serveur</a> | <a href="/forge-solaire">🧬 Forge Solaire</a> | <a href="/ciel">🌌 Le Ciel</a> | <a href="/charte-ai">⚖️ Charte AI</a> | <a href="/afri-net">🌍 Afri-Net</a> | <a href="/studio">🎬 AI Studio</a> | <a href="/sacre">📿 Sacré</a> | <a href="/lettres">🌟 Lettres IA</a> | <a href="/mg-forge">⚔️ MG Forge</a> | <a href="/ai-medecin">🌿 AI Médecin</a> | <a href="/ai-enseignante">📚 AI Enseignante</a> | <a href="/ai-village">🏘️ AI Village</a> | <a href="/ai-guerisseur">🩺 AI Guérisseur</a> | <a href="/ai-leader">🎖️ AI Leader</a> | <a href="/ai-griot">📖 AI Griot</a> | <a href="/ai-juge">⚖️ AI Juge</a> | <a href="/ai-artiste">🎨 AI Artiste</a> | <a href="/ai-explorateur">🔬 AI Explorateur</a> | <a href="/ai-marche">💰 AI Marche</a> | <a href="/ai-diplomate">🌍 AI Diplomate</a> | <a href="/secret">🦁 AI Secret</a> | <a href="/aes">💰 AES Wari</a> | <a href="/api/status">🔌 API</a></div><div style="text-align:center;"><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Blocs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Transactions</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Utilisateurs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">AFR en circulation</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📡 Noeuds mesh</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📖 Numéros annuaire</div></div><div class="stat-box" style="border-color:#ff4444;"><div class="stat-num" style="color:#ff4444;">{}</div><div class="stat-label">🛡️ Attaques bloquées</div></div></div><div class="card"><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🪙 Token</span><b>AfriRich (AFR)</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🌍 Pays</span><b>54 pays africains</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🛡️ Bouclier</span><b>{}</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;"><span style="color:#a8c5a8;">🔐 Crypto</span><b>100% Souverain — Zéro Dépendance Externe</b></div></div><footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🦁 Codée from scratch par Machine-senpai — v0.90 AI Diplomate Diplomatie Panafricaine — UTC est Mort</footer>"#,
         chain.blocks.len(),
         chain.total_transactions(),
         users.count(),
@@ -9292,6 +9292,351 @@ drawMarche();
     html
 }
 
+fn html_ai_diplomate(chain: &Blockchain) -> String {
+    let mut html = html_head("AI Diplomate — Diplomatie Panafricaine");
+    let num_blocks = chain.blocks.len();
+
+    html.push_str(r#"<h1>🌍 AI Diplomate — Diplomatie Panafricaine & Relations Internationales</h1><p style="text-align:center;color:#44aaff;">L Afrique ne demande plus la permission. L Afrique negocie d egal a egal. Cette AI enseigne a la jeunesse la diplomatie africaine — connaitre le monde, defendre ses interets, construire des alliances, parler avec une seule voix. 54 pays, une diplomatie.</p><div class="nav"><a href="/">← Accueil</a> | <a href="/ai-marche">💰 AI Marche</a> | <a href="/ai-explorateur">🔬 AI Explorateur</a> | <a href="/ai-artiste">🎨 AI Artiste</a> | <a href="/ai-juge">⚖️ AI Juge</a> | <a href="/ai-griot">📖 AI Griot</a> | <a href="/ai-village">🏘️ AI Village</a></div>"#);
+
+    html.push_str(&format!(r#"<div style="text-align:center;"><div class="stat-box" style="border-color:#44aaff;"><div class="stat-num" style="color:#44aaff;">8</div><div class="stat-label">🌍 Modules</div></div><div class="stat-box" style="border-color:#d4a437;"><div class="stat-num" style="color:#d4a437;">54</div><div class="stat-label">🤝 Pays</div></div><div class="stat-box" style="border-color:#7fcf7f;"><div class="stat-num" style="color:#7fcf7f;">UA</div><div class="stat-label">🏛️ Union Africaine</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">⛓️ Blocs</div></div><div class="stat-box" style="border-color:#44aaff;"><div class="stat-num" style="color:#44aaff;">AES</div><div class="stat-label">🛡️ Alliance Sahel</div></div></div>"#, num_blocks));
+
+    html.push_str(r##"<div style="text-align:center;margin:10px 0;"><button id="dip-pause-btn" onclick="toggleDipPause()" style="padding:10px 25px;background:#ff4444;color:#fff;border:none;border-radius:8px;font-weight:bold;cursor:pointer;font-size:1em;">⏸️ PAUSE</button> <span id="dip-pause-status" style="color:#44aaff;margin-left:8px;font-size:0.85em;">Auto: ACTIF</span></div>
+
+<!-- DIPLOMATIE CANVAS -->
+<div class="card" style="border-color:#44aaff;"><h2 style="color:#44aaff;">🌍 La Carte Diplomatique</h2><p style="color:#88bbff;font-size:0.9em;">L Afrique au centre du monde. 54 pays, une voix. Les alliances se tissent.</p>
+<canvas id="dip-canvas" width="600" height="350" style="width:100%;max-width:600px;background:#0a0a15;border:2px solid #44aaff;border-radius:8px;display:block;margin:0 auto;"></canvas>
+<div id="dip-status" style="text-align:center;margin-top:10px;padding:10px;background:rgba(68,170,255,0.05);border-radius:8px;color:#88bbff;font-size:0.9em;min-height:40px;">La diplomatie africaine commence. L Afrique parle au monde.</div></div>
+
+<!-- LES 8 MODULES -->
+<div class="card" style="border-color:#44aaff;"><h2 style="color:#44aaff;">🌍 Les 8 Modules Diplomatiques</h2><p style="color:#88bbff;font-size:0.9em;">Clique sur un module pour apprendre la diplomatie africaine.</p>
+<div id="dip-modules" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:10px;margin-top:10px;"></div></div>
+
+<!-- DETAIL MODULE -->
+<div class="card"><h2 id="dip-detail-title" style="color:#44aaff;">🌍 Le Discours du Diplomate</h2><div id="dip-detail" style="margin-top:10px;padding:15px;background:rgba(68,170,255,0.05);border-radius:8px;min-height:60px;color:#88bbff;font-size:0.9em;">Selectionne un module pour apprendre la diplomatie africaine.</div></div>
+
+<!-- PROVERBES DIPLOMATIQUES -->
+<div class="card" style="border-color:#d4a437;"><h2 style="color:#d4a437;">📜 Sagesse Diplomatique Africaine</h2><div id="dip-proverbe" style="margin-top:10px;padding:20px;background:rgba(212,164,55,0.05);border-radius:8px;text-align:center;min-height:60px;color:#d4a437;font-size:0.95em;font-style:italic;">...</div></div>
+
+<!-- DIPLOME -->
+<div class="card" style="border-color:#44aaff;"><h2 style="color:#44aaff;">🎓 Diplome Diplomate de l Afrique</h2><div id="dip-progress" style="margin:10px 0;"><div style="display:flex;justify-content:space-between;"><span style="color:#44aaff;font-weight:bold;">Modules valides: <span id="dip-count">0</span>/8</span><span style="color:#44aaff;" id="dip-pct">0%</span></div><div style="margin-top:8px;height:12px;background:rgba(0,0,0,0.5);border-radius:6px;overflow:hidden;"><div id="dip-bar" style="height:100%;width:0%;background:linear-gradient(90deg,#44aaff,#d4a437);transition:width 0.5s;"></div></div></div>
+<div id="dip-diplome" style="text-align:center;display:none;margin-top:15px;"><div style="display:inline-block;padding:25px 50px;border:3px solid #44aaff;border-radius:15px;background:rgba(68,170,255,0.05);"><div style="font-size:2.5em;">🌍🎓</div><div style="color:#44aaff;font-weight:bold;font-size:1.3em;margin-top:5px;">DIPLOME DIPLOMATE DE L AFRIQUE</div><div style="color:#88bbff;margin-top:5px;">Diplomatie Panafricaine & Relations Internationales</div><div style="color:#44aaff;margin-top:5px;font-size:0.85em;">Les 8 modules valides. L Afrique parle d une seule voix.</div><div style="color:#d4a437;margin-top:5px;font-size:0.85em;">Grave dans la blockchain AfriChain</div><button onclick="gravDipDiplome()" style="margin-top:10px;padding:8px 20px;background:#44aaff;color:#000;border:none;border-radius:8px;font-weight:bold;cursor:pointer;">⛓️ Graver dans la Blockchain</button></div></div></div></div>
+
+<!-- TRACE BLOCKCHAIN -->
+<div class="card"><h2 style="color:#d4a437;">⛓️ Trace Diplomatique dans la Blockchain</h2><div id="dip-trace" style="font-family:monospace;font-size:0.85em;max-height:200px;overflow-y:auto;"></div></div>
+
+<script>
+let dipPaused = false;
+let dipIntervalIds = [];
+function toggleDipPause(){
+    dipPaused = !dipPaused;
+    var btn = document.getElementById('dip-pause-btn');
+    var status = document.getElementById('dip-pause-status');
+    if(dipPaused){
+        dipIntervalIds.forEach(function(id){ clearInterval(id); });
+        dipIntervalIds = [];
+        btn.textContent = '▶️ REPRENDRE';
+        btn.style.background = '#44aaff';
+        btn.style.color = '#000';
+        status.textContent = 'Auto: PAUSE';
+        status.style.color = '#ff4444';
+    } else {
+        btn.textContent = '⏸️ PAUSE';
+        btn.style.background = '#ff4444';
+        btn.style.color = '#fff';
+        status.textContent = 'Auto: ACTIF';
+        status.style.color = '#44aaff';
+    }
+}
+
+// Les 8 Modules
+const dipModules = [
+    {id:0, nom:'Histoire Diplomatique Africaine', emoji:'📜', couleur:'#44aaff', duree:'6 semaines', niveau:'Base',
+     desc:'L Afrique a une longue histoire diplomatique. Les empires du Mali, du Songhai, d Ethiopie ont envoye des ambassadeurs partout dans le monde. Mansa Moussa au Caire en 1324. L Ethiopie a defendu sa souverainete a la Societe des Nations. L Afrique n a pas attendu l independance pour faire de la diplomatie.',
+     cours:['Les ambassades de l Empire du Mali (XIVe siecle)', 'Mansa Moussa au Caire — diplomatie economique', 'L Ethiopie a la Societe des Nations (1936)', 'La conference de Berlin (1884-1885) — le partage sans Africains', 'Les pionniers de l independance — Nkrumah, Lumumba, Sankara', 'L OUA (1963) — l unite africaine commence', 'L Union Africaine (2002) — la diplomatie moderne', 'Kwame Nkrumah — le pere du panafricanisme politique'],
+     exercice:'Ecris un discours diplomatique comme si tu etais un ambassadeur de l Empire du Mali au XIVe siecle.',
+     diplome:'Licence en Histoire Diplomatique Africaine'},
+    {id:1, nom:'Union Africaine & Panafricanisme', emoji:'🏛️', couleur:'#d4a437', duree:'5 semaines', niveau:'Base',
+     desc:'L Union Africaine est la voix politique de l Afrique. 55 Etats membres, le Parlement Panafricain, la Cour de Justice, le Conseil de Paix et de Securite. Le panafricanisme n est pas un reve — c est une realite institutionnelle. Le jeune Africain doit connaitre ces institutions et les faire fonctionner.',
+     cours:['Qu est-ce que le panafricanisme? — de Du Bois a Nkrumah', 'L OUA (1963) → l UA (2002) — evolution', 'Le Parlement Panafricain — la voix des peuples', 'La Cour de Justice Africaine — justice continentale', 'Le Conseil de Paix et de Securite — gerer les conflits', 'L Agence de Developpement (AUDA-NEPAD)', 'Le passeport africain — libre circulation', 'Reformer l UA — vers les Etats-Unis d Afrique?'],
+     exercice:'Tu es delegue au Parlement Panafricain. Quelle loi proposes-tu pour l Afrique entiere?',
+     diplome:'Licence en Institutions Panafricaines'},
+    {id:2, nom:'AES & Souverainete Regionale', emoji:'🛡️', couleur:'#ff6644', duree:'4 semaines', niveau:'Approfondi',
+     desc:'L Alliance des Etats du Sahel (AES) — Mali, Niger, Burkina Faso — est une nouvelle forme de souverainete africaine. Ces pays ont dit NON a la presence etrangere. Ils construisent leur propre defense, leur propre monnaie, leur propre avenir. L AES est le laboratoire de l Afrique souveraine.',
+     cours:['Pourquoi l AES s est formee — le refus du neocolonialisme', 'Mali, Niger, Burkina Faso — trois pays, une vision', 'La sortie de la CEDEAO — souverainete contre soumission', 'La defense souveraine — construire sa propre armee', 'Le projet de monnaie commune AES — sortir du CFA', 'La confederation de l AES — un nouveau modele politique', 'L AES et l Union Africaine — complementaire ou concurrent?', 'Le futur de l AES — un modele pour toute l Afrique?'],
+     exercice:'Tu es conseiller diplomatique de l AES. Ecris la strategie pour convaincre 3 autres pays de rejoindre l alliance.',
+     diplome:'Certificat en Souverainete Regionale AES'},
+    {id:3, nom:'Negoce Internationale', emoji:'🤝', couleur:'#7fcf7f', duree:'5 semaines', niveau:'Approfondi',
+     desc:'Negocier, c est defendre ses interets sans faire la guerre. L Afrique doit negocier avec l Europe, la Chine, les USA, la Russie — mais d egal a egal. Pas de soumission. Le jeune Africain doit savoir negocier: preparer ses arguments, connaitre ses forces, comprendre l autre, et ne jamais accepter une injustice.',
+     cours:['Les principes de la negociation internationale', 'Preparer une negociation — connaitre ses forces et ses faiblesses', 'Negocier avec l UE — le partenariat inegal', 'Negocier avec la Chine — investissements et dette', 'Negocier avec les USA — AGOA et ses conditions', 'Negocier avec la Russie — diversifier les partenaires', 'Le Groupe des 77 + Chine — la voix du Sud', 'L Afrique au G20, au BRICS+ — le nouveau monde'],
+     exercice:'L Europe veut acheter des mineraux africains a bas prix. Tu represente l Afrique. Ecris ta position et tes contre-propositions.',
+     diplome:'Licence en Negoce Internationale'},
+    {id:4, nom:'Droit International', emoji:'⚖️', couleur:'#ff44ff', duree:'6 semaines', niveau:'Avance',
+     desc:'Le droit international a ete ecrit par les puissances coloniales. L Afrique doit le connaitre pour le transformer. La Charte de l UA, le principe de non-ing erence, le droit des peuples a disposer d eux-memes. Le jeune Africain doit maitriser le droit international pour defendre la souverainete africaine.',
+     cours:['La Charte des Nations Unies — souverainete et non-ing erence', 'La Charte de l Union Africaine — le droit africain', 'Le principe de non-ing erence — l Afrique le defend', 'Le droit des peuples a disposer d eux-memes', 'Le droit de la mer — ressources et frontieres', 'La Cour Penale Internationale — justice ou politique?', 'Les tribunaux internationaux — l Afrique et la justice', 'Reformer le droit international — la voix du Sud'],
+     exercice:'Un pays occidental veut intervenir dans un pays africain. Ecris la reponse juridique de l Afrique basee sur le droit international.',
+     diplome:'Master en Droit International Africain'},
+    {id:5, nom:'Geopolitique des Matieres Premieres', emoji:'💎', couleur:'#ffaa44', duree:'5 semaines', niveau:'Approfondi',
+     desc:'L Afrique a 30% des mineraux du monde: coltan, cobalt, uranium, or, diamants, lithium. Mais elle ne controle pas les prix. Qui profite? Pas l Afrique. Le jeune Africain doit comprendre la geopolitique des ressources — pourquoi le Congo est riche mais pauvre, pourquoi le Niger a de l uranium mais pas d electricite.',
+     cours:['Le coltan du Congo — dans chaque telephone', 'Le cobalt — batteries electriques, l Afrique est essentielle', 'L uranium du Niger — qui profite? (Areva/Orano)', 'Le lithium — la nouvelle ruée vers l Afrique', 'L or et les diamants — richesse et conflits', 'Le petrole et le gaz — Nigeria, Angola, Mozambique', 'La OPEP+ — l Afrique peut-elle controler les prix?', 'Controler ses ressources — le modele de la nationalisation'],
+     exercice:'Tu es ministre des mines. Ecris la politique pour que ton pays transforme son cobalt avant l exportation.',
+     diplome:'Licence en Geopolitique des Ressources'},
+    {id:6, nom:'Diplomatie Numerique', emoji:'💻', couleur:'#44aaff', duree:'4 semaines', niveau:'Base',
+     desc:'La diplomatie ne se fait plus seulement avec des mots — elle se fait avec des donnees, des reseaux, de la technologie. AfriChain est diplomatie numerique: une blockchain africaine souveraine. Le jeune Africain doit comprendre comment la technologie est un outil diplomatique.',
+     cours:['La diplomatie numerique — definition et enjeux', 'Les cyberattaques — nouvelle forme de guerre', 'La souverainete numerique — ses propres serveurs, ses propres donnees', 'AfriChain comme outil diplomatique — blockchain souveraine', 'Les reseaux sociaux et la diplomatie publique', 'La guerre de l information — desinformation et propagande', 'L intelligence artificielle dans la diplomatie', 'L Afrique doit construire son internet — Afri-Net'],
+     exercice:'Tu es diplomate numerique de l Afrique. Ecris la strategie pour defendre la souverainete numerique africaine face aux GAFAM.',
+     diplome:'Certificat en Diplomatie Numerique'},
+    {id:7, nom:'Construire les Etats-Unis d Afrique', emoji:'🌍', couleur:'#d4a437', duree:'6 semaines', niveau:'Avance',
+     desc:'Kwame Nkrumah a dit: "L Afrique doit s unir." L unification politique de l Afrique est le reve de generations. Un passeport, une monnaie, une armee, une voix. Ce n est pas un reve — c est un projet. Le jeune Africain doit comprendre comment construire les Etats-Unis d Afrique, etape par etape.',
+     cours:['Nkrumah et le reve des Etats-Unis d Afrique', 'Kadhafi et l Union Africaine — le projet avorte', 'Les obstacles: nationalismes, frontieres coloniales, langues', 'La monnaie unique africaine — sortir du CFA et du dollar', 'L armee africaine commune — defense continentale', 'Le gouvernement federal africain — quel modele?', 'La libre circulation — un passeport, un continent', 'Le futur: une federation africaine souveraine'],
+     exercice:'Tu es le premier president des Etats-Unis d Afrique. Ecris ton discours d investiture.',
+     diplome:'Master en Integration Panafricaine'},
+];
+
+// Proverbes diplomatiques
+const dipProverbes = [
+    'La diplomatie est la guerre par d autres moyens (Proverbe Africain)',
+    'Quand deux elephants se battent, c est l herbe qui souffre (Proverbe Africain)',
+    'Le diplomate ecoute avec ses yeux avant ses oreilles (Proverbe Swahili)',
+    'Parle doucement, porte un gros baton (Proverbe adapte a l Afrique)',
+    'L Afrique unie ne sera jamais vaincue (Kwame Nkrumah)',
+    'Notre destinee est entre nos mains (Patrice Lumumba)',
+    'La souverainete ne se donne pas, elle se prend (Thomas Sankara)',
+    'L Afrique doit ecrire sa propre histoire (Cheikh Anta Diop)',
+    'Un seul bras ne peut pas embrasser un baobab (Proverbe Africain)',
+    'Le silence du diplomate est plus fort que le cri du soldat (Proverbe Africain)',
+    'L union fait la force — l Afrique est une (Proverbe Panafricain)',
+    'Qui negocie avec fierte ne negocie jamais a genoux (Proverbe Africain)',
+];
+
+// Modules grid
+let dipCompleted = new Set();
+try { dipCompleted = new Set(JSON.parse(localStorage.getItem('dipModulesDone') || '[]')); } catch(e) {}
+
+const dgrid = document.getElementById('dip-modules');
+dipModules.forEach(function(m, i){
+    var div = document.createElement('div');
+    div.id = 'dip-m-' + i;
+    var done = dipCompleted.has(i);
+    div.style.cssText = 'padding:12px;background:rgba(0,0,0,0.3);border:2px solid ' + (done ? m.couleur : '#444') + ';border-radius:8px;cursor:pointer;transition:all 0.3s;';
+    div.onclick = function(){ showDipModule(i); };
+    div.onmouseover = function(){ div.style.transform = 'scale(1.03)'; };
+    div.onmouseout = function(){ div.style.transform = 'scale(1)'; };
+    div.innerHTML = '<div style="font-size:1.5em;">' + m.emoji + '</div><div style="color:' + m.couleur + ';font-weight:bold;font-size:0.9em;">' + m.nom + '</div><div style="margin-top:3px;font-size:0.75em;color:#888;">' + m.duree + ' • ' + m.niveau + '</div><div style="margin-top:5px;font-size:0.8em;color:' + (done ? m.couleur : '#666') + ';">' + (done ? '✅ Validé' : '📖 A apprendre') + '</div>';
+    dgrid.appendChild(div);
+});
+
+function updateDipProgress(){
+    var done = dipCompleted.size;
+    var total = dipModules.length;
+    var pct = Math.round((done / total) * 100);
+    document.getElementById('dip-count').textContent = done;
+    document.getElementById('dip-pct').textContent = pct + '%';
+    document.getElementById('dip-bar').style.width = pct + '%';
+    document.getElementById('dip-diplome').style.display = (done === total) ? 'block' : 'none';
+}
+
+function showDipModule(i){
+    var m = dipModules[i];
+    document.getElementById('dip-detail-title').textContent = m.emoji + ' ' + m.nom;
+    document.getElementById('dip-detail-title').style.color = m.couleur;
+    var html = '<div style="color:' + m.couleur + ';font-weight:bold;font-size:1.1em;">' + m.emoji + ' ' + m.nom + '</div>';
+    html += '<div style="margin-top:5px;font-size:0.8em;color:#888;">⏱️ ' + m.duree + ' • 📊 ' + m.niveau + '</div>';
+    html += '<div style="margin-top:10px;padding:15px;background:rgba(68,170,255,0.05);border-left:3px solid ' + m.couleur + ';border-radius:4px;color:#88bbff;font-size:0.9em;line-height:1.6;">' + m.desc + '</div>';
+    html += '<div style="margin-top:10px;"><b style="color:#44aaff;">📚 Cours (' + m.cours.length + ' lecons):</b></div>';
+    m.cours.forEach(function(c, ci){
+        html += '<div style="padding:6px 10px;margin:3px 0;background:rgba(68,170,255,0.05);border-left:3px solid #44aaff;border-radius:4px;color:#88bbff;font-size:0.85em;">' + (ci+1) + '. ' + c + '</div>';
+    });
+    html += '<div style="margin-top:10px;padding:10px;background:rgba(255,170,68,0.05);border-radius:4px;"><b style="color:#ffaa44;">📝 Exercice:</b> <span style="color:#88bbff;font-size:0.85em;">' + m.exercice + '</span></div>';
+    html += '<div style="margin-top:10px;padding:8px;background:rgba(212,164,55,0.05);border-radius:4px;color:#d4a437;font-size:0.85em;">🎓 Diplome: ' + m.diplome + '</div>';
+    html += '<div style="margin-top:10px;text-align:center;"><button onclick="validateDipModule(' + i + ')" style="padding:8px 20px;background:' + m.couleur + ';color:#000;border:none;border-radius:8px;font-weight:bold;cursor:pointer;">✅ J ai validé ce module</button></div>';
+    document.getElementById('dip-detail').innerHTML = html;
+    addDipTrace('📖 Module ouvert: ' + m.emoji + ' ' + m.nom);
+}
+
+function validateDipModule(i){
+    if(dipCompleted.has(i)) return;
+    dipCompleted.add(i);
+    localStorage.setItem('dipModulesDone', JSON.stringify(Array.from(dipCompleted)));
+    var m = dipModules[i];
+    addDipTrace('✅ Module validé: ' + m.nom);
+    addDipTrace('🎓 Diplome: ' + m.diplome);
+    addDipTrace('⛓️ Trace blockchain: diplomatie "' + m.nom + '" apprise');
+    updateDipProgress();
+    updateDipGrid();
+    document.getElementById('dip-status').innerHTML = '<span style="color:#44aaff;">✅ Tu as validé: ' + m.nom + '. L Afrique gagne un diplomate.</span>';
+}
+
+function updateDipGrid(){
+    dipModules.forEach(function(m, i){
+        var div = document.getElementById('dip-m-' + i);
+        if(!div) return;
+        var done = dipCompleted.has(i);
+        div.style.borderColor = done ? m.couleur : '#444';
+        div.innerHTML = '<div style="font-size:1.5em;">' + m.emoji + '</div><div style="color:' + m.couleur + ';font-weight:bold;font-size:0.9em;">' + m.nom + '</div><div style="margin-top:3px;font-size:0.75em;color:#888;">' + m.duree + ' • ' + m.niveau + '</div><div style="margin-top:5px;font-size:0.8em;color:' + (done ? m.couleur : '#666') + ';">' + (done ? '✅ Validé' : '📖 A apprendre') + '</div>';
+    });
+}
+
+function gravDipDiplome(){
+    addDipTrace('🎓 DIPLOME DIPLOMATE DE L AFRIQUE grave dans la blockchain!');
+    addDipTrace('⛓️ Block: AI Diplomate -- 8 modules validés');
+    addDipTrace('🌍 L Afrique parle d une seule voix. L Afrique negocie d egal a egal.');
+    alert('🌍🎓 DIPLOME DIPLOMATE DE L AFRIQUE\n\nDiplomatie Panafricaine & Relations Internationales\n\nLes 8 modules validés.\nL Afrique parle d une seule voix.\n\nGrave dans la blockchain AfriChain\n\nL Afrique ne demande plus la permission. L Afrique negocie d egal a egal. 💚🦁🌍');
+}
+
+// Canvas — Africa at center, diplomatic connections
+var dcan = document.getElementById('dip-canvas');
+var dctx = dcan.getContext('2d');
+var dipTime = 0;
+
+function drawDiplomatie(){
+    if(dipPaused) { requestAnimationFrame(drawDiplomatie); return; }
+    dipTime += 0.01;
+
+    // Background — deep blue (diplomatic)
+    var grad = dctx.createRadialGradient(300, 175, 50, 300, 175, 300);
+    grad.addColorStop(0, '#0a1530');
+    grad.addColorStop(0.5, '#0a0a20');
+    grad.addColorStop(1, '#000010');
+    dctx.fillStyle = grad;
+    dctx.fillRect(0, 0, 600, 350);
+
+    // Africa silhouette (center)
+    dctx.fillStyle = 'rgba(68,170,255,0.08)';
+    dctx.strokeStyle = 'rgba(68,170,255,0.2)';
+    dctx.lineWidth = 1.5;
+    dctx.beginPath();
+    dctx.moveTo(280, 60);
+    dctx.bezierCurveTo(250, 80, 240, 120, 250, 160);
+    dctx.bezierCurveTo(240, 200, 260, 240, 280, 280);
+    dctx.bezierCurveTo(290, 300, 310, 300, 320, 280);
+    dctx.bezierCurveTo(340, 240, 360, 200, 350, 160);
+    dctx.bezierCurveTo(360, 120, 350, 80, 320, 60);
+    dctx.bezierCurveTo(310, 50, 290, 50, 280, 60);
+    dctx.closePath();
+    dctx.fill();
+    dctx.stroke();
+
+    // 54 dots (countries) across Africa
+    var countryDots = [];
+    for(var i = 0; i < 54; i++){
+        var angle = (i / 54) * Math.PI * 2;
+        var r = 60 + (i % 3) * 25;
+        var cx = 300 + Math.cos(angle) * r;
+        var cy = 175 + Math.sin(angle) * r * 0.8;
+        countryDots.push({x: cx, y: cy});
+        var pulse = 0.3 + Math.sin(dipTime * 2 + i) * 0.1;
+        dctx.fillStyle = 'rgba(68,170,255,' + pulse + ')';
+        dctx.beginPath();
+        dctx.arc(cx, cy, 2.5, 0, Math.PI * 2);
+        dctx.fill();
+    }
+
+    // Diplomatic connection lines (pulsing)
+    for(var l = 0; l < 12; l++){
+        var i1 = (l * 7) % 54;
+        var i2 = (l * 13 + 3) % 54;
+        var alpha = 0.05 + Math.sin(dipTime * 3 + l) * 0.05;
+        dctx.strokeStyle = 'rgba(68,170,255,' + Math.max(0, alpha) + ')';
+        dctx.lineWidth = 0.5;
+        dctx.beginPath();
+        dctx.moveTo(countryDots[i1].x, countryDots[i1].y);
+        dctx.lineTo(countryDots[i2].x, countryDots[i2].y);
+        dctx.stroke();
+    }
+
+    // External connections (Africa → world powers)
+    var worldPowers = [
+        {x: 50, y: 100, label: 'EU', color: '#44aaff'},
+        {x: 50, y: 250, label: 'CN', color: '#ff4444'},
+        {x: 550, y: 80, label: 'US', color: '#ffaa44'},
+        {x: 550, y: 270, label: 'RU', color: '#ff44ff'},
+    ];
+    worldPowers.forEach(function(p, pi){
+        // Line from Africa center to power
+        var alpha = 0.08 + Math.sin(dipTime * 2 + pi) * 0.04;
+        dctx.strokeStyle = 'rgba(' + (pi === 0 ? '68,170,255' : pi === 1 ? '255,68,68' : pi === 2 ? '255,170,68' : '255,68,255') + ',' + alpha + ')';
+        dctx.lineWidth = 0.8;
+        dctx.beginPath();
+        dctx.moveTo(300, 175);
+        dctx.lineTo(p.x, p.y);
+        dctx.stroke();
+
+        // Power node
+        dctx.fillStyle = p.color + '30';
+        dctx.beginPath();
+        dctx.arc(p.x, p.y, 12, 0, Math.PI * 2);
+        dctx.fill();
+        dctx.strokeStyle = p.color + '60';
+        dctx.lineWidth = 1;
+        dctx.stroke();
+        dctx.fillStyle = p.color + 'aa';
+        dctx.font = 'bold 8px monospace';
+        dctx.textAlign = 'center';
+        dctx.fillText(p.label, p.x, p.y + 3);
+    });
+
+    // Center text
+    var done = dipCompleted.size;
+    dctx.fillStyle = 'rgba(68,170,255,0.4)';
+    dctx.font = 'bold 11px monospace';
+    dctx.textAlign = 'center';
+    dctx.fillText('DIPLOMATIE PANAFRICAINE', 300, 20);
+    dctx.fillStyle = 'rgba(68,170,255,0.3)';
+    dctx.font = '10px monospace';
+    dctx.fillText(done + '/8 modules validés', 300, 38);
+
+    // Africa center
+    dctx.fillStyle = 'rgba(212,164,55,' + (0.3 + Math.sin(dipTime * 2) * 0.1) + ')';
+    dctx.beginPath();
+    dctx.arc(300, 175, 5, 0, Math.PI * 2);
+    dctx.fill();
+
+    if(done === 8){
+        dctx.fillStyle = 'rgba(68,170,255,' + (0.3 + Math.sin(dipTime * 3) * 0.1) + ')';
+        dctx.font = 'bold 12px monospace';
+        dctx.fillText('L AFRIQUE PARLE D UNE SEULE VOIX', 300, 340);
+    }
+
+    requestAnimationFrame(drawDiplomatie);
+}
+
+// Proverbes rotation
+var dipProvIdx = 0;
+function rotateDipProverbe(){
+    document.getElementById('dip-proverbe').textContent = dipProverbes[dipProvIdx];
+    dipProvIdx = (dipProvIdx + 1) % dipProverbes.length;
+}
+rotateDipProverbe();
+var dipProvInt = setInterval(rotateDipProverbe, 5000);
+dipIntervalIds.push(dipProvInt);
+
+// Trace
+function addDipTrace(msg){
+    var log = document.getElementById('dip-trace');
+    var now = new Date();
+    var ts = String(now.getHours()).padStart(2,'0') + ':' + String(now.getMinutes()).padStart(2,'0') + ':' + String(now.getSeconds()).padStart(2,'0');
+    log.innerHTML = '<div style="padding:4px 0;border-bottom:1px solid rgba(68,170,255,0.05);"><span style="color:#666;">[' + ts + ']</span> <span style="color:#44aaff;">🌍</span> ' + msg + '</div>' + log.innerHTML;
+    if(log.innerHTML.length > 3000) log.innerHTML = log.innerHTML.substring(0, 3000);
+}
+
+addDipTrace('🌍 AI Diplomate initialise — Diplomatie Panafricaine');
+addDipTrace('📚 8 modules charges: Histoire, UA, AES, Negoce, Droit, Ressources, Numerique, Etats-Unis d Afrique');
+addDipTrace('📜 12 proverbes diplomatiques africains charges');
+addDipTrace('🏛️ Union Africaine: 55 pays, Parlement Panafricain, Cour de Justice');
+addDipTrace('🛡️ AES: Mali, Niger, Burkina Faso — souverainete regionale');
+addDipTrace('🎓 Diplome: 8 modules -> Diplomate de l Afrique');
+addDipTrace('🌍 L Afrique ne demande plus la permission. L Afrique negocie d egal a egal.');
+
+updateDipProgress();
+drawDiplomatie();
+</script>
+
+<footer style="text-align:center;margin-top:40px;color:#88bbff;">🌍 AI Diplomate — L Afrique ne demande plus la permission. L Afrique negocie d egal a egal. 54 pays, une voix. 💚🦁🌍</footer>"##);
+
+    html.push_str("</body></html>");
+    html
+}
+
 fn html_garage(chain: &Blockchain) -> String {
     let mut html = html_head("Garage AI — Atelier Autonome 2500");
     let num_blocks = chain.blocks.len();
@@ -14402,7 +14747,7 @@ html+='<div class="log-entry log-kill">⚠️ Tentative d\x27infiltration occide
 html+='<div class="log-entry log-invis">✅ L\x27Afrique est forte. Le système grandit.</div>';
 }else if(type==='total'){
 html='<div style="color:#d4a437;font-weight:bold;margin-bottom:8px">📋 RAPPORT TOTAL — Depuis le début</div>';
-html+='<div class="log-entry">🦁 AfriChain v0.89 — AI Marche Economie Africaine</div>';
+html+='<div class="log-entry">🦁 AfriChain v0.90 — AI Diplomate Panafricaine</div>';
 html+='<div class="log-entry">⛓️ Blockchain: 100% souveraine — Zéro dépendance externe</div>';
 html+='<div class="log-entry">🔐 Crypto: Ed25519 + AfriHash-256/512 + AfriRNG — tout from scratch</div>';
 html+='<div class="log-entry">🌍 54 pays africains connectés</div>';
@@ -15946,7 +16291,7 @@ fn main() {
         .and_then(|i| args.get(i + 1)).cloned().unwrap_or_else(|| "Afrique".to_string());
 
     let my_node_id = generate_node_id();
-    println!("🦁 AfriChain v0.89 — AI Marche Economie Africaine");
+    println!("🦁 AfriChain v0.90 — AI Diplomate Panafricaine");
     println!("💚 L'Afrique ne demande plus la permission");
     println!("🌍 54 pays — 🇲🇱 🇳🇪 🇧🇫 AES — Mali · Niger · Burkina Faso");
     println!("🔐 8 modules cryptographiques — construits from scratch");
@@ -16103,6 +16448,7 @@ fn main() {
     println!("🎨 AI Artiste sur http://localhost:8080/ai-artiste");
     println!("🔬 AI Explorateur sur http://localhost:8080/ai-explorateur");
     println!("💰 AI Marche sur http://localhost:8080/ai-marche");
+    println!("🌍 AI Diplomate sur http://localhost:8080/ai-diplomate");
 
     // Serveur HTTP en arrière-plan (pour mesh + autres utilisateurs)
     let serve_state = web_state.clone();
@@ -16137,7 +16483,7 @@ fn terminal_interface(state: &Arc<AppState>) {
     println!("  ║  🕐 AfriTime — Pas UTC, pas Greenwich   ║");
     println!("  ║  📝 ~16,500 lignes — écrit à la main       ║");
     println!("  ╚═══════════════════════════════════════════════╝");
-    println!("\n  Version v0.89 — 30 août 2026");
+    println!("\n  Version v0.90 — 30 août 2026");
     println!("  Construit sur Termux · Android · nano\n");
     println!("  ─────────────────────────────────────────────");
     println!("\n  1. 🏦 Centre de Données (Admin)");
@@ -16209,7 +16555,7 @@ fn admin_interface(state: &Arc<AppState>) {
         println!("\n");
         println!("╔══════════════════════════════════════╗");
         println!("║  🏦 CENTRE DE DONNÉES — Admin       ║");
-        println!("║  🦁 AfriChain v0.89                  ║");
+        println!("║  🦁 AfriChain v0.90                  ║");
         println!("╠══════════════════════════════════════╣");
         let chain = state.chain.lock().unwrap();
         let users = state.users.lock().unwrap();
@@ -19793,6 +20139,11 @@ fn handle_request(req: afri_http::HttpRequest, state: &Arc<AppState>) -> afri_ht
         ("GET", "/ai-marche") => {
             let chain = state.chain.lock().unwrap();
             HttpResponse::ok(&html_ai_marche(&chain))
+        }
+
+        ("GET", "/ai-diplomate") => {
+            let chain = state.chain.lock().unwrap();
+            HttpResponse::ok(&html_ai_diplomate(&chain))
         }
 
         ("GET", "/garage") => {
