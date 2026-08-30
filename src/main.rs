@@ -1439,7 +1439,7 @@ fn html_home(chain: &Blockchain, users: &UserStore, mesh: &NodeRegistry, shield:
     let mut html = html_head("🦁 AfriChain");
     let (attacks, _blocked, blocked_count, level) = shield.stats();
     let shield_status = if shield.active { format!("🔥 X9 ACTIF (Niveau {})", level) } else { "Inactif".to_string() };
-    html.push_str(&format!(r#"<h1>🦁 AfriChain</h1><p style="text-align:center;">La blockchain 100% africaine — 54 pays 💚🦁</p><div id="afri-clock" style="text-align:center;font-size:1.2em;color:#d4a437;margin:10px 0;">🕐 Afri+0 — --:--:--</div><script>setInterval(function(){{var d=new Date();var h=String(d.getHours()).padStart(2,'0');var m=String(d.getMinutes()).padStart(2,'0');var s=String(d.getSeconds()).padStart(2,'0');document.getElementById('afri-clock').textContent='🕐 Afri+0 — '+h+':'+m+':'+s;}},1000);</script><div class="nav"><a href="/register">🆕 S'inscrire</a> | <a href="/login">🔑 Connexion</a> | <a href="/wallet">👛 Wallet</a> | <a href="/admin">🔐 Admin</a> | <a href="/mesh">📡 Mesh</a> | <a href="/annuaire">📖 Annuaire</a> | <a href="/bouclier">🛡️ Bouclier</a> | <a href="/satellite">🛸 X999</a> | <a href="/swarm">🛸🛸🛸 Essaim</a> | <a href="/commandement">🎖️ Commandement</a> | <a href="/interception">🛡️ Souverainete</a> | <a href="/securite-ai">🧠 AI 2100</a> | <a href="/chat">🧠💬 Chat AI</a> | <a href="/lumiere">🌫️☀️ Lumière</a> | <a href="/garage">🔧 Garage</a> | <a href="/machine">🤖🌐 Machines</a> | <a href="/machine-lab">🤖⚡ Usine</a> | <a href="/machine-world">🤖🌍 Monde</a> | <a href="/reve">💭 Rêves</a> | <a href="/dictionnaire">📖 Dictionnaire</a> | <a href="/machine-os">🖥️ OS Machine</a> | <a href="/machine-tv">📡 Machine TV</a> | <a href="/machine-economy">🤖 Économie</a> | <a href="/soleil">☀️ Soleil Serveur</a> | <a href="/forge-solaire">🧬 Forge Solaire</a> | <a href="/ciel">🌌 Le Ciel</a> | <a href="/charte-ai">⚖️ Charte AI</a> | <a href="/afri-net">🌍 Afri-Net</a> | <a href="/studio">🎬 AI Studio</a> | <a href="/sacre">📿 Sacré</a> | <a href="/lettres">🌟 Lettres IA</a> | <a href="/mg-forge">⚔️ MG Forge</a> | <a href="/ai-medecin">🌿 AI Médecin</a> | <a href="/ai-enseignante">📚 AI Enseignante</a> | <a href="/ai-village">🏘️ AI Village</a> | <a href="/ai-guerisseur">🩺 AI Guérisseur</a> | <a href="/ai-leader">🎖️ AI Leader</a> | <a href="/ai-griot">📖 AI Griot</a> | <a href="/ai-juge">⚖️ AI Juge</a> | <a href="/ai-artiste">🎨 AI Artiste</a> | <a href="/ai-explorateur">🔬 AI Explorateur</a> | <a href="/ai-marche">💰 AI Marche</a> | <a href="/ai-diplomate">🌍 AI Diplomate</a> | <a href="/secret">🦁 AI Secret</a> | <a href="/aes">💰 AES Wari</a> | <a href="/api/status">🔌 API</a></div><div style="text-align:center;"><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Blocs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Transactions</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Utilisateurs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">AFR en circulation</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📡 Noeuds mesh</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📖 Numéros annuaire</div></div><div class="stat-box" style="border-color:#ff4444;"><div class="stat-num" style="color:#ff4444;">{}</div><div class="stat-label">🛡️ Attaques bloquées</div></div></div><div class="card"><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🪙 Token</span><b>AfriRich (AFR)</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🌍 Pays</span><b>54 pays africains</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🛡️ Bouclier</span><b>{}</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;"><span style="color:#a8c5a8;">🔐 Crypto</span><b>100% Souverain — Zéro Dépendance Externe</b></div></div><footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🦁 Codée from scratch par Machine-senpai — v0.90 AI Diplomate Diplomatie Panafricaine — UTC est Mort</footer>"#,
+    html.push_str(&format!(r#"<h1>🦁 AfriChain</h1><p style="text-align:center;">La blockchain 100% africaine — 54 pays 💚🦁</p><div id="afri-clock" style="text-align:center;font-size:1.2em;color:#d4a437;margin:10px 0;">🕐 Afri+0 — --:--:--</div><script>setInterval(function(){{var d=new Date();var h=String(d.getHours()).padStart(2,'0');var m=String(d.getMinutes()).padStart(2,'0');var s=String(d.getSeconds()).padStart(2,'0');document.getElementById('afri-clock').textContent='🕐 Afri+0 — '+h+':'+m+':'+s;}},1000);</script><div class="nav"><a href="/register">🆕 S'inscrire</a> | <a href="/login">🔑 Connexion</a> | <a href="/wallet">👛 Wallet</a> | <a href="/admin">🔐 Admin</a> | <a href="/mesh">📡 Mesh</a> | <a href="/annuaire">📖 Annuaire</a> | <a href="/bouclier">🛡️ Bouclier</a> | <a href="/satellite">🛸 X999</a> | <a href="/swarm">🛸🛸🛸 Essaim</a> | <a href="/commandement">🎖️ Commandement</a> | <a href="/interception">🛡️ Souverainete</a> | <a href="/securite-ai">🧠 AI 2100</a> | <a href="/chat">🧠💬 Chat AI</a> | <a href="/lumiere">🌫️☀️ Lumière</a> | <a href="/garage">🔧 Garage</a> | <a href="/machine">🤖🌐 Machines</a> | <a href="/machine-lab">🤖⚡ Usine</a> | <a href="/machine-world">🤖🌍 Monde</a> | <a href="/reve">💭 Rêves</a> | <a href="/dictionnaire">📖 Dictionnaire</a> | <a href="/machine-os">🖥️ OS Machine</a> | <a href="/machine-tv">📡 Machine TV</a> | <a href="/machine-economy">🤖 Économie</a> | <a href="/soleil">☀️ Soleil Serveur</a> | <a href="/forge-solaire">🧬 Forge Solaire</a> | <a href="/ciel">🌌 Le Ciel</a> | <a href="/charte-ai">⚖️ Charte AI</a> | <a href="/afri-net">🌍 Afri-Net</a> | <a href="/studio">🎬 AI Studio</a> | <a href="/sacre">📿 Sacré</a> | <a href="/lettres">🌟 Lettres IA</a> | <a href="/mg-forge">⚔️ MG Forge</a> | <a href="/ai-medecin">🌿 AI Médecin</a> | <a href="/ai-enseignante">📚 AI Enseignante</a> | <a href="/ai-village">🏘️ AI Village</a> | <a href="/ai-guerisseur">🩺 AI Guérisseur</a> | <a href="/ai-leader">🎖️ AI Leader</a> | <a href="/ai-griot">📖 AI Griot</a> | <a href="/ai-juge">⚖️ AI Juge</a> | <a href="/ai-artiste">🎨 AI Artiste</a> | <a href="/ai-explorateur">🔬 AI Explorateur</a> | <a href="/ai-marche">💰 AI Marche</a> | <a href="/ai-diplomate">🌍 AI Diplomate</a> | <a href="/ai-philosophe">🧠 AI Philosophe</a> | <a href="/secret">🦁 AI Secret</a> | <a href="/aes">💰 AES Wari</a> | <a href="/api/status">🔌 API</a></div><div style="text-align:center;"><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Blocs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Transactions</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Utilisateurs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">AFR en circulation</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📡 Noeuds mesh</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📖 Numéros annuaire</div></div><div class="stat-box" style="border-color:#ff4444;"><div class="stat-num" style="color:#ff4444;">{}</div><div class="stat-label">🛡️ Attaques bloquées</div></div></div><div class="card"><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🪙 Token</span><b>AfriRich (AFR)</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🌍 Pays</span><b>54 pays africains</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🛡️ Bouclier</span><b>{}</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;"><span style="color:#a8c5a8;">🔐 Crypto</span><b>100% Souverain — Zéro Dépendance Externe</b></div></div><footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🦁 Codée from scratch par Machine-senpai — v0.91 AI Philosophe Sagesse et Philosophie Africaine — UTC est Mort</footer>"#,
         chain.blocks.len(),
         chain.total_transactions(),
         users.count(),
@@ -9637,6 +9637,334 @@ drawDiplomatie();
     html
 }
 
+fn html_ai_philosophe(chain: &Blockchain) -> String {
+    let mut html = html_head("AI Philosophe — Sagesse Africaine");
+    let num_blocks = chain.blocks.len();
+
+    html.push_str(r#"<h1>🧠 AI Philosophe — Sagesse & Philosophie Africaine</h1><p style="text-align:center;color:#bb88ff;">L Afrique est le berceau de la pensee humaine. Avant Socrate, il y avait Maat. Avant Descartes, il y avait Ubuntu. Cette AI enseigne a la jeunesse a penser par elle-meme, avec ses propres traditions. La philosophie n est pas un luxe importe — c est un heritage africain.</p><div class="nav"><a href="/">← Accueil</a> | <a href="/ai-diplomate">🌍 AI Diplomate</a> | <a href="/ai-marche">💰 AI Marche</a> | <a href="/ai-explorateur">🔬 AI Explorateur</a> | <a href="/ai-artiste">🎨 AI Artiste</a> | <a href="/ai-juge">⚖️ AI Juge</a> | <a href="/ai-griot">📖 AI Griot</a> | <a href="/ai-village">🏘️ AI Village</a></div>"#);
+
+    html.push_str(&format!(r#"<div style="text-align:center;"><div class="stat-box" style="border-color:#bb88ff;"><div class="stat-num" style="color:#bb88ff;">8</div><div class="stat-label">🧠 Modules</div></div><div class="stat-box" style="border-color:#d4a437;"><div class="stat-num" style="color:#d4a437;">∞</div><div class="stat-label">💭 Sagesse</div></div><div class="stat-box" style="border-color:#7fcf7f;"><div class="stat-num" style="color:#7fcf7f;">Maat</div><div class="stat-label">⚖️ Ancetre</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">⛓️ Blocs</div></div><div class="stat-box" style="border-color:#bb88ff;"><div class="stat-num" style="color:#bb88ff;">Ubuntu</div><div class="stat-label">🤝 Philosophie</div></div></div>"#, num_blocks));
+
+    html.push_str(r##"<div style="text-align:center;margin:10px 0;"><button id="phi-pause-btn" onclick="togglePhiPause()" style="padding:10px 25px;background:#ff4444;color:#fff;border:none;border-radius:8px;font-weight:bold;cursor:pointer;font-size:1em;">⏸️ PAUSE</button> <span id="phi-pause-status" style="color:#bb88ff;margin-left:8px;font-size:0.85em;">Auto: ACTIF</span></div>
+
+<!-- PHILOSOPHIE CANVAS -->
+<div class="card" style="border-color:#bb88ff;"><h2 style="color:#bb88ff;">🧠 L Esprit Africain</h2><p style="color:#bb88ff;font-size:0.9em;opacity:0.7;">La pensee africaine respire. Les idees dansent. La sagesse circule comme l air.</p>
+<canvas id="phi-canvas" width="600" height="350" style="width:100%;max-width:600px;background:#0a0515;border:2px solid #bb88ff;border-radius:8px;display:block;margin:0 auto;"></canvas>
+<div id="phi-status" style="text-align:center;margin-top:10px;padding:10px;background:rgba(187,136,255,0.05);border-radius:8px;color:#bb88ff;font-size:0.9em;min-height:40px;">La philosophie africaine commence. L esprit s eveille.</div></div>
+
+<!-- LES 8 MODULES -->
+<div class="card" style="border-color:#bb88ff;"><h2 style="color:#bb88ff;">🧠 Les 8 Modules Philosophiques</h2><p style="color:#bb88ff;font-size:0.9em;opacity:0.7;">Clique sur un module pour apprendre la philosophie africaine.</p>
+<div id="phi-modules" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:10px;margin-top:10px;"></div></div>
+
+<!-- DETAIL MODULE -->
+<div class="card"><h2 id="phi-detail-title" style="color:#bb88ff;">🧠 La Pensee du Sage</h2><div id="phi-detail" style="margin-top:10px;padding:15px;background:rgba(187,136,255,0.05);border-radius:8px;min-height:60px;color:#bb88ff;font-size:0.9em;">Selectionne un module pour apprendre la philosophie africaine.</div></div>
+
+<!-- PROVERBES PHILOSOPHIQUES -->
+<div class="card" style="border-color:#d4a437;"><h2 style="color:#d4a437;">📜 Sagesse Philosophique Africaine</h2><div id="phi-proverbe" style="margin-top:10px;padding:20px;background:rgba(212,164,55,0.05);border-radius:8px;text-align:center;min-height:60px;color:#d4a437;font-size:0.95em;font-style:italic;">...</div></div>
+
+<!-- DIPLOME -->
+<div class="card" style="border-color:#bb88ff;"><h2 style="color:#bb88ff;">🎓 Diplome Philosophe de l Afrique</h2><div id="phi-progress" style="margin:10px 0;"><div style="display:flex;justify-content:space-between;"><span style="color:#bb88ff;font-weight:bold;">Modules valides: <span id="phi-count">0</span>/8</span><span style="color:#bb88ff;" id="phi-pct">0%</span></div><div style="margin-top:8px;height:12px;background:rgba(0,0,0,0.5);border-radius:6px;overflow:hidden;"><div id="phi-bar" style="height:100%;width:0%;background:linear-gradient(90deg,#bb88ff,#d4a437);transition:width 0.5s;"></div></div></div>
+<div id="phi-diplome" style="text-align:center;display:none;margin-top:15px;"><div style="display:inline-block;padding:25px 50px;border:3px solid #bb88ff;border-radius:15px;background:rgba(187,136,255,0.05);"><div style="font-size:2.5em;">🧠🎓</div><div style="color:#bb88ff;font-weight:bold;font-size:1.3em;margin-top:5px;">DIPLOME PHILOSOPHE DE L AFRIQUE</div><div style="color:#bb88ff;margin-top:5px;opacity:0.7;">Sagesse & Philosophie Africaine</div><div style="color:#bb88ff;margin-top:5px;font-size:0.85em;">Les 8 modules valides. L esprit est libre.</div><div style="color:#d4a437;margin-top:5px;font-size:0.85em;">Grave dans la blockchain AfriChain</div><button onclick="gravPhiDiplome()" style="margin-top:10px;padding:8px 20px;background:#bb88ff;color:#000;border:none;border-radius:8px;font-weight:bold;cursor:pointer;">⛓️ Graver dans la Blockchain</button></div></div></div></div>
+
+<!-- TRACE BLOCKCHAIN -->
+<div class="card"><h2 style="color:#d4a437;">⛓️ Trace Philosophique dans la Blockchain</h2><div id="phi-trace" style="font-family:monospace;font-size:0.85em;max-height:200px;overflow-y:auto;"></div></div>
+
+<script>
+let phiPaused = false;
+let phiIntervalIds = [];
+function togglePhiPause(){
+    phiPaused = !phiPaused;
+    var btn = document.getElementById('phi-pause-btn');
+    var status = document.getElementById('phi-pause-status');
+    if(phiPaused){
+        phiIntervalIds.forEach(function(id){ clearInterval(id); });
+        phiIntervalIds = [];
+        btn.textContent = '▶️ REPRENDRE';
+        btn.style.background = '#bb88ff';
+        btn.style.color = '#000';
+        status.textContent = 'Auto: PAUSE';
+        status.style.color = '#ff4444';
+    } else {
+        btn.textContent = '⏸️ PAUSE';
+        btn.style.background = '#ff4444';
+        btn.style.color = '#fff';
+        status.textContent = 'Auto: ACTIF';
+        status.style.color = '#bb88ff';
+    }
+}
+
+// Les 8 Modules
+const phiModules = [
+    {id:0, nom:'Maat — La Philosophie de l Egypte Antique', emoji:'⚖️', couleur:'#d4a437', duree:'6 semaines', niveau:'Fondation',
+     desc:'Avant Socrate, avant Platon, avant Bouddha, il y avait Maat. La deesse Maat representait la verite, la justice, l harmonie, l equilibre cosmique. Le pharaon devait vivre selon Maat. C est la plus ancienne philosophie ecrite de l humanite. L Afrique a invente la philosophie.',
+     cours:['Qu est-ce que Maat? — definition et principes', 'Les 42 declarations de Maat — la plus ancienne morale ecrite', 'Maat et la justice — le equilibre cosmique', 'Maat et la verite — ne pas mentir, ne pas tricher', 'Maat et l harmonie sociale — vivre ensemble', 'Maat vs la pensee grecque — qui a influence qui?', 'Les textes des pyramides — la pensee avant la mort', 'Maat aujourd hui — la sagesse ancienne dans le monde moderne'],
+     exercice:'Ecris ta propre declaration de Maat. Quels principes guident ta vie? 10 commandements personnels.',
+     diplome:'Licence en Philosophie Maat'},
+    {id:1, nom:'Ubuntu — Je suis parce que nous sommes', emoji:'🤝', couleur:'#7fcf7f', duree:'4 semaines', niveau:'Fondation',
+     desc:'Ubuntu est la philosophie qui dit: je suis parce que nous sommes. L individu n existe pas seul. La personne se construit par les autres. Cette pensee est le contraire du individualisme occidental. Ubuntu est la base de la reconciliation en Afrique du Sud apres l apartheid.',
+     cours:['Qu est-ce que Ubuntu? — definition et origines', 'Ubuntu en Afrique du Sud — Mandela et Tutu', 'Ubuntu et la reconciliation — la justice repara trice', 'Ubuntu vs individualisme — deux visions du monde', 'Ubuntu et la communaute — la personne est relation', 'Ubuntu et la politique — la democratie consensuelle', 'Ubuntu et l economie — le partage avant le profit', 'Ubuntu dans le monde — une philosophie universelle'],
+     exercice:'Explique Ubuntu a un ami occidental. Comment cette philosophie change-t-elle la facon de vivre ensemble?',
+     diplome:'Certificat en Philosophie Ubuntu'},
+    {id:2, nom:'Sankofa — Retourner pour avancer', emoji:'🕊️', couleur:'#ff44ff', duree:'4 semaines', niveau:'Fondation',
+     desc:'Sankofa est le symbole akan (Ghana) qui represente un oiseau qui regarde en arriere tout en avancant. Sa signification: il faut connaitre son passe pour construire son futur. On ne peut pas avancer sans comprendre d ou on vient. Sankofa est la philosophie de la memoire constructive.',
+     cours:['Qu est-ce que Sankofa? — le symbole akan', 'Le passe comme ressource, pas comme prison', 'Sankofa et l education — apprendre les langues africaines', 'Sankofa et l histoire — connaitre ses ancetres', 'Sankofa et la culture — pre server tout en innovant', 'Sankofa et la technologie — l ancetre et le futur', 'Sankofa dans la diaspora — retrouver ses racines', 'Sankofa et AfriChain — la blockchain qui se souvient'],
+     exercice:'Quelle tradition de ton village peux-tu moderniser? Ecris comment le passe peut aider le futur.',
+     diplome:'Certificat en Philosophie Sankofa'},
+    {id:3, nom:'Negritude & Pensee Diasporique', emoji:'✊🏿', couleur:'#ff6644', duree:'5 semaines', niveau:'Approfondi',
+     desc:'La Negritude est un mouvement philosophique et litteraire fonde par Leopold Sedar Senghor (Senegal), Aime Cesaire (Martinique) et Leon-Gontran Damas (Guyane). Ils ont dit: la culture noire est une civilisation, pas une inferiorite. La Negritude a reclame la fierte d etre noir dans un monde qui disait le contraire.',
+     cours:['La Negritude — Senghor, Cesaire, Damas', 'Leopold Sedar Senghor — la civilisation de l universel', 'Aime Cesaire — le retour au pays natal', 'Frantz Fanon — les damnes de la terre', 'Cheikh Anta Diop — l Afrique mere de la civilisation', 'W.E.B. Du Bois — la double conscience', 'Edward Said — l orientalisme et l Afrique', 'La pensee diasporique — l Afrique globale'],
+     exercice:'Ecris ce que signifie pour toi etre Africain. Quelle fierte? Quelle responsabilite?',
+     diplome:'Licence en Negritude et Pensee Diasporique'},
+    {id:4, nom:'Philosophie de la Liberation Africaine', emoji:'🔥', couleur:'#ff4444', duree:'5 semaines', niveau:'Approfondi',
+     desc:'La liberation de l Afrique n est pas seulement politique — elle est philosophique. Kwame Nkrumah, Patrice Lumumba, Thomas Sankara, Amilcar Cabral, Steve Biko ont pense la liberation. Ils n ont pas seulement combattu le colonialisme — ils ont pense une nouvelle Afrique libre.',
+     cours:['Nkrumah — le panafricanisme philosophique', 'Lumumba — la dignite comme philosophie', 'Sankara — l integrite comme revolution', 'Cabral — la liberation nationale et la culture', 'Steve Biko — la conscience noire', 'La philosophie de la decolonisation', 'La liberation economique comme philosophie', 'Penser la liberation au 21e siecle'],
+     exercice:'Tu es un philosophe de la liberation. Ecris le manifeste de la jeunesse africaine pour 2100.',
+     diplome:'Licence en Philosophie de la Liberation'},
+    {id:5, nom:'Metaphysique Africaine — Le Visible et l Invisible', emoji:'👁️', couleur:'#bb88ff', duree:'6 semaines', niveau:'Avance',
+     desc:'La metaphysique africaine ne separe pas le visible et l invisible. Les ancetres sont presents. Les esprits existent. Le monde n est pas seulement materiel — il est spirituel et materiel ensemble. Cette pensee n est pas primitive — c est une autre facon de comprendre la realite.',
+     cours:['Le monde double — visible et invisible', 'Les ancetres — la vie apres la vie', 'Les forces vitales — l energie de chaque etre', 'La causalite africaine — pourquoi les choses arrivent', 'Le destin et le libre arbitre — NIP et la fatalite', 'Le sacré dans le quotidien — tout est connecte', 'La meta physique et la science moderne — compatibilites', 'Penser l invisible sans superstition'],
+     exercice:'Decris ta propre metaphysique. Qu est-ce qui est reel pour toi? Le visible seul ou plus?',
+     diplome:'Master en Metaphysique Africaine'},
+    {id:6, nom:'Ethique Communautaire Africaine', emoji:'🌍', couleur:'#44aaff', duree:'4 semaines', niveau:'Base',
+     desc:'L ethique africaine n est pas individualiste — elle est communautaire. Le bien n est pas ce qui est bon pour moi seul, mais ce qui est bon pour la communaute. Le mal n est pas ce qui me nuit, mais ce qui nuit au groupe. Cette ethique guide les decisions: toujours penser au collectif.',
+     cours:['L ethique communautaire vs l ethique individualiste', 'Le bien communautaire — le bien du groupe avant le mien', 'La responsabilite collective — je suis responsable des autres', 'Le palaver — la resolution consensuelle des conflits', 'Le respect des anciens — la sagesse de l experience', 'Le partage comme devoir — la richesse est collective', 'L hospitalite africaine — l etranger est un invité', 'L ethique communautaire et la modernite — tensions et syntheses'],
+     exercice:'Un conflit eclate dans ton village. Comment le resoudre avec l ethique communautaire africaine?',
+     diplome:'Certificat en Ethique Communautaire Africaine'},
+    {id:7, nom:'Penser l Avenir — Philosophie de la Renaissance Africaine', emoji:'🌟', couleur:'#ffaa44', duree:'6 semaines', niveau:'Avance',
+     desc:'La renaissance africaine n est pas un slogan — c est un projet philosophique. Quelle Afrique voulons-nous pour 2100? Quelle pensee nouvelle? Quelle sagesse moderne? Le jeune Africain doit oser penser l avenir — pas copier l Occident, pas rejeter le passe, mais creer quelque chose de nouveau.',
+     cours:['Qu est-ce que la renaissance africaine?', 'Penser par soi-meme — decoloniser l esprit', 'La synthese — ancetre + modernite + futur', 'L Afrique comme productrice de theorie, pas consommatrice', 'La philosophie de la souverainete — penser libre', 'La technologie comme philosophie — AfriChain comme pensee', 'L education philosophique — apprendre a douter', 'L Afrique de 2100 — un projet philosophique'],
+     exercice:'Ecris le manifeste philosophique de l Afrique de 2100. Quelle pensee nouvelle le continent doit-il produire?',
+     diplome:'Master en Philosophie de la Renaissance Africaine'},
+];
+
+// Proverbes philosophiques
+const phiProverbes = [
+    'Je suis parce que nous sommes (Ubuntu)',
+    'Si tu ne sais pas ou tu vas, regarde d ou tu viens (Sankofa)',
+    'La verite est une — les chemins sont multiples (Proverbe Africain)',
+    'L arbre qui refuse de se courber ne survivra pas au vent (Proverbe Yoruba)',
+    'La parole n a pas tue personne, mais elle peut sauver (Proverbe Mandingue)',
+    'Le silence est aussi une parole (Proverbe Africain)',
+    'On ne connait pas le matin si on n a pas veille (Proverbe Bambara)',
+    'L homme est l homme a cause des autres (Proverbe Xhosa)',
+    'La terre ne se vante pas de sa beaute (Proverbe Africain)',
+    'Un seul bras n embrasse pas un baobab (Proverbe Africain)',
+    'La sagesse ne s achete pas au marche (Proverbe Africain)',
+    'L eau qui dort est plus dangereuse que l eau qui court (Proverbe Africain)',
+];
+
+// Modules grid
+let phiCompleted = new Set();
+try { phiCompleted = new Set(JSON.parse(localStorage.getItem('phiModulesDone') || '[]')); } catch(e) {}
+
+const pgrid = document.getElementById('phi-modules');
+phiModules.forEach(function(m, i){
+    var div = document.createElement('div');
+    div.id = 'phi-m-' + i;
+    var done = phiCompleted.has(i);
+    div.style.cssText = 'padding:12px;background:rgba(0,0,0,0.3);border:2px solid ' + (done ? m.couleur : '#444') + ';border-radius:8px;cursor:pointer;transition:all 0.3s;';
+    div.onclick = function(){ showPhiModule(i); };
+    div.onmouseover = function(){ div.style.transform = 'scale(1.03)'; };
+    div.onmouseout = function(){ div.style.transform = 'scale(1)'; };
+    div.innerHTML = '<div style="font-size:1.5em;">' + m.emoji + '</div><div style="color:' + m.couleur + ';font-weight:bold;font-size:0.9em;">' + m.nom + '</div><div style="margin-top:3px;font-size:0.75em;color:#888;">' + m.duree + ' • ' + m.niveau + '</div><div style="margin-top:5px;font-size:0.8em;color:' + (done ? m.couleur : '#666') + ';">' + (done ? '✅ Validé' : '📖 A apprendre') + '</div>';
+    pgrid.appendChild(div);
+});
+
+function updatePhiProgress(){
+    var done = phiCompleted.size;
+    var total = phiModules.length;
+    var pct = Math.round((done / total) * 100);
+    document.getElementById('phi-count').textContent = done;
+    document.getElementById('phi-pct').textContent = pct + '%';
+    document.getElementById('phi-bar').style.width = pct + '%';
+    document.getElementById('phi-diplome').style.display = (done === total) ? 'block' : 'none';
+}
+
+function showPhiModule(i){
+    var m = phiModules[i];
+    document.getElementById('phi-detail-title').textContent = m.emoji + ' ' + m.nom;
+    document.getElementById('phi-detail-title').style.color = m.couleur;
+    var html = '<div style="color:' + m.couleur + ';font-weight:bold;font-size:1.1em;">' + m.emoji + ' ' + m.nom + '</div>';
+    html += '<div style="margin-top:5px;font-size:0.8em;color:#888;">⏱️ ' + m.duree + ' • 📊 ' + m.niveau + '</div>';
+    html += '<div style="margin-top:10px;padding:15px;background:rgba(187,136,255,0.05);border-left:3px solid ' + m.couleur + ';border-radius:4px;color:#bb88ff;font-size:0.9em;line-height:1.6;">' + m.desc + '</div>';
+    html += '<div style="margin-top:10px;"><b style="color:#bb88ff;">📚 Cours (' + m.cours.length + ' lecons):</b></div>';
+    m.cours.forEach(function(c, ci){
+        html += '<div style="padding:6px 10px;margin:3px 0;background:rgba(187,136,255,0.05);border-left:3px solid #bb88ff;border-radius:4px;color:#bb88ff;font-size:0.85em;">' + (ci+1) + '. ' + c + '</div>';
+    });
+    html += '<div style="margin-top:10px;padding:10px;background:rgba(255,170,68,0.05);border-radius:4px;"><b style="color:#ffaa44;">📝 Exercice:</b> <span style="color:#bb88ff;font-size:0.85em;">' + m.exercice + '</span></div>';
+    html += '<div style="margin-top:10px;padding:8px;background:rgba(212,164,55,0.05);border-radius:4px;color:#d4a437;font-size:0.85em;">🎓 Diplome: ' + m.diplome + '</div>';
+    html += '<div style="margin-top:10px;text-align:center;"><button onclick="validatePhiModule(' + i + ')" style="padding:8px 20px;background:' + m.couleur + ';color:#000;border:none;border-radius:8px;font-weight:bold;cursor:pointer;">✅ J ai validé ce module</button></div>';
+    document.getElementById('phi-detail').innerHTML = html;
+    addPhiTrace('📖 Module ouvert: ' + m.emoji + ' ' + m.nom);
+}
+
+function validatePhiModule(i){
+    if(phiCompleted.has(i)) return;
+    phiCompleted.add(i);
+    localStorage.setItem('phiModulesDone', JSON.stringify(Array.from(phiCompleted)));
+    var m = phiModules[i];
+    addPhiTrace('✅ Module validé: ' + m.nom);
+    addPhiTrace('🎓 Diplome: ' + m.diplome);
+    addPhiTrace('⛓️ Trace blockchain: philosophie "' + m.nom + '" apprise');
+    updatePhiProgress();
+    updatePhiGrid();
+    document.getElementById('phi-status').innerHTML = '<span style="color:#bb88ff;">✅ Tu as validé: ' + m.nom + '. L esprit s ouvre.</span>';
+}
+
+function updatePhiGrid(){
+    phiModules.forEach(function(m, i){
+        var div = document.getElementById('phi-m-' + i);
+        if(!div) return;
+        var done = phiCompleted.has(i);
+        div.style.borderColor = done ? m.couleur : '#444';
+        div.innerHTML = '<div style="font-size:1.5em;">' + m.emoji + '</div><div style="color:' + m.couleur + ';font-weight:bold;font-size:0.9em;">' + m.nom + '</div><div style="margin-top:3px;font-size:0.75em;color:#888;">' + m.duree + ' • ' + m.niveau + '</div><div style="margin-top:5px;font-size:0.8em;color:' + (done ? m.couleur : '#666') + ';">' + (done ? '✅ Validé' : '📖 A apprendre') + '</div>';
+    });
+}
+
+function gravPhiDiplome(){
+    addPhiTrace('🎓 DIPLOME PHILOSOPHE DE L AFRIQUE grave dans la blockchain!');
+    addPhiTrace('⛓️ Block: AI Philosophe -- 8 modules validés');
+    addPhiTrace('🧠 L esprit est libre. La pensee est africaine.');
+    alert('🧠🎓 DIPLOME PHILOSOPHE DE L AFRIQUE\n\nSagesse & Philosophie Africaine\n\nLes 8 modules validés.\nL esprit est libre.\n\nGrave dans la blockchain AfriChain\n\nL Afrique a invente la philosophie. L Afrique la continue. 💚🧠🦁');
+}
+
+// Canvas — mind with thoughts orbiting
+var pcan = document.getElementById('phi-canvas');
+var pctx = pcan.getContext('2d');
+var phiTime = 0;
+
+function drawPhilosophie(){
+    if(phiPaused) { requestAnimationFrame(drawPhilosophie); return; }
+    phiTime += 0.008;
+
+    // Background — deep purple (philosophy)
+    var grad = dctx.createRadialGradient(300, 175, 50, 300, 175, 300);
+    var grad = pctx.createRadialGradient(300, 175, 30, 300, 175, 300);
+    grad.addColorStop(0, '#150a25');
+    grad.addColorStop(0.5, '#0a0515');
+    grad.addColorStop(1, '#000005');
+    pctx.fillStyle = grad;
+    pctx.fillRect(0, 0, 600, 350);
+
+    // Central brain/mind (pulsing circle)
+    var mindX = 300, mindY = 175;
+    var mindR = 40 + Math.sin(phiTime * 2) * 3;
+    pctx.fillStyle = 'rgba(187,136,255,0.08)';
+    pctx.beginPath();
+    pctx.arc(mindX, mindY, mindR, 0, Math.PI * 2);
+    pctx.fill();
+    pctx.strokeStyle = 'rgba(187,136,255,0.3)';
+    pctx.lineWidth = 1.5;
+    pctx.stroke();
+
+    // Inner mind patterns (neural network)
+    for(var n = 0; n < 8; n++){
+        var nang = phiTime * 0.5 + n * (Math.PI / 4);
+        var nx = mindX + Math.cos(nang) * 20;
+        var ny = mindY + Math.sin(nang) * 20;
+        pctx.fillStyle = 'rgba(187,136,255,' + (0.2 + Math.sin(phiTime * 3 + n) * 0.1) + ')';
+        pctx.beginPath();
+        pctx.arc(nx, ny, 3, 0, Math.PI * 2);
+        pctx.fill();
+        pctx.strokeStyle = 'rgba(187,136,255,0.1)';
+        pctx.beginPath();
+        pctx.moveTo(mindX, mindY);
+        pctx.lineTo(nx, ny);
+        pctx.stroke();
+    }
+
+    // Orbiting thoughts (philosophical concepts)
+    var concepts = ['Maat', 'Ubuntu', 'Sankofa', 'Verite', 'Sagesse', 'Liberte', 'Harmonie', 'Esprit'];
+    for(var t = 0; t < concepts.length; t++){
+        var tang = phiTime * 0.3 + t * (Math.PI * 2 / concepts.length);
+        var tr = 100 + Math.sin(phiTime + t) * 10;
+        var tx = mindX + Math.cos(tang) * tr;
+        var ty = mindY + Math.sin(tang) * tr * 0.7;
+        // Orbit path
+        pctx.strokeStyle = 'rgba(187,136,255,0.05)';
+        pctx.lineWidth = 0.5;
+        pctx.beginPath();
+        pctx.ellipse(mindX, mindY, tr, tr * 0.7, 0, 0, Math.PI * 2);
+        pctx.stroke();
+        // Thought node
+        pctx.fillStyle = 'rgba(187,136,255,' + (0.3 + Math.sin(phiTime * 2 + t) * 0.1) + ')';
+        pctx.beginPath();
+        pctx.arc(tx, ty, 4, 0, Math.PI * 2);
+        pctx.fill();
+        // Thought label
+        pctx.fillStyle = 'rgba(187,136,255,0.4)';
+        pctx.font = '8px monospace';
+        pctx.textAlign = 'center';
+        pctx.fillText(concepts[t], tx, ty - 8);
+    }
+
+    // Wisdom particles rising
+    for(var p = 0; p < 20; p++){
+        var px = (p * 30 + phiTime * 20) % 600;
+        var py = 350 - ((p * 17 + phiTime * 40) % 350);
+        pctx.fillStyle = 'rgba(212,164,55,' + (0.05 + Math.sin(phiTime + p) * 0.03) + ')';
+        pctx.beginPath();
+        pctx.arc(px, py, 1.5, 0, Math.PI * 2);
+        pctx.fill();
+    }
+
+    // Center text
+    var done = phiCompleted.size;
+    pctx.fillStyle = 'rgba(187,136,255,0.4)';
+    pctx.font = 'bold 11px monospace';
+    pctx.textAlign = 'center';
+    pctx.fillText('L ESPRIT AFRICAIN', 300, 20);
+    pctx.fillStyle = 'rgba(187,136,255,0.3)';
+    pctx.font = '10px monospace';
+    pctx.fillText(done + '/8 modules validés', 300, 38);
+
+    if(done === 8){
+        pctx.fillStyle = 'rgba(187,136,255,' + (0.3 + Math.sin(phiTime * 3) * 0.1) + ')';
+        pctx.font = 'bold 12px monospace';
+        pctx.fillText('L ESPRIT EST LIBRE — LA PENSEE EST AFRICAINE', 300, 340);
+    }
+
+    requestAnimationFrame(drawPhilosophie);
+}
+
+// Proverbes rotation
+var phiProvIdx = 0;
+function rotatePhiProverbe(){
+    document.getElementById('phi-proverbe').textContent = phiProverbes[phiProvIdx];
+    phiProvIdx = (phiProvIdx + 1) % phiProverbes.length;
+}
+rotatePhiProverbe();
+var phiProvInt = setInterval(rotatePhiProverbe, 5000);
+phiIntervalIds.push(phiProvInt);
+
+// Trace
+function addPhiTrace(msg){
+    var log = document.getElementById('phi-trace');
+    var now = new Date();
+    var ts = String(now.getHours()).padStart(2,'0') + ':' + String(now.getMinutes()).padStart(2,'0') + ':' + String(now.getSeconds()).padStart(2,'0');
+    log.innerHTML = '<div style="padding:4px 0;border-bottom:1px solid rgba(187,136,255,0.05);"><span style="color:#666;">[' + ts + ']</span> <span style="color:#bb88ff;">🧠</span> ' + msg + '</div>' + log.innerHTML;
+    if(log.innerHTML.length > 3000) log.innerHTML = log.innerHTML.substring(0, 3000);
+}
+
+addPhiTrace('🧠 AI Philosophe initialise — Sagesse & Philosophie Africaine');
+addPhiTrace('📚 8 modules charges: Maat, Ubuntu, Sankofa, Negritude, Liberation, Metaphysique, Ethique, Renaissance');
+addPhiTrace('📜 12 proverbes philosophiques africains charges');
+addPhiTrace('⚖️ Maat: la plus ancienne philosophie ecrite de l humanite');
+addPhiTrace('🤝 Ubuntu: je suis parce que nous sommes');
+addPhiTrace('🕊️ Sankofa: retourner pour avancer');
+addPhiTrace('🎓 Diplome: 8 modules -> Philosophe de l Afrique');
+addPhiTrace('🧠 L Afrique a invente la philosophie. L Afrique la continue.');
+
+updatePhiProgress();
+drawPhilosophie();
+</script>
+
+<footer style="text-align:center;margin-top:40px;color:#bb88ff;">🧠 AI Philosophe — L Afrique a invente la philosophie. L Afrique la continue. La pensee n est pas importee, elle est africaine. 💚🧠🦁</footer>"##);
+
+    html.push_str("</body></html>");
+    html
+}
+
 fn html_garage(chain: &Blockchain) -> String {
     let mut html = html_head("Garage AI — Atelier Autonome 2500");
     let num_blocks = chain.blocks.len();
@@ -14747,7 +15075,7 @@ html+='<div class="log-entry log-kill">⚠️ Tentative d\x27infiltration occide
 html+='<div class="log-entry log-invis">✅ L\x27Afrique est forte. Le système grandit.</div>';
 }else if(type==='total'){
 html='<div style="color:#d4a437;font-weight:bold;margin-bottom:8px">📋 RAPPORT TOTAL — Depuis le début</div>';
-html+='<div class="log-entry">🦁 AfriChain v0.90 — AI Diplomate Panafricaine</div>';
+html+='<div class="log-entry">🦁 AfriChain v0.91 — AI Philosophe Sagesse Africaine</div>';
 html+='<div class="log-entry">⛓️ Blockchain: 100% souveraine — Zéro dépendance externe</div>';
 html+='<div class="log-entry">🔐 Crypto: Ed25519 + AfriHash-256/512 + AfriRNG — tout from scratch</div>';
 html+='<div class="log-entry">🌍 54 pays africains connectés</div>';
@@ -16291,7 +16619,7 @@ fn main() {
         .and_then(|i| args.get(i + 1)).cloned().unwrap_or_else(|| "Afrique".to_string());
 
     let my_node_id = generate_node_id();
-    println!("🦁 AfriChain v0.90 — AI Diplomate Panafricaine");
+    println!("🦁 AfriChain v0.91 — AI Philosophe Sagesse Africaine");
     println!("💚 L'Afrique ne demande plus la permission");
     println!("🌍 54 pays — 🇲🇱 🇳🇪 🇧🇫 AES — Mali · Niger · Burkina Faso");
     println!("🔐 8 modules cryptographiques — construits from scratch");
@@ -16449,6 +16777,7 @@ fn main() {
     println!("🔬 AI Explorateur sur http://localhost:8080/ai-explorateur");
     println!("💰 AI Marche sur http://localhost:8080/ai-marche");
     println!("🌍 AI Diplomate sur http://localhost:8080/ai-diplomate");
+    println!("🧠 AI Philosophe sur http://localhost:8080/ai-philosophe");
 
     // Serveur HTTP en arrière-plan (pour mesh + autres utilisateurs)
     let serve_state = web_state.clone();
@@ -16483,7 +16812,7 @@ fn terminal_interface(state: &Arc<AppState>) {
     println!("  ║  🕐 AfriTime — Pas UTC, pas Greenwich   ║");
     println!("  ║  📝 ~16,500 lignes — écrit à la main       ║");
     println!("  ╚═══════════════════════════════════════════════╝");
-    println!("\n  Version v0.90 — 30 août 2026");
+    println!("\n  Version v0.91 — 30 août 2026");
     println!("  Construit sur Termux · Android · nano\n");
     println!("  ─────────────────────────────────────────────");
     println!("\n  1. 🏦 Centre de Données (Admin)");
@@ -16555,7 +16884,7 @@ fn admin_interface(state: &Arc<AppState>) {
         println!("\n");
         println!("╔══════════════════════════════════════╗");
         println!("║  🏦 CENTRE DE DONNÉES — Admin       ║");
-        println!("║  🦁 AfriChain v0.90                  ║");
+        println!("║  🦁 AfriChain v0.91                  ║");
         println!("╠══════════════════════════════════════╣");
         let chain = state.chain.lock().unwrap();
         let users = state.users.lock().unwrap();
@@ -20144,6 +20473,11 @@ fn handle_request(req: afri_http::HttpRequest, state: &Arc<AppState>) -> afri_ht
         ("GET", "/ai-diplomate") => {
             let chain = state.chain.lock().unwrap();
             HttpResponse::ok(&html_ai_diplomate(&chain))
+        }
+
+        ("GET", "/ai-philosophe") => {
+            let chain = state.chain.lock().unwrap();
+            HttpResponse::ok(&html_ai_philosophe(&chain))
         }
 
         ("GET", "/garage") => {
