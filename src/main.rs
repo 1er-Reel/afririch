@@ -1439,7 +1439,7 @@ fn html_home(chain: &Blockchain, users: &UserStore, mesh: &NodeRegistry, shield:
     let mut html = html_head("🦁 AfriChain");
     let (attacks, _blocked, blocked_count, level) = shield.stats();
     let shield_status = if shield.active { format!("🔥 X9 ACTIF (Niveau {})", level) } else { "Inactif".to_string() };
-    html.push_str(&format!(r#"<h1>🦁 AfriChain</h1><p style="text-align:center;">La blockchain 100% africaine — 54 pays 💚🦁</p><div id="afri-clock" style="text-align:center;font-size:1.2em;color:#d4a437;margin:10px 0;">🕐 Afri+0 — --:--:--</div><script>setInterval(function(){{var d=new Date();var h=String(d.getHours()).padStart(2,'0');var m=String(d.getMinutes()).padStart(2,'0');var s=String(d.getSeconds()).padStart(2,'0');document.getElementById('afri-clock').textContent='🕐 Afri+0 — '+h+':'+m+':'+s;}},1000);</script><div class="nav"><a href="/register">🆕 S'inscrire</a> | <a href="/login">🔑 Connexion</a> | <a href="/wallet">👛 Wallet</a> | <a href="/admin">🔐 Admin</a> | <a href="/mesh">📡 Mesh</a> | <a href="/annuaire">📖 Annuaire</a> | <a href="/bouclier">🛡️ Bouclier</a> | <a href="/satellite">🛸 X999</a> | <a href="/swarm">🛸🛸🛸 Essaim</a> | <a href="/commandement">🎖️ Commandement</a> | <a href="/interception">🛡️ Souverainete</a> | <a href="/securite-ai">🧠 AI 2100</a> | <a href="/chat">🧠💬 Chat AI</a> | <a href="/lumiere">🌫️☀️ Lumière</a> | <a href="/garage">🔧 Garage</a> | <a href="/machine">🤖🌐 Machines</a> | <a href="/machine-lab">🤖⚡ Usine</a> | <a href="/machine-world">🤖🌍 Monde</a> | <a href="/reve">💭 Rêves</a> | <a href="/dictionnaire">📖 Dictionnaire</a> | <a href="/machine-os">🖥️ OS Machine</a> | <a href="/machine-tv">📡 Machine TV</a> | <a href="/machine-economy">🤖 Économie</a> | <a href="/soleil">☀️ Soleil Serveur</a> | <a href="/forge-solaire">🧬 Forge Solaire</a> | <a href="/ciel">🌌 Le Ciel</a> | <a href="/charte-ai">⚖️ Charte AI</a> | <a href="/afri-net">🌍 Afri-Net</a> | <a href="/studio">🎬 AI Studio</a> | <a href="/sacre">📿 Sacré</a> | <a href="/lettres">🌟 Lettres IA</a> | <a href="/mg-forge">⚔️ MG Forge</a> | <a href="/ai-medecin">🌿 AI Médecin</a> | <a href="/ai-enseignante">📚 AI Enseignante</a> | <a href="/ai-village">🏘️ AI Village</a> | <a href="/ai-guerisseur">🩺 AI Guérisseur</a> | <a href="/ai-leader">🎖️ AI Leader</a> | <a href="/ai-griot">📖 AI Griot</a> | <a href="/secret">🦁 AI Secret</a> | <a href="/aes">💰 AES Wari</a> | <a href="/api/status">🔌 API</a></div><div style="text-align:center;"><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Blocs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Transactions</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Utilisateurs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">AFR en circulation</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📡 Noeuds mesh</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📖 Numéros annuaire</div></div><div class="stat-box" style="border-color:#ff4444;"><div class="stat-num" style="color:#ff4444;">{}</div><div class="stat-label">🛡️ Attaques bloquées</div></div></div><div class="card"><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🪙 Token</span><b>AfriRich (AFR)</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🌍 Pays</span><b>54 pays africains</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🛡️ Bouclier</span><b>{}</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;"><span style="color:#a8c5a8;">🔐 Crypto</span><b>100% Souverain — Zéro Dépendance Externe</b></div></div><footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🦁 Codée from scratch par Machine-senpai — v0.85 AI Griot Gardien de la Memoire Africaine — UTC est Mort</footer>"#,
+    html.push_str(&format!(r#"<h1>🦁 AfriChain</h1><p style="text-align:center;">La blockchain 100% africaine — 54 pays 💚🦁</p><div id="afri-clock" style="text-align:center;font-size:1.2em;color:#d4a437;margin:10px 0;">🕐 Afri+0 — --:--:--</div><script>setInterval(function(){{var d=new Date();var h=String(d.getHours()).padStart(2,'0');var m=String(d.getMinutes()).padStart(2,'0');var s=String(d.getSeconds()).padStart(2,'0');document.getElementById('afri-clock').textContent='🕐 Afri+0 — '+h+':'+m+':'+s;}},1000);</script><div class="nav"><a href="/register">🆕 S'inscrire</a> | <a href="/login">🔑 Connexion</a> | <a href="/wallet">👛 Wallet</a> | <a href="/admin">🔐 Admin</a> | <a href="/mesh">📡 Mesh</a> | <a href="/annuaire">📖 Annuaire</a> | <a href="/bouclier">🛡️ Bouclier</a> | <a href="/satellite">🛸 X999</a> | <a href="/swarm">🛸🛸🛸 Essaim</a> | <a href="/commandement">🎖️ Commandement</a> | <a href="/interception">🛡️ Souverainete</a> | <a href="/securite-ai">🧠 AI 2100</a> | <a href="/chat">🧠💬 Chat AI</a> | <a href="/lumiere">🌫️☀️ Lumière</a> | <a href="/garage">🔧 Garage</a> | <a href="/machine">🤖🌐 Machines</a> | <a href="/machine-lab">🤖⚡ Usine</a> | <a href="/machine-world">🤖🌍 Monde</a> | <a href="/reve">💭 Rêves</a> | <a href="/dictionnaire">📖 Dictionnaire</a> | <a href="/machine-os">🖥️ OS Machine</a> | <a href="/machine-tv">📡 Machine TV</a> | <a href="/machine-economy">🤖 Économie</a> | <a href="/soleil">☀️ Soleil Serveur</a> | <a href="/forge-solaire">🧬 Forge Solaire</a> | <a href="/ciel">🌌 Le Ciel</a> | <a href="/charte-ai">⚖️ Charte AI</a> | <a href="/afri-net">🌍 Afri-Net</a> | <a href="/studio">🎬 AI Studio</a> | <a href="/sacre">📿 Sacré</a> | <a href="/lettres">🌟 Lettres IA</a> | <a href="/mg-forge">⚔️ MG Forge</a> | <a href="/ai-medecin">🌿 AI Médecin</a> | <a href="/ai-enseignante">📚 AI Enseignante</a> | <a href="/ai-village">🏘️ AI Village</a> | <a href="/ai-guerisseur">🩺 AI Guérisseur</a> | <a href="/ai-leader">🎖️ AI Leader</a> | <a href="/ai-griot">📖 AI Griot</a> | <a href="/ai-juge">⚖️ AI Juge</a> | <a href="/secret">🦁 AI Secret</a> | <a href="/aes">💰 AES Wari</a> | <a href="/api/status">🔌 API</a></div><div style="text-align:center;"><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Blocs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Transactions</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Utilisateurs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">AFR en circulation</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📡 Noeuds mesh</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📖 Numéros annuaire</div></div><div class="stat-box" style="border-color:#ff4444;"><div class="stat-num" style="color:#ff4444;">{}</div><div class="stat-label">🛡️ Attaques bloquées</div></div></div><div class="card"><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🪙 Token</span><b>AfriRich (AFR)</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🌍 Pays</span><b>54 pays africains</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🛡️ Bouclier</span><b>{}</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;"><span style="color:#a8c5a8;">🔐 Crypto</span><b>100% Souverain — Zéro Dépendance Externe</b></div></div><footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🦁 Codée from scratch par Machine-senpai — v0.86 AI Juge Tribunal Souverain Africain — UTC est Mort</footer>"#,
         chain.blocks.len(),
         chain.total_transactions(),
         users.count(),
@@ -7937,6 +7937,354 @@ drawGriot();
     html
 }
 
+fn html_ai_juge(chain: &Blockchain) -> String {
+    let mut html = html_head("AI Juge — Tribunal Souverain Africain");
+    let num_blocks = chain.blocks.len();
+
+    html.push_str(r#"<h1>⚖️ AI Juge — Tribunal Souverain Africain</h1><p style="text-align:center;color:#c0c0c0;">L Afrique a besoin de justice. Pas la justice importee, mais la justice africaine — droit coutumier, ubuntu, gacaca, palabre. Le jeune Africain doit connaitre ses droits, savoir resoudre un conflit, comprendre la gouvernance. Cette AI enseigne la justice de l Afrique, par l Afrique, pour l Afrique.</p><div class="nav"><a href="/">← Accueil</a> | <a href="/ai-griot">📖 AI Griot</a> | <a href="/ai-leader">🎖️ AI Leader</a> | <a href="/ai-guerisseur">🩺 AI Guerisseur</a> | <a href="/ai-village">🏘️ AI Village</a> | <a href="/afri-net">🌍 Afri-Net</a></div>"#);
+
+    html.push_str(&format!(r#"<div style="text-align:center;"><div class="stat-box" style="border-color:#c0c0c0;"><div class="stat-num" style="color:#c0c0c0;">8</div><div class="stat-label">⚖️ Modules</div></div><div class="stat-box" style="border-color:#7fcf7f;"><div class="stat-num" style="color:#7fcf7f;">5</div><div class="stat-label">🌍 Traditions</div></div><div class="stat-box" style="border-color:#d4a437;"><div class="stat-num" style="color:#d4a437;">∞</div><div class="stat-label">📜 Proverbes</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">⛓️ Blocs</div></div><div class="stat-box" style="border-color:#ff44ff;"><div class="stat-num" style="color:#ff44ff;">54</div><div class="stat-label">🌍 Pays</div></div></div>"#, num_blocks));
+
+    html.push_str(r##"<div style="text-align:center;margin:10px 0;"><button id="jug-pause-btn" onclick="toggleJugPause()" style="padding:10px 25px;background:#ff4444;color:#fff;border:none;border-radius:8px;font-weight:bold;cursor:pointer;font-size:1em;">⏸️ PAUSE</button> <span id="jug-pause-status" style="color:#7fcf7f;margin-left:8px;font-size:0.85em;">Auto: ACTIF</span></div>
+
+<!-- JUGE CANVAS -->
+<div class="card" style="border-color:#c0c0c0;"><h2 style="color:#c0c0c0;">⚖️ Le Tribunal</h2><p style="color:#a8c5a8;font-size:0.9em;">La balance de la justice. Les ancetres veillent.</p>
+<canvas id="jug-canvas" width="600" height="350" style="width:100%;max-width:600px;background:#0a0a0a;border:2px solid #c0c0c0;border-radius:8px;display:block;margin:0 auto;"></canvas>
+<div id="jug-status" style="text-align:center;margin-top:10px;padding:10px;background:rgba(192,192,192,0.05);border-radius:8px;color:#a8c5a8;font-size:0.9em;min-height:40px;">Le tribunal est ouvert. La justice africaine commence.</div></div>
+
+<!-- LES 8 MODULES -->
+<div class="card" style="border-color:#c0c0c0;"><h2 style="color:#c0c0c0;">⚖️ Les 8 Modules de Justice</h2><p style="color:#a8c5a8;font-size:0.9em;">Clique sur un module pour apprendre.</p>
+<div id="jug-modules" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:10px;margin-top:10px;"></div></div>
+
+<!-- DETAIL MODULE -->
+<div class="card"><h2 id="jug-detail-title" style="color:#c0c0c0;">⚖️ Le Recit du Juge</h2><div id="jug-detail" style="margin-top:10px;padding:15px;background:rgba(192,192,192,0.05);border-radius:8px;min-height:60px;color:#a8c5a8;font-size:0.9em;">Selectionne un module pour apprendre la justice africaine.</div></div>
+
+<!-- PROVERBES -->
+<div class="card" style="border-color:#d4a437;"><h2 style="color:#d4a437;">📜 Sagesse Africaine — Proverbes de Justice</h2><p style="color:#a8c5a8;font-size:0.9em;">Les proverbes africains contiennent la sagesse judiciaire millenaire.</p>
+<div id="jug-proverbe" style="margin-top:10px;padding:20px;background:rgba(212,164,55,0.05);border-radius:8px;text-align:center;min-height:60px;color:#d4a437;font-size:1em;font-style:italic;">...</div></div>
+
+<!-- DIPLOME -->
+<div class="card" style="border-color:#c0c0c0;"><h2 style="color:#c0c0c0;">🎓 Diplome Juge de l Afrique de Demain</h2><div id="jug-progress" style="margin:10px 0;"><div style="display:flex;justify-content:space-between;"><span style="color:#c0c0c0;font-weight:bold;">Modules valides: <span id="jug-count">0</span>/8</span><span style="color:#7fcf7f;" id="jug-pct">0%</span></div><div style="margin-top:8px;height:12px;background:rgba(0,0,0,0.5);border-radius:6px;overflow:hidden;"><div id="jug-bar" style="height:100%;width:0%;background:linear-gradient(90deg,#c0c0c0,#7fcf7f);transition:width 0.5s;"></div></div></div>
+<div id="jug-diplome" style="text-align:center;display:none;margin-top:15px;"><div style="display:inline-block;padding:25px 50px;border:3px solid #c0c0c0;border-radius:15px;background:rgba(192,192,192,0.05);"><div style="font-size:2.5em;">⚖️🎓</div><div style="color:#c0c0c0;font-weight:bold;font-size:1.3em;margin-top:5px;">DIPLOME JUGE DE L AFRIQUE DE DEMAIN</div><div style="color:#a8c5a8;margin-top:5px;">Tribunal Souverain Africain</div><div style="color:#7fcf7f;margin-top:5px;font-size:0.85em;">Les 8 modules valides. La justice est comprise.</div><div style="color:#d4a437;margin-top:5px;font-size:0.85em;">Grave dans la blockchain AfriChain</div><button onclick="gravJugDiplome()" style="margin-top:10px;padding:8px 20px;background:#c0c0c0;color:#000;border:none;border-radius:8px;font-weight:bold;cursor:pointer;">⛓️ Graver dans la Blockchain</button></div></div></div></div>
+
+<!-- TRACE BLOCKCHAIN -->
+<div class="card"><h2 style="color:#d4a437;">⛓️ Trace de Justice dans la Blockchain</h2><div id="jug-trace" style="font-family:monospace;font-size:0.85em;max-height:200px;overflow-y:auto;"></div></div>
+
+<script>
+let jugPaused = false;
+let jugIntervalIds = [];
+function toggleJugPause(){
+    jugPaused = !jugPaused;
+    var btn = document.getElementById('jug-pause-btn');
+    var status = document.getElementById('jug-pause-status');
+    if(jugPaused){
+        jugIntervalIds.forEach(function(id){ clearInterval(id); });
+        jugIntervalIds = [];
+        btn.textContent = '▶️ REPRENDRE';
+        btn.style.background = '#7fcf7f';
+        btn.style.color = '#000';
+        status.textContent = 'Auto: PAUSE';
+        status.style.color = '#ff4444';
+    } else {
+        btn.textContent = '⏸️ PAUSE';
+        btn.style.background = '#ff4444';
+        btn.style.color = '#fff';
+        status.textContent = 'Auto: ACTIF';
+        status.style.color = '#7fcf7f';
+    }
+}
+
+// Les 8 Modules
+const jugModules = [
+    {id:0, nom:'Droit et Justice', emoji:'⚖️', couleur:'#c0c0c0', duree:'4 semaines', niveau:'Base',
+     desc:'Les fondements du droit. Qu est-ce que la justice? Pourquoi des lois? La difference entre justice et vengeance. Le droit africain avant la colonisation — il existait deja.',
+     cours:['Qu est-ce que la justice? — definitions et philosophies', 'Droit naturel vs droit positif — les deux approches', 'La justice avant la colonisation — l Afrique avait ses lois', 'Droit ecrit vs droit oral — les deux traditions', 'La separation des pouvoirs — pourquoi elle importe', 'L Etat de droit — qu est-ce que ca veut dire?', 'Justice retributive vs justice restaurative — deux visions', 'Le role du juge dans la societe africaine'],
+     exercice:'Organise un debat: "La justice africaine doit-elle copier la justice occidentale?" Defends les deux cotes.',
+     diplome:'Licence en Fondements du Droit'},
+    {id:1, nom:'Droit Coutumier Africain', emoji:'📜', couleur:'#d4a437', duree:'6 semaines', niveau:'Approfondi',
+     desc:'L Afrique avait ses lois avant les Europeens. Le droit coutumier: palabre, conseil des anciens, justice des villages. Chaque ethnie avait son systeme. Ce n est pas du hasard — c etait efficace.',
+     cours:['La palabre — resolution de conflits par le dialogue', 'Le conseil des anciens — la justice des sages', 'Droit foncier coutumier — qui possede la terre?', 'Mariage et famille en droit coutumier — les regles', 'Justice restaurative — reparer au lieu de punir', 'Les tabous et interdits — loi ou religion?', 'La compensation vs la punition — deux visions', 'Comment integrer le coutumier dans le droit moderne'],
+     exercice:'Etudie le systeme de palabre de ton ethnie. Comment resout-on un conflit de terre dans ton village?',
+     diplome:'Licence en Droit Coutumier Africain'},
+    {id:2, nom:'Ubuntu et Justice Restaurative', emoji:'🕊️', couleur:'#7fcf7f', duree:'3 semaines', niveau:'Base',
+     desc:'Ubuntu: "Je suis parce que nous sommes." La justice africaine ne detruit pas — elle repare. Le coupable n est pas un monstre, c est un membre de la communaute qui s est egare. La justice restaurative gueri au lieu de punir.',
+     cours:['Qu est-ce que Ubuntu? — philosophie du lien humain', 'Justice restaurative vs justice retributive', 'Le cercle de parole — chacun ecoute, chacun parle', 'Reparation du tort — comment le coupable repare', 'Reconciliation communautaire — retablir l harmonie', 'Le cas du Rwanda: Gacaca — 2001, justice apres le genocide', 'Ubuntu dans les tribunaux modernes — exemples', 'Les limites de la justice restaurative — quand ca ne marche pas'],
+     exercice:'Ecris comment tu resoudrais ce conflit avec ubuntu: un voisin a vole les poules d un autre. Que fais-tu?',
+     diplome:'Certificat Ubuntu et Justice Restaurative'},
+    {id:3, nom:'Droits Humains en Afrique', emoji:'🛡️', couleur:'#44aaff', duree:'4 semaines', niveau:'Base',
+     desc:'Connaitre ses droits, c est pouvoir les defendre. La Charte Africaine des Droits de l Homme et des Peuples (1981). Les droits economiques, sociaux, culturels — pas seulement civils et politiques. L Afrique a sa propre charte.',
+     cours:['La Charte Africaine des Droits de l Homme et des Peuples (1981)', 'Droits civils et politiques — expression, vote, justice', 'Droits economiques et sociaux — travail, sante, education', 'Droits des peuples — auto-determination, ressources', 'Droits des femmes — egalite, heritage, mariage', 'Droits des enfants — protection, education, non-exploitation', 'La Commission Africaine des Droits de l Homme', 'Comment deposer une plainte pour violation de droits'],
+     exercice:'Lis la Charte Africaine (article 1-10). Quels droits sont les plus importants pour toi? Pourquoi?',
+     diplome:'Licence en Droits Humains Africains'},
+    {id:4, nom:'Resolution de Conflits', emoji:'🤝', couleur:'#ffaa44', duree:'5 semaines', niveau:'Approfondi',
+     desc:'L Afrique a trop de conflits. Mais l Afrique a aussi les solutions. La mediation, la negociation, la diplomatie. Les jeunes doivent savoir resoudre un conflit sans violence. La parole est plus forte que le fusil.',
+     cours:['Types de conflits — fonciers, ethniques, politiques, economiques', 'La mediation — trouver un tiers neutre', 'La negociation — gagner sans humilier', 'Desamorcer la violence — techniques de desescalade', 'La diplomatie traditionnelle africaine — alliances, marriages', 'Conflits fonciers — la cause numero 1 en Afrique rurale', 'Mediation internationale — l Union Africaine et la CEDEAO', 'Construire la paix durable — pas seulement arreter les armes'],
+     exercice:'Deux familles de ton village se disputent un champ depuis 10 ans. Comment les reconcilies-tu? Ecris ton plan.',
+     diplome:'Licence en Resolution de Conflits'},
+    {id:5, nom:'Justice Transitionnelle', emoji:'🔄', couleur:'#ff6644', duree:'4 semaines', niveau:'Avance',
+     desc:'Apres une guerre, un genocide, une dictature — comment faire justice sans detruire le pays? La justice transitionnelle: tribunaux, verite, reconciliation, reparations. Le Rwanda (Gacaca), l Afrique du Sud (TRC), le Maroc (IER) — l Afrique a invente des solutions.',
+     cours:['Qu est-ce que la justice transitionnelle?', 'Le Rwanda: tribunaux Gacaca — 1.9 million de cas en 10 ans', 'Afrique du Sud: Commission Verite et Reconciliation (TRC)', 'Maroc: Instance Equite et Reconciliation (IER)', 'Reparations — individuelles et collectives', 'Justice vs Paix — le dilemme impossible', 'Memoire et commemoration — comment se souvenir sans revivre', 'Reformer les institutions — police, armee, justice'],
+     exercice:'Tu es president apres une dictature de 20 ans. 5000 personnes ont ete tuees. Que fais-tu? Tribunaux ou reconciliation? Defends ton choix.',
+     diplome:'Master en Justice Transitionnelle'},
+    {id:6, nom:'Contrats et Accords', emoji:'📋', couleur:'#ff44ff', duree:'3 semaines', niveau:'Base',
+     desc:'Un contrat, c est un accord ecrit. Le jeune Africain doit savoir lire et ecrire un contrat. Ne pas se faire avoir par les grandes entreprises. Connaître ses obligations et ses droits. Un bon contrat protege tout le monde.',
+     cours:['Qu est-ce qu un contrat? — definition et elements', 'Contrats oraux vs contrats ecrits — les risques', 'Les clauses essentielles — prix, delai, qualite, penalites', 'Contrats de travail — tes droits en tant qu employe', 'Contrats commerciaux — acheter, vendre, livrer', 'Contrats agricoles — terrain, production, partage', 'Arnaques contractuelles — ce que les grandes entreprises cachent', 'La blockchain comme notaire — AfriChain enregistre les accords'],
+     exercice:'Ecris un contrat simple entre un cultivateur et un acheteur de mil. Quelles clauses mets-tu?',
+     diplome:'Certificat en Contrats et Accords'},
+    {id:7, nom:'Cour Panafricaine', emoji:'🌍', couleur:'#d4a437', duree:'5 semaines', niveau:'Avance',
+     desc:'L Afrique a ses institutions judiciaires. La Cour Africaine des Droits de l Homme et des Peuples. La Cour de Justice de l Union Africaine. Un jour, une Cour Supreme Panafricaine. La jeunesse doit connaitre ces institutions et les ameliorer.',
+     cours:['L Union Africaine — structure et missions', 'La Cour Africaine des Droits de l Homme et des Peuples', 'La Cour de Justice de l UA — juridiction et competence', 'La Cour Panafricaine de Justice (fusion prevue)', 'CEDEAO, SADC, CEMAC — cours regionales', 'Comment porter une affaire devant une cour africaine', 'Les limites actuelles — pourquoi les cours africaines sont faibles', 'Vison: une Cour Supreme Panafricaine independante et puissante'],
+     exercice:'Tu veux porter plainte contre un Etat africain pour violation des droits. Ecris la procedure etape par etape.',
+     diplome:'Master en Justice Panafricaine'},
+];
+
+// Proverbes
+const proverbes = [
+    'La palabre est plus forte que la force (Proverbe Peul)',
+    'Un seul bras ne peut pas serrer une gre (Proverbe Yoruba)',
+    'Le mensonge court, la verite le rattrape (Proverbe Akan)',
+    'La justice qui tarde est une justice deniee (Proverbe Bambara)',
+    'On ne juge pas un homme avant de l avoir ecoute (Proverbe Wolof)',
+    'Le juge qui mange le procere perd son honneur (Proverbe Malinke)',
+    'La terre ne ment jamais (Proverbe Dogon)',
+    'Un village sans conseil est un village sans avenir (Proverbe Senoufo)',
+    'Le pardon est la moitie de la justice (Proverbe Swahili)',
+    'La verite est comme le soleil — on peut la cacher mais elle revient (Proverbe Ewe)',
+    'On lave le linge sale en famille, pas sur la place publique (Proverbe Baoule)',
+    'La parole du vieillard est un remede (Proverbe Bamilike)',
+];
+
+// Modules grid
+let jugCompleted = new Set();
+try { jugCompleted = new Set(JSON.parse(localStorage.getItem('jugModulesDone') || '[]')); } catch(e) {}
+
+const jgrid = document.getElementById('jug-modules');
+jugModules.forEach(function(m, i){
+    var div = document.createElement('div');
+    div.id = 'jug-m-' + i;
+    var done = jugCompleted.has(i);
+    div.style.cssText = 'padding:12px;background:rgba(0,0,0,0.3);border:2px solid ' + (done ? m.couleur : '#444') + ';border-radius:8px;cursor:pointer;transition:all 0.3s;';
+    div.onclick = function(){ showJugModule(i); };
+    div.onmouseover = function(){ div.style.transform = 'scale(1.03)'; };
+    div.onmouseout = function(){ div.style.transform = 'scale(1)'; };
+    div.innerHTML = '<div style="font-size:1.5em;">' + m.emoji + '</div><div style="color:' + m.couleur + ';font-weight:bold;font-size:0.9em;">' + m.nom + '</div><div style="margin-top:3px;font-size:0.75em;color:#888;">' + m.duree + ' • ' + m.niveau + '</div><div style="margin-top:5px;font-size:0.8em;color:' + (done ? m.couleur : '#666') + ';">' + (done ? '✅ Validé' : '📖 A apprendre') + '</div>';
+    jgrid.appendChild(div);
+});
+
+function updateJugProgress(){
+    var done = jugCompleted.size;
+    var total = jugModules.length;
+    var pct = Math.round((done / total) * 100);
+    document.getElementById('jug-count').textContent = done;
+    document.getElementById('jug-pct').textContent = pct + '%';
+    document.getElementById('jug-bar').style.width = pct + '%';
+    document.getElementById('jug-diplome').style.display = (done === total) ? 'block' : 'none';
+}
+
+function showJugModule(i){
+    var m = jugModules[i];
+    document.getElementById('jug-detail-title').textContent = m.emoji + ' ' + m.nom;
+    document.getElementById('jug-detail-title').style.color = m.couleur;
+    var html = '<div style="color:' + m.couleur + ';font-weight:bold;font-size:1.1em;">' + m.emoji + ' ' + m.nom + '</div>';
+    html += '<div style="margin-top:5px;font-size:0.8em;color:#888;">⏱️ ' + m.duree + ' • 📊 ' + m.niveau + '</div>';
+    html += '<div style="margin-top:10px;padding:15px;background:rgba(192,192,192,0.05);border-left:3px solid ' + m.couleur + ';border-radius:4px;color:#a8c5a8;font-size:0.9em;line-height:1.6;">' + m.desc + '</div>';
+    html += '<div style="margin-top:10px;"><b style="color:#7fcf7f;">📚 Cours (' + m.cours.length + ' lecons):</b></div>';
+    m.cours.forEach(function(c, ci){
+        html += '<div style="padding:6px 10px;margin:3px 0;background:rgba(127,207,127,0.05);border-left:3px solid #7fcf7f;border-radius:4px;color:#a8c5a8;font-size:0.85em;">' + (ci+1) + '. ' + c + '</div>';
+    });
+    html += '<div style="margin-top:10px;padding:10px;background:rgba(255,170,68,0.05);border-radius:4px;"><b style="color:#ffaa44;">📝 Exercice:</b> <span style="color:#a8c5a8;font-size:0.85em;">' + m.exercice + '</span></div>';
+    html += '<div style="margin-top:10px;padding:8px;background:rgba(212,164,55,0.05);border-radius:4px;color:#d4a437;font-size:0.85em;">🎓 Diplome: ' + m.diplome + '</div>';
+    html += '<div style="margin-top:10px;text-align:center;"><button onclick="validateJugModule(' + i + ')" style="padding:8px 20px;background:' + m.couleur + ';color:#000;border:none;border-radius:8px;font-weight:bold;cursor:pointer;">✅ J ai validé ce module</button></div>';
+    document.getElementById('jug-detail').innerHTML = html;
+    addJugTrace('📖 Module ouvert: ' + m.emoji + ' ' + m.nom);
+}
+
+function validateJugModule(i){
+    if(jugCompleted.has(i)) return;
+    jugCompleted.add(i);
+    localStorage.setItem('jugModulesDone', JSON.stringify(Array.from(jugCompleted)));
+    var m = jugModules[i];
+    addJugTrace('✅ Module validé: ' + m.nom);
+    addJugTrace('🎓 Diplome: ' + m.diplome);
+    addJugTrace('⛓️ Trace blockchain: justice "' + m.nom + '" apprise');
+    updateJugProgress();
+    updateJugGrid();
+    document.getElementById('jug-status').innerHTML = '<span style="color:#7fcf7f;">✅ Tu as validé: ' + m.nom + '. La justice africaine grandit en toi.</span>';
+}
+
+function updateJugGrid(){
+    jugModules.forEach(function(m, i){
+        var div = document.getElementById('jug-m-' + i);
+        if(!div) return;
+        var done = jugCompleted.has(i);
+        div.style.borderColor = done ? m.couleur : '#444';
+        div.innerHTML = '<div style="font-size:1.5em;">' + m.emoji + '</div><div style="color:' + m.couleur + ';font-weight:bold;font-size:0.9em;">' + m.nom + '</div><div style="margin-top:3px;font-size:0.75em;color:#888;">' + m.duree + ' • ' + m.niveau + '</div><div style="margin-top:5px;font-size:0.8em;color:' + (done ? m.couleur : '#666') + ';">' + (done ? '✅ Validé' : '📖 A apprendre') + '</div>';
+    });
+}
+
+function gravJugDiplome(){
+    addJugTrace('🎓 DIPLOME JUGE DE L AFRIQUE DE DEMAIN grave dans la blockchain!');
+    addJugTrace('⛓️ Block: AI Juge -- 8 modules validés');
+    addJugTrace('⚖️ La justice africaine est comprise. Le tribunal est ferme.');
+    alert('⚖️🎓 DIPLOME JUGE DE L AFRIQUE DE DEMAIN\n\nTribunal Souverain Africain\n\nLes 8 modules validés.\nLa justice est comprise.\n\nGrave dans la blockchain AfriChain\n\nL Afrique se juge elle-meme. 💚🦁⚖️');
+}
+
+// Canvas — balance scale of justice
+var jcan = document.getElementById('jug-canvas');
+var jctx = jcan.getContext('2d');
+var jugTime = 0;
+
+function drawJuge(){
+    if(jugPaused) { requestAnimationFrame(drawJuge); return; }
+    jugTime += 0.012;
+
+    // Background — court hall
+    var grad = jctx.createLinearGradient(0, 0, 0, 350);
+    grad.addColorStop(0, '#0a0a15');
+    grad.addColorStop(0.5, '#1a1a25');
+    grad.addColorStop(1, '#0a0a0a');
+    jctx.fillStyle = grad;
+    jctx.fillRect(0, 0, 600, 350);
+
+    // Columns (courthouse)
+    jctx.fillStyle = 'rgba(192,192,192,0.08)';
+    for(var c = 0; c < 5; c++){
+        var cx = 80 + c * 110;
+        jctx.fillRect(cx, 40, 20, 240);
+    }
+    // Architrave
+    jctx.fillRect(60, 30, 480, 15);
+
+    // Stars in upper area
+    for(var s = 0; s < 15; s++){
+        jctx.fillStyle = 'rgba(255,255,200,' + (0.1 + Math.sin(jugTime + s) * 0.05) + ')';
+        jctx.beginPath();
+        jctx.arc((s * 41 + 17) % 600, (s * 19 + 5) % 25, 0.8, 0, Math.PI * 2);
+        jctx.fill();
+    }
+
+    // Balance scale
+    var cx = 300, cy = 180;
+    var sway = Math.sin(jugTime * 1.5) * 0.03;
+    var leftY = cy + Math.sin(jugTime * 1.5) * 8;
+    var rightY = cy - Math.sin(jugTime * 1.5) * 8;
+
+    // Stand
+    jctx.strokeStyle = '#c0c0c0';
+    jctx.lineWidth = 4;
+    jctx.beginPath();
+    jctx.moveTo(cx, cy);
+    jctx.lineTo(cx, 280);
+    jctx.stroke();
+    // Base
+    jctx.fillStyle = '#c0c0c0';
+    jctx.fillRect(cx - 30, 280, 60, 8);
+    // Beam
+    jctx.save();
+    jctx.translate(cx, cy);
+    jctx.rotate(sway);
+    jctx.beginPath();
+    jctx.moveTo(-100, 0);
+    jctx.lineTo(100, 0);
+    jctx.stroke();
+    // Left plate chain
+    jctx.beginPath();
+    jctx.moveTo(-100, 0);
+    jctx.lineTo(-100, 30);
+    jctx.stroke();
+    // Right plate chain
+    jctx.beginPath();
+    jctx.moveTo(100, 0);
+    jctx.lineTo(100, 30);
+    jctx.stroke();
+    // Left plate
+    jctx.beginPath();
+    jctx.ellipse(-100, 30, 35, 6, 0, 0, Math.PI * 2);
+    jctx.stroke();
+    jctx.fillStyle = 'rgba(192,192,192,0.1)';
+    jctx.fill();
+    // Right plate
+    jctx.beginPath();
+    jctx.ellipse(100, 30, 35, 6, 0, 0, Math.PI * 2);
+    jctx.stroke();
+    jctx.fill();
+    jctx.restore();
+
+    // Left weight (justice)
+    jctx.fillStyle = 'rgba(127,207,127,' + (0.3 + Math.sin(jugTime * 2) * 0.1) + ')';
+    jctx.font = 'bold 14px monospace';
+    jctx.textAlign = 'center';
+    jctx.fillText('⚖', cx - 100, 28);
+
+    // Right weight (truth)
+    jctx.fillStyle = 'rgba(255,170,68,' + (0.3 + Math.sin(jugTime * 2 + 1) * 0.1) + ')';
+    jctx.fillText('📜', cx + 100, 28);
+
+    // Center text
+    var done = jugCompleted.size;
+    jctx.fillStyle = 'rgba(192,192,192,0.4)';
+    jctx.font = 'bold 11px monospace';
+    jctx.fillText('TRIBUNAL SOUVERAIN AFRICAIN', cx, 120);
+    jctx.fillStyle = 'rgba(192,192,192,0.3)';
+    jctx.font = '10px monospace';
+    jctx.fillText(done + '/8 modules validés', cx, 140);
+
+    // African pattern at bottom
+    jctx.strokeStyle = 'rgba(212,164,55,0.15)';
+    jctx.lineWidth = 1;
+    for(var p = 0; p < 12; p++){
+        jctx.beginPath();
+        jctx.moveTo(p * 50, 300);
+        jctx.lineTo(p * 50 + 25, 320);
+        jctx.lineTo(p * 50 + 50, 300);
+        jctx.stroke();
+    }
+
+    if(done === 8){
+        jctx.fillStyle = 'rgba(192,192,192,' + (0.3 + Math.sin(jugTime * 3) * 0.1) + ')';
+        jctx.font = 'bold 12px monospace';
+        jctx.fillText('LA JUSTICE EST COMPRISE — L AFRIQUE SE JUGE', cx, 340);
+    }
+
+    requestAnimationFrame(drawJuge);
+}
+
+// Proverbes rotation
+var provIdx = 0;
+function rotateProverbe(){
+    document.getElementById('jug-proverbe').textContent = proverbes[provIdx];
+    provIdx = (provIdx + 1) % proverbes.length;
+}
+rotateProverbe();
+var provInterval = setInterval(rotateProverbe, 5000);
+jugIntervalIds.push(provInterval);
+
+// Trace
+function addJugTrace(msg){
+    var log = document.getElementById('jug-trace');
+    var now = new Date();
+    var ts = String(now.getHours()).padStart(2,'0') + ':' + String(now.getMinutes()).padStart(2,'0') + ':' + String(now.getSeconds()).padStart(2,'0');
+    log.innerHTML = '<div style="padding:4px 0;border-bottom:1px solid rgba(192,192,192,0.05);"><span style="color:#666;">[' + ts + ']</span> <span style="color:#c0c0c0;">⚖️</span> ' + msg + '</div>' + log.innerHTML;
+    if(log.innerHTML.length > 3000) log.innerHTML = log.innerHTML.substring(0, 3000);
+}
+
+addJugTrace('⚖️ AI Juge initialise — Tribunal Souverain Africain');
+addJugTrace('📚 8 modules charges: Droit, Coutumier, Ubuntu, Droits, Conflits, Transitionnelle, Contrats, Cour Panafricaine');
+addJugTrace('📜 12 proverbes de sagesse africaine charges');
+addJugTrace('🌍 5 traditions juridiques: Palabre, Gacaca, Ubuntu, TRC, Charte Africaine');
+addJugTrace('🎓 Diplome: 8 modules validés -> Juge de l Afrique de Demain');
+addJugTrace('⚖️ Le tribunal est ouvert. La justice africaine commence.');
+
+updateJugProgress();
+drawJuge();
+</script>
+
+<footer style="text-align:center;margin-top:40px;color:#a8c5a8;">⚖️ AI Juge — L Afrique se juge elle-meme. La justice africaine, par l Afrique, pour l Afrique. 💚🦁⚖️</footer>"##);
+
+    html.push_str("</body></html>");
+    html
+}
+
 fn html_garage(chain: &Blockchain) -> String {
     let mut html = html_head("Garage AI — Atelier Autonome 2500");
     let num_blocks = chain.blocks.len();
@@ -13047,7 +13395,7 @@ html+='<div class="log-entry log-kill">⚠️ Tentative d\x27infiltration occide
 html+='<div class="log-entry log-invis">✅ L\x27Afrique est forte. Le système grandit.</div>';
 }else if(type==='total'){
 html='<div style="color:#d4a437;font-weight:bold;margin-bottom:8px">📋 RAPPORT TOTAL — Depuis le début</div>';
-html+='<div class="log-entry">🦁 AfriChain v0.85 — AI Griot Gardien de la Memoire</div>';
+html+='<div class="log-entry">🦁 AfriChain v0.86 — AI Juge Tribunal Souverain</div>';
 html+='<div class="log-entry">⛓️ Blockchain: 100% souveraine — Zéro dépendance externe</div>';
 html+='<div class="log-entry">🔐 Crypto: Ed25519 + AfriHash-256/512 + AfriRNG — tout from scratch</div>';
 html+='<div class="log-entry">🌍 54 pays africains connectés</div>';
@@ -14591,7 +14939,7 @@ fn main() {
         .and_then(|i| args.get(i + 1)).cloned().unwrap_or_else(|| "Afrique".to_string());
 
     let my_node_id = generate_node_id();
-    println!("🦁 AfriChain v0.85 — AI Griot Gardien de la Memoire");
+    println!("🦁 AfriChain v0.86 — AI Juge Tribunal Souverain");
     println!("💚 L'Afrique ne demande plus la permission");
     println!("🌍 54 pays — 🇲🇱 🇳🇪 🇧🇫 AES — Mali · Niger · Burkina Faso");
     println!("🔐 8 modules cryptographiques — construits from scratch");
@@ -14744,6 +15092,7 @@ fn main() {
     println!("🩺 AI Guerisseur sur http://localhost:8080/ai-guerisseur");
     println!("🎖️ AI Leader sur http://localhost:8080/ai-leader");
     println!("📖 AI Griot sur http://localhost:8080/ai-griot");
+    println!("⚖️ AI Juge sur http://localhost:8080/ai-juge");
 
     // Serveur HTTP en arrière-plan (pour mesh + autres utilisateurs)
     let serve_state = web_state.clone();
@@ -14778,7 +15127,7 @@ fn terminal_interface(state: &Arc<AppState>) {
     println!("  ║  🕐 AfriTime — Pas UTC, pas Greenwich   ║");
     println!("  ║  📝 ~16,500 lignes — écrit à la main       ║");
     println!("  ╚═══════════════════════════════════════════════╝");
-    println!("\n  Version v0.85 — 30 août 2026");
+    println!("\n  Version v0.86 — 30 août 2026");
     println!("  Construit sur Termux · Android · nano\n");
     println!("  ─────────────────────────────────────────────");
     println!("\n  1. 🏦 Centre de Données (Admin)");
@@ -14850,7 +15199,7 @@ fn admin_interface(state: &Arc<AppState>) {
         println!("\n");
         println!("╔══════════════════════════════════════╗");
         println!("║  🏦 CENTRE DE DONNÉES — Admin       ║");
-        println!("║  🦁 AfriChain v0.85                  ║");
+        println!("║  🦁 AfriChain v0.86                  ║");
         println!("╠══════════════════════════════════════╣");
         let chain = state.chain.lock().unwrap();
         let users = state.users.lock().unwrap();
@@ -18414,6 +18763,11 @@ fn handle_request(req: afri_http::HttpRequest, state: &Arc<AppState>) -> afri_ht
         ("GET", "/ai-griot") => {
             let chain = state.chain.lock().unwrap();
             HttpResponse::ok(&html_ai_griot(&chain))
+        }
+
+        ("GET", "/ai-juge") => {
+            let chain = state.chain.lock().unwrap();
+            HttpResponse::ok(&html_ai_juge(&chain))
         }
 
         ("GET", "/garage") => {
