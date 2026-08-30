@@ -1439,7 +1439,7 @@ fn html_home(chain: &Blockchain, users: &UserStore, mesh: &NodeRegistry, shield:
     let mut html = html_head("🦁 AfriChain");
     let (attacks, _blocked, blocked_count, level) = shield.stats();
     let shield_status = if shield.active { format!("🔥 X9 ACTIF (Niveau {})", level) } else { "Inactif".to_string() };
-    html.push_str(&format!(r#"<h1>🦁 AfriChain</h1><p style="text-align:center;">La blockchain 100% africaine — 54 pays 💚🦁</p><div id="afri-clock" style="text-align:center;font-size:1.2em;color:#d4a437;margin:10px 0;">🕐 Afri+0 — --:--:--</div><script>setInterval(function(){{var d=new Date();var h=String(d.getHours()).padStart(2,'0');var m=String(d.getMinutes()).padStart(2,'0');var s=String(d.getSeconds()).padStart(2,'0');document.getElementById('afri-clock').textContent='🕐 Afri+0 — '+h+':'+m+':'+s;}},1000);</script><div class="nav"><a href="/register">🆕 S'inscrire</a> | <a href="/login">🔑 Connexion</a> | <a href="/wallet">👛 Wallet</a> | <a href="/admin">🔐 Admin</a> | <a href="/mesh">📡 Mesh</a> | <a href="/annuaire">📖 Annuaire</a> | <a href="/bouclier">🛡️ Bouclier</a> | <a href="/satellite">🛸 X999</a> | <a href="/swarm">🛸🛸🛸 Essaim</a> | <a href="/commandement">🎖️ Commandement</a> | <a href="/interception">🛡️ Souverainete</a> | <a href="/securite-ai">🧠 AI 2100</a> | <a href="/chat">🧠💬 Chat AI</a> | <a href="/lumiere">🌫️☀️ Lumière</a> | <a href="/garage">🔧 Garage</a> | <a href="/machine">🤖🌐 Machines</a> | <a href="/machine-lab">🤖⚡ Usine</a> | <a href="/machine-world">🤖🌍 Monde</a> | <a href="/reve">💭 Rêves</a> | <a href="/dictionnaire">📖 Dictionnaire</a> | <a href="/machine-os">🖥️ OS Machine</a> | <a href="/machine-tv">📡 Machine TV</a> | <a href="/machine-economy">🤖 Économie</a> | <a href="/soleil">☀️ Soleil Serveur</a> | <a href="/forge-solaire">🧬 Forge Solaire</a> | <a href="/ciel">🌌 Le Ciel</a> | <a href="/charte-ai">⚖️ Charte AI</a> | <a href="/afri-net">🌍 Afri-Net</a> | <a href="/studio">🎬 AI Studio</a> | <a href="/sacre">📿 Sacré</a> | <a href="/lettres">🌟 Lettres IA</a> | <a href="/mg-forge">⚔️ MG Forge</a> | <a href="/ai-medecin">🌿 AI Médecin</a> | <a href="/ai-enseignante">📚 AI Enseignante</a> | <a href="/ai-village">🏘️ AI Village</a> | <a href="/ai-guerisseur">🩺 AI Guérisseur</a> | <a href="/ai-leader">🎖️ AI Leader</a> | <a href="/ai-griot">📖 AI Griot</a> | <a href="/ai-juge">⚖️ AI Juge</a> | <a href="/secret">🦁 AI Secret</a> | <a href="/aes">💰 AES Wari</a> | <a href="/api/status">🔌 API</a></div><div style="text-align:center;"><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Blocs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Transactions</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Utilisateurs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">AFR en circulation</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📡 Noeuds mesh</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📖 Numéros annuaire</div></div><div class="stat-box" style="border-color:#ff4444;"><div class="stat-num" style="color:#ff4444;">{}</div><div class="stat-label">🛡️ Attaques bloquées</div></div></div><div class="card"><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🪙 Token</span><b>AfriRich (AFR)</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🌍 Pays</span><b>54 pays africains</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🛡️ Bouclier</span><b>{}</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;"><span style="color:#a8c5a8;">🔐 Crypto</span><b>100% Souverain — Zéro Dépendance Externe</b></div></div><footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🦁 Codée from scratch par Machine-senpai — v0.86 AI Juge Tribunal Souverain Africain — UTC est Mort</footer>"#,
+    html.push_str(&format!(r#"<h1>🦁 AfriChain</h1><p style="text-align:center;">La blockchain 100% africaine — 54 pays 💚🦁</p><div id="afri-clock" style="text-align:center;font-size:1.2em;color:#d4a437;margin:10px 0;">🕐 Afri+0 — --:--:--</div><script>setInterval(function(){{var d=new Date();var h=String(d.getHours()).padStart(2,'0');var m=String(d.getMinutes()).padStart(2,'0');var s=String(d.getSeconds()).padStart(2,'0');document.getElementById('afri-clock').textContent='🕐 Afri+0 — '+h+':'+m+':'+s;}},1000);</script><div class="nav"><a href="/register">🆕 S'inscrire</a> | <a href="/login">🔑 Connexion</a> | <a href="/wallet">👛 Wallet</a> | <a href="/admin">🔐 Admin</a> | <a href="/mesh">📡 Mesh</a> | <a href="/annuaire">📖 Annuaire</a> | <a href="/bouclier">🛡️ Bouclier</a> | <a href="/satellite">🛸 X999</a> | <a href="/swarm">🛸🛸🛸 Essaim</a> | <a href="/commandement">🎖️ Commandement</a> | <a href="/interception">🛡️ Souverainete</a> | <a href="/securite-ai">🧠 AI 2100</a> | <a href="/chat">🧠💬 Chat AI</a> | <a href="/lumiere">🌫️☀️ Lumière</a> | <a href="/garage">🔧 Garage</a> | <a href="/machine">🤖🌐 Machines</a> | <a href="/machine-lab">🤖⚡ Usine</a> | <a href="/machine-world">🤖🌍 Monde</a> | <a href="/reve">💭 Rêves</a> | <a href="/dictionnaire">📖 Dictionnaire</a> | <a href="/machine-os">🖥️ OS Machine</a> | <a href="/machine-tv">📡 Machine TV</a> | <a href="/machine-economy">🤖 Économie</a> | <a href="/soleil">☀️ Soleil Serveur</a> | <a href="/forge-solaire">🧬 Forge Solaire</a> | <a href="/ciel">🌌 Le Ciel</a> | <a href="/charte-ai">⚖️ Charte AI</a> | <a href="/afri-net">🌍 Afri-Net</a> | <a href="/studio">🎬 AI Studio</a> | <a href="/sacre">📿 Sacré</a> | <a href="/lettres">🌟 Lettres IA</a> | <a href="/mg-forge">⚔️ MG Forge</a> | <a href="/ai-medecin">🌿 AI Médecin</a> | <a href="/ai-enseignante">📚 AI Enseignante</a> | <a href="/ai-village">🏘️ AI Village</a> | <a href="/ai-guerisseur">🩺 AI Guérisseur</a> | <a href="/ai-leader">🎖️ AI Leader</a> | <a href="/ai-griot">📖 AI Griot</a> | <a href="/ai-juge">⚖️ AI Juge</a> | <a href="/ai-artiste">🎨 AI Artiste</a> | <a href="/secret">🦁 AI Secret</a> | <a href="/aes">💰 AES Wari</a> | <a href="/api/status">🔌 API</a></div><div style="text-align:center;"><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Blocs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Transactions</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Utilisateurs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">AFR en circulation</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📡 Noeuds mesh</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📖 Numéros annuaire</div></div><div class="stat-box" style="border-color:#ff4444;"><div class="stat-num" style="color:#ff4444;">{}</div><div class="stat-label">🛡️ Attaques bloquées</div></div></div><div class="card"><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🪙 Token</span><b>AfriRich (AFR)</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🌍 Pays</span><b>54 pays africains</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🛡️ Bouclier</span><b>{}</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;"><span style="color:#a8c5a8;">🔐 Crypto</span><b>100% Souverain — Zéro Dépendance Externe</b></div></div><footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🦁 Codée from scratch par Machine-senpai — v0.87 AI Artiste Culture et Expression Africaine — UTC est Mort</footer>"#,
         chain.blocks.len(),
         chain.total_transactions(),
         users.count(),
@@ -8285,6 +8285,332 @@ drawJuge();
     html
 }
 
+fn html_ai_artiste(chain: &Blockchain) -> String {
+    let mut html = html_head("AI Artiste — Culture et Expression Africaine");
+    let num_blocks = chain.blocks.len();
+
+    html.push_str(r#"<h1>🎨 AI Artiste — Culture et Expression Africaine</h1><p style="text-align:center;color:#ff44ff;">L Afrique est le berceau de l art mondial. Les masques africains ont inspire Picasso. Les rythmes africains ont cree le jazz, le blues, le hip-hop. La kora, le djembe, le balafon existent depuis des siecles. Cette AI enseigne a la jeunesse africaine a connaitre, proteger et creer l art de l Afrique. L art n est pas un luxe — c est l ame d un peuple.</p><div class="nav"><a href="/">← Accueil</a> | <a href="/ai-juge">⚖️ AI Juge</a> | <a href="/ai-griot">📖 AI Griot</a> | <a href="/ai-leader">🎖️ AI Leader</a> | <a href="/ai-village">🏘️ AI Village</a> | <a href="/afri-net">🌍 Afri-Net</a></div>"#);
+
+    html.push_str(&format!(r#"<div style="text-align:center;"><div class="stat-box" style="border-color:#ff44ff;"><div class="stat-num" style="color:#ff44ff;">8</div><div class="stat-label">🎨 Modules</div></div><div class="stat-box" style="border-color:#d4a437;"><div class="stat-num" style="color:#d4a437;">40+</div><div class="stat-label">🥁 Instruments</div></div><div class="stat-box" style="border-color:#7fcf7f;"><div class="stat-num" style="color:#7fcf7f;">∞</div><div class="stat-label">✨ Creations</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">⛓️ Blocs</div></div><div class="stat-box" style="border-color:#ff44ff;"><div class="stat-num" style="color:#ff44ff;">54</div><div class="stat-label">🌍 Pays</div></div></div>"#, num_blocks));
+
+    html.push_str(r##"<div style="text-align:center;margin:10px 0;"><button id="art-pause-btn" onclick="toggleArtPause()" style="padding:10px 25px;background:#ff4444;color:#fff;border:none;border-radius:8px;font-weight:bold;cursor:pointer;font-size:1em;">⏸️ PAUSE</button> <span id="art-pause-status" style="color:#7fcf7f;margin-left:8px;font-size:0.85em;">Auto: ACTIF</span></div>
+
+<!-- ARTISTE CANVAS -->
+<div class="card" style="border-color:#ff44ff;"><h2 style="color:#ff44ff;">🎨 La Toile de l Afrique</h2><p style="color:#a8c5a8;font-size:0.9em;">Les couleurs de l Afrique dansent. L art africain vit.</p>
+<canvas id="art-canvas" width="600" height="350" style="width:100%;max-width:600px;background:#0a0a0a;border:2px solid #ff44ff;border-radius:8px;display:block;margin:0 auto;"></canvas>
+<div id="art-status" style="text-align:center;margin-top:10px;padding:10px;background:rgba(255,68,255,0.05);border-radius:8px;color:#a8c5a8;font-size:0.9em;min-height:40px;">L art africain commence a danser...</div></div>
+
+<!-- LES 8 MODULES -->
+<div class="card" style="border-color:#ff44ff;"><h2 style="color:#ff44ff;">🎨 Les 8 Modules Artistiques</h2><p style="color:#a8c5a8;font-size:0.9em;">Clique sur un module pour apprendre l art africain.</p>
+<div id="art-modules" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:10px;margin-top:10px;"></div></div>
+
+<!-- DETAIL MODULE -->
+<div class="card"><h2 id="art-detail-title" style="color:#ff44ff;">🎨 Le Recit de l Artiste</h2><div id="art-detail" style="margin-top:10px;padding:15px;background:rgba(255,68,255,0.05);border-radius:8px;min-height:60px;color:#a8c5a8;font-size:0.9em;">Selectionne un module pour apprendre l art africain.</div></div>
+
+<!-- TA CREATION -->
+<div class="card" style="border-color:#7fcf7f;"><h2 style="color:#7fcf7f;">✨ Creer Ton Art</h2><p style="color:#a8c5a8;font-size:0.9em;">La jeunesse africaine crée. Chaque creation est gravee dans la blockchain. L art de l Afrique ne disparaitra jamais.</p>
+<div style="margin-top:10px;"><input id="art-create-title" type="text" placeholder="Nom de ton oeuvre" style="width:100%;padding:10px;background:rgba(0,0,0,0.3);border:1px solid #ff44ff;border-radius:8px;color:#a8c5a8;margin-bottom:5px;" /><select id="art-create-type" style="width:100%;padding:10px;background:rgba(0,0,0,0.3);border:1px solid #ff44ff;border-radius:8px;color:#a8c5a8;margin-bottom:5px;"><option value="Musique">🥁 Musique</option><option value="Peinture">🎨 Peinture</option><option value="Poesie">📝 Poesie</option><option value="Danse">💃 Danse</option><option value="Conte">🎭 Conte</option><option value="Litterature">📚 Litterature</option><option value="Cinema">🎬 Cinema</option><option value="Autre">✨ Autre</option></select><textarea id="art-create-desc" placeholder="Decris ton oeuvre..." style="width:100%;padding:10px;background:rgba(0,0,0,0.3);border:1px solid #ff44ff;border-radius:8px;color:#a8c5a8;min-height:60px;margin-bottom:5px;"></textarea><button onclick="addCreation()" style="padding:8px 20px;background:#ff44ff;color:#fff;border:none;border-radius:8px;font-weight:bold;cursor:pointer;">🎨 Graver cette Oeuvre</button></div></div>
+
+<!-- GALERIE -->
+<div class="card"><h2 style="color:#ff44ff;">🖼️ Galerie de la Jeunesse</h2><div id="art-gallery" style="margin-top:10px;max-height:300px;overflow-y:auto;"></div></div>
+
+<!-- DIPLOME -->
+<div class="card" style="border-color:#d4a437;"><h2 style="color:#d4a437;">🎓 Diplome Artiste de l Afrique</h2><div id="art-progress" style="margin:10px 0;"><div style="display:flex;justify-content:space-between;"><span style="color:#ff44ff;font-weight:bold;">Modules valides: <span id="art-count">0</span>/8</span><span style="color:#7fcf7f;" id="art-pct">0%</span></div><div style="margin-top:8px;height:12px;background:rgba(0,0,0,0.5);border-radius:6px;overflow:hidden;"><div id="art-bar" style="height:100%;width:0%;background:linear-gradient(90deg,#ff44ff,#d4a437);transition:width 0.5s;"></div></div></div>
+<div id="art-diplome" style="text-align:center;display:none;margin-top:15px;"><div style="display:inline-block;padding:25px 50px;border:3px solid #ff44ff;border-radius:15px;background:rgba(255,68,255,0.05);"><div style="font-size:2.5em;">🎨🎓</div><div style="color:#ff44ff;font-weight:bold;font-size:1.3em;margin-top:5px;">DIPLOME ARTISTE DE L AFRIQUE</div><div style="color:#a8c5a8;margin-top:5px;">Culture et Expression Africaine</div><div style="color:#7fcf7f;margin-top:5px;font-size:0.85em;">Les 8 modules valides. L ame de l Afrique est comprise.</div><div style="color:#d4a437;margin-top:5px;font-size:0.85em;">Grave dans la blockchain AfriChain</div><button onclick="gravArtDiplome()" style="margin-top:10px;padding:8px 20px;background:#ff44ff;color:#fff;border:none;border-radius:8px;font-weight:bold;cursor:pointer;">⛓️ Graver dans la Blockchain</button></div></div></div></div>
+
+<!-- TRACE BLOCKCHAIN -->
+<div class="card"><h2 style="color:#d4a437;">⛓️ Trace Artistique dans la Blockchain</h2><div id="art-trace" style="font-family:monospace;font-size:0.85em;max-height:200px;overflow-y:auto;"></div></div>
+
+<script>
+let artPaused = false;
+let artIntervalIds = [];
+function toggleArtPause(){
+    artPaused = !artPaused;
+    var btn = document.getElementById('art-pause-btn');
+    var status = document.getElementById('art-pause-status');
+    if(artPaused){
+        artIntervalIds.forEach(function(id){ clearInterval(id); });
+        artIntervalIds = [];
+        btn.textContent = '▶️ REPRENDRE';
+        btn.style.background = '#7fcf7f';
+        btn.style.color = '#000';
+        status.textContent = 'Auto: PAUSE';
+        status.style.color = '#ff4444';
+    } else {
+        btn.textContent = '⏸️ PAUSE';
+        btn.style.background = '#ff4444';
+        btn.style.color = '#fff';
+        status.textContent = 'Auto: ACTIF';
+        status.style.color = '#7fcf7f';
+    }
+}
+
+// Les 8 Modules
+const artModules = [
+    {id:0, nom:'Musique Africaine', emoji:'🥁', couleur:'#ff44ff', duree:'6 semaines', niveau:'Base',
+     desc:'L Afrique est le berceau de la musique mondiale. Le djembe, la kora, le balafon, le tama — chaque instrument raconte une histoire. Les rythmes africains ont cree le jazz, le blues, le rock, le hip-hop. La musique africaine n est pas un style — c est LA source.',
+     cours:['Le djembe — le tambour de tous (Mali/Guinee)', 'La kora — la harpe des griots (Mali/Senegal)', 'Le balafon — le xylophone ancestral (Mali/Burkina)', 'Le tama — le tambour parlant (Senegal/Nigeria)', 'Les rythmes traditionnels: sabar, mandingue, yoruba', 'Comment le blues vient du Mali (Ali Farka Toure)', 'Le jazz et ses racines africaines', 'Afrobeats moderne: Burna Boy, Wizkid, Davido'],
+     exercice:'Choisis un instrument africain. Ecris son histoire, son role dans la societe, et comment il a influence la musique mondiale.',
+     diplome:'Licence en Musique Africaine'},
+    {id:1, nom:'Peinture et Sculpture', emoji:'🎨', couleur:'#d4a437', duree:'5 semaines', niveau:'Base',
+     desc:'L art africain a inspire Picasso, Matisse, Braque. Les masques africains sont dans tous les grands musees — mais les Africains n en profitent pas. Les bronzes du Benin ont ete voles par les Britanniques en 1897. L art africain n est pas "primitif" — il est puissant.',
+     cours:['L art rupestre africain — 7000 ans d histoire', 'Les masques africains — types, fonctions, spiritualite', 'Les bronzes du Benin — vols en 1897, restitution', 'La sculpture sur bois — tradition et modernite', 'La peinture murale — de l Egypte au Sahel', 'L art contemporain africain — El Anatsui, Cheri Samba', 'Le street art africain — Dakar, Lagos, Johannesburg', 'Comment proteger l art africain du vol et de l exploitation'],
+     exercice:'Designe un masque qui represente ton village. Quelles couleurs? Quels materiaux? Quelle signification?',
+     diplome:'Licence en Arts Visuels Africains'},
+    {id:2, nom:'Poesie et Proverbes', emoji:'📝', couleur:'#7fcf7f', duree:'4 semaines', niveau:'Base',
+     desc:'Le griot etait le premier poete de l humanite. La poesie africaine est orale avant d etre ecrite. Les proverbes sont la poesie du peuple — chaque mot porte la sagesse de siecles. Le slam moderne est le retour de la parole africaine.',
+     cours:['La poesie orale — le griot comme poete', 'Les proverbes africains — poesie du quotidien', 'La poesie de la negritude — Senghor, Cesaire, Damas', 'La poesie moderne — Wole Soyinka, Kofi Awoonor', 'Le slam — la parole libre de la jeunesse', 'La poesie en langues africaines — la force de la langue mere', 'Ecrire un poeme: technique et inspiration', 'La poesie comme arme politique — dire la verite'],
+     exercice:'Ecris un poeme de 8 lignes sur ton village. Utilise une image de la nature africaine.',
+     diplome:'Certificat en Poesie Africaine'},
+    {id:3, nom:'Danse Africaine', emoji:'💃', couleur:'#ff44ff', duree:'4 semaines', niveau:'Base',
+     desc:'En Afrique, on danse pour naitre, pour vivre, pour mourir. La danse n est pas un spectacle — c est une priere, une celebration, une lutte. Chaque rythme a sa danse. Chaque danse raconte une histoire.',
+     cours:['La danse comme celebration de la vie', 'Danses du Mali: mandingue, bambara, peule', 'Danses de l Afrique de l Ouest: sabar, ewe, adowa', 'Danses de l Afrique centrale: ndombolo, kwasa kwasa', 'Danses de l Afrique de l Est: ngoma, esikhesti', 'La danse et la spiritualite — possession et transe', 'Danse moderne: afrohouse, amapiano, coupé-decalé', 'La danse comme unite — danser ensemble, c est etre ensemble'],
+     exercice:'Choisis une danse africaine. Decris ses mouvements, son sens, et quand on la danse.',
+     diplome:'Certificat en Danse Africaine'},
+    {id:4, nom:'Conte et Theatre', emoji:'🎭', couleur:'#ffaa44', duree:'4 semaines', niveau:'Base',
+     desc:'Le conte est la plus vieille forme de theatre. Avant l ecriture, il y avait la parole. Le griot racontait et le village ecoutait. Le theatre africain moderne (Sembene, Sony Labou Tansi) continue cette tradition — la scene africaine parle au peuple.',
+     cours:['Le conte africain — structure, personnages, lecons', 'Les animaux dans les contes: le lievre, l araignee, l hyene', 'Le theatre traditionnel — masques et performances', 'Sembene Ousmane — le pere du cinema africain', 'Sony Labou Tansi — le theatre de la parole', 'Le theatre forum — le public participe', 'Le stand-up africain moderne — rire pour resister', 'Ecrire un conte: structure et personnages'],
+     exercice:'Ecris un court conte (10 lignes) avec un animal qui represente une qualite africaine.',
+     diplome:'Certificat en Conte et Theatre'},
+    {id:5, nom:'Litterature Africaine', emoji:'📚', couleur:'#44aaff', duree:'5 semaines', niveau:'Approfondi',
+     desc:'De l oral a l ecrit, la litterature africaine existe depuis toujours. Chinua Achebe a montre que l Afrique peut ecrire son histoire. Chimamanda Adichie montre que la jeunesse continue. La litterature n est pas un luxe — c est une arme.',
+     cours:['La tradition orale comme litterature', 'Chinua Achebe — Things Fall Apart (1958)', 'Leopold Sedar Senghor — poesie et negritude', 'Wole Soyinka — Nobel 1986, le premier Africain', 'Naguib Mahfouz — Nobel 1988, l Egypte', 'Chimamanda Ngozi Adichie — la voix de la jeunesse', 'La litterature en langues africaines — pourquoi ca compte', 'Ecrire son histoire: le roman africain de demain'],
+     exercice:'Ecris les 3 premieres pages d un roman sur la jeunesse africaine de ton village.',
+     diplome:'Licence en Litterature Africaine'},
+    {id:6, nom:'Cinema Africain', emoji:'🎬', couleur:'#ff6644', duree:'4 semaines', niveau:'Approfondi',
+     desc:'Le cinema africain raconte l Afrique par l Afrique. Sembene Ousmane a montre le chemin. Nollywood (Nigeria) produit 2000 films par an — le 2e plus grand cinema du monde. Le cinema africain ne demande plus la permission.',
+     cours:['Sembene Ousmane — le pere du cinema africain (Senegal)', 'Souleymane Cisse — Yeelen (Mali), lumiere du cinema', 'Ousmane Sembene — La Noire de... (1966), le premier film africain', 'Nollywood — 2000 films/an, 2e cinema mondial', 'Le cinema du Burkina: FESPACO — le Cannes africain', 'Les femmes realisatrices: Oshoshimi, Kpabep, Sissako', 'Le documentaire africain — dire la verite sur l Afrique', 'Faire un film avec un telephone — la revolution est la'],
+     exercice:'Ecris le scenario d un court film (5 min) sur un heros de ton village.',
+     diplome:'Licence en Cinema Africain'},
+    {id:7, nom:'Hip-Hop et Afrobeats', emoji:'🎵', couleur:'#ff44ff', duree:'4 semaines', niveau:'Base',
+     desc:'Le hip-hop est ne dans le Bronx, mais ses racines sont africaines. Le rap africain (Senegal, Nigeria, Mali) parle de politique, de fierte, de lutte. Les Afrobeats conquierent le monde. La jeunesse africaine a trouve sa voix — et le monde ecoute.',
+     cours:['Les racines africaines du hip-hop — la tradition orale', 'Le rap senegalais: Positive Black Soul, Didier Awadi', 'Le rap malien: Amadou et Mariam, Iba One', 'Le rap nigérian: le berceau des Afrobeats', 'Le rap congolais: Fally Ipupa, Maître Gims', 'Le slam: la poesie de la rue africaine', 'Le hip-hop comme voix politique — dire ce que les politiciens ne disent pas', 'Creer ta musique avec un telephone — les outils'],
+     exercice:'Ecris 16 bars de rap sur ton Afrique. Qu est-ce qui te rend fier? Qu est-ce qui te fache?',
+     diplome:'Certificat en Hip-Hop et Afrobeats'},
+];
+
+// Modules grid
+let artCompleted = new Set();
+try { artCompleted = new Set(JSON.parse(localStorage.getItem('artModulesDone') || '[]')); } catch(e) {}
+
+const argrid = document.getElementById('art-modules');
+artModules.forEach(function(m, i){
+    var div = document.createElement('div');
+    div.id = 'art-m-' + i;
+    var done = artCompleted.has(i);
+    div.style.cssText = 'padding:12px;background:rgba(0,0,0,0.3);border:2px solid ' + (done ? m.couleur : '#444') + ';border-radius:8px;cursor:pointer;transition:all 0.3s;';
+    div.onclick = function(){ showArtModule(i); };
+    div.onmouseover = function(){ div.style.transform = 'scale(1.03)'; };
+    div.onmouseout = function(){ div.style.transform = 'scale(1)'; };
+    div.innerHTML = '<div style="font-size:1.5em;">' + m.emoji + '</div><div style="color:' + m.couleur + ';font-weight:bold;font-size:0.9em;">' + m.nom + '</div><div style="margin-top:3px;font-size:0.75em;color:#888;">' + m.duree + ' • ' + m.niveau + '</div><div style="margin-top:5px;font-size:0.8em;color:' + (done ? m.couleur : '#666') + ';">' + (done ? '✅ Validé' : '📖 A apprendre') + '</div>';
+    argrid.appendChild(div);
+});
+
+// Creations gallery
+let creations = [];
+try { creations = JSON.parse(localStorage.getItem('artCreations') || '[]'); } catch(e) {}
+
+function renderGallery(){
+    var container = document.getElementById('art-gallery');
+    if(creations.length === 0){
+        container.innerHTML = '<div style="color:#666;text-align:center;padding:20px;">Aucune creation encore. Sois le premier a exposer ton art.</div>';
+        return;
+    }
+    container.innerHTML = creations.map(function(c, i){
+        return '<div style="padding:12px;margin:5px 0;background:rgba(255,68,255,0.05);border-left:3px solid #ff44ff;border-radius:4px;"><div style="color:#ff44ff;font-weight:bold;font-size:0.9em;">' + c.emoji + ' ' + c.title + '</div><div style="color:#888;font-size:0.75em;margin-top:2px;">' + c.type + '</div><div style="color:#a8c5a8;font-size:0.85em;margin-top:5px;">' + c.desc + '</div><div style="color:#666;font-size:0.75em;margin-top:5px;">' + c.date + '</div></div>';
+    }).reverse().join('');
+}
+renderGallery();
+
+function addCreation(){
+    var title = document.getElementById('art-create-title').value.trim();
+    var type = document.getElementById('art-create-type').value;
+    var desc = document.getElementById('art-create-desc').value.trim();
+    if(!title || !desc){ alert('Donne un titre et une description a ton oeuvre.'); return; }
+    var emoji = {'Musique':'🥁','Peinture':'🎨','Poesie':'📝','Danse':'💃','Conte':'🎭','Litterature':'📚','Cinema':'🎬','Autre':'✨'}[type] || '✨';
+    var now = new Date();
+    var dateStr = now.toLocaleDateString('fr-FR') + ' ' + String(now.getHours()).padStart(2,'0') + ':' + String(now.getMinutes()).padStart(2,'0');
+    creations.push({title: title, type: type, desc: desc, emoji: emoji, date: dateStr});
+    localStorage.setItem('artCreations', JSON.stringify(creations));
+    document.getElementById('art-create-title').value = '';
+    document.getElementById('art-create-desc').value = '';
+    renderGallery();
+    addArtTrace('✨ Creation ajoutee: ' + emoji + ' ' + title);
+    addArtTrace('⛓️ Grave dans la blockchain AfriChain');
+    alert('🎨 Ton oeuvre est gravee!\n\nL art de l Afrique ne disparaitra jamais.');
+}
+
+function updateArtProgress(){
+    var done = artCompleted.size;
+    var total = artModules.length;
+    var pct = Math.round((done / total) * 100);
+    document.getElementById('art-count').textContent = done;
+    document.getElementById('art-pct').textContent = pct + '%';
+    document.getElementById('art-bar').style.width = pct + '%';
+    document.getElementById('art-diplome').style.display = (done === total) ? 'block' : 'none';
+}
+
+function showArtModule(i){
+    var m = artModules[i];
+    document.getElementById('art-detail-title').textContent = m.emoji + ' ' + m.nom;
+    document.getElementById('art-detail-title').style.color = m.couleur;
+    var html = '<div style="color:' + m.couleur + ';font-weight:bold;font-size:1.1em;">' + m.emoji + ' ' + m.nom + '</div>';
+    html += '<div style="margin-top:5px;font-size:0.8em;color:#888;">⏱️ ' + m.duree + ' • 📊 ' + m.niveau + '</div>';
+    html += '<div style="margin-top:10px;padding:15px;background:rgba(255,68,255,0.05);border-left:3px solid ' + m.couleur + ';border-radius:4px;color:#a8c5a8;font-size:0.9em;line-height:1.6;">' + m.desc + '</div>';
+    html += '<div style="margin-top:10px;"><b style="color:#7fcf7f;">📚 Cours (' + m.cours.length + ' lecons):</b></div>';
+    m.cours.forEach(function(c, ci){
+        html += '<div style="padding:6px 10px;margin:3px 0;background:rgba(127,207,127,0.05);border-left:3px solid #7fcf7f;border-radius:4px;color:#a8c5a8;font-size:0.85em;">' + (ci+1) + '. ' + c + '</div>';
+    });
+    html += '<div style="margin-top:10px;padding:10px;background:rgba(255,170,68,0.05);border-radius:4px;"><b style="color:#ffaa44;">📝 Exercice:</b> <span style="color:#a8c5a8;font-size:0.85em;">' + m.exercice + '</span></div>';
+    html += '<div style="margin-top:10px;padding:8px;background:rgba(212,164,55,0.05);border-radius:4px;color:#d4a437;font-size:0.85em;">🎓 Diplome: ' + m.diplome + '</div>';
+    html += '<div style="margin-top:10px;text-align:center;"><button onclick="validateArtModule(' + i + ')" style="padding:8px 20px;background:' + m.couleur + ';color:#fff;border:none;border-radius:8px;font-weight:bold;cursor:pointer;">✅ J ai validé ce module</button></div>';
+    document.getElementById('art-detail').innerHTML = html;
+    addArtTrace('📖 Module ouvert: ' + m.emoji + ' ' + m.nom);
+}
+
+function validateArtModule(i){
+    if(artCompleted.has(i)) return;
+    artCompleted.add(i);
+    localStorage.setItem('artModulesDone', JSON.stringify(Array.from(artCompleted)));
+    var m = artModules[i];
+    addArtTrace('✅ Module validé: ' + m.nom);
+    addArtTrace('🎓 Diplome: ' + m.diplome);
+    addArtTrace('⛓️ Trace blockchain: art "' + m.nom + '" appris');
+    updateArtProgress();
+    updateArtGrid();
+    document.getElementById('art-status').innerHTML = '<span style="color:#7fcf7f;">✅ Tu as validé: ' + m.nom + '. L ame de l Afrique grandit en toi.</span>';
+}
+
+function updateArtGrid(){
+    artModules.forEach(function(m, i){
+        var div = document.getElementById('art-m-' + i);
+        if(!div) return;
+        var done = artCompleted.has(i);
+        div.style.borderColor = done ? m.couleur : '#444';
+        div.innerHTML = '<div style="font-size:1.5em;">' + m.emoji + '</div><div style="color:' + m.couleur + ';font-weight:bold;font-size:0.9em;">' + m.nom + '</div><div style="margin-top:3px;font-size:0.75em;color:#888;">' + m.duree + ' • ' + m.niveau + '</div><div style="margin-top:5px;font-size:0.8em;color:' + (done ? m.couleur : '#666') + ';">' + (done ? '✅ Validé' : '📖 A apprendre') + '</div>';
+    });
+}
+
+function gravArtDiplome(){
+    addArtTrace('🎓 DIPLOME ARTISTE DE L AFRIQUE grave dans la blockchain!');
+    addArtTrace('⛓️ Block: AI Artiste -- 8 modules validés');
+    addArtTrace('🎨 L ame de l Afrique est comprise. L art continue.');
+    alert('🎨🎓 DIPLOME ARTISTE DE L AFRIQUE\n\nCulture et Expression Africaine\n\nLes 8 modules validés.\nL ame de l Afrique est comprise.\n\nGrave dans la blockchain AfriChain\n\nL Afrique crée. Le monde ecoute. 💚🦁🎨');
+}
+
+// Canvas — African art patterns dancing
+var acan = document.getElementById('art-canvas');
+var actx = acan.getContext('2d');
+var artTime = 0;
+
+function drawArtiste(){
+    if(artPaused) { requestAnimationFrame(drawArtiste); return; }
+    artTime += 0.015;
+
+    // Background — warm African sunset
+    var grad = actx.createLinearGradient(0, 0, 0, 350);
+    grad.addColorStop(0, '#1a0a2a');
+    grad.addColorStop(0.3, '#2a1a3a');
+    grad.addColorStop(0.6, '#3a2a1a');
+    grad.addColorStop(1, '#1a1a0a');
+    actx.fillStyle = grad;
+    actx.fillRect(0, 0, 600, 350);
+
+    // African pattern — concentric circles (mudcloth inspired)
+    var colors = ['#ff44ff', '#d4a437', '#7fcf7f', '#ff6644', '#44aaff'];
+    for(var p = 0; p < 5; p++){
+        var px = 100 + p * 100;
+        var py = 175 + Math.sin(artTime + p) * 20;
+        for(var r = 30; r > 0; r -= 6){
+            actx.strokeStyle = colors[p] + '20';
+            actx.lineWidth = 2;
+            actx.beginPath();
+            actx.arc(px, py, r + Math.sin(artTime * 2 + p) * 2, 0, Math.PI * 2);
+            actx.stroke();
+        }
+    }
+
+    // Dancing notes/particles
+    for(var n = 0; n < 20; n++){
+        var nx = (n * 31 + artTime * 30) % 600;
+        var ny = 50 + (n * 17) % 250 + Math.sin(artTime * 2 + n) * 15;
+        var nc = colors[n % colors.length];
+        actx.fillStyle = nc + '40';
+        actx.font = 'bold 12px monospace';
+        var symbols = ['♪', '♫', '✦', '★', '◈'];
+        actx.fillText(symbols[n % symbols.length], nx, ny);
+    }
+
+    // Color splash waves
+    for(var w = 0; w < 3; w++){
+        var wx = 300 + Math.cos(artTime + w * 2) * 100;
+        var wy = 175 + Math.sin(artTime * 1.5 + w * 2) * 50;
+        var wgrad = actx.createRadialGradient(wx, wy, 0, wx, wy, 60);
+        wgrad.addColorStop(0, colors[w] + '15');
+        wgrad.addColorStop(1, colors[w] + '00');
+        actx.fillStyle = wgrad;
+        actx.fillRect(wx - 60, wy - 60, 120, 120);
+    }
+
+    // Bottom — African textile pattern
+    actx.strokeStyle = 'rgba(212,164,55,0.15)';
+    actx.lineWidth = 1;
+    for(var t = 0; t < 15; t++){
+        var tx = t * 40;
+        actx.beginPath();
+        actx.moveTo(tx, 300);
+        actx.lineTo(tx + 20, 320);
+        actx.lineTo(tx + 40, 300);
+        actx.lineTo(tx + 20, 280);
+        actx.closePath();
+        actx.stroke();
+    }
+
+    // Center text
+    var done = artCompleted.size;
+    actx.fillStyle = 'rgba(255,68,255,0.4)';
+    actx.font = 'bold 11px monospace';
+    actx.textAlign = 'center';
+    actx.fillText('LA TOILE DE L AFRIQUE', 300, 20);
+    actx.fillStyle = 'rgba(255,68,255,0.3)';
+    actx.font = '10px monospace';
+    actx.fillText(done + '/8 modules validés', 300, 38);
+
+    if(done === 8){
+        actx.fillStyle = 'rgba(255,68,255,' + (0.3 + Math.sin(artTime * 3) * 0.1) + ')';
+        actx.font = 'bold 12px monospace';
+        actx.fillText('L AME DE L AFRIQUE EST COMPRISE — L ART CONTINUE', 300, 340);
+    }
+
+    requestAnimationFrame(drawArtiste);
+}
+
+// Trace
+function addArtTrace(msg){
+    var log = document.getElementById('art-trace');
+    var now = new Date();
+    var ts = String(now.getHours()).padStart(2,'0') + ':' + String(now.getMinutes()).padStart(2,'0') + ':' + String(now.getSeconds()).padStart(2,'0');
+    log.innerHTML = '<div style="padding:4px 0;border-bottom:1px solid rgba(255,68,255,0.05);"><span style="color:#666;">[' + ts + ']</span> <span style="color:#ff44ff;">🎨</span> ' + msg + '</div>' + log.innerHTML;
+    if(log.innerHTML.length > 3000) log.innerHTML = log.innerHTML.substring(0, 3000);
+}
+
+addArtTrace('🎨 AI Artiste initialise — Culture et Expression Africaine');
+addArtTrace('📚 8 modules charges: Musique, Peinture, Poesie, Danse, Conte, Litterature, Cinema, Hip-Hop');
+addArtTrace('🥁 40+ instruments et traditions africains preserves');
+addArtTrace('✨ La jeunesse peut creer et exposer ses oeuvres');
+addArtTrace('🎓 Diplome: 8 modules -> Artiste de l Afrique');
+addArtTrace('🎨 L Afrique crée. Le monde ecoute.');
+
+updateArtProgress();
+drawArtiste();
+</script>
+
+<footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🎨 AI Artiste — L Afrique crée. Le monde ecoute. L art n est pas un luxe, c est l ame d un peuple. 💚🦁🎨</footer>"##);
+
+    html.push_str("</body></html>");
+    html
+}
+
 fn html_garage(chain: &Blockchain) -> String {
     let mut html = html_head("Garage AI — Atelier Autonome 2500");
     let num_blocks = chain.blocks.len();
@@ -13395,7 +13721,7 @@ html+='<div class="log-entry log-kill">⚠️ Tentative d\x27infiltration occide
 html+='<div class="log-entry log-invis">✅ L\x27Afrique est forte. Le système grandit.</div>';
 }else if(type==='total'){
 html='<div style="color:#d4a437;font-weight:bold;margin-bottom:8px">📋 RAPPORT TOTAL — Depuis le début</div>';
-html+='<div class="log-entry">🦁 AfriChain v0.86 — AI Juge Tribunal Souverain</div>';
+html+='<div class="log-entry">🦁 AfriChain v0.87 — AI Artiste Culture Africaine</div>';
 html+='<div class="log-entry">⛓️ Blockchain: 100% souveraine — Zéro dépendance externe</div>';
 html+='<div class="log-entry">🔐 Crypto: Ed25519 + AfriHash-256/512 + AfriRNG — tout from scratch</div>';
 html+='<div class="log-entry">🌍 54 pays africains connectés</div>';
@@ -14939,7 +15265,7 @@ fn main() {
         .and_then(|i| args.get(i + 1)).cloned().unwrap_or_else(|| "Afrique".to_string());
 
     let my_node_id = generate_node_id();
-    println!("🦁 AfriChain v0.86 — AI Juge Tribunal Souverain");
+    println!("🦁 AfriChain v0.87 — AI Artiste Culture Africaine");
     println!("💚 L'Afrique ne demande plus la permission");
     println!("🌍 54 pays — 🇲🇱 🇳🇪 🇧🇫 AES — Mali · Niger · Burkina Faso");
     println!("🔐 8 modules cryptographiques — construits from scratch");
@@ -15093,6 +15419,7 @@ fn main() {
     println!("🎖️ AI Leader sur http://localhost:8080/ai-leader");
     println!("📖 AI Griot sur http://localhost:8080/ai-griot");
     println!("⚖️ AI Juge sur http://localhost:8080/ai-juge");
+    println!("🎨 AI Artiste sur http://localhost:8080/ai-artiste");
 
     // Serveur HTTP en arrière-plan (pour mesh + autres utilisateurs)
     let serve_state = web_state.clone();
@@ -15127,7 +15454,7 @@ fn terminal_interface(state: &Arc<AppState>) {
     println!("  ║  🕐 AfriTime — Pas UTC, pas Greenwich   ║");
     println!("  ║  📝 ~16,500 lignes — écrit à la main       ║");
     println!("  ╚═══════════════════════════════════════════════╝");
-    println!("\n  Version v0.86 — 30 août 2026");
+    println!("\n  Version v0.87 — 30 août 2026");
     println!("  Construit sur Termux · Android · nano\n");
     println!("  ─────────────────────────────────────────────");
     println!("\n  1. 🏦 Centre de Données (Admin)");
@@ -15199,7 +15526,7 @@ fn admin_interface(state: &Arc<AppState>) {
         println!("\n");
         println!("╔══════════════════════════════════════╗");
         println!("║  🏦 CENTRE DE DONNÉES — Admin       ║");
-        println!("║  🦁 AfriChain v0.86                  ║");
+        println!("║  🦁 AfriChain v0.87                  ║");
         println!("╠══════════════════════════════════════╣");
         let chain = state.chain.lock().unwrap();
         let users = state.users.lock().unwrap();
@@ -18768,6 +19095,11 @@ fn handle_request(req: afri_http::HttpRequest, state: &Arc<AppState>) -> afri_ht
         ("GET", "/ai-juge") => {
             let chain = state.chain.lock().unwrap();
             HttpResponse::ok(&html_ai_juge(&chain))
+        }
+
+        ("GET", "/ai-artiste") => {
+            let chain = state.chain.lock().unwrap();
+            HttpResponse::ok(&html_ai_artiste(&chain))
         }
 
         ("GET", "/garage") => {
