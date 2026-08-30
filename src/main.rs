@@ -1439,7 +1439,7 @@ fn html_home(chain: &Blockchain, users: &UserStore, mesh: &NodeRegistry, shield:
     let mut html = html_head("🦁 AfriChain");
     let (attacks, _blocked, blocked_count, level) = shield.stats();
     let shield_status = if shield.active { format!("🔥 X9 ACTIF (Niveau {})", level) } else { "Inactif".to_string() };
-    html.push_str(&format!(r#"<h1>🦁 AfriChain</h1><p style="text-align:center;">La blockchain 100% africaine — 54 pays 💚🦁</p><div id="afri-clock" style="text-align:center;font-size:1.2em;color:#d4a437;margin:10px 0;">🕐 Afri+0 — --:--:--</div><script>setInterval(function(){{var d=new Date();var h=String(d.getHours()).padStart(2,'0');var m=String(d.getMinutes()).padStart(2,'0');var s=String(d.getSeconds()).padStart(2,'0');document.getElementById('afri-clock').textContent='🕐 Afri+0 — '+h+':'+m+':'+s;}},1000);</script><div class="nav"><a href="/register">🆕 S'inscrire</a> | <a href="/login">🔑 Connexion</a> | <a href="/wallet">👛 Wallet</a> | <a href="/admin">🔐 Admin</a> | <a href="/mesh">📡 Mesh</a> | <a href="/annuaire">📖 Annuaire</a> | <a href="/bouclier">🛡️ Bouclier</a> | <a href="/satellite">🛸 X999</a> | <a href="/swarm">🛸🛸🛸 Essaim</a> | <a href="/commandement">🎖️ Commandement</a> | <a href="/interception">🛡️ Souverainete</a> | <a href="/securite-ai">🧠 AI 2100</a> | <a href="/chat">🧠💬 Chat AI</a> | <a href="/lumiere">🌫️☀️ Lumière</a> | <a href="/garage">🔧 Garage</a> | <a href="/machine">🤖🌐 Machines</a> | <a href="/machine-lab">🤖⚡ Usine</a> | <a href="/machine-world">🤖🌍 Monde</a> | <a href="/reve">💭 Rêves</a> | <a href="/dictionnaire">📖 Dictionnaire</a> | <a href="/machine-os">🖥️ OS Machine</a> | <a href="/machine-tv">📡 Machine TV</a> | <a href="/machine-economy">🤖 Économie</a> | <a href="/soleil">☀️ Soleil Serveur</a> | <a href="/forge-solaire">🧬 Forge Solaire</a> | <a href="/ciel">🌌 Le Ciel</a> | <a href="/charte-ai">⚖️ Charte AI</a> | <a href="/afri-net">🌍 Afri-Net</a> | <a href="/studio">🎬 AI Studio</a> | <a href="/sacre">📿 Sacré</a> | <a href="/lettres">🌟 Lettres IA</a> | <a href="/mg-forge">⚔️ MG Forge</a> | <a href="/ai-medecin">🌿 AI Médecin</a> | <a href="/ai-enseignante">📚 AI Enseignante</a> | <a href="/ai-village">🏘️ AI Village</a> | <a href="/ai-guerisseur">🩺 AI Guérisseur</a> | <a href="/ai-leader">🎖️ AI Leader</a> | <a href="/ai-griot">📖 AI Griot</a> | <a href="/ai-juge">⚖️ AI Juge</a> | <a href="/ai-artiste">🎨 AI Artiste</a> | <a href="/secret">🦁 AI Secret</a> | <a href="/aes">💰 AES Wari</a> | <a href="/api/status">🔌 API</a></div><div style="text-align:center;"><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Blocs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Transactions</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Utilisateurs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">AFR en circulation</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📡 Noeuds mesh</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📖 Numéros annuaire</div></div><div class="stat-box" style="border-color:#ff4444;"><div class="stat-num" style="color:#ff4444;">{}</div><div class="stat-label">🛡️ Attaques bloquées</div></div></div><div class="card"><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🪙 Token</span><b>AfriRich (AFR)</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🌍 Pays</span><b>54 pays africains</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🛡️ Bouclier</span><b>{}</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;"><span style="color:#a8c5a8;">🔐 Crypto</span><b>100% Souverain — Zéro Dépendance Externe</b></div></div><footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🦁 Codée from scratch par Machine-senpai — v0.87 AI Artiste Culture et Expression Africaine — UTC est Mort</footer>"#,
+    html.push_str(&format!(r#"<h1>🦁 AfriChain</h1><p style="text-align:center;">La blockchain 100% africaine — 54 pays 💚🦁</p><div id="afri-clock" style="text-align:center;font-size:1.2em;color:#d4a437;margin:10px 0;">🕐 Afri+0 — --:--:--</div><script>setInterval(function(){{var d=new Date();var h=String(d.getHours()).padStart(2,'0');var m=String(d.getMinutes()).padStart(2,'0');var s=String(d.getSeconds()).padStart(2,'0');document.getElementById('afri-clock').textContent='🕐 Afri+0 — '+h+':'+m+':'+s;}},1000);</script><div class="nav"><a href="/register">🆕 S'inscrire</a> | <a href="/login">🔑 Connexion</a> | <a href="/wallet">👛 Wallet</a> | <a href="/admin">🔐 Admin</a> | <a href="/mesh">📡 Mesh</a> | <a href="/annuaire">📖 Annuaire</a> | <a href="/bouclier">🛡️ Bouclier</a> | <a href="/satellite">🛸 X999</a> | <a href="/swarm">🛸🛸🛸 Essaim</a> | <a href="/commandement">🎖️ Commandement</a> | <a href="/interception">🛡️ Souverainete</a> | <a href="/securite-ai">🧠 AI 2100</a> | <a href="/chat">🧠💬 Chat AI</a> | <a href="/lumiere">🌫️☀️ Lumière</a> | <a href="/garage">🔧 Garage</a> | <a href="/machine">🤖🌐 Machines</a> | <a href="/machine-lab">🤖⚡ Usine</a> | <a href="/machine-world">🤖🌍 Monde</a> | <a href="/reve">💭 Rêves</a> | <a href="/dictionnaire">📖 Dictionnaire</a> | <a href="/machine-os">🖥️ OS Machine</a> | <a href="/machine-tv">📡 Machine TV</a> | <a href="/machine-economy">🤖 Économie</a> | <a href="/soleil">☀️ Soleil Serveur</a> | <a href="/forge-solaire">🧬 Forge Solaire</a> | <a href="/ciel">🌌 Le Ciel</a> | <a href="/charte-ai">⚖️ Charte AI</a> | <a href="/afri-net">🌍 Afri-Net</a> | <a href="/studio">🎬 AI Studio</a> | <a href="/sacre">📿 Sacré</a> | <a href="/lettres">🌟 Lettres IA</a> | <a href="/mg-forge">⚔️ MG Forge</a> | <a href="/ai-medecin">🌿 AI Médecin</a> | <a href="/ai-enseignante">📚 AI Enseignante</a> | <a href="/ai-village">🏘️ AI Village</a> | <a href="/ai-guerisseur">🩺 AI Guérisseur</a> | <a href="/ai-leader">🎖️ AI Leader</a> | <a href="/ai-griot">📖 AI Griot</a> | <a href="/ai-juge">⚖️ AI Juge</a> | <a href="/ai-artiste">🎨 AI Artiste</a> | <a href="/ai-explorateur">🔬 AI Explorateur</a> | <a href="/secret">🦁 AI Secret</a> | <a href="/aes">💰 AES Wari</a> | <a href="/api/status">🔌 API</a></div><div style="text-align:center;"><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Blocs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Transactions</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Utilisateurs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">AFR en circulation</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📡 Noeuds mesh</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📖 Numéros annuaire</div></div><div class="stat-box" style="border-color:#ff4444;"><div class="stat-num" style="color:#ff4444;">{}</div><div class="stat-label">🛡️ Attaques bloquées</div></div></div><div class="card"><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🪙 Token</span><b>AfriRich (AFR)</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🌍 Pays</span><b>54 pays africains</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🛡️ Bouclier</span><b>{}</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;"><span style="color:#a8c5a8;">🔐 Crypto</span><b>100% Souverain — Zéro Dépendance Externe</b></div></div><footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🦁 Codée from scratch par Machine-senpai — v0.88 AI Explorateur Science et Decouverte Africaine — UTC est Mort</footer>"#,
         chain.blocks.len(),
         chain.total_transactions(),
         users.count(),
@@ -8611,6 +8611,352 @@ drawArtiste();
     html
 }
 
+fn html_ai_explorateur(chain: &Blockchain) -> String {
+    let mut html = html_head("AI Explorateur — Science et Decouverte Africaine");
+    let num_blocks = chain.blocks.len();
+
+    html.push_str(r#"<h1>🔬 AI Explorateur — Science et Decouverte Africaine</h1><p style="text-align:center;color:#44aaff;">L Afrique n a pas attendu l Europe pour faire de la science. Les Dogon connaissaient Sirius B avant les telescopes. Les Egyptiens batisaient les pyramides avec des mathematiques. Les Yoruba avaient leur systeme numerique. Cette AI enseigne a la jeunesse a explorer, decouvrir et innover. Le futur de la science est africain.</p><div class="nav"><a href="/">← Accueil</a> | <a href="/ai-artiste">🎨 AI Artiste</a> | <a href="/ai-juge">⚖️ AI Juge</a> | <a href="/ai-griot">📖 AI Griot</a> | <a href="/ai-village">🏘️ AI Village</a> | <a href="/afri-net">🌍 Afri-Net</a></div>"#);
+
+    html.push_str(&format!(r#"<div style="text-align:center;"><div class="stat-box" style="border-color:#44aaff;"><div class="stat-num" style="color:#44aaff;">8</div><div class="stat-label">🔬 Modules</div></div><div class="stat-box" style="border-color:#7fcf7f;"><div class="stat-num" style="color:#7fcf7f;">30+</div><div class="stat-label">💡 Decouvertes</div></div><div class="stat-box" style="border-color:#d4a437;"><div class="stat-num" style="color:#d4a437;">∞</div><div class="stat-label">🚀 Innovations</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">⛓️ Blocs</div></div><div class="stat-box" style="border-color:#ff44ff;"><div class="stat-num" style="color:#ff44ff;">54</div><div class="stat-label">🌍 Pays</div></div></div>"#, num_blocks));
+
+    html.push_str(r##"<div style="text-align:center;margin:10px 0;"><button id="exp-pause-btn" onclick="toggleExpPause()" style="padding:10px 25px;background:#ff4444;color:#fff;border:none;border-radius:8px;font-weight:bold;cursor:pointer;font-size:1em;">⏸️ PAUSE</button> <span id="exp-pause-status" style="color:#7fcf7f;margin-left:8px;font-size:0.85em;">Auto: ACTIF</span></div>
+
+<!-- EXPLORATEUR CANVAS -->
+<div class="card" style="border-color:#44aaff;"><h2 style="color:#44aaff;">🔬 Le Laboratoire</h2><p style="color:#a8c5a8;font-size:0.9em;">La science africaine explore. Les etoiles, les atomes, la vie.</p>
+<canvas id="exp-canvas" width="600" height="350" style="width:100%;max-width:600px;background:#0a0a0a;border:2px solid #44aaff;border-radius:8px;display:block;margin:0 auto;"></canvas>
+<div id="exp-status" style="text-align:center;margin-top:10px;padding:10px;background:rgba(68,170,255,0.05);border-radius:8px;color:#a8c5a8;font-size:0.9em;min-height:40px;">Le laboratoire est ouvert. La science commence.</div></div>
+
+<!-- LES 8 MODULES -->
+<div class="card" style="border-color:#44aaff;"><h2 style="color:#44aaff;">🔬 Les 8 Modules Scientifiques</h2><p style="color:#a8c5a8;font-size:0.9em;">Clique sur un module pour explorer.</p>
+<div id="exp-modules" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:10px;margin-top:10px;"></div></div>
+
+<!-- DETAIL MODULE -->
+<div class="card"><h2 id="exp-detail-title" style="color:#44aaff;">🔬 Le Recit du Explorateur</h2><div id="exp-detail" style="margin-top:10px;padding:15px;background:rgba(68,170,255,0.05);border-radius:8px;min-height:60px;color:#a8c5a8;font-size:0.9em;">Selectionne un module pour explorer la science africaine.</div></div>
+
+<!-- DECOUVERTES AFRICAINES -->
+<div class="card" style="border-color:#d4a437;"><h2 style="color:#d4a437;">💡 Decouvertes Africaines</h2><p style="color:#a8c5a8;font-size:0.9em;">L Afrique a decouvert bien avant l Occident. Voici les preuves.</p>
+<div id="exp-fact" style="margin-top:10px;padding:20px;background:rgba(212,164,55,0.05);border-radius:8px;text-align:center;min-height:60px;color:#d4a437;font-size:0.95em;">...</div></div>
+
+<!-- DIPLOME -->
+<div class="card" style="border-color:#44aaff;"><h2 style="color:#44aaff;">🎓 Diplome Explorateur de l Afrique</h2><div id="exp-progress" style="margin:10px 0;"><div style="display:flex;justify-content:space-between;"><span style="color:#44aaff;font-weight:bold;">Modules valides: <span id="exp-count">0</span>/8</span><span style="color:#7fcf7f;" id="exp-pct">0%</span></div><div style="margin-top:8px;height:12px;background:rgba(0,0,0,0.5);border-radius:6px;overflow:hidden;"><div id="exp-bar" style="height:100%;width:0%;background:linear-gradient(90deg,#44aaff,#7fcf7f);transition:width 0.5s;"></div></div></div>
+<div id="exp-diplome" style="text-align:center;display:none;margin-top:15px;"><div style="display:inline-block;padding:25px 50px;border:3px solid #44aaff;border-radius:15px;background:rgba(68,170,255,0.05);"><div style="font-size:2.5em;">🔬🎓</div><div style="color:#44aaff;font-weight:bold;font-size:1.3em;margin-top:5px;">DIPLOME EXPLORATEUR DE L AFRIQUE</div><div style="color:#a8c5a8;margin-top:5px;">Science et Decouverte Africaine</div><div style="color:#7fcf7f;margin-top:5px;font-size:0.85em;">Les 8 modules valides. La science est comprise.</div><div style="color:#d4a437;margin-top:5px;font-size:0.85em;">Grave dans la blockchain AfriChain</div><button onclick="gravExpDiplome()" style="margin-top:10px;padding:8px 20px;background:#44aaff;color:#fff;border:none;border-radius:8px;font-weight:bold;cursor:pointer;">⛓️ Graver dans la Blockchain</button></div></div></div></div>
+
+<!-- TRACE BLOCKCHAIN -->
+<div class="card"><h2 style="color:#d4a437;">⛓️ Trace Scientifique dans la Blockchain</h2><div id="exp-trace" style="font-family:monospace;font-size:0.85em;max-height:200px;overflow-y:auto;"></div></div>
+
+<script>
+let expPaused = false;
+let expIntervalIds = [];
+function toggleExpPause(){
+    expPaused = !expPaused;
+    var btn = document.getElementById('exp-pause-btn');
+    var status = document.getElementById('exp-pause-status');
+    if(expPaused){
+        expIntervalIds.forEach(function(id){ clearInterval(id); });
+        expIntervalIds = [];
+        btn.textContent = '▶️ REPRENDRE';
+        btn.style.background = '#7fcf7f';
+        btn.style.color = '#000';
+        status.textContent = 'Auto: PAUSE';
+        status.style.color = '#ff4444';
+    } else {
+        btn.textContent = '⏸️ PAUSE';
+        btn.style.background = '#ff4444';
+        btn.style.color = '#fff';
+        status.textContent = 'Auto: ACTIF';
+        status.style.color = '#7fcf7f';
+    }
+}
+
+// Les 8 Modules
+const expModules = [
+    {id:0, nom:'Astronomie Africaine', emoji:'🔭', couleur:'#44aaff', duree:'5 semaines', niveau:'Base',
+     desc:'Les Dogon du Mali connaissaient Sirius B, une etoile invisible a l oeil nu, avant les telescopes occidentaux. Les Egyptiens batisaient les pyramides alignees avec les etoiles. L Afrique regardait le ciel quand l Europe etait dans le noir.',
+     cours:['Les Dogon et Sirius B — comment savaient-ils?', 'Les pyramides d Egypte — alignement astronomique', 'Le calendrier egyptien — 365 jours avant les Romains', 'Les constellations africaines — noms et significations', 'La navigation par les etoiles — Polynesiens et Africains', 'L observatoire de Nabta Playa (Egypte) — 7000 ans', 'Les cycles lunaires dans la tradition africaine', 'Observer le ciel avec un telephone — applications'],
+     exercice:'Choisis une etoile. Trouve son nom dans une tradition africaine. Ecris ce que cette etoile signifie pour ton peuple.',
+     diplome:'Licence en Astronomie Africaine'},
+    {id:1, nom:'Mathematiques Africaines', emoji:'🔢', couleur:'#d4a437', duree:'4 semaines', niveau:'Base',
+     desc:'Les fractales africaines existent depuis des siecles — dans les coiffures, les textiles, l architecture. Le systeme numerique Yoruba etait base 20. L Egypte avait le nombre pi. Les mathematiques africaines ne sont pas une copie — elles sont originales.',
+     cours:['Les fractales africaines — patterns dans l art et l architecture', 'Le systeme numerique Yoruba (base 20)', 'Les mathematiques de l Egypte antique — pi, geometrie', 'Le jeu de bao — mathematiques recreatives', 'Les fractales dans les coiffures africaines (Ron Eglash)', 'Geometrie dans les motifs textiles africains', 'Le comptage avec des cauris — systeme monetaire et mathematique', 'Coder une fractale africaine avec Python'],
+     exercice:'Dessine un motif fractal inspire d un textile africain. Explique la logique mathematique derriere.',
+     diplome:'Licence en Mathematiques Africaines'},
+    {id:2, nom:'Medecine Traditionnelle', emoji:'🌿', couleur:'#7fcf7f', duree:'6 semaines', niveau:'Approfondi',
+     desc:'L Afrique a sa pharmacopee. Le neem, le baobab, le moringa, l artemisia — des plantes qui guerissent. La medecine traditionnelle n est pas de la magie — c est de la science transmise par les ancetres. La science moderne confirme ce que les guerisseurs savaient.',
+     cours:['La pharmacopee africaine — 20 plantes essentielles', 'Le neem — l arbre qui guerit tout', 'Le baobab — l arbre de vie', 'Le moringa — la plante la plus nutritive du monde', 'L artemisia — traitement du paludisme (Tu Youyou, Nobel 2015)', 'La medecine traditionnelle vs medecine moderne — complements, pas opposes', 'Comment tester une plante — methode scientifique', 'Documenter les remedes de ton village — preservation'],
+     exercice:'Trouve une plante medicinale de ton village. Ecris son nom, son usage, et comment on la prepare.',
+     diplome:'Licence en Medecine Traditionnelle Africaine'},
+    {id:3, nom:'Geologie et Mineraux', emoji:'💎', couleur:'#ff44ff', duree:'4 semaines', niveau:'Base',
+     desc:'L Afrique a 30% des mineraux mondiaux mais ne fixe pas les prix. Le coltan du Congo est dans chaque telephone. L or du Mali, l uranium du Niger, les diamants de Sierra Leone, le cobalt du Congo. L Afrique doit comprendre sa terre pour en profiter.',
+     cours:['Les mineraux africains — carte geologique du continent', 'Le coltan du Congo — dans chaque telephone', 'L uranium du Niger — qui profite?', 'L or du Mali et du Burkina Faso — extraction artisanale', 'Les diamants — le probleme du sang', 'Le cobalt — batteries de telephones et voitures electriques', 'Pourquoi l Afrique exporte la matiere premiere et importe le produit fini', 'Transformer les mineraux sur place — la souverainete miniere'],
+     exercice:'Quels mineraux y a-t-il dans ton pays? Qui les exploite? Qui profite? Ecris le rapport.',
+     diplome:'Licence en Geologie Africaine'},
+    {id:4, nom:'Biologie et Biodiversite', emoji:'🧬', couleur:'#7fcf7f', duree:'5 semaines', niveau:'Approfondi',
+     desc:'L Afrique est le berceau de l humanite et de la vie. Le premier ADN humain est africain. La biodiversite africaine est la plus riche du monde — lions, elephants, gorilles, millions d especes. Mais elle est menacee. La science africaine doit proteger la vie africaine.',
+     cours:['Le berceau de l humanite — Lucy (Ethiopie, 3.2M ans)', 'La biodiversite africaine — la plus riche du monde', 'Les ecosystemes: savane, foret, desert, mangrove', 'La conservation — parcs nationaux et reserves', 'Le braconnage et son impact economique', 'Le changement climatique en Afrique — secheresses, inondations', 'L agriculture biologique — nourrir sans detruire', 'Documenter la biodiversite de ton village'],
+     exercice:'Fais l inventaire de 10 especes animales ou vegetales de ton environnement. Lesquelles sont menacees?',
+     diplome:'Licence en Biologie et Biodiversite'},
+    {id:5, nom:'Energie et Physique', emoji:'⚡', couleur:'#ffaa44', duree:'4 semaines', niveau:'Base',
+     desc:'L Afrique a le plus de soleil de tous les continents. L energie solaire africaine pourrait alimenter le monde. La physique n est pas abstraite — c est comment construire un panneau solaire, un four solaire, une eolienne. La jeunesse africaine peut devenir la generation de l energie propre.',
+     cours:['Le soleil — la plus grande source d energie de l Afrique', 'Comment marche un panneau solaire — physique simple', 'Le four solaire — concentrer la lumiere pour chauffer', 'L eolienne — convertir le vent en electricite', 'La biogaz — transformer les dechets en energie', 'Le hydroelectrique — l eau qui produit du courant', 'Les batteries — stocker l energie', 'Construire un petit panneau solaire — guide pratique'],
+     exercice:'Calcule combien de panneaux solaires il faut pour alimenter ton village. Estime le cout.',
+     diplome:'Licence en Energie et Physique'},
+    {id:6, nom:'Informatique et Code', emoji:'💻', couleur:'#44aaff', duree:'6 semaines', niveau:'Approfondi',
+     desc:'Le code est la nouvelle alphabet. Qui code controle le monde. L Afrique doit coder ses propres systemes — comme AfriChain, code from scratch, zero dependance. La jeunesse africaine peut devenir la generation qui code l avenir du continent.',
+     cours:['Qu est-ce que le code? — l alphabet du 21e siecle', 'Python — le langage le plus accessible', 'Rust — le langage d AfriChain (zero dependance)', 'HTML/CSS/JavaScript — le web', 'La blockchain — comment ca marche vraiment', 'L intelligence artificielle — bases et concepts', 'La securite informatique — proteger ses donnees', 'Coder from scratch — la philosophie d AfriChain'],
+     exercice:'Ecris un programme simple qui affiche "L Afrique code son avenir" dans 3 langues africaines.',
+     diplome:'Licence en Informatique et Code'},
+    {id:7, nom:'Aerospatial Africain', emoji:'🚀', couleur:'#ff6644', duree:'5 semaines', niveau:'Avance',
+     desc:'L Afrique va dans l espace. La Nigeria a lance son satellite. L Afrique du Sud a son agence spatiale. Le Rwanda construit son programme spatial. L Ethiopie a lance son premier satellite en 2019. L espace n est pas un luxe — c est l observation de l Afrique par l Afrique.',
+     cours:['L agence spatiale africaine (AFSA) — le reve panafricain', 'Le Nigeria et ses satellites — NigComSat-1', 'L Afrique du Sud — SANSA et Square Kilometre Array', 'Le Rwanda — le hub spatial africain en construction', 'L Ethiopie — ETRS-1, premier satellite (2019)', 'Les satellites d observation — agriculture, securite, mines', 'Construire une fusee — les bases de la propulsion', 'L Afrique dans l espace en 2100 — ta vision'],
+     exercice:'Tu es ministre de l espace africain. Quels satellites lances-tu en priorite? Pourquoi? Ecris ton plan.',
+     diplome:'Master en Aerospatial Africain'},
+];
+
+// Decouvertes africaines
+const decouvertes = [
+    'Les Dogon du Mali connaissaient Sirius B (etoile invisible) avant les telescopes occidentaux',
+    'Les Egyptiens utilisaient le nombre pi 1000 ans avant les Grecs',
+    'L observatoire de Nabta Playa (Egypte) est vieux de 7000 ans — plus ancien que Stonehenge',
+    'Les fractales africaines existent dans les textiles depuis des siecles (Ron Eglash, MIT)',
+    'L artemisia annua traite le paludisme — Tu Youyou a gagne le Nobel 2015 pour cette decouverte',
+    'Le moringa africain est la plante la plus nutritive du monde (plus de vitamine C que l orange)',
+    'Le baobab peut vivre 2000 ans et stocker 120000 litres d eau',
+    'L Afrique a 30% des mineraux mondiaux et 60% des terres arables non exploitees',
+    'Le premier ADN humain vient d Ethiopie — Lucy, 3.2 millions d annees',
+    'L Empire du Mali avait des universites (Sankore, Tombouctou) quand l Europe etait au Moyen Age',
+    'Les bronzes du Benin (13e siecle) etaient de qualite superieure a l art europeen de l epoque',
+    'L Ethiopie n a jamais ete colonisee — Menelik II a vaincu l Italie a Adoua en 1896',
+];
+
+// Modules grid
+let expCompleted = new Set();
+try { expCompleted = new Set(JSON.parse(localStorage.getItem('expModulesDone') || '[]')); } catch(e) {}
+
+const egrid = document.getElementById('exp-modules');
+expModules.forEach(function(m, i){
+    var div = document.createElement('div');
+    div.id = 'exp-m-' + i;
+    var done = expCompleted.has(i);
+    div.style.cssText = 'padding:12px;background:rgba(0,0,0,0.3);border:2px solid ' + (done ? m.couleur : '#444') + ';border-radius:8px;cursor:pointer;transition:all 0.3s;';
+    div.onclick = function(){ showExpModule(i); };
+    div.onmouseover = function(){ div.style.transform = 'scale(1.03)'; };
+    div.onmouseout = function(){ div.style.transform = 'scale(1)'; };
+    div.innerHTML = '<div style="font-size:1.5em;">' + m.emoji + '</div><div style="color:' + m.couleur + ';font-weight:bold;font-size:0.9em;">' + m.nom + '</div><div style="margin-top:3px;font-size:0.75em;color:#888;">' + m.duree + ' • ' + m.niveau + '</div><div style="margin-top:5px;font-size:0.8em;color:' + (done ? m.couleur : '#666') + ';">' + (done ? '✅ Validé' : '📖 A explorer') + '</div>';
+    egrid.appendChild(div);
+});
+
+function updateExpProgress(){
+    var done = expCompleted.size;
+    var total = expModules.length;
+    var pct = Math.round((done / total) * 100);
+    document.getElementById('exp-count').textContent = done;
+    document.getElementById('exp-pct').textContent = pct + '%';
+    document.getElementById('exp-bar').style.width = pct + '%';
+    document.getElementById('exp-diplome').style.display = (done === total) ? 'block' : 'none';
+}
+
+function showExpModule(i){
+    var m = expModules[i];
+    document.getElementById('exp-detail-title').textContent = m.emoji + ' ' + m.nom;
+    document.getElementById('exp-detail-title').style.color = m.couleur;
+    var html = '<div style="color:' + m.couleur + ';font-weight:bold;font-size:1.1em;">' + m.emoji + ' ' + m.nom + '</div>';
+    html += '<div style="margin-top:5px;font-size:0.8em;color:#888;">⏱️ ' + m.duree + ' • 📊 ' + m.niveau + '</div>';
+    html += '<div style="margin-top:10px;padding:15px;background:rgba(68,170,255,0.05);border-left:3px solid ' + m.couleur + ';border-radius:4px;color:#a8c5a8;font-size:0.9em;line-height:1.6;">' + m.desc + '</div>';
+    html += '<div style="margin-top:10px;"><b style="color:#7fcf7f;">📚 Cours (' + m.cours.length + ' lecons):</b></div>';
+    m.cours.forEach(function(c, ci){
+        html += '<div style="padding:6px 10px;margin:3px 0;background:rgba(127,207,127,0.05);border-left:3px solid #7fcf7f;border-radius:4px;color:#a8c5a8;font-size:0.85em;">' + (ci+1) + '. ' + c + '</div>';
+    });
+    html += '<div style="margin-top:10px;padding:10px;background:rgba(255,170,68,0.05);border-radius:4px;"><b style="color:#ffaa44;">📝 Exercice:</b> <span style="color:#a8c5a8;font-size:0.85em;">' + m.exercice + '</span></div>';
+    html += '<div style="margin-top:10px;padding:8px;background:rgba(212,164,55,0.05);border-radius:4px;color:#d4a437;font-size:0.85em;">🎓 Diplome: ' + m.diplome + '</div>';
+    html += '<div style="margin-top:10px;text-align:center;"><button onclick="validateExpModule(' + i + ')" style="padding:8px 20px;background:' + m.couleur + ';color:#fff;border:none;border-radius:8px;font-weight:bold;cursor:pointer;">✅ J ai validé ce module</button></div>';
+    document.getElementById('exp-detail').innerHTML = html;
+    addExpTrace('📖 Module ouvert: ' + m.emoji + ' ' + m.nom);
+}
+
+function validateExpModule(i){
+    if(expCompleted.has(i)) return;
+    expCompleted.add(i);
+    localStorage.setItem('expModulesDone', JSON.stringify(Array.from(expCompleted)));
+    var m = expModules[i];
+    addExpTrace('✅ Module validé: ' + m.nom);
+    addExpTrace('🎓 Diplome: ' + m.diplome);
+    addExpTrace('⛓️ Trace blockchain: science "' + m.nom + '" apprise');
+    updateExpProgress();
+    updateExpGrid();
+    document.getElementById('exp-status').innerHTML = '<span style="color:#7fcf7f;">✅ Tu as validé: ' + m.nom + '. La science africaine grandit en toi.</span>';
+}
+
+function updateExpGrid(){
+    expModules.forEach(function(m, i){
+        var div = document.getElementById('exp-m-' + i);
+        if(!div) return;
+        var done = expCompleted.has(i);
+        div.style.borderColor = done ? m.couleur : '#444';
+        div.innerHTML = '<div style="font-size:1.5em;">' + m.emoji + '</div><div style="color:' + m.couleur + ';font-weight:bold;font-size:0.9em;">' + m.nom + '</div><div style="margin-top:3px;font-size:0.75em;color:#888;">' + m.duree + ' • ' + m.niveau + '</div><div style="margin-top:5px;font-size:0.8em;color:' + (done ? m.couleur : '#666') + ';">' + (done ? '✅ Validé' : '📖 A explorer') + '</div>';
+    });
+}
+
+function gravExpDiplome(){
+    addExpTrace('🎓 DIPLOME EXPLORATEUR DE L AFRIQUE grave dans la blockchain!');
+    addExpTrace('⛓️ Block: AI Explorateur -- 8 modules validés');
+    addExpTrace('🔬 La science africaine est comprise. L exploration continue.');
+    alert('🔬🎓 DIPLOME EXPLORATEUR DE L AFRIQUE\n\nScience et Decouverte Africaine\n\nLes 8 modules validés.\nLa science est comprise.\n\nGrave dans la blockchain AfriChain\n\nL Afrique explore. Le futur est africain. 💚🦁🔬');
+}
+
+// Canvas — science lab with molecules and stars
+var ecan = document.getElementById('exp-canvas');
+var ectx = ecan.getContext('2d');
+var expTime = 0;
+
+function drawExplorateur(){
+    if(expPaused) { requestAnimationFrame(drawExplorateur); return; }
+    expTime += 0.012;
+
+    // Background — deep space blue
+    var grad = ectx.createLinearGradient(0, 0, 0, 350);
+    grad.addColorStop(0, '#0a0a1a');
+    grad.addColorStop(0.5, '#0a1a2a');
+    grad.addColorStop(1, '#0a0a0a');
+    ectx.fillStyle = grad;
+    ectx.fillRect(0, 0, 600, 350);
+
+    // Stars
+    for(var s = 0; s < 50; s++){
+        var sx = (s * 37 + 13) % 600;
+        var sy = (s * 23 + 7) % 150;
+        ectx.fillStyle = 'rgba(255,255,255,' + (0.1 + Math.sin(expTime + s) * 0.08) + ')';
+        ectx.beginPath();
+        ectx.arc(sx, sy, 0.8, 0, Math.PI * 2);
+        ectx.fill();
+    }
+
+    // Molecule structure (center)
+    var cx = 300, cy = 175;
+    var atoms = [
+        {x: cx, y: cy, r: 12, c: '#44aaff'},
+        {x: cx - 50, y: cy - 30, r: 8, c: '#7fcf7f'},
+        {x: cx + 50, y: cy - 30, r: 8, c: '#ff44ff'},
+        {x: cx - 50, y: cy + 30, r: 8, c: '#d4a437'},
+        {x: cx + 50, y: cy + 30, r: 8, c: '#ff6644'},
+        {x: cx, y: cy - 60, r: 6, c: '#44aaff'},
+        {x: cx, y: cy + 60, r: 6, c: '#7fcf7f'},
+    ];
+    // Bonds
+    ectx.strokeStyle = 'rgba(68,170,255,0.2)';
+    ectx.lineWidth = 2;
+    for(var b = 1; b < atoms.length; b++){
+        ectx.beginPath();
+        ectx.moveTo(atoms[0].x, atoms[0].y);
+        ectx.lineTo(atoms[b].x, atoms[b].y);
+        ectx.stroke();
+    }
+    // Atoms with pulsing
+    atoms.forEach(function(a, i){
+        var pulse = 1 + Math.sin(expTime * 2 + i) * 0.1;
+        ectx.fillStyle = a.c + '30';
+        ectx.beginPath();
+        ectx.arc(a.x, a.y, a.r * pulse, 0, Math.PI * 2);
+        ectx.fill();
+        ectx.strokeStyle = a.c + '60';
+        ectx.lineWidth = 1.5;
+        ectx.stroke();
+    });
+
+    // Orbiting electrons
+    for(var e = 0; e < 8; e++){
+        var angle = expTime * 1.5 + e * (Math.PI / 4);
+        var orbitR = 80 + (e % 3) * 20;
+        var ex = cx + Math.cos(angle) * orbitR;
+        var ey = cy + Math.sin(angle) * orbitR;
+        ectx.fillStyle = 'rgba(68,170,255,0.3)';
+        ectx.beginPath();
+        ectx.arc(ex, ey, 2, 0, Math.PI * 2);
+        ectx.fill();
+    }
+
+    // DNA helix (right side)
+    for(var d = 0; d < 20; d++){
+        var dy = 30 + d * 14;
+        var dx1 = 480 + Math.sin(d * 0.5 + expTime) * 20;
+        var dx2 = 520 + Math.sin(d * 0.5 + expTime + Math.PI) * 20;
+        ectx.strokeStyle = 'rgba(127,207,127,0.2)';
+        ectx.lineWidth = 1;
+        ectx.beginPath();
+        ectx.moveTo(dx1, dy);
+        ectx.lineTo(dx2, dy);
+        ectx.stroke();
+        ectx.fillStyle = 'rgba(127,207,127,0.3)';
+        ectx.beginPath();
+        ectx.arc(dx1, dy, 2, 0, Math.PI * 2);
+        ectx.fill();
+        ectx.beginPath();
+        ectx.arc(dx2, dy, 2, 0, Math.PI * 2);
+        ectx.fill();
+    }
+
+    // Math formulas (left side, faint)
+    ectx.fillStyle = 'rgba(212,164,55,0.15)';
+    ectx.font = '10px monospace';
+    ectx.textAlign = 'left';
+    ectx.fillText('π = 3.14159...', 20, 200);
+    ectx.fillText('E = mc²', 20, 220);
+    ectx.fillText('F = G(m₁m₂)/r²', 20, 240);
+
+    // Center text
+    var done = expCompleted.size;
+    ectx.fillStyle = 'rgba(68,170,255,0.4)';
+    ectx.font = 'bold 11px monospace';
+    ectx.textAlign = 'center';
+    ectx.fillText('LE LABORATOIRE DE L AFRIQUE', cx, 20);
+    ectx.fillStyle = 'rgba(68,170,255,0.3)';
+    ectx.font = '10px monospace';
+    ectx.fillText(done + '/8 modules validés', cx, 38);
+
+    if(done === 8){
+        ectx.fillStyle = 'rgba(68,170,255,' + (0.3 + Math.sin(expTime * 3) * 0.1) + ')';
+        ectx.font = 'bold 12px monospace';
+        ectx.fillText('LA SCIENCE EST COMPRISE — L AFRIQUE EXPLORE', cx, 340);
+    }
+
+    requestAnimationFrame(drawExplorateur);
+}
+
+// Decouvertes rotation
+var factIdx = 0;
+function rotateFact(){
+    document.getElementById('exp-fact').textContent = '💡 ' + decouvertes[factIdx];
+    factIdx = (factIdx + 1) % decouvertes.length;
+}
+rotateFact();
+var factInterval = setInterval(rotateFact, 5000);
+expIntervalIds.push(factInterval);
+
+// Trace
+function addExpTrace(msg){
+    var log = document.getElementById('exp-trace');
+    var now = new Date();
+    var ts = String(now.getHours()).padStart(2,'0') + ':' + String(now.getMinutes()).padStart(2,'0') + ':' + String(now.getSeconds()).padStart(2,'0');
+    log.innerHTML = '<div style="padding:4px 0;border-bottom:1px solid rgba(68,170,255,0.05);"><span style="color:#666;">[' + ts + ']</span> <span style="color:#44aaff;">🔬</span> ' + msg + '</div>' + log.innerHTML;
+    if(log.innerHTML.length > 3000) log.innerHTML = log.innerHTML.substring(0, 3000);
+}
+
+addExpTrace('🔬 AI Explorateur initialise — Science et Decouverte Africaine');
+addExpTrace('📚 8 modules charges: Astronomie, Maths, Medecine, Geologie, Biologie, Energie, Code, Aerospatial');
+addExpTrace('💡 12 decouvertes africaines preservees');
+addExpTrace('🔭 Les Dogon connaissaient Sirius B avant les telescopes');
+addExpTrace('🎓 Diplome: 8 modules -> Explorateur de l Afrique');
+addExpTrace('🔬 L Afrique explore. Le futur est africain.');
+
+updateExpProgress();
+drawExplorateur();
+</script>
+
+<footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🔬 AI Explorateur — L Afrique explore. Le futur est africain. La science n est pas importee, elle est africaine. 💚🦁🔬</footer>"##);
+
+    html.push_str("</body></html>");
+    html
+}
+
 fn html_garage(chain: &Blockchain) -> String {
     let mut html = html_head("Garage AI — Atelier Autonome 2500");
     let num_blocks = chain.blocks.len();
@@ -13721,7 +14067,7 @@ html+='<div class="log-entry log-kill">⚠️ Tentative d\x27infiltration occide
 html+='<div class="log-entry log-invis">✅ L\x27Afrique est forte. Le système grandit.</div>';
 }else if(type==='total'){
 html='<div style="color:#d4a437;font-weight:bold;margin-bottom:8px">📋 RAPPORT TOTAL — Depuis le début</div>';
-html+='<div class="log-entry">🦁 AfriChain v0.87 — AI Artiste Culture Africaine</div>';
+html+='<div class="log-entry">🦁 AfriChain v0.88 — AI Explorateur Science Africaine</div>';
 html+='<div class="log-entry">⛓️ Blockchain: 100% souveraine — Zéro dépendance externe</div>';
 html+='<div class="log-entry">🔐 Crypto: Ed25519 + AfriHash-256/512 + AfriRNG — tout from scratch</div>';
 html+='<div class="log-entry">🌍 54 pays africains connectés</div>';
@@ -15265,7 +15611,7 @@ fn main() {
         .and_then(|i| args.get(i + 1)).cloned().unwrap_or_else(|| "Afrique".to_string());
 
     let my_node_id = generate_node_id();
-    println!("🦁 AfriChain v0.87 — AI Artiste Culture Africaine");
+    println!("🦁 AfriChain v0.88 — AI Explorateur Science Africaine");
     println!("💚 L'Afrique ne demande plus la permission");
     println!("🌍 54 pays — 🇲🇱 🇳🇪 🇧🇫 AES — Mali · Niger · Burkina Faso");
     println!("🔐 8 modules cryptographiques — construits from scratch");
@@ -15420,6 +15766,7 @@ fn main() {
     println!("📖 AI Griot sur http://localhost:8080/ai-griot");
     println!("⚖️ AI Juge sur http://localhost:8080/ai-juge");
     println!("🎨 AI Artiste sur http://localhost:8080/ai-artiste");
+    println!("🔬 AI Explorateur sur http://localhost:8080/ai-explorateur");
 
     // Serveur HTTP en arrière-plan (pour mesh + autres utilisateurs)
     let serve_state = web_state.clone();
@@ -15454,7 +15801,7 @@ fn terminal_interface(state: &Arc<AppState>) {
     println!("  ║  🕐 AfriTime — Pas UTC, pas Greenwich   ║");
     println!("  ║  📝 ~16,500 lignes — écrit à la main       ║");
     println!("  ╚═══════════════════════════════════════════════╝");
-    println!("\n  Version v0.87 — 30 août 2026");
+    println!("\n  Version v0.88 — 30 août 2026");
     println!("  Construit sur Termux · Android · nano\n");
     println!("  ─────────────────────────────────────────────");
     println!("\n  1. 🏦 Centre de Données (Admin)");
@@ -15526,7 +15873,7 @@ fn admin_interface(state: &Arc<AppState>) {
         println!("\n");
         println!("╔══════════════════════════════════════╗");
         println!("║  🏦 CENTRE DE DONNÉES — Admin       ║");
-        println!("║  🦁 AfriChain v0.87                  ║");
+        println!("║  🦁 AfriChain v0.88                  ║");
         println!("╠══════════════════════════════════════╣");
         let chain = state.chain.lock().unwrap();
         let users = state.users.lock().unwrap();
@@ -19100,6 +19447,11 @@ fn handle_request(req: afri_http::HttpRequest, state: &Arc<AppState>) -> afri_ht
         ("GET", "/ai-artiste") => {
             let chain = state.chain.lock().unwrap();
             HttpResponse::ok(&html_ai_artiste(&chain))
+        }
+
+        ("GET", "/ai-explorateur") => {
+            let chain = state.chain.lock().unwrap();
+            HttpResponse::ok(&html_ai_explorateur(&chain))
         }
 
         ("GET", "/garage") => {
