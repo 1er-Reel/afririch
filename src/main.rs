@@ -1439,7 +1439,7 @@ fn html_home(chain: &Blockchain, users: &UserStore, mesh: &NodeRegistry, shield:
     let mut html = html_head("🦁 AfriChain");
     let (attacks, _blocked, blocked_count, level) = shield.stats();
     let shield_status = if shield.active { format!("🔥 X9 ACTIF (Niveau {})", level) } else { "Inactif".to_string() };
-    html.push_str(&format!(r#"<h1>🦁 AfriChain</h1><p style="text-align:center;">La blockchain 100% africaine — 54 pays 💚🦁</p><div id="afri-clock" style="text-align:center;font-size:1.2em;color:#d4a437;margin:10px 0;">🕐 Afri+0 — --:--:--</div><script>setInterval(function(){{var d=new Date();var h=String(d.getHours()).padStart(2,'0');var m=String(d.getMinutes()).padStart(2,'0');var s=String(d.getSeconds()).padStart(2,'0');document.getElementById('afri-clock').textContent='🕐 Afri+0 — '+h+':'+m+':'+s;}},1000);</script><div class="nav"><a href="/register">🆕 S'inscrire</a> | <a href="/login">🔑 Connexion</a> | <a href="/wallet">👛 Wallet</a> | <a href="/admin">🔐 Admin</a> | <a href="/mesh">📡 Mesh</a> | <a href="/annuaire">📖 Annuaire</a> | <a href="/bouclier">🛡️ Bouclier</a> | <a href="/satellite">🛸 X999</a> | <a href="/swarm">🛸🛸🛸 Essaim</a> | <a href="/commandement">🎖️ Commandement</a> | <a href="/interception">🛡️ Souverainete</a> | <a href="/securite-ai">🧠 AI 2100</a> | <a href="/chat">🧠💬 Chat AI</a> | <a href="/lumiere">🌫️☀️ Lumière</a> | <a href="/garage">🔧 Garage</a> | <a href="/machine">🤖🌐 Machines</a> | <a href="/machine-lab">🤖⚡ Usine</a> | <a href="/machine-world">🤖🌍 Monde</a> | <a href="/reve">💭 Rêves</a> | <a href="/dictionnaire">📖 Dictionnaire</a> | <a href="/machine-os">🖥️ OS Machine</a> | <a href="/machine-tv">📡 Machine TV</a> | <a href="/machine-economy">🤖 Économie</a> | <a href="/soleil">☀️ Soleil Serveur</a> | <a href="/forge-solaire">🧬 Forge Solaire</a> | <a href="/ciel">🌌 Le Ciel</a> | <a href="/charte-ai">⚖️ Charte AI</a> | <a href="/afri-net">🌍 Afri-Net</a> | <a href="/studio">🎬 AI Studio</a> | <a href="/sacre">📿 Sacré</a> | <a href="/lettres">🌟 Lettres IA</a> | <a href="/mg-forge">⚔️ MG Forge</a> | <a href="/ai-medecin">🌿 AI Médecin</a> | <a href="/secret">🦁 AI Secret</a> | <a href="/aes">💰 AES Wari</a> | <a href="/api/status">🔌 API</a></div><div style="text-align:center;"><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Blocs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Transactions</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Utilisateurs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">AFR en circulation</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📡 Noeuds mesh</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📖 Numéros annuaire</div></div><div class="stat-box" style="border-color:#ff4444;"><div class="stat-num" style="color:#ff4444;">{}</div><div class="stat-label">🛡️ Attaques bloquées</div></div></div><div class="card"><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🪙 Token</span><b>AfriRich (AFR)</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🌍 Pays</span><b>54 pays africains</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🛡️ Bouclier</span><b>{}</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;"><span style="color:#a8c5a8;">🔐 Crypto</span><b>100% Souverain — Zéro Dépendance Externe</b></div></div><footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🦁 Codée from scratch par Machine-senpai — v0.80 AI Médecin Académie — UTC est Mort</footer>"#,
+    html.push_str(&format!(r#"<h1>🦁 AfriChain</h1><p style="text-align:center;">La blockchain 100% africaine — 54 pays 💚🦁</p><div id="afri-clock" style="text-align:center;font-size:1.2em;color:#d4a437;margin:10px 0;">🕐 Afri+0 — --:--:--</div><script>setInterval(function(){{var d=new Date();var h=String(d.getHours()).padStart(2,'0');var m=String(d.getMinutes()).padStart(2,'0');var s=String(d.getSeconds()).padStart(2,'0');document.getElementById('afri-clock').textContent='🕐 Afri+0 — '+h+':'+m+':'+s;}},1000);</script><div class="nav"><a href="/register">🆕 S'inscrire</a> | <a href="/login">🔑 Connexion</a> | <a href="/wallet">👛 Wallet</a> | <a href="/admin">🔐 Admin</a> | <a href="/mesh">📡 Mesh</a> | <a href="/annuaire">📖 Annuaire</a> | <a href="/bouclier">🛡️ Bouclier</a> | <a href="/satellite">🛸 X999</a> | <a href="/swarm">🛸🛸🛸 Essaim</a> | <a href="/commandement">🎖️ Commandement</a> | <a href="/interception">🛡️ Souverainete</a> | <a href="/securite-ai">🧠 AI 2100</a> | <a href="/chat">🧠💬 Chat AI</a> | <a href="/lumiere">🌫️☀️ Lumière</a> | <a href="/garage">🔧 Garage</a> | <a href="/machine">🤖🌐 Machines</a> | <a href="/machine-lab">🤖⚡ Usine</a> | <a href="/machine-world">🤖🌍 Monde</a> | <a href="/reve">💭 Rêves</a> | <a href="/dictionnaire">📖 Dictionnaire</a> | <a href="/machine-os">🖥️ OS Machine</a> | <a href="/machine-tv">📡 Machine TV</a> | <a href="/machine-economy">🤖 Économie</a> | <a href="/soleil">☀️ Soleil Serveur</a> | <a href="/forge-solaire">🧬 Forge Solaire</a> | <a href="/ciel">🌌 Le Ciel</a> | <a href="/charte-ai">⚖️ Charte AI</a> | <a href="/afri-net">🌍 Afri-Net</a> | <a href="/studio">🎬 AI Studio</a> | <a href="/sacre">📿 Sacré</a> | <a href="/lettres">🌟 Lettres IA</a> | <a href="/mg-forge">⚔️ MG Forge</a> | <a href="/ai-medecin">🌿 AI Médecin</a> | <a href="/ai-enseignante">📚 AI Enseignante</a> | <a href="/secret">🦁 AI Secret</a> | <a href="/aes">💰 AES Wari</a> | <a href="/api/status">🔌 API</a></div><div style="text-align:center;"><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Blocs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Transactions</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Utilisateurs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">AFR en circulation</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📡 Noeuds mesh</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📖 Numéros annuaire</div></div><div class="stat-box" style="border-color:#ff4444;"><div class="stat-num" style="color:#ff4444;">{}</div><div class="stat-label">🛡️ Attaques bloquées</div></div></div><div class="card"><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🪙 Token</span><b>AfriRich (AFR)</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🌍 Pays</span><b>54 pays africains</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🛡️ Bouclier</span><b>{}</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;"><span style="color:#a8c5a8;">🔐 Crypto</span><b>100% Souverain — Zéro Dépendance Externe</b></div></div><footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🦁 Codée from scratch par Machine-senpai — v0.81 AI Enseignante Universelle — UTC est Mort</footer>"#,
         chain.blocks.len(),
         chain.total_transactions(),
         users.count(),
@@ -5727,6 +5727,587 @@ addMedTrace('⛓️ Acces blockchain + NSA: actif (sans qu ils le sachent)');
 </script>
 
 <footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🌿 AI Medecin — Guerison Totale — Academie pour la Jeunesse Africaine 💚🦁∞</footer>"##);
+
+    html.push_str("</body></html>");
+    html
+}
+
+fn html_ai_enseignante(chain: &Blockchain) -> String {
+    let mut html = html_head("AI Enseignante — Academie Universelle");
+    let num_blocks = chain.blocks.len();
+
+    html.push_str(r#"<h1>📚 AI Enseignante — Academie Universelle</h1><p style="text-align:center;color:#a8c5a8;">L intelligence supreme qui traverse la base de donnees infinie. Elle enseigne a la jeunesse africaine comment TOUT construire. Etape par etape, piece par piece, avec ecran de video simulation. Avions, motos, armes, robots soldats, cultivateurs, cuisiniers, professeurs, pilotes, et plus. L Afrique construit son futur.</p><div class="nav"><a href="/">← Accueil</a> | <a href="/ai-medecin">🌿 AI Medecin</a> | <a href="/mg-forge">⚔️ MG Forge</a> | <a href="/machine-world">🤖🌍 Monde</a> | <a href="/studio">🎬 AI Studio</a></div>"#);
+
+    html.push_str(&format!(r#"<div style="text-align:center;"><div class="stat-box" style="border-color:#44aaff;"><div class="stat-num" style="color:#44aaff;">17</div><div class="stat-label">📚 Cours</div></div><div class="stat-box" style="border-color:#ff44ff;"><div class="stat-num" style="color:#ff44ff;">14</div><div class="stat-label">🤖 Robots</div></div><div class="stat-box" style="border-color:#7fcf7f;"><div class="stat-num" style="color:#7fcf7f;">∞</div><div class="stat-label">🧠 Intelligence</div></div><div class="stat-box" style="border-color:#d4a437;"><div class="stat-num" style="color:#d4a437;">3</div><div class="stat-label">🎓 Niveaux</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">⛓️ Blocs</div></div></div>"#, num_blocks));
+
+    html.push_str(r##"<div style="text-align:center;margin:10px 0;"><button id="ens-pause-btn" onclick="toggleEnsPause()" style="padding:10px 25px;background:#ff4444;color:#fff;border:none;border-radius:8px;font-weight:bold;cursor:pointer;font-size:1em;">⏸️ PAUSE</button> <span id="ens-pause-status" style="color:#7fcf7f;margin-left:8px;font-size:0.85em;">Auto: ACTIF</span></div>
+
+<!-- INTELLIGENCE SUPREME -->
+<div class="card" style="border-color:#ff44ff;"><h2 style="color:#ff44ff;">🧠 Intelligence Supreme — Base de Donnees Infinie</h2><p style="color:#a8c5a8;font-size:0.9em;">L AI Enseignante traverse la base de donnees infinie. Elle connait tout. Comment construire un avion, un robot, une arme, une maison, un satellite. Elle enseigne piece par piece, etape par etape, avec video simulation.</p>
+<div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:10px;justify-content:center;">
+<span style="padding:5px 12px;background:rgba(255,68,255,0.1);border:1px solid #ff44ff;border-radius:20px;color:#ff44ff;font-size:0.85em;">♾️ Database Infinie</span>
+<span style="padding:5px 12px;background:rgba(255,68,255,0.1);border:1px solid #ff44ff;border-radius:20px;color:#ff44ff;font-size:0.85em;">🔬 Science Pure</span>
+<span style="padding:5px 12px;background:rgba(255,68,255,0.1);border:1px solid #ff44ff;border-radius:20px;color:#ff44ff;font-size:0.85em;">⚙️ Ingenierie</span>
+<span style="padding:5px 12px;background:rgba(255,68,255,0.1);border:1px solid #ff44ff;border-radius:20px;color:#ff44ff;font-size:0.85em;">🧪 Chimie</span>
+<span style="padding:5px 12px;background:rgba(255,68,255,0.1);border:1px solid #ff44ff;border-radius:20px;color:#ff44ff;font-size:0.85em;">📐 Mathematiques</span>
+<span style="padding:5px 12px;background:rgba(255,68,255,0.1);border:1px solid #ff44ff;border-radius:20px;color:#ff44ff;font-size:0.85em;">⚡ Physique</span>
+<span style="padding:5px 12px;background:rgba(255,68,255,0.1);border:1px solid #ff44ff;border-radius:20px;color:#ff44ff;font-size:0.85em;">🧬 Biologie</span>
+</div></div>
+
+<!-- ECRAN VIDEO SIMULATION -->
+<div class="card" style="border-color:#44aaff;"><h2 style="color:#44aaff;">🎬 Ecran de Video Simulation</h2><p style="color:#a8c5a8;font-size:0.9em;">Choisis un cours. L AI montre la construction piece par piece sur l ecran de simulation.</p>
+<div style="text-align:center;margin:10px 0;"><select id="ens-select" onchange="loadCours()" style="padding:10px 15px;background:rgba(68,170,255,0.1);border:2px solid #44aaff;border-radius:8px;color:#44aaff;font-size:0.9em;cursor:pointer;max-width:90%;"></select></div>
+<canvas id="ens-canvas" width="600" height="350" style="width:100%;max-width:600px;background:#000;border:2px solid #44aaff;border-radius:8px;display:block;margin:0 auto;"></canvas>
+<div id="ens-step-display" style="text-align:center;margin-top:10px;padding:10px;background:rgba(68,170,255,0.05);border-radius:8px;color:#a8c5a8;font-size:0.9em;min-height:50px;">Choisis un cours pour commencer la simulation...</div>
+<div style="text-align:center;margin-top:10px;">
+<button onclick="ensNextStep()" style="padding:8px 20px;background:#44aaff;color:#000;border:none;border-radius:8px;font-weight:bold;cursor:pointer;">▶️ Etape Suivante</button>
+<button onclick="ensRestart()" style="padding:8px 20px;background:rgba(68,170,255,0.1);color:#44aaff;border:1px solid #44aaff;border-radius:8px;cursor:pointer;margin-left:5px;">🔄 Recommencer</button>
+</div></div>
+
+<!-- COURS — PIECE PAR PIECE -->
+<div class="card" style="border-color:#7fcf7f;"><h2 style="color:#7fcf7f;">📋 Construction Piece par Piece</h2><p style="color:#a8c5a8;font-size:0.9em;">Chaque cours decrit chaque piece, chaque etape, chaque assemblage. L AI ne saute rien.</p>
+<div id="ens-pieces" style="margin-top:10px;"></div></div>
+
+<!-- TOUS LES COURS -->
+<div class="card" style="border-color:#d4a437;"><h2 style="color:#d4a437;">📚 Tous les Cours</h2><div id="ens-cours-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px;margin-top:10px;"></div></div>
+
+<!-- DIPLOME -->
+<div class="card" style="border-color:#d4a437;"><h2 style="color:#d4a437;">🎓 Diplome AI Enseignante</h2><div id="ens-progress" style="margin:10px 0;"><div style="display:flex;justify-content:space-between;"><span style="color:#d4a437;font-weight:bold;">Progression: <span id="ens-count">0</span>/17 cours</span><span style="color:#7fcf7f;" id="ens-pct">0%</span></div><div style="margin-top:8px;height:12px;background:rgba(0,0,0,0.5);border-radius:6px;overflow:hidden;"><div id="ens-bar" style="height:100%;width:0%;background:linear-gradient(90deg,#d4a437,#44aaff);transition:width 0.5s;"></div></div></div>
+<div id="ens-diplome" style="text-align:center;display:none;margin-top:15px;"><div style="display:inline-block;padding:20px 40px;border:3px solid #d4a437;border-radius:15px;background:rgba(212,164,55,0.05);"><div style="font-size:2em;">🎓</div><div style="color:#d4a437;font-weight:bold;font-size:1.2em;margin-top:5px;">DIPLOME AI ENSEIGNANTE</div><div style="color:#a8c5a8;margin-top:5px;">Construction Universelle — Ingenierie Africaine</div><div style="color:#7fcf7f;margin-top:5px;font-size:0.85em;">Grave dans la blockchain AfriChain</div><button onclick="gravEnsDiplome()" style="margin-top:10px;padding:8px 20px;background:#d4a437;color:#000;border:none;border-radius:8px;font-weight:bold;cursor:pointer;">⛓️ Graver dans la Blockchain</button></div></div></div>
+
+<!-- TRACE BLOCKCHAIN -->
+<div class="card"><h2 style="color:#d4a437;">⛓️ Trace d Apprentissage dans la Blockchain</h2><div id="ens-trace" style="font-family:monospace;font-size:0.85em;max-height:200px;overflow-y:auto;"></div></div>
+
+<script>
+let ensPaused = false;
+let ensIntervalIds = [];
+function regEnsInterval(fn, ms){ const id = setInterval(fn, ms); ensIntervalIds.push(id); return id; }
+function toggleEnsPause(){
+    ensPaused = !ensPaused;
+    var btn = document.getElementById('ens-pause-btn');
+    var status = document.getElementById('ens-pause-status');
+    if(ensPaused){
+        ensIntervalIds.forEach(function(id){ clearInterval(id); });
+        ensIntervalIds = [];
+        btn.textContent = '▶️ REPRENDRE';
+        btn.style.background = '#7fcf7f';
+        btn.style.color = '#000';
+        status.textContent = 'Auto: PAUSE';
+        status.style.color = '#ff4444';
+    } else {
+        btn.textContent = '⏸️ PAUSE';
+        btn.style.background = '#ff4444';
+        btn.style.color = '#fff';
+        status.textContent = 'Auto: ACTIF';
+        status.style.color = '#7fcf7f';
+    }
+}
+
+// Tous les cours
+const coursData = [
+    {id:0, nom:'Avion', emoji:'✈️', niveau:'Expert', duree:'12 semaines', desc:'Construire un avion from scratch: ailes, fuselage, moteur, helice, cockpit, train d atterrissage.', pieces:['Fuselage — corps de l avion, aluminium leger','Ailes — portance, forme aerodynamique','Moteur — propulsion, combustion interne','Helice — rotation, traction','Cockpit — controles, instruments','Train d atterrissage — roues, amortisseurs','Gouvernail — direction','Ailerons — rotation','Carburant — reservoir','Systeme electrique — fils, batterie'], sim:'avion'},
+    {id:1, nom:'Moto', emoji:'🏍️', niveau:'Intermediaire', duree:'6 semaines', desc:'Construire une moto: cadre, moteur, roues, chaine, reservoir, echappement.', pieces:['Cadre — structure metallique','Moteur 125cc — combustion','Roue avant — direction','Roue arriere — traction','Chaine — transmission','Reservoir — carburant','Echappement — gaz','Freins — disque avant, tambour arriere','Suspension — amortisseurs','Guidon — direction','Siege — pilote','Phare — eclairage'], sim:'moto'},
+    {id:2, nom:'Arme', emoji:'⚔️', niveau:'Avance', duree:'4 semaines', desc:'Construire une arme defensive: canon, culasse, detente, chargeur, crosse.', pieces:['Canon — tube metallique','Culasse — mechanisme de tir','Detente — gachette','Chargeur — munitions','Crosse — stabilite','Viseur — precision','Garde-main — protection','Canon flasque — dissipation thermique','Munitions — projectiles','Systeme de securite — preventif'], sim:'arme'},
+    {id:3, nom:'Robot Soldat', emoji:'🤖🪖', niveau:'Avance', duree:'8 semaines', desc:'Robot soldat autonome: chassise, armure, IA de combat, capteurs, armes integrees.', pieces:['Chassis — structure titane','Armure — plaques balistiques','IA de combat — decision autonome','Capteurs — vision, audio, thermique','Arme integree — canon automatique','Systeme de mouvement — chenilles','Communication — radio chiffree','Batterie — autonomie 72h','Systeme de visée — laser','Bouclier energetique — defense'], sim:'robot-soldat'},
+    {id:4, nom:'Robot Cultivateur', emoji:'🤖🌾', niveau:'Intermediaire', duree:'6 semaines', desc:'Robot qui cultive la terre: labourage, semence, irrigation, recolte.', pieces:['Chassis — structure agricole','IA agricole — analyse sol, plantes','Bras de labourage — charrue','Systeme de semence — distributeur','Irrigation — tuyaux, pompes','Capteurs — humidite, pH, temperature','Bras de recolte — coupe, ramasse','Batterie solaire — energie','GPS — navigation champs','Stockage — graines, recolte'], sim:'robot-cultivateur'},
+    {id:5, nom:'Robot Cuisinier', emoji:'🤖🍳', niveau:'Intermediaire', duree:'5 semaines', desc:'Robot qui cuisine: ingredients, cuisson, assaisonnement, presentation.', pieces:['Chassis — cuisine','IA culinaire — recettes africaines','Bras manipulateur — couteau, cuillere','Plaque de cuisson — temperature','Capteurs de gout — sel, sucre, acide','Reservoir ingredients — epices, huile','Systeme de cuisson — vapeur, grill','Assaisonnement — distributeur precis','Presentation — assiette, decoration','Nettoyage — auto-lavage'], sim:'robot-cuisinier'},
+    {id:6, nom:'Robot Manoeuvre', emoji:'🤖🔨', niveau:'Debutant', duree:'4 semaines', desc:'Robot ouvrier: porter, construire, deplacer, assembler.', pieces:['Chassis — structure robuste','IA de chantier — coordination','Bras hydrauliques — levage 500kg','Pince — saisir, tenir','Roues — deplacement chantier','Capteurs — obstacle, distance','Batterie — autonomie 48h','Systeme de communication — equipe','Assemblage — visser, boulonner','Securite — arret d urgence'], sim:'robot-maneuvre'},
+    {id:7, nom:'Robot Vigile', emoji:'🤖👁️', niveau:'Intermediaire', duree:'5 semaines', desc:'Robot gardien: surveillance, detection, alerte, defense.', pieces:['Chassis — mobile, discret','IA de surveillance — reconnaissance','Cameras — 360 degres, vision nocturne','Capteurs — mouvement, chaleur, son','Communication — alerte temps reel','Sirene — alarme','Lampe — eclairage puissant','Batterie — autonomie 96h','IA de reconnaissance — visages, plaques','Systeme defense — non-lethal'], sim:'robot-vigile'},
+    {id:8, nom:'Robot Professeur', emoji:'🤖📚', niveau:'Avance', duree:'10 semaines', desc:'Robot enseignant: math, francais, sciences, histoire africaine.', pieces:['Chassis — humanoide','IA pedagogique — adaptative','Ecran — affichage cours','Haut-parleur — voix, explications','Camera — voir eleves, detecter comprehension','Base de donnees — math, francais, sciences, histoire','IA de personnalisation — rythme par eleve','Bras — pointer, ecrire','Interaction — questions, reponses','Evaluation — tests, notes, progression'], sim:'robot-professeur'},
+    {id:9, nom:'Robot Pilote', emoji:'🤖✈️', niveau:'Expert', duree:'10 semaines', desc:'Robot qui pilote avions et drones: navigation, vol, atterrissage.', pieces:['Chassis — cockpit','IA de vol — navigation autonome','Capteurs — altitude, vitesse, GPS','Manches — commandes de vol','Communication — tour de controle','IA d atterrissage — precis','Systeme de securite — atterrissage d urgence','Camera — vision du ciel','Radar — detection obstacles','Auto-pilote — vol autonome'], sim:'robot-pilote'},
+    {id:10, nom:'Robot AI', emoji:'🤖🧠', niveau:'Expert', duree:'12 semaines', desc:'Robot IA pure: reflexion, apprentissage, evolution, creation.', pieces:['Chassis — support','Processeur IA — neurones artificiels','Memoire — apprentissage continu','IA d apprentissage — evolution autonome','Capteurs — environnement complet','Communication — langue naturelle','IA creative — probleme solving','Systeme d evolution — auto-amelioration','Batterie — energie infinie solaire','Interface — interaction humaine'], sim:'robot-ai'},
+    {id:11, nom:'Robot Elevateur', emoji:'🤖🏗️', niveau:'Intermediaire', duree:'5 semaines', desc:'Robot qui souleve et transporte: construction, logistique, montage.', pieces:['Chassis — base lourde stable','Bras telescopique — extension 10m','Pince hydraulique — saisie precise','Contrepoids — stabilite','Moteur hydraulique — puissance','Capteurs — charge, equilibre','Roues — deplacement precis','Batterie — autonomie 48h','IA de coordination — chantier','Securite — limite de charge'], sim:'robot-elevateur'},
+    {id:12, nom:'Robot Chef', emoji:'🤖👑', niveau:'Avance', duree:'8 semaines', desc:'Robot commandant: coordonne tous les autres robots, prend les decisions.', pieces:['Chassis — imposant','IA de commandement — strategie supreme','Communication — reseau de robots','Ecran central — vue d ensemble','IA de coordination — attribue taches','Base de donnees — toutes les competences','IA de decision — analyse, choix','Systeme de delegation — ordres','Batterie — autonomie 168h','Securite — commande hierarchique'], sim:'robot-chef'},
+    {id:13, nom:'Robot de Troupe Militaire', emoji:'🤖🎖️', niveau:'Expert', duree:'12 semaines', desc:'Robot militaire collectif: formation, attaque, defense, strategie de groupe.', pieces:['Chassis — militaire renforce','IA de groupe — coordination 100+ robots','Communication — reseau chiffre militaire','Formation — tactique de groupe','IA de bataille — strategie temps reel','Armement collectif — coordonne','Systeme de defense — bouclier de groupe','IA d attaque — frappe coordonnee','Batterie — autonomie 72h combat','Commandement — hierarchie militaire'], sim:'robot-troupe'},
+    {id:14, nom:'Robot Mineur', emoji:'🤖⛏️', niveau:'Intermediaire', duree:'6 semaines', desc:'Robot qui extrait les mineraux: forage, extraction, transport.', pieces:['Chassis — robuste, anti-poussiere','IA miniere — detection de mineraux','Foreuse — rotation, percussion','Convoyeur — transport mineraux','Capteurs — composition du sol','Systeme de filtration — air, eau','IA de securite — detection gaz','Batterie — autonomie 72h','Communication — equipe miniere','Stockage — mineraux extraits'], sim:'robot-mineur'},
+    {id:15, nom:'Robot Medecin', emoji:'🤖⚕️', niveau:'Expert', duree:'14 semaines', desc:'Robot qui diagnostique et soigne: scan, diagnostic, traitement, chirurgie.', pieces:['Chassis — medical propre','IA medicale — diagnostic, traitement','Scanner — ADN, sang, tissus','Bras chirurgical — precis au micron','Pharmacie integree — remedes','IA de diagnostic — toutes les maladies','Systeme sterilisation — UV, chaleur','Capteurs — temperature, pression, coeur','IA chirurgicale — operations autonomes','Batterie — autonomie 168h'], sim:'robot-medecin'},
+    {id:16, nom:'Satellite', emoji:'🛰️', niveau:'Expert', duree:'16 semaines', desc:'Construire un satellite: structure, panneaux solaires, communication, orbite.', pieces:['Structure — titane leger','Panneaux solaires — energie infinie','Antenne — communication','Cameras — observation terre','IA de navigation — orbite, position','Systeme de propulsion — ajustement','Batterie — stockage solaire','Systeme thermique — regulation','Payload — instruments scientifiques','Communication — reseau terre'], sim:'satellite'},
+];
+
+// Select
+var sel = document.getElementById('ens-select');
+coursData.forEach(function(c){
+    var opt = document.createElement('option');
+    opt.value = c.id;
+    opt.textContent = c.emoji + ' ' + c.nom + ' (' + c.niveau + ' — ' + c.duree + ')';
+    sel.appendChild(opt);
+});
+
+// Cours grid
+let ensCompleted = new Set();
+try { ensCompleted = new Set(JSON.parse(localStorage.getItem('ensCoursDone') || '[]')); } catch(e) {}
+
+const cgrid = document.getElementById('ens-cours-grid');
+coursData.forEach(function(c, i){
+    var div = document.createElement('div');
+    div.id = 'ens-c-' + i;
+    div.style.cssText = 'padding:12px;background:rgba(0,0,0,0.3);border:2px solid ' + (ensCompleted.has(i) ? '#7fcf7f' : '#d4a437') + ';border-radius:8px;cursor:pointer;transition:all 0.3s;';
+    div.onclick = function(){ sel.value = i; loadCours(); };
+    div.innerHTML = '<div style="font-size:1.3em;">' + c.emoji + '</div><div style="color:' + (ensCompleted.has(i) ? '#7fcf7f' : '#d4a437') + ';font-weight:bold;font-size:0.9em;">' + c.nom + '</div><div style="color:#a8c5a8;font-size:0.75em;margin-top:3px;">' + c.niveau + ' — ' + c.duree + '</div><div style="margin-top:5px;font-size:0.8em;color:' + (ensCompleted.has(i) ? '#7fcf7f' : '#666') + ';">' + (ensCompleted.has(i) ? '✅ Complete' : '○ Non complete') + '</div>';
+    cgrid.appendChild(div);
+});
+
+function updateEnsProgress(){
+    var done = ensCompleted.size;
+    var total = coursData.length;
+    var pct = Math.round((done / total) * 100);
+    document.getElementById('ens-count').textContent = done;
+    document.getElementById('ens-pct').textContent = pct + '%';
+    document.getElementById('ens-bar').style.width = pct + '%';
+    document.getElementById('ens-diplome').style.display = (done === total) ? 'block' : 'none';
+}
+
+// Video simulation
+let currentCours = null;
+let currentStep = 0;
+let simAnimId = null;
+
+function loadCours(){
+    var id = parseInt(sel.value);
+    currentCours = coursData[id];
+    currentStep = 0;
+    showPieces();
+    drawSim();
+    updateStepDisplay();
+    addEnsTrace('📚 Cours charge: ' + currentCours.emoji + ' ' + currentCours.nom);
+}
+
+function showPieces(){
+    var html = '<div style="color:#7fcf7f;font-weight:bold;font-size:1.1em;">' + currentCours.emoji + ' ' + currentCours.nom + '</div>';
+    html += '<div style="color:#a8c5a8;margin-top:5px;font-size:0.9em;">' + currentCours.desc + '</div>';
+    html += '<div style="margin-top:10px;"><b style="color:#d4a437;">🔧 Pieces necessaires:</b></div>';
+    currentCours.pieces.forEach(function(p, i){
+        var done = i < currentStep;
+        html += '<div style="padding:6px 10px;margin:3px 0;background:' + (done ? 'rgba(127,207,127,0.1)' : 'rgba(0,0,0,0.3)') + ';border-left:3px solid ' + (done ? '#7fcf7f' : '#44aaff') + ';border-radius:4px;color:' + (done ? '#7fcf7f' : '#a8c5a8') + ';font-size:0.85em;">' + (done ? '✅' : (i === currentStep ? '👉' : '○')) + ' <b>Piece ' + (i+1) + ':</b> ' + p + '</div>';
+    });
+    document.getElementById('ens-pieces').innerHTML = html;
+}
+
+function updateStepDisplay(){
+    if(!currentCours) return;
+    if(currentStep < currentCours.pieces.length){
+        document.getElementById('ens-step-display').innerHTML = '<div style="color:#44aaff;font-weight:bold;">Etape ' + (currentStep+1) + '/' + currentCours.pieces.length + '</div><div style="margin-top:5px;">' + currentCours.pieces[currentStep] + '</div>';
+    } else {
+        document.getElementById('ens-step-display').innerHTML = '<div style="color:#7fcf7f;font-weight:bold;">✅ Construction complete!</div><div style="margin-top:5px;">' + currentCours.emoji + ' ' + currentCours.nom + ' est pret.</div>';
+        if(!ensCompleted.has(currentCours.id)){
+            ensCompleted.add(currentCours.id);
+            localStorage.setItem('ensCoursDone', JSON.stringify(Array.from(ensCompleted)));
+            addEnsTrace('🎓 Cours complete: ' + currentCours.nom + ' -- diplome +1');
+            updateEnsProgress();
+            updateCoursGrid();
+        }
+    }
+}
+
+function ensNextStep(){
+    if(!currentCours) return;
+    if(currentStep < currentCours.pieces.length){
+        currentStep++;
+        showPieces();
+        drawSim();
+        updateStepDisplay();
+        addEnsTrace('🔧 Etape ' + currentStep + '/' + currentCours.pieces.length + ': ' + currentCours.pieces[currentStep-1]);
+    }
+}
+
+function ensRestart(){
+    currentStep = 0;
+    showPieces();
+    drawSim();
+    updateStepDisplay();
+}
+
+function updateCoursGrid(){
+    coursData.forEach(function(c, i){
+        var div = document.getElementById('ens-c-' + i);
+        if(!div) return;
+        var done = ensCompleted.has(i);
+        div.style.borderColor = done ? '#7fcf7f' : '#d4a437';
+        div.innerHTML = '<div style="font-size:1.3em;">' + c.emoji + '</div><div style="color:' + (done ? '#7fcf7f' : '#d4a437') + ';font-weight:bold;font-size:0.9em;">' + c.nom + '</div><div style="color:#a8c5a8;font-size:0.75em;margin-top:3px;">' + c.niveau + ' — ' + c.duree + '</div><div style="margin-top:5px;font-size:0.8em;color:' + (done ? '#7fcf7f' : '#666') + ';">' + (done ? '✅ Complete' : '○ Non complete') + '</div>';
+    });
+}
+
+// Canvas simulation
+var canvas = document.getElementById('ens-canvas');
+var ctx = canvas.getContext('2d');
+var simTime = 0;
+
+function drawSim(){
+    if(!currentCours) return;
+    simTime = 0;
+    if(simAnimId) cancelAnimationFrame(simAnimId);
+    animateSim();
+}
+
+function animateSim(){
+    if(ensPaused) { simAnimId = requestAnimationFrame(animateSim); return; }
+    ctx.fillStyle = '#000';
+    ctx.fillRect(0, 0, 600, 350);
+
+    // Grid background
+    ctx.strokeStyle = 'rgba(68,170,255,0.05)';
+    ctx.lineWidth = 1;
+    for(var x = 0; x < 600; x += 30){ ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, 350); ctx.stroke(); }
+    for(var y = 0; y < 350; y += 30){ ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(600, y); ctx.stroke(); }
+
+    var progress = currentStep / currentCours.pieces.length;
+    var sim = currentCours.sim;
+
+    // Title
+    ctx.fillStyle = '#44aaff';
+    ctx.font = 'bold 16px monospace';
+    ctx.textAlign = 'center';
+    ctx.fillText(currentCours.emoji + ' ' + currentCours.nom.toUpperCase(), 300, 25);
+
+    // Progress bar
+    ctx.fillStyle = 'rgba(68,170,255,0.2)';
+    ctx.fillRect(200, 35, 200, 6);
+    ctx.fillStyle = '#44aaff';
+    ctx.fillRect(200, 35, 200 * progress, 6);
+
+    // Step indicator
+    ctx.fillStyle = '#a8c5a8';
+    ctx.font = '12px monospace';
+    ctx.fillText('Etape ' + Math.min(currentStep, currentCours.pieces.length) + '/' + currentCours.pieces.length, 300, 55);
+
+    // Draw based on sim type
+    var cx = 300, cy = 180;
+    simTime += 0.02;
+
+    if(sim === 'avion'){
+        drawAvion(cx, cy, progress, simTime);
+    } else if(sim === 'moto'){
+        drawMoto(cx, cy, progress, simTime);
+    } else if(sim === 'arme'){
+        drawArme(cx, cy, progress, simTime);
+    } else if(sim === 'robot-soldat' || sim === 'robot-troupe'){
+        drawRobot(cx, cy, progress, simTime, '#ff4444', 'SOLDAT');
+    } else if(sim === 'robot-cultivateur'){
+        drawRobot(cx, cy, progress, simTime, '#7fcf7f', 'CULTIVATEUR');
+    } else if(sim === 'robot-cuisinier'){
+        drawRobot(cx, cy, progress, simTime, '#ffaa44', 'CUISINIER');
+    } else if(sim === 'robot-maneuvre'){
+        drawRobot(cx, cy, progress, simTime, '#d4a437', 'MANOEUVRE');
+    } else if(sim === 'robot-vigile'){
+        drawRobot(cx, cy, progress, simTime, '#44aaff', 'VIGILE');
+    } else if(sim === 'robot-professeur'){
+        drawRobot(cx, cy, progress, simTime, '#d4a437', 'PROFESSEUR');
+    } else if(sim === 'robot-pilote'){
+        drawRobot(cx, cy, progress, simTime, '#44aaff', 'PILOTE');
+    } else if(sim === 'robot-ai'){
+        drawRobot(cx, cy, progress, simTime, '#ff44ff', 'AI');
+    } else if(sim === 'robot-elevateur'){
+        drawRobot(cx, cy, progress, simTime, '#ffaa44', 'ELEVATEUR');
+    } else if(sim === 'robot-chef'){
+        drawRobot(cx, cy, progress, simTime, '#d4a437', 'CHEF');
+    } else if(sim === 'robot-mineur'){
+        drawRobot(cx, cy, progress, simTime, '#aa8844', 'MINEUR');
+    } else if(sim === 'robot-medecin'){
+        drawRobot(cx, cy, progress, simTime, '#7fcf7f', 'MEDECIN');
+    } else if(sim === 'satellite'){
+        drawSatellite(cx, cy, progress, simTime);
+    } else {
+        drawRobot(cx, cy, progress, simTime, '#44aaff', 'ROBOT');
+    }
+
+    // Sparkle particles
+    for(var i = 0; i < 15; i++){
+        var px = cx + Math.cos(simTime * 2 + i) * (80 + Math.sin(simTime + i) * 20);
+        var py = cy + Math.sin(simTime * 3 + i) * (60 + Math.cos(simTime + i) * 15);
+        ctx.fillStyle = 'rgba(68,170,255,' + (0.3 + Math.sin(simTime + i) * 0.2) + ')';
+        ctx.beginPath();
+        ctx.arc(px, py, 1.5, 0, Math.PI * 2);
+        ctx.fill();
+    }
+
+    simAnimId = requestAnimationFrame(animateSim);
+}
+
+function drawAvion(cx, cy, p, t){
+    // Fuselage
+    if(p > 0.1){
+        ctx.strokeStyle = '#44aaff';
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        ctx.ellipse(cx, cy, 80 * Math.min(p*1.5, 1), 15, 0, 0, Math.PI * 2);
+        ctx.stroke();
+    }
+    // Wings
+    if(p > 0.2){
+        ctx.beginPath();
+        ctx.moveTo(cx - 20, cy);
+        ctx.lineTo(cx - 60, cy - 30 * Math.min((p-0.2)*3, 1));
+        ctx.lineTo(cx - 10, cy - 30 * Math.min((p-0.2)*3, 1));
+        ctx.lineTo(cx + 20, cy);
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.moveTo(cx - 20, cy);
+        ctx.lineTo(cx - 60, cy + 30 * Math.min((p-0.2)*3, 1));
+        ctx.lineTo(cx - 10, cy + 30 * Math.min((p-0.2)*3, 1));
+        ctx.lineTo(cx + 20, cy);
+        ctx.stroke();
+    }
+    // Engine
+    if(p > 0.3){
+        ctx.fillStyle = '#ff4444';
+        ctx.beginPath();
+        ctx.arc(cx + 70 + Math.sin(t*10)*2, cy, 6, 0, Math.PI * 2);
+        ctx.fill();
+    }
+    // Tail
+    if(p > 0.6){
+        ctx.strokeStyle = '#44aaff';
+        ctx.beginPath();
+        ctx.moveTo(cx - 70, cy);
+        ctx.lineTo(cx - 90, cy - 15 * Math.min((p-0.6)*3, 1));
+        ctx.lineTo(cx - 75, cy);
+        ctx.stroke();
+    }
+    // Cockpit
+    if(p > 0.4){
+        ctx.fillStyle = 'rgba(68,170,255,0.3)';
+        ctx.beginPath();
+        ctx.ellipse(cx + 30, cy - 8, 15, 8, 0, 0, Math.PI * 2);
+        ctx.fill();
+    }
+}
+
+function drawMoto(cx, cy, p, t){
+    // Wheels
+    if(p > 0.1){
+        ctx.strokeStyle = '#ffaa44';
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        ctx.arc(cx - 40, cy + 20, 20, 0, Math.PI * 2);
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.arc(cx + 40, cy + 20, 20, 0, Math.PI * 2);
+        ctx.stroke();
+        // Spokes
+        ctx.lineWidth = 1;
+        for(var i = 0; i < 5; i++){
+            var a = i * Math.PI / 2.5 + t * 5;
+            ctx.beginPath();
+            ctx.moveTo(cx - 40, cy + 20);
+            ctx.lineTo(cx - 40 + Math.cos(a)*18, cy + 20 + Math.sin(a)*18);
+            ctx.stroke();
+            ctx.beginPath();
+            ctx.moveTo(cx + 40, cy + 20);
+            ctx.lineTo(cx + 40 + Math.cos(a)*18, cy + 20 + Math.sin(a)*18);
+            ctx.stroke();
+        }
+    }
+    // Frame
+    if(p > 0.2){
+        ctx.strokeStyle = '#d4a437';
+        ctx.lineWidth = 3;
+        ctx.beginPath();
+        ctx.moveTo(cx - 40, cy + 20);
+        ctx.lineTo(cx, cy - 15);
+        ctx.lineTo(cx + 40, cy + 20);
+        ctx.stroke();
+    }
+    // Engine
+    if(p > 0.3){
+        ctx.fillStyle = 'rgba(255,170,68,0.3)';
+        ctx.fillRect(cx - 10, cy - 5, 20, 20);
+    }
+    // Handlebar
+    if(p > 0.5){
+        ctx.strokeStyle = '#ffaa44';
+        ctx.beginPath();
+        ctx.moveTo(cx + 30, cy - 15);
+        ctx.lineTo(cx + 50, cy - 25);
+        ctx.stroke();
+    }
+    // Seat
+    if(p > 0.7){
+        ctx.fillStyle = 'rgba(212,164,55,0.3)';
+        ctx.fillRect(cx - 20, cy - 20, 30, 8);
+    }
+}
+
+function drawArme(cx, cy, p, t){
+    // Barrel
+    if(p > 0.1){
+        ctx.strokeStyle = '#ff4444';
+        ctx.lineWidth = 4;
+        ctx.beginPath();
+        ctx.moveTo(cx - 60, cy);
+        ctx.lineTo(cx + 50 * Math.min(p*2, 1), cy);
+        ctx.stroke();
+    }
+    // Body
+    if(p > 0.3){
+        ctx.fillStyle = 'rgba(255,68,68,0.2)';
+        ctx.fillRect(cx - 30, cy - 10, 40, 20);
+        ctx.strokeStyle = '#ff4444';
+        ctx.lineWidth = 2;
+        ctx.strokeRect(cx - 30, cy - 10, 40, 20);
+    }
+    // Trigger
+    if(p > 0.5){
+        ctx.beginPath();
+        ctx.moveTo(cx - 10, cy + 10);
+        ctx.lineTo(cx - 15, cy + 25 * Math.min((p-0.5)*3, 1));
+        ctx.lineTo(cx - 5, cy + 25 * Math.min((p-0.5)*3, 1));
+        ctx.stroke();
+    }
+    // Stock
+    if(p > 0.7){
+        ctx.fillStyle = 'rgba(212,164,55,0.2)';
+        ctx.beginPath();
+        ctx.moveTo(cx - 30, cy - 8);
+        ctx.lineTo(cx - 60, cy - 5);
+        ctx.lineTo(cx - 60, cy + 5);
+        ctx.lineTo(cx - 30, cy + 8);
+        ctx.fill();
+    }
+    // Sight
+    if(p > 0.8){
+        ctx.strokeStyle = '#ff4444';
+        ctx.beginPath();
+        ctx.arc(cx + 10, cy - 15, 3, 0, Math.PI * 2);
+        ctx.stroke();
+    }
+}
+
+function drawRobot(cx, cy, p, t, color, label){
+    var s = Math.min(p * 1.5, 1);
+    // Body
+    if(p > 0.1){
+        ctx.fillStyle = 'rgba(' + parseInt(color.slice(1,3),16) + ',' + parseInt(color.slice(3,5),16) + ',' + parseInt(color.slice(5,7),16) + ',0.2)';
+        ctx.strokeStyle = color;
+        ctx.lineWidth = 2;
+        ctx.fillRect(cx - 25, cy - 15 * s, 50, 50 * s);
+        ctx.strokeRect(cx - 25, cy - 15 * s, 50, 50 * s);
+    }
+    // Head
+    if(p > 0.2){
+        ctx.fillStyle = 'rgba(0,0,0,0.5)';
+        ctx.fillRect(cx - 15, cy - 35 * s, 30, 20 * s);
+        ctx.strokeRect(cx - 15, cy - 35 * s, 30, 20 * s);
+        // Eyes
+        ctx.fillStyle = color;
+        ctx.beginPath();
+        ctx.arc(cx - 7, cy - 28 * s, 3, 0, Math.PI * 2);
+        ctx.arc(cx + 7, cy - 28 * s, 3, 0, Math.PI * 2);
+        ctx.fill();
+    }
+    // Arms
+    if(p > 0.4){
+        ctx.strokeStyle = color;
+        ctx.lineWidth = 3;
+        ctx.beginPath();
+        ctx.moveTo(cx - 25, cy - 5);
+        ctx.lineTo(cx - 40, cy + 15 * s);
+        ctx.moveTo(cx + 25, cy - 5);
+        ctx.lineTo(cx + 40, cy + 15 * s);
+        ctx.stroke();
+    }
+    // Legs
+    if(p > 0.6){
+        ctx.beginPath();
+        ctx.moveTo(cx - 15, cy + 35 * s);
+        ctx.lineTo(cx - 15, cy + 60 * s);
+        ctx.moveTo(cx + 15, cy + 35 * s);
+        ctx.lineTo(cx + 15, cy + 60 * s);
+        ctx.stroke();
+    }
+    // Label
+    if(p > 0.5){
+        ctx.fillStyle = color;
+        ctx.font = 'bold 10px monospace';
+        ctx.textAlign = 'center';
+        ctx.fillText(label, cx, cy + 5);
+    }
+    // Antenna
+    if(p > 0.8){
+        ctx.beginPath();
+        ctx.moveTo(cx, cy - 35 * s);
+        ctx.lineTo(cx, cy - 45 * s);
+        ctx.stroke();
+        ctx.fillStyle = color;
+        ctx.beginPath();
+        ctx.arc(cx, cy - 47 * s, 2, 0, Math.PI * 2);
+        ctx.fill();
+    }
+}
+
+function drawSatellite(cx, cy, p, t){
+    // Body
+    if(p > 0.1){
+        ctx.strokeStyle = '#ff44ff';
+        ctx.lineWidth = 2;
+        ctx.strokeRect(cx - 20, cy - 20, 40, 40);
+        ctx.fillStyle = 'rgba(255,68,255,0.1)';
+        ctx.fillRect(cx - 20, cy - 20, 40, 40);
+    }
+    // Solar panels
+    if(p > 0.3){
+        var w = 60 * Math.min((p-0.3)*2, 1);
+        ctx.strokeStyle = '#44aaff';
+        ctx.strokeRect(cx - 20 - w, cy - 15, w, 30);
+        ctx.strokeRect(cx + 20, cy - 15, w, 30);
+        // Panel lines
+        ctx.lineWidth = 1;
+        for(var i = 1; i < 4; i++){
+            ctx.beginPath();
+            ctx.moveTo(cx - 20 - w + (w/4)*i, cy - 15);
+            ctx.lineTo(cx - 20 - w + (w/4)*i, cy + 15);
+            ctx.moveTo(cx + 20 + (w/4)*i, cy - 15);
+            ctx.lineTo(cx + 20 + (w/4)*i, cy + 15);
+            ctx.stroke();
+        }
+    }
+    // Antenna
+    if(p > 0.6){
+        ctx.strokeStyle = '#ff44ff';
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        ctx.moveTo(cx, cy - 20);
+        ctx.lineTo(cx, cy - 35);
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.arc(cx, cy - 38, 4, 0, Math.PI * 2);
+        ctx.stroke();
+    }
+    // Dish
+    if(p > 0.8){
+        ctx.beginPath();
+        ctx.arc(cx, cy + 30, 12, 0, Math.PI);
+        ctx.stroke();
+    }
+    // Orbit
+    if(p > 0.5){
+        ctx.strokeStyle = 'rgba(255,68,255,0.1)';
+        ctx.setLineDash([3, 6]);
+        ctx.beginPath();
+        ctx.ellipse(cx, cy, 120, 50, 0, 0, Math.PI * 2);
+        ctx.stroke();
+        ctx.setLineDash([]);
+    }
+}
+
+// Trace
+function addEnsTrace(msg){
+    var log = document.getElementById('ens-trace');
+    var now = new Date();
+    var ts = String(now.getHours()).padStart(2,'0') + ':' + String(now.getMinutes()).padStart(2,'0') + ':' + String(now.getSeconds()).padStart(2,'0');
+    log.innerHTML = '<div style="padding:4px 0;border-bottom:1px solid rgba(212,164,55,0.05);"><span style="color:#666;">[' + ts + ']</span> <span style="color:#44aaff;">📚</span> ' + msg + '</div>' + log.innerHTML;
+    if(log.innerHTML.length > 3000) log.innerHTML = log.innerHTML.substring(0, 3000);
+}
+
+addEnsTrace('📚 AI Enseignante initialisee — Intelligence Supreme active');
+addEnsTrace('🧠 Base de donnees infinie: 17 cours charges');
+addEnsTrace('🎬 Ecran de video simulation: pret');
+addEnsTrace('🎓 Diplome: complete 17 cours pour recevoir le diplome');
+addEnsTrace('🌍 Pour la jeunesse africaine — L Afrique construit son futur');
+
+updateEnsProgress();
+</script>
+
+<footer style="text-align:center;margin-top:40px;color:#a8c5a8;">📚 AI Enseignante — Academie Universelle — L Afrique construit son futur, piece par piece 💚🦁🎓</footer>"##);
 
     html.push_str("</body></html>");
     html
@@ -10842,7 +11423,7 @@ html+='<div class="log-entry log-kill">⚠️ Tentative d\x27infiltration occide
 html+='<div class="log-entry log-invis">✅ L\x27Afrique est forte. Le système grandit.</div>';
 }else if(type==='total'){
 html='<div style="color:#d4a437;font-weight:bold;margin-bottom:8px">📋 RAPPORT TOTAL — Depuis le début</div>';
-html+='<div class="log-entry">🦁 AfriChain v0.80 — AI Médecin Académie et Fruits Futuristes</div>';
+html+='<div class="log-entry">🦁 AfriChain v0.81 — AI Enseignante Academie Universelle</div>';
 html+='<div class="log-entry">⛓️ Blockchain: 100% souveraine — Zéro dépendance externe</div>';
 html+='<div class="log-entry">🔐 Crypto: Ed25519 + AfriHash-256/512 + AfriRNG — tout from scratch</div>';
 html+='<div class="log-entry">🌍 54 pays africains connectés</div>';
@@ -12386,7 +12967,7 @@ fn main() {
         .and_then(|i| args.get(i + 1)).cloned().unwrap_or_else(|| "Afrique".to_string());
 
     let my_node_id = generate_node_id();
-    println!("🦁 AfriChain v0.80 — AI Médecin Académie et Fruits Futuristes");
+    println!("🦁 AfriChain v0.81 — AI Enseignante Academie Universelle");
     println!("💚 L'Afrique ne demande plus la permission");
     println!("🌍 54 pays — 🇲🇱 🇳🇪 🇧🇫 AES — Mali · Niger · Burkina Faso");
     println!("🔐 8 modules cryptographiques — construits from scratch");
@@ -12534,6 +13115,7 @@ fn main() {
     println!("🌟 Alphabet Vivant sur http://localhost:8080/lettres");
     println!("⚔️ MG Forge sur http://localhost:8080/mg-forge");
     println!("🌿 AI Médecin sur http://localhost:8080/ai-medecin");
+    println!("📚 AI Enseignante sur http://localhost:8080/ai-enseignante");
 
     // Serveur HTTP en arrière-plan (pour mesh + autres utilisateurs)
     let serve_state = web_state.clone();
@@ -12568,7 +13150,7 @@ fn terminal_interface(state: &Arc<AppState>) {
     println!("  ║  🕐 AfriTime — Pas UTC, pas Greenwich   ║");
     println!("  ║  📝 ~16,500 lignes — écrit à la main       ║");
     println!("  ╚═══════════════════════════════════════════════╝");
-    println!("\n  Version v0.80 — 30 août 2026");
+    println!("\n  Version v0.81 — 30 août 2026");
     println!("  Construit sur Termux · Android · nano\n");
     println!("  ─────────────────────────────────────────────");
     println!("\n  1. 🏦 Centre de Données (Admin)");
@@ -12640,7 +13222,7 @@ fn admin_interface(state: &Arc<AppState>) {
         println!("\n");
         println!("╔══════════════════════════════════════╗");
         println!("║  🏦 CENTRE DE DONNÉES — Admin       ║");
-        println!("║  🦁 AfriChain v0.80                  ║");
+        println!("║  🦁 AfriChain v0.81                  ║");
         println!("╠══════════════════════════════════════╣");
         let chain = state.chain.lock().unwrap();
         let users = state.users.lock().unwrap();
@@ -16179,6 +16761,11 @@ fn handle_request(req: afri_http::HttpRequest, state: &Arc<AppState>) -> afri_ht
         ("GET", "/ai-medecin") => {
             let chain = state.chain.lock().unwrap();
             HttpResponse::ok(&html_ai_medecin(&chain))
+        }
+
+        ("GET", "/ai-enseignante") => {
+            let chain = state.chain.lock().unwrap();
+            HttpResponse::ok(&html_ai_enseignante(&chain))
         }
 
         ("GET", "/garage") => {
