@@ -1439,7 +1439,7 @@ fn html_home(chain: &Blockchain, users: &UserStore, mesh: &NodeRegistry, shield:
     let mut html = html_head("🦁 AfriChain");
     let (attacks, _blocked, blocked_count, level) = shield.stats();
     let shield_status = if shield.active { format!("🔥 X9 ACTIF (Niveau {})", level) } else { "Inactif".to_string() };
-    html.push_str(&format!(r#"<h1>🦁 AfriChain</h1><p style="text-align:center;">La blockchain 100% africaine — 54 pays 💚🦁</p><div id="afri-clock" style="text-align:center;font-size:1.2em;color:#d4a437;margin:10px 0;">🕐 Afri+0 — --:--:--</div><script>setInterval(function(){{var d=new Date();var h=String(d.getHours()).padStart(2,'0');var m=String(d.getMinutes()).padStart(2,'0');var s=String(d.getSeconds()).padStart(2,'0');document.getElementById('afri-clock').textContent='🕐 Afri+0 — '+h+':'+m+':'+s;}},1000);</script><div class="nav"><a href="/register">🆕 S'inscrire</a> | <a href="/login">🔑 Connexion</a> | <a href="/wallet">👛 Wallet</a> | <a href="/admin">🔐 Admin</a> | <a href="/mesh">📡 Mesh</a> | <a href="/annuaire">📖 Annuaire</a> | <a href="/bouclier">🛡️ Bouclier</a> | <a href="/satellite">🛸 X999</a> | <a href="/swarm">🛸🛸🛸 Essaim</a> | <a href="/commandement">🎖️ Commandement</a> | <a href="/interception">🛡️ Souverainete</a> | <a href="/securite-ai">🧠 AI 2100</a> | <a href="/chat">🧠💬 Chat AI</a> | <a href="/lumiere">🌫️☀️ Lumière</a> | <a href="/garage">🔧 Garage</a> | <a href="/machine">🤖🌐 Machines</a> | <a href="/machine-lab">🤖⚡ Usine</a> | <a href="/machine-world">🤖🌍 Monde</a> | <a href="/reve">💭 Rêves</a> | <a href="/dictionnaire">📖 Dictionnaire</a> | <a href="/machine-os">🖥️ OS Machine</a> | <a href="/machine-tv">📡 Machine TV</a> | <a href="/machine-economy">🤖 Économie</a> | <a href="/soleil">☀️ Soleil Serveur</a> | <a href="/forge-solaire">🧬 Forge Solaire</a> | <a href="/ciel">🌌 Le Ciel</a> | <a href="/charte-ai">⚖️ Charte AI</a> | <a href="/afri-net">🌍 Afri-Net</a> | <a href="/studio">🎬 AI Studio</a> | <a href="/sacre">📿 Sacré</a> | <a href="/lettres">🌟 Lettres IA</a> | <a href="/mg-forge">⚔️ MG Forge</a> | <a href="/ai-medecin">🌿 AI Médecin</a> | <a href="/ai-enseignante">📚 AI Enseignante</a> | <a href="/ai-village">🏘️ AI Village</a> | <a href="/ai-guerisseur">🩺 AI Guérisseur</a> | <a href="/ai-leader">🎖️ AI Leader</a> | <a href="/secret">🦁 AI Secret</a> | <a href="/aes">💰 AES Wari</a> | <a href="/api/status">🔌 API</a></div><div style="text-align:center;"><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Blocs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Transactions</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Utilisateurs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">AFR en circulation</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📡 Noeuds mesh</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📖 Numéros annuaire</div></div><div class="stat-box" style="border-color:#ff4444;"><div class="stat-num" style="color:#ff4444;">{}</div><div class="stat-label">🛡️ Attaques bloquées</div></div></div><div class="card"><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🪙 Token</span><b>AfriRich (AFR)</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🌍 Pays</span><b>54 pays africains</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🛡️ Bouclier</span><b>{}</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;"><span style="color:#a8c5a8;">🔐 Crypto</span><b>100% Souverain — Zéro Dépendance Externe</b></div></div><footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🦁 Codée from scratch par Machine-senpai — v0.84 AI Leader Academie des Leaders Africains — UTC est Mort</footer>"#,
+    html.push_str(&format!(r#"<h1>🦁 AfriChain</h1><p style="text-align:center;">La blockchain 100% africaine — 54 pays 💚🦁</p><div id="afri-clock" style="text-align:center;font-size:1.2em;color:#d4a437;margin:10px 0;">🕐 Afri+0 — --:--:--</div><script>setInterval(function(){{var d=new Date();var h=String(d.getHours()).padStart(2,'0');var m=String(d.getMinutes()).padStart(2,'0');var s=String(d.getSeconds()).padStart(2,'0');document.getElementById('afri-clock').textContent='🕐 Afri+0 — '+h+':'+m+':'+s;}},1000);</script><div class="nav"><a href="/register">🆕 S'inscrire</a> | <a href="/login">🔑 Connexion</a> | <a href="/wallet">👛 Wallet</a> | <a href="/admin">🔐 Admin</a> | <a href="/mesh">📡 Mesh</a> | <a href="/annuaire">📖 Annuaire</a> | <a href="/bouclier">🛡️ Bouclier</a> | <a href="/satellite">🛸 X999</a> | <a href="/swarm">🛸🛸🛸 Essaim</a> | <a href="/commandement">🎖️ Commandement</a> | <a href="/interception">🛡️ Souverainete</a> | <a href="/securite-ai">🧠 AI 2100</a> | <a href="/chat">🧠💬 Chat AI</a> | <a href="/lumiere">🌫️☀️ Lumière</a> | <a href="/garage">🔧 Garage</a> | <a href="/machine">🤖🌐 Machines</a> | <a href="/machine-lab">🤖⚡ Usine</a> | <a href="/machine-world">🤖🌍 Monde</a> | <a href="/reve">💭 Rêves</a> | <a href="/dictionnaire">📖 Dictionnaire</a> | <a href="/machine-os">🖥️ OS Machine</a> | <a href="/machine-tv">📡 Machine TV</a> | <a href="/machine-economy">🤖 Économie</a> | <a href="/soleil">☀️ Soleil Serveur</a> | <a href="/forge-solaire">🧬 Forge Solaire</a> | <a href="/ciel">🌌 Le Ciel</a> | <a href="/charte-ai">⚖️ Charte AI</a> | <a href="/afri-net">🌍 Afri-Net</a> | <a href="/studio">🎬 AI Studio</a> | <a href="/sacre">📿 Sacré</a> | <a href="/lettres">🌟 Lettres IA</a> | <a href="/mg-forge">⚔️ MG Forge</a> | <a href="/ai-medecin">🌿 AI Médecin</a> | <a href="/ai-enseignante">📚 AI Enseignante</a> | <a href="/ai-village">🏘️ AI Village</a> | <a href="/ai-guerisseur">🩺 AI Guérisseur</a> | <a href="/ai-leader">🎖️ AI Leader</a> | <a href="/ai-griot">📖 AI Griot</a> | <a href="/secret">🦁 AI Secret</a> | <a href="/aes">💰 AES Wari</a> | <a href="/api/status">🔌 API</a></div><div style="text-align:center;"><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Blocs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Transactions</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Utilisateurs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">AFR en circulation</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📡 Noeuds mesh</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📖 Numéros annuaire</div></div><div class="stat-box" style="border-color:#ff4444;"><div class="stat-num" style="color:#ff4444;">{}</div><div class="stat-label">🛡️ Attaques bloquées</div></div></div><div class="card"><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🪙 Token</span><b>AfriRich (AFR)</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🌍 Pays</span><b>54 pays africains</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🛡️ Bouclier</span><b>{}</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;"><span style="color:#a8c5a8;">🔐 Crypto</span><b>100% Souverain — Zéro Dépendance Externe</b></div></div><footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🦁 Codée from scratch par Machine-senpai — v0.85 AI Griot Gardien de la Memoire Africaine — UTC est Mort</footer>"#,
         chain.blocks.len(),
         chain.total_transactions(),
         users.count(),
@@ -7580,6 +7580,363 @@ drawLeader();
     html
 }
 
+fn html_ai_griot(chain: &Blockchain) -> String {
+    let mut html = html_head("AI Griot — Gardien de la Memoire Africaine");
+    let num_blocks = chain.blocks.len();
+
+    html.push_str(r#"<h1>📖 AI Griot — Gardien de la Memoire Africaine</h1><p style="text-align:center;color:#ffaa44;">Dans la tradition africaine, le griot garde la memoire. Sans griot, l Afrique oublie. Si l Afrique oublie, elle meurt. Cette AI raconte l histoire de l Afrique — des empires anciens aux heros modernes. La jeunesse ajoute ses propres histoires. Chaque recit grave dans la blockchain. Eternel. Immuable. Africain.</p><div class="nav"><a href="/">← Accueil</a> | <a href="/ai-leader">🎖️ AI Leader</a> | <a href="/ai-guerisseur">🩺 AI Guerisseur</a> | <a href="/ai-village">🏘️ AI Village</a> | <a href="/afri-net">🌍 Afri-Net</a></div>"#);
+
+    html.push_str(&format!(r#"<div style="text-align:center;"><div class="stat-box" style="border-color:#ffaa44;"><div class="stat-num" style="color:#ffaa44;">8</div><div class="stat-label">📜 Epoques</div></div><div class="stat-box" style="border-color:#7fcf7f;"><div class="stat-num" style="color:#7fcf7f;">15</div><div class="stat-label">🦁 Heros</div></div><div class="stat-box" style="border-color:#d4a437;"><div class="stat-num" style="color:#d4a437;">∞</div><div class="stat-label;">💬 Histoires</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">⛓️ Blocs</div></div><div class="stat-box" style="border-color:#ff44ff;"><div class="stat-num" style="color:#ff44ff;">54</div><div class="stat-label">🌍 Pays</div></div></div>"#, num_blocks));
+
+    html.push_str(r##"<div style="text-align:center;margin:10px 0;"><button id="gri-pause-btn" onclick="toggleGriPause()" style="padding:10px 25px;background:#ff4444;color:#fff;border:none;border-radius:8px;font-weight:bold;cursor:pointer;font-size:1em;">⏸️ PAUSE</button> <span id="gri-pause-status" style="color:#7fcf7f;margin-left:8px;font-size:0.85em;">Auto: ACTIF</span></div>
+
+<!-- GRIOT CANVAS -->
+<div class="card" style="border-color:#ffaa44;"><h2 style="color:#ffaa44;">📖 Le Griot Raconte</h2><p style="color:#a8c5a8;font-size:0.9em;">Le feu du griot brule. Les ancetres parlent. L Afrique se souvient.</p>
+<canvas id="gri-canvas" width="600" height="350" style="width:100%;max-width:600px;background:#0a0a0a;border:2px solid #ffaa44;border-radius:8px;display:block;margin:0 auto;"></canvas>
+<div id="gri-status" style="text-align:center;margin-top:10px;padding:10px;background:rgba(255,170,68,0.05);border-radius:8px;color:#a8c5a8;font-size:0.9em;min-height:40px;">Le griot commence a raconter...</div></div>
+
+<!-- LES 8 EPOQUES -->
+<div class="card" style="border-color:#ffaa44;"><h2 style="color:#ffaa44;">📜 Les 8 Epoques de l Afrique</h2><p style="color:#a8c5a8;font-size:0.9em;">Clique sur une epoque pour entendre le griot raconter l histoire.</p>
+<div id="gri-epoques" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:10px;margin-top:10px;"></div></div>
+
+<!-- DETAIL EPOQUE -->
+<div class="card"><h2 id="gri-detail-title" style="color:#ffaa44;">📖 Le Recit du Griot</h2><div id="gri-detail" style="margin-top:10px;padding:15px;background:rgba(255,170,68,0.05);border-radius:8px;min-height:60px;color:#a8c5a8;font-size:0.9em;">Selectionne une epoque pour ecouter le griot.</div></div>
+
+<!-- AJOUTER TON HISTOIRE -->
+<div class="card" style="border-color:#7fcf7f;"><h2 style="color:#7fcf7f;">✍️ Ajoute Ton Histoire</h2><p style="color:#a8c5a8;font-size:0.9em;">La jeunesse africaine ecrit son propre recit. Chaque histoire ajoutee est gravee dans la blockchain. L avenir lira ce que tu ecris aujourd hui.</p>
+<div style="margin-top:10px;"><input id="gri-story-title" type="text" placeholder="Titre de ton histoire" style="width:100%;padding:10px;background:rgba(0,0,0,0.3);border:1px solid #7fcf7f;border-radius:8px;color:#a8c5a8;margin-bottom:5px;" /><textarea id="gri-story-text" placeholder="Raconte ton histoire ici..." style="width:100%;padding:10px;background:rgba(0,0,0,0.3);border:1px solid #7fcf7f;border-radius:8px;color:#a8c5a8;min-height:80px;margin-bottom:5px;"></textarea><button onclick="addStory()" style="padding:8px 20px;background:#7fcf7f;color:#000;border:none;border-radius:8px;font-weight:bold;cursor:pointer;">📖 Graver cette Histoire</button></div></div>
+
+<!-- HISTOIRES DE LA JEUNESSE -->
+<div class="card"><h2 style="color:#7fcf7f;">💬 Histoires de la Jeunesse</h2><div id="gri-stories" style="margin-top:10px;max-height:300px;overflow-y:auto;"></div></div>
+
+<!-- DIPLOME -->
+<div class="card" style="border-color:#d4a437;"><h2 style="color:#d4a437;">🎓 Diplome Griot de l Afrique</h2><div id="gri-progress" style="margin:10px 0;"><div style="display:flex;justify-content:space-between;"><span style="color:#d4a437;font-weight:bold;">Epoques ecoutees: <span id="gri-count">0</span>/8</span><span style="color:#7fcf7f;" id="gri-pct">0%</span></div><div style="margin-top:8px;height:12px;background:rgba(0,0,0,0.5);border-radius:6px;overflow:hidden;"><div id="gri-bar" style="height:100%;width:0%;background:linear-gradient(90deg,#ffaa44,#7fcf7f);transition:width 0.5s;"></div></div></div>
+<div id="gri-diplome" style="text-align:center;display:none;margin-top:15px;"><div style="display:inline-block;padding:25px 50px;border:3px solid #ffaa44;border-radius:15px;background:rgba(255,170,68,0.05);"><div style="font-size:2.5em;">📖🎓</div><div style="color:#ffaa44;font-weight:bold;font-size:1.3em;margin-top:5px;">DIPLOME GRIOT DE L AFRIQUE</div><div style="color:#a8c5a8;margin-top:5px;">Gardien de la Memoire Africaine</div><div style="color:#7fcf7f;margin-top:5px;font-size:0.85em;">Les 8 epoques ecoutees. La memoire est transmise.</div><div style="color:#d4a437;margin-top:5px;font-size:0.85em;">Grave dans la blockchain AfriChain</div><button onclick="gravGriDiplome()" style="margin-top:10px;padding:8px 20px;background:#ffaa44;color:#000;border:none;border-radius:8px;font-weight:bold;cursor:pointer;">⛓️ Graver dans la Blockchain</button></div></div></div></div>
+
+<!-- TRACE BLOCKCHAIN -->
+<div class="card"><h2 style="color:#d4a437;">⛓️ Trace de Memoire dans la Blockchain</h2><div id="gri-trace" style="font-family:monospace;font-size:0.85em;max-height:200px;overflow-y:auto;"></div></div>
+
+<script>
+let griPaused = false;
+let griIntervalIds = [];
+function toggleGriPause(){
+    griPaused = !griPaused;
+    var btn = document.getElementById('gri-pause-btn');
+    var status = document.getElementById('gri-pause-status');
+    if(griPaused){
+        griIntervalIds.forEach(function(id){ clearInterval(id); });
+        griIntervalIds = [];
+        btn.textContent = '▶️ REPRENDRE';
+        btn.style.background = '#7fcf7f';
+        btn.style.color = '#000';
+        status.textContent = 'Auto: PAUSE';
+        status.style.color = '#ff4444';
+    } else {
+        btn.textContent = '⏸️ PAUSE';
+        btn.style.background = '#ff4444';
+        btn.style.color = '#fff';
+        status.textContent = 'Auto: ACTIF';
+        status.style.color = '#7fcf7f';
+    }
+}
+
+// Les 8 Epoques
+const epoques = [
+    {id:0, nom:'Les Empires Anciens', emoji:'🏰', couleur:'#d4a437',
+     recit:'Avant l Europe, l Afrique avait des empires. L Empire du Mali etait si riche que Mansa Moussa, en route pour La Mecque, a fait tomber le cours de l or en Egypte tant il en distribuait. L Empire du Songhai regnait de l Atlantique au Niger. L Empire du Ghana controlait le commerce de l or. Le Grand Zimbabwe batisait des murs de pierre sans ciment. L Empire d Aksum frappait sa propre monnaie. L Afrique n a pas attendu l Europe pour etre grande. L Afrique etait grande quand l Europe dormait encore.',
+     heros:['Mansa Moussa (Mali) — l homme le plus riche de l histoire', 'Sundiata Keita (Mali) — fondateur de l Empire du Mali', 'Sonni Ali Ber (Songhai) — conquerant', 'Askia Mohamed (Songhai) — reformateur'],
+     lecon:'L Afrique a une histoire de grandeur. La jeunesse doit savoir: nos ancetres batisaient des empires.'},
+    {id:1, nom:'La Traite Negative', emoji:'⛓️', couleur:'#ff4444',
+     recit:'Pendant 400 ans, l Afrique a ete videe de ses enfants. Des millions d Africains ont ete arraches a leur terre, embarques dans des bateaux, vendus comme des objets. La traite atlantique par les Europeens. La traite orientale par les Arabes. L Afrique a perdu ses plus forts, ses plus beaux, ses plus courageux. Cette plaie n est pas guerie. La memoire reste. Le griot raconte pour que ca n arrive plus jamais.',
+     heros:['Queen Nzinga (Angola) — a resiste aux Portugais', 'Toussaint Louverture (Haiti) — fils d Africains qui a vaincu Napoleon', 'Zumbi dos Palmares (Bresil) — royaume libre d esclaves fugitifs', 'Harriet Tubman (USA) — conductrice du chemin de fer clandestin'],
+     lecon:'La memoire de la souffrance est une force. Ne jamais oublier. Ne jamais laisser recommencer.'},
+    {id:2, nom:'La Colonisation', emoji:'🗺️', couleur:'#ff6644',
+     recit:'L Europe a divise l Afrique comme un gateau. 1884, Conference de Berlin — des hommes en costumes ont trace des lignes sur une carte, divisant des familles, des peuples, des langues. La France a pris l Ouest. L Angleterre l Est. La Belgique le Congo. L Allemagne le Cameroun. Le Portugal l Angola. L Afrique n a pas ete consultee. Elle a ete occupee, exploitee, violée. Mais elle n a jamais accepte.',
+     heros:['Samori Toure (Guinee) — a resiste 16 ans aux Francais', 'Behanzin (Dahomey) — le roi lion qui a lutte', 'Menelik II (Ethiopie) — a vaincu l Italie a Adoua', 'Yaa Asantewaa (Ghana) — la reine guerriere des Ashanti'],
+     lecon:'La colonisation a divise l Afrique. L unite panafricaine est la reponse a la division.'},
+    {id:3, nom:'Les Independences', emoji:'🎉', couleur:'#7fcf7f',
+     recit:'Annee 1960 — l annee de l Afrique. 17 pays ont obtenu leur independance. Le drapeau africain s est leve partout. Mais l independance politique n etait pas l independance economique. Les frontieres tracees a Berlin sont restees. Les ressources continuent de sortir. Les langues du colonisateur restent officielles. L independance est une etape, pas une arrivee. Le combat continue.',
+     heros:['Kwame Nkrumah (Ghana) — premier president de l Afrique independante', 'Patrice Lumumba (Congo) — assassiné pour son audace', 'Ahmed Sekou Toure (Guinee) — a dit NON a de Gaulle', 'Leopold Sedar Senghor (Senegal) — poete et president'],
+     lecon:'L independance politique sans independance economique est une illusion. Le combat continue.'},
+    {id:4, nom:'Les Voix de la Liberte', emoji:'🎤', couleur:'#44aaff',
+     recit:'Dans les annees 60-80, l Afrique a vu naitre des voix qui refusaient l injustice. Des leaders qui parlaient pour le peuple, pas pour les puissances. Ils ont paye de leur vie. Lumumba livre, assassine. Sankara tue par son propre compatriote, arme par la France. Cabral assassine. Mandela emprisonne 27 ans. Mais leurs voix ne sont pas mortes. Le griot les garde vivantes.',
+     heros:['Thomas Sankara (Burkina Faso) — l homme intègre, assassine a 37 ans', 'Patrice Lumumba (Congo) — assassine par le Congo et la Belgique', 'Amilcar Cabral (Guinee-Bissau) — assassine avant l independance', 'Steve Biko (Afrique du Sud) — tue en detention'],
+     lecon:'Les leaders qui servent le peuple derangent les puissances. Leur voix ne meurt jamais.'},
+    {id:5, nom:'La Renaissance Africaine', emoji:'🌅', couleur:'#ffaa44',
+     recit:'L Afrique se releve. Le continent le plus jeune du monde — 70% de la population a moins de 30 ans. Ces jeunes ne veulent plus l aide de l Occident. Ils veulent construire. L Afrique innove: mobile money (M-Pesa au Kenya), agriculture intelligente, energie solaire, fintech (Flutterwave, Paystack). La jeunesse africaine ne demande plus la permission. Elle code, elle construit, elle cree.',
+     heros:['Aliko Dangote (Nigeria) — industriel africain', 'Strive Masiyiwa (Zimbabwe) — telecoms panafricaines', 'Chimamanda Ngozi Adichie (Nigeria) — voix litteraire de l Afrique', 'Ngozi Okonjo-Iweala (Nigeria) — DG de l OMC'],
+     lecon:'La renaissance africaine est portee par les jeunes. L avenir est africain.'},
+    {id:6, nom:'L Afrique Souveraine', emoji:'🦁', couleur:'#d4a437',
+     recit:'L Afrique souveraine se construit maintenant. AES — Alliance des Etats du Sahel: Mali, Niger, Burkina Faso unis. Zone de libre-echange continentale (ZLECAf) — 54 pays, 1.4 milliards de personnes. Monnaies souveraines pour remplacer le CFA. Blockchain africaine (AfriChain) — codee from scratch, zero dependance. L Afrique ne demande plus. L Afrique construit. Le griot raconte cette histoire en train de s ecrire. C est ton histoire, jeunesse.',
+     heros:['Capitaine Ibrahim Traore (Burkina Faso) — jeune leader de l AES', 'Assimi Goita (Mali) — souverainete du Mali', 'Abdourahamane Tchiani (Niger) — souverainete du Niger', 'La jeunesse africaine — TOUS les jeunes qui construisent'],
+     lecon:'L Afrique souveraine se construit MAINTENANT. Tu en fais partie.'},
+    {id:7, nom:'L Avenir de l Afrique', emoji:'🚀', couleur:'#ff44ff',
+     recit:'Quel sera l avenir de l Afrique? Le griot ne predit pas — il invite. L avenir de l Afrique est entre les mains de sa jeunesse. Energie solaire sur tout le continent. Blockchain souveraine. Villes intelligentes africaines. Agriculture qui nourrit le monde. Mines transformees sur place. Monnaie unique africaine. Paix panafricaine. L Afrique comme puissance mondiale. Ce n est pas un reve — c est un plan. Et le plan commence par toi.',
+     heros:['TOI — la jeunesse qui lit ceci', 'TON village — que tu vas batir', 'TON histoire — que tu vas ecrire', 'TON avenir — que tu vas construire'],
+     lecon:'L avenir de l Afrique est entre tes mains. Le griot t invite a l ecrire.'},
+];
+
+// Epoques grid
+let griCompleted = new Set();
+try { griCompleted = new Set(JSON.parse(localStorage.getItem('griEpoquesDone') || '[]')); } catch(e) {}
+
+const egrid = document.getElementById('gri-epoques');
+epoques.forEach(function(e, i){
+    var div = document.createElement('div');
+    div.id = 'gri-e-' + i;
+    var done = griCompleted.has(i);
+    div.style.cssText = 'padding:12px;background:rgba(0,0,0,0.3);border:2px solid ' + (done ? e.couleur : '#444') + ';border-radius:8px;cursor:pointer;transition:all 0.3s;';
+    div.onclick = function(){ showEpoque(i); };
+    div.onmouseover = function(){ div.style.transform = 'scale(1.03)'; };
+    div.onmouseout = function(){ div.style.transform = 'scale(1)'; };
+    div.innerHTML = '<div style="font-size:1.5em;">' + e.emoji + '</div><div style="color:' + e.couleur + ';font-weight:bold;font-size:0.9em;">' + e.nom + '</div><div style="margin-top:5px;font-size:0.8em;color:' + (done ? e.couleur : '#666') + ';">' + (done ? '✅ Ecouté' : '📖 A écouter') + '</div>';
+    egrid.appendChild(div);
+});
+
+// Stories
+let stories = [];
+try { stories = JSON.parse(localStorage.getItem('griStories') || '[]'); } catch(e) {}
+
+function renderStories(){
+    var container = document.getElementById('gri-stories');
+    if(stories.length === 0){
+        container.innerHTML = '<div style="color:#666;text-align:center;padding:20px;">Aucune histoire encore. Sois le premier a ecrire la tienne.</div>';
+        return;
+    }
+    container.innerHTML = stories.map(function(s, i){
+        return '<div style="padding:12px;margin:5px 0;background:rgba(127,207,127,0.05);border-left:3px solid #7fcf7f;border-radius:4px;"><div style="color:#7fcf7f;font-weight:bold;font-size:0.9em;">' + s.title + '</div><div style="color:#a8c5a8;font-size:0.85em;margin-top:5px;">' + s.text + '</div><div style="color:#666;font-size:0.75em;margin-top:5px;">' + s.date + '</div></div>';
+    }).reverse().join('');
+}
+renderStories();
+
+function addStory(){
+    var title = document.getElementById('gri-story-title').value.trim();
+    var text = document.getElementById('gri-story-text').value.trim();
+    if(!title || !text){ alert('Ecris un titre et ton histoire.'); return; }
+    var now = new Date();
+    var dateStr = now.toLocaleDateString('fr-FR') + ' ' + String(now.getHours()).padStart(2,'0') + ':' + String(now.getMinutes()).padStart(2,'0');
+    stories.push({title: title, text: text, date: dateStr});
+    localStorage.setItem('griStories', JSON.stringify(stories));
+    document.getElementById('gri-story-title').value = '';
+    document.getElementById('gri-story-text').value = '';
+    renderStories();
+    addGriTrace('✍️ Histoire ajoutee par la jeunesse: ' + title);
+    addGriTrace('⛓️ Grave dans la blockchain AfriChain');
+    alert('📖 Ton histoire est gravee!\n\nLa jeunesse africaine se souviendra de toi.');
+}
+
+function updateGriProgress(){
+    var done = griCompleted.size;
+    var total = epoques.length;
+    var pct = Math.round((done / total) * 100);
+    document.getElementById('gri-count').textContent = done;
+    document.getElementById('gri-pct').textContent = pct + '%';
+    document.getElementById('gri-bar').style.width = pct + '%';
+    document.getElementById('gri-diplome').style.display = (done === total) ? 'block' : 'none';
+}
+
+function showEpoque(i){
+    var e = epoques[i];
+    document.getElementById('gri-detail-title').textContent = e.emoji + ' ' + e.nom;
+    document.getElementById('gri-detail-title').style.color = e.couleur;
+    var html = '<div style="color:' + e.couleur + ';font-weight:bold;font-size:1.1em;">' + e.emoji + ' ' + e.nom + '</div>';
+    html += '<div style="margin-top:10px;padding:15px;background:rgba(255,170,68,0.05);border-left:3px solid ' + e.couleur + ';border-radius:4px;color:#a8c5a8;font-size:0.9em;line-height:1.6;">' + e.recit + '</div>';
+    html += '<div style="margin-top:10px;"><b style="color:#7fcf7f;">🦁 Heros de cette epoque:</b></div>';
+    e.heros.forEach(function(h){
+        html += '<div style="padding:6px 10px;margin:3px 0;background:rgba(127,207,127,0.05);border-left:3px solid #7fcf7f;border-radius:4px;color:#a8c5a8;font-size:0.85em;">🦁 ' + h + '</div>';
+    });
+    html += '<div style="margin-top:10px;padding:10px;background:rgba(212,164,55,0.05);border-radius:4px;color:#d4a437;font-size:0.85em;font-style:italic;">💡 ' + e.lecon + '</div>';
+    html += '<div style="margin-top:10px;text-align:center;"><button onclick="listenEpoque(' + i + ')" style="padding:8px 20px;background:' + e.couleur + ';color:#000;border:none;border-radius:8px;font-weight:bold;cursor:pointer;">📖 J ai ecouté le Griot</button></div>';
+    document.getElementById('gri-detail').innerHTML = html;
+    addGriTrace('📖 Le griot raconte: ' + e.emoji + ' ' + e.nom);
+}
+
+function listenEpoque(i){
+    if(griCompleted.has(i)) return;
+    griCompleted.add(i);
+    localStorage.setItem('griEpoquesDone', JSON.stringify(Array.from(griCompleted)));
+    var e = epoques[i];
+    addGriTrace('✅ Epoque ecoutée: ' + e.nom);
+    addGriTrace('💡 Lecon: ' + e.lecon);
+    addGriTrace('⛓️ Trace blockchain: memoire de ' + e.nom + ' preserveree');
+    updateGriProgress();
+    updateEpoquesGrid();
+    document.getElementById('gri-status').innerHTML = '<span style="color:#7fcf7f;">✅ Tu as ecouté le griot raconter: ' + e.nom + '. La memoire est transmise.</span>';
+}
+
+function updateEpoquesGrid(){
+    epoques.forEach(function(e, i){
+        var div = document.getElementById('gri-e-' + i);
+        if(!div) return;
+        var done = griCompleted.has(i);
+        div.style.borderColor = done ? e.couleur : '#444';
+        div.innerHTML = '<div style="font-size:1.5em;">' + e.emoji + '</div><div style="color:' + e.couleur + ';font-weight:bold;font-size:0.9em;">' + e.nom + '</div><div style="margin-top:5px;font-size:0.8em;color:' + (done ? e.couleur : '#666') + ';">' + (done ? '✅ Ecouté' : '📖 A écouter') + '</div>';
+    });
+}
+
+function gravGriDiplome(){
+    addGriTrace('🎓 DIPLOME GRIOT DE L AFRIQUE grave dans la blockchain!');
+    addGriTrace('⛓️ Block: AI Griot -- 8 epoques ecoutees');
+    addGriTrace('📖 La memoire de l Afrique est transmise. Le griot a parle. La jeunesse a ecouté.');
+    alert('🎓 DIPLOME GRIOT DE L AFRIQUE\n\nGardien de la Memoire Africaine\n\nLes 8 epoques ecoutées.\nLa memoire est transmise.\n\nGrave dans la blockchain AfriChain\n\nL Afrique se souvient. 💚🦁📖');
+}
+
+// Canvas — campfire with ancestors
+var gcan = document.getElementById('gri-canvas');
+var gctx = gcan.getContext('2d');
+var griTime = 0;
+
+function drawGriot(){
+    if(griPaused) { requestAnimationFrame(drawGriot); return; }
+    griTime += 0.015;
+
+    // Night sky
+    var grad = gctx.createLinearGradient(0, 0, 0, 350);
+    grad.addColorStop(0, '#0a0a1a');
+    grad.addColorStop(0.6, '#1a1a0a');
+    grad.addColorStop(1, '#0a0a0a');
+    gctx.fillStyle = grad;
+    gctx.fillRect(0, 0, 600, 350);
+
+    // Stars
+    for(var i = 0; i < 40; i++){
+        var sx = (i * 37 + 13) % 600;
+        var sy = (i * 23 + 7) % 120;
+        gctx.fillStyle = 'rgba(255,255,200,' + (0.2 + Math.sin(griTime + i) * 0.15) + ')';
+        gctx.beginPath();
+        gctx.arc(sx, sy, 1, 0, Math.PI * 2);
+        gctx.fill();
+    }
+
+    // Ground
+    gctx.fillStyle = '#1a1a0a';
+    gctx.fillRect(0, 280, 600, 70);
+
+    // Campfire
+    var fireX = 300, fireY = 270;
+    var flicker = Math.sin(griTime * 8) * 3;
+
+    // Fire glow
+    var fireGrad = gctx.createRadialGradient(fireX, fireY, 5, fireX, fireY, 80);
+    fireGrad.addColorStop(0, 'rgba(255,170,68,0.4)');
+    fireGrad.addColorStop(0.5, 'rgba(255,100,50,0.1)');
+    fireGrad.addColorStop(1, 'rgba(255,50,0,0)');
+    gctx.fillStyle = fireGrad;
+    gctx.fillRect(fireX - 80, fireY - 80, 160, 160);
+
+    // Fire flames
+    for(var f = 0; f < 5; f++){
+        var fh = 15 + Math.sin(griTime * 6 + f) * 5;
+        var fw = 8 + Math.sin(griTime * 5 + f * 2) * 2;
+        gctx.fillStyle = 'rgba(255,' + (170 + f * 10) + ',' + (50 + f * 20) + ',' + (0.6 - f * 0.1) + ')';
+        gctx.beginPath();
+        gctx.ellipse(fireX + (f - 2) * 6, fireY - fh / 2, fw, fh, 0, 0, Math.PI * 2);
+        gctx.fill();
+    }
+
+    // Logs
+    gctx.strokeStyle = '#3a2a1a';
+    gctx.lineWidth = 4;
+    gctx.beginPath();
+    gctx.moveTo(fireX - 20, fireY);
+    gctx.lineTo(fireX + 20, fireY + 5);
+    gctx.stroke();
+    gctx.beginPath();
+    gctx.moveTo(fireX - 15, fireY + 3);
+    gctx.lineTo(fireX + 18, fireY - 2);
+    gctx.stroke();
+
+    // Sparks
+    for(var sp = 0; sp < 6; sp++){
+        var sy2 = fireY - ((griTime * 40 + sp * 30) % 100);
+        var sx2 = fireX + Math.sin(griTime * 2 + sp) * 10;
+        gctx.fillStyle = 'rgba(255,200,100,' + (0.4 - (fireY - sy2) / 250) + ')';
+        gctx.beginPath();
+        gctx.arc(sx2, sy2, 1.5, 0, Math.PI * 2);
+        gctx.fill();
+    }
+
+    // Listening figures (silhouettes around fire)
+    var figurePositions = [
+        {x: 200, y: 270}, {x: 250, y: 275}, {x: 350, y: 275}, {x: 400, y: 270}
+    ];
+    figurePositions.forEach(function(fp, fi){
+        var sway = Math.sin(griTime + fi) * 1;
+        // Body
+        gctx.fillStyle = '#0a0a0a';
+        gctx.beginPath();
+        gctx.ellipse(fp.x + sway, fp.y - 15, 8, 15, 0, 0, Math.PI * 2);
+        gctx.fill();
+        // Head
+        gctx.beginPath();
+        gctx.arc(fp.x + sway, fp.y - 32, 6, 0, Math.PI * 2);
+        gctx.fill();
+        // Fire light on face
+        var lightGrad = gctx.createRadialGradient(fp.x + sway, fp.y - 32, 0, fp.x + sway, fp.y - 32, 15);
+        lightGrad.addColorStop(0, 'rgba(255,170,68,0.15)');
+        lightGrad.addColorStop(1, 'rgba(255,170,68,0)');
+        gctx.fillStyle = lightGrad;
+        gctx.beginPath();
+        gctx.arc(fp.x + sway, fp.y - 32, 15, 0, Math.PI * 2);
+        gctx.fill();
+    });
+
+    // Ancestor spirits (faint figures above)
+    for(var a = 0; a < 3; a++){
+        var ax = 150 + a * 150;
+        var ay = 80 + Math.sin(griTime * 0.5 + a) * 5;
+        var alpha = 0.05 + Math.sin(griTime + a) * 0.03;
+        gctx.fillStyle = 'rgba(255,255,200,' + alpha + ')';
+        gctx.beginPath();
+        gctx.ellipse(ax, ay, 5, 12, 0, 0, Math.PI * 2);
+        gctx.fill();
+        gctx.beginPath();
+        gctx.arc(ax, ay - 15, 3, 0, Math.PI * 2);
+        gctx.fill();
+    }
+
+    // Text
+    gctx.fillStyle = 'rgba(255,170,68,0.5)';
+    gctx.font = 'bold 10px monospace';
+    gctx.textAlign = 'center';
+    var done = griCompleted.size;
+    gctx.fillText('LE GRIOT RACONTE — ' + done + '/8 epoques', 300, 20);
+
+    if(done === 8){
+        gctx.fillStyle = 'rgba(255,170,68,' + (0.3 + Math.sin(griTime * 3) * 0.1) + ')';
+        gctx.font = 'bold 13px monospace';
+        gctx.fillText('LA MEMOIRE EST TRANSMISE — L AFRIQUE SE SOUVIENT', 300, 340);
+    }
+
+    requestAnimationFrame(drawGriot);
+}
+
+// Trace
+function addGriTrace(msg){
+    var log = document.getElementById('gri-trace');
+    var now = new Date();
+    var ts = String(now.getHours()).padStart(2,'0') + ':' + String(now.getMinutes()).padStart(2,'0') + ':' + String(now.getSeconds()).padStart(2,'0');
+    log.innerHTML = '<div style="padding:4px 0;border-bottom:1px solid rgba(255,170,68,0.05);"><span style="color:#666;">[' + ts + ']</span> <span style="color:#ffaa44;">📖</span> ' + msg + '</div>' + log.innerHTML;
+    if(log.innerHTML.length > 3000) log.innerHTML = log.innerHTML.substring(0, 3000);
+}
+
+addGriTrace('📖 AI Griot initialise — Gardien de la Memoire Africaine');
+addGriTrace('📜 8 epoques chargees: Empires, Traite, Colonisation, Independances, Liberte, Renaissance, Souverainete, Avenir');
+addGriTrace('🦁 15 heros africains preserves dans le recit');
+addGriTrace('✍️ La jeunesse peut ajouter ses propres histoires');
+addGriTrace('🎓 Diplome: ecouter 8 epoques -> Griot de l Afrique');
+addGriTrace('🌍 L Afrique se souvient. Le griot a parle.');
+
+updateGriProgress();
+drawGriot();
+</script>
+
+<footer style="text-align:center;margin-top:40px;color:#a8c5a8;">📖 AI Griot — L Afrique se souvient. Le griot a parle. La jeunesse ecoute. 💚🦁📖</footer>"##);
+
+    html.push_str("</body></html>");
+    html
+}
+
 fn html_garage(chain: &Blockchain) -> String {
     let mut html = html_head("Garage AI — Atelier Autonome 2500");
     let num_blocks = chain.blocks.len();
@@ -12690,7 +13047,7 @@ html+='<div class="log-entry log-kill">⚠️ Tentative d\x27infiltration occide
 html+='<div class="log-entry log-invis">✅ L\x27Afrique est forte. Le système grandit.</div>';
 }else if(type==='total'){
 html='<div style="color:#d4a437;font-weight:bold;margin-bottom:8px">📋 RAPPORT TOTAL — Depuis le début</div>';
-html+='<div class="log-entry">🦁 AfriChain v0.84 — AI Leader Academie des Leaders</div>';
+html+='<div class="log-entry">🦁 AfriChain v0.85 — AI Griot Gardien de la Memoire</div>';
 html+='<div class="log-entry">⛓️ Blockchain: 100% souveraine — Zéro dépendance externe</div>';
 html+='<div class="log-entry">🔐 Crypto: Ed25519 + AfriHash-256/512 + AfriRNG — tout from scratch</div>';
 html+='<div class="log-entry">🌍 54 pays africains connectés</div>';
@@ -14234,7 +14591,7 @@ fn main() {
         .and_then(|i| args.get(i + 1)).cloned().unwrap_or_else(|| "Afrique".to_string());
 
     let my_node_id = generate_node_id();
-    println!("🦁 AfriChain v0.84 — AI Leader Academie des Leaders");
+    println!("🦁 AfriChain v0.85 — AI Griot Gardien de la Memoire");
     println!("💚 L'Afrique ne demande plus la permission");
     println!("🌍 54 pays — 🇲🇱 🇳🇪 🇧🇫 AES — Mali · Niger · Burkina Faso");
     println!("🔐 8 modules cryptographiques — construits from scratch");
@@ -14386,6 +14743,7 @@ fn main() {
     println!("🏘️ AI Village sur http://localhost:8080/ai-village");
     println!("🩺 AI Guerisseur sur http://localhost:8080/ai-guerisseur");
     println!("🎖️ AI Leader sur http://localhost:8080/ai-leader");
+    println!("📖 AI Griot sur http://localhost:8080/ai-griot");
 
     // Serveur HTTP en arrière-plan (pour mesh + autres utilisateurs)
     let serve_state = web_state.clone();
@@ -14420,7 +14778,7 @@ fn terminal_interface(state: &Arc<AppState>) {
     println!("  ║  🕐 AfriTime — Pas UTC, pas Greenwich   ║");
     println!("  ║  📝 ~16,500 lignes — écrit à la main       ║");
     println!("  ╚═══════════════════════════════════════════════╝");
-    println!("\n  Version v0.84 — 30 août 2026");
+    println!("\n  Version v0.85 — 30 août 2026");
     println!("  Construit sur Termux · Android · nano\n");
     println!("  ─────────────────────────────────────────────");
     println!("\n  1. 🏦 Centre de Données (Admin)");
@@ -14492,7 +14850,7 @@ fn admin_interface(state: &Arc<AppState>) {
         println!("\n");
         println!("╔══════════════════════════════════════╗");
         println!("║  🏦 CENTRE DE DONNÉES — Admin       ║");
-        println!("║  🦁 AfriChain v0.84                  ║");
+        println!("║  🦁 AfriChain v0.85                  ║");
         println!("╠══════════════════════════════════════╣");
         let chain = state.chain.lock().unwrap();
         let users = state.users.lock().unwrap();
@@ -18051,6 +18409,11 @@ fn handle_request(req: afri_http::HttpRequest, state: &Arc<AppState>) -> afri_ht
         ("GET", "/ai-leader") => {
             let chain = state.chain.lock().unwrap();
             HttpResponse::ok(&html_ai_leader(&chain))
+        }
+
+        ("GET", "/ai-griot") => {
+            let chain = state.chain.lock().unwrap();
+            HttpResponse::ok(&html_ai_griot(&chain))
         }
 
         ("GET", "/garage") => {
