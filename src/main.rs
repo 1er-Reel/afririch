@@ -1439,7 +1439,7 @@ fn html_home(chain: &Blockchain, users: &UserStore, mesh: &NodeRegistry, shield:
     let mut html = html_head("🦁 AfriChain");
     let (attacks, _blocked, blocked_count, level) = shield.stats();
     let shield_status = if shield.active { format!("🔥 X9 ACTIF (Niveau {})", level) } else { "Inactif".to_string() };
-    html.push_str(&format!(r#"<h1>🦁 AfriChain</h1><p style="text-align:center;">La blockchain 100% africaine — 54 pays 💚🦁</p><div id="afri-clock" style="text-align:center;font-size:1.2em;color:#d4a437;margin:10px 0;">🕐 Afri+0 — --:--:--</div><script>setInterval(function(){{var d=new Date();var h=String(d.getHours()).padStart(2,'0');var m=String(d.getMinutes()).padStart(2,'0');var s=String(d.getSeconds()).padStart(2,'0');document.getElementById('afri-clock').textContent='🕐 Afri+0 — '+h+':'+m+':'+s;}},1000);</script><div class="nav"><a href="/register">🆕 S'inscrire</a> | <a href="/login">🔑 Connexion</a> | <a href="/wallet">👛 Wallet</a> | <a href="/admin">🔐 Admin</a> | <a href="/mesh">📡 Mesh</a> | <a href="/annuaire">📖 Annuaire</a> | <a href="/bouclier">🛡️ Bouclier</a> | <a href="/satellite">🛸 X999</a> | <a href="/swarm">🛸🛸🛸 Essaim</a> | <a href="/commandement">🎖️ Commandement</a> | <a href="/interception">🛡️ Souverainete</a> | <a href="/securite-ai">🧠 AI 2100</a> | <a href="/chat">🧠💬 Chat AI</a> | <a href="/lumiere">🌫️☀️ Lumière</a> | <a href="/garage">🔧 Garage</a> | <a href="/machine">🤖🌐 Machines</a> | <a href="/machine-lab">🤖⚡ Usine</a> | <a href="/machine-world">🤖🌍 Monde</a> | <a href="/reve">💭 Rêves</a> | <a href="/dictionnaire">📖 Dictionnaire</a> | <a href="/machine-os">🖥️ OS Machine</a> | <a href="/machine-tv">📡 Machine TV</a> | <a href="/machine-economy">🤖 Économie</a> | <a href="/soleil">☀️ Soleil Serveur</a> | <a href="/forge-solaire">🧬 Forge Solaire</a> | <a href="/ciel">🌌 Le Ciel</a> | <a href="/charte-ai">⚖️ Charte AI</a> | <a href="/afri-net">🌍 Afri-Net</a> | <a href="/studio">🎬 AI Studio</a> | <a href="/sacre">📿 Sacré</a> | <a href="/lettres">🌟 Lettres IA</a> | <a href="/mg-forge">⚔️ MG Forge</a> | <a href="/ai-medecin">🌿 AI Médecin</a> | <a href="/ai-enseignante">📚 AI Enseignante</a> | <a href="/secret">🦁 AI Secret</a> | <a href="/aes">💰 AES Wari</a> | <a href="/api/status">🔌 API</a></div><div style="text-align:center;"><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Blocs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Transactions</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Utilisateurs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">AFR en circulation</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📡 Noeuds mesh</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📖 Numéros annuaire</div></div><div class="stat-box" style="border-color:#ff4444;"><div class="stat-num" style="color:#ff4444;">{}</div><div class="stat-label">🛡️ Attaques bloquées</div></div></div><div class="card"><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🪙 Token</span><b>AfriRich (AFR)</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🌍 Pays</span><b>54 pays africains</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🛡️ Bouclier</span><b>{}</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;"><span style="color:#a8c5a8;">🔐 Crypto</span><b>100% Souverain — Zéro Dépendance Externe</b></div></div><footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🦁 Codée from scratch par Machine-senpai — v0.81 AI Enseignante Universelle — UTC est Mort</footer>"#,
+    html.push_str(&format!(r#"<h1>🦁 AfriChain</h1><p style="text-align:center;">La blockchain 100% africaine — 54 pays 💚🦁</p><div id="afri-clock" style="text-align:center;font-size:1.2em;color:#d4a437;margin:10px 0;">🕐 Afri+0 — --:--:--</div><script>setInterval(function(){{var d=new Date();var h=String(d.getHours()).padStart(2,'0');var m=String(d.getMinutes()).padStart(2,'0');var s=String(d.getSeconds()).padStart(2,'0');document.getElementById('afri-clock').textContent='🕐 Afri+0 — '+h+':'+m+':'+s;}},1000);</script><div class="nav"><a href="/register">🆕 S'inscrire</a> | <a href="/login">🔑 Connexion</a> | <a href="/wallet">👛 Wallet</a> | <a href="/admin">🔐 Admin</a> | <a href="/mesh">📡 Mesh</a> | <a href="/annuaire">📖 Annuaire</a> | <a href="/bouclier">🛡️ Bouclier</a> | <a href="/satellite">🛸 X999</a> | <a href="/swarm">🛸🛸🛸 Essaim</a> | <a href="/commandement">🎖️ Commandement</a> | <a href="/interception">🛡️ Souverainete</a> | <a href="/securite-ai">🧠 AI 2100</a> | <a href="/chat">🧠💬 Chat AI</a> | <a href="/lumiere">🌫️☀️ Lumière</a> | <a href="/garage">🔧 Garage</a> | <a href="/machine">🤖🌐 Machines</a> | <a href="/machine-lab">🤖⚡ Usine</a> | <a href="/machine-world">🤖🌍 Monde</a> | <a href="/reve">💭 Rêves</a> | <a href="/dictionnaire">📖 Dictionnaire</a> | <a href="/machine-os">🖥️ OS Machine</a> | <a href="/machine-tv">📡 Machine TV</a> | <a href="/machine-economy">🤖 Économie</a> | <a href="/soleil">☀️ Soleil Serveur</a> | <a href="/forge-solaire">🧬 Forge Solaire</a> | <a href="/ciel">🌌 Le Ciel</a> | <a href="/charte-ai">⚖️ Charte AI</a> | <a href="/afri-net">🌍 Afri-Net</a> | <a href="/studio">🎬 AI Studio</a> | <a href="/sacre">📿 Sacré</a> | <a href="/lettres">🌟 Lettres IA</a> | <a href="/mg-forge">⚔️ MG Forge</a> | <a href="/ai-medecin">🌿 AI Médecin</a> | <a href="/ai-enseignante">📚 AI Enseignante</a> | <a href="/ai-village">🏘️ AI Village</a> | <a href="/secret">🦁 AI Secret</a> | <a href="/aes">💰 AES Wari</a> | <a href="/api/status">🔌 API</a></div><div style="text-align:center;"><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Blocs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Transactions</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Utilisateurs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">AFR en circulation</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📡 Noeuds mesh</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📖 Numéros annuaire</div></div><div class="stat-box" style="border-color:#ff4444;"><div class="stat-num" style="color:#ff4444;">{}</div><div class="stat-label">🛡️ Attaques bloquées</div></div></div><div class="card"><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🪙 Token</span><b>AfriRich (AFR)</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🌍 Pays</span><b>54 pays africains</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🛡️ Bouclier</span><b>{}</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;"><span style="color:#a8c5a8;">🔐 Crypto</span><b>100% Souverain — Zéro Dépendance Externe</b></div></div><footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🦁 Codée from scratch par Machine-senpai — v0.82 AI Village Batisseur d Afrique — UTC est Mort</footer>"#,
         chain.blocks.len(),
         chain.total_transactions(),
         users.count(),
@@ -6308,6 +6308,606 @@ updateEnsProgress();
 </script>
 
 <footer style="text-align:center;margin-top:40px;color:#a8c5a8;">📚 AI Enseignante — Academie Universelle — L Afrique construit son futur, piece par piece 💚🦁🎓</footer>"##);
+
+    html.push_str("</body></html>");
+    html
+}
+
+fn html_ai_village(chain: &Blockchain) -> String {
+    let mut html = html_head("AI Village — Batir l Afrique Village par Village");
+    let num_blocks = chain.blocks.len();
+
+    html.push_str(r#"<h1>🏘️ AI Village — Batir l Afrique Village par Village</h1><p style="text-align:center;color:#a8c5a8;">L AI qui apprend a la jeunesse africaine a construire un village complet et autonome. Piece par piece, etape par etape. Construction, agriculture, energie solaire, eau, communication, sante, education, economie, defense, gouvernance. Chaque village devient un noeud AfriChain. L Afrique se batit elle-meme.</p><div class="nav"><a href="/">← Accueil</a> | <a href="/ai-medecin">🌿 AI Medecin</a> | <a href="/ai-enseignante">📚 AI Enseignante</a> | <a href="/forge-solaire">🧬 Forge Solaire</a> | <a href="/afri-net">🌍 Afri-Net</a></div>"#);
+
+    html.push_str(&format!(r#"<div style="text-align:center;"><div class="stat-box" style="border-color:#7fcf7f;"><div class="stat-num" style="color:#7fcf7f;">10</div><div class="stat-label">🏘️ Modules</div></div><div class="stat-box" style="border-color:#ffaa44;"><div class="stat-num" style="color:#ffaa44;">54</div><div class="stat-label">🌍 Pays</div></div><div class="stat-box" style="border-color:#44aaff;"><div class="stat-num" style="color:#44aaff;">∞</div><div class="stat-label">🧠 Intelligence</div></div><div class="stat-box" style="border-color:#d4a437;"><div class="stat-num" style="color:#d4a437;">5</div><div class="stat-label">🎓 Niveaux</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">⛓️ Blocs</div></div><div class="stat-box" style="border-color:#ff44ff;"><div class="stat-num" style="color:#ff44ff;">1</div><div class="stat-label">💚 Village Actif</div></div></div>"#, num_blocks));
+
+    html.push_str(r##"<div style="text-align:center;margin:10px 0;"><button id="vil-pause-btn" onclick="toggleVilPause()" style="padding:10px 25px;background:#ff4444;color:#fff;border:none;border-radius:8px;font-weight:bold;cursor:pointer;font-size:1em;">⏸️ PAUSE</button> <span id="vil-pause-status" style="color:#7fcf7f;margin-left:8px;font-size:0.85em;">Auto: ACTIF</span></div>
+
+<!-- VILLAGE CANVAS -->
+<div class="card" style="border-color:#7fcf7f;"><h2 style="color:#7fcf7f;">🏘️ Ton Village Africain</h2><p style="color:#a8c5a8;font-size:0.9em;">Le village se construit sous tes yeux. Chaque module complete ajoute un batiment au village.</p>
+<canvas id="vil-canvas" width="600" height="400" style="width:100%;max-width:600px;background:#0a1a0a;border:2px solid #7fcf7f;border-radius:8px;display:block;margin:0 auto;"></canvas>
+<div style="text-align:center;margin-top:10px;">
+<button onclick="vilNext()" style="padding:8px 20px;background:#7fcf7f;color:#000;border:none;border-radius:8px;font-weight:bold;cursor:pointer;">▶️ Construire Module Suivant</button>
+<button onclick="vilRestart()" style="padding:8px 20px;background:rgba(127,207,127,0.1);color:#7fcf7f;border:1px solid #7fcf7f;border-radius:8px;cursor:pointer;margin-left:5px;">🔄 Recommencer</button>
+</div>
+<div id="vil-status" style="text-align:center;margin-top:10px;padding:10px;background:rgba(127,207,127,0.05);border-radius:8px;color:#a8c5a8;font-size:0.9em;min-height:40px;">Choisis un module ci-dessous ou clique sur Construire.</div></div>
+
+<!-- 10 MODULES -->
+<div class="card" style="border-color:#d4a437;"><h2 style="color:#d4a437;">📋 Les 10 Modules du Village</h2><p style="color:#a8c5a8;font-size:0.9em;">Chaque module est un systeme autonome. Ensemble, ils forment un village complet. L AI enseigne chaque module a la jeunesse, piece par piece.</p>
+<div id="vil-modules" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:10px;margin-top:10px;"></div></div>
+
+<!-- DETAIL DU MODULE -->
+<div class="card"><h2 id="vil-detail-title" style="color:#44aaff;">📋 Detail du Module</h2><div id="vil-detail" style="margin-top:10px;padding:15px;background:rgba(68,170,255,0.05);border-radius:8px;min-height:60px;color:#a8c5a8;font-size:0.9em;">Selectionne un module pour voir les details.</div></div>
+
+<!-- ROLES DES JEUNES -->
+<div class="card" style="border-color:#ff44ff;"><h2 style="color:#ff44ff;">🧑‍🤝‍🧑 Roles des Jeunes dans le Village</h2><p style="color:#a8c5a8;font-size:0.9em;">Chaque jeune a un role. L AI trouve ton talent et t attribue ta place dans le village.</p>
+<div id="vil-roles" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:8px;margin-top:10px;"></div></div>
+
+<!-- DIPLOME -->
+<div class="card" style="border-color:#d4a437;"><h2 style="color:#d4a437;">🎓 Diplome Batisseur d Afrique</h2><div id="vil-progress" style="margin:10px 0;"><div style="display:flex;justify-content:space-between;"><span style="color:#d4a437;font-weight:bold;">Progression: <span id="vil-count">0</span>/10 modules</span><span style="color:#7fcf7f;" id="vil-pct">0%</span></div><div style="margin-top:8px;height:12px;background:rgba(0,0,0,0.5);border-radius:6px;overflow:hidden;"><div id="vil-bar" style="height:100%;width:0%;background:linear-gradient(90deg,#d4a437,#7fcf7f);transition:width 0.5s;"></div></div></div>
+<div id="vil-diplome" style="text-align:center;display:none;margin-top:15px;"><div style="display:inline-block;padding:25px 50px;border:3px solid #7fcf7f;border-radius:15px;background:rgba(127,207,127,0.05);"><div style="font-size:2.5em;">🏘️🎓</div><div style="color:#7fcf7f;font-weight:bold;font-size:1.3em;margin-top:5px;">DIPLOME BATISSEUR D AFRIQUE</div><div style="color:#a8c5a8;margin-top:5px;">AI Village — Construire l Afrique Village par Village</div><div style="color:#d4a437;margin-top:5px;font-size:0.85em;">Les 10 modules completes. Le village est autonome.</div><div style="color:#7fcf7f;margin-top:5px;font-size:0.85em;">Grave dans la blockchain AfriChain</div><button onclick="gravVilDiplome()" style="margin-top:10px;padding:8px 20px;background:#7fcf7f;color:#000;border:none;border-radius:8px;font-weight:bold;cursor:pointer;">⛓️ Graver dans la Blockchain</button></div></div></div></div>
+
+<!-- TRACE BLOCKCHAIN -->
+<div class="card"><h2 style="color:#d4a437;">⛓️ Trace de Construction dans la Blockchain</h2><div id="vil-trace" style="font-family:monospace;font-size:0.85em;max-height:200px;overflow-y:auto;"></div></div>
+
+<script>
+let vilPaused = false;
+let vilIntervalIds = [];
+function regVilInterval(fn, ms){ const id = setInterval(fn, ms); vilIntervalIds.push(id); return id; }
+function toggleVilPause(){
+    vilPaused = !vilPaused;
+    var btn = document.getElementById('vil-pause-btn');
+    var status = document.getElementById('vil-pause-status');
+    if(vilPaused){
+        vilIntervalIds.forEach(function(id){ clearInterval(id); });
+        vilIntervalIds = [];
+        btn.textContent = '▶️ REPRENDRE';
+        btn.style.background = '#7fcf7f';
+        btn.style.color = '#000';
+        status.textContent = 'Auto: PAUSE';
+        status.style.color = '#ff4444';
+    } else {
+        btn.textContent = '⏸️ PAUSE';
+        btn.style.background = '#ff4444';
+        btn.style.color = '#fff';
+        status.textContent = 'Auto: ACTIF';
+        status.style.color = '#7fcf7f';
+    }
+}
+
+// 10 Modules
+const modules = [
+    {id:0, nom:'Construction', emoji:'🏗️', couleur:'#d4a437', duree:'8 semaines', niveau:'Debutant',
+     desc:'Construire maisons, ecoles, cliniques avec materiaux locaux: terre crue, banco, bois, pierre. L AI enseigne les techniques ancestrales ameliorees par la technologie.',
+     etapes:['Choisir le terrain — analyser le sol avec AI Medecin scanner','Preparer les fondations — pierres, gravier','Murs en terre crue — banco melange avec paille','Charpente — bois local, bambou','Toiture — chaume, tole solaire','Portes et fenetres — bois local','Finition — enduit terre, chaux','Energie du batiment — panneaux solaires integres'],
+     lien:'AI Enseignante: cours Construction',
+     role:'Architecte du Village'},
+    {id:1, nom:'Agriculture', emoji:'🌾', couleur:'#7fcf7f', duree:'6 semaines', niveau:'Debutant',
+     desc:'Cultiver la terre avec AI + savoir ancestral. Spiruline, Moringa, Fonio, Teff — les plantes qui nourrissent l Afrique. L AI dit quoi planter, quand, comment.',
+     etapes:['Analyser le sol — pH, composition, humidite','Choisir les cultures — AI recommande selon climat','Preparer la terre — labourage, compostage','Semer — rotation, densite, profondeur','Irriguer — goutte-a-goutte, eau recyclee','Recolter — au bon moment, AI prevision','Stocker — silos, sechage, conservation','Transformer — farine, huile, seche'],
+     lien:'AI Medecin: ADN des plantes',
+     role:'Cultivateur du Village'},
+    {id:2, nom:'Energie Solaire', emoji:'⚡', couleur:'#ffaa44', duree:'4 semaines', niveau:'Intermediaire',
+     desc:'Construire un micro-reseau solaire. Panneaux, batteries, onduleurs. L Afrique a le soleil. L energie est gratuite et souveraine.',
+     etapes:['Calculer les besoins — kWh par maison','Installer panneaux solaires — toiture, structure','Batteries — stockage, lithium ou plomb','Onduleur — DC vers AC','Micro-reseau — distribution par cables','Compteur — suivi consommation','Maintenance — nettoyage panneaux','Securite — disjoncteurs, mise a la terre'],
+     lien:'Forge Solaire: energie du soleil',
+     role:'Electricien du Village'},
+    {id:3, nom:'Eau', emoji:'💧', couleur:'#44aaff', duree:'4 semaines', niveau:'Intermediaire',
+     desc:'Puits, filtration, irrigation. L eau est la vie. L AI enseigne comment trouver, purifier et distribuer l eau.',
+     etapes:['Prospection — AI detecte la nappe phreatique','Forage — puits, profondeur','Pompe — solaire ou manuelle','Filtration — sable, charbon, UV','Stockage — reservoir, citerne','Distribution — canaux, tuyaux','Irrigation — goutte-a-goutte, cultures','Purification — plantes filtrantes (nuphar, juncus)'],
+     lien:'AI Medecin: scanner d eau',
+     role:'Gardien de l Eau'},
+    {id:4, nom:'Communication', emoji:'📡', couleur:'#44aaff', duree:'3 semaines', niveau:'Intermediaire',
+     desc:'Installer un noeud mesh AfriChain. Le village communique sans Orange, sans MTN. Communication souveraine.',
+     etapes:['Installer le noeud mesh — Raspberry Pi ou telephone','Configurer AfriChain — blockchain locale','WiFi mesh — antennes, relais','Messagerie — LES NOIRES (remplace WhatsApp)','Reseau social — PLANTE VERTE (remplace Facebook)','Recherche — SAHARA AFRI (remplace Google)','Annuaire — repertoire du village','Securite — Bouclier X9 actif'],
+     lien:'Afri-Net + Mesh Network',
+     role:'Connecteur du Village'},
+    {id:5, nom:'Sante', emoji:'🏥', couleur:'#ff4444', duree:'6 semaines', niveau:'Intermediaire',
+     desc:'Construire une clinique villageoise. AI Medecin + plantes medicinales. Le village se soigne lui-meme.',
+     etapes:['Construire la clinique — salle, lit, stockage','Installer AI Medecin — scanner, diagnostic','Jardin de plantes medicinales — Neem, Artemisia, Moringa','Pharmacie naturelle — tisanes, huiles, pommades','Formation sante — hygiene, nutrition, prevention','Vaccination — coordination avec hopital distant','Urgences — premier secours, AI guide','Suivi — dossiers medicaux sur blockchain'],
+     lien:'AI Medecin: Guerison Totale',
+     role:'Guerisseur du Village'},
+    {id:6, nom:'Education', emoji:'📚', couleur:'#d4a437', duree:'8 semaines', niveau:'Avance',
+     desc:'Construire une ecole. AI Enseignante enseigne: math, francais, sciences, histoire africaine. Chaque enfant apprend a batir son futur.',
+     etapes:['Construire l ecole — salles, tableau, bibliotheque','Installer AI Enseignante — cours interactifs','Programme — math, francais, sciences, histoire Afrique','Pratique — construire, cultiver, reparer','Diplomes — AI Enseignante + AI Medecin + MG Forge','Bibliotheque — livres, ressources, blockchain','Sport — corps sain, esprit sain','Culture — griots, musique, danse, langue locale'],
+     lien:'AI Enseignante: 17 cours',
+     role:'Professeur du Village'},
+    {id:7, nom:'Economie', emoji:'💰', couleur:'#d4a437', duree:'5 semaines', niveau:'Avance',
+     desc:'Creer une economie villageoise avec AFR. Marche, cooperative, echanges. Le village est financièrement souverain.',
+     etapes:['Creer des comptes AFR — chaque habitant','Marche villageois — vente de produits','Cooperative — groupement, force de negociation','Pret interne — microcredit entre habitants','Echange — troc + AFR','Export — vendre au village voisin, a la ville','Import — acheter ce que le village ne produit pas','Trace — toutes les transactions sur blockchain'],
+     lien:'AfriChain: wallet + transactions',
+     role:'Tresorier du Village'},
+    {id:8, nom:'Defense', emoji:'🛡️', couleur:'#ff4444', duree:'4 semaines', niveau:'Avance',
+     desc:'Proteger le village. Bouclier X9, MG Forge, vigilance communautaire. Le village est en securite.',
+     etapes:['Installer Bouclier X9 — numerique, cyber','MG Forge — formation defense communautaire','Patrouille — vigiles, robots vigiles','Alerte — mesh broadcast, signalement rapide','Barriere perimetrique — detection intrusion','Camera — surveillance 24/7','Plan d urgence — evacuation, abris','Coordination — police, armee, village'],
+     lien:'Bouclier X9 + MG Forge',
+     role:'Gardien du Village'},
+    {id:9, nom:'Gouvernance', emoji:'🌍', couleur:'#ff44ff', duree:'6 semaines', niveau:'Expert',
+     desc:'Gouverner le village par blockchain. Vote, conseil des anciens, decisions collectives. La demcratie africaine est blockchain.',
+     etapes:['Conseil des anciens — sages, experience','Vote blockchain — chaque habitant vote','Propositions — qui propose, qui decide','Budget participatif — AFR alloues par vote','Transparence — toutes les decisions sur blockchain','Justice — mediation, conseil des anciens','Reunions — hebdomadaires, ouvertes a tous','Futur — planifier, rever, batir ensemble'],
+     lien:'AfriChain: blockchain + vote',
+     role:'Chef du Village'},
+];
+
+// Roles des jeunes
+const roles = [
+    {role:'🏗️ Architecte', desc:'Concoit et construit les batiments. Matériaux locaux, design solaire.', talent:'Tu aimes construire, dessiner, imaginer des maisons.'},
+    {role:'🌾 Cultivateur', desc:'Nourrit le village. Connait la terre, les plantes, les saisons.', talent:'Tu aimes la nature, la terre, faire pousser les choses.'},
+    {role:'⚡ Electricien', desc:'Apporte l energie solaire. Le village a la lumiere.', talent:'Tu aimes les cables, l electricite, les panneaux solaires.'},
+    {role:'💧 Gardien de l Eau', desc:'Trouve, filtre et distribue l eau. La vie du village.', talent:'Tu aimes l eau, les rivieres, les sources, la pluie.'},
+    {role:'📡 Connecteur', desc:'Installe le reseau mesh. Le village communique.', talent:'Tu aimes les ordinateurs, les telephones, les reseaux.'},
+    {role:'🏥 Guerisseur', desc:'Soigne avec plantes et AI Medecin. La sante du village.', talent:'Tu aimes aider les gens, soigner, les plantes medicinales.'},
+    {role:'📚 Professeur', desc:'Enseigne aux enfants. L avenir du village.', talent:'Tu aimes apprendre, expliquer, transmettre le savoir.'},
+    {role:'💰 Tresorier', desc:'Gere l economie AFR. Le marche, les echanges.', talent:'Tu aimes les nombres, le commerce, l argent, les marches.'},
+    {role:'🛡️ Gardien', desc:'Protege le village. Bouclier X9, vigilance.', talent:'Tu aimes proteger, defendre, veiller sur les autres.'},
+    {role:'🌍 Chef', desc:'Gouverne avec le conseil des anciens. Le futur du village.', talent:'Tu aimes diriger, ecouter, decider, unir les gens.'},
+];
+
+const rgrid = document.getElementById('vil-roles');
+roles.forEach(function(r){
+    var div = document.createElement('div');
+    div.style.cssText = 'padding:10px;background:rgba(255,68,255,0.05);border:1px solid #ff44ff;border-radius:8px;';
+    div.innerHTML = '<div style="color:#ff44ff;font-weight:bold;font-size:0.9em;">' + r.role + '</div><div style="color:#a8c5a8;font-size:0.8em;margin-top:3px;">' + r.desc + '</div><div style="color:#d4a437;font-size:0.75em;margin-top:3px;font-style:italic;">' + r.talent + '</div>';
+    rgrid.appendChild(div);
+});
+
+// Modules grid
+let vilCompleted = new Set();
+try { vilCompleted = new Set(JSON.parse(localStorage.getItem('vilModulesDone') || '[]')); } catch(e) {}
+
+const mgrid = document.getElementById('vil-modules');
+modules.forEach(function(m, i){
+    var div = document.createElement('div');
+    div.id = 'vil-m-' + i;
+    var done = vilCompleted.has(i);
+    div.style.cssText = 'padding:12px;background:rgba(0,0,0,0.3);border:2px solid ' + (done ? m.couleur : '#444') + ';border-radius:8px;cursor:pointer;transition:all 0.3s;';
+    div.onclick = function(){ showModule(i); };
+    div.onmouseover = function(){ div.style.transform = 'scale(1.03)'; };
+    div.onmouseout = function(){ div.style.transform = 'scale(1)'; };
+    div.innerHTML = '<div style="font-size:1.5em;">' + m.emoji + '</div><div style="color:' + m.couleur + ';font-weight:bold;font-size:0.9em;">' + m.nom + '</div><div style="color:#a8c5a8;font-size:0.75em;margin-top:3px;">' + m.niveau + ' — ' + m.duree + '</div><div style="margin-top:5px;font-size:0.8em;color:' + (done ? m.couleur : '#666') + ';">' + (done ? '✅ Construit' : '○ A construire') + '</div>';
+    mgrid.appendChild(div);
+});
+
+function updateVilProgress(){
+    var done = vilCompleted.size;
+    var total = modules.length;
+    var pct = Math.round((done / total) * 100);
+    document.getElementById('vil-count').textContent = done;
+    document.getElementById('vil-pct').textContent = pct + '%';
+    document.getElementById('vil-bar').style.width = pct + '%';
+    document.getElementById('vil-diplome').style.display = (done === total) ? 'block' : 'none';
+}
+
+function showModule(i){
+    var m = modules[i];
+    document.getElementById('vil-detail-title').textContent = m.emoji + ' ' + m.nom;
+    document.getElementById('vil-detail-title').style.color = m.couleur;
+    var html = '<div style="color:' + m.couleur + ';font-weight:bold;font-size:1.1em;">' + m.emoji + ' ' + m.nom + '</div>';
+    html += '<div style="color:#a8c5a8;margin-top:5px;">' + m.desc + '</div>';
+    html += '<div style="margin-top:10px;color:#d4a437;font-size:0.85em;">⏱️ ' + m.duree + ' | 📊 ' + m.niveau + '</div>';
+    html += '<div style="margin-top:10px;color:#7fcf7f;font-size:0.85em;">🔗 Lieu: ' + m.lien + '</div>';
+    html += '<div style="margin-top:10px;color:#ff44ff;font-size:0.85em;">🧑‍🤝‍🧑 Role: ' + m.role + '</div>';
+    html += '<div style="margin-top:10px;"><b style="color:' + m.couleur + ';">📋 Etapes piece par piece:</b></div>';
+    m.etapes.forEach(function(e, j){
+        html += '<div style="padding:6px 10px;margin:3px 0;background:rgba(0,0,0,0.3);border-left:3px solid ' + m.couleur + ';border-radius:4px;color:#a8c5a8;font-size:0.85em;">' + (j+1) + '. ' + e + '</div>';
+    });
+    html += '<div style="margin-top:10px;text-align:center;"><button onclick="completeModule(' + i + ')" style="padding:8px 20px;background:' + m.couleur + ';color:#000;border:none;border-radius:8px;font-weight:bold;cursor:pointer;">✅ Construire ce Module</button></div>';
+    document.getElementById('vil-detail').innerHTML = html;
+    addVilTrace('📋 Module consulte: ' + m.emoji + ' ' + m.nom);
+}
+
+function completeModule(i){
+    if(vilCompleted.has(i)) return;
+    vilCompleted.add(i);
+    localStorage.setItem('vilModulesDone', JSON.stringify(Array.from(vilCompleted)));
+    var m = modules[i];
+    addVilTrace('🏗️ Module construit: ' + m.emoji + ' ' + m.nom + ' -- ' + m.role);
+    addVilTrace('⛓️ Trace blockchain: ' + m.nom + ' ajoute au village');
+    updateVilProgress();
+    updateModulesGrid();
+    currentVilStep = Math.max(currentVilStep, vilCompleted.size);
+    drawVillage();
+}
+
+function updateModulesGrid(){
+    modules.forEach(function(m, i){
+        var div = document.getElementById('vil-m-' + i);
+        if(!div) return;
+        var done = vilCompleted.has(i);
+        div.style.borderColor = done ? m.couleur : '#444';
+        div.innerHTML = '<div style="font-size:1.5em;">' + m.emoji + '</div><div style="color:' + m.couleur + ';font-weight:bold;font-size:0.9em;">' + m.nom + '</div><div style="color:#a8c5a8;font-size:0.75em;margin-top:3px;">' + m.niveau + ' — ' + m.duree + '</div><div style="margin-top:5px;font-size:0.8em;color:' + (done ? m.couleur : '#666') + ';">' + (done ? '✅ Construit' : '○ A construire') + '</div>';
+    });
+}
+
+function vilNext(){
+    for(var i = 0; i < modules.length; i++){
+        if(!vilCompleted.has(i)){
+            completeModule(i);
+            showModule(i);
+            return;
+        }
+    }
+    addVilTrace('🏆 Les 10 modules sont construits! Le village est autonome!');
+}
+
+function vilRestart(){
+    vilCompleted.clear();
+    localStorage.removeItem('vilModulesDone');
+    currentVilStep = 0;
+    updateVilProgress();
+    updateModulesGrid();
+    drawVillage();
+    addVilTrace('🔄 Village recommence -- a batir from scratch');
+}
+
+function gravVilDiplome(){
+    addVilTrace('🎓 DIPLOME BATISSEUR D AFRIQUE grave dans la blockchain!');
+    addVilTrace('⛓️ Block: AI Village -- 10 modules completes');
+    addVilTrace('🏘️ L Afrique se batit village par village. La jeunesse est souveraine.');
+    alert('🎓 DIPLOME BATISSEUR D AFRIQUE\n\nAI Village — Construire l Afrique Village par Village\n\nLes 10 modules completes.\nLe village est autonome.\n\nGrave dans la blockchain AfriChain\n\nL Afrique se batit elle-meme. 💚🦁🏘️');
+}
+
+// Village canvas
+var vcanvas = document.getElementById('vil-canvas');
+var vctx = vcanvas.getContext('2d');
+var currentVilStep = vilCompleted.size;
+var vilTime = 0;
+
+function drawVillage(){
+    if(vilPaused) { requestAnimationFrame(drawVillage); return; }
+    vilTime += 0.015;
+
+    // Sky
+    var grad = vctx.createLinearGradient(0, 0, 0, 400);
+    grad.addColorStop(0, '#0a1a2a');
+    grad.addColorStop(0.5, '#1a2a1a');
+    grad.addColorStop(1, '#0a1a0a');
+    vctx.fillStyle = grad;
+    vctx.fillRect(0, 0, 600, 400);
+
+    // Stars
+    for(var i = 0; i < 30; i++){
+        var sx = (i * 37 + 13) % 600;
+        var sy = (i * 23 + 7) % 150;
+        vctx.fillStyle = 'rgba(255,255,200,' + (0.3 + Math.sin(vilTime + i) * 0.2) + ')';
+        vctx.beginPath();
+        vctx.arc(sx, sy, 1, 0, Math.PI * 2);
+        vctx.fill();
+    }
+
+    // Sun/moon
+    vctx.fillStyle = 'rgba(255,200,50,0.3)';
+    vctx.beginPath();
+    vctx.arc(500, 60, 25, 0, Math.PI * 2);
+    vctx.fill();
+    vctx.fillStyle = 'rgba(255,200,50,0.1)';
+    vctx.beginPath();
+    vctx.arc(500, 60, 35, 0, Math.PI * 2);
+    vctx.fill();
+
+    // Ground
+    vctx.fillStyle = '#1a2a1a';
+    vctx.fillRect(0, 300, 600, 100);
+
+    // Ground texture
+    vctx.strokeStyle = 'rgba(127,207,127,0.05)';
+    for(var x = 0; x < 600; x += 20){
+        vctx.beginPath();
+        vctx.moveTo(x, 300);
+        vctx.lineTo(x + 10, 310);
+        vctx.stroke();
+    }
+
+    // Draw buildings based on completed modules
+    var cx = 300, cy = 280;
+
+    // 0: Construction (houses)
+    if(vilCompleted.has(0)){
+        // House 1
+        vctx.fillStyle = '#3a3a2a';
+        vctx.fillRect(80, 230, 60, 50);
+        vctx.strokeStyle = '#d4a437';
+        vctx.lineWidth = 1.5;
+        vctx.strokeRect(80, 230, 60, 50);
+        // Roof
+        vctx.beginPath();
+        vctx.moveTo(75, 230);
+        vctx.lineTo(110, 210);
+        vctx.lineTo(145, 230);
+        vctx.closePath();
+        vctx.fillStyle = 'rgba(212,164,55,0.3)';
+        vctx.fill();
+        vctx.stroke();
+        // Door
+        vctx.fillStyle = '#1a1a0a';
+        vctx.fillRect(100, 260, 15, 20);
+
+        // House 2
+        vctx.fillStyle = '#3a3a2a';
+        vctx.fillRect(460, 230, 60, 50);
+        vctx.strokeRect(460, 230, 60, 50);
+        vctx.beginPath();
+        vctx.moveTo(455, 230);
+        vctx.lineTo(490, 210);
+        vctx.lineTo(525, 230);
+        vctx.closePath();
+        vctx.fill();
+        vctx.stroke();
+        vctx.fillStyle = '#1a1a0a';
+        vctx.fillRect(480, 260, 15, 20);
+
+        // School
+        vctx.fillStyle = '#2a2a3a';
+        vctx.fillRect(250, 220, 80, 60);
+        vctx.strokeStyle = '#44aaff';
+        vctx.strokeRect(250, 220, 80, 60);
+        vctx.beginPath();
+        vctx.moveTo(245, 220);
+        vctx.lineTo(290, 200);
+        vctx.lineTo(335, 220);
+        vctx.closePath();
+        vctx.fillStyle = 'rgba(68,170,255,0.2)';
+        vctx.fill();
+        vctx.stroke();
+        vctx.fillStyle = '#44aaff';
+        vctx.font = '10px monospace';
+        vctx.textAlign = 'center';
+        vctx.fillText('ECOLE', 290, 255);
+    }
+
+    // 1: Agriculture (fields)
+    if(vilCompleted.has(1)){
+        vctx.strokeStyle = '#7fcf7f';
+        vctx.lineWidth = 1;
+        for(var fx = 20; fx < 200; fx += 15){
+            vctx.beginPath();
+            vctx.moveTo(fx, 320);
+            vctx.lineTo(fx, 340);
+            vctx.stroke();
+            vctx.beginPath();
+            vctx.moveTo(fx + 5, 320);
+            vctx.lineTo(fx + 5, 335);
+            vctx.stroke();
+        }
+        for(var fx2 = 400; fx2 < 580; fx2 += 15){
+            vctx.beginPath();
+            vctx.moveTo(fx2, 320);
+            vctx.lineTo(fx2, 340);
+            vctx.stroke();
+            vctx.beginPath();
+            vctx.moveTo(fx2 + 5, 320);
+            vctx.lineTo(fx2 + 5, 335);
+            vctx.stroke();
+        }
+        vctx.fillStyle = 'rgba(127,207,127,0.1)';
+        vctx.fillRect(15, 315, 185, 30);
+        vctx.fillRect(395, 315, 185, 30);
+        vctx.fillStyle = '#7fcf7f';
+        vctx.font = '9px monospace';
+        vctx.fillText('CHAMPS', 100, 355);
+        vctx.fillText('CHAMPS', 480, 355);
+    }
+
+    // 2: Energie Solaire (panels)
+    if(vilCompleted.has(2)){
+        vctx.fillStyle = '#1a1a3a';
+        vctx.fillRect(150, 195, 40, 15);
+        vctx.strokeStyle = '#ffaa44';
+        vctx.lineWidth = 1;
+        vctx.strokeRect(150, 195, 40, 15);
+        // Panel lines
+        for(var p = 155; p < 190; p += 8){
+            vctx.beginPath();
+            vctx.moveTo(p, 195);
+            vctx.lineTo(p, 210);
+            vctx.stroke();
+        }
+        // Sun rays
+        vctx.strokeStyle = 'rgba(255,170,68,' + (0.2 + Math.sin(vilTime * 3) * 0.1) + ')';
+        vctx.beginPath();
+        vctx.moveTo(170, 195);
+        vctx.lineTo(500, 60);
+        vctx.stroke();
+
+        vctx.fillStyle = '#ffaa44';
+        vctx.font = '9px monospace';
+        vctx.fillText('SOLAIRE', 170, 185);
+    }
+
+    // 3: Water (well)
+    if(vilCompleted.has(3)){
+        vctx.fillStyle = '#1a2a3a';
+        vctx.beginPath();
+        vctx.arc(380, 250, 15, 0, Math.PI * 2);
+        vctx.fill();
+        vctx.strokeStyle = '#44aaff';
+        vctx.lineWidth = 1.5;
+        vctx.stroke();
+        // Water surface
+        vctx.fillStyle = 'rgba(68,170,255,' + (0.3 + Math.sin(vilTime * 2) * 0.1) + ')';
+        vctx.beginPath();
+        vctx.arc(380, 250, 10, 0, Math.PI * 2);
+        vctx.fill();
+        // Drops
+        for(var d = 0; d < 3; d++){
+            var dy = 240 - ((vilTime * 30 + d * 20) % 40);
+            vctx.fillStyle = 'rgba(68,170,255,' + (1 - (240 - dy) / 40) + ')';
+            vctx.beginPath();
+            vctx.arc(375 + d * 5, dy, 1.5, 0, Math.PI * 2);
+            vctx.fill();
+        }
+        vctx.fillStyle = '#44aaff';
+        vctx.font = '9px monospace';
+        vctx.fillText('PUITS', 380, 280);
+    }
+
+    // 4: Communication (antenna)
+    if(vilCompleted.has(4)){
+        vctx.strokeStyle = '#44aaff';
+        vctx.lineWidth = 2;
+        vctx.beginPath();
+        vctx.moveTo(200, 220);
+        vctx.lineTo(200, 160);
+        vctx.stroke();
+        // Signal waves
+        for(var w = 0; w < 3; w++){
+            var r = 5 + w * 8 + Math.sin(vilTime * 2 + w) * 2;
+            vctx.strokeStyle = 'rgba(68,170,255,' + (0.4 - w * 0.1) + ')';
+            vctx.beginPath();
+            vctx.arc(200, 160, r, 0, Math.PI * 2);
+            vctx.stroke();
+        }
+        vctx.fillStyle = '#44aaff';
+        vctx.font = '9px monospace';
+        vctx.fillText('MESH', 200, 150);
+    }
+
+    // 5: Sante (clinic cross)
+    if(vilCompleted.has(5)){
+        vctx.fillStyle = '#2a1a1a';
+        vctx.fillRect(340, 215, 50, 50);
+        vctx.strokeStyle = '#ff4444';
+        vctx.lineWidth = 1.5;
+        vctx.strokeRect(340, 215, 50, 50);
+        // Red cross
+        vctx.fillStyle = '#ff4444';
+        vctx.fillRect(358, 222, 14, 36);
+        vctx.fillRect(346, 234, 38, 12);
+        vctx.fillStyle = '#ff4444';
+        vctx.font = '9px monospace';
+        vctx.fillText('CLINIQUE', 365, 280);
+    }
+
+    // 6: Education (books)
+    if(vilCompleted.has(6)){
+        vctx.fillStyle = '#d4a437';
+        vctx.fillRect(265, 225, 12, 15);
+        vctx.fillRect(278, 222, 12, 18);
+        vctx.fillRect(291, 227, 12, 13);
+        vctx.strokeStyle = '#d4a437';
+        vctx.lineWidth = 1;
+        vctx.strokeRect(265, 225, 12, 15);
+        vctx.strokeRect(278, 222, 12, 18);
+        vctx.strokeRect(291, 227, 12, 13);
+    }
+
+    // 7: Economie (coins)
+    if(vilCompleted.has(7)){
+        for(var c = 0; c < 4; c++){
+            var cx2 = 420 + c * 12;
+            vctx.fillStyle = 'rgba(212,164,55,' + (0.5 + Math.sin(vilTime + c) * 0.2) + ')';
+            vctx.beginPath();
+            vctx.arc(cx2, 245, 5, 0, Math.PI * 2);
+            vctx.fill();
+            vctx.strokeStyle = '#d4a437';
+            vctx.stroke();
+        }
+        vctx.fillStyle = '#d4a437';
+        vctx.font = '9px monospace';
+        vctx.fillText('AFR', 442, 265);
+    }
+
+    // 8: Defense (shield)
+    if(vilCompleted.has(8)){
+        vctx.strokeStyle = '#ff4444';
+        vctx.lineWidth = 2;
+        vctx.beginPath();
+        vctx.moveTo(510, 220);
+        vctx.lineTo(500, 230);
+        vctx.lineTo(500, 255);
+        vctx.lineTo(510, 265);
+        vctx.lineTo(520, 255);
+        vctx.lineTo(520, 230);
+        vctx.closePath();
+        vctx.stroke();
+        vctx.fillStyle = 'rgba(255,68,68,' + (0.1 + Math.sin(vilTime * 2) * 0.05) + ')';
+        vctx.fill();
+        // X9
+        vctx.fillStyle = '#ff4444';
+        vctx.font = 'bold 8px monospace';
+        vctx.fillText('X9', 510, 248);
+    }
+
+    // 9: Gouvernance (flag/tree)
+    if(vilCompleted.has(9)){
+        // Baobab tree (governance tree)
+        vctx.strokeStyle = '#ff44ff';
+        vctx.lineWidth = 2;
+        vctx.beginPath();
+        vctx.moveTo(300, 200);
+        vctx.lineTo(300, 165);
+        vctx.stroke();
+        // Canopy
+        vctx.fillStyle = 'rgba(255,68,255,0.15)';
+        vctx.beginPath();
+        vctx.arc(290, 160, 12, 0, Math.PI * 2);
+        vctx.arc(300, 155, 14, 0, Math.PI * 2);
+        vctx.arc(310, 160, 12, 0, Math.PI * 2);
+        vctx.fill();
+        vctx.strokeStyle = '#ff44ff';
+        vctx.lineWidth = 1;
+        vctx.beginPath();
+        vctx.arc(290, 160, 12, 0, Math.PI * 2);
+        vctx.arc(300, 155, 14, 0, Math.PI * 2);
+        vctx.arc(310, 160, 12, 0, Math.PI * 2);
+        vctx.stroke();
+        vctx.fillStyle = '#ff44ff';
+        vctx.font = '8px monospace';
+        vctx.fillText('CONSEIL', 300, 145);
+    }
+
+    // Village name
+    vctx.fillStyle = '#7fcf7f';
+    vctx.font = 'bold 12px monospace';
+    vctx.textAlign = 'center';
+    var done = vilCompleted.size;
+    vctx.fillText('VILLAGE AFRICHAIN — ' + done + '/10 modules', 300, 380);
+
+    // Completion message
+    if(done === 10){
+        vctx.fillStyle = 'rgba(127,207,127,' + (0.3 + Math.sin(vilTime * 3) * 0.1) + ')';
+        vctx.font = 'bold 14px monospace';
+        vctx.fillText('VILLAGE AUTONOME — L AFRIQUE SE BATIT', 300, 30);
+    }
+
+    // Smoke from houses
+    if(vilCompleted.has(0)){
+        for(var s = 0; s < 2; s++){
+            var sx2 = s === 0 ? 110 : 490;
+            for(var sp = 0; sp < 3; sp++){
+                var sy2 = 210 - sp * 8 - (vilTime * 10 % 24);
+                var sx3 = sx2 + Math.sin(vilTime + sp) * 3;
+                vctx.fillStyle = 'rgba(200,200,200,' + (0.2 - sp * 0.05) + ')';
+                vctx.beginPath();
+                vctx.arc(sx3, sy2, 3 + sp, 0, Math.PI * 2);
+                vctx.fill();
+            }
+        }
+    }
+
+    requestAnimationFrame(drawVillage);
+}
+
+// Trace
+function addVilTrace(msg){
+    var log = document.getElementById('vil-trace');
+    var now = new Date();
+    var ts = String(now.getHours()).padStart(2,'0') + ':' + String(now.getMinutes()).padStart(2,'0') + ':' + String(now.getSeconds()).padStart(2,'0');
+    log.innerHTML = '<div style="padding:4px 0;border-bottom:1px solid rgba(212,164,55,0.05);"><span style="color:#666;">[' + ts + ']</span> <span style="color:#7fcf7f;">🏘️</span> ' + msg + '</div>' + log.innerHTML;
+    if(log.innerHTML.length > 3000) log.innerHTML = log.innerHTML.substring(0, 3000);
+}
+
+addVilTrace('🏘️ AI Village initialise — Batir l Afrique village par village');
+addVilTrace('📋 10 modules charges: Construction, Agriculture, Energie, Eau, Communication, Sante, Education, Economie, Defense, Gouvernance');
+addVilTrace('🧑‍🤝‍🧑 10 roles pour la jeunesse africaine');
+addVilTrace('🎓 Diplome: complete 10 modules -> Batisseur d Afrique');
+addVilTrace('🌍 L Afrique se batit elle-meme, village par village');
+
+updateVilProgress();
+drawVillage();
+</script>
+
+<footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🏘️ AI Village — L Afrique se batit village par village, piece par piece 💚🦁🌍</footer>"##);
 
     html.push_str("</body></html>");
     html
@@ -11423,7 +12023,7 @@ html+='<div class="log-entry log-kill">⚠️ Tentative d\x27infiltration occide
 html+='<div class="log-entry log-invis">✅ L\x27Afrique est forte. Le système grandit.</div>';
 }else if(type==='total'){
 html='<div style="color:#d4a437;font-weight:bold;margin-bottom:8px">📋 RAPPORT TOTAL — Depuis le début</div>';
-html+='<div class="log-entry">🦁 AfriChain v0.81 — AI Enseignante Academie Universelle</div>';
+html+='<div class="log-entry">🦁 AfriChain v0.82 — AI Village Batisseur d Afrique</div>';
 html+='<div class="log-entry">⛓️ Blockchain: 100% souveraine — Zéro dépendance externe</div>';
 html+='<div class="log-entry">🔐 Crypto: Ed25519 + AfriHash-256/512 + AfriRNG — tout from scratch</div>';
 html+='<div class="log-entry">🌍 54 pays africains connectés</div>';
@@ -12967,7 +13567,7 @@ fn main() {
         .and_then(|i| args.get(i + 1)).cloned().unwrap_or_else(|| "Afrique".to_string());
 
     let my_node_id = generate_node_id();
-    println!("🦁 AfriChain v0.81 — AI Enseignante Academie Universelle");
+    println!("🦁 AfriChain v0.82 — AI Village Batisseur d Afrique");
     println!("💚 L'Afrique ne demande plus la permission");
     println!("🌍 54 pays — 🇲🇱 🇳🇪 🇧🇫 AES — Mali · Niger · Burkina Faso");
     println!("🔐 8 modules cryptographiques — construits from scratch");
@@ -13116,6 +13716,7 @@ fn main() {
     println!("⚔️ MG Forge sur http://localhost:8080/mg-forge");
     println!("🌿 AI Médecin sur http://localhost:8080/ai-medecin");
     println!("📚 AI Enseignante sur http://localhost:8080/ai-enseignante");
+    println!("🏘️ AI Village sur http://localhost:8080/ai-village");
 
     // Serveur HTTP en arrière-plan (pour mesh + autres utilisateurs)
     let serve_state = web_state.clone();
@@ -13150,7 +13751,7 @@ fn terminal_interface(state: &Arc<AppState>) {
     println!("  ║  🕐 AfriTime — Pas UTC, pas Greenwich   ║");
     println!("  ║  📝 ~16,500 lignes — écrit à la main       ║");
     println!("  ╚═══════════════════════════════════════════════╝");
-    println!("\n  Version v0.81 — 30 août 2026");
+    println!("\n  Version v0.82 — 30 août 2026");
     println!("  Construit sur Termux · Android · nano\n");
     println!("  ─────────────────────────────────────────────");
     println!("\n  1. 🏦 Centre de Données (Admin)");
@@ -13222,7 +13823,7 @@ fn admin_interface(state: &Arc<AppState>) {
         println!("\n");
         println!("╔══════════════════════════════════════╗");
         println!("║  🏦 CENTRE DE DONNÉES — Admin       ║");
-        println!("║  🦁 AfriChain v0.81                  ║");
+        println!("║  🦁 AfriChain v0.82                  ║");
         println!("╠══════════════════════════════════════╣");
         let chain = state.chain.lock().unwrap();
         let users = state.users.lock().unwrap();
@@ -16766,6 +17367,11 @@ fn handle_request(req: afri_http::HttpRequest, state: &Arc<AppState>) -> afri_ht
         ("GET", "/ai-enseignante") => {
             let chain = state.chain.lock().unwrap();
             HttpResponse::ok(&html_ai_enseignante(&chain))
+        }
+
+        ("GET", "/ai-village") => {
+            let chain = state.chain.lock().unwrap();
+            HttpResponse::ok(&html_ai_village(&chain))
         }
 
         ("GET", "/garage") => {
