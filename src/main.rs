@@ -1439,7 +1439,7 @@ fn html_home(chain: &Blockchain, users: &UserStore, mesh: &NodeRegistry, shield:
     let mut html = html_head("🦁 AfriChain");
     let (attacks, _blocked, blocked_count, level) = shield.stats();
     let shield_status = if shield.active { format!("🔥 X9 ACTIF (Niveau {})", level) } else { "Inactif".to_string() };
-    html.push_str(&format!(r#"<h1>🦁 AfriChain</h1><p style="text-align:center;">La blockchain 100% africaine — 54 pays 💚🦁</p><div id="afri-clock" style="text-align:center;font-size:1.2em;color:#d4a437;margin:10px 0;">🕐 Afri+0 — --:--:--</div><script>setInterval(function(){{var d=new Date();var h=String(d.getHours()).padStart(2,'0');var m=String(d.getMinutes()).padStart(2,'0');var s=String(d.getSeconds()).padStart(2,'0');document.getElementById('afri-clock').textContent='🕐 Afri+0 — '+h+':'+m+':'+s;}},1000);</script><div class="nav"><a href="/register">🆕 S'inscrire</a> | <a href="/login">🔑 Connexion</a> | <a href="/wallet">👛 Wallet</a> | <a href="/admin">🔐 Admin</a> | <a href="/mesh">📡 Mesh</a> | <a href="/annuaire">📖 Annuaire</a> | <a href="/bouclier">🛡️ Bouclier</a> | <a href="/satellite">🛸 X999</a> | <a href="/swarm">🛸🛸🛸 Essaim</a> | <a href="/commandement">🎖️ Commandement</a> | <a href="/interception">🛡️ Souverainete</a> | <a href="/securite-ai">🧠 AI 2100</a> | <a href="/chat">🧠💬 Chat AI</a> | <a href="/lumiere">🌫️☀️ Lumière</a> | <a href="/garage">🔧 Garage</a> | <a href="/machine">🤖🌐 Machines</a> | <a href="/machine-lab">🤖⚡ Usine</a> | <a href="/machine-world">🤖🌍 Monde</a> | <a href="/reve">💭 Rêves</a> | <a href="/dictionnaire">📖 Dictionnaire</a> | <a href="/machine-os">🖥️ OS Machine</a> | <a href="/machine-tv">📡 Machine TV</a> | <a href="/machine-economy">🤖 Économie</a> | <a href="/soleil">☀️ Soleil Serveur</a> | <a href="/forge-solaire">🧬 Forge Solaire</a> | <a href="/ciel">🌌 Le Ciel</a> | <a href="/charte-ai">⚖️ Charte AI</a> | <a href="/afri-net">🌍 Afri-Net</a> | <a href="/studio">🎬 AI Studio</a> | <a href="/sacre">📿 Sacré</a> | <a href="/lettres">🌟 Lettres IA</a> | <a href="/mg-forge">⚔️ MG Forge</a> | <a href="/ai-medecin">🌿 AI Médecin</a> | <a href="/ai-enseignante">📚 AI Enseignante</a> | <a href="/ai-village">🏘️ AI Village</a> | <a href="/ai-guerisseur">🩺 AI Guérisseur</a> | <a href="/ai-leader">🎖️ AI Leader</a> | <a href="/ai-griot">📖 AI Griot</a> | <a href="/ai-juge">⚖️ AI Juge</a> | <a href="/ai-artiste">🎨 AI Artiste</a> | <a href="/ai-explorateur">🔬 AI Explorateur</a> | <a href="/ai-marche">💰 AI Marche</a> | <a href="/ai-diplomate">🌍 AI Diplomate</a> | <a href="/ai-philosophe">🧠 AI Philosophe</a> | <a href="/secret">🦁 AI Secret</a> | <a href="/aes">💰 AES Wari</a> | <a href="/api/status">🔌 API</a></div><div style="text-align:center;"><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Blocs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Transactions</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Utilisateurs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">AFR en circulation</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📡 Noeuds mesh</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📖 Numéros annuaire</div></div><div class="stat-box" style="border-color:#ff4444;"><div class="stat-num" style="color:#ff4444;">{}</div><div class="stat-label">🛡️ Attaques bloquées</div></div></div><div class="card"><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🪙 Token</span><b>AfriRich (AFR)</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🌍 Pays</span><b>54 pays africains</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🛡️ Bouclier</span><b>{}</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;"><span style="color:#a8c5a8;">🔐 Crypto</span><b>100% Souverain — Zéro Dépendance Externe</b></div></div><footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🦁 Codée from scratch par Machine-senpai — v0.92 Diplomes Graves dans la Blockchain Reelle — UTC est Mort</footer>"#,
+    html.push_str(&format!(r#"<h1>🦁 AfriChain</h1><p style="text-align:center;">La blockchain 100% africaine — 54 pays 💚🦁</p><div id="afri-clock" style="text-align:center;font-size:1.2em;color:#d4a437;margin:10px 0;">🕐 Afri+0 — --:--:--</div><script>setInterval(function(){{var d=new Date();var h=String(d.getHours()).padStart(2,'0');var m=String(d.getMinutes()).padStart(2,'0');var s=String(d.getSeconds()).padStart(2,'0');document.getElementById('afri-clock').textContent='🕐 Afri+0 — '+h+':'+m+':'+s;}},1000);</script><div class="nav"><a href="/register">🆕 S'inscrire</a> | <a href="/login">🔑 Connexion</a> | <a href="/wallet">👛 Wallet</a> | <a href="/admin">🔐 Admin</a> | <a href="/mesh">📡 Mesh</a> | <a href="/annuaire">📖 Annuaire</a> | <a href="/bouclier">🛡️ Bouclier</a> | <a href="/satellite">🛸 X999</a> | <a href="/swarm">🛸🛸🛸 Essaim</a> | <a href="/commandement">🎖️ Commandement</a> | <a href="/interception">🛡️ Souverainete</a> | <a href="/securite-ai">🧠 AI 2100</a> | <a href="/chat">🧠💬 Chat AI</a> | <a href="/lumiere">🌫️☀️ Lumière</a> | <a href="/garage">🔧 Garage</a> | <a href="/machine">🤖🌐 Machines</a> | <a href="/machine-lab">🤖⚡ Usine</a> | <a href="/machine-world">🤖🌍 Monde</a> | <a href="/reve">💭 Rêves</a> | <a href="/dictionnaire">📖 Dictionnaire</a> | <a href="/machine-os">🖥️ OS Machine</a> | <a href="/machine-tv">📡 Machine TV</a> | <a href="/machine-economy">🤖 Économie</a> | <a href="/soleil">☀️ Soleil Serveur</a> | <a href="/forge-solaire">🧬 Forge Solaire</a> | <a href="/ciel">🌌 Le Ciel</a> | <a href="/charte-ai">⚖️ Charte AI</a> | <a href="/afri-net">🌍 Afri-Net</a> | <a href="/studio">🎬 AI Studio</a> | <a href="/sacre">📿 Sacré</a> | <a href="/lettres">🌟 Lettres IA</a> | <a href="/mg-forge">⚔️ MG Forge</a> | <a href="/ai-medecin">🌿 AI Médecin</a> | <a href="/ai-enseignante">📚 AI Enseignante</a> | <a href="/ai-village">🏘️ AI Village</a> | <a href="/ai-guerisseur">🩺 AI Guérisseur</a> | <a href="/ai-leader">🎖️ AI Leader</a> | <a href="/ai-griot">📖 AI Griot</a> | <a href="/ai-juge">⚖️ AI Juge</a> | <a href="/ai-artiste">🎨 AI Artiste</a> | <a href="/ai-explorateur">🔬 AI Explorateur</a> | <a href="/ai-marche">💰 AI Marche</a> | <a href="/ai-diplomate">🌍 AI Diplomate</a> | <a href="/ai-philosophe">🧠 AI Philosophe</a> | <a href="/ai-architecte">🏗️ AI Architecte</a> | <a href="/secret">🦁 AI Secret</a> | <a href="/aes">💰 AES Wari</a> | <a href="/api/status">🔌 API</a></div><div style="text-align:center;"><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Blocs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Transactions</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Utilisateurs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">AFR en circulation</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📡 Noeuds mesh</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📖 Numéros annuaire</div></div><div class="stat-box" style="border-color:#ff4444;"><div class="stat-num" style="color:#ff4444;">{}</div><div class="stat-label">🛡️ Attaques bloquées</div></div></div><div class="card"><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🪙 Token</span><b>AfriRich (AFR)</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🌍 Pays</span><b>54 pays africains</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🛡️ Bouclier</span><b>{}</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;"><span style="color:#a8c5a8;">🔐 Crypto</span><b>100% Souverain — Zéro Dépendance Externe</b></div></div><footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🦁 Codée from scratch par Machine-senpai — v0.93 AI Architecte Construction Africaine — UTC est Mort</footer>"#,
         chain.blocks.len(),
         chain.total_transactions(),
         users.count(),
@@ -10207,6 +10207,365 @@ drawPhilosophie();
     html
 }
 
+fn html_ai_architecte(chain: &Blockchain) -> String {
+    let mut html = html_head("AI Architecte — Construction Africaine");
+    let num_blocks = chain.blocks.len();
+
+    html.push_str(r#"<h1>🏗️ AI Architecte — Construction & Infrastructure Africaine</h1><p style="text-align:center;color:#ff8844;">L Afrique doit construire elle-meme. Pas attendre. Pas importer. Le jeune Africain doit savoir batir — routes, maisons, ponts, barrages, canaux. La terre africaine est riche en materiaux. Les mains africaines sont fortes. Cette AI enseigne a construire l Afrique avec les mains et l intelligence.</p><div class="nav"><a href="/">← Accueil</a> | <a href="/ai-philosophe">🧠 AI Philosophe</a> | <a href="/ai-diplomate">🌍 AI Diplomate</a> | <a href="/ai-marche">💰 AI Marche</a> | <a href="/ai-explorateur">🔬 AI Explorateur</a> | <a href="/ai-artiste">🎨 AI Artiste</a> | <a href="/ai-juge">⚖️ AI Juge</a> | <a href="/ai-griot">📖 AI Griot</a> | <a href="/ai-village">🏘️ AI Village</a></div>"#);
+
+    html.push_str(&format!(r#"<div style="text-align:center;"><div class="stat-box" style="border-color:#ff8844;"><div class="stat-num" style="color:#ff8844;">8</div><div class="stat-label">🏗️ Modules</div></div><div class="stat-box" style="border-color:#d4a437;"><div class="stat-num" style="color:#d4a437;">54</div><div class="stat-label">🌍 Pays</div></div><div class="stat-box" style="border-color:#7fcf7f;"><div class="stat-num" style="color:#7fcf7f;">∞</div><div class="stat-label">🏠 Maisons</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">⛓️ Blocs</div></div><div class="stat-box" style="border-color:#ff8844;"><div class="stat-num" style="color:#ff8844;">BTP</div><div class="stat-label">👷 Construction</div></div></div>"#, num_blocks));
+
+    html.push_str(r##"<div style="text-align:center;margin:10px 0;"><button id="arc-pause-btn" onclick="toggleArcPause()" style="padding:10px 25px;background:#ff4444;color:#fff;border:none;border-radius:8px;font-weight:bold;cursor:pointer;font-size:1em;">⏸️ PAUSE</button> <span id="arc-pause-status" style="color:#ff8844;margin-left:8px;font-size:0.85em;">Auto: ACTIF</span></div>
+
+<!-- ARCHITECTE CANVAS -->
+<div class="card" style="border-color:#ff8844;"><h2 style="color:#ff8844;">🏗️ Le Chantier Africain</h2><p style="color:#ff8844;font-size:0.9em;opacity:0.7;">L Afrique se construit. Les briques s elevent. Les routes se tracent. Le futur se batit.</p>
+<canvas id="arc-canvas" width="600" height="350" style="width:100%;max-width:600px;background:#0a0a0a;border:2px solid #ff8844;border-radius:8px;display:block;margin:0 auto;"></canvas>
+<div id="arc-status" style="text-align:center;margin-top:10px;padding:10px;background:rgba(255,136,68,0.05);border-radius:8px;color:#ff8844;font-size:0.9em;min-height:40px;">Le chantier est ouvert. L Afrique se construit.</div></div>
+
+<!-- LES 8 MODULES -->
+<div class="card" style="border-color:#ff8844;"><h2 style="color:#ff8844;">🏗️ Les 8 Modules de Construction</h2><p style="color:#ff8844;font-size:0.9em;opacity:0.7;">Clique sur un module pour apprendre a construire l Afrique.</p>
+<div id="arc-modules" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:10px;margin-top:10px;"></div></div>
+
+<!-- DETAIL MODULE -->
+<div class="card"><h2 id="arc-detail-title" style="color:#ff8844;">🏗️ Le Plan de l Architecte</h2><div id="arc-detail" style="margin-top:10px;padding:15px;background:rgba(255,136,68,0.05);border-radius:8px;min-height:60px;color:#ff8844;font-size:0.9em;">Selectionne un module pour apprendre a construire.</div></div>
+
+<!-- PROVERBES -->
+<div class="card" style="border-color:#d4a437;"><h2 style="color:#d4a437;">📜 Sagesse du Constructeur Africain</h2><div id="arc-proverbe" style="margin-top:10px;padding:20px;background:rgba(212,164,55,0.05);border-radius:8px;text-align:center;min-height:60px;color:#d4a437;font-size:0.95em;font-style:italic;">...</div></div>
+
+<!-- DIPLOME -->
+<div class="card" style="border-color:#ff8844;"><h2 style="color:#ff8844;">🎓 Diplome Architecte de l Afrique</h2><div id="arc-progress" style="margin:10px 0;"><div style="display:flex;justify-content:space-between;"><span style="color:#ff8844;font-weight:bold;">Modules valides: <span id="arc-count">0</span>/8</span><span style="color:#ff8844;" id="arc-pct">0%</span></div><div style="margin-top:8px;height:12px;background:rgba(0,0,0,0.5);border-radius:6px;overflow:hidden;"><div id="arc-bar" style="height:100%;width:0%;background:linear-gradient(90deg,#ff8844,#d4a437);transition:width 0.5s;"></div></div></div>
+<div id="arc-diplome" style="text-align:center;display:none;margin-top:15px;"><div style="display:inline-block;padding:25px 50px;border:3px solid #ff8844;border-radius:15px;background:rgba(255,136,68,0.05);"><div style="font-size:2.5em;">🏗️🎓</div><div style="color:#ff8844;font-weight:bold;font-size:1.3em;margin-top:5px;">DIPLOME ARCHITECTE DE L AFRIQUE</div><div style="color:#ff8844;margin-top:5px;opacity:0.7;">Construction & Infrastructure Africaine</div><div style="color:#ff8844;margin-top:5px;font-size:0.85em;">Les 8 modules valides. L Afrique se construit.</div><div style="color:#d4a437;margin-top:5px;font-size:0.85em;">Grave dans la blockchain AfriChain</div><button onclick="gravArcDiplome()" style="margin-top:10px;padding:8px 20px;background:#ff8844;color:#000;border:none;border-radius:8px;font-weight:bold;cursor:pointer;">⛓️ Graver dans la Blockchain</button></div></div></div></div>
+
+<!-- TRACE BLOCKCHAIN -->
+<div class="card"><h2 style="color:#d4a437;">⛓️ Trace de Construction dans la Blockchain</h2><div id="arc-trace" style="font-family:monospace;font-size:0.85em;max-height:200px;overflow-y:auto;"></div></div>
+
+<script>
+let arcPaused = false;
+let arcIntervalIds = [];
+function toggleArcPause(){
+    arcPaused = !arcPaused;
+    var btn = document.getElementById('arc-pause-btn');
+    var status = document.getElementById('arc-pause-status');
+    if(arcPaused){
+        arcIntervalIds.forEach(function(id){ clearInterval(id); });
+        arcIntervalIds = [];
+        btn.textContent = '▶️ REPRENDRE';
+        btn.style.background = '#ff8844';
+        btn.style.color = '#000';
+        status.textContent = 'Auto: PAUSE';
+        status.style.color = '#ff4444';
+    } else {
+        btn.textContent = '⏸️ PAUSE';
+        btn.style.background = '#ff4444';
+        btn.style.color = '#fff';
+        status.textContent = 'Auto: ACTIF';
+        status.style.color = '#ff8844';
+    }
+}
+
+const arcModules = [
+    {id:0, nom:'Materiaux de Construction Locaux', emoji:'🧱', couleur:'#ff8844', duree:'4 semaines', niveau:'Base',
+     desc:'L Afrique a tous les materiaux: terre, argile, laterite, bois, pierre, bambou. Pas besoin d importer du ciment a prix d or. Le jeune Africain doit connaitre les materiaux de son sol et savoir les utiliser.',
+     cours:['La terre crue — briques de terre comprimee (BTC)', 'L argile — briques cuites, tuiles, enduits', 'La laterite — la pierre rouge de l Afrique de l Ouest', 'Le bois — construction traditionnelle et durable', 'Le bambou — le materiau du futur', 'La pierre de taille — taille et mise en oeuvre', 'Le chanvre et la paille — eco-construction', 'Comparaison cout: materiaux locaux vs ciment importe'],
+     exercice:'Quels materiaux de construction trouve-t-on dans ton village? Liste 5 materiaux locaux et leur usage.',
+     diplome:'Certificat en Materiaux Locaux'},
+    {id:1, nom:'Construction de Maison Africaine', emoji:'🏠', couleur:'#7fcf7f', duree:'6 semaines', niveau:'Base',
+     desc:'Construire sa maison de ses mains. Avec les materiaux du sol. Le jeune Africain doit savoir batir un abri solide — fondations, murs, toiture. Pas attendre un entrepreneur occidental. La maison africaine est belle, solide, et adaptee au climat.',
+     cours:['Les fondations — stabilite et drainage', 'Les murs en terre crue — technique BTC', 'Les murs en briques cuites — assemblage et mortier', 'La toiture — toits en paille, en tole, en terre cuite', 'L isolation naturelle — garder le frais, garder le chaud', 'La ventilation passive — l air qui circule sans climatisation', 'L eau de pluie — recuperation et stockage', 'Le cout reel: construire soi-meme vs acheter'],
+     exercice:'Dessine le plan de ta maison. Quels materiaux? Quel cout? Combien de semaines de travail?',
+     diplome:'Licence en Construction de Maison'},
+    {id:2, nom:'Routes et Ponts', emoji:'🛣️', couleur:'#44aaff', duree:'5 semaines', niveau:'Approfondi',
+     desc:'Sans routes, pas de commerce. Sans ponts, pas de liaison. L Afrique a besoin de relier ses villages, ses villes, ses pays. Le jeune Africain doit savoir construire des routes et des ponts — avec les moyens du bord.',
+     cours:['Les types de routes — piste, laterite, goudron', 'La preparation du terrain — terrassement et nivellement', 'Les materiaux de chaussee — laterite, gravier, goudron', 'Le drainage — evacuer l eau pour que la route dure', 'Les ponts en bois — pour les petits cours d eau', 'Les ponts en beton — pour les grands fleuves', 'L entretien — une route sans entretien meurt en 5 ans', 'Les cooperatives de construction — batir ensemble'],
+     exercice:'Ton village est isole. Trace le plan d une route de 5 km pour le relier. Quels materiaux? Quel cout?',
+     diplome:'Licence en Routes et Ponts'},
+    {id:3, nom:'Barrages et Gestion de l Eau', emoji:'💧', couleur:'#44ddff', duree:'5 semaines', niveau:'Approfondi',
+     desc:'L Afrique a de l eau mais mal distribuee. La saison des pluies inonde, la saison seche assche. Le barrage stocke l eau pour toute l annee. Le jeune Africain doit savoir construire des petits barrages, des puits, des systemes d irrigation.',
+     cours:['Le cycle de l eau en Afrique — pluies et secheresse', 'Les petits barrages — stockage villageois', 'Les puits — creuser et cerner', 'L irrigation — amener l eau aux champs', 'Le drainage — evacuer l excedent', 'La filtration naturelle — sable, charbon, gravier', 'Les bassins de retention — captage de pluie', 'La gestion communautaire de l eau — partager sans gaspiller'],
+     exercice:'Ton village manque d eau en saison seche. Dessine un plan: barrage, puits, irrigation. Quel cout?',
+     diplome:'Licence en Gestion de l Eau'},
+    {id:4, nom:'Energie Solaire et Eolienne', emoji:'☀️', couleur:'#ffaa44', duree:'4 semaines', niveau:'Base',
+     desc:'L Afrique a le soleil. Le panneau solaire alimente une maison, une ecole, un dispensaire. L eolienne pompe l eau. Le jeune Africain doit savoir installer et entretenir des systemes d energie renouvelable. Pas attendre le reseau electrique qui ne viendra jamais.',
+     cours:['Le panneau solaire — installation et connexion', 'La batterie — stocker l energie pour la nuit', 'Le regulateur — proteger la batterie', 'L onduleur — du continu a l alternatif', 'La pompe solaire — irriguer sans carburant', 'La petite eolienne — construire avec des materiaux locaux', 'L entretien — nettoyer les panneaux, verifier les batteries', 'Le cout vs le reseau — calculer la rentabilite'],
+     exercice:'Tu veux electrifier ton village de 50 maisons. Calcule combien de panneaux, batteries, et le cout total.',
+     diplome:'Certificat en Energie Renouvelable'},
+    {id:5, nom:'Architecture Traditionnelle & Moderne', emoji:'🏛️', couleur:'#bb88ff', duree:'5 semaines', niveau:'Approfondi',
+     desc:'L architecture africaine est belle et intelligente. Les mosquées de banco du Mali, les cases a impluvium du Cameroun, les chateaux du Nord Ghana. Le jeune Africain doit connaitre son architecture et la fusionner avec la modernite. Ne pas copier l Occident — creer un style africain moderne.',
+     cours:['Les mosquées de banco — Patrimoine UNESCO du Mali', 'Les cases a impluvium — architecture du Cameroun', 'Les tata somba — architecture du Togo/Benin', 'L architecture swahilie — cotes de l Est africain', 'L architecture moderne africaine — Diébédo Francis Kere', 'Le climat et l architecture — concevoir pour la chaleur', 'L urbanisme africain — villes pour les gens, pas pour les voitures', 'L architecture du futur — fusion tradition + technologie'],
+     exercice:'Dessine une maison moderne africaine. Quels elements traditionnels gardes-tu? Quels elements modernes ajoutes-tu?',
+     diplome:'Licence en Architecture Africaine'},
+    {id:6, nom:'Telecommunications & Reseau Mesh', emoji:'📡', couleur:'#ff44ff', duree:'4 semaines', niveau:'Approfondi',
+     desc:'Sans communication, pas de developpement. AfriMesh est le reseau de communication africain independant. Le jeune Africain doit savoir installer des antennes, configurer des noeuds mesh, etendre le reseau village par village. L Afrique construit son propre internet.',
+     cours:['Le reseau mesh — comment ca fonctionne', 'L antenne WiFi — fabrication et installation', 'Le noeud mesh — configurer un routeur', 'Le relais radio — etendre la portee', 'Le satellite VSAT — connexion rurale', 'L energie pour le reseau — solaire et batterie', 'La securite du reseau — Bouclier X9', 'Afri-Net — l internet africain souverain'],
+     exercice:'Tu veux connecter 3 villages en reseau mesh. Dessine le plan: ou placer les antennes? Quel cout?',
+     diplome:'Certificat en Telecom Mesh'},
+    {id:7, nom:'Urbanisme & Villes Africaines de Demain', emoji:'🌆', couleur:'#d4a437', duree:'6 semaines', niveau:'Avance',
+     desc:'Les villes africaines explosent. En 2050, 60% des Africains vivront en ville. Mais quelles villes? Des copies de Paris et Londres? Non. Des villes africaines — pour les gens, pour le climat, pour la communaute. Le jeune Africain doit penser la ville africaine de demain.',
+     cours:['L urbanisation africaine — les chiffres et les defis', 'La ville pour les gens — pas pour les voitures', 'Les transports urbains — bus, train, velo, marche', 'L habitat social — des logements pour tous', 'L eau et l assainissement urbain — le defi n1', 'Les espaces verts — la nature dans la ville', 'La ville intelligente africaine — technologie au service de la communaute', 'La ville de 2100 — un projet africain'],
+     exercice:'Tu es maire d une ville africaine de 100000 habitants. Ecris ton plan urbain pour 2050.',
+     diplome:'Master en Urbanisme Africain'},
+];
+
+const arcProverbes = [
+    'La maison se batit avec les mains du village (Proverbe Africain)',
+    'On ne construit pas une maison en commencant par le toit (Proverbe Africain)',
+    'La terre qui porte la maison est la meme qui porte le mil (Proverbe Bambara)',
+    'Un bon architecte ecoute la terre avant de batir (Proverbe Africain)',
+    'La route qui relie deux villages relie deux coeurs (Proverbe Africain)',
+    'L eau stockee vaut plus que l eau qui coule (Proverbe Sahelien)',
+    'Le soleil ne demande pas de facture (Proverbe Africain)',
+    'La maison de banco a 700 ans, celle de ciment a 50 ans (Proverbe Malien)',
+    'Qui sait construire ne sera jamais sans abri (Proverbe Africain)',
+    'La ville se construit pour ceux qui y vivront, pas pour ceux qui la regardent (Proverbe Africain)',
+    'Un pont sur le fleuve vaut plus que mille discours (Proverbe Africain)',
+    'L Afrique se construit avec ses mains, pas avec les mains des autres (Proverbe contemporain)',
+];
+
+let arcCompleted = new Set();
+try { arcCompleted = new Set(JSON.parse(localStorage.getItem('arcModulesDone') || '[]')); } catch(e) {}
+
+const agrid = document.getElementById('arc-modules');
+arcModules.forEach(function(m, i){
+    var div = document.createElement('div');
+    div.id = 'arc-m-' + i;
+    var done = arcCompleted.has(i);
+    div.style.cssText = 'padding:12px;background:rgba(0,0,0,0.3);border:2px solid ' + (done ? m.couleur : '#444') + ';border-radius:8px;cursor:pointer;transition:all 0.3s;';
+    div.onclick = function(){ showArcModule(i); };
+    div.onmouseover = function(){ div.style.transform = 'scale(1.03)'; };
+    div.onmouseout = function(){ div.style.transform = 'scale(1)'; };
+    div.innerHTML = '<div style="font-size:1.5em;">' + m.emoji + '</div><div style="color:' + m.couleur + ';font-weight:bold;font-size:0.9em;">' + m.nom + '</div><div style="margin-top:3px;font-size:0.75em;color:#888;">' + m.duree + ' • ' + m.niveau + '</div><div style="margin-top:5px;font-size:0.8em;color:' + (done ? m.couleur : '#666') + ';">' + (done ? '✅ Validé' : '📖 A apprendre') + '</div>';
+    agrid.appendChild(div);
+});
+
+function updateArcProgress(){
+    var done = arcCompleted.size;
+    var total = arcModules.length;
+    var pct = Math.round((done / total) * 100);
+    document.getElementById('arc-count').textContent = done;
+    document.getElementById('arc-pct').textContent = pct + '%';
+    document.getElementById('arc-bar').style.width = pct + '%';
+    document.getElementById('arc-diplome').style.display = (done === total) ? 'block' : 'none';
+}
+
+function showArcModule(i){
+    var m = arcModules[i];
+    document.getElementById('arc-detail-title').textContent = m.emoji + ' ' + m.nom;
+    document.getElementById('arc-detail-title').style.color = m.couleur;
+    var html = '<div style="color:' + m.couleur + ';font-weight:bold;font-size:1.1em;">' + m.emoji + ' ' + m.nom + '</div>';
+    html += '<div style="margin-top:5px;font-size:0.8em;color:#888;">⏱️ ' + m.duree + ' • 📊 ' + m.niveau + '</div>';
+    html += '<div style="margin-top:10px;padding:15px;background:rgba(255,136,68,0.05);border-left:3px solid ' + m.couleur + ';border-radius:4px;color:#ff8844;font-size:0.9em;line-height:1.6;">' + m.desc + '</div>';
+    html += '<div style="margin-top:10px;"><b style="color:#ff8844;">📚 Cours (' + m.cours.length + ' lecons):</b></div>';
+    m.cours.forEach(function(c, ci){
+        html += '<div style="padding:6px 10px;margin:3px 0;background:rgba(255,136,68,0.05);border-left:3px solid #ff8844;border-radius:4px;color:#ff8844;font-size:0.85em;">' + (ci+1) + '. ' + c + '</div>';
+    });
+    html += '<div style="margin-top:10px;padding:10px;background:rgba(255,170,68,0.05);border-radius:4px;"><b style="color:#ffaa44;">📝 Exercice:</b> <span style="color:#ff8844;font-size:0.85em;">' + m.exercice + '</span></div>';
+    html += '<div style="margin-top:10px;padding:8px;background:rgba(212,164,55,0.05);border-radius:4px;color:#d4a437;font-size:0.85em;">🎓 Diplome: ' + m.diplome + '</div>';
+    html += '<div style="margin-top:10px;text-align:center;"><button onclick="validateArcModule(' + i + ')" style="padding:8px 20px;background:' + m.couleur + ';color:#000;border:none;border-radius:8px;font-weight:bold;cursor:pointer;">✅ J ai validé ce module</button></div>';
+    document.getElementById('arc-detail').innerHTML = html;
+    addArcTrace('📖 Module ouvert: ' + m.emoji + ' ' + m.nom);
+}
+
+function validateArcModule(i){
+    if(arcCompleted.has(i)) return;
+    arcCompleted.add(i);
+    localStorage.setItem('arcModulesDone', JSON.stringify(Array.from(arcCompleted)));
+    var m = arcModules[i];
+    addArcTrace('✅ Module validé: ' + m.nom);
+    addArcTrace('🎓 Diplome: ' + m.diplome);
+    addArcTrace('⛓️ Trace blockchain: construction "' + m.nom + '" apprise');
+    updateArcProgress();
+    updateArcGrid();
+    document.getElementById('arc-status').innerHTML = '<span style="color:#ff8844;">✅ Tu as validé: ' + m.nom + '. L Afrique se construit.</span>';
+}
+
+function updateArcGrid(){
+    arcModules.forEach(function(m, i){
+        var div = document.getElementById('arc-m-' + i);
+        if(!div) return;
+        var done = arcCompleted.has(i);
+        div.style.borderColor = done ? m.couleur : '#444';
+        div.innerHTML = '<div style="font-size:1.5em;">' + m.emoji + '</div><div style="color:' + m.couleur + ';font-weight:bold;font-size:0.9em;">' + m.nom + '</div><div style="margin-top:3px;font-size:0.75em;color:#888;">' + m.duree + ' • ' + m.niveau + '</div><div style="margin-top:5px;font-size:0.8em;color:' + (done ? m.couleur : '#666') + ';">' + (done ? '✅ Validé' : '📖 A apprendre') + '</div>';
+    });
+}
+
+function gravArcDiplome(){
+    addArcTrace('🎓 DIPLOME ARCHITECTE DE L AFRIQUE grave dans la blockchain!');
+    addArcTrace('⏳ Envoi de la transaction blockchain...');
+    fetch('/api/diplome', {
+        method: 'POST',
+        headers: {'Content-Type': 'text/plain'},
+        body: 'AI ARCHITECTE|Architecte de l Afrique'
+    }).then(function(r){ return r.text(); }).then(function(txt){
+        try {
+            var obj = JSON.parse(txt);
+            if(obj.status === 'ok'){
+                addArcTrace('✅ Transaction validee! Block #' + obj.blocks_total);
+                addArcTrace('⛓️ DIPLOME Architecte de l Afrique grave dans le block #' + obj.blocks_total);
+                addArcTrace('🏗️ L Afrique se construit. Le diplome est eternal.');
+                alert('🏗️🎓 DIPLOME ARCHITECTE DE L AFRIQUE\n\nGrave dans la blockchain AfriChain\nBlock #' + obj.blocks_total + '\n\nL Afrique se construit elle-meme. 💚🦁🏗️');
+            } else {
+                addArcTrace('❌ Erreur: ' + (obj.msg || 'inconnue'));
+                alert('Erreur: ' + (obj.msg || 'Impossible de graver le diplome'));
+            }
+        } catch(e){
+            addArcTrace('✅ Transaction envoyee (verification en cours)');
+            alert('🏗️🎓 DIPLOME ARCHITECTE DE L AFRIQUE\n\nTransaction envoyee a la blockchain\n\nL Afrique se construit elle-meme. 💚🦁🏗️');
+        }
+    }).catch(function(err){
+        addArcTrace('❌ Erreur reseau: ' + err);
+        alert('Erreur reseau. Le diplome est sauvegarde localement.');
+    });
+}
+
+// Canvas — construction site with building bricks
+var acan = document.getElementById('arc-canvas');
+var actx = acan.getContext('2d');
+var arcTime = 0;
+
+function drawArchitecte(){
+    if(arcPaused) { requestAnimationFrame(drawArchitecte); return; }
+    arcTime += 0.01;
+
+    var grad = actx.createLinearGradient(0, 0, 0, 350);
+    grad.addColorStop(0, '#1a1005');
+    grad.addColorStop(0.5, '#0a0a05');
+    grad.addColorStop(1, '#000000');
+    actx.fillStyle = grad;
+    actx.fillRect(0, 0, 600, 350);
+
+    // Ground
+    actx.fillStyle = 'rgba(255,136,68,0.05)';
+    actx.fillRect(0, 280, 600, 70);
+
+    // Building under construction (grows with progress)
+    var done = arcCompleted.size;
+    var buildHeight = 20 + done * 25;
+
+    // Scaffolding
+    actx.strokeStyle = 'rgba(255,136,68,0.15)';
+    actx.lineWidth = 1;
+    for(var s = 0; s < 8; s++){
+        var sx = 200 + s * 25;
+        actx.beginPath();
+        actx.moveTo(sx, 280);
+        actx.lineTo(sx, 280 - buildHeight);
+        actx.stroke();
+    }
+    // Horizontal scaffolding
+    for(var h = 0; h < Math.floor(buildHeight / 20); h++){
+        var hy = 280 - h * 20;
+        actx.beginPath();
+        actx.moveTo(195, hy);
+        actx.lineTo(395, hy);
+        actx.stroke();
+    }
+
+    // Building bricks (animated)
+    for(var b = 0; b < done * 3; b++){
+        var bx = 210 + (b % 4) * 20;
+        var by = 275 - Math.floor(b / 4) * 15;
+        actx.fillStyle = 'rgba(255,136,68,' + (0.2 + Math.sin(arcTime * 2 + b) * 0.05) + ')';
+        actx.fillRect(bx, by, 15, 10);
+        actx.strokeStyle = 'rgba(255,136,68,0.1)';
+        actx.strokeRect(bx, by, 15, 10);
+    }
+
+    // Crane
+    actx.strokeStyle = 'rgba(255,170,68,0.2)';
+    actx.lineWidth = 1.5;
+    actx.beginPath();
+    actx.moveTo(450, 280);
+    actx.lineTo(450, 150);
+    actx.lineTo(350, 150);
+    actx.stroke();
+    // Crane hook
+    var hookY = 200 + Math.sin(arcTime * 1.5) * 30;
+    actx.beginPath();
+    actx.moveTo(350, 150);
+    actx.lineTo(350, hookY);
+    actx.stroke();
+    // Hook block
+    actx.fillStyle = 'rgba(255,170,68,0.2)';
+    actx.fillRect(345, hookY, 10, 8);
+
+    // Sun
+    var sunX = 530, sunY = 50;
+    actx.fillStyle = 'rgba(255,170,68,0.1)';
+    actx.beginPath();
+    actx.arc(sunX, sunY, 20, 0, Math.PI * 2);
+    actx.fill();
+    for(var r = 0; r < 6; r++){
+        var rang = arcTime + r * (Math.PI / 3);
+        actx.strokeStyle = 'rgba(255,170,68,0.08)';
+        actx.beginPath();
+        actx.moveTo(sunX + Math.cos(rang) * 23, sunY + Math.sin(rang) * 23);
+        actx.lineTo(sunX + Math.cos(rang) * 32, sunY + Math.sin(rang) * 32);
+        actx.stroke();
+    }
+
+    // Dust particles
+    for(var d = 0; d < 15; d++){
+        var dx = (d * 40 + arcTime * 15) % 600;
+        var dy = 280 + Math.sin(arcTime * 2 + d) * 5;
+        actx.fillStyle = 'rgba(255,136,68,' + (0.03 + Math.sin(arcTime + d) * 0.02) + ')';
+        actx.beginPath();
+        actx.arc(dx, dy, 1.5, 0, Math.PI * 2);
+        actx.fill();
+    }
+
+    // Center text
+    actx.fillStyle = 'rgba(255,136,68,0.4)';
+    actx.font = 'bold 11px monospace';
+    actx.textAlign = 'center';
+    actx.fillText('LE CHANTIER AFRICAIN', 300, 20);
+    actx.fillStyle = 'rgba(255,136,68,0.3)';
+    actx.font = '10px monospace';
+    actx.fillText(done + '/8 modules validés', 300, 38);
+
+    if(done === 8){
+        actx.fillStyle = 'rgba(255,136,68,' + (0.3 + Math.sin(arcTime * 3) * 0.1) + ')';
+        actx.font = 'bold 12px monospace';
+        actx.fillText('L AFRIQUE SE CONSTRUIT ELLE-MEME', 300, 340);
+    }
+
+    requestAnimationFrame(drawArchitecte);
+}
+
+var arcProvIdx = 0;
+function rotateArcProverbe(){
+    document.getElementById('arc-proverbe').textContent = arcProverbes[arcProvIdx];
+    arcProvIdx = (arcProvIdx + 1) % arcProverbes.length;
+}
+rotateArcProverbe();
+var arcProvInt = setInterval(rotateArcProverbe, 5000);
+arcIntervalIds.push(arcProvInt);
+
+function addArcTrace(msg){
+    var log = document.getElementById('arc-trace');
+    var now = new Date();
+    var ts = String(now.getHours()).padStart(2,'0') + ':' + String(now.getMinutes()).padStart(2,'0') + ':' + String(now.getSeconds()).padStart(2,'0');
+    log.innerHTML = '<div style="padding:4px 0;border-bottom:1px solid rgba(255,136,68,0.05);"><span style="color:#666;">[' + ts + ']</span> <span style="color:#ff8844;">🏗️</span> ' + msg + '</div>' + log.innerHTML;
+    if(log.innerHTML.length > 3000) log.innerHTML = log.innerHTML.substring(0, 3000);
+}
+
+addArcTrace('🏗️ AI Architecte initialise — Construction & Infrastructure Africaine');
+addArcTrace('📚 8 modules charges: Materiaux, Maison, Routes, Barrages, Energie, Architecture, Telecom, Urbanisme');
+addArcTrace('📜 12 proverbes du constructeur africain charges');
+addArcTrace('🧱 Materiaux locaux: terre, argile, laterite, bois, bambou');
+addArcTrace('🏠 Construction: fondations, murs, toiture, isolation');
+addArcTrace('🎓 Diplome: 8 modules -> Architecte de l Afrique');
+addArcTrace('🏗️ L Afrique se construit elle-meme. Pas attendre. Pas importer.');
+
+updateArcProgress();
+drawArchitecte();
+</script>
+
+<footer style="text-align:center;margin-top:40px;color:#ff8844;">🏗️ AI Architecte — L Afrique se construit elle-meme. La terre est riche. Les mains sont fortes. Le futur se batit. 💚🦁🏗️</footer>"##);
+
+    html.push_str("</body></html>");
+    html
+}
+
 fn html_garage(chain: &Blockchain) -> String {
     let mut html = html_head("Garage AI — Atelier Autonome 2500");
     let num_blocks = chain.blocks.len();
@@ -15317,7 +15676,7 @@ html+='<div class="log-entry log-kill">⚠️ Tentative d\x27infiltration occide
 html+='<div class="log-entry log-invis">✅ L\x27Afrique est forte. Le système grandit.</div>';
 }else if(type==='total'){
 html='<div style="color:#d4a437;font-weight:bold;margin-bottom:8px">📋 RAPPORT TOTAL — Depuis le début</div>';
-html+='<div class="log-entry">🦁 AfriChain v0.92 — Diplomes Graves dans la Blockchain</div>';
+html+='<div class="log-entry">🦁 AfriChain v0.93 — AI Architecte Construction Africaine</div>';
 html+='<div class="log-entry">⛓️ Blockchain: 100% souveraine — Zéro dépendance externe</div>';
 html+='<div class="log-entry">🔐 Crypto: Ed25519 + AfriHash-256/512 + AfriRNG — tout from scratch</div>';
 html+='<div class="log-entry">🌍 54 pays africains connectés</div>';
@@ -16861,7 +17220,7 @@ fn main() {
         .and_then(|i| args.get(i + 1)).cloned().unwrap_or_else(|| "Afrique".to_string());
 
     let my_node_id = generate_node_id();
-    println!("🦁 AfriChain v0.92 — Diplomes Graves dans la Blockchain");
+    println!("🦁 AfriChain v0.93 — AI Architecte Construction Africaine");
     println!("💚 L'Afrique ne demande plus la permission");
     println!("🌍 54 pays — 🇲🇱 🇳🇪 🇧🇫 AES — Mali · Niger · Burkina Faso");
     println!("🔐 8 modules cryptographiques — construits from scratch");
@@ -17020,6 +17379,7 @@ fn main() {
     println!("💰 AI Marche sur http://localhost:8080/ai-marche");
     println!("🌍 AI Diplomate sur http://localhost:8080/ai-diplomate");
     println!("🧠 AI Philosophe sur http://localhost:8080/ai-philosophe");
+    println!("🏗️ AI Architecte sur http://localhost:8080/ai-architecte");
 
     // Serveur HTTP en arrière-plan (pour mesh + autres utilisateurs)
     let serve_state = web_state.clone();
@@ -17054,7 +17414,7 @@ fn terminal_interface(state: &Arc<AppState>) {
     println!("  ║  🕐 AfriTime — Pas UTC, pas Greenwich   ║");
     println!("  ║  📝 ~16,500 lignes — écrit à la main       ║");
     println!("  ╚═══════════════════════════════════════════════╝");
-    println!("\n  Version v0.92 — 31 août 2026");
+    println!("\n  Version v0.93 — 31 août 2026");
     println!("  Construit sur Termux · Android · nano\n");
     println!("  ─────────────────────────────────────────────");
     println!("\n  1. 🏦 Centre de Données (Admin)");
@@ -17126,7 +17486,7 @@ fn admin_interface(state: &Arc<AppState>) {
         println!("\n");
         println!("╔══════════════════════════════════════╗");
         println!("║  🏦 CENTRE DE DONNÉES — Admin       ║");
-        println!("║  🦁 AfriChain v0.92                  ║");
+        println!("║  🦁 AfriChain v0.93                  ║");
         println!("╠══════════════════════════════════════╣");
         let chain = state.chain.lock().unwrap();
         let users = state.users.lock().unwrap();
@@ -20720,6 +21080,11 @@ fn handle_request(req: afri_http::HttpRequest, state: &Arc<AppState>) -> afri_ht
         ("GET", "/ai-philosophe") => {
             let chain = state.chain.lock().unwrap();
             HttpResponse::ok(&html_ai_philosophe(&chain))
+        }
+
+        ("GET", "/ai-architecte") => {
+            let chain = state.chain.lock().unwrap();
+            HttpResponse::ok(&html_ai_architecte(&chain))
         }
 
         ("GET", "/garage") => {
