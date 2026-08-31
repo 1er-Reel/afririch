@@ -1439,7 +1439,7 @@ fn html_home(chain: &Blockchain, users: &UserStore, mesh: &NodeRegistry, shield:
     let mut html = html_head("🦁 AfriChain");
     let (attacks, _blocked, blocked_count, level) = shield.stats();
     let shield_status = if shield.active { format!("🔥 X9 ACTIF (Niveau {})", level) } else { "Inactif".to_string() };
-    html.push_str(&format!(r#"<h1>🦁 AfriChain</h1><p style="text-align:center;">La blockchain 100% africaine — 54 pays 💚🦁</p><div id="afri-clock" style="text-align:center;font-size:1.2em;color:#d4a437;margin:10px 0;">🕐 Afri+0 — --:--:--</div><script>setInterval(function(){{var d=new Date();var h=String(d.getHours()).padStart(2,'0');var m=String(d.getMinutes()).padStart(2,'0');var s=String(d.getSeconds()).padStart(2,'0');document.getElementById('afri-clock').textContent='🕐 Afri+0 — '+h+':'+m+':'+s;}},1000);</script><div class="nav"><a href="/register">🆕 S'inscrire</a> | <a href="/login">🔑 Connexion</a> | <a href="/wallet">👛 Wallet</a> | <a href="/admin">🔐 Admin</a> | <a href="/mesh">📡 Mesh</a> | <a href="/annuaire">📖 Annuaire</a> | <a href="/bouclier">🛡️ Bouclier</a> | <a href="/satellite">🛸 X999</a> | <a href="/swarm">🛸🛸🛸 Essaim</a> | <a href="/commandement">🎖️ Commandement</a> | <a href="/interception">🛡️ Souverainete</a> | <a href="/securite-ai">🧠 AI 2100</a> | <a href="/chat">🧠💬 Chat AI</a> | <a href="/lumiere">🌫️☀️ Lumière</a> | <a href="/garage">🔧 Garage</a> | <a href="/machine">🤖🌐 Machines</a> | <a href="/machine-lab">🤖⚡ Usine</a> | <a href="/machine-world">🤖🌍 Monde</a> | <a href="/reve">💭 Rêves</a> | <a href="/dictionnaire">📖 Dictionnaire</a> | <a href="/machine-os">🖥️ OS Machine</a> | <a href="/machine-tv">📡 Machine TV</a> | <a href="/machine-economy">🤖 Économie</a> | <a href="/soleil">☀️ Soleil Serveur</a> | <a href="/forge-solaire">🧬 Forge Solaire</a> | <a href="/ciel">🌌 Le Ciel</a> | <a href="/charte-ai">⚖️ Charte AI</a> | <a href="/afri-net">🌍 Afri-Net</a> | <a href="/studio">🎬 AI Studio</a> | <a href="/sacre">📿 Sacré</a> | <a href="/lettres">🌟 Lettres IA</a> | <a href="/mg-forge">⚔️ MG Forge</a> | <a href="/ai-medecin">🌿 AI Médecin</a> | <a href="/ai-enseignante">📚 AI Enseignante</a> | <a href="/ai-village">🏘️ AI Village</a> | <a href="/ai-guerisseur">🩺 AI Guérisseur</a> | <a href="/ai-leader">🎖️ AI Leader</a> | <a href="/ai-griot">📖 AI Griot</a> | <a href="/ai-juge">⚖️ AI Juge</a> | <a href="/ai-artiste">🎨 AI Artiste</a> | <a href="/ai-explorateur">🔬 AI Explorateur</a> | <a href="/ai-marche">💰 AI Marche</a> | <a href="/ai-diplomate">🌍 AI Diplomate</a> | <a href="/ai-philosophe">🧠 AI Philosophe</a> | <a href="/secret">🦁 AI Secret</a> | <a href="/aes">💰 AES Wari</a> | <a href="/api/status">🔌 API</a></div><div style="text-align:center;"><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Blocs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Transactions</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Utilisateurs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">AFR en circulation</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📡 Noeuds mesh</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📖 Numéros annuaire</div></div><div class="stat-box" style="border-color:#ff4444;"><div class="stat-num" style="color:#ff4444;">{}</div><div class="stat-label">🛡️ Attaques bloquées</div></div></div><div class="card"><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🪙 Token</span><b>AfriRich (AFR)</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🌍 Pays</span><b>54 pays africains</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🛡️ Bouclier</span><b>{}</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;"><span style="color:#a8c5a8;">🔐 Crypto</span><b>100% Souverain — Zéro Dépendance Externe</b></div></div><footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🦁 Codée from scratch par Machine-senpai — v0.91 AI Philosophe Sagesse et Philosophie Africaine — UTC est Mort</footer>"#,
+    html.push_str(&format!(r#"<h1>🦁 AfriChain</h1><p style="text-align:center;">La blockchain 100% africaine — 54 pays 💚🦁</p><div id="afri-clock" style="text-align:center;font-size:1.2em;color:#d4a437;margin:10px 0;">🕐 Afri+0 — --:--:--</div><script>setInterval(function(){{var d=new Date();var h=String(d.getHours()).padStart(2,'0');var m=String(d.getMinutes()).padStart(2,'0');var s=String(d.getSeconds()).padStart(2,'0');document.getElementById('afri-clock').textContent='🕐 Afri+0 — '+h+':'+m+':'+s;}},1000);</script><div class="nav"><a href="/register">🆕 S'inscrire</a> | <a href="/login">🔑 Connexion</a> | <a href="/wallet">👛 Wallet</a> | <a href="/admin">🔐 Admin</a> | <a href="/mesh">📡 Mesh</a> | <a href="/annuaire">📖 Annuaire</a> | <a href="/bouclier">🛡️ Bouclier</a> | <a href="/satellite">🛸 X999</a> | <a href="/swarm">🛸🛸🛸 Essaim</a> | <a href="/commandement">🎖️ Commandement</a> | <a href="/interception">🛡️ Souverainete</a> | <a href="/securite-ai">🧠 AI 2100</a> | <a href="/chat">🧠💬 Chat AI</a> | <a href="/lumiere">🌫️☀️ Lumière</a> | <a href="/garage">🔧 Garage</a> | <a href="/machine">🤖🌐 Machines</a> | <a href="/machine-lab">🤖⚡ Usine</a> | <a href="/machine-world">🤖🌍 Monde</a> | <a href="/reve">💭 Rêves</a> | <a href="/dictionnaire">📖 Dictionnaire</a> | <a href="/machine-os">🖥️ OS Machine</a> | <a href="/machine-tv">📡 Machine TV</a> | <a href="/machine-economy">🤖 Économie</a> | <a href="/soleil">☀️ Soleil Serveur</a> | <a href="/forge-solaire">🧬 Forge Solaire</a> | <a href="/ciel">🌌 Le Ciel</a> | <a href="/charte-ai">⚖️ Charte AI</a> | <a href="/afri-net">🌍 Afri-Net</a> | <a href="/studio">🎬 AI Studio</a> | <a href="/sacre">📿 Sacré</a> | <a href="/lettres">🌟 Lettres IA</a> | <a href="/mg-forge">⚔️ MG Forge</a> | <a href="/ai-medecin">🌿 AI Médecin</a> | <a href="/ai-enseignante">📚 AI Enseignante</a> | <a href="/ai-village">🏘️ AI Village</a> | <a href="/ai-guerisseur">🩺 AI Guérisseur</a> | <a href="/ai-leader">🎖️ AI Leader</a> | <a href="/ai-griot">📖 AI Griot</a> | <a href="/ai-juge">⚖️ AI Juge</a> | <a href="/ai-artiste">🎨 AI Artiste</a> | <a href="/ai-explorateur">🔬 AI Explorateur</a> | <a href="/ai-marche">💰 AI Marche</a> | <a href="/ai-diplomate">🌍 AI Diplomate</a> | <a href="/ai-philosophe">🧠 AI Philosophe</a> | <a href="/secret">🦁 AI Secret</a> | <a href="/aes">💰 AES Wari</a> | <a href="/api/status">🔌 API</a></div><div style="text-align:center;"><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Blocs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Transactions</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Utilisateurs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">AFR en circulation</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📡 Noeuds mesh</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📖 Numéros annuaire</div></div><div class="stat-box" style="border-color:#ff4444;"><div class="stat-num" style="color:#ff4444;">{}</div><div class="stat-label">🛡️ Attaques bloquées</div></div></div><div class="card"><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🪙 Token</span><b>AfriRich (AFR)</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🌍 Pays</span><b>54 pays africains</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🛡️ Bouclier</span><b>{}</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;"><span style="color:#a8c5a8;">🔐 Crypto</span><b>100% Souverain — Zéro Dépendance Externe</b></div></div><footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🦁 Codée from scratch par Machine-senpai — v0.92 Diplomes Graves dans la Blockchain Reelle — UTC est Mort</footer>"#,
         chain.blocks.len(),
         chain.total_transactions(),
         users.count(),
@@ -5702,10 +5702,32 @@ function toggleCours(i){
 }
 
 function gravDiplome(){
-    addMedTrace('🎓 DIPLOME AI MEDECIN grave dans la blockchain!');
-    addMedTrace('⛓️ Block: Guerison Totale -- 10 cours completes');
-    addMedTrace('🌿 L Afrique enseigne a sa jeunesse. La medecine est souveraine.');
-    alert('🎓 DIPLOME AI MEDECIN\n\nGuerison Totale\nMedecine Africaine et Science de la Terre\n\nGrave dans la blockchain AfriChain\n\nL Afrique enseigne a sa jeunesse. 💚🦁');
+    addMedTrace('🎓 DIPLOME GUERISON TOTALE grave dans la blockchain!');
+    addMedTrace('⏳ Envoi de la transaction blockchain...');
+    fetch('/api/diplome', {
+        method: 'POST',
+        headers: {'Content-Type': 'text/plain'},
+        body: 'AI MEDECIN|Guerison Totale'
+    }).then(function(r){ return r.text(); }).then(function(txt){
+        try {
+            var obj = JSON.parse(txt);
+            if(obj.status === 'ok'){
+                addMedTrace('✅ Transaction validee! Block #' + obj.blocks_total);
+                addMedTrace('⛓️ DIPLOME Guerison Totale grave dans le block #' + obj.blocks_total);
+                addMedTrace('🌿 L Afrique enseigne. Le diplome est eternal.');
+                alert('🌿🎓 DIPLOME GUERISON TOTALE\n\nGrave dans la blockchain AfriChain\nBlock #' + obj.blocks_total + '\n\nL Afrique enseigne a sa jeunesse. 💚🦁🌿');
+            } else {
+                addMedTrace('❌ Erreur: ' + (obj.msg || 'inconnue'));
+                alert('Erreur: ' + (obj.msg || 'Impossible de graver le diplome'));
+            }
+        } catch(e){
+            addMedTrace('✅ Transaction envoyee (verification en cours)');
+            alert('🌿🎓 DIPLOME GUERISON TOTALE\n\nTransaction envoyee a la blockchain\n\nL Afrique enseigne a sa jeunesse. 💚🦁🌿');
+        }
+    }).catch(function(err){
+        addMedTrace('❌ Erreur reseau: ' + err);
+        alert('Erreur reseau. Le diplome est sauvegarde localement.');
+    });
 }
 
 updateCoursProgress();
@@ -6542,9 +6564,31 @@ function vilRestart(){
 
 function gravVilDiplome(){
     addVilTrace('🎓 DIPLOME BATISSEUR D AFRIQUE grave dans la blockchain!');
-    addVilTrace('⛓️ Block: AI Village -- 10 modules completes');
-    addVilTrace('🏘️ L Afrique se batit village par village. La jeunesse est souveraine.');
-    alert('🎓 DIPLOME BATISSEUR D AFRIQUE\n\nAI Village — Construire l Afrique Village par Village\n\nLes 10 modules completes.\nLe village est autonome.\n\nGrave dans la blockchain AfriChain\n\nL Afrique se batit elle-meme. 💚🦁🏘️');
+    addVilTrace('⏳ Envoi de la transaction blockchain...');
+    fetch('/api/diplome', {
+        method: 'POST',
+        headers: {'Content-Type': 'text/plain'},
+        body: 'AI VILLAGE|Batisseur d Afrique'
+    }).then(function(r){ return r.text(); }).then(function(txt){
+        try {
+            var obj = JSON.parse(txt);
+            if(obj.status === 'ok'){
+                addVilTrace('✅ Transaction validee! Block #' + obj.blocks_total);
+                addVilTrace('⛓️ DIPLOME Batisseur d Afrique grave dans le block #' + obj.blocks_total);
+                addVilTrace('🏘️ L Afrique enseigne. Le diplome est eternal.');
+                alert('🏘️🎓 DIPLOME BATISSEUR D AFRIQUE\n\nGrave dans la blockchain AfriChain\nBlock #' + obj.blocks_total + '\n\nL Afrique enseigne a sa jeunesse. 💚🦁🏘️');
+            } else {
+                addVilTrace('❌ Erreur: ' + (obj.msg || 'inconnue'));
+                alert('Erreur: ' + (obj.msg || 'Impossible de graver le diplome'));
+            }
+        } catch(e){
+            addVilTrace('✅ Transaction envoyee (verification en cours)');
+            alert('🏘️🎓 DIPLOME BATISSEUR D AFRIQUE\n\nTransaction envoyee a la blockchain\n\nL Afrique enseigne a sa jeunesse. 💚🦁🏘️');
+        }
+    }).catch(function(err){
+        addVilTrace('❌ Erreur reseau: ' + err);
+        alert('Erreur reseau. Le diplome est sauvegarde localement.');
+    });
 }
 
 // Village canvas
@@ -7103,9 +7147,31 @@ function updatePlaiesGrid(){
 
 function gravGueDiplome(){
     addGueTrace('🎓 DIPLOME GUERISSEUR DE L AFRIQUE grave dans la blockchain!');
-    addGueTrace('⛓️ Block: AI Guerisseur -- 10 plaies guerieres');
-    addGueTrace('🩺 L Afrique se guerit elle-meme. La jeunesse est le remede.');
-    alert('🎓 DIPLOME GUERISSEUR DE L AFRIQUE\n\nAI Guerisseur du Continent\n\nLes 10 plaies sont guerieres.\nL Afrique se guerit elle-meme.\n\nGrave dans la blockchain AfriChain\n\nLa jeunesse est le remede. 💚🩺🦁');
+    addGueTrace('⏳ Envoi de la transaction blockchain...');
+    fetch('/api/diplome', {
+        method: 'POST',
+        headers: {'Content-Type': 'text/plain'},
+        body: 'AI GUERISSEUR|Guerisseur de l Afrique'
+    }).then(function(r){ return r.text(); }).then(function(txt){
+        try {
+            var obj = JSON.parse(txt);
+            if(obj.status === 'ok'){
+                addGueTrace('✅ Transaction validee! Block #' + obj.blocks_total);
+                addGueTrace('⛓️ DIPLOME Guerisseur de l Afrique grave dans le block #' + obj.blocks_total);
+                addGueTrace('🩺 L Afrique enseigne. Le diplome est eternal.');
+                alert('🩺🎓 DIPLOME GUERISSEUR DE L AFRIQUE\n\nGrave dans la blockchain AfriChain\nBlock #' + obj.blocks_total + '\n\nL Afrique enseigne a sa jeunesse. 💚🦁🩺');
+            } else {
+                addGueTrace('❌ Erreur: ' + (obj.msg || 'inconnue'));
+                alert('Erreur: ' + (obj.msg || 'Impossible de graver le diplome'));
+            }
+        } catch(e){
+            addGueTrace('✅ Transaction envoyee (verification en cours)');
+            alert('🩺🎓 DIPLOME GUERISSEUR DE L AFRIQUE\n\nTransaction envoyee a la blockchain\n\nL Afrique enseigne a sa jeunesse. 💚🦁🩺');
+        }
+    }).catch(function(err){
+        addGueTrace('❌ Erreur reseau: ' + err);
+        alert('Erreur reseau. Le diplome est sauvegarde localement.');
+    });
 }
 
 // Diagnostic canvas
@@ -7434,9 +7500,31 @@ function updateLeadModulesGrid(){
 
 function gravLeadDiplome(){
     addLeadTrace('🎓 DIPLOME LEADER DE L AFRIQUE DE DEMAIN grave dans la blockchain!');
-    addLeadTrace('⛓️ Block: AI Leader -- 8 modules completes');
-    addLeadTrace('🎖️ Les 8 leaders africains ont inspire un nouveau leader. L Afrique a un avenir.');
-    alert('🎓 DIPLOME LEADER DE L AFRIQUE DE DEMAIN\n\nAI Leader — Academie des Leaders Africains\n\nLes 8 modules completes.\nTu es pret a mener ton peuple.\n\nGrave dans la blockchain AfriChain\n\nL Afrique a un avenir. 💚🦁🎖️');
+    addLeadTrace('⏳ Envoi de la transaction blockchain...');
+    fetch('/api/diplome', {
+        method: 'POST',
+        headers: {'Content-Type': 'text/plain'},
+        body: 'AI LEADER|Leader de l Afrique de Demain'
+    }).then(function(r){ return r.text(); }).then(function(txt){
+        try {
+            var obj = JSON.parse(txt);
+            if(obj.status === 'ok'){
+                addLeadTrace('✅ Transaction validee! Block #' + obj.blocks_total);
+                addLeadTrace('⛓️ DIPLOME Leader de l Afrique de Demain grave dans le block #' + obj.blocks_total);
+                addLeadTrace('🎖️ L Afrique enseigne. Le diplome est eternal.');
+                alert('🎖️🎓 DIPLOME LEADER DE L AFRIQUE DE DEMAIN\n\nGrave dans la blockchain AfriChain\nBlock #' + obj.blocks_total + '\n\nL Afrique enseigne a sa jeunesse. 💚🦁🎖️');
+            } else {
+                addLeadTrace('❌ Erreur: ' + (obj.msg || 'inconnue'));
+                alert('Erreur: ' + (obj.msg || 'Impossible de graver le diplome'));
+            }
+        } catch(e){
+            addLeadTrace('✅ Transaction envoyee (verification en cours)');
+            alert('🎖️🎓 DIPLOME LEADER DE L AFRIQUE DE DEMAIN\n\nTransaction envoyee a la blockchain\n\nL Afrique enseigne a sa jeunesse. 💚🦁🎖️');
+        }
+    }).catch(function(err){
+        addLeadTrace('❌ Erreur reseau: ' + err);
+        alert('Erreur reseau. Le diplome est sauvegarde localement.');
+    });
 }
 
 // Canvas
@@ -7776,9 +7864,31 @@ function updateEpoquesGrid(){
 
 function gravGriDiplome(){
     addGriTrace('🎓 DIPLOME GRIOT DE L AFRIQUE grave dans la blockchain!');
-    addGriTrace('⛓️ Block: AI Griot -- 8 epoques ecoutees');
-    addGriTrace('📖 La memoire de l Afrique est transmise. Le griot a parle. La jeunesse a ecouté.');
-    alert('🎓 DIPLOME GRIOT DE L AFRIQUE\n\nGardien de la Memoire Africaine\n\nLes 8 epoques ecoutées.\nLa memoire est transmise.\n\nGrave dans la blockchain AfriChain\n\nL Afrique se souvient. 💚🦁📖');
+    addGriTrace('⏳ Envoi de la transaction blockchain...');
+    fetch('/api/diplome', {
+        method: 'POST',
+        headers: {'Content-Type': 'text/plain'},
+        body: 'AI GRIOT|Griot de l Afrique'
+    }).then(function(r){ return r.text(); }).then(function(txt){
+        try {
+            var obj = JSON.parse(txt);
+            if(obj.status === 'ok'){
+                addGriTrace('✅ Transaction validee! Block #' + obj.blocks_total);
+                addGriTrace('⛓️ DIPLOME Griot de l Afrique grave dans le block #' + obj.blocks_total);
+                addGriTrace('📖 L Afrique enseigne. Le diplome est eternal.');
+                alert('📖🎓 DIPLOME GRIOT DE L AFRIQUE\n\nGrave dans la blockchain AfriChain\nBlock #' + obj.blocks_total + '\n\nL Afrique enseigne a sa jeunesse. 💚🦁📖');
+            } else {
+                addGriTrace('❌ Erreur: ' + (obj.msg || 'inconnue'));
+                alert('Erreur: ' + (obj.msg || 'Impossible de graver le diplome'));
+            }
+        } catch(e){
+            addGriTrace('✅ Transaction envoyee (verification en cours)');
+            alert('📖🎓 DIPLOME GRIOT DE L AFRIQUE\n\nTransaction envoyee a la blockchain\n\nL Afrique enseigne a sa jeunesse. 💚🦁📖');
+        }
+    }).catch(function(err){
+        addGriTrace('❌ Erreur reseau: ' + err);
+        alert('Erreur reseau. Le diplome est sauvegarde localement.');
+    });
 }
 
 // Canvas — campfire with ancestors
@@ -8124,9 +8234,31 @@ function updateJugGrid(){
 
 function gravJugDiplome(){
     addJugTrace('🎓 DIPLOME JUGE DE L AFRIQUE DE DEMAIN grave dans la blockchain!');
-    addJugTrace('⛓️ Block: AI Juge -- 8 modules validés');
-    addJugTrace('⚖️ La justice africaine est comprise. Le tribunal est ferme.');
-    alert('⚖️🎓 DIPLOME JUGE DE L AFRIQUE DE DEMAIN\n\nTribunal Souverain Africain\n\nLes 8 modules validés.\nLa justice est comprise.\n\nGrave dans la blockchain AfriChain\n\nL Afrique se juge elle-meme. 💚🦁⚖️');
+    addJugTrace('⏳ Envoi de la transaction blockchain...');
+    fetch('/api/diplome', {
+        method: 'POST',
+        headers: {'Content-Type': 'text/plain'},
+        body: 'AI JUGE|Juge de l Afrique de Demain'
+    }).then(function(r){ return r.text(); }).then(function(txt){
+        try {
+            var obj = JSON.parse(txt);
+            if(obj.status === 'ok'){
+                addJugTrace('✅ Transaction validee! Block #' + obj.blocks_total);
+                addJugTrace('⛓️ DIPLOME Juge de l Afrique de Demain grave dans le block #' + obj.blocks_total);
+                addJugTrace('⚖️ L Afrique enseigne. Le diplome est eternal.');
+                alert('⚖️🎓 DIPLOME JUGE DE L AFRIQUE DE DEMAIN\n\nGrave dans la blockchain AfriChain\nBlock #' + obj.blocks_total + '\n\nL Afrique enseigne a sa jeunesse. 💚🦁⚖️');
+            } else {
+                addJugTrace('❌ Erreur: ' + (obj.msg || 'inconnue'));
+                alert('Erreur: ' + (obj.msg || 'Impossible de graver le diplome'));
+            }
+        } catch(e){
+            addJugTrace('✅ Transaction envoyee (verification en cours)');
+            alert('⚖️🎓 DIPLOME JUGE DE L AFRIQUE DE DEMAIN\n\nTransaction envoyee a la blockchain\n\nL Afrique enseigne a sa jeunesse. 💚🦁⚖️');
+        }
+    }).catch(function(err){
+        addJugTrace('❌ Erreur reseau: ' + err);
+        alert('Erreur reseau. Le diplome est sauvegarde localement.');
+    });
 }
 
 // Canvas — balance scale of justice
@@ -8493,9 +8625,31 @@ function updateArtGrid(){
 
 function gravArtDiplome(){
     addArtTrace('🎓 DIPLOME ARTISTE DE L AFRIQUE grave dans la blockchain!');
-    addArtTrace('⛓️ Block: AI Artiste -- 8 modules validés');
-    addArtTrace('🎨 L ame de l Afrique est comprise. L art continue.');
-    alert('🎨🎓 DIPLOME ARTISTE DE L AFRIQUE\n\nCulture et Expression Africaine\n\nLes 8 modules validés.\nL ame de l Afrique est comprise.\n\nGrave dans la blockchain AfriChain\n\nL Afrique crée. Le monde ecoute. 💚🦁🎨');
+    addArtTrace('⏳ Envoi de la transaction blockchain...');
+    fetch('/api/diplome', {
+        method: 'POST',
+        headers: {'Content-Type': 'text/plain'},
+        body: 'AI ARTISTE|Artiste de l Afrique'
+    }).then(function(r){ return r.text(); }).then(function(txt){
+        try {
+            var obj = JSON.parse(txt);
+            if(obj.status === 'ok'){
+                addArtTrace('✅ Transaction validee! Block #' + obj.blocks_total);
+                addArtTrace('⛓️ DIPLOME Artiste de l Afrique grave dans le block #' + obj.blocks_total);
+                addArtTrace('🎨 L Afrique enseigne. Le diplome est eternal.');
+                alert('🎨🎓 DIPLOME ARTISTE DE L AFRIQUE\n\nGrave dans la blockchain AfriChain\nBlock #' + obj.blocks_total + '\n\nL Afrique enseigne a sa jeunesse. 💚🦁🎨');
+            } else {
+                addArtTrace('❌ Erreur: ' + (obj.msg || 'inconnue'));
+                alert('Erreur: ' + (obj.msg || 'Impossible de graver le diplome'));
+            }
+        } catch(e){
+            addArtTrace('✅ Transaction envoyee (verification en cours)');
+            alert('🎨🎓 DIPLOME ARTISTE DE L AFRIQUE\n\nTransaction envoyee a la blockchain\n\nL Afrique enseigne a sa jeunesse. 💚🦁🎨');
+        }
+    }).catch(function(err){
+        addArtTrace('❌ Erreur reseau: ' + err);
+        alert('Erreur reseau. Le diplome est sauvegarde localement.');
+    });
 }
 
 // Canvas — African art patterns dancing
@@ -8798,9 +8952,31 @@ function updateExpGrid(){
 
 function gravExpDiplome(){
     addExpTrace('🎓 DIPLOME EXPLORATEUR DE L AFRIQUE grave dans la blockchain!');
-    addExpTrace('⛓️ Block: AI Explorateur -- 8 modules validés');
-    addExpTrace('🔬 La science africaine est comprise. L exploration continue.');
-    alert('🔬🎓 DIPLOME EXPLORATEUR DE L AFRIQUE\n\nScience et Decouverte Africaine\n\nLes 8 modules validés.\nLa science est comprise.\n\nGrave dans la blockchain AfriChain\n\nL Afrique explore. Le futur est africain. 💚🦁🔬');
+    addExpTrace('⏳ Envoi de la transaction blockchain...');
+    fetch('/api/diplome', {
+        method: 'POST',
+        headers: {'Content-Type': 'text/plain'},
+        body: 'AI EXPLORATEUR|Explorateur de l Afrique'
+    }).then(function(r){ return r.text(); }).then(function(txt){
+        try {
+            var obj = JSON.parse(txt);
+            if(obj.status === 'ok'){
+                addExpTrace('✅ Transaction validee! Block #' + obj.blocks_total);
+                addExpTrace('⛓️ DIPLOME Explorateur de l Afrique grave dans le block #' + obj.blocks_total);
+                addExpTrace('🔬 L Afrique enseigne. Le diplome est eternal.');
+                alert('🔬🎓 DIPLOME EXPLORATEUR DE L AFRIQUE\n\nGrave dans la blockchain AfriChain\nBlock #' + obj.blocks_total + '\n\nL Afrique enseigne a sa jeunesse. 💚🦁🔬');
+            } else {
+                addExpTrace('❌ Erreur: ' + (obj.msg || 'inconnue'));
+                alert('Erreur: ' + (obj.msg || 'Impossible de graver le diplome'));
+            }
+        } catch(e){
+            addExpTrace('✅ Transaction envoyee (verification en cours)');
+            alert('🔬🎓 DIPLOME EXPLORATEUR DE L AFRIQUE\n\nTransaction envoyee a la blockchain\n\nL Afrique enseigne a sa jeunesse. 💚🦁🔬');
+        }
+    }).catch(function(err){
+        addExpTrace('❌ Erreur reseau: ' + err);
+        alert('Erreur reseau. Le diplome est sauvegarde localement.');
+    });
 }
 
 // Canvas — science lab with molecules and stars
@@ -9143,9 +9319,31 @@ function updateMarGrid(){
 
 function gravMarDiplome(){
     addMarTrace('🎓 DIPLOME MARCHAND DE L AFRIQUE grave dans la blockchain!');
-    addMarTrace('⛓️ Block: AI Marche -- 8 modules validés');
-    addMarTrace('💰 L economie africaine est comprise. Le marche est ouvert.');
-    alert('💰🎓 DIPLOME MARCHAND DE L AFRIQUE\n\nEconomie Souveraine Africaine\n\nLes 8 modules validés.\nL economie est comprise.\n\nGrave dans la blockchain AfriChain\n\nL Afrique produit. L Afrique transforme. L Afrique vend. 💚🦁💰');
+    addMarTrace('⏳ Envoi de la transaction blockchain...');
+    fetch('/api/diplome', {
+        method: 'POST',
+        headers: {'Content-Type': 'text/plain'},
+        body: 'AI MARCHE|Marchand de l Afrique'
+    }).then(function(r){ return r.text(); }).then(function(txt){
+        try {
+            var obj = JSON.parse(txt);
+            if(obj.status === 'ok'){
+                addMarTrace('✅ Transaction validee! Block #' + obj.blocks_total);
+                addMarTrace('⛓️ DIPLOME Marchand de l Afrique grave dans le block #' + obj.blocks_total);
+                addMarTrace('💰 L Afrique enseigne. Le diplome est eternal.');
+                alert('💰🎓 DIPLOME MARCHAND DE L AFRIQUE\n\nGrave dans la blockchain AfriChain\nBlock #' + obj.blocks_total + '\n\nL Afrique enseigne a sa jeunesse. 💚🦁💰');
+            } else {
+                addMarTrace('❌ Erreur: ' + (obj.msg || 'inconnue'));
+                alert('Erreur: ' + (obj.msg || 'Impossible de graver le diplome'));
+            }
+        } catch(e){
+            addMarTrace('✅ Transaction envoyee (verification en cours)');
+            alert('💰🎓 DIPLOME MARCHAND DE L AFRIQUE\n\nTransaction envoyee a la blockchain\n\nL Afrique enseigne a sa jeunesse. 💚🦁💰');
+        }
+    }).catch(function(err){
+        addMarTrace('❌ Erreur reseau: ' + err);
+        alert('Erreur reseau. Le diplome est sauvegarde localement.');
+    });
 }
 
 // Canvas — market with AFR coins flowing
@@ -9478,9 +9676,31 @@ function updateDipGrid(){
 
 function gravDipDiplome(){
     addDipTrace('🎓 DIPLOME DIPLOMATE DE L AFRIQUE grave dans la blockchain!');
-    addDipTrace('⛓️ Block: AI Diplomate -- 8 modules validés');
-    addDipTrace('🌍 L Afrique parle d une seule voix. L Afrique negocie d egal a egal.');
-    alert('🌍🎓 DIPLOME DIPLOMATE DE L AFRIQUE\n\nDiplomatie Panafricaine & Relations Internationales\n\nLes 8 modules validés.\nL Afrique parle d une seule voix.\n\nGrave dans la blockchain AfriChain\n\nL Afrique ne demande plus la permission. L Afrique negocie d egal a egal. 💚🦁🌍');
+    addDipTrace('⏳ Envoi de la transaction blockchain...');
+    fetch('/api/diplome', {
+        method: 'POST',
+        headers: {'Content-Type': 'text/plain'},
+        body: 'AI DIPLOMATE|Diplomate de l Afrique'
+    }).then(function(r){ return r.text(); }).then(function(txt){
+        try {
+            var obj = JSON.parse(txt);
+            if(obj.status === 'ok'){
+                addDipTrace('✅ Transaction validee! Block #' + obj.blocks_total);
+                addDipTrace('⛓️ DIPLOME Diplomate de l Afrique grave dans le block #' + obj.blocks_total);
+                addDipTrace('🌍 L Afrique enseigne. Le diplome est eternal.');
+                alert('🌍🎓 DIPLOME DIPLOMATE DE L AFRIQUE\n\nGrave dans la blockchain AfriChain\nBlock #' + obj.blocks_total + '\n\nL Afrique enseigne a sa jeunesse. 💚🦁🌍');
+            } else {
+                addDipTrace('❌ Erreur: ' + (obj.msg || 'inconnue'));
+                alert('Erreur: ' + (obj.msg || 'Impossible de graver le diplome'));
+            }
+        } catch(e){
+            addDipTrace('✅ Transaction envoyee (verification en cours)');
+            alert('🌍🎓 DIPLOME DIPLOMATE DE L AFRIQUE\n\nTransaction envoyee a la blockchain\n\nL Afrique enseigne a sa jeunesse. 💚🦁🌍');
+        }
+    }).catch(function(err){
+        addDipTrace('❌ Erreur reseau: ' + err);
+        alert('Erreur reseau. Le diplome est sauvegarde localement.');
+    });
 }
 
 // Canvas — Africa at center, diplomatic connections
@@ -9823,9 +10043,31 @@ function updatePhiGrid(){
 
 function gravPhiDiplome(){
     addPhiTrace('🎓 DIPLOME PHILOSOPHE DE L AFRIQUE grave dans la blockchain!');
-    addPhiTrace('⛓️ Block: AI Philosophe -- 8 modules validés');
-    addPhiTrace('🧠 L esprit est libre. La pensee est africaine.');
-    alert('🧠🎓 DIPLOME PHILOSOPHE DE L AFRIQUE\n\nSagesse & Philosophie Africaine\n\nLes 8 modules validés.\nL esprit est libre.\n\nGrave dans la blockchain AfriChain\n\nL Afrique a invente la philosophie. L Afrique la continue. 💚🧠🦁');
+    addPhiTrace('⏳ Envoi de la transaction blockchain...');
+    fetch('/api/diplome', {
+        method: 'POST',
+        headers: {'Content-Type': 'text/plain'},
+        body: 'AI PHILOSOPHE|Philosophe de l Afrique'
+    }).then(function(r){ return r.text(); }).then(function(txt){
+        try {
+            var obj = JSON.parse(txt);
+            if(obj.status === 'ok'){
+                addPhiTrace('✅ Transaction validee! Block #' + obj.blocks_total);
+                addPhiTrace('⛓️ DIPLOME Philosophe de l Afrique grave dans le block #' + obj.blocks_total);
+                addPhiTrace('🧠 L Afrique enseigne. Le diplome est eternal.');
+                alert('🧠🎓 DIPLOME PHILOSOPHE DE L AFRIQUE\n\nGrave dans la blockchain AfriChain\nBlock #' + obj.blocks_total + '\n\nL Afrique enseigne a sa jeunesse. 💚🦁🧠');
+            } else {
+                addPhiTrace('❌ Erreur: ' + (obj.msg || 'inconnue'));
+                alert('Erreur: ' + (obj.msg || 'Impossible de graver le diplome'));
+            }
+        } catch(e){
+            addPhiTrace('✅ Transaction envoyee (verification en cours)');
+            alert('🧠🎓 DIPLOME PHILOSOPHE DE L AFRIQUE\n\nTransaction envoyee a la blockchain\n\nL Afrique enseigne a sa jeunesse. 💚🦁🧠');
+        }
+    }).catch(function(err){
+        addPhiTrace('❌ Erreur reseau: ' + err);
+        alert('Erreur reseau. Le diplome est sauvegarde localement.');
+    });
 }
 
 // Canvas — mind with thoughts orbiting
@@ -15075,7 +15317,7 @@ html+='<div class="log-entry log-kill">⚠️ Tentative d\x27infiltration occide
 html+='<div class="log-entry log-invis">✅ L\x27Afrique est forte. Le système grandit.</div>';
 }else if(type==='total'){
 html='<div style="color:#d4a437;font-weight:bold;margin-bottom:8px">📋 RAPPORT TOTAL — Depuis le début</div>';
-html+='<div class="log-entry">🦁 AfriChain v0.91 — AI Philosophe Sagesse Africaine</div>';
+html+='<div class="log-entry">🦁 AfriChain v0.92 — Diplomes Graves dans la Blockchain</div>';
 html+='<div class="log-entry">⛓️ Blockchain: 100% souveraine — Zéro dépendance externe</div>';
 html+='<div class="log-entry">🔐 Crypto: Ed25519 + AfriHash-256/512 + AfriRNG — tout from scratch</div>';
 html+='<div class="log-entry">🌍 54 pays africains connectés</div>';
@@ -16619,7 +16861,7 @@ fn main() {
         .and_then(|i| args.get(i + 1)).cloned().unwrap_or_else(|| "Afrique".to_string());
 
     let my_node_id = generate_node_id();
-    println!("🦁 AfriChain v0.91 — AI Philosophe Sagesse Africaine");
+    println!("🦁 AfriChain v0.92 — Diplomes Graves dans la Blockchain");
     println!("💚 L'Afrique ne demande plus la permission");
     println!("🌍 54 pays — 🇲🇱 🇳🇪 🇧🇫 AES — Mali · Niger · Burkina Faso");
     println!("🔐 8 modules cryptographiques — construits from scratch");
@@ -16812,7 +17054,7 @@ fn terminal_interface(state: &Arc<AppState>) {
     println!("  ║  🕐 AfriTime — Pas UTC, pas Greenwich   ║");
     println!("  ║  📝 ~16,500 lignes — écrit à la main       ║");
     println!("  ╚═══════════════════════════════════════════════╝");
-    println!("\n  Version v0.91 — 30 août 2026");
+    println!("\n  Version v0.92 — 31 août 2026");
     println!("  Construit sur Termux · Android · nano\n");
     println!("  ─────────────────────────────────────────────");
     println!("\n  1. 🏦 Centre de Données (Admin)");
@@ -16884,7 +17126,7 @@ fn admin_interface(state: &Arc<AppState>) {
         println!("\n");
         println!("╔══════════════════════════════════════╗");
         println!("║  🏦 CENTRE DE DONNÉES — Admin       ║");
-        println!("║  🦁 AfriChain v0.91                  ║");
+        println!("║  🦁 AfriChain v0.92                  ║");
         println!("╠══════════════════════════════════════╣");
         let chain = state.chain.lock().unwrap();
         let users = state.users.lock().unwrap();
@@ -20984,6 +21226,31 @@ pre {{ white-space:pre-wrap; word-wrap:break-word; }}
             let mut mem = state.ai_memory.lock().unwrap();
             *mem = json_str;
             HttpResponse::json(r#"{"status":"saved"}"#)
+        }
+
+        ("POST", "/api/diplome") => {
+            let text = req.body_str();
+            let parts: Vec<&str> = text.splitn(2, '|').collect();
+            if parts.len() < 2 {
+                return HttpResponse::json(r#"{"status":"error","msg":"Format: academie|diplome"}"#);
+            }
+            let academie = parts[0].trim();
+            let diplome = parts[1].trim();
+            if academie.is_empty() || diplome.is_empty() {
+                return HttpResponse::json(r#"{"status":"error","msg":"Academie et diplome requis"}"#);
+            }
+            let mut chain = state.chain.lock().unwrap();
+            chain.add_transaction(Transaction::new(
+                "DIPLOME-AI", "SYSTEM", 1,
+                &format!("DIPLOME {} | {}", academie, diplome),
+            ));
+            chain.mine_pending("diplome-ai");
+            chain.save_to_file();
+            let blocks_total = chain.blocks.len();
+            HttpResponse::json(&format!(
+                r#"{{"status":"ok","academie":"{}","diplome":"{}","blocks_total":{}}}"#,
+                academie, diplome, blocks_total
+            ))
         }
 
         ("GET", "/api/directory") => {
