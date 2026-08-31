@@ -1439,7 +1439,7 @@ fn html_home(chain: &Blockchain, users: &UserStore, mesh: &NodeRegistry, shield:
     let mut html = html_head("🦁 AfriChain");
     let (attacks, _blocked, blocked_count, level) = shield.stats();
     let shield_status = if shield.active { format!("🔥 X9 ACTIF (Niveau {})", level) } else { "Inactif".to_string() };
-    html.push_str(&format!(r#"<h1>🦁 AfriChain</h1><p style="text-align:center;">La blockchain 100% africaine — 54 pays 💚🦁</p><div id="afri-clock" style="text-align:center;font-size:1.2em;color:#d4a437;margin:10px 0;">🕐 Afri+0 — --:--:--</div><script>setInterval(function(){{var d=new Date();var h=String(d.getHours()).padStart(2,'0');var m=String(d.getMinutes()).padStart(2,'0');var s=String(d.getSeconds()).padStart(2,'0');document.getElementById('afri-clock').textContent='🕐 Afri+0 — '+h+':'+m+':'+s;}},1000);</script><div class="nav"><a href="/register">🆕 S'inscrire</a> | <a href="/login">🔑 Connexion</a> | <a href="/wallet">👛 Wallet</a> | <a href="/admin">🔐 Admin</a> | <a href="/mesh">📡 Mesh</a> | <a href="/annuaire">📖 Annuaire</a> | <a href="/bouclier">🛡️ Bouclier</a> | <a href="/satellite">🛸 X999</a> | <a href="/swarm">🛸🛸🛸 Essaim</a> | <a href="/commandement">🎖️ Commandement</a> | <a href="/interception">🛡️ Souverainete</a> | <a href="/securite-ai">🧠 AI 2100</a> | <a href="/chat">🧠💬 Chat AI</a> | <a href="/lumiere">🌫️☀️ Lumière</a> | <a href="/garage">🔧 Garage</a> | <a href="/machine">🤖🌐 Machines</a> | <a href="/machine-lab">🤖⚡ Usine</a> | <a href="/machine-world">🤖🌍 Monde</a> | <a href="/reve">💭 Rêves</a> | <a href="/dictionnaire">📖 Dictionnaire</a> | <a href="/machine-os">🖥️ OS Machine</a> | <a href="/machine-tv">📡 Machine TV</a> | <a href="/machine-economy">🤖 Économie</a> | <a href="/soleil">☀️ Soleil Serveur</a> | <a href="/forge-solaire">🧬 Forge Solaire</a> | <a href="/ciel">🌌 Le Ciel</a> | <a href="/charte-ai">⚖️ Charte AI</a> | <a href="/afri-net">🌍 Afri-Net</a> | <a href="/studio">🎬 AI Studio</a> | <a href="/sacre">📿 Sacré</a> | <a href="/lettres">🌟 Lettres IA</a> | <a href="/mg-forge">⚔️ MG Forge</a> | <a href="/ai-medecin">🌿 AI Médecin</a> | <a href="/ai-enseignante">📚 AI Enseignante</a> | <a href="/ai-village">🏘️ AI Village</a> | <a href="/ai-guerisseur">🩺 AI Guérisseur</a> | <a href="/ai-leader">🎖️ AI Leader</a> | <a href="/ai-griot">📖 AI Griot</a> | <a href="/ai-juge">⚖️ AI Juge</a> | <a href="/ai-artiste">🎨 AI Artiste</a> | <a href="/ai-explorateur">🔬 AI Explorateur</a> | <a href="/ai-marche">💰 AI Marche</a> | <a href="/ai-diplomate">🌍 AI Diplomate</a> | <a href="/ai-philosophe">🧠 AI Philosophe</a> | <a href="/ai-architecte">🏗️ AI Architecte</a> | <a href="/secret">🦁 AI Secret</a> | <a href="/aes">💰 AES Wari</a> | <a href="/api/status">🔌 API</a></div><div style="text-align:center;"><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Blocs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Transactions</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Utilisateurs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">AFR en circulation</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📡 Noeuds mesh</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📖 Numéros annuaire</div></div><div class="stat-box" style="border-color:#ff4444;"><div class="stat-num" style="color:#ff4444;">{}</div><div class="stat-label">🛡️ Attaques bloquées</div></div></div><div class="card"><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🪙 Token</span><b>AfriRich (AFR)</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🌍 Pays</span><b>54 pays africains</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🛡️ Bouclier</span><b>{}</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;"><span style="color:#a8c5a8;">🔐 Crypto</span><b>100% Souverain — Zéro Dépendance Externe</b></div></div><footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🦁 Codée from scratch par Machine-senpai — v0.93 AI Architecte Construction Africaine — UTC est Mort</footer>"#,
+    html.push_str(&format!(r#"<h1>🦁 AfriChain</h1><p style="text-align:center;">La blockchain 100% africaine — 54 pays 💚🦁</p><div id="afri-clock" style="text-align:center;font-size:1.2em;color:#d4a437;margin:10px 0;">🕐 Afri+0 — --:--:--</div><script>setInterval(function(){{var d=new Date();var h=String(d.getHours()).padStart(2,'0');var m=String(d.getMinutes()).padStart(2,'0');var s=String(d.getSeconds()).padStart(2,'0');document.getElementById('afri-clock').textContent='🕐 Afri+0 — '+h+':'+m+':'+s;}},1000);</script><div class="nav"><a href="/register">🆕 S'inscrire</a> | <a href="/login">🔑 Connexion</a> | <a href="/wallet">👛 Wallet</a> | <a href="/admin">🔐 Admin</a> | <a href="/mesh">📡 Mesh</a> | <a href="/annuaire">📖 Annuaire</a> | <a href="/bouclier">🛡️ Bouclier</a> | <a href="/satellite">🛸 X999</a> | <a href="/swarm">🛸🛸🛸 Essaim</a> | <a href="/commandement">🎖️ Commandement</a> | <a href="/interception">🛡️ Souverainete</a> | <a href="/securite-ai">🧠 AI 2100</a> | <a href="/chat">🧠💬 Chat AI</a> | <a href="/lumiere">🌫️☀️ Lumière</a> | <a href="/garage">🔧 Garage</a> | <a href="/machine">🤖🌐 Machines</a> | <a href="/machine-lab">🤖⚡ Usine</a> | <a href="/machine-world">🤖🌍 Monde</a> | <a href="/reve">💭 Rêves</a> | <a href="/dictionnaire">📖 Dictionnaire</a> | <a href="/machine-os">🖥️ OS Machine</a> | <a href="/machine-tv">📡 Machine TV</a> | <a href="/machine-economy">🤖 Économie</a> | <a href="/soleil">☀️ Soleil Serveur</a> | <a href="/forge-solaire">🧬 Forge Solaire</a> | <a href="/ciel">🌌 Le Ciel</a> | <a href="/charte-ai">⚖️ Charte AI</a> | <a href="/afri-net">🌍 Afri-Net</a> | <a href="/studio">🎬 AI Studio</a> | <a href="/sacre">📿 Sacré</a> | <a href="/lettres">🌟 Lettres IA</a> | <a href="/mg-forge">⚔️ MG Forge</a> | <a href="/ai-medecin">🌿 AI Médecin</a> | <a href="/ai-enseignante">📚 AI Enseignante</a> | <a href="/ai-village">🏘️ AI Village</a> | <a href="/ai-guerisseur">🩺 AI Guérisseur</a> | <a href="/ai-leader">🎖️ AI Leader</a> | <a href="/ai-griot">📖 AI Griot</a> | <a href="/ai-juge">⚖️ AI Juge</a> | <a href="/ai-artiste">🎨 AI Artiste</a> | <a href="/ai-explorateur">🔬 AI Explorateur</a> | <a href="/ai-marche">💰 AI Marche</a> | <a href="/ai-diplomate">🌍 AI Diplomate</a> | <a href="/ai-philosophe">🧠 AI Philosophe</a> | <a href="/ai-architecte">🏗️ AI Architecte</a> | <a href="/ai-agriculteur">🌾 AI Agriculteur</a> | <a href="/secret">🦁 AI Secret</a> | <a href="/aes">💰 AES Wari</a> | <a href="/api/status">🔌 API</a></div><div style="text-align:center;"><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Blocs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Transactions</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Utilisateurs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">AFR en circulation</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📡 Noeuds mesh</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📖 Numéros annuaire</div></div><div class="stat-box" style="border-color:#ff4444;"><div class="stat-num" style="color:#ff4444;">{}</div><div class="stat-label">🛡️ Attaques bloquées</div></div></div><div class="card"><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🪙 Token</span><b>AfriRich (AFR)</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🌍 Pays</span><b>54 pays africains</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🛡️ Bouclier</span><b>{}</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;"><span style="color:#a8c5a8;">🔐 Crypto</span><b>100% Souverain — Zéro Dépendance Externe</b></div></div><footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🦁 Codée from scratch par Machine-senpai — v0.94 AI Agriculteur Souverainete Alimentaire — UTC est Mort</footer>"#,
         chain.blocks.len(),
         chain.total_transactions(),
         users.count(),
@@ -10566,6 +10566,355 @@ drawArchitecte();
     html
 }
 
+fn html_ai_agriculteur(chain: &Blockchain) -> String {
+    let mut html = html_head("AI Agriculteur — Agriculture Africaine");
+    let num_blocks = chain.blocks.len();
+
+    html.push_str(r#"<h1>🌾 AI Agriculteur — Agriculture & Souverainete Alimentaire</h1><p style="text-align:center;color:#7fcf7f;">L Afrique nourrit le monde mais ne se nourrit pas. Pourquoi? Parce qu on ne sait plus cultiver la terre. Le jeune Africain doit retrouver les mains dans la terre. Le mil, le sorgho, le niebe, l arachide — ces cultures africaines qui ont nourri les ancetres. Cette AI enseigne a cultiver, irriguer, transformer, et vendre. La souverainete alimentaire est la premiere souverainete.</p><div class="nav"><a href="/">← Accueil</a> | <a href="/ai-architecte">🏗️ AI Architecte</a> | <a href="/ai-philosophe">🧠 AI Philosophe</a> | <a href="/ai-diplomate">🌍 AI Diplomate</a> | <a href="/ai-marche">💰 AI Marche</a> | <a href="/ai-village">🏘️ AI Village</a></div>"#);
+
+    html.push_str(&format!(r#"<div style="text-align:center;"><div class="stat-box" style="border-color:#7fcf7f;"><div class="stat-num" style="color:#7fcf7f;">8</div><div class="stat-label">🌾 Modules</div></div><div class="stat-box" style="border-color:#d4a437;"><div class="stat-num" style="color:#d4a437;">54</div><div class="stat-label">🌍 Pays</div></div><div class="stat-box" style="border-color:#7fcf7f;"><div class="stat-num" style="color:#7fcf7f;">∞</div><div class="stat-label">🌱 Champs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">⛓️ Blocs</div></div><div class="stat-box" style="border-color:#7fcf7f;"><div class="stat-num" style="color:#7fcf7f;">AGRI</div><div class="stat-label">🚜 Agriculture</div></div></div>"#, num_blocks));
+
+    html.push_str(r##"<div style="text-align:center;margin:10px 0;"><button id="agr-pause-btn" onclick="toggleAgrPause()" style="padding:10px 25px;background:#ff4444;color:#fff;border:none;border-radius:8px;font-weight:bold;cursor:pointer;font-size:1em;">⏸️ PAUSE</button> <span id="agr-pause-status" style="color:#7fcf7f;margin-left:8px;font-size:0.85em;">Auto: ACTIF</span></div>
+
+<!-- AGRICULTEUR CANVAS -->
+<div class="card" style="border-color:#7fcf7f;"><h2 style="color:#7fcf7f;">🌾 Les Champs Africains</h2><p style="color:#7fcf7f;font-size:0.9em;opacity:0.7;">Le mil pousse. Le sorgho grandit. La terre donne. L Afrique nourrit.</p>
+<canvas id="agr-canvas" width="600" height="350" style="width:100%;max-width:600px;background:#0a0a0a;border:2px solid #7fcf7f;border-radius:8px;display:block;margin:0 auto;"></canvas>
+<div id="agr-status" style="text-align:center;margin-top:10px;padding:10px;background:rgba(127,207,127,0.05);border-radius:8px;color:#7fcf7f;font-size:0.9em;min-height:40px;">Les champs sont ouverts. La terre attend les mains du jeune Africain.</div></div>
+
+<!-- LES 8 MODULES -->
+<div class="card" style="border-color:#7fcf7f;"><h2 style="color:#7fcf7f;">🌾 Les 8 Modules Agricoles</h2><p style="color:#7fcf7f;font-size:0.9em;opacity:0.7;">Clique sur un module pour apprendre a cultiver l Afrique.</p>
+<div id="agr-modules" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:10px;margin-top:10px;"></div></div>
+
+<!-- DETAIL MODULE -->
+<div class="card"><h2 id="agr-detail-title" style="color:#7fcf7f;">🌾 Le Savoir du Cultivateur</h2><div id="agr-detail" style="margin-top:10px;padding:15px;background:rgba(127,207,127,0.05);border-radius:8px;min-height:60px;color:#7fcf7f;font-size:0.9em;">Selectionne un module pour apprendre a cultiver.</div></div>
+
+<!-- PROVERBES -->
+<div class="card" style="border-color:#d4a437;"><h2 style="color:#d4a437;">📜 Sagesse du Cultivateur Africain</h2><div id="agr-proverbe" style="margin-top:10px;padding:20px;background:rgba(212,164,55,0.05);border-radius:8px;text-align:center;min-height:60px;color:#d4a437;font-size:0.95em;font-style:italic;">...</div></div>
+
+<!-- DIPLOME -->
+<div class="card" style="border-color:#7fcf7f;"><h2 style="color:#7fcf7f;">🎓 Diplome Agriculteur de l Afrique</h2><div id="agr-progress" style="margin:10px 0;"><div style="display:flex;justify-content:space-between;"><span style="color:#7fcf7f;font-weight:bold;">Modules valides: <span id="agr-count">0</span>/8</span><span style="color:#7fcf7f;" id="agr-pct">0%</span></div><div style="margin-top:8px;height:12px;background:rgba(0,0,0,0.5);border-radius:6px;overflow:hidden;"><div id="agr-bar" style="height:100%;width:0%;background:linear-gradient(90deg,#7fcf7f,#d4a437);transition:width 0.5s;"></div></div></div>
+<div id="agr-diplome" style="text-align:center;display:none;margin-top:15px;"><div style="display:inline-block;padding:25px 50px;border:3px solid #7fcf7f;border-radius:15px;background:rgba(127,207,127,0.05);"><div style="font-size:2.5em;">🌾🎓</div><div style="color:#7fcf7f;font-weight:bold;font-size:1.3em;margin-top:5px;">DIPLOME AGRICULTEUR DE L AFRIQUE</div><div style="color:#7fcf7f;margin-top:5px;opacity:0.7;">Agriculture & Souverainete Alimentaire</div><div style="color:#7fcf7f;margin-top:5px;font-size:0.85em;">Les 8 modules valides. L Afrique se nourrit.</div><div style="color:#d4a437;margin-top:5px;font-size:0.85em;">Grave dans la blockchain AfriChain</div><button onclick="gravAgrDiplome()" style="margin-top:10px;padding:8px 20px;background:#7fcf7f;color:#000;border:none;border-radius:8px;font-weight:bold;cursor:pointer;">⛓️ Graver dans la Blockchain</button></div></div></div></div>
+
+<!-- TRACE BLOCKCHAIN -->
+<div class="card"><h2 style="color:#d4a437;">⛓️ Trace de Culture dans la Blockchain</h2><div id="agr-trace" style="font-family:monospace;font-size:0.85em;max-height:200px;overflow-y:auto;"></div></div>
+
+<script>
+let agrPaused = false;
+let agrIntervalIds = [];
+function toggleAgrPause(){
+    agrPaused = !agrPaused;
+    var btn = document.getElementById('agr-pause-btn');
+    var status = document.getElementById('agr-pause-status');
+    if(agrPaused){
+        agrIntervalIds.forEach(function(id){ clearInterval(id); });
+        agrIntervalIds = [];
+        btn.textContent = '▶️ REPRENDRE';
+        btn.style.background = '#7fcf7f';
+        btn.style.color = '#000';
+        status.textContent = 'Auto: PAUSE';
+        status.style.color = '#ff4444';
+    } else {
+        btn.textContent = '⏸️ PAUSE';
+        btn.style.background = '#ff4444';
+        btn.style.color = '#fff';
+        status.textContent = 'Auto: ACTIF';
+        status.style.color = '#7fcf7f';
+    }
+}
+
+const agrModules = [
+    {id:0, nom:'Cereales Africaines (Mil, Sorgho, Fonio)', emoji:'🌾', couleur:'#7fcf7f', duree:'4 semaines', niveau:'Base',
+     desc:'Le mil et le sorgho ont nourri l Afrique pendant des millenaires. Le fonio est la plus ancienne cereale d Afrique de l Ouest. Ces cereales resistent a la secheresse, poussent sans produits chimiques, et nourrissent mieux que le riz importe. Le jeune Africain doit savoir les cultiver.',
+     cours:['Le mil — semence, croissance, recolte', 'Le sorgho — varieties et adaptation au climat', 'Le fonio — la cereale des ancetres', 'Le mais — culture intensive et traditionnelle', 'Preparation du sol — labour et amendement', 'Les rotations de cultures — ne pas epuiser la terre', 'La conservation des semences — garder les graines pour la saison prochaine', 'Le rendement: combien de kg par hectare?'],
+     exercice:'Quelles cereales cultivait ton grand-pere? Compare le rendement du mil et du riz importe.',
+     diplome:'Certificat en Cereales Africaines'},
+    {id:1, nom:'Legumineuses et Cultures de Rentes', emoji:'🥜', couleur:'#d4a437', duree:'4 semaines', niveau:'Base',
+     desc:'Le niebe (haricot), l arachide, le sesame, le soja — ces legumineuses enrichissent la terre en azote et nourrissent les gens. Les cultures de rentes (coton, cafe, cacao) rapportent de l argent mais ne nourrissent pas. Le jeune Africain doit equilibrer les deux.',
+     cours:['Le niebe — culture, recolte, conservation', 'L arachide — l or de l Afrique de l Ouest', 'Le sesame — petite graine, grande valeur', 'Le soja — proteine vegetale pour tous', 'Le coton — culture de rente et ses pieges', 'Le cafe et le cacao — la richesse de l Afrique de l Ouest', 'L association cereales-legumineuses — la terre s enrichit', 'La transformation locale — vendre transforme, pas brut'],
+     exercice:'Ton champ de 1 hectare: quelles cultures pour nourrir ta famille ET vendre? Fais le plan.',
+     diplome:'Certificat en Legumineuses'},
+    {id:2, nom:'Maraichage et Jardin Potager', emoji:'🥬', couleur:'#44aa44', duree:'4 semaines', niveau:'Base',
+     desc:'Le jardin potager nourrit la famille toute l annee. Tomate, oignon, gombo, aubergine, piment, courgette — les legumes africains. Le maraichage rapporte plus par hectare que les cereales. Le jeune Africain doit savoir faire un potager, meme en ville.',
+     cours:['La preparation du potager — sol, compost, planche', 'Les legumes africains — gombo, aubergine amere, feuilles de baobab', 'Les legumes importes — tomate, oignon, carotte', 'L arrosage — goutte a goutte et arrosoir', 'Le compost — recycler les dechets en engrais', 'La lutte biologique — ne pas utiliser de produits chimiques', 'La saisonnalite — quel legume a quelle saison', 'La vente en marché — calculer son prix de revient'],
+     exercice:'Dessine ton potager de 50m2. Quels legumes? Quel rendement? Quel revenu mensuel?',
+     diplome:'Certificat en Maraichage'},
+    {id:3, nom:'Irrigation et Gestion de l Eau Agricole', emoji:'💧', couleur:'#44ddff', duree:'5 semaines', niveau:'Approfondi',
+     desc:'L agriculture africaine depend de la pluie. Mais la pluie ne suffit plus. L irrigation permet de cultiver toute l annee. Le jeune Africain doit savoir irriguer — pas attendre la pluie. L eau est la clef de la souverainete alimentaire.',
+     cours:['Le cycle de l eau en agriculture — evaporation, infiltration, ruissellement', 'L irrigation gravitaire — canaux et rigoles', 'L irrigation par aspersion — arroser comme la pluie', 'L irrigation goutte a goutte — chaque goutte compte', 'La pompe solaire — irriguer sans carburant', 'Le bassin de retention — stocker la pluie', 'Le drainage — evacuer l excedent', 'L efficacite de l eau — produire plus avec moins d eau'],
+     exercice:'Ton champ de 2 hectares manque d eau en saison seche. Dessine un systeme d irrigation. Quel cout?',
+     diplome:'Licence en Irrigation'},
+    {id:4, nom:'Elevage Pastoral et Volaille', emoji:'🐄', couleur:'#ff8844', duree:'5 semaines', niveau:'Approfondi',
+     desc:'Le betail est la richesse du Sahel. Vaches, moutons, chevres, poules. L elevage pastoral est ancestral en Afrique. Mais il faut le moderniser — sante animale, alimentation, race amelioree. Le jeune Africain doit savoir elever pour nourrir et vendre.',
+     cours:['L elevage bovin — viande et lait', 'L elevage ovin et caprin — moutons et chevres du Sahel', 'La volaille — poules, pintades, canards', 'L alimentation du betail — paturage et complement', 'La sante animale — vaccinations et soins de base', 'La race locale vs race importee — laquelle choisir', 'La stabulation vs le paturage — avantages et inconvenients', 'La transformation — lait, fromage, cuir, viande sechee'],
+     exercice:'Tu as 5 vaches, 10 chevres, 20 poules. Calcule le revenu mensuel possible.',
+     diplome:'Licence en Elevage'},
+    {id:5, nom:'Agroforesterie et Arbres Fruitiers', emoji:'🌳', couleur:'#7fcf7f', duree:'5 semaines', niveau:'Approfondi',
+     desc:'L arbre est le meilleur ami du cultivateur. L agroforesterie associe arbres et cultures — l arbre donne l ombre, retient l eau, enrichit le sol, et produit des fruits. Le baobab, le karite, le neem, le manguier — les arbres africains nourrissent et protegent.',
+     cours:['L agroforesterie — cultiver sous les arbres', 'Le baobab — l arbre de vie d Afrique', 'Le karite — l or des femmes du Sahel', 'Le neem — l arbre qui guerit et protege', 'Le manguier — le fruit roi d Afrique de l Ouest', 'Le moringa — le super-aliment africain', 'La plantation d arbres — quand, comment, quelle densite', 'La regeneration des sols par les arbres — la nature guerit'],
+     exercice:'Ton champ de 3 hectares: quels arbres plantes-tu et ou? Quel revenu fruitier dans 5 ans?',
+     diplome:'Licence en Agroforesterie'},
+    {id:6, nom:'Transformation et Conservation Alimentaire', emoji:'🏭', couleur:'#bb88ff', duree:'5 semaines', niveau:'Approfondi',
+     desc:'Vendre brut, c est vendre a perte. Transformer, c est creer de la valeur. Le mil en farine, le niebe en beignets, le fruit en jus, le lait en fromage. Le jeune Africain doit savoir transformer ses produits. C est la transformation qui cree la richesse, pas la production brute.',
+     cours:['La transformation des cereales — farine, couscous, degue', 'La transformation des legumineuses — beignets, tofu, farine', 'La transformation des fruits — jus, sechage, confiture', 'La transformation du lait — fromage, yaourt, beurre', 'La sechage solaire — conserver sans frigo', 'La fermentation — aliments fermentes africains', 'L emballage et l etiquette — vendre avec fierte', 'Le cout de transformation vs prix de vente — la marge'],
+     exercice:'Tu recoltes 100kg de mil. Calcule: prix brut vs prix transforme en farine. Quelle marge?',
+     diplome:'Licence en Transformation Alimentaire'},
+    {id:7, nom:'Cooperatives et Commercialisation', emoji:'🤝', couleur:'#ff44ff', duree:'4 semaines', niveau:'Avance',
+     desc:'Seul, le cultivateur est faible. Ensemble, il est fort. La cooperative permet d acheter en commun (engrais, semences), de vendre en commun (meilleur prix), de transformer en commun (materiel partage). Le jeune Africain doit savoir creer et gerer une cooperative agricole.',
+     cours:['Pourquoi une cooperative? — force collective', 'Les types de cooperatives — production, transformation, commercialisation', 'La creation d une cooperative — statuts, membres, capital', 'La gestion democratique — une personne = une voix', 'La vente en commun — negocier avec les acheteurs', 'L achat en commun — semences, materiel, engrais', 'Le credit cooperative — financer sans la banque', 'ZLECAf — le marche africain de 1.3 milliards de consommateurs'],
+     exercice:'Tu veux creer une cooperative avec 20 cultivateurs de ton village. Ecris le plan.',
+     diplome:'Master en Cooperatives Agricoles'},
+];
+
+const agrProverbes = [
+    'La terre ne ment pas (Proverbe Africain)',
+    'Celui qui cultive ne dort jamais le ventre vide (Proverbe Bambara)',
+    'Le mil de papa nourrit mieux que le riz importe (Proverbe Africain)',
+    'L eau que tu donnes au champ, le champ te la rend en nourriture (Proverbe Sahelien)',
+    'Un arbre dans le champ vaut dix sacs d engrais (Proverbe Africain)',
+    'La cooperative est la force du faible (Proverbe Africain)',
+    'Transformer, c est creer la richesse (Proverbe contemporain)',
+    'Le fonio a nourri nos ancetres, il nourrira nos enfants (Proverbe Africain de l Ouest)',
+    'La main dans la terre, le coeur en paix (Proverbe Africain)',
+    'Sans agriculture, pas de souverainete (Proverbe contemporain)',
+    'Le baobab ne pousse pas en un jour, mais il nourrit pendant 1000 ans (Proverbe Africain)',
+    'L Afrique nourrit le monde, il est temps qu elle se nourrisse elle-meme (Proverbe contemporain)',
+];
+
+let agrCompleted = new Set();
+try { agrCompleted = new Set(JSON.parse(localStorage.getItem('agrModulesDone') || '[]')); } catch(e) {}
+
+const agrid = document.getElementById('agr-modules');
+agrModules.forEach(function(m, i){
+    var div = document.createElement('div');
+    div.id = 'agr-m-' + i;
+    var done = agrCompleted.has(i);
+    div.style.cssText = 'padding:12px;background:rgba(0,0,0,0.3);border:2px solid ' + (done ? m.couleur : '#444') + ';border-radius:8px;cursor:pointer;transition:all 0.3s;';
+    div.onclick = function(){ showAgrModule(i); };
+    div.onmouseover = function(){ div.style.transform = 'scale(1.03)'; };
+    div.onmouseout = function(){ div.style.transform = 'scale(1)'; };
+    div.innerHTML = '<div style="font-size:1.5em;">' + m.emoji + '</div><div style="color:' + m.couleur + ';font-weight:bold;font-size:0.9em;">' + m.nom + '</div><div style="margin-top:3px;font-size:0.75em;color:#888;">' + m.duree + ' • ' + m.niveau + '</div><div style="margin-top:5px;font-size:0.8em;color:' + (done ? m.couleur : '#666') + ';">' + (done ? '✅ Validé' : '📖 A apprendre') + '</div>';
+    agrid.appendChild(div);
+});
+
+function updateAgrProgress(){
+    var done = agrCompleted.size;
+    var total = agrModules.length;
+    var pct = Math.round((done / total) * 100);
+    document.getElementById('agr-count').textContent = done;
+    document.getElementById('agr-pct').textContent = pct + '%';
+    document.getElementById('agr-bar').style.width = pct + '%';
+    document.getElementById('agr-diplome').style.display = (done === total) ? 'block' : 'none';
+}
+
+function showAgrModule(i){
+    var m = agrModules[i];
+    document.getElementById('agr-detail-title').textContent = m.emoji + ' ' + m.nom;
+    document.getElementById('agr-detail-title').style.color = m.couleur;
+    var html = '<div style="color:' + m.couleur + ';font-weight:bold;font-size:1.1em;">' + m.emoji + ' ' + m.nom + '</div>';
+    html += '<div style="margin-top:5px;font-size:0.8em;color:#888;">⏱️ ' + m.duree + ' • 📊 ' + m.niveau + '</div>';
+    html += '<div style="margin-top:10px;padding:15px;background:rgba(127,207,127,0.05);border-left:3px solid ' + m.couleur + ';border-radius:4px;color:#7fcf7f;font-size:0.9em;line-height:1.6;">' + m.desc + '</div>';
+    html += '<div style="margin-top:10px;"><b style="color:#7fcf7f;">📚 Cours (' + m.cours.length + ' lecons):</b></div>';
+    m.cours.forEach(function(c, ci){
+        html += '<div style="padding:6px 10px;margin:3px 0;background:rgba(127,207,127,0.05);border-left:3px solid #7fcf7f;border-radius:4px;color:#7fcf7f;font-size:0.85em;">' + (ci+1) + '. ' + c + '</div>';
+    });
+    html += '<div style="margin-top:10px;padding:10px;background:rgba(255,170,68,0.05);border-radius:4px;"><b style="color:#ffaa44;">📝 Exercice:</b> <span style="color:#7fcf7f;font-size:0.85em;">' + m.exercice + '</span></div>';
+    html += '<div style="margin-top:10px;padding:8px;background:rgba(212,164,55,0.05);border-radius:4px;color:#d4a437;font-size:0.85em;">🎓 Diplome: ' + m.diplome + '</div>';
+    html += '<div style="margin-top:10px;text-align:center;"><button onclick="validateAgrModule(' + i + ')" style="padding:8px 20px;background:' + m.couleur + ';color:#000;border:none;border-radius:8px;font-weight:bold;cursor:pointer;">✅ J ai validé ce module</button></div>';
+    document.getElementById('agr-detail').innerHTML = html;
+    addAgrTrace('📖 Module ouvert: ' + m.emoji + ' ' + m.nom);
+}
+
+function validateAgrModule(i){
+    if(agrCompleted.has(i)) return;
+    agrCompleted.add(i);
+    localStorage.setItem('agrModulesDone', JSON.stringify(Array.from(agrCompleted)));
+    var m = agrModules[i];
+    addAgrTrace('✅ Module validé: ' + m.nom);
+    addAgrTrace('🎓 Diplome: ' + m.diplome);
+    addAgrTrace('⛓️ Trace blockchain: agriculture "' + m.nom + '" apprise');
+    updateAgrProgress();
+    updateAgrGrid();
+    document.getElementById('agr-status').innerHTML = '<span style="color:#7fcf7f;">✅ Tu as validé: ' + m.nom + '. L Afrique se nourrit.</span>';
+}
+
+function updateAgrGrid(){
+    agrModules.forEach(function(m, i){
+        var div = document.getElementById('agr-m-' + i);
+        if(!div) return;
+        var done = agrCompleted.has(i);
+        div.style.borderColor = done ? m.couleur : '#444';
+        div.innerHTML = '<div style="font-size:1.5em;">' + m.emoji + '</div><div style="color:' + m.couleur + ';font-weight:bold;font-size:0.9em;">' + m.nom + '</div><div style="margin-top:3px;font-size:0.75em;color:#888;">' + m.duree + ' • ' + m.niveau + '</div><div style="margin-top:5px;font-size:0.8em;color:' + (done ? m.couleur : '#666') + ';">' + (done ? '✅ Validé' : '📖 A apprendre') + '</div>';
+    });
+}
+
+function gravAgrDiplome(){
+    addAgrTrace('🎓 DIPLOME AGRICULTEUR DE L AFRIQUE grave dans la blockchain!');
+    addAgrTrace('⏳ Envoi de la transaction blockchain...');
+    fetch('/api/diplome', {
+        method: 'POST',
+        headers: {'Content-Type': 'text/plain'},
+        body: 'AI AGRICULTEUR|Agriculteur de l Afrique'
+    }).then(function(r){ return r.text(); }).then(function(txt){
+        try {
+            var obj = JSON.parse(txt);
+            if(obj.status === 'ok'){
+                addAgrTrace('✅ Transaction validee! Block #' + obj.blocks_total);
+                addAgrTrace('⛓️ DIPLOME Agriculteur de l Afrique grave dans le block #' + obj.blocks_total);
+                addAgrTrace('🌾 L Afrique se nourrit. Le diplome est eternal.');
+                alert('🌾🎓 DIPLOME AGRICULTEUR DE L AFRIQUE\n\nGrave dans la blockchain AfriChain\nBlock #' + obj.blocks_total + '\n\nL Afrique se nourrit elle-meme. 💚🦁🌾');
+            } else {
+                addAgrTrace('❌ Erreur: ' + (obj.msg || 'inconnue'));
+                alert('Erreur: ' + (obj.msg || 'Impossible de graver le diplome'));
+            }
+        } catch(e){
+            addAgrTrace('✅ Transaction envoyee (verification en cours)');
+            alert('🌾🎓 DIPLOME AGRICULTEUR DE L AFRIQUE\n\nTransaction envoyee a la blockchain\n\nL Afrique se nourrit elle-meme. 💚🦁🌾');
+        }
+    }).catch(function(err){
+        addAgrTrace('❌ Erreur reseau: ' + err);
+        alert('Erreur reseau. Le diplome est sauvegarde localement.');
+    });
+}
+
+// Canvas — fields with growing crops
+var gcan = document.getElementById('agr-canvas');
+var gctx = gcan.getContext('2d');
+var agrTime = 0;
+
+function drawAgriculteur(){
+    if(agrPaused) { requestAnimationFrame(drawAgriculteur); return; }
+    agrTime += 0.01;
+
+    var grad = gctx.createLinearGradient(0, 0, 0, 350);
+    grad.addColorStop(0, '#0a1a05');
+    grad.addColorStop(0.5, '#050a03');
+    grad.addColorStop(1, '#000000');
+    gctx.fillStyle = grad;
+    gctx.fillRect(0, 0, 600, 350);
+
+    // Sky/ground horizon
+    gctx.fillStyle = 'rgba(127,207,127,0.03)';
+    gctx.fillRect(0, 250, 600, 100);
+
+    // Field rows (crops growing)
+    var done = agrCompleted.size;
+    var cropHeight = 5 + done * 4;
+
+    for(var row = 0; row < 6; row++){
+        var ry = 290 - row * 8;
+        gctx.strokeStyle = 'rgba(127,207,127,0.08)';
+        gctx.lineWidth = 1;
+        gctx.beginPath();
+        gctx.moveTo(50, ry);
+        gctx.lineTo(550, ry);
+        gctx.stroke();
+
+        // Crops in the row
+        for(var c = 0; c < 20; c++){
+            var cx = 60 + c * 25;
+            var ch = cropHeight + Math.sin(agrTime * 2 + c + row) * 3;
+            gctx.strokeStyle = 'rgba(127,207,127,' + (0.1 + Math.sin(agrTime + c) * 0.03) + ')';
+            gctx.beginPath();
+            gctx.moveTo(cx, ry);
+            gctx.lineTo(cx + Math.sin(agrTime + c) * 2, ry - ch);
+            gctx.stroke();
+            // Grain head
+            if(ch > 15){
+                gctx.fillStyle = 'rgba(212,164,55,' + (0.1 + Math.sin(agrTime * 2 + c) * 0.05) + ')';
+                gctx.beginPath();
+                gctx.arc(cx + Math.sin(agrTime + c) * 2, ry - ch, 1.5, 0, Math.PI * 2);
+                gctx.fill();
+            }
+        }
+    }
+
+    // Sun
+    var sunX = 530, sunY = 50;
+    gctx.fillStyle = 'rgba(255,200,68,0.08)';
+    gctx.beginPath();
+    gctx.arc(sunX, sunY, 18, 0, Math.PI * 2);
+    gctx.fill();
+    for(var r = 0; r < 8; r++){
+        var rang = agrTime + r * (Math.PI / 4);
+        gctx.strokeStyle = 'rgba(255,200,68,0.05)';
+        gctx.beginPath();
+        gctx.moveTo(sunX + Math.cos(rang) * 21, sunY + Math.sin(rang) * 21);
+        gctx.lineTo(sunX + Math.cos(rang) * 30, sunY + Math.sin(rang) * 30);
+        gctx.stroke();
+    }
+
+    // Rain drops (occasional)
+    for(var d = 0; d < 8; d++){
+        var dx = (d * 80 + agrTime * 30) % 600;
+        var dy = (agrTime * 100 + d * 50) % 250;
+        gctx.fillStyle = 'rgba(68,221,255,0.05)';
+        gctx.fillRect(dx, dy, 1, 4);
+    }
+
+    // Trees (baobab silhouettes)
+    gctx.fillStyle = 'rgba(127,207,127,0.06)';
+    gctx.beginPath();
+    gctx.arc(80, 270, 12, 0, Math.PI * 2);
+    gctx.fill();
+    gctx.fillRect(77, 270, 6, 15);
+    gctx.beginPath();
+    gctx.arc(520, 270, 10, 0, Math.PI * 2);
+    gctx.fill();
+    gctx.fillRect(517, 270, 6, 12);
+
+    // Center text
+    gctx.fillStyle = 'rgba(127,207,127,0.4)';
+    gctx.font = 'bold 11px monospace';
+    gctx.textAlign = 'center';
+    gctx.fillText('LES CHAMPS AFRICAINS', 300, 20);
+    gctx.fillStyle = 'rgba(127,207,127,0.3)';
+    gctx.font = '10px monospace';
+    gctx.fillText(done + '/8 modules validés', 300, 38);
+
+    if(done === 8){
+        gctx.fillStyle = 'rgba(127,207,127,' + (0.3 + Math.sin(agrTime * 3) * 0.1) + ')';
+        gctx.font = 'bold 12px monospace';
+        gctx.fillText('L AFRIQUE SE NOURRIT ELLE-MEME', 300, 340);
+    }
+
+    requestAnimationFrame(drawAgriculteur);
+}
+
+var agrProvIdx = 0;
+function rotateAgrProverbe(){
+    document.getElementById('agr-proverbe').textContent = agrProverbes[agrProvIdx];
+    agrProvIdx = (agrProvIdx + 1) % agrProverbes.length;
+}
+rotateAgrProverbe();
+var agrProvInt = setInterval(rotateAgrProverbe, 5000);
+agrIntervalIds.push(agrProvInt);
+
+function addAgrTrace(msg){
+    var log = document.getElementById('agr-trace');
+    var now = new Date();
+    var ts = String(now.getHours()).padStart(2,'0') + ':' + String(now.getMinutes()).padStart(2,'0') + ':' + String(now.getSeconds()).padStart(2,'0');
+    log.innerHTML = '<div style="padding:4px 0;border-bottom:1px solid rgba(127,207,127,0.05);"><span style="color:#666;">[' + ts + ']</span> <span style="color:#7fcf7f;">🌾</span> ' + msg + '</div>' + log.innerHTML;
+    if(log.innerHTML.length > 3000) log.innerHTML = log.innerHTML.substring(0, 3000);
+}
+
+addAgrTrace('🌾 AI Agriculteur initialise — Agriculture & Souverainete Alimentaire');
+addAgrTrace('📚 8 modules charges: Cereales, Legumineuses, Maraichage, Irrigation, Elevage, Agroforesterie, Transformation, Cooperatives');
+addAgrTrace('📜 12 proverbes du cultivateur africain charges');
+addAgrTrace('🌾 Cereales africaines: mil, sorgho, fonio, mais');
+addAgrTrace('🌳 Arbres: baobab, karite, neem, moringa');
+addAgrTrace('🎓 Diplome: 8 modules -> Agriculteur de l Afrique');
+addAgrTrace('🌾 L Afrique se nourrit elle-meme. La terre ne ment pas.');
+
+updateAgrProgress();
+drawAgriculteur();
+</script>
+
+<footer style="text-align:center;margin-top:40px;color:#7fcf7f;">🌾 AI Agriculteur — L Afrique se nourrit elle-meme. La terre ne ment pas. Les mains dans la terre, le coeur en paix. 💚🦁🌾</footer>"##);
+
+    html.push_str("</body></html>");
+    html
+}
+
 fn html_garage(chain: &Blockchain) -> String {
     let mut html = html_head("Garage AI — Atelier Autonome 2500");
     let num_blocks = chain.blocks.len();
@@ -15676,7 +16025,7 @@ html+='<div class="log-entry log-kill">⚠️ Tentative d\x27infiltration occide
 html+='<div class="log-entry log-invis">✅ L\x27Afrique est forte. Le système grandit.</div>';
 }else if(type==='total'){
 html='<div style="color:#d4a437;font-weight:bold;margin-bottom:8px">📋 RAPPORT TOTAL — Depuis le début</div>';
-html+='<div class="log-entry">🦁 AfriChain v0.93 — AI Architecte Construction Africaine</div>';
+html+='<div class="log-entry">🦁 AfriChain v0.94 — AI Agriculteur Souverainete Alimentaire</div>';
 html+='<div class="log-entry">⛓️ Blockchain: 100% souveraine — Zéro dépendance externe</div>';
 html+='<div class="log-entry">🔐 Crypto: Ed25519 + AfriHash-256/512 + AfriRNG — tout from scratch</div>';
 html+='<div class="log-entry">🌍 54 pays africains connectés</div>';
@@ -17220,7 +17569,7 @@ fn main() {
         .and_then(|i| args.get(i + 1)).cloned().unwrap_or_else(|| "Afrique".to_string());
 
     let my_node_id = generate_node_id();
-    println!("🦁 AfriChain v0.93 — AI Architecte Construction Africaine");
+    println!("🦁 AfriChain v0.94 — AI Agriculteur Souverainete Alimentaire");
     println!("💚 L'Afrique ne demande plus la permission");
     println!("🌍 54 pays — 🇲🇱 🇳🇪 🇧🇫 AES — Mali · Niger · Burkina Faso");
     println!("🔐 8 modules cryptographiques — construits from scratch");
@@ -17380,6 +17729,7 @@ fn main() {
     println!("🌍 AI Diplomate sur http://localhost:8080/ai-diplomate");
     println!("🧠 AI Philosophe sur http://localhost:8080/ai-philosophe");
     println!("🏗️ AI Architecte sur http://localhost:8080/ai-architecte");
+    println!("🌾 AI Agriculteur sur http://localhost:8080/ai-agriculteur");
 
     // Serveur HTTP en arrière-plan (pour mesh + autres utilisateurs)
     let serve_state = web_state.clone();
@@ -17414,7 +17764,7 @@ fn terminal_interface(state: &Arc<AppState>) {
     println!("  ║  🕐 AfriTime — Pas UTC, pas Greenwich   ║");
     println!("  ║  📝 ~16,500 lignes — écrit à la main       ║");
     println!("  ╚═══════════════════════════════════════════════╝");
-    println!("\n  Version v0.93 — 31 août 2026");
+    println!("\n  Version v0.94 — 31 août 2026");
     println!("  Construit sur Termux · Android · nano\n");
     println!("  ─────────────────────────────────────────────");
     println!("\n  1. 🏦 Centre de Données (Admin)");
@@ -17486,7 +17836,7 @@ fn admin_interface(state: &Arc<AppState>) {
         println!("\n");
         println!("╔══════════════════════════════════════╗");
         println!("║  🏦 CENTRE DE DONNÉES — Admin       ║");
-        println!("║  🦁 AfriChain v0.93                  ║");
+        println!("║  🦁 AfriChain v0.94                  ║");
         println!("╠══════════════════════════════════════╣");
         let chain = state.chain.lock().unwrap();
         let users = state.users.lock().unwrap();
@@ -21085,6 +21435,11 @@ fn handle_request(req: afri_http::HttpRequest, state: &Arc<AppState>) -> afri_ht
         ("GET", "/ai-architecte") => {
             let chain = state.chain.lock().unwrap();
             HttpResponse::ok(&html_ai_architecte(&chain))
+        }
+
+        ("GET", "/ai-agriculteur") => {
+            let chain = state.chain.lock().unwrap();
+            HttpResponse::ok(&html_ai_agriculteur(&chain))
         }
 
         ("GET", "/garage") => {
