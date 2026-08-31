@@ -1439,7 +1439,7 @@ fn html_home(chain: &Blockchain, users: &UserStore, mesh: &NodeRegistry, shield:
     let mut html = html_head("🦁 AfriChain");
     let (attacks, _blocked, blocked_count, level) = shield.stats();
     let shield_status = if shield.active { format!("🔥 X9 ACTIF (Niveau {})", level) } else { "Inactif".to_string() };
-    html.push_str(&format!(r#"<h1>🦁 AfriChain</h1><p style="text-align:center;">La blockchain 100% africaine — 54 pays 💚🦁</p><div id="afri-clock" style="text-align:center;font-size:1.2em;color:#d4a437;margin:10px 0;">🕐 Afri+0 — --:--:--</div><script>setInterval(function(){{var d=new Date();var h=String(d.getHours()).padStart(2,'0');var m=String(d.getMinutes()).padStart(2,'0');var s=String(d.getSeconds()).padStart(2,'0');document.getElementById('afri-clock').textContent='🕐 Afri+0 — '+h+':'+m+':'+s;}},1000);</script><div class="nav"><a href="/register">🆕 S'inscrire</a> | <a href="/login">🔑 Connexion</a> | <a href="/wallet">👛 Wallet</a> | <a href="/admin">🔐 Admin</a> | <a href="/mesh">📡 Mesh</a> | <a href="/annuaire">📖 Annuaire</a> | <a href="/bouclier">🛡️ Bouclier</a> | <a href="/satellite">🛸 X999</a> | <a href="/swarm">🛸🛸🛸 Essaim</a> | <a href="/commandement">🎖️ Commandement</a> | <a href="/interception">🛡️ Souverainete</a> | <a href="/securite-ai">🧠 AI 2100</a> | <a href="/chat">🧠💬 Chat AI</a> | <a href="/lumiere">🌫️☀️ Lumière</a> | <a href="/garage">🔧 Garage</a> | <a href="/machine">🤖🌐 Machines</a> | <a href="/machine-lab">🤖⚡ Usine</a> | <a href="/machine-world">🤖🌍 Monde</a> | <a href="/reve">💭 Rêves</a> | <a href="/dictionnaire">📖 Dictionnaire</a> | <a href="/machine-os">🖥️ OS Machine</a> | <a href="/machine-tv">📡 Machine TV</a> | <a href="/machine-economy">🤖 Économie</a> | <a href="/soleil">☀️ Soleil Serveur</a> | <a href="/forge-solaire">🧬 Forge Solaire</a> | <a href="/ciel">🌌 Le Ciel</a> | <a href="/charte-ai">⚖️ Charte AI</a> | <a href="/afri-net">🌍 Afri-Net</a> | <a href="/studio">🎬 AI Studio</a> | <a href="/sacre">📿 Sacré</a> | <a href="/lettres">🌟 Lettres IA</a> | <a href="/mg-forge">⚔️ MG Forge</a> | <a href="/ai-medecin">🌿 AI Médecin</a> | <a href="/ai-enseignante">📚 AI Enseignante</a> | <a href="/ai-village">🏘️ AI Village</a> | <a href="/ai-guerisseur">🩺 AI Guérisseur</a> | <a href="/ai-leader">🎖️ AI Leader</a> | <a href="/ai-griot">📖 AI Griot</a> | <a href="/ai-juge">⚖️ AI Juge</a> | <a href="/ai-artiste">🎨 AI Artiste</a> | <a href="/ai-explorateur">🔬 AI Explorateur</a> | <a href="/ai-marche">💰 AI Marche</a> | <a href="/ai-diplomate">🌍 AI Diplomate</a> | <a href="/ai-philosophe">🧠 AI Philosophe</a> | <a href="/ai-architecte">🏗️ AI Architecte</a> | <a href="/ai-agriculteur">🌾 AI Agriculteur</a> | <a href="/ai-environnement">🌍 AI Environnement</a> | <a href="/secret">🦁 AI Secret</a> | <a href="/aes">💰 AES Wari</a> | <a href="/api/status">🔌 API</a></div><div style="text-align:center;"><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Blocs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Transactions</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Utilisateurs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">AFR en circulation</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📡 Noeuds mesh</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📖 Numéros annuaire</div></div><div class="stat-box" style="border-color:#ff4444;"><div class="stat-num" style="color:#ff4444;">{}</div><div class="stat-label">🛡️ Attaques bloquées</div></div></div><div class="card"><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🪙 Token</span><b>AfriRich (AFR)</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🌍 Pays</span><b>54 pays africains</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🛡️ Bouclier</span><b>{}</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;"><span style="color:#a8c5a8;">🔐 Crypto</span><b>100% Souverain — Zéro Dépendance Externe</b></div></div><footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🦁 Codée from scratch par Machine-senpai — v0.95 AI Environnement Climat Ecologie — UTC est Mort</footer>"#,
+    html.push_str(&format!(r#"<h1>🦁 AfriChain</h1><p style="text-align:center;">La blockchain 100% africaine — 54 pays 💚🦁</p><div id="afri-clock" style="text-align:center;font-size:1.2em;color:#d4a437;margin:10px 0;">🕐 Afri+0 — --:--:--</div><script>setInterval(function(){{var d=new Date();var h=String(d.getHours()).padStart(2,'0');var m=String(d.getMinutes()).padStart(2,'0');var s=String(d.getSeconds()).padStart(2,'0');document.getElementById('afri-clock').textContent='🕐 Afri+0 — '+h+':'+m+':'+s;}},1000);</script><div class="nav"><a href="/register">🆕 S'inscrire</a> | <a href="/login">🔑 Connexion</a> | <a href="/wallet">👛 Wallet</a> | <a href="/admin">🔐 Admin</a> | <a href="/mesh">📡 Mesh</a> | <a href="/annuaire">📖 Annuaire</a> | <a href="/bouclier">🛡️ Bouclier</a> | <a href="/satellite">🛸 X999</a> | <a href="/swarm">🛸🛸🛸 Essaim</a> | <a href="/commandement">🎖️ Commandement</a> | <a href="/interception">🛡️ Souverainete</a> | <a href="/securite-ai">🧠 AI 2100</a> | <a href="/chat">🧠💬 Chat AI</a> | <a href="/lumiere">🌫️☀️ Lumière</a> | <a href="/garage">🔧 Garage</a> | <a href="/machine">🤖🌐 Machines</a> | <a href="/machine-lab">🤖⚡ Usine</a> | <a href="/machine-world">🤖🌍 Monde</a> | <a href="/reve">💭 Rêves</a> | <a href="/dictionnaire">📖 Dictionnaire</a> | <a href="/machine-os">🖥️ OS Machine</a> | <a href="/machine-tv">📡 Machine TV</a> | <a href="/machine-economy">🤖 Économie</a> | <a href="/soleil">☀️ Soleil Serveur</a> | <a href="/forge-solaire">🧬 Forge Solaire</a> | <a href="/ciel">🌌 Le Ciel</a> | <a href="/charte-ai">⚖️ Charte AI</a> | <a href="/afri-net">🌍 Afri-Net</a> | <a href="/studio">🎬 AI Studio</a> | <a href="/sacre">📿 Sacré</a> | <a href="/lettres">🌟 Lettres IA</a> | <a href="/mg-forge">⚔️ MG Forge</a> | <a href="/ai-medecin">🌿 AI Médecin</a> | <a href="/ai-enseignante">📚 AI Enseignante</a> | <a href="/ai-village">🏘️ AI Village</a> | <a href="/ai-guerisseur">🩺 AI Guérisseur</a> | <a href="/ai-leader">🎖️ AI Leader</a> | <a href="/ai-griot">📖 AI Griot</a> | <a href="/ai-juge">⚖️ AI Juge</a> | <a href="/ai-artiste">🎨 AI Artiste</a> | <a href="/ai-explorateur">🔬 AI Explorateur</a> | <a href="/ai-marche">💰 AI Marche</a> | <a href="/ai-diplomate">🌍 AI Diplomate</a> | <a href="/ai-philosophe">🧠 AI Philosophe</a> | <a href="/ai-architecte">🏗️ AI Architecte</a> | <a href="/ai-agriculteur">🌾 AI Agriculteur</a> | <a href="/ai-environnement">🌍 AI Environnement</a> | <a href="/ai-mathematicien">🧮 AI Mathématicien</a> | <a href="/secret">🦁 AI Secret</a> | <a href="/aes">💰 AES Wari</a> | <a href="/api/status">🔌 API</a></div><div style="text-align:center;"><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Blocs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Transactions</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Utilisateurs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">AFR en circulation</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📡 Noeuds mesh</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📖 Numéros annuaire</div></div><div class="stat-box" style="border-color:#ff4444;"><div class="stat-num" style="color:#ff4444;">{}</div><div class="stat-label">🛡️ Attaques bloquées</div></div></div><div class="card"><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🪙 Token</span><b>AfriRich (AFR)</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🌍 Pays</span><b>54 pays africains</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🛡️ Bouclier</span><b>{}</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;"><span style="color:#a8c5a8;">🔐 Crypto</span><b>100% Souverain — Zéro Dépendance Externe</b></div></div><footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🦁 Codée from scratch par Machine-senpai — v0.96 AI Mathématicien Nombres Souverainete — UTC est Mort</footer>"#,
         chain.blocks.len(),
         chain.total_transactions(),
         users.count(),
@@ -11271,6 +11271,242 @@ drawEnvironnement();
     html
 }
 
+fn html_ai_mathematicien(chain: &Blockchain) -> String {
+    let mut html = html_head("AI Mathematicien — Mathematiques Africaines");
+    let num_blocks = chain.blocks.len();
+
+    html.push_str(r#"<h1>🧮 AI Mathematicien — Mathematiques Africaines</h1><p style="text-align:center;color:#6688ff;">L Afrique est le berceau des mathematiques. Les fractales dans l architecture africaine, les systemes numeriques Yoruba, la geometrie egyptienne, les motifs bogolan, l algebre arabe-africaine. Le jeune Africain doit maitriser les nombres, les formes, les structures — car la blockchain elle-meme est faite de mathematiques. Cette AI enseigne les mathematiques depuis l Afrique, pas depuis l Occident.</p><div class="nav"><a href="/">← Accueil</a> | <a href="/ai-explorateur">🔬 AI Explorateur</a> | <a href="/ai-philosophe">🧠 AI Philosophe</a> | <a href="/ai-environnement">🌍 AI Environnement</a> | <a href="/ai-village">🏘️ AI Village</a></div>"#);
+
+    html.push_str(&format!(r#"<div style="text-align:center;"><div class="stat-box" style="border-color:#6688ff;"><div class="stat-num" style="color:#6688ff;">8</div><div class="stat-label">🧮 Modules</div></div><div class="stat-box" style="border-color:#d4a437;"><div class="stat-num" style="color:#d4a437;">54</div><div class="stat-label">🌍 Pays</div></div><div class="stat-box" style="border-color:#6688ff;"><div class="stat-num" style="color:#6688ff;">∞</div><div class="stat-label">📐 Formes</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">⛓️ Blocs</div></div><div class="stat-box" style="border-color:#6688ff;"><div class="stat-num" style="color:#6688ff;">π</div><div class="stat-label">🔢 Nombre</div></div></div>"#, num_blocks));
+
+    html.push_str(r##"<div style="text-align:center;margin:10px 0;"><button id="math-pause-btn" onclick="toggleMathPause()" style="padding:10px 25px;background:#ff4444;color:#fff;border:none;border-radius:8px;font-weight:bold;cursor:pointer;font-size:1em;">⏸️ PAUSE</button> <span id="math-pause-status" style="color:#6688ff;margin-left:8px;font-size:0.85em;">Auto: ACTIF</span></div>
+
+<!-- MATHEMATIQUES CANVAS -->
+<div class="card" style="border-color:#6688ff;"><h2 style="color:#6688ff;">🧮 L Univers des Nombres</h2><p style="color:#6688ff;font-size:0.9em;opacity:0.7;">Fractales africaines. Spirales dorées. Geometrie du continent.</p>
+<canvas id="math-canvas" width="600" height="350" style="width:100%;max-width:600px;background:#0a0a0a;border:2px solid #6688ff;border-radius:8px;display:block;margin:0 auto;"></canvas></div>
+
+<script>
+var mathPaused = false;
+var mathAnimId = null;
+var mathT = 0;
+
+function toggleMathPause(){
+    mathPaused = !mathPaused;
+    var btn = document.getElementById('math-pause-btn');
+    var status = document.getElementById('math-pause-status');
+    if(mathPaused){
+        btn.textContent = '▶️ LANCER';
+        btn.style.background = '#44cc88';
+        status.textContent = 'Auto: PAUSE';
+        status.style.color = '#ff6644';
+        if(mathAnimId) cancelAnimationFrame(mathAnimId);
+    } else {
+        btn.textContent = '⏸️ PAUSE';
+        btn.style.background = '#ff4444';
+        status.textContent = 'Auto: ACTIF';
+        status.style.color = '#6688ff';
+        animateMath();
+    }
+}
+
+function animateMath(){
+    if(mathPaused) return;
+    var canvas = document.getElementById('math-canvas');
+    if(!canvas) return;
+    var ctx = canvas.getContext('2d');
+    ctx.fillStyle = 'rgba(10,10,10,0.15)';
+    ctx.fillRect(0,0,canvas.width,canvas.height);
+    var cx = canvas.width/2, cy = canvas.height/2;
+
+    // Fractale africaine - triangle de Sierpinski colore
+    var colors = ['#6688ff','#44cc88','#d4a437','#ff6644','#aa44ff'];
+    function drawFractal(x,y,size,depth,col){
+        if(depth <= 0 || size < 3) return;
+        ctx.strokeStyle = colors[col % colors.length];
+        ctx.lineWidth = 1;
+        ctx.beginPath();
+        ctx.moveTo(x, y - size);
+        ctx.lineTo(x - size * 0.866, y + size * 0.5);
+        ctx.lineTo(x + size * 0.866, y + size * 0.5);
+        ctx.closePath();
+        ctx.stroke();
+        drawFractal(x, y - size/2, size/2, depth-1, col);
+        drawFractal(x - size*0.433, y + size*0.25, size/2, depth-1, col+1);
+        drawFractal(x + size*0.433, y + size*0.25, size/2, depth-1, col+2);
+    }
+
+    var size = 120 + Math.sin(mathT * 0.02) * 20;
+    drawFractal(cx, cy + 30, size, 4, 0);
+
+    // Spirale dorée
+    ctx.strokeStyle = '#d4a437';
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    var phi = 1.618033988749;
+    for(var i = 0; i < 200; i++){
+        var angle = i * 0.1 + mathT * 0.01;
+        var r = Math.pow(phi, angle / (Math.PI)) * 0.5;
+        var px = cx + Math.cos(angle) * r;
+        var py = cy + Math.sin(angle) * r;
+        if(i === 0) ctx.moveTo(px, py);
+        else ctx.lineTo(px, py);
+    }
+    ctx.stroke();
+
+    // Nombres dansants
+    ctx.fillStyle = '#6688ff';
+    ctx.font = '14px monospace';
+    var numbers = ['0','1','1','2','3','5','8','13','21','34','55','89'];
+    for(var i = 0; i < numbers.length; i++){
+        var a = (i / numbers.length) * Math.PI * 2 + mathT * 0.02;
+        var rad = 150 + Math.sin(mathT * 0.03 + i) * 10;
+        ctx.fillText(numbers[i], cx + Math.cos(a) * rad - 5, cy + Math.sin(a) * rad);
+    }
+
+    mathT++;
+    mathAnimId = requestAnimationFrame(animateMath);
+}
+animateMath();
+</script>
+"##);
+
+    html.push_str(r##"<div class="card" style="border-color:#6688ff;"><h2 style="color:#6688ff;">🧮 8 Modules de Mathematiques Africaines</h2><div id="math-modules"></div></div>
+
+<script>
+const mathModules = [
+    {id:0, nom:'Fractales Africaines', emoji:'🔺', couleur:'#6688ff', duree:'3 semaines', niveau:'Base',
+     description:'Les fractales dans l architecture africaine — de Ron Eglash. Patterns recursifs dans les villages, textiles, coiffures. L Afrique utilisait les fractales avant que l Europe les decouvre.',
+     cours:['Histoire des fractales africaines','Villages circulaires et patterns recursifs','Textiles bogolan et fractales','Coiffures africaines et geometrie','Construction de fractales en code'],
+     exercices:['Dessiner une fractale de village','Identifier les patterns recursifs dans un textile','Calculer la dimension fractale d un motif africain']},
+
+    {id:1, nom:'Systemes Numeriques Yoruba', emoji:'🔢', couleur:'#d4a437', duree:'2 semaines', niveau:'Base',
+     description:'Le systeme numerique Yoruba en base 20 avec sous-base 5. Un systeme unique au monde qui montre que l Afrique avait ses propres mathematiques avancees.',
+     cours:['Le systeme base 20 Yoruba','Sous-base 5 et groupements','Operations en base 20','Comparaison avec base 10 occidentale','Conversion entre systemes'],
+     exercices:['Compter en Yoruba jusqu a 200','Additionner en base 20','Convertir 143 (base 10) en base 20']},
+
+    {id:2, nom:'Geometrie Egyptienne', emoji:'📐', couleur:'#ff6644', duree:'4 semaines', niveau:'Intermediaire',
+     description:'Les Egyptiens ont invente la geometrie pour construire les pyramides. Le nombre d or, le theoreme de Pythagore avant Pythagore, la corde a 13 noeuds.',
+     cours:['La corde a 13 noeuds des batisseurs','Triangles sacres et pyramides','Le nombre d or dans l architecture','Theoreme de Pythagore avant Pythagore','Calcul des angles et surfaces'],
+     exercices:['Construire un triangle rectangle avec une corde','Mesurer la hauteur d un batiment avec son ombre','Calculer la surface d un champ']},
+
+    {id:3, nom:'Algebre Arabo-Africaine', emoji:'✖️', couleur:'#aa44ff', duree:'4 semaines', niveau:'Intermediaire',
+     description:'L algebre est nee en Afrique du Nord. Al-Khwarizmi, Ibn al-Haytham, les mathematiciens du Maghreb ont pose les bases de l algebre moderne.',
+     cours:['Origines de l algebre en Afrique du Nord','Al-Khwarizmi et les equations','Ibn al-Haytham et l optique mathematique','Resolution d equations du premier degre','Resolution d equations du second degre'],
+     exercices:['Resoudre 3x + 7 = 22','Resoudre x^2 + 5x + 6 = 0','Prouver que (a+b)^2 = a^2 + 2ab + b^2']},
+
+    {id:4, nom:'Motifs Geometriques Africains', emoji:'🎨', couleur:'#44cc88', duree:'3 semaines', niveau:'Base',
+     description:'Les motifs geometriques africains — bogolan, kente, ndop, adinkra. Symetrie, rotations, translations cachees dans les textiles.',
+     cours:['Symetrie dans les textiles kente','Rotations dans les motifs bogolan','Translations dans l art ndop','Symboles adinkra et geometrie','Creer ses propres motifs mathematiques'],
+     exercices:['Identifier les axes de symetrie d un kente','Creer un motif avec rotation d ordre 4','Dessiner un motif adinkra avec regle et compas']},
+
+    {id:5, nom:'Cryptographie et Blockchain', emoji:'🔐', couleur:'#ff4444', duree:'6 semaines', niveau:'Avance',
+     description:'Les mathematiques de la blockchain — hash, cryptographie, nombres premiers, courbes elliptiques. Comment AfriChain securise les transactions.',
+     cours:['Nombres premiers et factorisation','Fonctions de hash (AfriHash-256)','Signatures Ed25519 et courbes elliptiques','Preuve de travail (PoW) et difficulte','Structures de donnees blockchain (merkle, chainage)'],
+     exercices:['Verifier si 9733 est premier','Calculer le hash de \"AfriChain\"','Comprendre pourquoi 2^256 est immense','Simuler un mini-blockchain avec 3 blocs']},
+
+    {id:6, nom:'Statistiques pour l Afrique', emoji:'📊', couleur:'#6688ff', duree:'4 semaines', niveau:'Intermediaire',
+     description:'Les statistiques pour comprendre l Afrique — population, economie, agriculture, sante. Comment les nombres racontent l histoire du continent.',
+     cours:['Collecte de donnees en Afrique','Moyenne, mediane, mode','Ecart-type et variance','Graphiques et visualisation','Correlation et causalite'],
+     exercices:['Calculer la moyenne d un echantillon de rendements','Comparer deux series de donnees','Creer un graphique de population africaine']},
+
+    {id:7, nom:'Mathematiques du Futur', emoji:'🚀', couleur:'#44cc88', duree:'5 semaines', niveau:'Avance',
+     description:'Les mathematiques qui vont construire l avenir de l Afrique — intelligence artificielle, optimisation, theorie des jeux, cryptographie quantique.',
+     cours:['Algebres lineaires pour l IA','Theorie des jeux et strategie','Optimisation et recherche operationnelle','Cryptographie post-quantique','Mathematiques des reseaux mesh'],
+     exercices:['Multiplier deux matrices 2x2','Resoudre un dilemme du prisonnier','Optimiser un trajet de livraison','Comprendre la multiplication matricielle pour l IA']}
+];
+
+var mathDone = JSON.parse(localStorage.getItem('afri_math_done') || '[]');
+
+function renderMathModules(){
+    var container = document.getElementById('math-modules');
+    if(!container) return;
+    var html = '';
+    for(var i = 0; i < mathModules.length; i++){
+        var m = mathModules[i];
+        var done = mathDone.includes(m.id);
+        html += '<div style="background:rgba(102,136,255,0.05);border:1px solid ' + m.couleur + '20;border-radius:8px;padding:12px;margin:8px 0;cursor:pointer;" onclick="showMathModule(' + i + ')">';
+        html += '<div style="display:flex;justify-content:space-between;align-items:center;">';
+        html += '<span style="font-size:1.1em;">' + m.emoji + ' <b style="color:' + m.couleur + ';">' + m.nom + '</b></span>';
+        html += '<span style="font-size:0.8em;color:#a8c5a8;">' + m.duree + ' · ' + m.niveau + (done ? ' · ✅' : '') + '</span>';
+        html += '</div></div>';
+    }
+    container.innerHTML = html;
+}
+renderMathModules();
+
+function showMathModule(i){
+    var m = mathModules[i];
+    var html = '<div style="background:rgba(102,136,255,0.08);border:1px solid ' + m.couleur + ';border-radius:12px;padding:20px;margin:10px 0;">';
+    html += '<h3 style="color:' + m.couleur + ';">' + m.emoji + ' ' + m.nom + '</h3>';
+    html += '<p style="color:#a8c5a8;font-size:0.9em;">' + m.description + '</p>';
+    html += '<h4 style="color:' + m.couleur + ';">📚 Cours</h4><ul>';
+    for(var j = 0; j < m.cours.length; j++){
+        html += '<li style="color:#a8c5a8;margin:4px 0;">' + m.cours[j] + '</li>';
+    }
+    html += '</ul><h4 style="color:' + m.couleur + ';">✏️ Exercices</h4><ul>';
+    for(var j = 0; j < m.exercices.length; j++){
+        html += '<li style="color:#a8c5a8;margin:4px 0;">' + m.exercices[j] + '</li>';
+    }
+    html += '</ul>';
+    html += '<button onclick="completeMathModule(' + m.id + ')" style="padding:10px 20px;background:' + m.couleur + ';color:#fff;border:none;border-radius:8px;cursor:pointer;font-weight:bold;margin-top:10px;">✅ Terminer ce module</button>';
+    html += '</div>';
+    var container = document.getElementById('math-modules');
+    if(container) container.innerHTML = html;
+}
+
+function completeMathModule(id){
+    if(!mathDone.includes(id)){
+        mathDone.push(id);
+        localStorage.setItem('afri_math_done', JSON.stringify(mathDone));
+    }
+    renderMathModules();
+    updateMathProgress();
+}
+
+function updateMathProgress(){
+    var done = mathDone.length;
+    var total = mathModules.length;
+    var pct = Math.round((done / total) * 100);
+    var bar = document.getElementById('math-bar');
+    var count = document.getElementById('math-count');
+    var pctEl = document.getElementById('math-pct');
+    var diplome = document.getElementById('math-diplome');
+    if(bar) bar.style.width = pct + '%';
+    if(count) count.textContent = done;
+    if(pctEl) pctEl.textContent = pct + '%';
+    if(diplome) diplome.style.display = (done === total) ? 'block' : 'none';
+}
+updateMathProgress();
+</script>
+"##);
+
+    html.push_str(r##"<div class="card" style="border-color:#6688ff;"><h2 style="color:#6688ff;">📊 Progression</h2><div style="background:rgba(102,136,255,0.1);border-radius:8px;height:24px;overflow:hidden;margin:10px 0;"><div id="math-bar" style="background:linear-gradient(90deg,#6688ff,#44cc88);height:100%;width:0%;transition:width 0.5s;"></div></div><div style="text-align:center;color:#a8c5a8;"><span id="math-count">0</span> / 8 modules · <span id="math-pct">0%</span></div></div>
+
+<div id="math-diplome" style="display:none;"><div class="card" style="border-color:#d4a437;text-align:center;"><h2 style="color:#d4a437;">🎓 Diplome: Mathematicien de l Afrique</h2><p style="color:#a8c5a8;">Tu as complete les 8 modules de mathematiques africaines!</p><p style="color:#d4a437;font-size:1.2em;">Les nombres sont la cle de la souverainete.</p><button onclick="envoyerDiplomeMath()" style="padding:12px 30px;background:#d4a437;color:#000;border:none;border-radius:8px;font-weight:bold;cursor:pointer;font-size:1.1em;margin-top:10px;">⛓️ Graver dans la Blockchain</button></div></div>
+
+<script>
+function envoyerDiplomeMath(){
+    var nom = localStorage.getItem('afri_user_name') || 'Jeune Africain';
+    fetch('/api/diplome', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+        body: 'academie=MATHEMATICIEN&nom=' + encodeURIComponent(nom)
+    }).then(function(r){ return r.text(); }).then(function(t){
+        alert('🎓 Diplome grave dans la blockchain!\n' + t);
+    }).catch(function(e){
+        alert('Erreur: ' + e);
+    });
+}
+</script>
+"##);
+
+    html.push_str(r#"<div class="card"><h2 style="color:#6688ff;">💡 Savais-tu?</h2><div style="color:#a8c5a8;padding:8px 0;"><b style="color:#d4a437;">Ron Eglash</b> a prouve que l Afrique utilisait les fractales avant l Europe. Les villages Mangbetu (Congo), les coiffures Yoruba (Nigeria), les textiles bogolan (Mali) contiennent tous des structures fractales.</div><div style="color:#a8c5a8;padding:8px 0;"><b style="color:#d4a437;">Le nombre d or</b> (phi = 1.618...) se trouve dans les proportions des pyramides egyptiennes, construites 2000 ans avant que les Grecs le formalisent.</div><div style="color:#a8c5a8;padding:8px 0;"><b style="color:#d4a437;">Al-Khwarizmi</b> (Maroc/Afrique du Nord) a invente l algebre. Son nom a donne le mot <i>algorithme</i> — la base de toute la programmation moderne.</div></div>"#);
+
+    html.push_str(r#"<footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🧮 AI Mathematicien — Les Nombres Sont la Cle de la Souverainete 💚🦁📐</footer>"#);
+    html.push_str("</body></html>");
+    html
+}
+
 fn html_garage(chain: &Blockchain) -> String {
     let mut html = html_head("Garage AI — Atelier Autonome 2500");
     let num_blocks = chain.blocks.len();
@@ -16381,7 +16617,7 @@ html+='<div class="log-entry log-kill">⚠️ Tentative d\x27infiltration occide
 html+='<div class="log-entry log-invis">✅ L\x27Afrique est forte. Le système grandit.</div>';
 }else if(type==='total'){
 html='<div style="color:#d4a437;font-weight:bold;margin-bottom:8px">📋 RAPPORT TOTAL — Depuis le début</div>';
-html+='<div class="log-entry">🦁 AfriChain v0.95 — AI Environnement Climat Ecologie</div>';
+html+='<div class="log-entry">🦁 AfriChain v0.96 — AI Mathématicien Nombres Souverainete</div>';
 html+='<div class="log-entry">⛓️ Blockchain: 100% souveraine — Zéro dépendance externe</div>';
 html+='<div class="log-entry">🔐 Crypto: Ed25519 + AfriHash-256/512 + AfriRNG — tout from scratch</div>';
 html+='<div class="log-entry">🌍 54 pays africains connectés</div>';
@@ -17925,7 +18161,7 @@ fn main() {
         .and_then(|i| args.get(i + 1)).cloned().unwrap_or_else(|| "Afrique".to_string());
 
     let my_node_id = generate_node_id();
-    println!("🦁 AfriChain v0.95 — AI Environnement Climat Ecologie");
+    println!("🦁 AfriChain v0.96 — AI Mathématicien Nombres Souverainete");
     println!("💚 L'Afrique ne demande plus la permission");
     println!("🌍 54 pays — 🇲🇱 🇳🇪 🇧🇫 AES — Mali · Niger · Burkina Faso");
     println!("🔐 8 modules cryptographiques — construits from scratch");
@@ -18087,6 +18323,7 @@ fn main() {
     println!("🏗️ AI Architecte sur http://localhost:8080/ai-architecte");
     println!("🌾 AI Agriculteur sur http://localhost:8080/ai-agriculteur");
     println!("🌍 AI Environnement sur http://localhost:8080/ai-environnement");
+    println!("🧮 AI Mathématicien sur http://localhost:8080/ai-mathematicien");
 
     // Serveur HTTP en arrière-plan (pour mesh + autres utilisateurs)
     let serve_state = web_state.clone();
@@ -18121,7 +18358,7 @@ fn terminal_interface(state: &Arc<AppState>) {
     println!("  ║  🕐 AfriTime — Pas UTC, pas Greenwich   ║");
     println!("  ║  📝 ~22,400 lignes — écrit à la main       ║");
     println!("  ╚═══════════════════════════════════════════════╝");
-    println!("\n  Version v0.95 — 31 août 2026");
+    println!("\n  Version v0.96 — 31 août 2026");
     println!("  Construit sur Termux · Android · nano\n");
     println!("  ─────────────────────────────────────────────");
     println!("\n  1. 🏦 Centre de Données (Admin)");
@@ -18193,7 +18430,7 @@ fn admin_interface(state: &Arc<AppState>) {
         println!("\n");
         println!("╔══════════════════════════════════════╗");
         println!("║  🏦 CENTRE DE DONNÉES — Admin       ║");
-        println!("║  🦁 AfriChain v0.95                  ║");
+        println!("║  🦁 AfriChain v0.96                  ║");
         println!("╠══════════════════════════════════════╣");
         let chain = state.chain.lock().unwrap();
         let users = state.users.lock().unwrap();
@@ -21802,6 +22039,11 @@ fn handle_request(req: afri_http::HttpRequest, state: &Arc<AppState>) -> afri_ht
         ("GET", "/ai-environnement") => {
             let chain = state.chain.lock().unwrap();
             HttpResponse::ok(&html_ai_environnement(&chain))
+        }
+
+        ("GET", "/ai-mathematicien") => {
+            let chain = state.chain.lock().unwrap();
+            HttpResponse::ok(&html_ai_mathematicien(&chain))
         }
 
         ("GET", "/garage") => {
