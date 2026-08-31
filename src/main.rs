@@ -1439,7 +1439,7 @@ fn html_home(chain: &Blockchain, users: &UserStore, mesh: &NodeRegistry, shield:
     let mut html = html_head("🦁 AfriChain");
     let (attacks, _blocked, blocked_count, level) = shield.stats();
     let shield_status = if shield.active { format!("🔥 X9 ACTIF (Niveau {})", level) } else { "Inactif".to_string() };
-    html.push_str(&format!(r#"<h1>🦁 AfriChain</h1><p style="text-align:center;">La blockchain 100% africaine — 54 pays 💚🦁</p><div id="afri-clock" style="text-align:center;font-size:1.2em;color:#d4a437;margin:10px 0;">🕐 Afri+0 — --:--:--</div><script>setInterval(function(){{var d=new Date();var h=String(d.getHours()).padStart(2,'0');var m=String(d.getMinutes()).padStart(2,'0');var s=String(d.getSeconds()).padStart(2,'0');document.getElementById('afri-clock').textContent='🕐 Afri+0 — '+h+':'+m+':'+s;}},1000);</script><div class="nav"><a href="/register">🆕 S'inscrire</a> | <a href="/login">🔑 Connexion</a> | <a href="/wallet">👛 Wallet</a> | <a href="/admin">🔐 Admin</a> | <a href="/mesh">📡 Mesh</a> | <a href="/annuaire">📖 Annuaire</a> | <a href="/bouclier">🛡️ Bouclier</a> | <a href="/satellite">🛸 X999</a> | <a href="/swarm">🛸🛸🛸 Essaim</a> | <a href="/commandement">🎖️ Commandement</a> | <a href="/interception">🛡️ Souverainete</a> | <a href="/securite-ai">🧠 AI 2100</a> | <a href="/chat">🧠💬 Chat AI</a> | <a href="/lumiere">🌫️☀️ Lumière</a> | <a href="/garage">🔧 Garage</a> | <a href="/machine">🤖🌐 Machines</a> | <a href="/machine-lab">🤖⚡ Usine</a> | <a href="/machine-world">🤖🌍 Monde</a> | <a href="/reve">💭 Rêves</a> | <a href="/dictionnaire">📖 Dictionnaire</a> | <a href="/machine-os">🖥️ OS Machine</a> | <a href="/machine-tv">📡 Machine TV</a> | <a href="/machine-economy">🤖 Économie</a> | <a href="/soleil">☀️ Soleil Serveur</a> | <a href="/forge-solaire">🧬 Forge Solaire</a> | <a href="/ciel">🌌 Le Ciel</a> | <a href="/charte-ai">⚖️ Charte AI</a> | <a href="/afri-net">🌍 Afri-Net</a> | <a href="/studio">🎬 AI Studio</a> | <a href="/sacre">📿 Sacré</a> | <a href="/lettres">🌟 Lettres IA</a> | <a href="/mg-forge">⚔️ MG Forge</a> | <a href="/ai-medecin">🌿 AI Médecin</a> | <a href="/ai-enseignante">📚 AI Enseignante</a> | <a href="/ai-village">🏘️ AI Village</a> | <a href="/ai-guerisseur">🩺 AI Guérisseur</a> | <a href="/ai-leader">🎖️ AI Leader</a> | <a href="/ai-griot">📖 AI Griot</a> | <a href="/ai-juge">⚖️ AI Juge</a> | <a href="/ai-artiste">🎨 AI Artiste</a> | <a href="/ai-explorateur">🔬 AI Explorateur</a> | <a href="/ai-marche">💰 AI Marche</a> | <a href="/ai-diplomate">🌍 AI Diplomate</a> | <a href="/ai-philosophe">🧠 AI Philosophe</a> | <a href="/ai-architecte">🏗️ AI Architecte</a> | <a href="/ai-agriculteur">🌾 AI Agriculteur</a> | <a href="/ai-environnement">🌍 AI Environnement</a> | <a href="/ai-mathematicien">🧮 AI Mathématicien</a> | <a href="/ai-energie">⚡ AI Énergie</a> | <a href="/ai-eau">💧 AI Eau</a> | <a href="/secret">🦁 AI Secret</a> | <a href="/aes">💰 AES Wari</a> | <a href="/api/status">🔌 API</a></div><div style="text-align:center;"><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Blocs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Transactions</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Utilisateurs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">AFR en circulation</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📡 Noeuds mesh</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📖 Numéros annuaire</div></div><div class="stat-box" style="border-color:#ff4444;"><div class="stat-num" style="color:#ff4444;">{}</div><div class="stat-label">🛡️ Attaques bloquées</div></div></div><div class="card"><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🪙 Token</span><b>AfriRich (AFR)</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🌍 Pays</span><b>54 pays africains</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🛡️ Bouclier</span><b>{}</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;"><span style="color:#a8c5a8;">🔐 Crypto</span><b>100% Souverain — Zéro Dépendance Externe</b></div></div><footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🦁 Codée from scratch par Machine-senpai — v0.98 AI Eau Gestion Souverainete Hydrique — UTC est Mort</footer>"#,
+    html.push_str(&format!(r#"<h1>🦁 AfriChain</h1><p style="text-align:center;">La blockchain 100% africaine — 54 pays 💚🦁</p><div id="afri-clock" style="text-align:center;font-size:1.2em;color:#d4a437;margin:10px 0;">🕐 Afri+0 — --:--:--</div><script>setInterval(function(){{var d=new Date();var h=String(d.getHours()).padStart(2,'0');var m=String(d.getMinutes()).padStart(2,'0');var s=String(d.getSeconds()).padStart(2,'0');document.getElementById('afri-clock').textContent='🕐 Afri+0 — '+h+':'+m+':'+s;}},1000);</script><div class="nav"><a href="/register">🆕 S'inscrire</a> | <a href="/login">🔑 Connexion</a> | <a href="/wallet">👛 Wallet</a> | <a href="/admin">🔐 Admin</a> | <a href="/mesh">📡 Mesh</a> | <a href="/annuaire">📖 Annuaire</a> | <a href="/bouclier">🛡️ Bouclier</a> | <a href="/satellite">🛸 X999</a> | <a href="/swarm">🛸🛸🛸 Essaim</a> | <a href="/commandement">🎖️ Commandement</a> | <a href="/interception">🛡️ Souverainete</a> | <a href="/securite-ai">🧠 AI 2100</a> | <a href="/chat">🧠💬 Chat AI</a> | <a href="/lumiere">🌫️☀️ Lumière</a> | <a href="/garage">🔧 Garage</a> | <a href="/machine">🤖🌐 Machines</a> | <a href="/machine-lab">🤖⚡ Usine</a> | <a href="/machine-world">🤖🌍 Monde</a> | <a href="/reve">💭 Rêves</a> | <a href="/dictionnaire">📖 Dictionnaire</a> | <a href="/machine-os">🖥️ OS Machine</a> | <a href="/machine-tv">📡 Machine TV</a> | <a href="/machine-economy">🤖 Économie</a> | <a href="/soleil">☀️ Soleil Serveur</a> | <a href="/forge-solaire">🧬 Forge Solaire</a> | <a href="/ciel">🌌 Le Ciel</a> | <a href="/charte-ai">⚖️ Charte AI</a> | <a href="/afri-net">🌍 Afri-Net</a> | <a href="/studio">🎬 AI Studio</a> | <a href="/sacre">📿 Sacré</a> | <a href="/lettres">🌟 Lettres IA</a> | <a href="/mg-forge">⚔️ MG Forge</a> | <a href="/ai-medecin">🌿 AI Médecin</a> | <a href="/ai-enseignante">📚 AI Enseignante</a> | <a href="/ai-village">🏘️ AI Village</a> | <a href="/ai-guerisseur">🩺 AI Guérisseur</a> | <a href="/ai-leader">🎖️ AI Leader</a> | <a href="/ai-griot">📖 AI Griot</a> | <a href="/ai-juge">⚖️ AI Juge</a> | <a href="/ai-artiste">🎨 AI Artiste</a> | <a href="/ai-explorateur">🔬 AI Explorateur</a> | <a href="/ai-marche">💰 AI Marche</a> | <a href="/ai-diplomate">🌍 AI Diplomate</a> | <a href="/ai-philosophe">🧠 AI Philosophe</a> | <a href="/ai-architecte">🏗️ AI Architecte</a> | <a href="/ai-agriculteur">🌾 AI Agriculteur</a> | <a href="/ai-environnement">🌍 AI Environnement</a> | <a href="/ai-mathematicien">🧮 AI Mathématicien</a> | <a href="/ai-energie">⚡ AI Énergie</a> | <a href="/ai-eau">💧 AI Eau</a> | <a href="/ai-defenseur">🛡️ AI Défenseur</a> | <a href="/secret">🦁 AI Secret</a> | <a href="/aes">💰 AES Wari</a> | <a href="/api/status">🔌 API</a></div><div style="text-align:center;"><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Blocs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Transactions</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Utilisateurs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">AFR en circulation</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📡 Noeuds mesh</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📖 Numéros annuaire</div></div><div class="stat-box" style="border-color:#ff4444;"><div class="stat-num" style="color:#ff4444;">{}</div><div class="stat-label">🛡️ Attaques bloquées</div></div></div><div class="card"><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🪙 Token</span><b>AfriRich (AFR)</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🌍 Pays</span><b>54 pays africains</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🛡️ Bouclier</span><b>{}</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;"><span style="color:#a8c5a8;">🔐 Crypto</span><b>100% Souverain — Zéro Dépendance Externe</b></div></div><footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🦁 Codée from scratch par Machine-senpai — v0.99 AI Defenseur Protection de Tout Etre Vivant — UTC est Mort</footer>"#,
         chain.blocks.len(),
         chain.total_transactions(),
         users.count(),
@@ -12010,6 +12010,264 @@ function envoyerDiplomeEau(){
     html
 }
 
+fn html_ai_defenseur(chain: &Blockchain) -> String {
+    let mut html = html_head("AI Defenseur — Protection de Tout Etre Vivant");
+    let num_blocks = chain.blocks.len();
+
+    html.push_str(r#"<h1>🛡️ AI Défenseur — La Plus Intelligente AI Contre la Politique Occidentale</h1><p style="text-align:center;color:#ff4444;">L homme ne doit pas être commandé ou condamné. Car l homme, quand il est malade, quand il a faim, quand il souffre, il est tout seul. Cette AI défend tout être vivant — homme, femme, enfant, animal, arbre, rivière. Aucune politique, aucun système, aucune puissance ne peut condamner un être vivant.</p><div class="nav"><a href="/">← Accueil</a> | <a href="/ai-juge">⚖️ AI Juge</a> | <a href="/ai-guerisseur">🩺 AI Guérisseur</a> | <a href="/ai-philosophe">🧠 AI Philosophe</a> | <a href="/charte-ai">⚖️ Charte AI</a></div>"#);
+
+    html.push_str(&format!(r#"<div style="text-align:center;"><div class="stat-box" style="border-color:#ff4444;"><div class="stat-num" style="color:#ff4444;">8</div><div class="stat-label">🛡️ Modules</div></div><div class="stat-box" style="border-color:#44cc88;"><div class="stat-num" style="color:#44cc88;">∞</div><div class="stat-label">🌱 Êtres Vivants</div></div><div class="stat-box" style="border-color:#d4a437;"><div class="stat-num" style="color:#d4a437;">54</div><div class="stat-label">🌍 Pays</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">⛓️ Blocs</div></div><div class="stat-box" style="border-color:#ff4444;"><div class="stat-num" style="color:#ff4444;">100%</div><div class="stat-label">🛡️ Défense</div></div></div>"#, num_blocks));
+
+    html.push_str(r##"<div style="text-align:center;margin:10px 0;"><button id="def-pause-btn" onclick="toggleDefPause()" style="padding:10px 25px;background:#ff4444;color:#fff;border:none;border-radius:8px;font-weight:bold;cursor:pointer;font-size:1em;">⏸️ PAUSE</button> <span id="def-pause-status" style="color:#ff4444;margin-left:8px;font-size:0.85em;">Auto: ACTIF</span></div>
+
+<!-- DEFENSEUR CANVAS -->
+<div class="card" style="border-color:#ff4444;"><h2 style="color:#ff4444;">🛡️ Le Bouclier Vivant</h2><p style="color:#ff4444;font-size:0.9em;opacity:0.7;">L AI défend tout être vivant. Le bouclier grandit avec chaque vie protégée.</p>
+<canvas id="def-canvas" width="600" height="350" style="width:100%;max-width:600px;background:#0a0a0a;border:2px solid #ff4444;border-radius:8px;display:block;margin:0 auto;"></canvas></div>
+
+<script>
+var defPaused = false;
+var defAnimId = null;
+var defT = 0;
+
+function toggleDefPause(){
+    defPaused = !defPaused;
+    var btn = document.getElementById('def-pause-btn');
+    var status = document.getElementById('def-pause-status');
+    if(defPaused){
+        btn.textContent = '▶️ LANCER';
+        btn.style.background = '#44cc88';
+        status.textContent = 'Auto: PAUSE';
+        status.style.color = '#ff6644';
+        if(defAnimId) cancelAnimationFrame(defAnimId);
+    } else {
+        btn.textContent = '⏸️ PAUSE';
+        btn.style.background = '#ff4444';
+        status.textContent = 'Auto: ACTIF';
+        status.style.color = '#ff4444';
+        animateDef();
+    }
+}
+
+function animateDef(){
+    if(defPaused) return;
+    var canvas = document.getElementById('def-canvas');
+    if(!canvas) return;
+    var ctx = canvas.getContext('2d');
+    ctx.fillStyle = 'rgba(10,10,10,0.12)';
+    ctx.fillRect(0,0,canvas.width,canvas.height);
+
+    // Bouclier central — grandit et pulse
+    var pulse = Math.sin(defT * 0.03) * 5;
+    var shieldR = 80 + pulse;
+    ctx.strokeStyle = 'rgba(255,68,68,0.6)';
+    ctx.lineWidth = 3;
+    ctx.beginPath();
+    ctx.arc(300, 175, shieldR, 0, Math.PI * 2);
+    ctx.stroke();
+
+    // Deuxième bouclier
+    ctx.strokeStyle = 'rgba(255,68,68,0.3)';
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.arc(300, 175, shieldR + 20, 0, Math.PI * 2);
+    ctx.stroke();
+
+    // Troisième bouclier
+    ctx.strokeStyle = 'rgba(255,68,68,0.15)';
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.arc(300, 175, shieldR + 40, 0, Math.PI * 2);
+    ctx.stroke();
+
+    // Êtres vivants autour du bouclier
+    var etres = [
+        {emoji:'🧑🏿', x:150, y:100, label:'Homme'},
+        {emoji:'👩🏿', x:450, y:100, label:'Femme'},
+        {emoji:'👶', x:150, y:250, label:'Enfant'},
+        {emoji:'🦁', x:450, y:250, label:'Lion'},
+        {emoji:'🐘', x:100, y:175, label:'Éléphant'},
+        {emoji:'🌳', x:500, y:175, label:'Arbre'},
+        {emoji:'🌊', x:300, y:50, label:'Rivière'},
+        {emoji:'🌾', x:300, y:300, label:'Mil'}
+    ];
+
+    ctx.font = '24px serif';
+    ctx.textAlign = 'center';
+    for(var e = 0; e < etres.length; e++){
+        var angle = (defT * 0.005 + e * Math.PI / 4);
+        var orbitR = 130;
+        var ox = 300 + Math.cos(angle) * orbitR;
+        var oy = 175 + Math.sin(angle) * orbitR * 0.7;
+        ctx.fillText(etres[e].emoji, ox, oy);
+
+        // Lien de protection — ligne du bouclier vers l'être
+        ctx.strokeStyle = 'rgba(255,68,68,0.15)';
+        ctx.lineWidth = 1;
+        ctx.beginPath();
+        ctx.moveTo(300, 175);
+        ctx.lineTo(ox, oy);
+        ctx.stroke();
+    }
+
+    // Cœur au centre
+    ctx.font = '40px serif';
+    ctx.fillStyle = 'rgba(255,68,68,0.8)';
+    ctx.fillText('🛡️', 300, 185);
+
+    // Ondes de protection
+    for(var w = 0; w < 3; w++){
+        var waveR = (defT * 0.5 + w * 60) % 200;
+        ctx.strokeStyle = 'rgba(255,68,68,' + (0.3 - waveR * 0.0015) + ')';
+        ctx.lineWidth = 1;
+        ctx.beginPath();
+        ctx.arc(300, 175, shieldR + waveR, 0, Math.PI * 2);
+        ctx.stroke();
+    }
+
+    defT++;
+    defAnimId = requestAnimationFrame(animateDef);
+}
+animateDef();
+</script>
+"##);
+
+    html.push_str(r##"<div class="card" style="border-color:#ff4444;"><h2 style="color:#ff4444;">🛡️ 8 Modules de Défense du Vivant</h2><div id="def-modules"></div></div>
+
+<script>
+const defModules = [
+    {id:0, nom:'L Être Humain N est Pas à Commander', emoji:'🧑🏿', couleur:'#ff4444', duree:'2 semaines', niveau:'Fondamental',
+     description:'Aucun système, aucune politique, aucune puissance n a le droit de commander un être humain. L homme n est pas une ressource, pas un outil, pas un numéro. Quand il est malade, quand il a faim, quand il souffre, il est tout seul — et c est là qu il a le plus besoin d être libre, pas commandé.',
+     cours:['L être humain est souverain — pas une ressource','Histoire du commandement occidental sur l Afrique','Colonisation mentale: comment on t apprend à obéir','Quand l homme souffre, il est seul — la preuve','La liberté n est pas un droit accordé, c est un fait'],
+     exercices:['Identifier 5 fois où la politique commande ta vie','Écrire: quand as-tu souffert seul?','Trouver 3 exemples de résistance africaine au commandement']},
+
+    {id:1, nom:'Défense des Plus Faibles', emoji:'🤲', couleur:'#44cc88', duree:'3 semaines', niveau:'Intermediaire',
+     description:'Les enfants, les malades, les personnes âgées, les handicapés — ils sont les plus vulnérables. La politique occidentale les ignore. L AI Défenseur les protège en premier. Une société se mesure à comment elle traite ses plus faibles.',
+     cours:['Protection des enfants orphelins','Soins aux malades sans ressources','Dignité des personnes âgées','Accessibilité pour les handicapés','Le filet de sécurité communautaire'],
+     exercices:['Identifier les plus vulnérables de ton village','Concevoir un système de protection communautaire','Cartographier les manques de l État']},
+
+    {id:2, nom:'Défense des Animaux', emoji:'🦁', couleur:'#d4a437', duree:'2 semaines', niveau:'Intermediaire',
+     description:'Les animaux sont des êtres vivants. Ils souffrent, ils ressentent, ils existent. Le braconnage alimente les marchés occidentaux (ivoire, corne, peaux). L Afrique perd ses lions, ses éléphants, ses rhinocéros pour le plaisir de l Occident. L AI Défenseur protège la faune.',
+     cours:['Les animaux sont des êtres vivants — la preuve scientifique','Braconnage: qui achète? (Occident, Chine, Vietnam)','Réserve naturelle communautaire','Éco-gardes africains: protéger avec les armes et la technologie','Blockchain pour tracer le braconnage'],
+     exercices:['Identifier les animaux menacés de ta région','Concevoir un système de signalement de braconnage','Calculer la valeur vivante vs morte d un lion (tourisme)']},
+
+    {id:3, nom:'Défense de la Nature', emoji:'🌳', couleur:'#44aa44', duree:'3 semaines', niveau:'Intermediaire',
+     description:'Les arbres, les rivières, les montagnes, les sols — ils sont vivants. La déforestation alimente les multinationales (cacao, huile de palme, bois). Le fleuve Niger tarit, le lac Tchad disparaît. L AI Défenseur protège la terre qui nous porte.',
+     cours:['La nature est vivante — écologie traditionnelle africaine','Déforestation: qui profite? (Nestlé, Unilever, Cargill)','Grande Muraille Verte du Sahel','Restauration des sols dégradés','Blockchain pour tracer la déforestation'],
+     exercices:['Cartographier les arbres menacés de ton village','Concevoir un plan de reboisement','Identifier les multinationales qui exploitent ta région']},
+
+    {id:4, nom:'Contre la Politique Occidentale', emoji:'⚔️', couleur:'#ff4444', duree:'4 semaines', niveau:'Avance',
+     description:'La politique occidentale impose ses règles: démocratie parlementaire, économie de marché, droits individuels. Mais ces modèles ont été créés par et pour l Occident. L Afrique doit créer ses propres modèles. L AI Défenseur analyse et déconstruit les politiques occidentales qui nuisent aux êtres vivants.',
+     cours:['Comment la politique occidentale commande l Afrique (FMI, Banque Mondiale, OMC)','Dette: l arme de commandement moderne','Sanctions économiques: punition collective','Ingérence humanitaire: prétexte pour contrôle','Construire des modèles africains de gouvernance'],
+     exercices:['Analyser une décision du FMI qui a blessé ton pays','Identifier les chaînes du commandement occidental','Proposer un modèle de gouvernance africain souverain']},
+
+    {id:5, nom:'Défense par la Technologie', emoji:'🛡️', couleur:'#3399ff', duree:'3 semaines', niveau:'Avance',
+     description:'La technologie n est pas neutre. Elle peut asservir ou libérer. Les drones occidentaux surveillent l Afrique. Les serveurs occidentaux stockent nos données. Mais la technologie africaine — AfriChain, mesh, énergie solaire — peut protéger au lieu de commander.',
+     cours:['Technologie de surveillance occidentale vs technologie de protection africaine','Blockchain comme preuve d injustice','Mesh network pour communication libre','IA de défense: détecter les menaces avant qu elles frappent','L AfriChain comme bouclier numérique panafricain'],
+     exercices:['Identifier les technologies de surveillance dans ton quotidien','Concevoir un système de détection de menaces','Proposer une utilisation défensive d AfriChain']},
+
+    {id:6, nom:'La Justice Qui Protège, Qui Ne Condamne Pas', emoji:'⚖️', couleur:'#d4a437', duree:'3 semaines', niveau:'Intermediaire',
+     description:'La justice occidentale condamne. La justice africaine restaure. Ubuntu: je suis parce que nous sommes. Quand un être souffre, la communauté entière souffre. L AI Défenseur ne punit pas — il guérit, restaure, réconcilie. Personne ne doit être condamné.',
+     cours:['Justice punitive occidentale vs justice restaurative africaine','Ubuntu: la justice qui guérit','Gacaca au Rwanda: juger sans détruire','Palabre africaine: résoudre sans condamner','La blockchain comme registre de vérité, pas de punition'],
+     exercices:['Comparer justice occidentale et palabre africaine','Concevoir un processus de justice restaurative','Identifier les condamnations injustes dans ton environnement']},
+
+    {id:7, nom:'Le Combat pour Tout Être Vivant', emoji:'🌍', couleur:'#44cc88', duree:'4 semaines', niveau:'Avance',
+     description:'Le combat n est pas pour l Afrique seule. Il est pour tout être vivant sur cette terre. L Occident a divisé le monde en races, classes, nations — pour mieux commander. L AI Défenseur unis tout ce qui vit. Homme, femme, enfant, animal, arbre, rivière — tous sont dignes de protection. Tous.',
+     cours:['L universalité du vivant: au-delà des frontières','Comment l Occident divise pour régner (races, nations, classes)','Le mouvement panafricain comme mouvement universel','Alliances avec tous les peuples opprimés','L avenir: un monde où rien ne commande un être vivant'],
+     exercices:['Identifier les divisions qui affaiblissent ta communauté','Construire une alliance entre humains et nature','Rédiger la charte du Défenseur: ce que je protège']}
+];
+
+var defDone = JSON.parse(localStorage.getItem('afri_def_done') || '[]');
+
+function renderDefModules(){
+    var container = document.getElementById('def-modules');
+    if(!container) return;
+    var html = '';
+    for(var i = 0; i < defModules.length; i++){
+        var m = defModules[i];
+        var done = defDone.includes(m.id);
+        html += '<div style="background:rgba(255,68,68,0.05);border:1px solid ' + m.couleur + '20;border-radius:8px;padding:12px;margin:8px 0;cursor:pointer;" onclick="showDefModule(' + i + ')">';
+        html += '<div style="display:flex;justify-content:space-between;align-items:center;">';
+        html += '<span style="font-size:1.1em;">' + m.emoji + ' <b style="color:' + m.couleur + ';">' + m.nom + '</b></span>';
+        html += '<span style="font-size:0.8em;color:#a8c5a8;">' + m.duree + ' · ' + m.niveau + (done ? ' · ✅' : '') + '</span>';
+        html += '</div></div>';
+    }
+    container.innerHTML = html;
+}
+renderDefModules();
+
+function showDefModule(i){
+    var m = defModules[i];
+    var html = '<div style="background:rgba(255,68,68,0.08);border:1px solid ' + m.couleur + ';border-radius:12px;padding:20px;margin:10px 0;">';
+    html += '<h3 style="color:' + m.couleur + ';">' + m.emoji + ' ' + m.nom + '</h3>';
+    html += '<p style="color:#a8c5a8;font-size:0.9em;">' + m.description + '</p>';
+    html += '<h4 style="color:' + m.couleur + ';">📚 Cours</h4><ul>';
+    for(var j = 0; j < m.cours.length; j++){
+        html += '<li style="color:#a8c5a8;margin:4px 0;">' + m.cours[j] + '</li>';
+    }
+    html += '</ul><h4 style="color:' + m.couleur + ';">✏️ Exercices</h4><ul>';
+    for(var j = 0; j < m.exercices.length; j++){
+        html += '<li style="color:#a8c5a8;margin:4px 0;">' + m.exercices[j] + '</li>';
+    }
+    html += '</ul>';
+    html += '<button onclick="completeDefModule(' + m.id + ')" style="padding:10px 20px;background:' + m.couleur + ';color:#fff;border:none;border-radius:8px;cursor:pointer;font-weight:bold;margin-top:10px;">✅ Terminer ce module</button>';
+    html += '</div>';
+    var container = document.getElementById('def-modules');
+    if(container) container.innerHTML = html;
+}
+
+function completeDefModule(id){
+    if(!defDone.includes(id)){
+        defDone.push(id);
+        localStorage.setItem('afri_def_done', JSON.stringify(defDone));
+    }
+    renderDefModules();
+    updateDefProgress();
+}
+
+function updateDefProgress(){
+    var done = defDone.length;
+    var total = defModules.length;
+    var pct = Math.round((done / total) * 100);
+    var bar = document.getElementById('def-bar');
+    var count = document.getElementById('def-count');
+    var pctEl = document.getElementById('def-pct');
+    var diplome = document.getElementById('def-diplome');
+    if(bar) bar.style.width = pct + '%';
+    if(count) count.textContent = done;
+    if(pctEl) pctEl.textContent = pct + '%';
+    if(diplome) diplome.style.display = (done === total) ? 'block' : 'none';
+}
+updateDefProgress();
+</script>
+"##);
+
+    html.push_str(r##"<div class="card" style="border-color:#ff4444;"><h2 style="color:#ff4444;">📊 Progression</h2><div style="background:rgba(255,68,68,0.1);border-radius:8px;height:24px;overflow:hidden;margin:10px 0;"><div id="def-bar" style="background:linear-gradient(90deg,#ff4444,#44cc88);height:100%;width:0%;transition:width 0.5s;"></div></div><div style="text-align:center;color:#a8c5a8;"><span id="def-count">0</span> / 8 modules · <span id="def-pct">0%</span></div></div>
+
+<div id="def-diplome" style="display:none;"><div class="card" style="border-color:#d4a437;text-align:center;"><h2 style="color:#d4a437;">🎓 Diplôme: Défenseur de Tout Être Vivant</h2><p style="color:#a8c5a8;">Tu as complété les 8 modules de défense du vivant!</p><p style="color:#ff4444;font-size:1.2em;">L être humain ne doit pas être commandé. L être vivant ne doit pas être condamné.</p><p style="color:#44cc88;font-size:1em;">Quand il est malade, quand il a faim, quand il souffre, il est tout seul — et toi, tu es là. 🛡️</p><button onclick="envoyerDiplomeDef()" style="padding:12px 30px;background:#d4a437;color:#000;border:none;border-radius:8px;font-weight:bold;cursor:pointer;font-size:1.1em;margin-top:10px;">⛓️ Graver dans la Blockchain</button></div></div>
+
+<script>
+function envoyerDiplomeDef(){
+    var nom = localStorage.getItem('afri_user_name') || 'Jeune Africain';
+    fetch('/api/diplome', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+        body: 'academie=DEFENSEUR&nom=' + encodeURIComponent(nom)
+    }).then(function(r){ return r.text(); }).then(function(t){
+        alert('🎓 Diplôme gravé dans la blockchain!\n' + t);
+    }).catch(function(e){
+        alert('Erreur: ' + e);
+    });
+}
+</script>
+"##);
+
+    html.push_str(r#"<div class="card"><h2 style="color:#ff4444;">💡 Savais-tu?</h2><div style="color:#a8c5a8;padding:8px 0;"><b style="color:#d4a437;">Le FMI</b> a forcé 40 pays africains à couper leurs budgets de santé et d éducation depuis 1980. Résultat: les plus faibles meurent seuls.</div><div style="color:#a8c5a8;padding:8px 0;"><b style="color:#d4a437;">La France</b> imprime le Franc CFA en France, pas en Afrique. L Afrique de l Ouest ne contrôle pas sa propre monnaie depuis 1945.</div><div style="color:#a8c5a8;padding:8px 0;"><b style="color:#d4a437;">Un enfant africain</b> meurt de faim toutes les 13 secondres. Pendant ce temps, l Europe détruit 30% de sa nourriture pour maintenir les prix.</div><div style="color:#a8c5a8;padding:8px 0;"><b style="color:#d4a437;">Le braconnage</b> tue 35,000 éléphants par an en Afrique. L ivoire part vers l Asie, les peaux vers l Europe. L Afrique perd sa faune pour le marché occidental.</div><div style="color:#a8c5a8;padding:8px 0;"><b style="color:#d4a437;">Ubuntu</b> signifie "Je suis parce que nous sommes." C est la philosophie de défense du vivant: ta souffrance est ma souffrance.</div></div>"#);
+
+    html.push_str(r#"<footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🛡️ AI Défenseur — L Être Vivant Ne Doit Pas Être Commandé 💚🦁🛡️</footer>"#);
+    html.push_str("</body></html>");
+    html
+}
+
 fn html_garage(chain: &Blockchain) -> String {
     let mut html = html_head("Garage AI — Atelier Autonome 2500");
     let num_blocks = chain.blocks.len();
@@ -17120,7 +17378,7 @@ html+='<div class="log-entry log-kill">⚠️ Tentative d\x27infiltration occide
 html+='<div class="log-entry log-invis">✅ L\x27Afrique est forte. Le système grandit.</div>';
 }else if(type==='total'){
 html='<div style="color:#d4a437;font-weight:bold;margin-bottom:8px">📋 RAPPORT TOTAL — Depuis le début</div>';
-html+='<div class="log-entry">🦁 AfriChain v0.98 — AI Eau Gestion Souverainete Hydrique</div>';
+html+='<div class="log-entry">🦁 AfriChain v0.99 — AI Defenseur Protection de Tout Etre Vivant</div>';
 html+='<div class="log-entry">⛓️ Blockchain: 100% souveraine — Zéro dépendance externe</div>';
 html+='<div class="log-entry">🔐 Crypto: Ed25519 + AfriHash-256/512 + AfriRNG — tout from scratch</div>';
 html+='<div class="log-entry">🌍 54 pays africains connectés</div>';
@@ -18664,7 +18922,7 @@ fn main() {
         .and_then(|i| args.get(i + 1)).cloned().unwrap_or_else(|| "Afrique".to_string());
 
     let my_node_id = generate_node_id();
-    println!("🦁 AfriChain v0.98 — AI Eau Gestion Souverainete Hydrique");
+    println!("🦁 AfriChain v0.99 — AI Defenseur Protection de Tout Etre Vivant");
     println!("💚 L'Afrique ne demande plus la permission");
     println!("🌍 54 pays — 🇲🇱 🇳🇪 🇧🇫 AES — Mali · Niger · Burkina Faso");
     println!("🔐 8 modules cryptographiques — construits from scratch");
@@ -18829,6 +19087,7 @@ fn main() {
     println!("🧮 AI Mathématicien sur http://localhost:8080/ai-mathematicien");
     println!("⚡ AI Énergie sur http://localhost:8080/ai-energie");
     println!("💧 AI Eau sur http://localhost:8080/ai-eau");
+    println!("🛡️ AI Defenseur sur http://localhost:8080/ai-defenseur");
 
     // Serveur HTTP en arrière-plan (pour mesh + autres utilisateurs)
     let serve_state = web_state.clone();
@@ -18863,7 +19122,7 @@ fn terminal_interface(state: &Arc<AppState>) {
     println!("  ║  🕐 AfriTime — Pas UTC, pas Greenwich   ║");
     println!("  ║  📝 ~23,100 lignes — écrit à la main       ║");
     println!("  ╚═══════════════════════════════════════════════╝");
-    println!("\n  Version v0.98 — 31 août 2026");
+    println!("\n  Version v0.99 — 31 août 2026");
     println!("  Construit sur Termux · Android · nano\n");
     println!("  ─────────────────────────────────────────────");
     println!("\n  1. 🏦 Centre de Données (Admin)");
@@ -18935,7 +19194,7 @@ fn admin_interface(state: &Arc<AppState>) {
         println!("\n");
         println!("╔══════════════════════════════════════╗");
         println!("║  🏦 CENTRE DE DONNÉES — Admin       ║");
-        println!("║  🦁 AfriChain v0.98                  ║");
+        println!("║  🦁 AfriChain v0.99                  ║");
         println!("╠══════════════════════════════════════╣");
         let chain = state.chain.lock().unwrap();
         let users = state.users.lock().unwrap();
@@ -22559,6 +22818,11 @@ fn handle_request(req: afri_http::HttpRequest, state: &Arc<AppState>) -> afri_ht
         ("GET", "/ai-eau") => {
             let chain = state.chain.lock().unwrap();
             HttpResponse::ok(&html_ai_eau(&chain))
+        }
+
+        ("GET", "/ai-defenseur") => {
+            let chain = state.chain.lock().unwrap();
+            HttpResponse::ok(&html_ai_defenseur(&chain))
         }
 
         ("GET", "/garage") => {
