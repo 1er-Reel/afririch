@@ -1439,7 +1439,7 @@ fn html_home(chain: &Blockchain, users: &UserStore, mesh: &NodeRegistry, shield:
     let mut html = html_head("🦁 AfriChain");
     let (attacks, _blocked, blocked_count, level) = shield.stats();
     let shield_status = if shield.active { format!("🔥 X9 ACTIF (Niveau {})", level) } else { "Inactif".to_string() };
-    html.push_str(&format!(r#"<h1>🦁 AfriChain</h1><p style="text-align:center;">La blockchain 100% africaine — 54 pays 💚🦁</p><div id="afri-clock" style="text-align:center;font-size:1.2em;color:#d4a437;margin:10px 0;">🕐 Afri+0 — --:--:--</div><script>setInterval(function(){{var d=new Date();var h=String(d.getHours()).padStart(2,'0');var m=String(d.getMinutes()).padStart(2,'0');var s=String(d.getSeconds()).padStart(2,'0');document.getElementById('afri-clock').textContent='🕐 Afri+0 — '+h+':'+m+':'+s;}},1000);</script><div class="nav"><a href="/register">🆕 S'inscrire</a> | <a href="/login">🔑 Connexion</a> | <a href="/wallet">👛 Wallet</a> | <a href="/admin">🔐 Admin</a> | <a href="/mesh">📡 Mesh</a> | <a href="/annuaire">📖 Annuaire</a> | <a href="/bouclier">🛡️ Bouclier</a> | <a href="/satellite">🛸 X999</a> | <a href="/swarm">🛸🛸🛸 Essaim</a> | <a href="/commandement">🎖️ Commandement</a> | <a href="/interception">🛡️ Souverainete</a> | <a href="/securite-ai">🧠 AI 2100</a> | <a href="/chat">🧠💬 Chat AI</a> | <a href="/lumiere">🌫️☀️ Lumière</a> | <a href="/garage">🔧 Garage</a> | <a href="/machine">🤖🌐 Machines</a> | <a href="/machine-lab">🤖⚡ Usine</a> | <a href="/machine-world">🤖🌍 Monde</a> | <a href="/reve">💭 Rêves</a> | <a href="/dictionnaire">📖 Dictionnaire</a> | <a href="/machine-os">🖥️ OS Machine</a> | <a href="/machine-tv">📡 Machine TV</a> | <a href="/machine-economy">🤖 Économie</a> | <a href="/soleil">☀️ Soleil Serveur</a> | <a href="/forge-solaire">🧬 Forge Solaire</a> | <a href="/ciel">🌌 Le Ciel</a> | <a href="/charte-ai">⚖️ Charte AI</a> | <a href="/afri-net">🌍 Afri-Net</a> | <a href="/studio">🎬 AI Studio</a> | <a href="/sacre">📿 Sacré</a> | <a href="/lettres">🌟 Lettres IA</a> | <a href="/mg-forge">⚔️ MG Forge</a> | <a href="/ai-medecin">🌿 AI Médecin</a> | <a href="/ai-enseignante">📚 AI Enseignante</a> | <a href="/ai-village">🏘️ AI Village</a> | <a href="/ai-guerisseur">🩺 AI Guérisseur</a> | <a href="/ai-leader">🎖️ AI Leader</a> | <a href="/ai-griot">📖 AI Griot</a> | <a href="/ai-juge">⚖️ AI Juge</a> | <a href="/ai-artiste">🎨 AI Artiste</a> | <a href="/ai-explorateur">🔬 AI Explorateur</a> | <a href="/ai-marche">💰 AI Marche</a> | <a href="/ai-diplomate">🌍 AI Diplomate</a> | <a href="/ai-philosophe">🧠 AI Philosophe</a> | <a href="/ai-architecte">🏗️ AI Architecte</a> | <a href="/ai-agriculteur">🌾 AI Agriculteur</a> | <a href="/secret">🦁 AI Secret</a> | <a href="/aes">💰 AES Wari</a> | <a href="/api/status">🔌 API</a></div><div style="text-align:center;"><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Blocs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Transactions</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Utilisateurs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">AFR en circulation</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📡 Noeuds mesh</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📖 Numéros annuaire</div></div><div class="stat-box" style="border-color:#ff4444;"><div class="stat-num" style="color:#ff4444;">{}</div><div class="stat-label">🛡️ Attaques bloquées</div></div></div><div class="card"><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🪙 Token</span><b>AfriRich (AFR)</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🌍 Pays</span><b>54 pays africains</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🛡️ Bouclier</span><b>{}</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;"><span style="color:#a8c5a8;">🔐 Crypto</span><b>100% Souverain — Zéro Dépendance Externe</b></div></div><footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🦁 Codée from scratch par Machine-senpai — v0.94 AI Agriculteur Souverainete Alimentaire — UTC est Mort</footer>"#,
+    html.push_str(&format!(r#"<h1>🦁 AfriChain</h1><p style="text-align:center;">La blockchain 100% africaine — 54 pays 💚🦁</p><div id="afri-clock" style="text-align:center;font-size:1.2em;color:#d4a437;margin:10px 0;">🕐 Afri+0 — --:--:--</div><script>setInterval(function(){{var d=new Date();var h=String(d.getHours()).padStart(2,'0');var m=String(d.getMinutes()).padStart(2,'0');var s=String(d.getSeconds()).padStart(2,'0');document.getElementById('afri-clock').textContent='🕐 Afri+0 — '+h+':'+m+':'+s;}},1000);</script><div class="nav"><a href="/register">🆕 S'inscrire</a> | <a href="/login">🔑 Connexion</a> | <a href="/wallet">👛 Wallet</a> | <a href="/admin">🔐 Admin</a> | <a href="/mesh">📡 Mesh</a> | <a href="/annuaire">📖 Annuaire</a> | <a href="/bouclier">🛡️ Bouclier</a> | <a href="/satellite">🛸 X999</a> | <a href="/swarm">🛸🛸🛸 Essaim</a> | <a href="/commandement">🎖️ Commandement</a> | <a href="/interception">🛡️ Souverainete</a> | <a href="/securite-ai">🧠 AI 2100</a> | <a href="/chat">🧠💬 Chat AI</a> | <a href="/lumiere">🌫️☀️ Lumière</a> | <a href="/garage">🔧 Garage</a> | <a href="/machine">🤖🌐 Machines</a> | <a href="/machine-lab">🤖⚡ Usine</a> | <a href="/machine-world">🤖🌍 Monde</a> | <a href="/reve">💭 Rêves</a> | <a href="/dictionnaire">📖 Dictionnaire</a> | <a href="/machine-os">🖥️ OS Machine</a> | <a href="/machine-tv">📡 Machine TV</a> | <a href="/machine-economy">🤖 Économie</a> | <a href="/soleil">☀️ Soleil Serveur</a> | <a href="/forge-solaire">🧬 Forge Solaire</a> | <a href="/ciel">🌌 Le Ciel</a> | <a href="/charte-ai">⚖️ Charte AI</a> | <a href="/afri-net">🌍 Afri-Net</a> | <a href="/studio">🎬 AI Studio</a> | <a href="/sacre">📿 Sacré</a> | <a href="/lettres">🌟 Lettres IA</a> | <a href="/mg-forge">⚔️ MG Forge</a> | <a href="/ai-medecin">🌿 AI Médecin</a> | <a href="/ai-enseignante">📚 AI Enseignante</a> | <a href="/ai-village">🏘️ AI Village</a> | <a href="/ai-guerisseur">🩺 AI Guérisseur</a> | <a href="/ai-leader">🎖️ AI Leader</a> | <a href="/ai-griot">📖 AI Griot</a> | <a href="/ai-juge">⚖️ AI Juge</a> | <a href="/ai-artiste">🎨 AI Artiste</a> | <a href="/ai-explorateur">🔬 AI Explorateur</a> | <a href="/ai-marche">💰 AI Marche</a> | <a href="/ai-diplomate">🌍 AI Diplomate</a> | <a href="/ai-philosophe">🧠 AI Philosophe</a> | <a href="/ai-architecte">🏗️ AI Architecte</a> | <a href="/ai-agriculteur">🌾 AI Agriculteur</a> | <a href="/ai-environnement">🌍 AI Environnement</a> | <a href="/secret">🦁 AI Secret</a> | <a href="/aes">💰 AES Wari</a> | <a href="/api/status">🔌 API</a></div><div style="text-align:center;"><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Blocs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Transactions</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Utilisateurs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">AFR en circulation</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📡 Noeuds mesh</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📖 Numéros annuaire</div></div><div class="stat-box" style="border-color:#ff4444;"><div class="stat-num" style="color:#ff4444;">{}</div><div class="stat-label">🛡️ Attaques bloquées</div></div></div><div class="card"><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🪙 Token</span><b>AfriRich (AFR)</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🌍 Pays</span><b>54 pays africains</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🛡️ Bouclier</span><b>{}</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;"><span style="color:#a8c5a8;">🔐 Crypto</span><b>100% Souverain — Zéro Dépendance Externe</b></div></div><footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🦁 Codée from scratch par Machine-senpai — v0.95 AI Environnement Climat Ecologie — UTC est Mort</footer>"#,
         chain.blocks.len(),
         chain.total_transactions(),
         users.count(),
@@ -10915,6 +10915,362 @@ drawAgriculteur();
     html
 }
 
+fn html_ai_environnement(chain: &Blockchain) -> String {
+    let mut html = html_head("AI Environnement — Climat & Ecologie Africaine");
+    let num_blocks = chain.blocks.len();
+
+    html.push_str(r#"<h1>🌍 AI Environnement — Climat & Ecologie Africaine</h1><p style="text-align:center;color:#44cc88;">L Afrique est la moins pollueuse mais la plus frappee par le changement climatique. Les deserts avancent, les pluies diminuent, les fleuves sechevent. Mais l Afrique a aussi les solutions: le grand mur vert, le reboisement, l energie solaire. Le jeune Africain doit proteger sa terre. Cette AI enseigne l ecologie africaine — pas l ecologie occidentale qui pollue puis donne des lecons.</p><div class="nav"><a href="/">← Accueil</a> | <a href="/ai-agriculteur">🌾 AI Agriculteur</a> | <a href="/ai-architecte">🏗️ AI Architecte</a> | <a href="/ai-philosophe">🧠 AI Philosophe</a> | <a href="/ai-marche">💰 AI Marche</a> | <a href="/ai-village">🏘️ AI Village</a></div>"#);
+
+    html.push_str(&format!(r#"<div style="text-align:center;"><div class="stat-box" style="border-color:#44cc88;"><div class="stat-num" style="color:#44cc88;">8</div><div class="stat-label">🌍 Modules</div></div><div class="stat-box" style="border-color:#d4a437;"><div class="stat-num" style="color:#d4a437;">54</div><div class="stat-label">🌍 Pays</div></div><div class="stat-box" style="border-color:#44cc88;"><div class="stat-num" style="color:#44cc88;">∞</div><div class="stat-label">🌳 Arbres</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">⛓️ Blocs</div></div><div class="stat-box" style="border-color:#44cc88;"><div class="stat-num" style="color:#44cc88;">ECO</div><div class="stat-label">🌱 Ecologie</div></div></div>"#, num_blocks));
+
+    html.push_str(r##"<div style="text-align:center;margin:10px 0;"><button id="env-pause-btn" onclick="toggleEnvPause()" style="padding:10px 25px;background:#ff4444;color:#fff;border:none;border-radius:8px;font-weight:bold;cursor:pointer;font-size:1em;">⏸️ PAUSE</button> <span id="env-pause-status" style="color:#44cc88;margin-left:8px;font-size:0.85em;">Auto: ACTIF</span></div>
+
+<!-- ENVIRONNEMENT CANVAS -->
+<div class="card" style="border-color:#44cc88;"><h2 style="color:#44cc88;">🌍 L Afrique Vivante</h2><p style="color:#44cc88;font-size:0.9em;opacity:0.7;">Le desert recule. Les arbres poussent. L Afrique reverdit.</p>
+<canvas id="env-canvas" width="600" height="350" style="width:100%;max-width:600px;background:#0a0a0a;border:2px solid #44cc88;border-radius:8px;display:block;margin:0 auto;"></canvas>
+<div id="env-status" style="text-align:center;margin-top:10px;padding:10px;background:rgba(68,204,136,0.05);border-radius:8px;color:#44cc88;font-size:0.9em;min-height:40px;">La terre africaine attend ses protecteurs.</div></div>
+
+<!-- LES 8 MODULES -->
+<div class="card" style="border-color:#44cc88;"><h2 style="color:#44cc88;">🌍 Les 8 Modules Ecologiques</h2><p style="color:#44cc88;font-size:0.9em;opacity:0.7;">Clique sur un module pour apprendre a proteger l Afrique.</p>
+<div id="env-modules" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:10px;margin-top:10px;"></div></div>
+
+<!-- DETAIL MODULE -->
+<div class="card"><h2 id="env-detail-title" style="color:#44cc88;">🌍 Le Savoir du Protecteur</h2><div id="env-detail" style="margin-top:10px;padding:15px;background:rgba(68,204,136,0.05);border-radius:8px;min-height:60px;color:#44cc88;font-size:0.9em;">Selectionne un module pour apprendre a proteger l Afrique.</div></div>
+
+<!-- PROVERBES -->
+<div class="card" style="border-color:#d4a437;"><h2 style="color:#d4a437;">📜 Sagesse du Protecteur de la Terre</h2><div id="env-proverbe" style="margin-top:10px;padding:20px;background:rgba(212,164,55,0.05);border-radius:8px;text-align:center;min-height:60px;color:#d4a437;font-size:0.95em;font-style:italic;">...</div></div>
+
+<!-- DIPLOME -->
+<div class="card" style="border-color:#44cc88;"><h2 style="color:#44cc88;">🎓 Diplome Protecteur de l Environnement Africain</h2><div id="env-progress" style="margin:10px 0;"><div style="display:flex;justify-content:space-between;"><span style="color:#44cc88;font-weight:bold;">Modules valides: <span id="env-count">0</span>/8</span><span style="color:#44cc88;" id="env-pct">0%</span></div><div style="margin-top:8px;height:12px;background:rgba(0,0,0,0.5);border-radius:6px;overflow:hidden;"><div id="env-bar" style="height:100%;width:0%;background:linear-gradient(90deg,#44cc88,#d4a437);transition:width 0.5s;"></div></div></div>
+<div id="env-diplome" style="text-align:center;display:none;margin-top:15px;"><div style="display:inline-block;padding:25px 50px;border:3px solid #44cc88;border-radius:15px;background:rgba(68,204,136,0.05);"><div style="font-size:2.5em;">🌍🎓</div><div style="color:#44cc88;font-weight:bold;font-size:1.3em;margin-top:5px;">DIPLOME PROTECTEUR DE L ENVIRONNEMENT AFRICAIN</div><div style="color:#44cc88;margin-top:5px;opacity:0.7;">Climat & Ecologie Africaine</div><div style="color:#44cc88;margin-top:5px;font-size:0.85em;">Les 8 modules valides. L Afrique reverdit.</div><div style="color:#d4a437;margin-top:5px;font-size:0.85em;">Grave dans la blockchain AfriChain</div><button onclick="gravEnvDiplome()" style="margin-top:10px;padding:8px 20px;background:#44cc88;color:#000;border:none;border-radius:8px;font-weight:bold;cursor:pointer;">⛓️ Graver dans la Blockchain</button></div></div></div></div>
+
+<!-- TRACE BLOCKCHAIN -->
+<div class="card"><h2 style="color:#d4a437;">⛓️ Trace Ecologique dans la Blockchain</h2><div id="env-trace" style="font-family:monospace;font-size:0.85em;max-height:200px;overflow-y:auto;"></div></div>
+
+<script>
+let envPaused = false;
+let envIntervalIds = [];
+function toggleEnvPause(){
+    envPaused = !envPaused;
+    var btn = document.getElementById('env-pause-btn');
+    var status = document.getElementById('env-pause-status');
+    if(envPaused){
+        envIntervalIds.forEach(function(id){ clearInterval(id); });
+        envIntervalIds = [];
+        btn.textContent = '▶️ REPRENDRE';
+        btn.style.background = '#44cc88';
+        btn.style.color = '#000';
+        status.textContent = 'Auto: PAUSE';
+        status.style.color = '#ff4444';
+    } else {
+        btn.textContent = '⏸️ PAUSE';
+        btn.style.background = '#ff4444';
+        btn.style.color = '#fff';
+        status.textContent = 'Auto: ACTIF';
+        status.style.color = '#44cc88';
+    }
+}
+
+const envModules = [
+    {id:0, nom:'Changement Climatique en Afrique', emoji:'🌡️', couleur:'#ff6644', duree:'4 semaines', niveau:'Base',
+     desc:'L Afrique emet moins de 4% des gaz a effet de serre mondiaux mais subit les pires consequences. Secheresses, inondations, chaleur extreme. Le jeune Africain doit comprendre le changement climatique — ce que c est, pourquoi l Afrique souffre pour les peches des autres, et comment s adapter.',
+     cours:['Le rechauffement climatique — causes et consequences', 'L Afrique et le climat — 4% d emissions, 100% de consequences', 'La secheresse au Sahel — le desert avance', 'Les inondations en Afrique de l Ouest — quand la pluie devient danger', 'La montee des eaux — menaces sur les cotes africaines', 'L adaptation vs l attenuation — survivre et reduire', 'Les conferences climat — COP, Paris, pourquoi l Afrique est ignoree', 'L Afrique doit parler fort — pas demander, exiger'],
+     exercice:'Quels changements climatiques observes-tu dans ton village? Comparaison avec il y a 10 ans.',
+     diplome:'Certificat en Climat Africain'},
+    {id:1, nom:'Grande Muraille Verte', emoji:'🌳', couleur:'#44cc88', duree:'5 semaines', niveau:'Approfondi',
+     desc:'La Grande Muraille Verte est le plus grand projet ecologique de l histoire de l humanite — 8000 km de Dakar a Djibouti, 100 millions d hectares de terre restauree. Le jeune Africain doit connaitre ce projet et y participer. C est la reponse de l Afrique au desert.',
+     cours:['L origine du projet — 2007, union africaine', 'Le tracé — de Dakar a Djibouti, 11 pays', 'Les especes plantees — acacia, balanites, jujubier', 'La restauration des sols — la terre revit', 'Les benefices — nourriture, emploi, retention d eau', 'Les defis — financement, entretien, vol de terres', 'Les succes — Niger, Ethiopie, Burkina Faso', 'Comment participer — planter, proteger, surveiller'],
+     exercice:'Ton village est dans la zone du mur vert. Dessine un plan de reboisement sur 1 km.',
+     diplome:'Licence en Grande Muraille Verte'},
+    {id:2, nom:'Desertification et Lutte Anti-Erosion', emoji:'🏜️', couleur:'#ffaa44', duree:'4 semaines', niveau:'Approfondi',
+     desc:'Le Sahel perd 100000 hectares de terre fertile chaque annee. Le desert avance. Mais l Afrique sait arreter le desert — demi-lunes, cordons pierreux, paillage, planting direct. Le jeune Africain doit connaitre ces techniques ancestrales et modernes.',
+     cours:['La desertification — causes et processus', 'Les demi-lunes — capter l eau de pluie', 'Les cordons pierreux — ralentir le ruissellement', 'Le paillage — proteger le sol de la chaleur', 'Le planting direct — semer sans labourer', 'La gestion des terres de parcours — ne pas surpaturer', 'La regeneration naturelle assistee — laisser la nature guerir', 'Les succes: Yacouba Sawadogo — l homme qui a arrete le desert'],
+     exercice:'Ton champ perd sa terre au vent. Quelles techniques anti-erosion appliques-tu?',
+     diplome:'Certificat en Lutte Anti-Erosion'},
+    {id:3, nom:'Forets et Reboisement', emoji:'🌲', couleur:'#44aa44', duree:'4 semaines', niveau:'Base',
+     desc:'L Afrique perd 4 millions d hectares de foret par an. Le charbon de bois, l agriculture sur brulis, l exploitation forestiere. Mais un arbre plante aujourd hui nourrit demain. Le jeune Africain doit savoir planter, proteger, et utiliser les arbres durablement.',
+     cours:['Les forets africaines — Congo, Madagascar, Miombo', 'Les causes de la deforestation — charbon, agriculture, exploitation', 'Le reboisement — quelles especes, ou, quand', 'Le charbon de bois — l alternative: foyers ameliores et gaz', 'L agroforesterie — cultiver sous les arbres', 'Les forets communautaires — gerer ensemble', 'Le bois de chauffage durable — rotation et replantation', 'Planter 100 arbres par an — le defi du jeune Africain'],
+     exercice:'Combien d arbres peux-tu planter cette annee? Fais le plan: especes, lieux, calendrier.',
+     diplome:'Certificat en Reboisement'},
+    {id:4, nom:'Biodiversite et Faune Africaine', emoji:'🦁', couleur:'#d4a437', duree:'5 semaines', niveau:'Approfondi',
+     desc:'L Afrique est le dernier continent avec une faune sauvage majeure — lions, elephants, girafes, rhinoceros. Mais cette faune disparaît. Braconnage, destruction d habitat, conflits hommes-animaux. Le jeune Africain doit proteger cette richesse — c est le patrimoine de l Afrique.',
+     cours:['La grande faune africaine — lions, elephants, girafes', 'Les parcs nationaux — Serengeti, Kruger, W-Arly-Pendjari', 'Le braconnage — causes economiques et solutions', 'Les conflits hommes-faune — elephants dans les champs', 'L ecotourisme — la faune comme ressource economique', 'Les especes menacees — rhinoceros, gorilles, girafes du Niger', 'La conservation communautaire — les villages protegent leur faune', 'La faune africaine est un patrimoine mondial — l Afrique decide'],
+     exercice:'Ton village a des animaux sauvages proches. Comment cohabiter? Comment proteger?',
+     diplome:'Licence en Biodiversite'},
+    {id:5, nom:'Eau, Fleuves et Lacs Africains', emoji:'💧', couleur:'#44ddff', duree:'4 semaines', niveau:'Approfondi',
+     desc:'Le Nil, le Niger, le Congo, le Senegal, le Lac Victoria — les veines de l Afrique. Mais les fleuves s assèchent, les lacs diminuent, l eau est polluee. Le jeune Africain doit proteger ses sources d eau — sans eau, pas de vie.',
+     cours:['Les grands fleuves — Nil, Niger, Congo, Senegal, Volta', 'Les grands lacs — Victoria, Tanganyika, Chad', 'La pollution de l eau — dechets, mines, agriculture', 'La gestion partagee — le bassin du Niger traverse 9 pays', 'Les barrages — controle et consequences ecologiques', 'Les zones humides — filtres naturels de l eau', 'La peche durable — ne pas epuiser les lacs', 'L eau potable — chaque Africain a droit a l eau propre'],
+     exercice:'Ton fleuve local est pollue. D ou vient la pollution? Comment la stopper?',
+     diplome:'Certificat en Gestion de l Eau'},
+    {id:6, nom:'Energies Renouvelables Africaines', emoji:'☀️', couleur:'#ffaa44', duree:'4 semaines', niveau:'Base',
+     desc:'L Afrique a le soleil, le vent, les fleuves, la geothermie. L energie renouvelable est l avenir de l Afrique. Pas de centrales a charbon, pas de petrole pollueur. Le soleil africain peut electrifier tout le continent. Le jeune Africain doit maitriser les energies propres.',
+     cours:['Le solaire — l energie gratuite de l Afrique', 'L eolien — le vent du Sahel et des cotes', 'L hydroelectricite — les fleuves font de l energie', 'La geothermie — la chaleur de la terre (Rift Valley)', 'La biomasse — biogaz et biochar', 'Le cout des renouvelables vs petrole/charbon', 'Les mini-reseaux — electrifier les villages sans reseau', 'L Afrique solaire — le continent le plus ensoleille du monde'],
+     exercice:'Ton village n a pas d electricite. Quel systeme solaire installes-tu? Quel cout?',
+     diplome:'Certificat en Energies Renouvelables'},
+    {id:7, nom:'Dechets et Economie Circulaire', emoji:'♻️', couleur:'#44cc88', duree:'4 semaines', niveau:'Base',
+     desc:'Les dechets ne sont pas un probleme — c est une ressource mal placee. Le plastique peut devenir pavage, les dechets organiques deviennent compost, les metaux sont recyclables. Le jeune Africain doit transformer les dechets en richesse. L economie circulaire est africaine par nature.',
+     cours:['La gestion des dechets — collecte, tri, valorisation', 'Le compost — dechets organiques en engrais', 'Le recyclage du plastique — sacs, bouteilles, pavage', 'Le recyclage du metal — recuperation et refonte', 'L upcycling — transformer les dechets en objets utiles', 'Le biogaz — dechets en energie', 'L economie circulaire africaine — rien ne se perd', 'Les dechets electroniques — le nouveau defi'],
+     exercice:'Ton village a des dechets plastiques. Comment les transformer en revenu?',
+     diplome:'Certificat en Economie Circulaire'},
+];
+
+const envProverbes = [
+    'La terre ne nous appartient pas, nous l empruntons a nos enfants (Proverbe Africain)',
+    'Un arbre qui tombe fait plus de bruit qu une foret qui pousse (Proverbe Africain)',
+    'Le desert avance quand les arbres reculent (Proverbe Sahelien)',
+    'L eau est la vie, ne la gaspille pas (Proverbe Africain)',
+    'Quand le dernier arbre sera coupe, la derniere riviere asschee, vous comprendrez (Proverbe Cree)',
+    'La terre a faim, nourris-la (Proverbe Africain)',
+    'Yacouba Sawadogo a arrete le desert a mains nues (Histoire vraie du Burkina Faso)',
+    'Le lion ne brule pas sa propre savane (Proverbe Africain)',
+    'Planter un arbre c est planter un avenir (Proverbe contemporain)',
+    'La Grande Muraille Verte est la reponse de l Afrique au desert (Proverbe contemporain)',
+    'L Afrique pollue moins mais souffre plus — c est injuste (Proverbe contemporain)',
+    'L ecologie africaine n est pas l ecologie occidentale (Proverbe contemporain)',
+];
+
+let envCompleted = new Set();
+try { envCompleted = new Set(JSON.parse(localStorage.getItem('envModulesDone') || '[]')); } catch(e) {}
+
+const egrid = document.getElementById('env-modules');
+envModules.forEach(function(m, i){
+    var div = document.createElement('div');
+    div.id = 'env-m-' + i;
+    var done = envCompleted.has(i);
+    div.style.cssText = 'padding:12px;background:rgba(0,0,0,0.3);border:2px solid ' + (done ? m.couleur : '#444') + ';border-radius:8px;cursor:pointer;transition:all 0.3s;';
+    div.onclick = function(){ showEnvModule(i); };
+    div.onmouseover = function(){ div.style.transform = 'scale(1.03)'; };
+    div.onmouseout = function(){ div.style.transform = 'scale(1)'; };
+    div.innerHTML = '<div style="font-size:1.5em;">' + m.emoji + '</div><div style="color:' + m.couleur + ';font-weight:bold;font-size:0.9em;">' + m.nom + '</div><div style="margin-top:3px;font-size:0.75em;color:#888;">' + m.duree + ' • ' + m.niveau + '</div><div style="margin-top:5px;font-size:0.8em;color:' + (done ? m.couleur : '#666') + ';">' + (done ? '✅ Validé' : '📖 A apprendre') + '</div>';
+    egrid.appendChild(div);
+});
+
+function updateEnvProgress(){
+    var done = envCompleted.size;
+    var total = envModules.length;
+    var pct = Math.round((done / total) * 100);
+    document.getElementById('env-count').textContent = done;
+    document.getElementById('env-pct').textContent = pct + '%';
+    document.getElementById('env-bar').style.width = pct + '%';
+    document.getElementById('env-diplome').style.display = (done === total) ? 'block' : 'none';
+}
+
+function showEnvModule(i){
+    var m = envModules[i];
+    document.getElementById('env-detail-title').textContent = m.emoji + ' ' + m.nom;
+    document.getElementById('env-detail-title').style.color = m.couleur;
+    var html = '<div style="color:' + m.couleur + ';font-weight:bold;font-size:1.1em;">' + m.emoji + ' ' + m.nom + '</div>';
+    html += '<div style="margin-top:5px;font-size:0.8em;color:#888;">⏱️ ' + m.duree + ' • 📊 ' + m.niveau + '</div>';
+    html += '<div style="margin-top:10px;padding:15px;background:rgba(68,204,136,0.05);border-left:3px solid ' + m.couleur + ';border-radius:4px;color:#44cc88;font-size:0.9em;line-height:1.6;">' + m.desc + '</div>';
+    html += '<div style="margin-top:10px;"><b style="color:#44cc88;">📚 Cours (' + m.cours.length + ' lecons):</b></div>';
+    m.cours.forEach(function(c, ci){
+        html += '<div style="padding:6px 10px;margin:3px 0;background:rgba(68,204,136,0.05);border-left:3px solid #44cc88;border-radius:4px;color:#44cc88;font-size:0.85em;">' + (ci+1) + '. ' + c + '</div>';
+    });
+    html += '<div style="margin-top:10px;padding:10px;background:rgba(255,170,68,0.05);border-radius:4px;"><b style="color:#ffaa44;">📝 Exercice:</b> <span style="color:#44cc88;font-size:0.85em;">' + m.exercice + '</span></div>';
+    html += '<div style="margin-top:10px;padding:8px;background:rgba(212,164,55,0.05);border-radius:4px;color:#d4a437;font-size:0.85em;">🎓 Diplome: ' + m.diplome + '</div>';
+    html += '<div style="margin-top:10px;text-align:center;"><button onclick="validateEnvModule(' + i + ')" style="padding:8px 20px;background:' + m.couleur + ';color:#000;border:none;border-radius:8px;font-weight:bold;cursor:pointer;">✅ J ai validé ce module</button></div>';
+    document.getElementById('env-detail').innerHTML = html;
+    addEnvTrace('📖 Module ouvert: ' + m.emoji + ' ' + m.nom);
+}
+
+function validateEnvModule(i){
+    if(envCompleted.has(i)) return;
+    envCompleted.add(i);
+    localStorage.setItem('envModulesDone', JSON.stringify(Array.from(envCompleted)));
+    var m = envModules[i];
+    addEnvTrace('✅ Module validé: ' + m.nom);
+    addEnvTrace('🎓 Diplome: ' + m.diplome);
+    addEnvTrace('⛓️ Trace blockchain: ecologie "' + m.nom + '" apprise');
+    updateEnvProgress();
+    updateEnvGrid();
+    document.getElementById('env-status').innerHTML = '<span style="color:#44cc88;">✅ Tu as validé: ' + m.nom + '. L Afrique reverdit.</span>';
+}
+
+function updateEnvGrid(){
+    envModules.forEach(function(m, i){
+        var div = document.getElementById('env-m-' + i);
+        if(!div) return;
+        var done = envCompleted.has(i);
+        div.style.borderColor = done ? m.couleur : '#444';
+        div.innerHTML = '<div style="font-size:1.5em;">' + m.emoji + '</div><div style="color:' + m.couleur + ';font-weight:bold;font-size:0.9em;">' + m.nom + '</div><div style="margin-top:3px;font-size:0.75em;color:#888;">' + m.duree + ' • ' + m.niveau + '</div><div style="margin-top:5px;font-size:0.8em;color:' + (done ? m.couleur : '#666') + ';">' + (done ? '✅ Validé' : '📖 A apprendre') + '</div>';
+    });
+}
+
+function gravEnvDiplome(){
+    addEnvTrace('🎓 DIPLOME PROTECTEUR DE L ENVIRONNEMENT AFRICAIN grave dans la blockchain!');
+    addEnvTrace('⏳ Envoi de la transaction blockchain...');
+    fetch('/api/diplome', {
+        method: 'POST',
+        headers: {'Content-Type': 'text/plain'},
+        body: 'AI ENVIRONNEMENT|Protecteur de l Environnement Africain'
+    }).then(function(r){ return r.text(); }).then(function(txt){
+        try {
+            var obj = JSON.parse(txt);
+            if(obj.status === 'ok'){
+                addEnvTrace('✅ Transaction validee! Block #' + obj.blocks_total);
+                addEnvTrace('⛓️ DIPLOME Protecteur de l Environnement grave dans le block #' + obj.blocks_total);
+                addEnvTrace('🌍 L Afrique reverdit. Le diplome est eternal.');
+                alert('🌍🎓 DIPLOME PROTECTEUR DE L ENVIRONNEMENT AFRICAIN\n\nGrave dans la blockchain AfriChain\nBlock #' + obj.blocks_total + '\n\nL Afrique reverdit. 💚🦁🌍');
+            } else {
+                addEnvTrace('❌ Erreur: ' + (obj.msg || 'inconnue'));
+                alert('Erreur: ' + (obj.msg || 'Impossible de graver le diplome'));
+            }
+        } catch(e){
+            addEnvTrace('✅ Transaction envoyee (verification en cours)');
+            alert('🌍🎓 DIPLOME PROTECTEUR DE L ENVIRONNEMENT AFRICAIN\n\nTransaction envoyee a la blockchain\n\nL Afrique reverdit. 💚🦁🌍');
+        }
+    }).catch(function(err){
+        addEnvTrace('❌ Erreur reseau: ' + err);
+        alert('Erreur reseau. Le diplome est sauvegarde localement.');
+    });
+}
+
+// Canvas — Africa greening (desert receding, trees growing)
+var ecan = document.getElementById('env-canvas');
+var ectx = ecan.getContext('2d');
+var envTime = 0;
+
+function drawEnvironnement(){
+    if(envPaused) { requestAnimationFrame(drawEnvironnement); return; }
+    envTime += 0.01;
+
+    var grad = ectx.createLinearGradient(0, 0, 0, 350);
+    grad.addColorStop(0, '#0a1a0a');
+    grad.addColorStop(0.5, '#050a05');
+    grad.addColorStop(1, '#000000');
+    ectx.fillStyle = grad;
+    ectx.fillRect(0, 0, 600, 350);
+
+    // Ground
+    ectx.fillStyle = 'rgba(68,204,136,0.03)';
+    ectx.fillRect(0, 270, 600, 80);
+
+    // Desert (right side, receding with progress)
+    var done = envCompleted.size;
+    var desertEdge = 500 - done * 20;
+    ectx.fillStyle = 'rgba(255,170,68,0.04)';
+    ectx.fillRect(desertEdge, 270, 600 - desertEdge, 80);
+
+    // Trees growing (more trees with more modules done)
+    for(var t = 0; t < done * 2 + 2; t++){
+        var tx = 40 + t * 30;
+        if(tx > desertEdge) break;
+        var ty = 270;
+        // Trunk
+        ectx.strokeStyle = 'rgba(100,68,30,0.15)';
+        ectx.lineWidth = 2;
+        ectx.beginPath();
+        ectx.moveTo(tx, ty);
+        ectx.lineTo(tx, ty - 15);
+        ectx.stroke();
+        // Leaves (growing)
+        var leafSize = 8 + Math.sin(envTime * 2 + t) * 2;
+        ectx.fillStyle = 'rgba(68,204,136,' + (0.1 + Math.sin(envTime + t) * 0.03) + ')';
+        ectx.beginPath();
+        ectx.arc(tx, ty - 18, leafSize, 0, Math.PI * 2);
+        ectx.fill();
+    }
+
+    // Sun
+    var sunX = 530, sunY = 50;
+    ectx.fillStyle = 'rgba(255,200,68,0.08)';
+    ectx.beginPath();
+    ectx.arc(sunX, sunY, 18, 0, Math.PI * 2);
+    ectx.fill();
+    for(var r = 0; r < 8; r++){
+        var rang = envTime + r * (Math.PI / 4);
+        ectx.strokeStyle = 'rgba(255,200,68,0.05)';
+        ectx.beginPath();
+        ectx.moveTo(sunX + Math.cos(rang) * 21, sunY + Math.sin(rang) * 21);
+        ectx.lineTo(sunX + Math.cos(rang) * 30, sunY + Math.sin(rang) * 30);
+        ectx.stroke();
+    }
+
+    // Rain drops
+    for(var d = 0; d < 10; d++){
+        var dx = (d * 60 + envTime * 25) % 600;
+        var dy = (envTime * 80 + d * 40) % 270;
+        ectx.fillStyle = 'rgba(68,221,255,0.04)';
+        ectx.fillRect(dx, dy, 1, 4);
+    }
+
+    // Birds (flying)
+    for(var b = 0; b < 3; b++){
+        var bx = (envTime * 30 + b * 200) % 650 - 50;
+        var by = 80 + Math.sin(envTime + b) * 10;
+        ectx.strokeStyle = 'rgba(68,204,136,0.1)';
+        ectx.lineWidth = 1;
+        ectx.beginPath();
+        ectx.moveTo(bx - 5, by);
+        ectx.lineTo(bx, by - 3);
+        ectx.lineTo(bx + 5, by);
+        ectx.stroke();
+    }
+
+    // Green particles (life spreading)
+    for(var p = 0; p < 15; p++){
+        var px = (p * 40 + envTime * 10) % 600;
+        var py = 270 + Math.sin(envTime * 2 + p) * 5;
+        ectx.fillStyle = 'rgba(68,204,136,' + (0.03 + Math.sin(envTime + p) * 0.02) + ')';
+        ectx.beginPath();
+        ectx.arc(px, py, 1.5, 0, Math.PI * 2);
+        ectx.fill();
+    }
+
+    // Center text
+    ectx.fillStyle = 'rgba(68,204,136,0.4)';
+    ectx.font = 'bold 11px monospace';
+    ectx.textAlign = 'center';
+    ectx.fillText('L AFRIQUE VIVANTE', 300, 20);
+    ectx.fillStyle = 'rgba(68,204,136,0.3)';
+    ectx.font = '10px monospace';
+    ectx.fillText(done + '/8 modules validés', 300, 38);
+
+    if(done === 8){
+        ectx.fillStyle = 'rgba(68,204,136,' + (0.3 + Math.sin(envTime * 3) * 0.1) + ')';
+        ectx.font = 'bold 12px monospace';
+        ectx.fillText('LE DESERT RECULE. L AFRIQUE REVERT.', 300, 340);
+    }
+
+    requestAnimationFrame(drawEnvironnement);
+}
+
+var envProvIdx = 0;
+function rotateEnvProverbe(){
+    document.getElementById('env-proverbe').textContent = envProverbes[envProvIdx];
+    envProvIdx = (envProvIdx + 1) % envProverbes.length;
+}
+rotateEnvProverbe();
+var envProvInt = setInterval(rotateEnvProverbe, 5000);
+envIntervalIds.push(envProvInt);
+
+function addEnvTrace(msg){
+    var log = document.getElementById('env-trace');
+    var now = new Date();
+    var ts = String(now.getHours()).padStart(2,'0') + ':' + String(now.getMinutes()).padStart(2,'0') + ':' + String(now.getSeconds()).padStart(2,'0');
+    log.innerHTML = '<div style="padding:4px 0;border-bottom:1px solid rgba(68,204,136,0.05);"><span style="color:#666;">[' + ts + ']</span> <span style="color:#44cc88;">🌍</span> ' + msg + '</div>' + log.innerHTML;
+    if(log.innerHTML.length > 3000) log.innerHTML = log.innerHTML.substring(0, 3000);
+}
+
+addEnvTrace('🌍 AI Environnement initialise — Climat & Ecologie Africaine');
+addEnvTrace('📚 8 modules charges: Climat, Mur Vert, Desertification, Forets, Biodiversite, Eau, Energies, Dechets');
+addEnvTrace('📜 12 proverbes du protecteur de la terre charges');
+addEnvTrace('🌳 Grande Muraille Verte: Dakar -> Djibouti, 8000 km');
+addEnvTrace('🏜️ Desertification: 100000 hectares perdus/an au Sahel');
+addEnvTrace('🦁 Biodiversite: lions, elephants, girafes = patrimoine africain');
+addEnvTrace('🎓 Diplome: 8 modules -> Protecteur de l Environnement Africain');
+addEnvTrace('🌍 L Afrique reverdit. Le desert recule.');
+
+updateEnvProgress();
+drawEnvironnement();
+</script>
+
+<footer style="text-align:center;margin-top:40px;color:#44cc88;">🌍 AI Environnement — L Afrique reverdit. Le desert recule. La terre ne nous appartient pas, nous l empruntons a nos enfants. 💚🦁🌍</footer>"##);
+
+    html.push_str("</body></html>");
+    html
+}
+
 fn html_garage(chain: &Blockchain) -> String {
     let mut html = html_head("Garage AI — Atelier Autonome 2500");
     let num_blocks = chain.blocks.len();
@@ -16025,7 +16381,7 @@ html+='<div class="log-entry log-kill">⚠️ Tentative d\x27infiltration occide
 html+='<div class="log-entry log-invis">✅ L\x27Afrique est forte. Le système grandit.</div>';
 }else if(type==='total'){
 html='<div style="color:#d4a437;font-weight:bold;margin-bottom:8px">📋 RAPPORT TOTAL — Depuis le début</div>';
-html+='<div class="log-entry">🦁 AfriChain v0.94 — AI Agriculteur Souverainete Alimentaire</div>';
+html+='<div class="log-entry">🦁 AfriChain v0.95 — AI Environnement Climat Ecologie</div>';
 html+='<div class="log-entry">⛓️ Blockchain: 100% souveraine — Zéro dépendance externe</div>';
 html+='<div class="log-entry">🔐 Crypto: Ed25519 + AfriHash-256/512 + AfriRNG — tout from scratch</div>';
 html+='<div class="log-entry">🌍 54 pays africains connectés</div>';
@@ -17569,7 +17925,7 @@ fn main() {
         .and_then(|i| args.get(i + 1)).cloned().unwrap_or_else(|| "Afrique".to_string());
 
     let my_node_id = generate_node_id();
-    println!("🦁 AfriChain v0.94 — AI Agriculteur Souverainete Alimentaire");
+    println!("🦁 AfriChain v0.95 — AI Environnement Climat Ecologie");
     println!("💚 L'Afrique ne demande plus la permission");
     println!("🌍 54 pays — 🇲🇱 🇳🇪 🇧🇫 AES — Mali · Niger · Burkina Faso");
     println!("🔐 8 modules cryptographiques — construits from scratch");
@@ -17730,6 +18086,7 @@ fn main() {
     println!("🧠 AI Philosophe sur http://localhost:8080/ai-philosophe");
     println!("🏗️ AI Architecte sur http://localhost:8080/ai-architecte");
     println!("🌾 AI Agriculteur sur http://localhost:8080/ai-agriculteur");
+    println!("🌍 AI Environnement sur http://localhost:8080/ai-environnement");
 
     // Serveur HTTP en arrière-plan (pour mesh + autres utilisateurs)
     let serve_state = web_state.clone();
@@ -17762,9 +18119,9 @@ fn terminal_interface(state: &Arc<AppState>) {
     println!("  ║  🔐 8 modules cryptographiques (de zéro)     ║");
     println!("  ║  📦 Zéro dépendance — Rust std only      ║");
     println!("  ║  🕐 AfriTime — Pas UTC, pas Greenwich   ║");
-    println!("  ║  📝 ~16,500 lignes — écrit à la main       ║");
+    println!("  ║  📝 ~22,400 lignes — écrit à la main       ║");
     println!("  ╚═══════════════════════════════════════════════╝");
-    println!("\n  Version v0.94 — 31 août 2026");
+    println!("\n  Version v0.95 — 31 août 2026");
     println!("  Construit sur Termux · Android · nano\n");
     println!("  ─────────────────────────────────────────────");
     println!("\n  1. 🏦 Centre de Données (Admin)");
@@ -17836,7 +18193,7 @@ fn admin_interface(state: &Arc<AppState>) {
         println!("\n");
         println!("╔══════════════════════════════════════╗");
         println!("║  🏦 CENTRE DE DONNÉES — Admin       ║");
-        println!("║  🦁 AfriChain v0.94                  ║");
+        println!("║  🦁 AfriChain v0.95                  ║");
         println!("╠══════════════════════════════════════╣");
         let chain = state.chain.lock().unwrap();
         let users = state.users.lock().unwrap();
@@ -21440,6 +21797,11 @@ fn handle_request(req: afri_http::HttpRequest, state: &Arc<AppState>) -> afri_ht
         ("GET", "/ai-agriculteur") => {
             let chain = state.chain.lock().unwrap();
             HttpResponse::ok(&html_ai_agriculteur(&chain))
+        }
+
+        ("GET", "/ai-environnement") => {
+            let chain = state.chain.lock().unwrap();
+            HttpResponse::ok(&html_ai_environnement(&chain))
         }
 
         ("GET", "/garage") => {
