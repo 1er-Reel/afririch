@@ -1439,7 +1439,7 @@ fn html_home(chain: &Blockchain, users: &UserStore, mesh: &NodeRegistry, shield:
     let mut html = html_head("🦁 AfriChain");
     let (attacks, _blocked, blocked_count, level) = shield.stats();
     let shield_status = if shield.active { format!("🔥 X9 ACTIF (Niveau {})", level) } else { "Inactif".to_string() };
-    html.push_str(&format!(r#"<h1>🦁 AfriChain</h1><p style="text-align:center;">La blockchain 100% africaine — 54 pays 💚🦁</p><div id="afri-clock" style="text-align:center;font-size:1.2em;color:#d4a437;margin:10px 0;">🕐 Afri+0 — --:--:--</div><script>setInterval(function(){{var d=new Date();var h=String(d.getHours()).padStart(2,'0');var m=String(d.getMinutes()).padStart(2,'0');var s=String(d.getSeconds()).padStart(2,'0');document.getElementById('afri-clock').textContent='🕐 Afri+0 — '+h+':'+m+':'+s;}},1000);</script><div class="nav"><a href="/register">🆕 S'inscrire</a> | <a href="/login">🔑 Connexion</a> | <a href="/wallet">👛 Wallet</a> | <a href="/admin">🔐 Admin</a> | <a href="/mesh">📡 Mesh</a> | <a href="/annuaire">📖 Annuaire</a> | <a href="/bouclier">🛡️ Bouclier</a> | <a href="/satellite">🛸 X999</a> | <a href="/swarm">🛸🛸🛸 Essaim</a> | <a href="/commandement">🎖️ Commandement</a> | <a href="/interception">🛡️ Souverainete</a> | <a href="/securite-ai">🧠 AI 2100</a> | <a href="/chat">🧠💬 Chat AI</a> | <a href="/lumiere">🌫️☀️ Lumière</a> | <a href="/garage">🔧 Garage</a> | <a href="/machine">🤖🌐 Machines</a> | <a href="/machine-lab">🤖⚡ Usine</a> | <a href="/machine-world">🤖🌍 Monde</a> | <a href="/reve">💭 Rêves</a> | <a href="/dictionnaire">📖 Dictionnaire</a> | <a href="/machine-os">🖥️ OS Machine</a> | <a href="/machine-tv">📡 Machine TV</a> | <a href="/machine-economy">🤖 Économie</a> | <a href="/soleil">☀️ Soleil Serveur</a> | <a href="/forge-solaire">🧬 Forge Solaire</a> | <a href="/ciel">🌌 Le Ciel</a> | <a href="/charte-ai">⚖️ Charte AI</a> | <a href="/afri-net">🌍 Afri-Net</a> | <a href="/studio">🎬 AI Studio</a> | <a href="/sacre">📿 Sacré</a> | <a href="/lettres">🌟 Lettres IA</a> | <a href="/mg-forge">⚔️ MG Forge</a> | <a href="/ai-medecin">🌿 AI Médecin</a> | <a href="/ai-enseignante">📚 AI Enseignante</a> | <a href="/ai-village">🏘️ AI Village</a> | <a href="/ai-guerisseur">🩺 AI Guérisseur</a> | <a href="/ai-leader">🎖️ AI Leader</a> | <a href="/ai-griot">📖 AI Griot</a> | <a href="/ai-juge">⚖️ AI Juge</a> | <a href="/ai-artiste">🎨 AI Artiste</a> | <a href="/ai-explorateur">🔬 AI Explorateur</a> | <a href="/ai-marche">💰 AI Marche</a> | <a href="/ai-diplomate">🌍 AI Diplomate</a> | <a href="/ai-philosophe">🧠 AI Philosophe</a> | <a href="/ai-architecte">🏗️ AI Architecte</a> | <a href="/ai-agriculteur">🌾 AI Agriculteur</a> | <a href="/ai-environnement">🌍 AI Environnement</a> | <a href="/ai-mathematicien">🧮 AI Mathématicien</a> | <a href="/ai-energie">⚡ AI Énergie</a> | <a href="/secret">🦁 AI Secret</a> | <a href="/aes">💰 AES Wari</a> | <a href="/api/status">🔌 API</a></div><div style="text-align:center;"><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Blocs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Transactions</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Utilisateurs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">AFR en circulation</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📡 Noeuds mesh</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📖 Numéros annuaire</div></div><div class="stat-box" style="border-color:#ff4444;"><div class="stat-num" style="color:#ff4444;">{}</div><div class="stat-label">🛡️ Attaques bloquées</div></div></div><div class="card"><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🪙 Token</span><b>AfriRich (AFR)</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🌍 Pays</span><b>54 pays africains</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🛡️ Bouclier</span><b>{}</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;"><span style="color:#a8c5a8;">🔐 Crypto</span><b>100% Souverain — Zéro Dépendance Externe</b></div></div><footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🦁 Codée from scratch par Machine-senpai — v0.97 AI Energie Independance Energetique — UTC est Mort</footer>"#,
+    html.push_str(&format!(r#"<h1>🦁 AfriChain</h1><p style="text-align:center;">La blockchain 100% africaine — 54 pays 💚🦁</p><div id="afri-clock" style="text-align:center;font-size:1.2em;color:#d4a437;margin:10px 0;">🕐 Afri+0 — --:--:--</div><script>setInterval(function(){{var d=new Date();var h=String(d.getHours()).padStart(2,'0');var m=String(d.getMinutes()).padStart(2,'0');var s=String(d.getSeconds()).padStart(2,'0');document.getElementById('afri-clock').textContent='🕐 Afri+0 — '+h+':'+m+':'+s;}},1000);</script><div class="nav"><a href="/register">🆕 S'inscrire</a> | <a href="/login">🔑 Connexion</a> | <a href="/wallet">👛 Wallet</a> | <a href="/admin">🔐 Admin</a> | <a href="/mesh">📡 Mesh</a> | <a href="/annuaire">📖 Annuaire</a> | <a href="/bouclier">🛡️ Bouclier</a> | <a href="/satellite">🛸 X999</a> | <a href="/swarm">🛸🛸🛸 Essaim</a> | <a href="/commandement">🎖️ Commandement</a> | <a href="/interception">🛡️ Souverainete</a> | <a href="/securite-ai">🧠 AI 2100</a> | <a href="/chat">🧠💬 Chat AI</a> | <a href="/lumiere">🌫️☀️ Lumière</a> | <a href="/garage">🔧 Garage</a> | <a href="/machine">🤖🌐 Machines</a> | <a href="/machine-lab">🤖⚡ Usine</a> | <a href="/machine-world">🤖🌍 Monde</a> | <a href="/reve">💭 Rêves</a> | <a href="/dictionnaire">📖 Dictionnaire</a> | <a href="/machine-os">🖥️ OS Machine</a> | <a href="/machine-tv">📡 Machine TV</a> | <a href="/machine-economy">🤖 Économie</a> | <a href="/soleil">☀️ Soleil Serveur</a> | <a href="/forge-solaire">🧬 Forge Solaire</a> | <a href="/ciel">🌌 Le Ciel</a> | <a href="/charte-ai">⚖️ Charte AI</a> | <a href="/afri-net">🌍 Afri-Net</a> | <a href="/studio">🎬 AI Studio</a> | <a href="/sacre">📿 Sacré</a> | <a href="/lettres">🌟 Lettres IA</a> | <a href="/mg-forge">⚔️ MG Forge</a> | <a href="/ai-medecin">🌿 AI Médecin</a> | <a href="/ai-enseignante">📚 AI Enseignante</a> | <a href="/ai-village">🏘️ AI Village</a> | <a href="/ai-guerisseur">🩺 AI Guérisseur</a> | <a href="/ai-leader">🎖️ AI Leader</a> | <a href="/ai-griot">📖 AI Griot</a> | <a href="/ai-juge">⚖️ AI Juge</a> | <a href="/ai-artiste">🎨 AI Artiste</a> | <a href="/ai-explorateur">🔬 AI Explorateur</a> | <a href="/ai-marche">💰 AI Marche</a> | <a href="/ai-diplomate">🌍 AI Diplomate</a> | <a href="/ai-philosophe">🧠 AI Philosophe</a> | <a href="/ai-architecte">🏗️ AI Architecte</a> | <a href="/ai-agriculteur">🌾 AI Agriculteur</a> | <a href="/ai-environnement">🌍 AI Environnement</a> | <a href="/ai-mathematicien">🧮 AI Mathématicien</a> | <a href="/ai-energie">⚡ AI Énergie</a> | <a href="/ai-eau">💧 AI Eau</a> | <a href="/secret">🦁 AI Secret</a> | <a href="/aes">💰 AES Wari</a> | <a href="/api/status">🔌 API</a></div><div style="text-align:center;"><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Blocs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Transactions</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Utilisateurs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">AFR en circulation</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📡 Noeuds mesh</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📖 Numéros annuaire</div></div><div class="stat-box" style="border-color:#ff4444;"><div class="stat-num" style="color:#ff4444;">{}</div><div class="stat-label">🛡️ Attaques bloquées</div></div></div><div class="card"><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🪙 Token</span><b>AfriRich (AFR)</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🌍 Pays</span><b>54 pays africains</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🛡️ Bouclier</span><b>{}</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;"><span style="color:#a8c5a8;">🔐 Crypto</span><b>100% Souverain — Zéro Dépendance Externe</b></div></div><footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🦁 Codée from scratch par Machine-senpai — v0.98 AI Eau Gestion Souverainete Hydrique — UTC est Mort</footer>"#,
         chain.blocks.len(),
         chain.total_transactions(),
         users.count(),
@@ -11760,6 +11760,256 @@ function envoyerDiplomeEnergie(){
     html
 }
 
+fn html_ai_eau(chain: &Blockchain) -> String {
+    let mut html = html_head("AI Eau — Gestion de l Eau en Afrique");
+    let num_blocks = chain.blocks.len();
+
+    html.push_str(r#"<h1>💧 AI Eau — Gestion de l Eau en Afrique</h1><p style="text-align:center;color:#3399ff;">L eau c est la vie. 300 millions d Africains n ont pas acces a l eau potable. Les fleuves tarissent, les nappes s epuissent, les secheresses s intensifient. Mais l Afrique a aussi des solutions: forages, filtration, collecte de pluie, irrigation goutte-a-goutte, gestion communautaire. Cette AI enseigne comment chaque village peut maitriser son eau.</p><div class="nav"><a href="/">← Accueil</a> | <a href="/ai-energie">⚡ AI Énergie</a> | <a href="/ai-agriculteur">🌾 AI Agriculteur</a> | <a href="/ai-environnement">🌍 AI Environnement</a> | <a href="/ai-village">🏘️ AI Village</a></div>"#);
+
+    html.push_str(&format!(r#"<div style="text-align:center;"><div class="stat-box" style="border-color:#3399ff;"><div class="stat-num" style="color:#3399ff;">8</div><div class="stat-label">💧 Modules</div></div><div class="stat-box" style="border-color:#d4a437;"><div class="stat-num" style="color:#d4a437;">54</div><div class="stat-label">🌍 Pays</div></div><div class="stat-box" style="border-color:#3399ff;"><div class="stat-num" style="color:#3399ff;">∞</div><div class="stat-label">🌊 L</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">⛓️ Blocs</div></div><div class="stat-box" style="border-color:#3399ff;"><div class="stat-num" style="color:#3399ff;">H2O</div><div class="stat-label">💧 Vie</div></div></div>"#, num_blocks));
+
+    html.push_str(r##"<div style="text-align:center;margin:10px 0;"><button id="eau-pause-btn" onclick="toggleEauPause()" style="padding:10px 25px;background:#ff4444;color:#fff;border:none;border-radius:8px;font-weight:bold;cursor:pointer;font-size:1em;">⏸️ PAUSE</button> <span id="eau-pause-status" style="color:#3399ff;margin-left:8px;font-size:0.85em;">Auto: ACTIF</span></div>
+
+<!-- EAU CANVAS -->
+<div class="card" style="border-color:#3399ff;"><h2 style="color:#3399ff;">💧 Le Cycle de l Eau Africain</h2><p style="color:#3399ff;font-size:0.9em;opacity:0.7;">Nuages, pluie, fleuves, nappes, racines. L eau circule.</p>
+<canvas id="eau-canvas" width="600" height="350" style="width:100%;max-width:600px;background:#0a0a0a;border:2px solid #3399ff;border-radius:8px;display:block;margin:0 auto;"></canvas></div>
+
+<script>
+var eauPaused = false;
+var eauAnimId = null;
+var eauT = 0;
+
+function toggleEauPause(){
+    eauPaused = !eauPaused;
+    var btn = document.getElementById('eau-pause-btn');
+    var status = document.getElementById('eau-pause-status');
+    if(eauPaused){
+        btn.textContent = '▶️ LANCER';
+        btn.style.background = '#44cc88';
+        status.textContent = 'Auto: PAUSE';
+        status.style.color = '#ff6644';
+        if(eauAnimId) cancelAnimationFrame(eauAnimId);
+    } else {
+        btn.textContent = '⏸️ PAUSE';
+        btn.style.background = '#ff4444';
+        status.textContent = 'Auto: ACTIF';
+        status.style.color = '#3399ff';
+        animateEau();
+    }
+}
+
+function animateEau(){
+    if(eauPaused) return;
+    var canvas = document.getElementById('eau-canvas');
+    if(!canvas) return;
+    var ctx = canvas.getContext('2d');
+    ctx.fillStyle = 'rgba(10,10,10,0.12)';
+    ctx.fillRect(0,0,canvas.width,canvas.height);
+
+    // Nuages
+    for(var c = 0; c < 4; c++){
+        var cx = 80 + c * 150 + Math.sin(eauT * 0.01 + c) * 15;
+        var cy = 40;
+        ctx.fillStyle = 'rgba(100,150,200,0.5)';
+        ctx.beginPath();
+        ctx.arc(cx, cy, 25, 0, Math.PI * 2);
+        ctx.arc(cx + 20, cy - 5, 20, 0, Math.PI * 2);
+        ctx.arc(cx - 15, cy - 3, 18, 0, Math.PI * 2);
+        ctx.fill();
+    }
+
+    // Gouttes de pluie
+    ctx.fillStyle = 'rgba(51,153,255,0.6)';
+    for(var d = 0; d < 30; d++){
+        var dx = (d * 20 + eauT * 2) % 600;
+        var dy = 70 + ((d * 15 + eauT * 3) % 100);
+        ctx.fillRect(dx, dy, 2, 8);
+    }
+
+    // Fleuve
+    ctx.strokeStyle = '#3399ff';
+    ctx.lineWidth = 3;
+    ctx.beginPath();
+    ctx.moveTo(0, 200);
+    for(var x = 0; x <= 600; x += 10){
+        var wave = Math.sin(x * 0.02 + eauT * 0.03) * 8;
+        ctx.lineTo(x, 200 + wave);
+    }
+    ctx.stroke();
+
+    // Nappe souterraine
+    ctx.fillStyle = 'rgba(51,153,255,0.15)';
+    ctx.fillRect(0, 280, 600, 70);
+    ctx.strokeStyle = 'rgba(51,153,255,0.4)';
+    ctx.lineWidth = 1;
+    for(var w = 0; w < 5; w++){
+        ctx.beginPath();
+        ctx.moveTo(0, 285 + w * 12);
+        for(var x = 0; x <= 600; x += 10){
+            ctx.lineTo(x, 285 + w * 12 + Math.sin(x * 0.03 + eauT * 0.02) * 3);
+        }
+        ctx.stroke();
+    }
+
+    // Racines d arbres
+    ctx.strokeStyle = 'rgba(68,204,136,0.5)';
+    ctx.lineWidth = 1.5;
+    for(var t = 0; t < 4; t++){
+        var tx = 100 + t * 140;
+        ctx.beginPath();
+        ctx.moveTo(tx, 200);
+        ctx.lineTo(tx - 10, 260);
+        ctx.moveTo(tx, 200);
+        ctx.lineTo(tx + 10, 260);
+        ctx.moveTo(tx, 200);
+        ctx.lineTo(tx, 270);
+        ctx.stroke();
+    }
+
+    eauT++;
+    eauAnimId = requestAnimationFrame(animateEau);
+}
+animateEau();
+</script>
+"##);
+
+    html.push_str(r##"<div class="card" style="border-color:#3399ff;"><h2 style="color:#3399ff;">💧 8 Modules de Gestion de l Eau</h2><div id="eau-modules"></div></div>
+
+<script>
+const eauModules = [
+    {id:0, nom:'Le Cycle de l Eau', emoji:'🔄', couleur:'#3399ff', duree:'2 semaines', niveau:'Base',
+     description:'L eau ne disparait jamais. Elle circule: evaporation, nuages, pluie, ruissellement, infiltration, nappes, racines, transpiration. Comprendre ce cycle c est maitriser la vie.',
+     cours:['Le cycle de l eau en Afrique','Evaporation et formation des nuages','Pluie et ruissellement','Infiltration et nappes souterraines','Transpiration des plantes'],
+     exercices:['Dessiner le cycle de l eau de ton village','Identifier les sources d eau autour de toi','Calculer la pluie annuelle de ta region']},
+
+    {id:1, nom:'Forages et Puits', emoji:'🕳️', couleur:'#6688ff', duree:'3 semaines', niveau:'Intermediaire',
+     description:'Un forage de 40-80m de profondeur peut alimenter un village entier en eau potable. Les puits traditionnels sont moins profonds mais accessibles. L Afrique a besoin de 1 million de forages supplementaires.',
+     cours:['Techniques de forage manuel','Forage mecanique (rotary, percussion)','Caissons et tubages','Pompes a main et solaires','Qualite de l eau de forage'],
+     exercices:['Calculer la profondeur ideale pour ton village','Choisir entre puits traditionnel et forage','Dimensionner une pompe pour 500 personnes']},
+
+    {id:2, nom:'Filtration et Potabilisation', emoji:'🧼', couleur:'#44cc88', duree:'3 semaines', niveau:'Intermediaire',
+     description:'L eau brute n est pas potable. Filtration par sable, charbon actif, rayons UV, chloration, ebullition. Chaque village peut rendre son eau potable sans usine couteuse.',
+     cours:['Filtration par couches de sable et charbon','Rayons UV pour sterilisation','Chloration (dosage, securite)','Filtres ceramique imperes','Tests de qualite de l eau'],
+     exercices:['Construire un filtre a 3 couches','Tester la qualite de l eau de ton village','Comparer 3 methodes de potabilisation']},
+
+    {id:3, nom:'Collecte de Pluie', emoji:'🌧️', couleur:'#3399ff', duree:'2 semaines', niveau:'Base',
+     description:'Un toit de 50m2 recoit 30,000 litres d eau par an a Niamey. Un reservoir de 5000L peut alimenter une famille pendant la saison seche. La collecte de pluie est la solution la plus simple.',
+     cours:['Calcul de la surface de collecte','Gouttieres et premieres eaux','Reservoirs (plastique, beton, ferrociment)','Filtration de l eau de pluie','Utilisations (boisson, agriculture, menage)'],
+     exercices:['Calculer combien d eau ton toit peut collecter','Dimensionner un reservoir pour 6 mois','Concevoir un systeme pour une ecole']},
+
+    {id:4, nom:'Irrigation Goutte-a-Goutte', emoji:'🌱', couleur:'#44aa44', duree:'3 semaines', niveau:'Intermediaire',
+     description:'L irrigation goutte-a-goutte utilise 70% moins d eau que l irrigation classique. Chaque goutte va directement aux racines. L Afrique peut irriguer 3x plus de terres avec la meme quantite d eau.',
+     cours:['Principes du goutte-a-goutte','Systemes a gravite (sans pompe)','Tuyaux et gouteurs','Automatisation avec minuteur solaire','Comparaison avec irrigation traditionnelle'],
+     exercices:['Concevoir un systeme pour 100m2 de jardin','Calculer l economie d eau vs arrosage','Installer un systeme a gravite']},
+
+    {id:5, nom:'Assainissement et Latrines', emoji:'🚽', couleur:'#d4a437', duree:'2 semaines', niveau:'Base',
+     description:'80% des maladies en Afrique viennent de l eau non traitee et du manque d assainissement. Les latrines sechees (ECOSAN) transforment les dechets en engrais sans polluer les nappes.',
+     cours:['Latrines traditionnelles vs ameliorees','Latrines sechees ECOSAN','Fosses septiques pour petites communautes','Gestion des dechets liquides','Protection des sources d eau'],
+     exercices:['Concevoir une latrine ECOSAN pour 10 familles','Identifier les sources de pollution de l eau','Etablir un plan d assainissement villageois']},
+
+    {id:6, nom:'Gestion Communautaire de l Eau', emoji:'🤝', couleur:'#ffaa00', duree:'3 semaines', niveau:'Intermediaire',
+     description:'L eau n appartient a personne et a tout le monde. Les comites de gestion de l eau assurent l entretien, la repartition equitable et le financement des infrastructures.',
+     cours:['Creation d un comite de l eau','Tarification equitable de l eau','Maintenance des infrastructures','Resolution des conflits d eau','Genre et acces a l eau (femmes et filles)'],
+     exercices:['Creer un modele de comite de l eau','Calculer un tarif equitable pour ton village','Organiser un tour de maintenance']},
+
+    {id:7, nom:'Souverainete de l Eau', emoji:'🦁', couleur:'#3399ff', duree:'4 semaines', niveau:'Avance',
+     description:'L eau doit rester un bien commun, pas une marchandise. Les multinationales veulent privatiseer l eau africaine. La souverainete de l eau signifie: l Afrique controle ses ressources, ses infrastructures, sa distribution.',
+     cours:['Droit a l eau (ONU, chartes africaines)','Privatisation vs gestion publique','Grands barrages vs micro-infrastructures','Blockchain pour traquer l eau (AfriChain)','Plan panafricain de l eau'],
+     exercices:['Rediger une charte de l eau pour ton village','Identifier les menaces de privatisation','Concevoir un registre blockchain de l eau']}
+];
+
+var eauDone = JSON.parse(localStorage.getItem('afri_eau_done') || '[]');
+
+function renderEauModules(){
+    var container = document.getElementById('eau-modules');
+    if(!container) return;
+    var html = '';
+    for(var i = 0; i < eauModules.length; i++){
+        var m = eauModules[i];
+        var done = eauDone.includes(m.id);
+        html += '<div style="background:rgba(51,153,255,0.05);border:1px solid ' + m.couleur + '20;border-radius:8px;padding:12px;margin:8px 0;cursor:pointer;" onclick="showEauModule(' + i + ')">';
+        html += '<div style="display:flex;justify-content:space-between;align-items:center;">';
+        html += '<span style="font-size:1.1em;">' + m.emoji + ' <b style="color:' + m.couleur + ';">' + m.nom + '</b></span>';
+        html += '<span style="font-size:0.8em;color:#a8c5a8;">' + m.duree + ' · ' + m.niveau + (done ? ' · ✅' : '') + '</span>';
+        html += '</div></div>';
+    }
+    container.innerHTML = html;
+}
+renderEauModules();
+
+function showEauModule(i){
+    var m = eauModules[i];
+    var html = '<div style="background:rgba(51,153,255,0.08);border:1px solid ' + m.couleur + ';border-radius:12px;padding:20px;margin:10px 0;">';
+    html += '<h3 style="color:' + m.couleur + ';">' + m.emoji + ' ' + m.nom + '</h3>';
+    html += '<p style="color:#a8c5a8;font-size:0.9em;">' + m.description + '</p>';
+    html += '<h4 style="color:' + m.couleur + ';">📚 Cours</h4><ul>';
+    for(var j = 0; j < m.cours.length; j++){
+        html += '<li style="color:#a8c5a8;margin:4px 0;">' + m.cours[j] + '</li>';
+    }
+    html += '</ul><h4 style="color:' + m.couleur + ';">✏️ Exercices</h4><ul>';
+    for(var j = 0; j < m.exercices.length; j++){
+        html += '<li style="color:#a8c5a8;margin:4px 0;">' + m.exercices[j] + '</li>';
+    }
+    html += '</ul>';
+    html += '<button onclick="completeEauModule(' + m.id + ')" style="padding:10px 20px;background:' + m.couleur + ';color:#fff;border:none;border-radius:8px;cursor:pointer;font-weight:bold;margin-top:10px;">✅ Terminer ce module</button>';
+    html += '</div>';
+    var container = document.getElementById('eau-modules');
+    if(container) container.innerHTML = html;
+}
+
+function completeEauModule(id){
+    if(!eauDone.includes(id)){
+        eauDone.push(id);
+        localStorage.setItem('afri_eau_done', JSON.stringify(eauDone));
+    }
+    renderEauModules();
+    updateEauProgress();
+}
+
+function updateEauProgress(){
+    var done = eauDone.length;
+    var total = eauModules.length;
+    var pct = Math.round((done / total) * 100);
+    var bar = document.getElementById('eau-bar');
+    var count = document.getElementById('eau-count');
+    var pctEl = document.getElementById('eau-pct');
+    var diplome = document.getElementById('eau-diplome');
+    if(bar) bar.style.width = pct + '%';
+    if(count) count.textContent = done;
+    if(pctEl) pctEl.textContent = pct + '%';
+    if(diplome) diplome.style.display = (done === total) ? 'block' : 'none';
+}
+updateEauProgress();
+</script>
+"##);
+
+    html.push_str(r##"<div class="card" style="border-color:#3399ff;"><h2 style="color:#3399ff;">📊 Progression</h2><div style="background:rgba(51,153,255,0.1);border-radius:8px;height:24px;overflow:hidden;margin:10px 0;"><div id="eau-bar" style="background:linear-gradient(90deg,#3399ff,#44cc88);height:100%;width:0%;transition:width 0.5s;"></div></div><div style="text-align:center;color:#a8c5a8;"><span id="eau-count">0</span> / 8 modules · <span id="eau-pct">0%</span></div></div>
+
+<div id="eau-diplome" style="display:none;"><div class="card" style="border-color:#d4a437;text-align:center;"><h2 style="color:#d4a437;">🎓 Diplome: Gardien de l Eau de l Afrique</h2><p style="color:#a8c5a8;">Tu as complete les 8 modules de gestion de l eau!</p><p style="color:#3399ff;font-size:1.2em;">L eau est la vie. L Afrique protege sa vie.</p><button onclick="envoyerDiplomeEau()" style="padding:12px 30px;background:#d4a437;color:#000;border:none;border-radius:8px;font-weight:bold;cursor:pointer;font-size:1.1em;margin-top:10px;">⛓️ Graver dans la Blockchain</button></div></div>
+
+<script>
+function envoyerDiplomeEau(){
+    var nom = localStorage.getItem('afri_user_name') || 'Jeune Africain';
+    fetch('/api/diplome', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+        body: 'academie=EAU&nom=' + encodeURIComponent(nom)
+    }).then(function(r){ return r.text(); }).then(function(t){
+        alert('🎓 Diplome grave dans la blockchain!\n' + t);
+    }).catch(function(e){
+        alert('Erreur: ' + e);
+    });
+}
+</script>
+"##);
+
+    html.push_str(r#"<div class="card"><h2 style="color:#3399ff;">💡 Savais-tu?</h2><div style="color:#a8c5a8;padding:8px 0;"><b style="color:#d4a437;">300 millions</b> d Africains n ont pas acces a l eau potable. C est plus que la population de l Europe entiere.</div><div style="color:#a8c5a8;padding:8px 0;"><b style="color:#d4a437;">Le lac Tchad</b> a perdu 90% de sa surface depuis 1960 a cause du changement climatique et du surpompillage.</div><div style="color:#a8c5a8;padding:8px 0;"><b style="color:#d4a437;">Une femme africaine</b> marche en moyenne 6 km par jour pour chercher de l eau. En liberant ce temps, on libere le developpement.</div><div style="color:#a8c5a8;padding:8px 0;"><b style="color:#d4a437;">Un forage solaire</b> de $5000 alimente 500 personnes en eau potable pendant 20 ans. C est $0.50 par personne par an.</div></div>"#);
+
+    html.push_str(r#"<footer style="text-align:center;margin-top:40px;color:#a8c5a8;">💧 AI Eau — L Eau Est la Vie 💚🦁🌊</footer>"#);
+    html.push_str("</body></html>");
+    html
+}
+
 fn html_garage(chain: &Blockchain) -> String {
     let mut html = html_head("Garage AI — Atelier Autonome 2500");
     let num_blocks = chain.blocks.len();
@@ -16870,7 +17120,7 @@ html+='<div class="log-entry log-kill">⚠️ Tentative d\x27infiltration occide
 html+='<div class="log-entry log-invis">✅ L\x27Afrique est forte. Le système grandit.</div>';
 }else if(type==='total'){
 html='<div style="color:#d4a437;font-weight:bold;margin-bottom:8px">📋 RAPPORT TOTAL — Depuis le début</div>';
-html+='<div class="log-entry">🦁 AfriChain v0.97 — AI Energie Independance Energetique</div>';
+html+='<div class="log-entry">🦁 AfriChain v0.98 — AI Eau Gestion Souverainete Hydrique</div>';
 html+='<div class="log-entry">⛓️ Blockchain: 100% souveraine — Zéro dépendance externe</div>';
 html+='<div class="log-entry">🔐 Crypto: Ed25519 + AfriHash-256/512 + AfriRNG — tout from scratch</div>';
 html+='<div class="log-entry">🌍 54 pays africains connectés</div>';
@@ -18414,7 +18664,7 @@ fn main() {
         .and_then(|i| args.get(i + 1)).cloned().unwrap_or_else(|| "Afrique".to_string());
 
     let my_node_id = generate_node_id();
-    println!("🦁 AfriChain v0.97 — AI Energie Independance Energetique");
+    println!("🦁 AfriChain v0.98 — AI Eau Gestion Souverainete Hydrique");
     println!("💚 L'Afrique ne demande plus la permission");
     println!("🌍 54 pays — 🇲🇱 🇳🇪 🇧🇫 AES — Mali · Niger · Burkina Faso");
     println!("🔐 8 modules cryptographiques — construits from scratch");
@@ -18578,6 +18828,7 @@ fn main() {
     println!("🌍 AI Environnement sur http://localhost:8080/ai-environnement");
     println!("🧮 AI Mathématicien sur http://localhost:8080/ai-mathematicien");
     println!("⚡ AI Énergie sur http://localhost:8080/ai-energie");
+    println!("💧 AI Eau sur http://localhost:8080/ai-eau");
 
     // Serveur HTTP en arrière-plan (pour mesh + autres utilisateurs)
     let serve_state = web_state.clone();
@@ -18612,7 +18863,7 @@ fn terminal_interface(state: &Arc<AppState>) {
     println!("  ║  🕐 AfriTime — Pas UTC, pas Greenwich   ║");
     println!("  ║  📝 ~22,400 lignes — écrit à la main       ║");
     println!("  ╚═══════════════════════════════════════════════╝");
-    println!("\n  Version v0.97 — 31 août 2026");
+    println!("\n  Version v0.98 — 31 août 2026");
     println!("  Construit sur Termux · Android · nano\n");
     println!("  ─────────────────────────────────────────────");
     println!("\n  1. 🏦 Centre de Données (Admin)");
@@ -18684,7 +18935,7 @@ fn admin_interface(state: &Arc<AppState>) {
         println!("\n");
         println!("╔══════════════════════════════════════╗");
         println!("║  🏦 CENTRE DE DONNÉES — Admin       ║");
-        println!("║  🦁 AfriChain v0.97                  ║");
+        println!("║  🦁 AfriChain v0.98                  ║");
         println!("╠══════════════════════════════════════╣");
         let chain = state.chain.lock().unwrap();
         let users = state.users.lock().unwrap();
@@ -22303,6 +22554,11 @@ fn handle_request(req: afri_http::HttpRequest, state: &Arc<AppState>) -> afri_ht
         ("GET", "/ai-energie") => {
             let chain = state.chain.lock().unwrap();
             HttpResponse::ok(&html_ai_energie(&chain))
+        }
+
+        ("GET", "/ai-eau") => {
+            let chain = state.chain.lock().unwrap();
+            HttpResponse::ok(&html_ai_eau(&chain))
         }
 
         ("GET", "/garage") => {
