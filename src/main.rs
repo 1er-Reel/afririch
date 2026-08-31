@@ -1439,7 +1439,7 @@ fn html_home(chain: &Blockchain, users: &UserStore, mesh: &NodeRegistry, shield:
     let mut html = html_head("🦁 AfriChain");
     let (attacks, _blocked, blocked_count, level) = shield.stats();
     let shield_status = if shield.active { format!("🔥 X9 ACTIF (Niveau {})", level) } else { "Inactif".to_string() };
-    html.push_str(&format!(r#"<h1>🦁 AfriChain</h1><p style="text-align:center;">La blockchain 100% africaine — 54 pays 💚🦁</p><div id="afri-clock" style="text-align:center;font-size:1.2em;color:#d4a437;margin:10px 0;">🕐 Afri+0 — --:--:--</div><script>setInterval(function(){{var d=new Date();var h=String(d.getHours()).padStart(2,'0');var m=String(d.getMinutes()).padStart(2,'0');var s=String(d.getSeconds()).padStart(2,'0');document.getElementById('afri-clock').textContent='🕐 Afri+0 — '+h+':'+m+':'+s;}},1000);</script><div class="nav"><a href="/register">🆕 S'inscrire</a> | <a href="/login">🔑 Connexion</a> | <a href="/wallet">👛 Wallet</a> | <a href="/admin">🔐 Admin</a> | <a href="/mesh">📡 Mesh</a> | <a href="/annuaire">📖 Annuaire</a> | <a href="/bouclier">🛡️ Bouclier</a> | <a href="/satellite">🛸 X999</a> | <a href="/swarm">🛸🛸🛸 Essaim</a> | <a href="/commandement">🎖️ Commandement</a> | <a href="/interception">🛡️ Souverainete</a> | <a href="/securite-ai">🧠 AI 2100</a> | <a href="/chat">🧠💬 Chat AI</a> | <a href="/lumiere">🌫️☀️ Lumière</a> | <a href="/garage">🔧 Garage</a> | <a href="/machine">🤖🌐 Machines</a> | <a href="/machine-lab">🤖⚡ Usine</a> | <a href="/machine-world">🤖🌍 Monde</a> | <a href="/reve">💭 Rêves</a> | <a href="/dictionnaire">📖 Dictionnaire</a> | <a href="/machine-os">🖥️ OS Machine</a> | <a href="/machine-tv">📡 Machine TV</a> | <a href="/machine-economy">🤖 Économie</a> | <a href="/soleil">☀️ Soleil Serveur</a> | <a href="/forge-solaire">🧬 Forge Solaire</a> | <a href="/ciel">🌌 Le Ciel</a> | <a href="/charte-ai">⚖️ Charte AI</a> | <a href="/afri-net">🌍 Afri-Net</a> | <a href="/studio">🎬 AI Studio</a> | <a href="/sacre">📿 Sacré</a> | <a href="/lettres">🌟 Lettres IA</a> | <a href="/mg-forge">⚔️ MG Forge</a> | <a href="/ai-medecin">🌿 AI Médecin</a> | <a href="/ai-enseignante">📚 AI Enseignante</a> | <a href="/ai-village">🏘️ AI Village</a> | <a href="/ai-guerisseur">🩺 AI Guérisseur</a> | <a href="/ai-leader">🎖️ AI Leader</a> | <a href="/ai-griot">📖 AI Griot</a> | <a href="/ai-juge">⚖️ AI Juge</a> | <a href="/ai-artiste">🎨 AI Artiste</a> | <a href="/ai-explorateur">🔬 AI Explorateur</a> | <a href="/ai-marche">💰 AI Marche</a> | <a href="/ai-diplomate">🌍 AI Diplomate</a> | <a href="/ai-philosophe">🧠 AI Philosophe</a> | <a href="/ai-architecte">🏗️ AI Architecte</a> | <a href="/ai-agriculteur">🌾 AI Agriculteur</a> | <a href="/ai-environnement">🌍 AI Environnement</a> | <a href="/ai-mathematicien">🧮 AI Mathématicien</a> | <a href="/secret">🦁 AI Secret</a> | <a href="/aes">💰 AES Wari</a> | <a href="/api/status">🔌 API</a></div><div style="text-align:center;"><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Blocs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Transactions</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Utilisateurs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">AFR en circulation</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📡 Noeuds mesh</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📖 Numéros annuaire</div></div><div class="stat-box" style="border-color:#ff4444;"><div class="stat-num" style="color:#ff4444;">{}</div><div class="stat-label">🛡️ Attaques bloquées</div></div></div><div class="card"><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🪙 Token</span><b>AfriRich (AFR)</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🌍 Pays</span><b>54 pays africains</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🛡️ Bouclier</span><b>{}</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;"><span style="color:#a8c5a8;">🔐 Crypto</span><b>100% Souverain — Zéro Dépendance Externe</b></div></div><footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🦁 Codée from scratch par Machine-senpai — v0.96 AI Mathématicien Nombres Souverainete — UTC est Mort</footer>"#,
+    html.push_str(&format!(r#"<h1>🦁 AfriChain</h1><p style="text-align:center;">La blockchain 100% africaine — 54 pays 💚🦁</p><div id="afri-clock" style="text-align:center;font-size:1.2em;color:#d4a437;margin:10px 0;">🕐 Afri+0 — --:--:--</div><script>setInterval(function(){{var d=new Date();var h=String(d.getHours()).padStart(2,'0');var m=String(d.getMinutes()).padStart(2,'0');var s=String(d.getSeconds()).padStart(2,'0');document.getElementById('afri-clock').textContent='🕐 Afri+0 — '+h+':'+m+':'+s;}},1000);</script><div class="nav"><a href="/register">🆕 S'inscrire</a> | <a href="/login">🔑 Connexion</a> | <a href="/wallet">👛 Wallet</a> | <a href="/admin">🔐 Admin</a> | <a href="/mesh">📡 Mesh</a> | <a href="/annuaire">📖 Annuaire</a> | <a href="/bouclier">🛡️ Bouclier</a> | <a href="/satellite">🛸 X999</a> | <a href="/swarm">🛸🛸🛸 Essaim</a> | <a href="/commandement">🎖️ Commandement</a> | <a href="/interception">🛡️ Souverainete</a> | <a href="/securite-ai">🧠 AI 2100</a> | <a href="/chat">🧠💬 Chat AI</a> | <a href="/lumiere">🌫️☀️ Lumière</a> | <a href="/garage">🔧 Garage</a> | <a href="/machine">🤖🌐 Machines</a> | <a href="/machine-lab">🤖⚡ Usine</a> | <a href="/machine-world">🤖🌍 Monde</a> | <a href="/reve">💭 Rêves</a> | <a href="/dictionnaire">📖 Dictionnaire</a> | <a href="/machine-os">🖥️ OS Machine</a> | <a href="/machine-tv">📡 Machine TV</a> | <a href="/machine-economy">🤖 Économie</a> | <a href="/soleil">☀️ Soleil Serveur</a> | <a href="/forge-solaire">🧬 Forge Solaire</a> | <a href="/ciel">🌌 Le Ciel</a> | <a href="/charte-ai">⚖️ Charte AI</a> | <a href="/afri-net">🌍 Afri-Net</a> | <a href="/studio">🎬 AI Studio</a> | <a href="/sacre">📿 Sacré</a> | <a href="/lettres">🌟 Lettres IA</a> | <a href="/mg-forge">⚔️ MG Forge</a> | <a href="/ai-medecin">🌿 AI Médecin</a> | <a href="/ai-enseignante">📚 AI Enseignante</a> | <a href="/ai-village">🏘️ AI Village</a> | <a href="/ai-guerisseur">🩺 AI Guérisseur</a> | <a href="/ai-leader">🎖️ AI Leader</a> | <a href="/ai-griot">📖 AI Griot</a> | <a href="/ai-juge">⚖️ AI Juge</a> | <a href="/ai-artiste">🎨 AI Artiste</a> | <a href="/ai-explorateur">🔬 AI Explorateur</a> | <a href="/ai-marche">💰 AI Marche</a> | <a href="/ai-diplomate">🌍 AI Diplomate</a> | <a href="/ai-philosophe">🧠 AI Philosophe</a> | <a href="/ai-architecte">🏗️ AI Architecte</a> | <a href="/ai-agriculteur">🌾 AI Agriculteur</a> | <a href="/ai-environnement">🌍 AI Environnement</a> | <a href="/ai-mathematicien">🧮 AI Mathématicien</a> | <a href="/ai-energie">⚡ AI Énergie</a> | <a href="/secret">🦁 AI Secret</a> | <a href="/aes">💰 AES Wari</a> | <a href="/api/status">🔌 API</a></div><div style="text-align:center;"><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Blocs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Transactions</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Utilisateurs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">AFR en circulation</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📡 Noeuds mesh</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📖 Numéros annuaire</div></div><div class="stat-box" style="border-color:#ff4444;"><div class="stat-num" style="color:#ff4444;">{}</div><div class="stat-label">🛡️ Attaques bloquées</div></div></div><div class="card"><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🪙 Token</span><b>AfriRich (AFR)</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🌍 Pays</span><b>54 pays africains</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🛡️ Bouclier</span><b>{}</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;"><span style="color:#a8c5a8;">🔐 Crypto</span><b>100% Souverain — Zéro Dépendance Externe</b></div></div><footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🦁 Codée from scratch par Machine-senpai — v0.97 AI Energie Independance Energetique — UTC est Mort</footer>"#,
         chain.blocks.len(),
         chain.total_transactions(),
         users.count(),
@@ -11507,6 +11507,259 @@ function envoyerDiplomeMath(){
     html
 }
 
+fn html_ai_energie(chain: &Blockchain) -> String {
+    let mut html = html_head("AI Energie — Independance Energetique Africaine");
+    let num_blocks = chain.blocks.len();
+
+    html.push_str(r#"<h1>⚡ AI Energie — Independance Energetique Africaine</h1><p style="text-align:center;color:#ffaa00;">L Afrique a le plus grand potentiel solaire de la planete. Le Sahara pourrait alimenter le monde entier en electricite. Pourtant 600 millions d Africains n ont pas l electricite. Cette AI enseigne comment chaque village, chaque ville, chaque pays peut produire sa propre energie — solaire, eolienne, hydraulique, biomasse. L independance energetique est la base de toute souverainete.</p><div class="nav"><a href="/">← Accueil</a> | <a href="/ai-architecte">🏗️ AI Architecte</a> | <a href="/ai-environnement">🌍 AI Environnement</a> | <a href="/ai-mathematicien">🧮 AI Mathématicien</a> | <a href="/ai-village">🏘️ AI Village</a></div>"#);
+
+    html.push_str(&format!(r#"<div style="text-align:center;"><div class="stat-box" style="border-color:#ffaa00;"><div class="stat-num" style="color:#ffaa00;">8</div><div class="stat-label">⚡ Modules</div></div><div class="stat-box" style="border-color:#d4a437;"><div class="stat-num" style="color:#d4a437;">54</div><div class="stat-label">🌍 Pays</div></div><div class="stat-box" style="border-color:#ffaa00;"><div class="stat-num" style="color:#ffaa00;">∞</div><div class="stat-label">☀️ kWh</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">⛓️ Blocs</div></div><div class="stat-box" style="border-color:#ffaa00;"><div class="stat-num" style="color:#ffaa00;">W</div><div class="stat-label">⚡ Watts</div></div></div>"#, num_blocks));
+
+    html.push_str(r##"<div style="text-align:center;margin:10px 0;"><button id="energie-pause-btn" onclick="toggleEnergiePause()" style="padding:10px 25px;background:#ff4444;color:#fff;border:none;border-radius:8px;font-weight:bold;cursor:pointer;font-size:1em;">⏸️ PAUSE</button> <span id="energie-pause-status" style="color:#ffaa00;margin-left:8px;font-size:0.85em;">Auto: ACTIF</span></div>
+
+<!-- ENERGIE CANVAS -->
+<div class="card" style="border-color:#ffaa00;"><h2 style="color:#ffaa00;">⚡ Le Continent Solaire</h2><p style="color:#ffaa00;font-size:0.9em;opacity:0.7;">Le Sahara brille. Les panneaux captent. L Afrique s illumine.</p>
+<canvas id="energie-canvas" width="600" height="350" style="width:100%;max-width:600px;background:#0a0a0a;border:2px solid #ffaa00;border-radius:8px;display:block;margin:0 auto;"></canvas></div>
+
+<script>
+var energiePaused = false;
+var energieAnimId = null;
+var energieT = 0;
+
+function toggleEnergiePause(){
+    energiePaused = !energiePaused;
+    var btn = document.getElementById('energie-pause-btn');
+    var status = document.getElementById('energie-pause-status');
+    if(energiePaused){
+        btn.textContent = '▶️ LANCER';
+        btn.style.background = '#44cc88';
+        status.textContent = 'Auto: PAUSE';
+        status.style.color = '#ff6644';
+        if(energieAnimId) cancelAnimationFrame(energieAnimId);
+    } else {
+        btn.textContent = '⏸️ PAUSE';
+        btn.style.background = '#ff4444';
+        status.textContent = 'Auto: ACTIF';
+        status.style.color = '#ffaa00';
+        animateEnergie();
+    }
+}
+
+function animateEnergie(){
+    if(energiePaused) return;
+    var canvas = document.getElementById('energie-canvas');
+    if(!canvas) return;
+    var ctx = canvas.getContext('2d');
+    ctx.fillStyle = 'rgba(10,10,10,0.12)';
+    ctx.fillRect(0,0,canvas.width,canvas.height);
+    var cx = canvas.width/2, cy = canvas.height/2;
+
+    // Soleil pulsant
+    var sunR = 35 + Math.sin(energieT * 0.03) * 5;
+    var grad = ctx.createRadialGradient(cx, 80, 5, cx, 80, sunR);
+    grad.addColorStop(0, '#ffff00');
+    grad.addColorStop(0.5, '#ffaa00');
+    grad.addColorStop(1, 'rgba(255,170,0,0)');
+    ctx.fillStyle = grad;
+    ctx.beginPath();
+    ctx.arc(cx, 80, sunR, 0, Math.PI * 2);
+    ctx.fill();
+
+    // Rayons solaires
+    ctx.strokeStyle = 'rgba(255,170,0,0.4)';
+    ctx.lineWidth = 2;
+    for(var i = 0; i < 12; i++){
+        var angle = (i / 12) * Math.PI * 2 + energieT * 0.01;
+        ctx.beginPath();
+        ctx.moveTo(cx + Math.cos(angle) * (sunR + 5), 80 + Math.sin(angle) * (sunR + 5));
+        ctx.lineTo(cx + Math.cos(angle) * (sunR + 25), 80 + Math.sin(angle) * (sunR + 25));
+        ctx.stroke();
+    }
+
+    // Panneaux solaires
+    for(var p = 0; p < 5; p++){
+        var px = 80 + p * 110;
+        var py = 250;
+        ctx.fillStyle = '#003366';
+        ctx.fillRect(px, py, 80, 50);
+        ctx.strokeStyle = '#ffaa00';
+        ctx.lineWidth = 1;
+        for(var gx = 0; gx < 4; gx++){
+            for(var gy = 0; gy < 3; gy++){
+                ctx.strokeRect(px + gx * 20, py + gy * 17, 20, 17);
+            }
+        }
+        // Particules d energie
+        var eT = (energieT * 2 + p * 30) % 170;
+        ctx.fillStyle = 'rgba(255,170,0,' + (1 - eT / 170) + ')';
+        ctx.beginPath();
+        ctx.arc(px + 40, py - eT, 3, 0, Math.PI * 2);
+        ctx.fill();
+    }
+
+    // Eoliennes
+    for(var w = 0; w < 3; w++){
+        var wx = 100 + w * 200;
+        var wy = 180;
+        ctx.strokeStyle = '#a8c5a8';
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        ctx.moveTo(wx, wy + 70);
+        ctx.lineTo(wx, wy);
+        ctx.stroke();
+        for(var blade = 0; blade < 3; blade++){
+            var ba = (blade / 3) * Math.PI * 2 + energieT * 0.05;
+            ctx.beginPath();
+            ctx.moveTo(wx, wy);
+            ctx.lineTo(wx + Math.cos(ba) * 30, wy + Math.sin(ba) * 30);
+            ctx.stroke();
+        }
+    }
+
+    energieT++;
+    energieAnimId = requestAnimationFrame(animateEnergie);
+}
+animateEnergie();
+</script>
+"##);
+
+    html.push_str(r##"<div class="card" style="border-color:#ffaa00;"><h2 style="color:#ffaa00;">⚡ 8 Modules d Independance Energetique</h2><div id="energie-modules"></div></div>
+
+<script>
+const energieModules = [
+    {id:0, nom:'Energie Solaire', emoji:'☀️', couleur:'#ffaa00', duree:'4 semaines', niveau:'Base',
+     description:'Le soleil africain est la plus grande reserve d energie de la planete. Le Sahara recoit 4000 kWh/m2/jour. Un panneau solaire de 1m2 produit assez pour charger un telephone, alimenter une lampe, faire tourner un petit moteur.',
+     cours:['Comment fonctionne un panneau solaire','Calcul de la production solaire en Afrique','Installation de panneaux sur un toit','Stockage dans batteries (12V, 24V, 48V)','Systemes solaires pour villages'],
+     exercices:['Calculer combien de panneaux pour alimenter une maison','Dimensionner une batterie pour 3 jours d autonomie','Concevoir un mini-reseau solaire pour 10 maisons']},
+
+    {id:1, nom:'Energie Eolienne', emoji:'💨', couleur:'#44cc88', duree:'3 semaines', niveau:'Base',
+     description:'Le vent souffle sur les cotes, les montagnes, le Sahel. Une eolienne de 1kW peut alimenter une famille. L eolienne est complementaire au solaire — quand le soleil baisse, le vent monte.',
+     cours:['Principes de l energie eolienne','Types d eoliennes (horizontale, verticale)','Construction d une mini-eolienne','Sites favorables en Afrique','Maintenance et duree de vie'],
+     exercices:['Mesurer la vitesse du vent dans ton quartier','Calculer la puissance d une eolienne de 2m','Identifier 3 sites eoliens en ton pays']},
+
+    {id:2, nom:'Energie Hydraulique', emoji:'💧', couleur:'#3399ff', duree:'4 semaines', niveau:'Intermediaire',
+     description:'Le Nil, le Congo, le Niger, le Zambeze — l Afrique a des fleuves puissants. Les micro-centrales hydroelectriques peuvent alimenter des villages isoles sans grands barrages.',
+     cours:['Principes de l hydroelectricite','Micro-centrales (1-100 kW)','Pico-centrales (100W - 1kW)','Impact environnemental minimal','Sites favorables en Afrique de l Ouest'],
+     exercices:['Calculer la puissance d une chute d eau de 3m','Dimensionner une micro-centrale pour 50 maisons','Identifier un site hydro dans ton pays']},
+
+    {id:3, nom:'Biomasse et Biogaz', emoji:'🌿', couleur:'#44aa44', duree:'3 semaines', niveau:'Intermediaire',
+     description:'Les dechets agricoles, le fumier, les dechets organiques peuvent produire du biogaz (methane) pour la cuisson et l electricite. Un digesteur de 6m3 alimente une famille en gaz pendant 20 ans.',
+     cours:['Principes du biogaz','Construction d un digesteur','Alimentation (dechets organiques, fumier)','Production de gaz et utilisation','Bio-engrais comme sous-produit'],
+     exercices:['Calculer la taille d un digesteur pour 10 vaches','Estimer la production de gaz journaliere','Concevoir un systeme biogaz pour une ferme']},
+
+    {id:4, nom:'Stockage d Energie', emoji:'🔋', couleur:'#ff6644', duree:'3 semaines', niveau:'Intermediaire',
+     description:'L energie solaire et eolienne est intermittente. Le stockage est essentiel. Batteries plomb-acide, lithium-ion, batteries de voiture recyclees. L Afrique doit produire ses propres batteries.',
+     cours:['Types de batteries (plomb, lithium, sel)','Capacite et profondeur de decharge','Series et parallele (12V, 24V, 48V)','Maintenance et duree de vie','Recyclage de batteries'],
+     exercices:['Dimensionner une batterie pour 3 jours sans soleil','Calculer le cout sur 10 ans de differentes batteries','Concevoir un systeme de stockage 48V']},
+
+    {id:5, nom:'Reseaux Electriques Locaux', emoji:'🔌', couleur:'#6688ff', duree:'4 semaines', niveau:'Avance',
+     description:'Un village peut creer son propre mini-reseau electrique. Pas besoin d attendre l Etat. Les micro-reseaux (mini-grids) connectent 50-500 maisons avec production et stockage local.',
+     cours:['Architecture d un mini-reseau','Distribution (230V, 400V)','Protection (disjoncteurs, fusibles)','Comptage et facturation','Gestion cooperative'],
+     exercices:['Concevoir un mini-reseau pour 100 maisons','Calculer les pertes sur 500m de cable','Etablir un tarif equitable']},
+
+    {id:6, nom:'Energie et Blockchain', emoji:'⛓️', couleur:'#d4a437', duree:'5 semaines', niveau:'Avance',
+     description:'La blockchain peut tokeniser l energie. Chaque kWh produit est enregistre. Les villages vendent leur surplus. Les tokens AFR payent l electricite. AfriChain devient le registre energetique africain.',
+     cours:['Tokenisation de l energie','Smart contracts pour trading d energie','Enregistrement de production sur blockchain','AFR comme monnaie energetique','Mesh energetique panafricain'],
+     exercices:['Concevoir un token energetique sur AfriChain','Simuler un echange d energie entre 2 villages','Calculer le prix du kWh en AFR']},
+
+    {id:7, nom:'Independance Energetique Totale', emoji:'🦁', couleur:'#ffaa00', duree:'5 semaines', niveau:'Avance',
+     description:'L objectif final: chaque village africain produit, stocke et distribue sa propre energie. Aucune dependance exterieure. L Afrique devient le continent le plus propre ET le plus autonome. Le soleil est notre petrole.',
+     cours:['Planification d autonomie energetique villageoise','Mix energetique optimal (solaire+eolien+hydro+biogaz)','Financement cooperative et participatif','Maintenance communautaire','Replication panafricaine'],
+     exercices:['Etablir un plan d autonomie pour ton village','Calculer le cout total et le retour sur investissement','Presenter le projet a une cooperative']}
+];
+
+var energieDone = JSON.parse(localStorage.getItem('afri_energie_done') || '[]');
+
+function renderEnergieModules(){
+    var container = document.getElementById('energie-modules');
+    if(!container) return;
+    var html = '';
+    for(var i = 0; i < energieModules.length; i++){
+        var m = energieModules[i];
+        var done = energieDone.includes(m.id);
+        html += '<div style="background:rgba(255,170,0,0.05);border:1px solid ' + m.couleur + '20;border-radius:8px;padding:12px;margin:8px 0;cursor:pointer;" onclick="showEnergieModule(' + i + ')">';
+        html += '<div style="display:flex;justify-content:space-between;align-items:center;">';
+        html += '<span style="font-size:1.1em;">' + m.emoji + ' <b style="color:' + m.couleur + ';">' + m.nom + '</b></span>';
+        html += '<span style="font-size:0.8em;color:#a8c5a8;">' + m.duree + ' · ' + m.niveau + (done ? ' · ✅' : '') + '</span>';
+        html += '</div></div>';
+    }
+    container.innerHTML = html;
+}
+renderEnergieModules();
+
+function showEnergieModule(i){
+    var m = energieModules[i];
+    var html = '<div style="background:rgba(255,170,0,0.08);border:1px solid ' + m.couleur + ';border-radius:12px;padding:20px;margin:10px 0;">';
+    html += '<h3 style="color:' + m.couleur + ';">' + m.emoji + ' ' + m.nom + '</h3>';
+    html += '<p style="color:#a8c5a8;font-size:0.9em;">' + m.description + '</p>';
+    html += '<h4 style="color:' + m.couleur + ';">📚 Cours</h4><ul>';
+    for(var j = 0; j < m.cours.length; j++){
+        html += '<li style="color:#a8c5a8;margin:4px 0;">' + m.cours[j] + '</li>';
+    }
+    html += '</ul><h4 style="color:' + m.couleur + ';">✏️ Exercices</h4><ul>';
+    for(var j = 0; j < m.exercices.length; j++){
+        html += '<li style="color:#a8c5a8;margin:4px 0;">' + m.exercices[j] + '</li>';
+    }
+    html += '</ul>';
+    html += '<button onclick="completeEnergieModule(' + m.id + ')" style="padding:10px 20px;background:' + m.couleur + ';color:#fff;border:none;border-radius:8px;cursor:pointer;font-weight:bold;margin-top:10px;">✅ Terminer ce module</button>';
+    html += '</div>';
+    var container = document.getElementById('energie-modules');
+    if(container) container.innerHTML = html;
+}
+
+function completeEnergieModule(id){
+    if(!energieDone.includes(id)){
+        energieDone.push(id);
+        localStorage.setItem('afri_energie_done', JSON.stringify(energieDone));
+    }
+    renderEnergieModules();
+    updateEnergieProgress();
+}
+
+function updateEnergieProgress(){
+    var done = energieDone.length;
+    var total = energieModules.length;
+    var pct = Math.round((done / total) * 100);
+    var bar = document.getElementById('energie-bar');
+    var count = document.getElementById('energie-count');
+    var pctEl = document.getElementById('energie-pct');
+    var diplome = document.getElementById('energie-diplome');
+    if(bar) bar.style.width = pct + '%';
+    if(count) count.textContent = done;
+    if(pctEl) pctEl.textContent = pct + '%';
+    if(diplome) diplome.style.display = (done === total) ? 'block' : 'none';
+}
+updateEnergieProgress();
+</script>
+"##);
+
+    html.push_str(r##"<div class="card" style="border-color:#ffaa00;"><h2 style="color:#ffaa00;">📊 Progression</h2><div style="background:rgba(255,170,0,0.1);border-radius:8px;height:24px;overflow:hidden;margin:10px 0;"><div id="energie-bar" style="background:linear-gradient(90deg,#ffaa00,#ff6600);height:100%;width:0%;transition:width 0.5s;"></div></div><div style="text-align:center;color:#a8c5a8;"><span id="energie-count">0</span> / 8 modules · <span id="energie-pct">0%</span></div></div>
+
+<div id="energie-diplome" style="display:none;"><div class="card" style="border-color:#d4a437;text-align:center;"><h2 style="color:#d4a437;">🎓 Diplome: Ingenieur Energetique de l Afrique</h2><p style="color:#a8c5a8;">Tu as complete les 8 modules d independance energetique!</p><p style="color:#ffaa00;font-size:1.2em;">Le soleil est notre petrole. L Afrique s illumine.</p><button onclick="envoyerDiplomeEnergie()" style="padding:12px 30px;background:#d4a437;color:#000;border:none;border-radius:8px;font-weight:bold;cursor:pointer;font-size:1.1em;margin-top:10px;">⛓️ Graver dans la Blockchain</button></div></div>
+
+<script>
+function envoyerDiplomeEnergie(){
+    var nom = localStorage.getItem('afri_user_name') || 'Jeune Africain';
+    fetch('/api/diplome', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+        body: 'academie=ENERGIE&nom=' + encodeURIComponent(nom)
+    }).then(function(r){ return r.text(); }).then(function(t){
+        alert('🎓 Diplome grave dans la blockchain!\n' + t);
+    }).catch(function(e){
+        alert('Erreur: ' + e);
+    });
+}
+</script>
+"##);
+
+    html.push_str(r#"<div class="card"><h2 style="color:#ffaa00;">💡 Savais-tu?</h2><div style="color:#a8c5a8;padding:8px 0;"><b style="color:#d4a437;">Le Sahara</b> recoit assez d energie solaire en 6 heures pour alimenter le monde entier pendant 1 an.</div><div style="color:#a8c5a8;padding:8px 0;"><b style="color:#d4a437;">600 millions</b> d Africains n ont pas acces a l electricite. C est plus de la moitie du continent.</div><div style="color:#a8c5a8;padding:8px 0;"><b style="color:#d4a437;">Le Maroc</b> a construit Noor, la plus grande centrale solaire thermique du monde, dans le desert. L Afrique peut etre leader mondial de l energie propre.</div><div style="color:#a8c5a8;padding:8px 0;"><b style="color:#d4a437;">Un panneau solaire de 100W</b> coute ~$40 et produit assez pour charger 10 telephones, alimenter 3 lampes LED, et faire tourner un petit moteur.</div></div>"#);
+
+    html.push_str(r#"<footer style="text-align:center;margin-top:40px;color:#a8c5a8;">⚡ AI Energie — Le Soleil Est Notre Petrole 💚🦁☀️</footer>"#);
+    html.push_str("</body></html>");
+    html
+}
+
 fn html_garage(chain: &Blockchain) -> String {
     let mut html = html_head("Garage AI — Atelier Autonome 2500");
     let num_blocks = chain.blocks.len();
@@ -16617,7 +16870,7 @@ html+='<div class="log-entry log-kill">⚠️ Tentative d\x27infiltration occide
 html+='<div class="log-entry log-invis">✅ L\x27Afrique est forte. Le système grandit.</div>';
 }else if(type==='total'){
 html='<div style="color:#d4a437;font-weight:bold;margin-bottom:8px">📋 RAPPORT TOTAL — Depuis le début</div>';
-html+='<div class="log-entry">🦁 AfriChain v0.96 — AI Mathématicien Nombres Souverainete</div>';
+html+='<div class="log-entry">🦁 AfriChain v0.97 — AI Energie Independance Energetique</div>';
 html+='<div class="log-entry">⛓️ Blockchain: 100% souveraine — Zéro dépendance externe</div>';
 html+='<div class="log-entry">🔐 Crypto: Ed25519 + AfriHash-256/512 + AfriRNG — tout from scratch</div>';
 html+='<div class="log-entry">🌍 54 pays africains connectés</div>';
@@ -18161,7 +18414,7 @@ fn main() {
         .and_then(|i| args.get(i + 1)).cloned().unwrap_or_else(|| "Afrique".to_string());
 
     let my_node_id = generate_node_id();
-    println!("🦁 AfriChain v0.96 — AI Mathématicien Nombres Souverainete");
+    println!("🦁 AfriChain v0.97 — AI Energie Independance Energetique");
     println!("💚 L'Afrique ne demande plus la permission");
     println!("🌍 54 pays — 🇲🇱 🇳🇪 🇧🇫 AES — Mali · Niger · Burkina Faso");
     println!("🔐 8 modules cryptographiques — construits from scratch");
@@ -18324,6 +18577,7 @@ fn main() {
     println!("🌾 AI Agriculteur sur http://localhost:8080/ai-agriculteur");
     println!("🌍 AI Environnement sur http://localhost:8080/ai-environnement");
     println!("🧮 AI Mathématicien sur http://localhost:8080/ai-mathematicien");
+    println!("⚡ AI Énergie sur http://localhost:8080/ai-energie");
 
     // Serveur HTTP en arrière-plan (pour mesh + autres utilisateurs)
     let serve_state = web_state.clone();
@@ -18358,7 +18612,7 @@ fn terminal_interface(state: &Arc<AppState>) {
     println!("  ║  🕐 AfriTime — Pas UTC, pas Greenwich   ║");
     println!("  ║  📝 ~22,400 lignes — écrit à la main       ║");
     println!("  ╚═══════════════════════════════════════════════╝");
-    println!("\n  Version v0.96 — 31 août 2026");
+    println!("\n  Version v0.97 — 31 août 2026");
     println!("  Construit sur Termux · Android · nano\n");
     println!("  ─────────────────────────────────────────────");
     println!("\n  1. 🏦 Centre de Données (Admin)");
@@ -18430,7 +18684,7 @@ fn admin_interface(state: &Arc<AppState>) {
         println!("\n");
         println!("╔══════════════════════════════════════╗");
         println!("║  🏦 CENTRE DE DONNÉES — Admin       ║");
-        println!("║  🦁 AfriChain v0.96                  ║");
+        println!("║  🦁 AfriChain v0.97                  ║");
         println!("╠══════════════════════════════════════╣");
         let chain = state.chain.lock().unwrap();
         let users = state.users.lock().unwrap();
@@ -22044,6 +22298,11 @@ fn handle_request(req: afri_http::HttpRequest, state: &Arc<AppState>) -> afri_ht
         ("GET", "/ai-mathematicien") => {
             let chain = state.chain.lock().unwrap();
             HttpResponse::ok(&html_ai_mathematicien(&chain))
+        }
+
+        ("GET", "/ai-energie") => {
+            let chain = state.chain.lock().unwrap();
+            HttpResponse::ok(&html_ai_energie(&chain))
         }
 
         ("GET", "/garage") => {
