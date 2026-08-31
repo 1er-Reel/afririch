@@ -18861,7 +18861,7 @@ fn terminal_interface(state: &Arc<AppState>) {
     println!("  ║  🔐 8 modules cryptographiques (de zéro)     ║");
     println!("  ║  📦 Zéro dépendance — Rust std only      ║");
     println!("  ║  🕐 AfriTime — Pas UTC, pas Greenwich   ║");
-    println!("  ║  📝 ~22,400 lignes — écrit à la main       ║");
+    println!("  ║  📝 ~23,100 lignes — écrit à la main       ║");
     println!("  ╚═══════════════════════════════════════════════╝");
     println!("\n  Version v0.98 — 31 août 2026");
     println!("  Construit sur Termux · Android · nano\n");
