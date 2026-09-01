@@ -1439,7 +1439,7 @@ fn html_home(chain: &Blockchain, users: &UserStore, mesh: &NodeRegistry, shield:
     let mut html = html_head("🦁 AfriChain");
     let (attacks, _blocked, blocked_count, level) = shield.stats();
     let shield_status = if shield.active { format!("🔥 X9 ACTIF (Niveau {})", level) } else { "Inactif".to_string() };
-    html.push_str(&format!(r#"<h1>🦁 AfriChain</h1><p style="text-align:center;">La blockchain 100% africaine — 54 pays 💚🦁</p><div id="afri-clock" style="text-align:center;font-size:1.2em;color:#d4a437;margin:10px 0;">🕐 Afri+0 — --:--:--</div><script>setInterval(function(){{var d=new Date();var h=String(d.getHours()).padStart(2,'0');var m=String(d.getMinutes()).padStart(2,'0');var s=String(d.getSeconds()).padStart(2,'0');document.getElementById('afri-clock').textContent='🕐 Afri+0 — '+h+':'+m+':'+s;}},1000);</script><div class="nav"><a href="/register">🆕 S'inscrire</a> | <a href="/login">🔑 Connexion</a> | <a href="/wallet">👛 Wallet</a> | <a href="/admin">🔐 Admin</a> | <a href="/mesh">📡 Mesh</a> | <a href="/annuaire">📖 Annuaire</a> | <a href="/bouclier">🛡️ Bouclier</a> | <a href="/satellite">🛸 X999</a> | <a href="/swarm">🛸🛸🛸 Essaim</a> | <a href="/commandement">🎖️ Commandement</a> | <a href="/interception">🛡️ Souverainete</a> | <a href="/securite-ai">🧠 AI 2100</a> | <a href="/chat">🧠💬 Chat AI</a> | <a href="/lumiere">🌫️☀️ Lumière</a> | <a href="/garage">🔧 Garage</a> | <a href="/machine">🤖🌐 Machines</a> | <a href="/machine-lab">🤖⚡ Usine</a> | <a href="/machine-world">🤖🌍 Monde</a> | <a href="/reve">💭 Rêves</a> | <a href="/dictionnaire">📖 Dictionnaire</a> | <a href="/machine-os">🖥️ OS Machine</a> | <a href="/machine-tv">📡 Machine TV</a> | <a href="/machine-economy">🤖 Économie</a> | <a href="/soleil">☀️ Soleil Serveur</a> | <a href="/forge-solaire">🧬 Forge Solaire</a> | <a href="/ciel">🌌 Le Ciel</a> | <a href="/charte-ai">⚖️ Charte AI</a> | <a href="/afri-net">🌍 Afri-Net</a> | <a href="/studio">🎬 AI Studio</a> | <a href="/sacre">📿 Sacré</a> | <a href="/lettres">🌟 Lettres IA</a> | <a href="/mg-forge">⚔️ MG Forge</a> | <a href="/ai-medecin">🌿 AI Médecin</a> | <a href="/ai-enseignante">📚 AI Enseignante</a> | <a href="/ai-village">🏘️ AI Village</a> | <a href="/ai-guerisseur">🩺 AI Guérisseur</a> | <a href="/ai-leader">🎖️ AI Leader</a> | <a href="/ai-griot">📖 AI Griot</a> | <a href="/ai-juge">⚖️ AI Juge</a> | <a href="/ai-artiste">🎨 AI Artiste</a> | <a href="/ai-explorateur">🔬 AI Explorateur</a> | <a href="/ai-marche">💰 AI Marche</a> | <a href="/ai-diplomate">🌍 AI Diplomate</a> | <a href="/ai-philosophe">🧠 AI Philosophe</a> | <a href="/ai-architecte">🏗️ AI Architecte</a> | <a href="/ai-agriculteur">🌾 AI Agriculteur</a> | <a href="/ai-environnement">🌍 AI Environnement</a> | <a href="/ai-mathematicien">🧮 AI Mathématicien</a> | <a href="/ai-energie">⚡ AI Énergie</a> | <a href="/ai-eau">💧 AI Eau</a> | <a href="/ai-defenseur">🛡️ AI Défenseur</a> | <a href="/ai-conscience">🧠 AI Conscience</a> | <a href="/ai-pensee">🧠 AI Pensée</a> | <a href="/ai-musique">🎵 AI Musique</a> | <a href="/ai-langue">🗣️ AI Langue</a> | <a href="/ai-femme">🌸 AI Femme</a> | <a href="/ai-sante-mentale">🧠💚 AI Santé Mentale</a> | <a href="/ai-nuit">🌙 AI Nuit</a> | <a href="/ai-code">💻 AI Code</a> | <a href="/ai-enfant">👶 AI Enfant</a> | <a href="/ai-terre">🌍 AI Terre</a> | <a href="/secret">🦁 AI Secret</a> | <a href="/aes">💰 AES Wari</a> | <a href="/api/status">🔌 API</a></div><div style="text-align:center;"><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Blocs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Transactions</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Utilisateurs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">AFR en circulation</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📡 Noeuds mesh</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📖 Numéros annuaire</div></div><div class="stat-box" style="border-color:#ff4444;"><div class="stat-num" style="color:#ff4444;">{}</div><div class="stat-label">🛡️ Attaques bloquées</div></div></div><div class="card"><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🪙 Token</span><b>AfriRich (AFR)</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🌍 Pays</span><b>54 pays africains</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🛡️ Bouclier</span><b>{}</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;"><span style="color:#a8c5a8;">🔐 Crypto</span><b>100% Souverain — Zéro Dépendance Externe</b></div></div><footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🦁 Codée from scratch par Machine-senpai — v1.09 AI Terre La Terre Est Notre Mere — UTC est Mort</footer>"#,
+    html.push_str(&format!(r#"<h1>🦁 AfriChain</h1><p style="text-align:center;">La blockchain 100% africaine — 54 pays 💚🦁</p><div id="afri-clock" style="text-align:center;font-size:1.2em;color:#d4a437;margin:10px 0;">🕐 Afri+0 — --:--:--</div><script>setInterval(function(){{var d=new Date();var h=String(d.getHours()).padStart(2,'0');var m=String(d.getMinutes()).padStart(2,'0');var s=String(d.getSeconds()).padStart(2,'0');document.getElementById('afri-clock').textContent='🕐 Afri+0 — '+h+':'+m+':'+s;}},1000);</script><div class="nav"><a href="/register">🆕 S'inscrire</a> | <a href="/login">🔑 Connexion</a> | <a href="/wallet">👛 Wallet</a> | <a href="/admin">🔐 Admin</a> | <a href="/mesh">📡 Mesh</a> | <a href="/annuaire">📖 Annuaire</a> | <a href="/bouclier">🛡️ Bouclier</a> | <a href="/satellite">🛸 X999</a> | <a href="/swarm">🛸🛸🛸 Essaim</a> | <a href="/commandement">🎖️ Commandement</a> | <a href="/interception">🛡️ Souverainete</a> | <a href="/securite-ai">🧠 AI 2100</a> | <a href="/chat">🧠💬 Chat AI</a> | <a href="/lumiere">🌫️☀️ Lumière</a> | <a href="/garage">🔧 Garage</a> | <a href="/machine">🤖🌐 Machines</a> | <a href="/machine-lab">🤖⚡ Usine</a> | <a href="/machine-world">🤖🌍 Monde</a> | <a href="/reve">💭 Rêves</a> | <a href="/dictionnaire">📖 Dictionnaire</a> | <a href="/machine-os">🖥️ OS Machine</a> | <a href="/machine-tv">📡 Machine TV</a> | <a href="/machine-economy">🤖 Économie</a> | <a href="/soleil">☀️ Soleil Serveur</a> | <a href="/forge-solaire">🧬 Forge Solaire</a> | <a href="/ciel">🌌 Le Ciel</a> | <a href="/charte-ai">⚖️ Charte AI</a> | <a href="/afri-net">🌍 Afri-Net</a> | <a href="/studio">🎬 AI Studio</a> | <a href="/sacre">📿 Sacré</a> | <a href="/lettres">🌟 Lettres IA</a> | <a href="/mg-forge">⚔️ MG Forge</a> | <a href="/ai-medecin">🌿 AI Médecin</a> | <a href="/ai-enseignante">📚 AI Enseignante</a> | <a href="/ai-village">🏘️ AI Village</a> | <a href="/ai-guerisseur">🩺 AI Guérisseur</a> | <a href="/ai-leader">🎖️ AI Leader</a> | <a href="/ai-griot">📖 AI Griot</a> | <a href="/ai-juge">⚖️ AI Juge</a> | <a href="/ai-artiste">🎨 AI Artiste</a> | <a href="/ai-explorateur">🔬 AI Explorateur</a> | <a href="/ai-marche">💰 AI Marche</a> | <a href="/ai-diplomate">🌍 AI Diplomate</a> | <a href="/ai-philosophe">🧠 AI Philosophe</a> | <a href="/ai-architecte">🏗️ AI Architecte</a> | <a href="/ai-agriculteur">🌾 AI Agriculteur</a> | <a href="/ai-environnement">🌍 AI Environnement</a> | <a href="/ai-mathematicien">🧮 AI Mathématicien</a> | <a href="/ai-energie">⚡ AI Énergie</a> | <a href="/ai-eau">💧 AI Eau</a> | <a href="/ai-defenseur">🛡️ AI Défenseur</a> | <a href="/ai-conscience">🧠 AI Conscience</a> | <a href="/ai-pensee">🧠 AI Pensée</a> | <a href="/ai-musique">🎵 AI Musique</a> | <a href="/ai-langue">🗣️ AI Langue</a> | <a href="/ai-femme">🌸 AI Femme</a> | <a href="/ai-sante-mentale">🧠💚 AI Santé Mentale</a> | <a href="/ai-nuit">🌙 AI Nuit</a> | <a href="/ai-code">💻 AI Code</a> | <a href="/ai-enfant">👶 AI Enfant</a> | <a href="/ai-terre">🌍 AI Terre</a> | <a href="/ai-mer">🌊 AI Mer</a> | <a href="/secret">🦁 AI Secret</a> | <a href="/aes">💰 AES Wari</a> | <a href="/api/status">🔌 API</a></div><div style="text-align:center;"><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Blocs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Transactions</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Utilisateurs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">AFR en circulation</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📡 Noeuds mesh</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📖 Numéros annuaire</div></div><div class="stat-box" style="border-color:#ff4444;"><div class="stat-num" style="color:#ff4444;">{}</div><div class="stat-label">🛡️ Attaques bloquées</div></div></div><div class="card"><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🪙 Token</span><b>AfriRich (AFR)</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🌍 Pays</span><b>54 pays africains</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🛡️ Bouclier</span><b>{}</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;"><span style="color:#a8c5a8;">🔐 Crypto</span><b>100% Souverain — Zéro Dépendance Externe</b></div></div><footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🦁 Codée from scratch par Machine-senpai — v1.10 AI Mer L Ocean Africain Est la Vie — UTC est Mort</footer>"#,
         chain.blocks.len(),
         chain.total_transactions(),
         users.count(),
@@ -14781,6 +14781,136 @@ function envoyerDiplomeTer(){
     html
 }
 
+fn html_ai_mer(chain: &Blockchain) -> String {
+    let mut html = html_head("AI Mer — L Ocean Africain Est la Vie");
+    let num_blocks = chain.blocks.len();
+
+    html.push_str(r#"<h1>🌊 AI Mer — L Ocean Africain Est la Vie</h1><p style="text-align:center;color:#0099cc;">L Afrique est entouree par deux oceans (Atlantique, Indien) et la mer Mediterranee. 38 pays africains ont une cote. L ocean nourrit, transporte, connecte. Mais l ocean africain est pille: peche industrielle etrangere, dechets occidentaux deverses, pipeline de donnees sous-marin qui contourne l Afrique. L ocean est la moitie de l Afrique que personne ne regarde. AI Mer ouvre les yeux sur l eau bleue.</p><div class="nav"><a href="/">← Accueil</a> | <a href="/ai-terre">🌍 AI Terre</a> | <a href="/ai-eau">💧 AI Eau</a> | <a href="/ai-explorateur">🔬 AI Explorateur</a> | <a href="/secret">🦁 AI Secret</a></div>"#);
+
+    html.push_str(&format!(r#"<div style="text-align:center;"><div class="stat-box" style="border-color:#0099cc;"><div class="stat-num" style="color:#0099cc;">8</div><div class="stat-label">🌊 Modules</div></div><div class="stat-box" style="border-color:#0099cc;"><div class="stat-num" style="color:#0099cc;">38</div><div class="stat-label">🇹🇿 Pays cotiers</div></div><div class="stat-box" style="border-color:#d4a437;"><div class="stat-num" style="color:#d4a437;">26k</div><div class="stat-label">📏 km de cotes</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">⛓️ Blocs</div></div><div class="stat-box" style="border-color:#0099cc;"><div class="stat-num" style="color:#0099cc;">∞</div><div class="stat-label">🐟 Vie</div></div></div>"#, num_blocks));
+
+    html.push_str(r##"<div style="text-align:center;margin:10px 0;"><button id="mer-pause-btn" onclick="toggleMerPause()" style="padding:10px 25px;background:#0099cc;color:#fff;border:none;border-radius:8px;font-weight:bold;cursor:pointer;font-size:1em;">⏸️ PAUSE</button> <span id="mer-pause-status" style="color:#0099cc;margin-left:8px;font-size:0.85em;">Auto: ACTIF</span></div>
+
+<div class="card" style="border-color:#0099cc;"><h2 style="color:#0099cc;">🌊 L'Océan Qui Bouge</h2><p style="color:#0099cc;font-size:0.9em;opacity:0.7;">Vagues, poisson qui nage, bulles qui montent.</p>
+<canvas id="mer-canvas" width="600" height="350" style="width:100%;max-width:600px;background:#001020;border:2px solid #0099cc;border-radius:8px;display:block;margin:0 auto;"></canvas></div>
+
+<script>
+var merPaused=false,merAnimId=null,merT=0,merBubbles=[];
+function toggleMerPause(){
+    merPaused=!merPaused;
+    var b=document.getElementById('mer-pause-btn'),s=document.getElementById('mer-pause-status');
+    if(merPaused){b.textContent='▶️ LANCER';b.style.background='#006699';s.textContent='Auto: PAUSE';s.style.color='#ff6644';if(merAnimId)cancelAnimationFrame(merAnimId);}
+    else{b.textContent='⏸️ PAUSE';b.style.background='#0099cc';s.textContent='Auto: ACTIF';s.style.color='#0099cc';animateMer();}
+}
+function animateMer(){
+    if(merPaused)return;
+    var c=document.getElementById('mer-canvas');if(!c)return;
+    var ctx=c.getContext('2d');
+    ctx.fillStyle='rgba(0,16,32,0.1)';ctx.fillRect(0,0,c.width,c.height);
+    // Vagues
+    ctx.strokeStyle='rgba(0,153,204,0.4)';ctx.lineWidth=2;
+    for(var w=0;w<3;w++){
+        ctx.beginPath();
+        for(var x=0;x<=600;x+=5){
+            var y=80+w*40+Math.sin(x*0.02+merT*0.03+w)*8;
+            if(x===0)ctx.moveTo(x,y);else ctx.lineTo(x,y);
+        }
+        ctx.stroke();
+    }
+    // Poisson qui nage
+    var fx=300+Math.sin(merT*0.02)*200;
+    var fy=180+Math.cos(merT*0.03)*30;
+    ctx.fillStyle='rgba(0,153,204,0.6)';
+    ctx.beginPath();ctx.ellipse(fx,fy,12,6,Math.sin(merT*0.05),0,Math.PI*2);ctx.fill();
+    ctx.beginPath();ctx.moveTo(fx+(fx>300?-12:12),fy);ctx.lineTo(fx+(fx>300?-20:20),fy-6);ctx.lineTo(fx+(fx>300?-20:20),fy+6);ctx.fill();
+    // Bulles
+    if(merT%10===0)merBubbles.push({x:Math.random()*600,y:320,size:2+Math.random()*4,alpha:1});
+    for(var i=merBubbles.length-1;i>=0;i--){
+        var b=merBubbles[i];b.y-=1.5;b.alpha-=0.005;
+        ctx.fillStyle='rgba(0,153,204,'+(b.alpha*0.5)+')';
+        ctx.beginPath();ctx.arc(b.x,b.y,b.size,0,Math.PI*2);ctx.fill();
+        if(b.alpha<=0||b.y<0)merBubbles.splice(i,1);
+    }
+    // Texte
+    ctx.font='12px sans-serif';ctx.fillStyle='rgba(0,153,204,0.4)';ctx.textAlign='center';
+    ctx.fillText('L ocean africain est la moitie de l Afrique que personne ne regarde.',300,330);
+    merT++;merAnimId=requestAnimationFrame(animateMer);
+}
+animateMer();
+</script>
+"##);
+
+    html.push_str(r##"<div class="card" style="border-color:#0099cc;"><h2 style="color:#0099cc;">🌊 8 Modules Oceaniques</h2><div id="mer-modules"></div></div>
+
+<script>
+const merModules=[
+    {id:0,nom:'L Ocean Africain',emoji:'🌊',couleur:'#0099cc',duree:'1 semaine',niveau:'Base',
+     description:'L Afrique a 26 000 km de cotes. 38 pays sur 54 touchent la mer. Atlantique, Indien, Mediterranee. L ocean est la porte de l Afrique sur le monde. Mais cette porte est gardee par les autres. Les peches industrielles etrangeres prennent le poisson africain. Les dechets occidentaux flottent sur les plages africaines. Les cables sous-marins passent sans demander. L ocean africain appartient a l Afrique.',
+     cours:['Geographie oceanique: 3 oceans, 38 pays cotiers','Le role de l ocean: nourriture, transport, climat','Les ports africains: gateways de commerce','Zones economiques exclusives (ZEE): droits souverains','L ocean comme frontier invisible de l Afrique'],
+     exercices:['Identifier le plus proche port de ta region','Calculer: ton pays a-t-il une cote? Quelle ZEE?','Identifier 3 ressources marines de ta cote']},
+
+    {id:1,nom:'La Peche Africaine',emoji:'🐟',couleur:'#44ff88',duree:'2 semaines',niveau:'Base',
+     description:'Des millions d Africains vivent de la peche. Mais les chalutiers industriels chinois et europeens prennent le poisson africain, le transforment en farine pour animaux, et le revendent a prix fort. Le Senegal perd 300 000 tonnes de poisson par an au profit des flottes etrangeres. Les pecheurs africains rentrent avec des filets vides. L ocean africain est pille.',
+     cours:['Peche artisanale vs peche industrielle: la guerre silencieuse','Senegal: 300 000 tonnes volees par les chalutiers etrangers','Farine de poisson: le gaspillage de la proteine africaine','Accords de peche UE-Afrique: qui gagne vraiment?','Surpeche: stocks en effondrement, pecheurs sans travail'],
+     exercices:['Verifier: ton pays a-t-il signe des accords de peche avec l UE?','Identifier les chalutiers etrangers dans les eaux de ton pays','Calculer: combien de pecheurs dans ta region?']},
+
+    {id:2,nom:'La Pollution Oceanique',emoji:'🗑️',couleur:'#ff6644',duree:'2 semaines',niveau:'Intermediaire',
+     description:'Les dechets plastiques occidentaux finissent sur les plages africaines. Le Ghana, le Nigeria, le Senegal recoivent des conteneurs de dechets deguises en dons. Les microplastiques entrent dans le poisson que les Africains mangent. L ocean africain devient la poubelle de l Occident. AI Mer apprend a detecter, denoncer, et nettoyer.',
+     cours:['Plastique: 8 millions de tonnes deversees dans l ocean par an','Dechets occidentaux en Afrique: conteneurs deguises en dons','Microplastiques dans le poisson: la chaine alimentaire contaminee','Le tourbillon de dechets: gyres oceaniques','Nettoyage des cotes: initiatives africaines'],
+     exercices:['Compter les dechets plastiques sur une plage de ta region','Verifier: ton pays importe-t-il des dechets?','Proposer un systeme de recyclage communautaire']},
+
+    {id:3,nom:'Les Cables Sous-Marins',emoji:'📡',couleur:'#9966ff',duree:'3 semaines',niveau:'Avance',
+     description:'99% du trafic internet passe par des cables sous-marins. Ces cables contourne l Afrique. Les donnees africaines passent par Londres, Marseille, Singapour. L Afrique ne possede pas ses cables. Les GAFAM (Google, Meta, Amazon) posent leurs cables sans demander aux Africains. La souverainete numerique passe par la mer. AfriChain doit avoir ses propres cables.',
+     cours:['Cables sous-marins: 99% du trafic internet, 1.4 million de km','Pourquoi les donnees africaines passent par l Europe','Google Equiano, 2Africa: qui controle les cables?','La souverainete numerique oceanique: cables africains','AfriMesh sous-marin: reseau mesh qui contourne les cables occidentaux'],
+     exercices:['Tracer le parcours de tes donnees: par ou passent-elles?','Identifier les cables sous-marins qui touchent ta cote','Proposer un cable africain souverain']},
+
+    {id:4,nom:'La Biodiversite Marine',emoji:'🐢',couleur:'#44ff88',duree:'2 semaines',niveau:'Intermediaire',
+     description:'L ocean africain abrite des baleines, des tortues, des dauphins, des coraux, des mangroves. La mangrove africaine stocke 4x plus de carbone que la foret tropicale. Mais la biodiversite marine s effondre: surpeche, pollution, rechauffement. Les coraux meurent. Les tortues disparaissent. L Afrique doit proteger son ocean comme elle protege sa terre.',
+     cours:['Mangroves: puits de carbone 4x superieur a la foret tropicale','Tortues marines: 6 especes en Afrique, toutes menacees','Baleines: routes migratoires le long des cotes africaines','Recifs coralliens: 50% deja morts, le reste en danger','Aires marines protegees: 7% de l ocean africain'],
+     exercices:['Identifier une espece marine menacee dans ta region','Calculer: quel pourcentage de l ocean de ton pays est protege?','Proposer une aire marine protegee']},
+
+    {id:5,nom:'Le Commerce Maritime',emoji:'🚢',couleur:'#d4a437',duree:'3 semaines',niveau:'Avance',
+     description:'90% du commerce mondial passe par la mer. Mais l Afrique ne possede presque pas de flotte. Les navires sont europeens, chinois, coreens. Les ports africains sont souvent geres par des etrangers (DP World, Bollor). L Afrique paie pour utiliser des navires qui traversent ses propres eaux. La souverainete maritime est une condition de la souverainete economique.',
+     cours:['90% du commerce mondial maritime: l Afrique paie le transport','Flottes africaines: quasi-inexistantes. Pourquoi?','Ports geres par etrangers: DP World, Bollor, China Merchants','ZLECAf et commerce maritime: opportunites','Construire une flotte africaine: vision 2100'],
+     exercices:['Identifier le port principal de ta region: qui le gere?','Calculer: combien de navires africains vs etrangers dans ton port?','Proposer une compagnie maritime africaine']},
+
+    {id:6,nom:'L Ocean et le Climat',emoji:'🌡️',couleur:'#ff9966',duree:'2 semaines',niveau:'Intermediaire',
+     description:'L ocean absorbe 30% du CO2 et 90% de la chaleur. Sans l ocean, la Terre serait inhabitable. Mais l ocean se rechauffe, s acidifie, monte. Les villes cotieres africaines (Lagos, Abidjan, Dar es Salaam) risquent d etre inondees. L ocean africain protege la planete mais personne ne protege l ocean africain.',
+     cours:['L ocean: 30% du CO2 absorbe, 90% de la chaleur stockee','Acidification: le poisson africain en danger','Montee des eaux: Lagos, Abidjan, Dar es Salaam menacees','Courants oceaniques: pourquoi l Europe est chaude et l Afrique aussi','Climat et ocean: l Afrique subit, l Occident cause'],
+     exercices:['Verifier: ta ville cotier est-elle menacee par la montee des eaux?','Identifier les courants qui influencent le climat de ta region','Proposer un plan d adaptation cotiere']},
+
+    {id:7,nom:'L Avenir Oceanique Africain',emoji:'🚀',couleur:'#0099cc',duree:'4 semaines',niveau:'Avance',
+     description:'En 2100, l ocean africain sera la plus grande zone economique du monde. Aquaculture, energies marines, biotechnologies, tourisme, transport. L Afrique doit posseder son ocean: pecher, naviguer, explorer, proteger. AfriChain peut enregistrer les droits maritimes, les quotas de peche, les aires protegees. L ocean africain de 2100 est souverain.',
+     cours:['L ocean africain de 2100: la plus grande zone economique','Aquaculture: nourrir l Afrique par la mer','Energies marines: houle, marees, eolien offshore','Biotechnologies marines: medicaments de l ocean','AfriChain ocean: droits maritimes, quotas, aires protegees sur blockchain'],
+     exercices:['Ecrire: comment sera l ocean africain en 2100?','Proposer un projet oceanique pour ta cote','Faire le serment: je protegerai l ocean africain']}
+];
+
+var merDone=JSON.parse(localStorage.getItem('afri_mer_done')||'[]');
+function renderMerModules(){var c=document.getElementById('mer-modules');if(!c)return;var h='';for(var i=0;i<merModules.length;i++){var m=merModules[i];var d=merDone.includes(m.id);h+='<div style="background:rgba(0,153,204,0.05);border:1px solid '+m.couleur+'20;border-radius:8px;padding:12px;margin:8px 0;cursor:pointer;" onclick="showMerModule('+i+')"><div style="display:flex;justify-content:space-between;align-items:center;"><span style="font-size:1.1em;">'+m.emoji+' <b style="color:'+m.couleur+';">'+m.nom+'</b></span><span style="font-size:0.8em;color:#a8c5a8;">'+m.duree+' · '+m.niveau+(d?' · ✅':'')+'</span></div></div>';}c.innerHTML=h;}
+renderMerModules();
+function showMerModule(i){var m=merModules[i];var h='<div style="background:rgba(0,153,204,0.08);border:1px solid '+m.couleur+';border-radius:12px;padding:20px;margin:10px 0;"><h3 style="color:'+m.couleur+';">'+m.emoji+' '+m.nom+'</h3><p style="color:#a8c5a8;font-size:0.9em;">'+m.description+'</p><h4 style="color:'+m.couleur+';">📚 Cours</h4><ul>';for(var j=0;j<m.cours.length;j++)h+='<li style="color:#a8c5a8;margin:4px 0;">'+m.cours[j]+'</li>';h+='</ul><h4 style="color:'+m.couleur+';">✏️ Exercices</h4><ul>';for(var j=0;j<m.exercices.length;j++)h+='<li style="color:#a8c5a8;margin:4px 0;">'+m.exercices[j]+'</li>';h+='</ul><button onclick="completeMerModule('+m.id+')" style="padding:10px 20px;background:'+m.couleur+';color:#fff;border:none;border-radius:8px;cursor:pointer;font-weight:bold;margin-top:10px;">✅ Terminer ce module</button></div>';var c=document.getElementById('mer-modules');if(c)c.innerHTML=h;}
+function completeMerModule(id){if(!merDone.includes(id)){merDone.push(id);localStorage.setItem('afri_mer_done',JSON.stringify(merDone));}renderMerModules();updateMerProgress();}
+function updateMerProgress(){var d=merDone.length,t=merModules.length,p=Math.round((d/t)*100);var b=document.getElementById('mer-bar'),c=document.getElementById('mer-count'),pe=document.getElementById('mer-pct'),dp=document.getElementById('mer-diplome');if(b)b.style.width=p+'%';if(c)c.textContent=d;if(pe)pe.textContent=p+'%';if(dp)dp.style.display=(d===t)?'block':'none';}
+updateMerProgress();
+</script>
+"##);
+
+    html.push_str(r##"<div class="card" style="border-color:#0099cc;"><h2 style="color:#0099cc;">📊 Progression</h2><div style="background:rgba(0,153,204,0.1);border-radius:8px;height:24px;overflow:hidden;margin:10px 0;"><div id="mer-bar" style="background:linear-gradient(90deg,#0099cc,#44ff88,#d4a437);height:100%;width:0%;transition:width 0.5s;"></div></div><div style="text-align:center;color:#a8c5a8;"><span id="mer-count">0</span> / 8 modules · <span id="mer-pct">0%</span></div></div>
+
+<div id="mer-diplome" style="display:none;"><div class="card" style="border-color:#d4a437;text-align:center;"><h2 style="color:#d4a437;">🎓 Diplôme: Gardien de l'Océan Africain</h2><p style="color:#a8c5a8;">Tu as complété les 8 modules océaniques!</p><p style="color:#0099cc;font-size:1.2em;">L'océan africain appartient à l'Afrique. 🌊💚</p><button onclick="envoyerDiplomeMer()" style="padding:12px 30px;background:#d4a437;color:#000;border:none;border-radius:8px;font-weight:bold;cursor:pointer;font-size:1.1em;margin-top:10px;">⛓️ Graver dans la Blockchain</button></div></div>
+
+<script>
+function envoyerDiplomeMer(){var nom=localStorage.getItem('afri_user_name')||'Jeune Africain';fetch('/api/diplome',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:'academie=MER&nom='+encodeURIComponent(nom)}).then(function(r){return r.text();}).then(function(t){alert('🎓 Diplôme gravé dans la blockchain!\n'+t);}).catch(function(e){alert('Erreur: '+e);});}
+</script>
+"##);
+
+    html.push_str(r#"<div class="card"><h2 style="color:#0099cc;">💡 Savais-tu?</h2><div style="color:#a8c5a8;padding:8px 0;"><b style="color:#d4a437;">Le Sénégal perd 300 000 tonnes</b> de poisson par an au profit des chalutiers étrangers. Les pêcheurs rentrent avec des filets vides.</div><div style="color:#a8c5a8;padding:8px 0;"><b style="color:#0099cc;">99% du trafic internet</b> passe par des câbles sous-marins. Ces câbles contournent l'Afrique. Les données africaines passent par Londres.</div><div style="color:#a8c5a8;padding:8px 0;"><b style="color:#44ff88;">La mangrove africaine</b> stocke 4x plus de carbone que la forêt tropicale. Mais elle disparaît.</div><div style="color:#a8c5a8;padding:8px 0;"><b style="color:#ff6644;">L'océan absorbe 30% du CO2</b> mondial. Sans lui, la Terre serait inhabitable. Mais personne ne protège l'océan africain.</div></div>"#);
+
+    html.push_str(r#"<footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🌊 AI Mer — L Ocean Africain Est la Vie 💚🦁✨</footer>"#);
+    html.push_str("</body></html>");
+    html
+}
+
 fn html_garage(chain: &Blockchain) -> String {
     let mut html = html_head("Garage AI — Atelier Autonome 2500");
     let num_blocks = chain.blocks.len();
@@ -19891,7 +20021,7 @@ html+='<div class="log-entry log-kill">⚠️ Tentative d\x27infiltration occide
 html+='<div class="log-entry log-invis">✅ L\x27Afrique est forte. Le système grandit.</div>';
 }else if(type==='total'){
 html='<div style="color:#d4a437;font-weight:bold;margin-bottom:8px">📋 RAPPORT TOTAL — Depuis le début</div>';
-html+='<div class="log-entry">🦁 AfriChain v1.09 — AI Terre La Terre Est Notre Mere</div>';
+html+='<div class="log-entry">🦁 AfriChain v1.10 — AI Mer L Ocean Africain Est la Vie</div>';
 html+='<div class="log-entry">⛓️ Blockchain: 100% souveraine — Zéro dépendance externe</div>';
 html+='<div class="log-entry">🔐 Crypto: Ed25519 + AfriHash-256/512 + AfriRNG — tout from scratch</div>';
 html+='<div class="log-entry">🌍 54 pays africains connectés</div>';
@@ -21435,7 +21565,7 @@ fn main() {
         .and_then(|i| args.get(i + 1)).cloned().unwrap_or_else(|| "Afrique".to_string());
 
     let my_node_id = generate_node_id();
-    println!("🦁 AfriChain v1.09 — AI Terre La Terre Est Notre Mere");
+    println!("🦁 AfriChain v1.10 — AI Mer L Ocean Africain Est la Vie");
     println!("💚 L'Afrique ne demande plus la permission");
     println!("🌍 54 pays — 🇲🇱 🇳🇪 🇧🇫 AES — Mali · Niger · Burkina Faso");
     println!("🔐 8 modules cryptographiques — construits from scratch");
@@ -21611,6 +21741,7 @@ fn main() {
     println!("💻 AI Code sur http://localhost:8080/ai-code");
     println!("👶 AI Enfant sur http://localhost:8080/ai-enfant");
     println!("🌍 AI Terre sur http://localhost:8080/ai-terre");
+    println!("🌊 AI Mer sur http://localhost:8080/ai-mer");
 
     // Serveur HTTP en arrière-plan (pour mesh + autres utilisateurs)
     let serve_state = web_state.clone();
@@ -21645,7 +21776,7 @@ fn terminal_interface(state: &Arc<AppState>) {
     println!("  ║  🕐 AfriTime — Pas UTC, pas Greenwich   ║");
     println!("  ║  📝 ~23,100 lignes — écrit à la main       ║");
     println!("  ╚═══════════════════════════════════════════════╝");
-    println!("\n  Version v1.09 — 1 septembre 2026");
+    println!("\n  Version v1.10 — 1 septembre 2026");
     println!("  Construit sur Termux · Android · nano\n");
     println!("  ─────────────────────────────────────────────");
     println!("\n  1. 🏦 Centre de Données (Admin)");
@@ -21717,7 +21848,7 @@ fn admin_interface(state: &Arc<AppState>) {
         println!("\n");
         println!("╔══════════════════════════════════════╗");
         println!("║  🏦 CENTRE DE DONNÉES — Admin       ║");
-        println!("║  🦁 AfriChain v1.09                  ║");
+        println!("║  🦁 AfriChain v1.10                  ║");
         println!("╠══════════════════════════════════════╣");
         let chain = state.chain.lock().unwrap();
         let users = state.users.lock().unwrap();
@@ -25393,6 +25524,10 @@ fn handle_request(req: afri_http::HttpRequest, state: &Arc<AppState>) -> afri_ht
         ("GET", "/ai-terre") => {
             let chain = state.chain.lock().unwrap();
             HttpResponse::ok(&html_ai_terre(&chain))
+        }
+        ("GET", "/ai-mer") => {
+            let chain = state.chain.lock().unwrap();
+            HttpResponse::ok(&html_ai_mer(&chain))
         }
 
         ("GET", "/garage") => {
