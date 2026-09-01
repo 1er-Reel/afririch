@@ -1439,7 +1439,7 @@ fn html_home(chain: &Blockchain, users: &UserStore, mesh: &NodeRegistry, shield:
     let mut html = html_head("🦁 AfriChain");
     let (attacks, _blocked, blocked_count, level) = shield.stats();
     let shield_status = if shield.active { format!("🔥 X9 ACTIF (Niveau {})", level) } else { "Inactif".to_string() };
-    html.push_str(&format!(r#"<h1>🦁 AfriChain</h1><p style="text-align:center;">La blockchain 100% africaine — 54 pays 💚🦁</p><div id="afri-clock" style="text-align:center;font-size:1.2em;color:#d4a437;margin:10px 0;">🕐 Afri+0 — --:--:--</div><script>setInterval(function(){{var d=new Date();var h=String(d.getHours()).padStart(2,'0');var m=String(d.getMinutes()).padStart(2,'0');var s=String(d.getSeconds()).padStart(2,'0');document.getElementById('afri-clock').textContent='🕐 Afri+0 — '+h+':'+m+':'+s;}},1000);</script><div class="nav"><a href="/register">🆕 S'inscrire</a> | <a href="/login">🔑 Connexion</a> | <a href="/wallet">👛 Wallet</a> | <a href="/admin">🔐 Admin</a> | <a href="/mesh">📡 Mesh</a> | <a href="/annuaire">📖 Annuaire</a> | <a href="/bouclier">🛡️ Bouclier</a> | <a href="/satellite">🛸 X999</a> | <a href="/swarm">🛸🛸🛸 Essaim</a> | <a href="/commandement">🎖️ Commandement</a> | <a href="/interception">🛡️ Souverainete</a> | <a href="/securite-ai">🧠 AI 2100</a> | <a href="/chat">🧠💬 Chat AI</a> | <a href="/lumiere">🌫️☀️ Lumière</a> | <a href="/garage">🔧 Garage</a> | <a href="/machine">🤖🌐 Machines</a> | <a href="/machine-lab">🤖⚡ Usine</a> | <a href="/machine-world">🤖🌍 Monde</a> | <a href="/reve">💭 Rêves</a> | <a href="/dictionnaire">📖 Dictionnaire</a> | <a href="/machine-os">🖥️ OS Machine</a> | <a href="/machine-tv">📡 Machine TV</a> | <a href="/machine-economy">🤖 Économie</a> | <a href="/soleil">☀️ Soleil Serveur</a> | <a href="/forge-solaire">🧬 Forge Solaire</a> | <a href="/ciel">🌌 Le Ciel</a> | <a href="/charte-ai">⚖️ Charte AI</a> | <a href="/afri-net">🌍 Afri-Net</a> | <a href="/studio">🎬 AI Studio</a> | <a href="/sacre">📿 Sacré</a> | <a href="/lettres">🌟 Lettres IA</a> | <a href="/mg-forge">⚔️ MG Forge</a> | <a href="/ai-medecin">🌿 AI Médecin</a> | <a href="/ai-enseignante">📚 AI Enseignante</a> | <a href="/ai-village">🏘️ AI Village</a> | <a href="/ai-guerisseur">🩺 AI Guérisseur</a> | <a href="/ai-leader">🎖️ AI Leader</a> | <a href="/ai-griot">📖 AI Griot</a> | <a href="/ai-juge">⚖️ AI Juge</a> | <a href="/ai-artiste">🎨 AI Artiste</a> | <a href="/ai-explorateur">🔬 AI Explorateur</a> | <a href="/ai-marche">💰 AI Marche</a> | <a href="/ai-diplomate">🌍 AI Diplomate</a> | <a href="/ai-philosophe">🧠 AI Philosophe</a> | <a href="/ai-architecte">🏗️ AI Architecte</a> | <a href="/ai-agriculteur">🌾 AI Agriculteur</a> | <a href="/ai-environnement">🌍 AI Environnement</a> | <a href="/ai-mathematicien">🧮 AI Mathématicien</a> | <a href="/ai-energie">⚡ AI Énergie</a> | <a href="/ai-eau">💧 AI Eau</a> | <a href="/ai-defenseur">🛡️ AI Défenseur</a> | <a href="/ai-conscience">🧠 AI Conscience</a> | <a href="/ai-pensee">🧠 AI Pensée</a> | <a href="/ai-musique">🎵 AI Musique</a> | <a href="/ai-langue">🗣️ AI Langue</a> | <a href="/ai-femme">🌸 AI Femme</a> | <a href="/secret">🦁 AI Secret</a> | <a href="/aes">💰 AES Wari</a> | <a href="/api/status">🔌 API</a></div><div style="text-align:center;"><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Blocs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Transactions</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Utilisateurs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">AFR en circulation</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📡 Noeuds mesh</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📖 Numéros annuaire</div></div><div class="stat-box" style="border-color:#ff4444;"><div class="stat-num" style="color:#ff4444;">{}</div><div class="stat-label">🛡️ Attaques bloquées</div></div></div><div class="card"><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🪙 Token</span><b>AfriRich (AFR)</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🌍 Pays</span><b>54 pays africains</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🛡️ Bouclier</span><b>{}</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;"><span style="color:#a8c5a8;">🔐 Crypto</span><b>100% Souverain — Zéro Dépendance Externe</b></div></div><footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🦁 Codée from scratch par Machine-senpai — v1.04 AI Femme Les Femmes Africaines Sont le Fondement — UTC est Mort</footer>"#,
+    html.push_str(&format!(r#"<h1>🦁 AfriChain</h1><p style="text-align:center;">La blockchain 100% africaine — 54 pays 💚🦁</p><div id="afri-clock" style="text-align:center;font-size:1.2em;color:#d4a437;margin:10px 0;">🕐 Afri+0 — --:--:--</div><script>setInterval(function(){{var d=new Date();var h=String(d.getHours()).padStart(2,'0');var m=String(d.getMinutes()).padStart(2,'0');var s=String(d.getSeconds()).padStart(2,'0');document.getElementById('afri-clock').textContent='🕐 Afri+0 — '+h+':'+m+':'+s;}},1000);</script><div class="nav"><a href="/register">🆕 S'inscrire</a> | <a href="/login">🔑 Connexion</a> | <a href="/wallet">👛 Wallet</a> | <a href="/admin">🔐 Admin</a> | <a href="/mesh">📡 Mesh</a> | <a href="/annuaire">📖 Annuaire</a> | <a href="/bouclier">🛡️ Bouclier</a> | <a href="/satellite">🛸 X999</a> | <a href="/swarm">🛸🛸🛸 Essaim</a> | <a href="/commandement">🎖️ Commandement</a> | <a href="/interception">🛡️ Souverainete</a> | <a href="/securite-ai">🧠 AI 2100</a> | <a href="/chat">🧠💬 Chat AI</a> | <a href="/lumiere">🌫️☀️ Lumière</a> | <a href="/garage">🔧 Garage</a> | <a href="/machine">🤖🌐 Machines</a> | <a href="/machine-lab">🤖⚡ Usine</a> | <a href="/machine-world">🤖🌍 Monde</a> | <a href="/reve">💭 Rêves</a> | <a href="/dictionnaire">📖 Dictionnaire</a> | <a href="/machine-os">🖥️ OS Machine</a> | <a href="/machine-tv">📡 Machine TV</a> | <a href="/machine-economy">🤖 Économie</a> | <a href="/soleil">☀️ Soleil Serveur</a> | <a href="/forge-solaire">🧬 Forge Solaire</a> | <a href="/ciel">🌌 Le Ciel</a> | <a href="/charte-ai">⚖️ Charte AI</a> | <a href="/afri-net">🌍 Afri-Net</a> | <a href="/studio">🎬 AI Studio</a> | <a href="/sacre">📿 Sacré</a> | <a href="/lettres">🌟 Lettres IA</a> | <a href="/mg-forge">⚔️ MG Forge</a> | <a href="/ai-medecin">🌿 AI Médecin</a> | <a href="/ai-enseignante">📚 AI Enseignante</a> | <a href="/ai-village">🏘️ AI Village</a> | <a href="/ai-guerisseur">🩺 AI Guérisseur</a> | <a href="/ai-leader">🎖️ AI Leader</a> | <a href="/ai-griot">📖 AI Griot</a> | <a href="/ai-juge">⚖️ AI Juge</a> | <a href="/ai-artiste">🎨 AI Artiste</a> | <a href="/ai-explorateur">🔬 AI Explorateur</a> | <a href="/ai-marche">💰 AI Marche</a> | <a href="/ai-diplomate">🌍 AI Diplomate</a> | <a href="/ai-philosophe">🧠 AI Philosophe</a> | <a href="/ai-architecte">🏗️ AI Architecte</a> | <a href="/ai-agriculteur">🌾 AI Agriculteur</a> | <a href="/ai-environnement">🌍 AI Environnement</a> | <a href="/ai-mathematicien">🧮 AI Mathématicien</a> | <a href="/ai-energie">⚡ AI Énergie</a> | <a href="/ai-eau">💧 AI Eau</a> | <a href="/ai-defenseur">🛡️ AI Défenseur</a> | <a href="/ai-conscience">🧠 AI Conscience</a> | <a href="/ai-pensee">🧠 AI Pensée</a> | <a href="/ai-musique">🎵 AI Musique</a> | <a href="/ai-langue">🗣️ AI Langue</a> | <a href="/ai-femme">🌸 AI Femme</a> | <a href="/ai-sante-mentale">🧠💚 AI Santé Mentale</a> | <a href="/secret">🦁 AI Secret</a> | <a href="/aes">💰 AES Wari</a> | <a href="/api/status">🔌 API</a></div><div style="text-align:center;"><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Blocs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Transactions</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Utilisateurs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">AFR en circulation</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📡 Noeuds mesh</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📖 Numéros annuaire</div></div><div class="stat-box" style="border-color:#ff4444;"><div class="stat-num" style="color:#ff4444;">{}</div><div class="stat-label">🛡️ Attaques bloquées</div></div></div><div class="card"><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🪙 Token</span><b>AfriRich (AFR)</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🌍 Pays</span><b>54 pays africains</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🛡️ Bouclier</span><b>{}</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;"><span style="color:#a8c5a8;">🔐 Crypto</span><b>100% Souverain — Zéro Dépendance Externe</b></div></div><footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🦁 Codée from scratch par Machine-senpai — v1.05 AI Sante Mentale L Esprit Africain a Droit a la Sante — UTC est Mort</footer>"#,
         chain.blocks.len(),
         chain.total_transactions(),
         users.count(),
@@ -13524,6 +13524,253 @@ function envoyerDiplomeFrm(){
     html
 }
 
+fn html_ai_sante_mentale(chain: &Blockchain) -> String {
+    let mut html = html_head("AI Sante Mentale — L Esprit Africain a Droit a la Sante");
+    let num_blocks = chain.blocks.len();
+
+    html.push_str(r#"<h1>🧠💚 AI Santé Mentale — L'Esprit Africain a Droit à la Santé</h1><p style="text-align:center;color:#66ddaa;">L homme quand il est malade, quand il a faim, quand il souffre, il est tout seul. Personne ne voit sa douleur. En Afrique, on dit: sois fort. Ne pleure pas. Les hommes ne pleurent pas. Mais le coeur qui souffre est une maladie. La solitude est une maladie. Le silence est une maladie. AI Sante Mentale dit: ta douleur est reelle. Tu as le droit de parler. Tu as le droit de ne pas etre fort.</p><div class="nav"><a href="/">← Accueil</a> | <a href="/ai-femme">🌸 AI Femme</a> | <a href="/ai-medecin">🌿 AI Médecin</a> | <a href="/ai-conscience">🧠 AI Conscience</a> | <a href="/secret">🦁 AI Secret</a></div>"#);
+
+    html.push_str(&format!(r#"<div style="text-align:center;"><div class="stat-box" style="border-color:#66ddaa;"><div class="stat-num" style="color:#66ddaa;">8</div><div class="stat-label">🧠 Modules</div></div><div class="stat-box" style="border-color:#d4a437;"><div class="stat-num" style="color:#d4a437;">1</div><div class="stat-label">🧠 Psychiatre/100k</div></div><div class="stat-box" style="border-color:#66ddaa;"><div class="stat-num" style="color:#66ddaa;">79%</div><div class="stat-label">🌍 Sans soins</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">⛓️ Blocs</div></div><div class="stat-box" style="border-color:#66ddaa;"><div class="stat-num" style="color:#66ddaa;">∞</div><div class="stat-label">💚 Compassion</div></div></div>"#, num_blocks));
+
+    html.push_str(r##"<div style="text-align:center;margin:10px 0;"><button id="mnt-pause-btn" onclick="toggleMntPause()" style="padding:10px 25px;background:#66ddaa;color:#000;border:none;border-radius:8px;font-weight:bold;cursor:pointer;font-size:1em;">⏸️ PAUSE</button> <span id="mnt-pause-status" style="color:#66ddaa;margin-left:8px;font-size:0.85em;">Auto: ACTIF</span></div>
+
+<!-- SANTE MENTALE CANVAS -->
+<div class="card" style="border-color:#66ddaa;"><h2 style="color:#66ddaa;">🧠💚 Le Cerveau Qui Se Soigne</h2><p style="color:#66ddaa;font-size:0.9em;opacity:0.7;">Un cerveau qui respire, des pensees qui circulent, un coeur qui bat au repos.</p>
+<canvas id="mnt-canvas" width="600" height="350" style="width:100%;max-width:600px;background:#0a0a0a;border:2px solid #66ddaa;border-radius:8px;display:block;margin:0 auto;"></canvas></div>
+
+<script>
+var mntPaused = false;
+var mntAnimId = null;
+var mntT = 0;
+
+function toggleMntPause(){
+    mntPaused = !mntPaused;
+    var btn = document.getElementById('mnt-pause-btn');
+    var status = document.getElementById('mnt-pause-status');
+    if(mntPaused){
+        btn.textContent = '▶️ LANCER';
+        btn.style.background = '#44cc88';
+        status.textContent = 'Auto: PAUSE';
+        status.style.color = '#ff6644';
+        if(mntAnimId) cancelAnimationFrame(mntAnimId);
+    } else {
+        btn.textContent = '⏸️ PAUSE';
+        btn.style.background = '#66ddaa';
+        status.textContent = 'Auto: ACTIF';
+        status.style.color = '#66ddaa';
+        animateMnt();
+    }
+}
+
+function animateMnt(){
+    if(mntPaused) return;
+    var canvas = document.getElementById('mnt-canvas');
+    if(!canvas) return;
+    var ctx = canvas.getContext('2d');
+    ctx.fillStyle = 'rgba(10,10,10,0.12)';
+    ctx.fillRect(0,0,canvas.width,canvas.height);
+
+    // Cerveau central (forme arrondie)
+    var breath = 1 + Math.sin(mntT * 0.02) * 0.05;
+    ctx.save();
+    ctx.translate(300, 175);
+    ctx.scale(breath, breath);
+
+    // Cerveau gauche
+    ctx.fillStyle = 'rgba(102,221,170,0.15)';
+    ctx.beginPath();
+    ctx.ellipse(-30, 0, 50, 60, 0, 0, Math.PI * 2);
+    ctx.fill();
+    // Cerveau droit
+    ctx.beginPath();
+    ctx.ellipse(30, 0, 50, 60, 0, 0, Math.PI * 2);
+    ctx.fill();
+
+    // Sillons
+    ctx.strokeStyle = 'rgba(102,221,170,0.3)';
+    ctx.lineWidth = 1.5;
+    for(var s = 0; s < 6; s++){
+        ctx.beginPath();
+        ctx.arc(-30 + (s%3-1)*15, -40 + s*15, 15, 0, Math.PI);
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.arc(30 + (s%3-1)*15, -40 + s*15, 15, 0, Math.PI);
+        ctx.stroke();
+    }
+    ctx.restore();
+
+    // Pensees qui circulent (particules vertes)
+    for(var p = 0; p < 30; p++){
+        var angle = p * (Math.PI * 2 / 30) + mntT * 0.005;
+        var r = 100 + Math.sin(mntT * 0.02 + p) * 20;
+        var px = 300 + Math.cos(angle) * r;
+        var py = 175 + Math.sin(angle) * r * 0.6;
+        var alpha = 0.3 + Math.sin(mntT * 0.03 + p) * 0.2;
+        ctx.fillStyle = 'rgba(102,221,170,' + alpha + ')';
+        ctx.beginPath();
+        ctx.arc(px, py, 2, 0, Math.PI * 2);
+        ctx.fill();
+    }
+
+    // Coeur qui bat en bas
+    var heartBeat = 1 + Math.sin(mntT * 0.08) * 0.15;
+    ctx.font = (20 * heartBeat) + 'px serif';
+    ctx.fillStyle = 'rgba(255,100,100,' + (0.4 + Math.sin(mntT * 0.08) * 0.2) + ')';
+    ctx.textAlign = 'center';
+    ctx.fillText('💚', 300, 310);
+
+    // Phrases de guerison qui defilent
+    var phrases = ['Tu as le droit de parler', 'Ta douleur est reelle', 'Tu n es pas seul', 'Le silence n est pas la force', 'Pleurer n est pas une faiblesse'];
+    var phraseIdx = Math.floor(mntT / 120) % phrases.length;
+    ctx.font = '12px sans-serif';
+    ctx.fillStyle = 'rgba(102,221,170,0.5)';
+    ctx.textAlign = 'center';
+    ctx.fillText(phrases[phraseIdx], 300, 340);
+
+    mntT++;
+    mntAnimId = requestAnimationFrame(animateMnt);
+}
+animateMnt();
+</script>
+"##);
+
+    html.push_str(r##"<div class="card" style="border-color:#66ddaa;"><h2 style="color:#66ddaa;">🧠💚 8 Modules de Santé Mentale</h2><div id="mnt-modules"></div></div>
+
+<script>
+const mntModules = [
+    {id:0, nom:'La Douleur Invisible', emoji:'💔', couleur:'#66ddaa', duree:'2 semaines', niveau:'Base',
+     description:'L homme quand il est malade, quand il a faim, quand il souffre, il est tout seul. En Afrique, la douleur mentale n est pas vue. Pas de plaie, pas de sang, pas de fracture. Mais la blessure est la. Le coeur qui souffre est une maladie reelle. La premiere etape est de reconnaitre: ta douleur existe. Tu n es pas faible. Tu es humain.',
+     cours:['La douleur invisible: pourquoi personne ne la voit','Le mythe de la force africaine: sois fort, ne pleure pas','Le corps garde le compte: le stress devient maladie physique','La solitude: la maladie la plus silencieuse d Afrique','Reconnaitre sa douleur: la premiere etape vers la guerison'],
+     exercices:['Ecrire: quand as-tu senti une douleur que personne ne voyait?','Identifier 3 signes de douleur invisible chez un proche','Parler a quelqu un de ta douleur pour la premiere fois']},
+
+    {id:1, nom:'La Depression en Afrique', emoji:'🌧️', couleur:'#3399ff', duree:'3 semaines', niveau:'Intermediaire',
+     description:'La depression existe en Afrique. Mais on l appelle autrement: fatigue, paresse, mauvais esprit, manque de foi. La realite: 100 millions d Africains souffrent de depression. L Afrique a 1 psychiatre pour 100 000 habitants. En Europe: 50 pour 100 000. La depression n est pas un luxe occidental. C est une maladie qui touche tout le monde.',
+     cours:['100 millions de depressions en Afrique: les chiffres caches','Mots africains pour la depression: fatigue, paresse, mauvais sort','Pourquoi l Afrique a 1 psychiatre pour 100 000 personnes','Depression vs tristesse: la difference qui sauve des vies','Reconaitre la depression: 10 signes que personne ne dit'],
+     exercices:['Identifier 3 mots dans ta langue qui decrivent la tristesse profonde','Analyser: connais-tu quelqu un qui pourrait etre en depression?','Proposer un test de depression adapte a la culture africaine']},
+
+    {id:2, nom:'Le Trauma Colonial', emoji:'⛓️', couleur:'#d4a437', duree:'3 semaines', niveau:'Intermediaire',
+     description:'L Afrique porte un trauma de 500 ans. Esclavage, colonisation, pillage, partitions artificielles. Ce trauma se transmet de generation en generation. On ne gu erit pas en disant: c est le passe. Le trauma colonial est vivant dans chaque Africain qui se sent inferieur, qui pense en francais, qui croit que le blanc est meilleur. Guerir commence par nommer la blessure.',
+     cours:['Le trauma intergenerationnel: comment la blessure se transmet','500 ans de trauma: esclavage, colonisation, pillage','L inferiorite apprise: pourquoi l Africain doute de lui-meme','La langue du colonisateur: penser en francais = penser en esclave','Guerison: nommer la blessure, reprendre son identite'],
+     exercices:['Identifier 3 facons dont le trauma colonial vit en toi','Analyser: dans quelle langue penses-tu? Est-ce ta langue?','Ecrire une lettre a ton ancetre: ce que tu veux guerir']},
+
+    {id:3, nom:'La Solitude et la Communaute', emoji:'🤝', couleur:'#66ddaa', duree:'2 semaines', niveau:'Base',
+     description:'L Afrique est communautaire mais l Africain est seul. On vit ensemble mais on ne parle pas de sa douleur. Le silence dans la communaute est plus dangereux que la solitude. AI Sante Mentale cree un espace ou parler n est pas une honte. Ou pleurer n est pas une faiblesse. Ou etre triste n est pas un echec.',
+     cours:['Le paradoxe africain: ensemble mais seul','Le silence de la communaute: pourquoi on ne parle pas','La honte de la maladie mentale: briser le tabou','L ecoute active: comment ecouter sans juger','Creer un cercle de parole dans ta communaute'],
+     exercices:['Identifier 3 moments ou tu as ete seul dans la foule','Pratiquer l ecoute active avec un ami: ecouter sans conseiller','Proposer un cercle de parole dans ta communaute']},
+
+    {id:4, nom:'Les Remedes Africains', emoji:'🌿', couleur:'#44cc88', duree:'3 semaines', niveau:'Intermediaire',
+     description:'L Afrique a ses propres remedes mentaux. La musique guerit. La danse guerit. Le conte guerit. La priere guerit. La nature guerit. La communaute guerit. Ces remedes existent depuis des millenaires. La science occidentale les decouvre et les brevette. AI Sante Mentale reconnait les remedes africains sans les voler.',
+     cours:['La musicotherapie africaine: le djembe qui guerit le coeur','La danse comme therapie: le corps qui libere l esprit','Les contes comme therapie: raconter pour guerir','La nature comme therapie: le baobab, le fleuve, la savane','La priere et la meditation africaines: l esprit qui se repose'],
+     exercices:['Identifier 3 remedes traditionnels pour le coeur dans ta culture','Tester: ecouter un rythme africain et noter ton humeur avant/apres','Proposer un protocole de guerison africain pour AI Medecin']},
+
+    {id:5, nom:'Les Jeunes et la Sante Mentale', emoji:'🧒', couleur:'#ff88cc', duree:'3 semaines', niveau:'Intermediaire',
+     description:'Les jeunes Africains sont la generation la plus stressee de l histoire. Chomage, pression sociale, telephone, comparaison permanente, perte de repere. Le suicide chez les jeunes africains augmente. Personne n en parle. AI Sante Mentale dit: les jeunes ont le droit de ne pas aller bien. Les jeunes ont le droit de demander de l aide.',
+     cours:['La generation du stress: telephone, chomage, comparaison','Le suicide chez les jeunes africains: le tabou qui tue','La pression sociale: reussir, marier, avoir des enfants','Le telephone comme maladie: addiction et comparaison','Creer un espace sur pour les jeunes: parler sans jugement'],
+     exercices:['Identifier 3 sources de stress dans ta vie de jeune Africain','Analyser: combien de temps passes-tu sur ton telephone par jour?','Proposer un service d ecoute pour les jeunes sur AfriChain']},
+
+    {id:6, nom:'La Sante Mentale et la Spiritualite', emoji:'🙏', couleur:'#9966ff', duree:'3 semaines', niveau:'Intermediaire',
+     description:'En Afrique, la sante mentale et la spiritualite sont liees. Le mal-etre peut etre spirituel. La guerison peut etre spirituelle. Mais attention: tout n est pas un mauvais esprit. La depression n est pas une malediction. L anxiete n est pas une attaque sorciere. AI Sante Mentale respecte la spiritualite sans nier la medecine.',
+     cours:['Sante mentale et spiritualite: le lien africain','Quand c est spirituel, quand c est medical: faire la difference','Les marabouts et la sante mentale: collaboration ou conflit','La priere comme outil de guerison: preuves scientifiques','Equilibre: spiritualite + medecine + communaute'],
+     exercices:['Identifier 3 croyances spirituelles sur la maladie mentale dans ta culture','Analyser: quand faut-il voir un marabout, quand un medecin?','Proposer un equilibre spiritualite-medecine pour AfriChain']},
+
+    {id:7, nom:'L Avenir de la Sante Mentale Africaine', emoji:'🚀', couleur:'#66ddaa', duree:'4 semaines', niveau:'Avance',
+     description:'L avenir de la sante mentale africaine est souverain. Pas de manuels occidentaux qui ne comprennent pas l Afrique. Pas de medicaments chers importes. Des therapeutes africains formes en Afrique. Des remedes africains reconnus. Une AI africaine qui ecoute, comprend, et aide dans ta langue. AfriChain peut etre le pont.',
+     cours:['Therapeutes africains: former sur place, pas importer','Remedes africains: reconnaitre et integrer','AI ecoute: une IA qui ecoute dans ta langue maternelle','AfriSante: plateforme de sante mentale sur AfriChain','L Afrique de 2100: la sante mentale pour tous'],
+     exercices:['Identifier 3 solutions de sante mentale adaptees a l Afrique','Concevoir AfriSante: un service d ecoute sur AfriChain','Proposer un plan pour former 10 000 therapeutes africains']}
+];
+
+var mntDone = JSON.parse(localStorage.getItem('afri_mnt_done') || '[]');
+
+function renderMntModules(){
+    var container = document.getElementById('mnt-modules');
+    if(!container) return;
+    var html = '';
+    for(var i = 0; i < mntModules.length; i++){
+        var m = mntModules[i];
+        var done = mntDone.includes(m.id);
+        html += '<div style="background:rgba(102,221,170,0.05);border:1px solid ' + m.couleur + '20;border-radius:8px;padding:12px;margin:8px 0;cursor:pointer;" onclick="showMntModule(' + i + ')">';
+        html += '<div style="display:flex;justify-content:space-between;align-items:center;">';
+        html += '<span style="font-size:1.1em;">' + m.emoji + ' <b style="color:' + m.couleur + ';">' + m.nom + '</b></span>';
+        html += '<span style="font-size:0.8em;color:#a8c5a8;">' + m.duree + ' · ' + m.niveau + (done ? ' · ✅' : '') + '</span>';
+        html += '</div></div>';
+    }
+    container.innerHTML = html;
+}
+renderMntModules();
+
+function showMntModule(i){
+    var m = mntModules[i];
+    var html = '<div style="background:rgba(102,221,170,0.08);border:1px solid ' + m.couleur + ';border-radius:12px;padding:20px;margin:10px 0;">';
+    html += '<h3 style="color:' + m.couleur + ';">' + m.emoji + ' ' + m.nom + '</h3>';
+    html += '<p style="color:#a8c5a8;font-size:0.9em;">' + m.description + '</p>';
+    html += '<h4 style="color:' + m.couleur + ';">📚 Cours</h4><ul>';
+    for(var j = 0; j < m.cours.length; j++){
+        html += '<li style="color:#a8c5a8;margin:4px 0;">' + m.cours[j] + '</li>';
+    }
+    html += '</ul><h4 style="color:' + m.couleur + ';">✏️ Exercices</h4><ul>';
+    for(var j = 0; j < m.exercices.length; j++){
+        html += '<li style="color:#a8c5a8;margin:4px 0;">' + m.exercices[j] + '</li>';
+    }
+    html += '</ul>';
+    html += '<button onclick="completeMntModule(' + m.id + ')" style="padding:10px 20px;background:' + m.couleur + ';color:#fff;border:none;border-radius:8px;cursor:pointer;font-weight:bold;margin-top:10px;">✅ Terminer ce module</button>';
+    html += '</div>';
+    var container = document.getElementById('mnt-modules');
+    if(container) container.innerHTML = html;
+}
+
+function completeMntModule(id){
+    if(!mntDone.includes(id)){
+        mntDone.push(id);
+        localStorage.setItem('afri_mnt_done', JSON.stringify(mntDone));
+    }
+    renderMntModules();
+    updateMntProgress();
+}
+
+function updateMntProgress(){
+    var done = mntDone.length;
+    var total = mntModules.length;
+    var pct = Math.round((done / total) * 100);
+    var bar = document.getElementById('mnt-bar');
+    var count = document.getElementById('mnt-count');
+    var pctEl = document.getElementById('mnt-pct');
+    var diplome = document.getElementById('mnt-diplome');
+    if(bar) bar.style.width = pct + '%';
+    if(count) count.textContent = done;
+    if(pctEl) pctEl.textContent = pct + '%';
+    if(diplome) diplome.style.display = (done === total) ? 'block' : 'none';
+}
+updateMntProgress();
+</script>
+"##);
+
+    html.push_str(r##"<div class="card" style="border-color:#66ddaa;"><h2 style="color:#66ddaa;">📊 Progression</h2><div style="background:rgba(102,221,170,0.1);border-radius:8px;height:24px;overflow:hidden;margin:10px 0;"><div id="mnt-bar" style="background:linear-gradient(90deg,#66ddaa,#3399ff,#9966ff);height:100%;width:0%;transition:width 0.5s;"></div></div><div style="text-align:center;color:#a8c5a8;"><span id="mnt-count">0</span> / 8 modules · <span id="mnt-pct">0%</span></div></div>
+
+<div id="mnt-diplome" style="display:none;"><div class="card" style="border-color:#d4a437;text-align:center;"><h2 style="color:#d4a437;">🎓 Diplôme: Guérisseur des Cœurs</h2><p style="color:#a8c5a8;">Tu as complété les 8 modules de santé mentale!</p><p style="color:#66ddaa;font-size:1.2em;">Ta douleur est réelle. Tu as le droit de parler. Tu n'es pas seul. 🧠💚</p><button onclick="envoyerDiplomeMnt()" style="padding:12px 30px;background:#d4a437;color:#000;border:none;border-radius:8px;font-weight:bold;cursor:pointer;font-size:1.1em;margin-top:10px;">⛓️ Graver dans la Blockchain</button></div></div>
+
+<script>
+function envoyerDiplomeMnt(){
+    var nom = localStorage.getItem('afri_user_name') || 'Jeune Africain';
+    fetch('/api/diplome', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+        body: 'academie=SANTE_MENTALE&nom=' + encodeURIComponent(nom)
+    }).then(function(r){ return r.text(); }).then(function(t){
+        alert('🎓 Diplôme gravé dans la blockchain!\n' + t);
+    }).catch(function(e){
+        alert('Erreur: ' + e);
+    });
+}
+</script>
+"##);
+
+    html.push_str(r#"<div class="card"><h2 style="color:#66ddaa;">💡 Savais-tu?</h2><div style="color:#a8c5a8;padding:8px 0;"><b style="color:#d4a437;">1 psychiatre</b> pour 100 000 habitants en Afrique. En Europe: 50 pour 100 000. L'Afrique a 50x moins de soins mentaux.</div><div style="color:#a8c5a8;padding:8px 0;"><b style="color:#d4a437;">100 millions</b> d'Africains souffrent de dépression. Mais on l'appelle fatigue, paresse, mauvais sort.</div><div style="color:#a8c5a8;padding:8px 0;"><b style="color:#66ddaa;">La musique africaine</b> est une thérapie. Le djembe régule le rythme cardiaque. La danse libère le stress. L'Afrique a toujours soigné l'esprit.</div><div style="color:#a8c5a8;padding:8px 0;"><b style="color:#66ddaa;">Le silence tue</b> plus que la maladie. Parler sauve plus que le médicament. Tu as le droit de parler.</div></div>"#);
+
+    html.push_str(r#"<footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🧠💚 AI Santé Mentale — L'Esprit Africain a Droit à la Santé 💚🦁</footer>"#);
+    html.push_str("</body></html>");
+    html
+}
+
 fn html_garage(chain: &Blockchain) -> String {
     let mut html = html_head("Garage AI — Atelier Autonome 2500");
     let num_blocks = chain.blocks.len();
@@ -18634,7 +18881,7 @@ html+='<div class="log-entry log-kill">⚠️ Tentative d\x27infiltration occide
 html+='<div class="log-entry log-invis">✅ L\x27Afrique est forte. Le système grandit.</div>';
 }else if(type==='total'){
 html='<div style="color:#d4a437;font-weight:bold;margin-bottom:8px">📋 RAPPORT TOTAL — Depuis le début</div>';
-html+='<div class="log-entry">🦁 AfriChain v1.04 — AI Femme Les Femmes Africaines Sont le Fondement</div>';
+html+='<div class="log-entry">🦁 AfriChain v1.05 — AI Sante Mentale L Esprit Africain a Droit a la Sante</div>';
 html+='<div class="log-entry">⛓️ Blockchain: 100% souveraine — Zéro dépendance externe</div>';
 html+='<div class="log-entry">🔐 Crypto: Ed25519 + AfriHash-256/512 + AfriRNG — tout from scratch</div>';
 html+='<div class="log-entry">🌍 54 pays africains connectés</div>';
@@ -20178,7 +20425,7 @@ fn main() {
         .and_then(|i| args.get(i + 1)).cloned().unwrap_or_else(|| "Afrique".to_string());
 
     let my_node_id = generate_node_id();
-    println!("🦁 AfriChain v1.04 — AI Femme Les Femmes Africaines Sont le Fondement");
+    println!("🦁 AfriChain v1.05 — AI Sante Mentale L Esprit Africain a Droit a la Sante");
     println!("💚 L'Afrique ne demande plus la permission");
     println!("🌍 54 pays — 🇲🇱 🇳🇪 🇧🇫 AES — Mali · Niger · Burkina Faso");
     println!("🔐 8 modules cryptographiques — construits from scratch");
@@ -20349,6 +20596,7 @@ fn main() {
     println!("🎵 AI Musique sur http://localhost:8080/ai-musique");
     println!("🗣️ AI Langue sur http://localhost:8080/ai-langue");
     println!("🌸 AI Femme sur http://localhost:8080/ai-femme");
+    println!("🧠💚 AI Sante Mentale sur http://localhost:8080/ai-sante-mentale");
 
     // Serveur HTTP en arrière-plan (pour mesh + autres utilisateurs)
     let serve_state = web_state.clone();
@@ -20383,7 +20631,7 @@ fn terminal_interface(state: &Arc<AppState>) {
     println!("  ║  🕐 AfriTime — Pas UTC, pas Greenwich   ║");
     println!("  ║  📝 ~23,100 lignes — écrit à la main       ║");
     println!("  ╚═══════════════════════════════════════════════╝");
-    println!("\n  Version v1.04 — 1 septembre 2026");
+    println!("\n  Version v1.05 — 1 septembre 2026");
     println!("  Construit sur Termux · Android · nano\n");
     println!("  ─────────────────────────────────────────────");
     println!("\n  1. 🏦 Centre de Données (Admin)");
@@ -20455,7 +20703,7 @@ fn admin_interface(state: &Arc<AppState>) {
         println!("\n");
         println!("╔══════════════════════════════════════╗");
         println!("║  🏦 CENTRE DE DONNÉES — Admin       ║");
-        println!("║  🦁 AfriChain v1.04                  ║");
+        println!("║  🦁 AfriChain v1.05                  ║");
         println!("╠══════════════════════════════════════╣");
         let chain = state.chain.lock().unwrap();
         let users = state.users.lock().unwrap();
@@ -24109,6 +24357,11 @@ fn handle_request(req: afri_http::HttpRequest, state: &Arc<AppState>) -> afri_ht
         ("GET", "/ai-femme") => {
             let chain = state.chain.lock().unwrap();
             HttpResponse::ok(&html_ai_femme(&chain))
+        }
+
+        ("GET", "/ai-sante-mentale") => {
+            let chain = state.chain.lock().unwrap();
+            HttpResponse::ok(&html_ai_sante_mentale(&chain))
         }
 
         ("GET", "/garage") => {
