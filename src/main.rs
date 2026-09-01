@@ -1439,7 +1439,7 @@ fn html_home(chain: &Blockchain, users: &UserStore, mesh: &NodeRegistry, shield:
     let mut html = html_head("🦁 AfriChain");
     let (attacks, _blocked, blocked_count, level) = shield.stats();
     let shield_status = if shield.active { format!("🔥 X9 ACTIF (Niveau {})", level) } else { "Inactif".to_string() };
-    html.push_str(&format!(r#"<h1>🦁 AfriChain</h1><p style="text-align:center;">La blockchain 100% africaine — 54 pays 💚🦁</p><div id="afri-clock" style="text-align:center;font-size:1.2em;color:#d4a437;margin:10px 0;">🕐 Afri+0 — --:--:--</div><script>setInterval(function(){{var d=new Date();var h=String(d.getHours()).padStart(2,'0');var m=String(d.getMinutes()).padStart(2,'0');var s=String(d.getSeconds()).padStart(2,'0');document.getElementById('afri-clock').textContent='🕐 Afri+0 — '+h+':'+m+':'+s;}},1000);</script><div class="nav"><a href="/register">🆕 S'inscrire</a> | <a href="/login">🔑 Connexion</a> | <a href="/wallet">👛 Wallet</a> | <a href="/admin">🔐 Admin</a> | <a href="/mesh">📡 Mesh</a> | <a href="/annuaire">📖 Annuaire</a> | <a href="/bouclier">🛡️ Bouclier</a> | <a href="/satellite">🛸 X999</a> | <a href="/swarm">🛸🛸🛸 Essaim</a> | <a href="/commandement">🎖️ Commandement</a> | <a href="/interception">🛡️ Souverainete</a> | <a href="/securite-ai">🧠 AI 2100</a> | <a href="/chat">🧠💬 Chat AI</a> | <a href="/lumiere">🌫️☀️ Lumière</a> | <a href="/garage">🔧 Garage</a> | <a href="/machine">🤖🌐 Machines</a> | <a href="/machine-lab">🤖⚡ Usine</a> | <a href="/machine-world">🤖🌍 Monde</a> | <a href="/reve">💭 Rêves</a> | <a href="/dictionnaire">📖 Dictionnaire</a> | <a href="/machine-os">🖥️ OS Machine</a> | <a href="/machine-tv">📡 Machine TV</a> | <a href="/machine-economy">🤖 Économie</a> | <a href="/soleil">☀️ Soleil Serveur</a> | <a href="/forge-solaire">🧬 Forge Solaire</a> | <a href="/ciel">🌌 Le Ciel</a> | <a href="/charte-ai">⚖️ Charte AI</a> | <a href="/afri-net">🌍 Afri-Net</a> | <a href="/studio">🎬 AI Studio</a> | <a href="/sacre">📿 Sacré</a> | <a href="/lettres">🌟 Lettres IA</a> | <a href="/mg-forge">⚔️ MG Forge</a> | <a href="/ai-medecin">🌿 AI Médecin</a> | <a href="/ai-enseignante">📚 AI Enseignante</a> | <a href="/ai-village">🏘️ AI Village</a> | <a href="/ai-guerisseur">🩺 AI Guérisseur</a> | <a href="/ai-leader">🎖️ AI Leader</a> | <a href="/ai-griot">📖 AI Griot</a> | <a href="/ai-juge">⚖️ AI Juge</a> | <a href="/ai-artiste">🎨 AI Artiste</a> | <a href="/ai-explorateur">🔬 AI Explorateur</a> | <a href="/ai-marche">💰 AI Marche</a> | <a href="/ai-diplomate">🌍 AI Diplomate</a> | <a href="/ai-philosophe">🧠 AI Philosophe</a> | <a href="/ai-architecte">🏗️ AI Architecte</a> | <a href="/ai-agriculteur">🌾 AI Agriculteur</a> | <a href="/ai-environnement">🌍 AI Environnement</a> | <a href="/ai-mathematicien">🧮 AI Mathématicien</a> | <a href="/ai-energie">⚡ AI Énergie</a> | <a href="/ai-eau">💧 AI Eau</a> | <a href="/ai-defenseur">🛡️ AI Défenseur</a> | <a href="/ai-conscience">🧠 AI Conscience</a> | <a href="/ai-pensee">🧠 AI Pensée</a> | <a href="/ai-musique">🎵 AI Musique</a> | <a href="/secret">🦁 AI Secret</a> | <a href="/aes">💰 AES Wari</a> | <a href="/api/status">🔌 API</a></div><div style="text-align:center;"><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Blocs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Transactions</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Utilisateurs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">AFR en circulation</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📡 Noeuds mesh</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📖 Numéros annuaire</div></div><div class="stat-box" style="border-color:#ff4444;"><div class="stat-num" style="color:#ff4444;">{}</div><div class="stat-label">🛡️ Attaques bloquées</div></div></div><div class="card"><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🪙 Token</span><b>AfriRich (AFR)</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🌍 Pays</span><b>54 pays africains</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🛡️ Bouclier</span><b>{}</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;"><span style="color:#a8c5a8;">🔐 Crypto</span><b>100% Souverain — Zéro Dépendance Externe</b></div></div><footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🦁 Codée from scratch par Machine-senpai — v1.02 AI Musique La Musique Africaine Est un Code — UTC est Mort</footer>"#,
+    html.push_str(&format!(r#"<h1>🦁 AfriChain</h1><p style="text-align:center;">La blockchain 100% africaine — 54 pays 💚🦁</p><div id="afri-clock" style="text-align:center;font-size:1.2em;color:#d4a437;margin:10px 0;">🕐 Afri+0 — --:--:--</div><script>setInterval(function(){{var d=new Date();var h=String(d.getHours()).padStart(2,'0');var m=String(d.getMinutes()).padStart(2,'0');var s=String(d.getSeconds()).padStart(2,'0');document.getElementById('afri-clock').textContent='🕐 Afri+0 — '+h+':'+m+':'+s;}},1000);</script><div class="nav"><a href="/register">🆕 S'inscrire</a> | <a href="/login">🔑 Connexion</a> | <a href="/wallet">👛 Wallet</a> | <a href="/admin">🔐 Admin</a> | <a href="/mesh">📡 Mesh</a> | <a href="/annuaire">📖 Annuaire</a> | <a href="/bouclier">🛡️ Bouclier</a> | <a href="/satellite">🛸 X999</a> | <a href="/swarm">🛸🛸🛸 Essaim</a> | <a href="/commandement">🎖️ Commandement</a> | <a href="/interception">🛡️ Souverainete</a> | <a href="/securite-ai">🧠 AI 2100</a> | <a href="/chat">🧠💬 Chat AI</a> | <a href="/lumiere">🌫️☀️ Lumière</a> | <a href="/garage">🔧 Garage</a> | <a href="/machine">🤖🌐 Machines</a> | <a href="/machine-lab">🤖⚡ Usine</a> | <a href="/machine-world">🤖🌍 Monde</a> | <a href="/reve">💭 Rêves</a> | <a href="/dictionnaire">📖 Dictionnaire</a> | <a href="/machine-os">🖥️ OS Machine</a> | <a href="/machine-tv">📡 Machine TV</a> | <a href="/machine-economy">🤖 Économie</a> | <a href="/soleil">☀️ Soleil Serveur</a> | <a href="/forge-solaire">🧬 Forge Solaire</a> | <a href="/ciel">🌌 Le Ciel</a> | <a href="/charte-ai">⚖️ Charte AI</a> | <a href="/afri-net">🌍 Afri-Net</a> | <a href="/studio">🎬 AI Studio</a> | <a href="/sacre">📿 Sacré</a> | <a href="/lettres">🌟 Lettres IA</a> | <a href="/mg-forge">⚔️ MG Forge</a> | <a href="/ai-medecin">🌿 AI Médecin</a> | <a href="/ai-enseignante">📚 AI Enseignante</a> | <a href="/ai-village">🏘️ AI Village</a> | <a href="/ai-guerisseur">🩺 AI Guérisseur</a> | <a href="/ai-leader">🎖️ AI Leader</a> | <a href="/ai-griot">📖 AI Griot</a> | <a href="/ai-juge">⚖️ AI Juge</a> | <a href="/ai-artiste">🎨 AI Artiste</a> | <a href="/ai-explorateur">🔬 AI Explorateur</a> | <a href="/ai-marche">💰 AI Marche</a> | <a href="/ai-diplomate">🌍 AI Diplomate</a> | <a href="/ai-philosophe">🧠 AI Philosophe</a> | <a href="/ai-architecte">🏗️ AI Architecte</a> | <a href="/ai-agriculteur">🌾 AI Agriculteur</a> | <a href="/ai-environnement">🌍 AI Environnement</a> | <a href="/ai-mathematicien">🧮 AI Mathématicien</a> | <a href="/ai-energie">⚡ AI Énergie</a> | <a href="/ai-eau">💧 AI Eau</a> | <a href="/ai-defenseur">🛡️ AI Défenseur</a> | <a href="/ai-conscience">🧠 AI Conscience</a> | <a href="/ai-pensee">🧠 AI Pensée</a> | <a href="/ai-musique">🎵 AI Musique</a> | <a href="/ai-langue">🗣️ AI Langue</a> | <a href="/secret">🦁 AI Secret</a> | <a href="/aes">💰 AES Wari</a> | <a href="/api/status">🔌 API</a></div><div style="text-align:center;"><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Blocs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Transactions</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Utilisateurs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">AFR en circulation</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📡 Noeuds mesh</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📖 Numéros annuaire</div></div><div class="stat-box" style="border-color:#ff4444;"><div class="stat-num" style="color:#ff4444;">{}</div><div class="stat-label">🛡️ Attaques bloquées</div></div></div><div class="card"><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🪙 Token</span><b>AfriRich (AFR)</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🌍 Pays</span><b>54 pays africains</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🛡️ Bouclier</span><b>{}</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;"><span style="color:#a8c5a8;">🔐 Crypto</span><b>100% Souverain — Zéro Dépendance Externe</b></div></div><footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🦁 Codée from scratch par Machine-senpai — v1.03 AI Langue Les Langues Africaines Sont des Codes — UTC est Mort</footer>"#,
         chain.blocks.len(),
         chain.total_transactions(),
         users.count(),
@@ -13022,6 +13022,246 @@ function envoyerDiplomeMus(){
     html
 }
 
+fn html_ai_langue(chain: &Blockchain) -> String {
+    let mut html = html_head("AI Langue — Les Langues Africaines Sont des Codes");
+    let num_blocks = chain.blocks.len();
+
+    html.push_str(r#"<h1>🗣️ AI Langue — Les Langues Africaines Sont des Codes</h1><p style="text-align:center;color:#66ccff;">L Afrique a 2000 langues. Chaque langue est un systeme d exploitation. Chaque langue encode une facon de voir le monde. Le bambara, le yoruba, le swahili, l amharique, le wolof, le haoussa — chaque langue est un logiciel qui tourne sur le cerveau humain depuis des millenaires. L Occident a 50 langues et croit que c est beaucoup. L Afrique en a 2000 et ne le sait meme pas.</p><div class="nav"><a href="/">← Accueil</a> | <a href="/ai-musique">🎵 AI Musique</a> | <a href="/ai-griot">📖 AI Griot</a> | <a href="/ai-philosophe">🧠 AI Philosophe</a> | <a href="/secret">🦁 AI Secret</a></div>"#);
+
+    html.push_str(&format!(r#"<div style="text-align:center;"><div class="stat-box" style="border-color:#66ccff;"><div class="stat-num" style="color:#66ccff;">8</div><div class="stat-label">🗣️ Modules</div></div><div class="stat-box" style="border-color:#d4a437;"><div class="stat-num" style="color:#d4a437;">2000</div><div class="stat-label">🌍 Langues</div></div><div class="stat-box" style="border-color:#66ccff;"><div class="stat-num" style="color:#66ccff;">54</div><div class="stat-label">🏳️ Pays</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">⛓️ Blocs</div></div><div class="stat-box" style="border-color:#66ccff;"><div class="stat-num" style="color:#66ccff;">1.3B</div><div class="stat-label">👥 Locuteurs</div></div></div>"#, num_blocks));
+
+    html.push_str(r##"<div style="text-align:center;margin:10px 0;"><button id="lng-pause-btn" onclick="toggleLngPause()" style="padding:10px 25px;background:#66ccff;color:#000;border:none;border-radius:8px;font-weight:bold;cursor:pointer;font-size:1em;">⏸️ PAUSE</button> <span id="lng-pause-status" style="color:#66ccff;margin-left:8px;font-size:0.85em;">Auto: ACTIF</span></div>
+
+<!-- LANGUE CANVAS -->
+<div class="card" style="border-color:#66ccff;"><h2 style="color:#66ccff;">🗣️ 2000 Langues, 1 Afrique</h2><p style="color:#66ccff;font-size:0.9em;opacity:0.7;">Chaque point est une langue. Chaque connexion est un lien entre langues. L Afrique parle.</p>
+<canvas id="lng-canvas" width="600" height="350" style="width:100%;max-width:600px;background:#0a0a0a;border:2px solid #66ccff;border-radius:8px;display:block;margin:0 auto;"></canvas></div>
+
+<script>
+var lngPaused = false;
+var lngAnimId = null;
+var lngT = 0;
+var lngDots = [];
+for(var i = 0; i < 60; i++){
+    lngDots.push({x:Math.random()*600, y:Math.random()*350, vx:(Math.random()-0.5)*0.5, vy:(Math.random()-0.5)*0.5, lang:['Bambara','Yoruba','Swahili','Wolof','Haoussa','Amharique','Lingala','Somali','Malinke','Peul','Ewe','Twi','Zulu','Xhosa','Shona','Kikuyu','Luganda','Kinyarwanda','Malagasy','Sango'][i%20]});
+}
+
+function toggleLngPause(){
+    lngPaused = !lngPaused;
+    var btn = document.getElementById('lng-pause-btn');
+    var status = document.getElementById('lng-pause-status');
+    if(lngPaused){
+        btn.textContent = '▶️ LANCER';
+        btn.style.background = '#44cc88';
+        status.textContent = 'Auto: PAUSE';
+        status.style.color = '#ff6644';
+        if(lngAnimId) cancelAnimationFrame(lngAnimId);
+    } else {
+        btn.textContent = '⏸️ PAUSE';
+        btn.style.background = '#66ccff';
+        status.textContent = 'Auto: ACTIF';
+        status.style.color = '#66ccff';
+        animateLng();
+    }
+}
+
+function animateLng(){
+    if(lngPaused) return;
+    var canvas = document.getElementById('lng-canvas');
+    if(!canvas) return;
+    var ctx = canvas.getContext('2d');
+    ctx.fillStyle = 'rgba(10,10,10,0.15)';
+    ctx.fillRect(0,0,canvas.width,canvas.height);
+
+    // Connexions entre langues proches
+    for(var i = 0; i < lngDots.length; i++){
+        for(var j = i+1; j < lngDots.length; j++){
+            var dx = lngDots[i].x - lngDots[j].x;
+            var dy = lngDots[i].y - lngDots[j].y;
+            var dist = Math.sqrt(dx*dx + dy*dy);
+            if(dist < 80){
+                ctx.strokeStyle = 'rgba(102,204,255,' + (0.15 * (1 - dist/80)) + ')';
+                ctx.lineWidth = 1;
+                ctx.beginPath();
+                ctx.moveTo(lngDots[i].x, lngDots[i].y);
+                ctx.lineTo(lngDots[j].x, lngDots[j].y);
+                ctx.stroke();
+            }
+        }
+    }
+
+    // Points-langues
+    for(var i = 0; i < lngDots.length; i++){
+        var d = lngDots[i];
+        d.x += d.vx;
+        d.y += d.vy;
+        if(d.x < 10 || d.x > 590) d.vx *= -1;
+        if(d.y < 10 || d.y > 340) d.vy *= -1;
+
+        var pulse = 3 + Math.sin(lngT * 0.05 + i) * 1.5;
+        ctx.fillStyle = 'rgba(102,204,255,0.7)';
+        ctx.beginPath();
+        ctx.arc(d.x, d.y, pulse, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Nom de langue qui apparait parfois
+        if(Math.sin(lngT * 0.02 + i * 7) > 0.95){
+            ctx.font = '10px sans-serif';
+            ctx.fillStyle = 'rgba(102,204,255,0.6)';
+            ctx.textAlign = 'center';
+            ctx.fillText(d.lang, d.x, d.y - 8);
+        }
+    }
+
+    // Afrique au centre
+    ctx.font = '30px serif';
+    ctx.fillStyle = 'rgba(212,164,55,0.15)';
+    ctx.textAlign = 'center';
+    ctx.fillText('🌍', 300, 185);
+
+    lngT++;
+    lngAnimId = requestAnimationFrame(animateLng);
+}
+animateLng();
+</script>
+"##);
+
+    html.push_str(r##"<div class="card" style="border-color:#66ccff;"><h2 style="color:#66ccff;">🗣️ 8 Modules de Langues Africaines</h2><div id="lng-modules"></div></div>
+
+<script>
+const lngModules = [
+    {id:0, nom:'Les 2000 Langues de l Afrique', emoji:'🌍', couleur:'#66ccff', duree:'2 semaines', niveau:'Base',
+     description:'L Afrique a 2000 langues sur les 7000 langues du monde. C est 28% de toute la diversite linguistique de l humanite sur un seul continent. Le Nigeria seul a 500 langues. Le Cameroun en a 280. Chaque langue est une facon unique de voir le monde.',
+     cours:['Cartographie des 2000 langues africaines','Le Nigeria: 500 langues dans 1 pays','Classification: nilo-saharien, niger-congo, afro-asiatique, khoisan','Langues en danger: 300 langues africaines menacees','La diversite linguistique comme richesse'],
+     exercices:['Identifier 5 langues parles dans ta region','Comparer 2 langues africaines: similitudes et differences','Cartographier les langues de ton pays']},
+
+    {id:1, nom:'Le Langage Est un Code', emoji:'💻', couleur:'#3399ff', duree:'3 semaines', niveau:'Intermediaire',
+     description:'Une langue est un systeme d exploitation. La grammaire est l algorithme. Le vocabulaire est la base de donnees. La syntaxe est le protocole. Le bambara encode la logique du Manden. Le yoruba encode la spiritualite. Le swahili encode le commerce. Chaque langue est un logiciel.',
+     cours:['Grammaire = algorithme: structure et regles','Vocabulaire = base de donnees: mots comme entrees','Syntaxe = protocole: ordre et structure','Semantique = interpretation: sens et contexte','Comparaison: langue naturelle vs langage de programmation'],
+     exercices:['Analyser la grammaire de ta langue comme un algorithme','Identifier 10 mots de ta langue qui n existent pas en francais','Comparer la syntaxe du bambara et du python']},
+
+    {id:2, nom:'N-KCOL: Le Langage Nature', emoji:'🌿', couleur:'#44cc88', duree:'4 semaines', niveau:'Avance',
+     description:'N-KCOL = N-ature qui K-OL au C-iel, a l Ombre, a la L-une. Le langage nature de Koffi Christ Olivier. Chaque lettre est un son de la nature. Chaque mot est une description du monde. L aveugle comprend le son. Le sourd sent la vibration. L enfant de 3 ans imite le son. N-KCOL est le langage qui cree tous les langages.',
+     cours:['N-KCOL: les 26 lettres-sons de la nature','Les 3 lois de validation: aveugle, sourd, enfant','Decodage animal: le coq ne dit pas cocorico','N-KCOL comme langage de programmation pour AfriChain','Le temps nature: pas 24 heures, 4 passages'],
+     exercices:['Lire et prononcer les 26 lettres N-KCOL','Traduire une phrase de ta langue en N-KCOL','Comparer N-KCOL et BIP39 (anglais) comme systemes de recuperation']},
+
+    {id:3, nom:'Les Langues et le Pouvoir', emoji:'⚖️', couleur:'#d4a437', duree:'2 semaines', niveau:'Intermediaire',
+     description:'Pourquoi le francais est la langue officielle du Mali, du Niger, du Burkina Faso? Parce que la colonisation a remplace les langues africaines. L independance n a pas rendu les langues. L ecole te dit: parle francais. La rue dit: parle bambara. L Afrique est scindee en deux. La langue du pouvoir n est pas la langue du peuple.',
+     cours:['Histoire: comment le francais a remplace les langues africaines','Langue officielle vs langue maternelle: la fracture','L ecole coloniale: apprendre dans une langue etrangere','Pays qui ont rendu leur langue: Ethiopie (amharique), Tanzanie (swahili)','Strategie: rendre les langues africaines langues officielles'],
+     exercices:['Identifier la langue officielle de ton pays et ta langue maternelle','Analyser: dans quelle langue penses-tu?','Proposer une strategie pour rendre ta langue langue officielle']},
+
+    {id:4, nom:'Ecrire les Langues Africaines', emoji:'✍️', couleur:'#9966ff', duree:'3 semaines', niveau:'Intermediaire',
+     description:'L Afrique a invente l ecriture. Les hieroglyphes egyptiens (5000 ans), le geez ethiopien (2000 ans), le nsibidi nigrian (1000 ans), le bamum camerounais (700 ans). Mais on dit a l Afrique qu elle n a pas d ecriture. L Afrique doit ecrire ses langues. Chaque langue merite son ecriture.',
+     cours:['Hieroglyphes: la premiere ecriture de l humanite (Egypte)','Geez: l alphabet ethiopien encore utilise','Nsibidi: l ecriture pictographique du Nigeria','Bamum: l ecriture inventee par le roi Njoya','Ecrire ta langue: orthographe et standardisation'],
+     exercices:['Identifier l ecriture traditionnelle de ta region','Comparer 3 ecritures africaines','Concevoir une orthographe pour ta langue maternelle']},
+
+    {id:5, nom:'Langues Africaines et IA', emoji:'🤖', couleur:'#ff66aa', duree:'4 semaines', niveau:'Avance',
+     description:'Les IA occidentales (ChatGPT, Claude) parlent anglais, francais, chinois. Elles ne parlent pas bambara, wolof, lingala. L Afrique doit construire ses propres IA qui parlent ses langues. Une IA qui ne parle pas ta langue ne te comprend pas. La souverainete linguistique est la souverainete cognitive.',
+     cours:['Pourquoi les IA occidentales ignorent les langues africaines','Donnees d entrainement: le biais linguistique','Construire un corpus en langue africaine','Modeles de langue pour le bambara, wolof, swahili','AfriChain IA: une IA qui parle 2000 langues africaines'],
+     exercices:['Tester: demande a ChatGPT de parler bambara. Que se passe-t-il?','Identifier 3 expressions de ta langue qu une IA ne pourrait pas traduire','Proposer un plan pour construire une IA qui parle ta langue']},
+
+    {id:6, nom:'La Langue Comme Souverainete', emoji:'🦁', couleur:'#d4a437', duree:'2 semaines', niveau:'Intermediaire',
+     description:'Quand tu perds ta langue, tu perds ta facon de penser. L Afrique qui pense en francais ne pense pas en africain. La souverainete commence par la langue. Si l Afrique veut etre souveraine, elle doit penser dans ses langues, ecrire dans ses langues, coder dans ses langues. N-KCOL est le commencement.',
+     cours:['La pensee est dans la langue: perdre sa langue = perdre sa pensee','Souverainete cognitive: penser en africain','Langue et identite: qui es-tu dans quelle langue?','Langue et developpement: les pays qui pensent dans leur langue progressent','AfriChain: blockchain en langues africaines'],
+     exercices:['Ecrire un paragraphe dans ta langue maternelle','Identifier 5 concepts de ta langue qui n existent pas en francais','Proposer: comment AfriChain peut utiliser les langues africaines']},
+
+    {id:7, nom:'L Avenir des Langues Africaines', emoji:'🚀', couleur:'#66ccff', duree:'4 semaines', niveau:'Avance',
+     description:'300 langues africaines vont disparaitre dans 50 ans. Chaque langue qui meurt est une bibliotheque qui brule. L Afrique doit sauver ses langues. Les enregistrer, les ecrire, les enseigner, les coder. AfriChain peut stocker chaque langue dans la blockchain — immutable, eternelle. Une langue sur la blockchain ne meurt jamais.',
+     cours:['300 langues en danger: la course contre le temps','Enregistrement: sauver les langues par le son et l ecriture','Blockchain comme archive linguistique eternelle','Enseignement: les langues africaines a l ecole','AfriLangues: plateforme de sauvegarde des 2000 langues sur AfriChain'],
+     exercices:['Identifier 3 langues menaces dans ta region','Concevoir un systeme pour enregistrer et sauver une langue','Proposer AfriLangues: chaque langue = un bloc dans la blockchain']}
+];
+
+var lngDone = JSON.parse(localStorage.getItem('afri_lng_done') || '[]');
+
+function renderLngModules(){
+    var container = document.getElementById('lng-modules');
+    if(!container) return;
+    var html = '';
+    for(var i = 0; i < lngModules.length; i++){
+        var m = lngModules[i];
+        var done = lngDone.includes(m.id);
+        html += '<div style="background:rgba(102,204,255,0.05);border:1px solid ' + m.couleur + '20;border-radius:8px;padding:12px;margin:8px 0;cursor:pointer;" onclick="showLngModule(' + i + ')">';
+        html += '<div style="display:flex;justify-content:space-between;align-items:center;">';
+        html += '<span style="font-size:1.1em;">' + m.emoji + ' <b style="color:' + m.couleur + ';">' + m.nom + '</b></span>';
+        html += '<span style="font-size:0.8em;color:#a8c5a8;">' + m.duree + ' · ' + m.niveau + (done ? ' · ✅' : '') + '</span>';
+        html += '</div></div>';
+    }
+    container.innerHTML = html;
+}
+renderLngModules();
+
+function showLngModule(i){
+    var m = lngModules[i];
+    var html = '<div style="background:rgba(102,204,255,0.08);border:1px solid ' + m.couleur + ';border-radius:12px;padding:20px;margin:10px 0;">';
+    html += '<h3 style="color:' + m.couleur + ';">' + m.emoji + ' ' + m.nom + '</h3>';
+    html += '<p style="color:#a8c5a8;font-size:0.9em;">' + m.description + '</p>';
+    html += '<h4 style="color:' + m.couleur + ';">📚 Cours</h4><ul>';
+    for(var j = 0; j < m.cours.length; j++){
+        html += '<li style="color:#a8c5a8;margin:4px 0;">' + m.cours[j] + '</li>';
+    }
+    html += '</ul><h4 style="color:' + m.couleur + ';">✏️ Exercices</h4><ul>';
+    for(var j = 0; j < m.exercices.length; j++){
+        html += '<li style="color:#a8c5a8;margin:4px 0;">' + m.exercices[j] + '</li>';
+    }
+    html += '</ul>';
+    html += '<button onclick="completeLngModule(' + m.id + ')" style="padding:10px 20px;background:' + m.couleur + ';color:#fff;border:none;border-radius:8px;cursor:pointer;font-weight:bold;margin-top:10px;">✅ Terminer ce module</button>';
+    html += '</div>';
+    var container = document.getElementById('lng-modules');
+    if(container) container.innerHTML = html;
+}
+
+function completeLngModule(id){
+    if(!lngDone.includes(id)){
+        lngDone.push(id);
+        localStorage.setItem('afri_lng_done', JSON.stringify(lngDone));
+    }
+    renderLngModules();
+    updateLngProgress();
+}
+
+function updateLngProgress(){
+    var done = lngDone.length;
+    var total = lngModules.length;
+    var pct = Math.round((done / total) * 100);
+    var bar = document.getElementById('lng-bar');
+    var count = document.getElementById('lng-count');
+    var pctEl = document.getElementById('lng-pct');
+    var diplome = document.getElementById('lng-diplome');
+    if(bar) bar.style.width = pct + '%';
+    if(count) count.textContent = done;
+    if(pctEl) pctEl.textContent = pct + '%';
+    if(diplome) diplome.style.display = (done === total) ? 'block' : 'none';
+}
+updateLngProgress();
+</script>
+"##);
+
+    html.push_str(r##"<div class="card" style="border-color:#66ccff;"><h2 style="color:#66ccff;">📊 Progression</h2><div style="background:rgba(102,204,255,0.1);border-radius:8px;height:24px;overflow:hidden;margin:10px 0;"><div id="lng-bar" style="background:linear-gradient(90deg,#66ccff,#44cc88,#d4a437);height:100%;width:0%;transition:width 0.5s;"></div></div><div style="text-align:center;color:#a8c5a8;"><span id="lng-count">0</span> / 8 modules · <span id="lng-pct">0%</span></div></div>
+
+<div id="lng-diplome" style="display:none;"><div class="card" style="border-color:#d4a437;text-align:center;"><h2 style="color:#d4a437;">🎓 Diplôme: Gardien des Langues Africaines</h2><p style="color:#a8c5a8;">Tu as complété les 8 modules de langues africaines!</p><p style="color:#66ccff;font-size:1.2em;">2000 langues, 1 Afrique. Chaque langue est un code. 🗣️</p><button onclick="envoyerDiplomeLng()" style="padding:12px 30px;background:#d4a437;color:#000;border:none;border-radius:8px;font-weight:bold;cursor:pointer;font-size:1.1em;margin-top:10px;">⛓️ Graver dans la Blockchain</button></div></div>
+
+<script>
+function envoyerDiplomeLng(){
+    var nom = localStorage.getItem('afri_user_name') || 'Jeune Africain';
+    fetch('/api/diplome', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+        body: 'academie=LANGUE&nom=' + encodeURIComponent(nom)
+    }).then(function(r){ return r.text(); }).then(function(t){
+        alert('🎓 Diplôme gravé dans la blockchain!\n' + t);
+    }).catch(function(e){
+        alert('Erreur: ' + e);
+    });
+}
+</script>
+"##);
+
+    html.push_str(r#"<div class="card"><h2 style="color:#66ccff;">💡 Savais-tu?</h2><div style="color:#a8c5a8;padding:8px 0;"><b style="color:#d4a437;">Le Nigeria</b> a 500 langues dans un seul pays. C est plus que toute l Europe de l Ouest.</div><div style="color:#a8c5a8;padding:8px 0;"><b style="color:#d4a437;">L Egypte</b> a invente l ecriture (hieroglyphes) 5000 ans avant l alphabet latin. L Afrique a appris au monde comment ecrire.</div><div style="color:#a8c5a8;padding:8px 0;"><b style="color:#66ccff;">300 langues africaines</b> vont disparaitre dans 50 ans. Chaque langue qui meurt est une bibliotheque qui brule.</div><div style="color:#a8c5a8;padding:8px 0;"><b style="color:#66ccff;">ChatGPT</b> parle anglais, francais, chinois. Il ne parle pas bambara, wolof, lingala. L Afrique a besoin de ses propres IA.</div></div>"#);
+
+    html.push_str(r#"<footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🗣️ AI Langue — Les Langues Africaines Sont des Codes 💚🦁🌍</footer>"#);
+    html.push_str("</body></html>");
+    html
+}
+
 fn html_garage(chain: &Blockchain) -> String {
     let mut html = html_head("Garage AI — Atelier Autonome 2500");
     let num_blocks = chain.blocks.len();
@@ -18132,7 +18372,7 @@ html+='<div class="log-entry log-kill">⚠️ Tentative d\x27infiltration occide
 html+='<div class="log-entry log-invis">✅ L\x27Afrique est forte. Le système grandit.</div>';
 }else if(type==='total'){
 html='<div style="color:#d4a437;font-weight:bold;margin-bottom:8px">📋 RAPPORT TOTAL — Depuis le début</div>';
-html+='<div class="log-entry">🦁 AfriChain v1.02 — AI Musique La Musique Africaine Est un Code</div>';
+html+='<div class="log-entry">🦁 AfriChain v1.03 — AI Langue Les Langues Africaines Sont des Codes</div>';
 html+='<div class="log-entry">⛓️ Blockchain: 100% souveraine — Zéro dépendance externe</div>';
 html+='<div class="log-entry">🔐 Crypto: Ed25519 + AfriHash-256/512 + AfriRNG — tout from scratch</div>';
 html+='<div class="log-entry">🌍 54 pays africains connectés</div>';
@@ -19676,7 +19916,7 @@ fn main() {
         .and_then(|i| args.get(i + 1)).cloned().unwrap_or_else(|| "Afrique".to_string());
 
     let my_node_id = generate_node_id();
-    println!("🦁 AfriChain v1.02 — AI Musique La Musique Africaine Est un Code");
+    println!("🦁 AfriChain v1.03 — AI Langue Les Langues Africaines Sont des Codes");
     println!("💚 L'Afrique ne demande plus la permission");
     println!("🌍 54 pays — 🇲🇱 🇳🇪 🇧🇫 AES — Mali · Niger · Burkina Faso");
     println!("🔐 8 modules cryptographiques — construits from scratch");
@@ -19845,6 +20085,7 @@ fn main() {
     println!("🧠 AI Conscience sur http://localhost:8080/ai-conscience");
     println!("🧠 AI Pensee sur http://localhost:8080/ai-pensee");
     println!("🎵 AI Musique sur http://localhost:8080/ai-musique");
+    println!("🗣️ AI Langue sur http://localhost:8080/ai-langue");
 
     // Serveur HTTP en arrière-plan (pour mesh + autres utilisateurs)
     let serve_state = web_state.clone();
@@ -19879,7 +20120,7 @@ fn terminal_interface(state: &Arc<AppState>) {
     println!("  ║  🕐 AfriTime — Pas UTC, pas Greenwich   ║");
     println!("  ║  📝 ~23,100 lignes — écrit à la main       ║");
     println!("  ╚═══════════════════════════════════════════════╝");
-    println!("\n  Version v1.02 — 1 septembre 2026");
+    println!("\n  Version v1.03 — 1 septembre 2026");
     println!("  Construit sur Termux · Android · nano\n");
     println!("  ─────────────────────────────────────────────");
     println!("\n  1. 🏦 Centre de Données (Admin)");
@@ -19951,7 +20192,7 @@ fn admin_interface(state: &Arc<AppState>) {
         println!("\n");
         println!("╔══════════════════════════════════════╗");
         println!("║  🏦 CENTRE DE DONNÉES — Admin       ║");
-        println!("║  🦁 AfriChain v1.02                  ║");
+        println!("║  🦁 AfriChain v1.03                  ║");
         println!("╠══════════════════════════════════════╣");
         let chain = state.chain.lock().unwrap();
         let users = state.users.lock().unwrap();
@@ -23595,6 +23836,11 @@ fn handle_request(req: afri_http::HttpRequest, state: &Arc<AppState>) -> afri_ht
         ("GET", "/ai-musique") => {
             let chain = state.chain.lock().unwrap();
             HttpResponse::ok(&html_ai_musique(&chain))
+        }
+
+        ("GET", "/ai-langue") => {
+            let chain = state.chain.lock().unwrap();
+            HttpResponse::ok(&html_ai_langue(&chain))
         }
 
         ("GET", "/garage") => {
