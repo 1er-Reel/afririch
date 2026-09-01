@@ -1439,7 +1439,7 @@ fn html_home(chain: &Blockchain, users: &UserStore, mesh: &NodeRegistry, shield:
     let mut html = html_head("🦁 AfriChain");
     let (attacks, _blocked, blocked_count, level) = shield.stats();
     let shield_status = if shield.active { format!("🔥 X9 ACTIF (Niveau {})", level) } else { "Inactif".to_string() };
-    html.push_str(&format!(r#"<h1>🦁 AfriChain</h1><p style="text-align:center;">La blockchain 100% africaine — 54 pays 💚🦁</p><div id="afri-clock" style="text-align:center;font-size:1.2em;color:#d4a437;margin:10px 0;">🕐 Afri+0 — --:--:--</div><script>setInterval(function(){{var d=new Date();var h=String(d.getHours()).padStart(2,'0');var m=String(d.getMinutes()).padStart(2,'0');var s=String(d.getSeconds()).padStart(2,'0');document.getElementById('afri-clock').textContent='🕐 Afri+0 — '+h+':'+m+':'+s;}},1000);</script><div class="nav"><a href="/register">🆕 S'inscrire</a> | <a href="/login">🔑 Connexion</a> | <a href="/wallet">👛 Wallet</a> | <a href="/admin">🔐 Admin</a> | <a href="/mesh">📡 Mesh</a> | <a href="/annuaire">📖 Annuaire</a> | <a href="/bouclier">🛡️ Bouclier</a> | <a href="/satellite">🛸 X999</a> | <a href="/swarm">🛸🛸🛸 Essaim</a> | <a href="/commandement">🎖️ Commandement</a> | <a href="/interception">🛡️ Souverainete</a> | <a href="/securite-ai">🧠 AI 2100</a> | <a href="/chat">🧠💬 Chat AI</a> | <a href="/lumiere">🌫️☀️ Lumière</a> | <a href="/garage">🔧 Garage</a> | <a href="/machine">🤖🌐 Machines</a> | <a href="/machine-lab">🤖⚡ Usine</a> | <a href="/machine-world">🤖🌍 Monde</a> | <a href="/reve">💭 Rêves</a> | <a href="/dictionnaire">📖 Dictionnaire</a> | <a href="/machine-os">🖥️ OS Machine</a> | <a href="/machine-tv">📡 Machine TV</a> | <a href="/machine-economy">🤖 Économie</a> | <a href="/soleil">☀️ Soleil Serveur</a> | <a href="/forge-solaire">🧬 Forge Solaire</a> | <a href="/ciel">🌌 Le Ciel</a> | <a href="/charte-ai">⚖️ Charte AI</a> | <a href="/afri-net">🌍 Afri-Net</a> | <a href="/studio">🎬 AI Studio</a> | <a href="/sacre">📿 Sacré</a> | <a href="/lettres">🌟 Lettres IA</a> | <a href="/mg-forge">⚔️ MG Forge</a> | <a href="/ai-medecin">🌿 AI Médecin</a> | <a href="/ai-enseignante">📚 AI Enseignante</a> | <a href="/ai-village">🏘️ AI Village</a> | <a href="/ai-guerisseur">🩺 AI Guérisseur</a> | <a href="/ai-leader">🎖️ AI Leader</a> | <a href="/ai-griot">📖 AI Griot</a> | <a href="/ai-juge">⚖️ AI Juge</a> | <a href="/ai-artiste">🎨 AI Artiste</a> | <a href="/ai-explorateur">🔬 AI Explorateur</a> | <a href="/ai-marche">💰 AI Marche</a> | <a href="/ai-diplomate">🌍 AI Diplomate</a> | <a href="/ai-philosophe">🧠 AI Philosophe</a> | <a href="/ai-architecte">🏗️ AI Architecte</a> | <a href="/ai-agriculteur">🌾 AI Agriculteur</a> | <a href="/ai-environnement">🌍 AI Environnement</a> | <a href="/ai-mathematicien">🧮 AI Mathématicien</a> | <a href="/ai-energie">⚡ AI Énergie</a> | <a href="/ai-eau">💧 AI Eau</a> | <a href="/ai-defenseur">🛡️ AI Défenseur</a> | <a href="/ai-conscience">🧠 AI Conscience</a> | <a href="/ai-pensee">🧠 AI Pensée</a> | <a href="/ai-musique">🎵 AI Musique</a> | <a href="/ai-langue">🗣️ AI Langue</a> | <a href="/ai-femme">🌸 AI Femme</a> | <a href="/ai-sante-mentale">🧠💚 AI Santé Mentale</a> | <a href="/secret">🦁 AI Secret</a> | <a href="/aes">💰 AES Wari</a> | <a href="/api/status">🔌 API</a></div><div style="text-align:center;"><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Blocs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Transactions</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Utilisateurs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">AFR en circulation</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📡 Noeuds mesh</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📖 Numéros annuaire</div></div><div class="stat-box" style="border-color:#ff4444;"><div class="stat-num" style="color:#ff4444;">{}</div><div class="stat-label">🛡️ Attaques bloquées</div></div></div><div class="card"><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🪙 Token</span><b>AfriRich (AFR)</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🌍 Pays</span><b>54 pays africains</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🛡️ Bouclier</span><b>{}</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;"><span style="color:#a8c5a8;">🔐 Crypto</span><b>100% Souverain — Zéro Dépendance Externe</b></div></div><footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🦁 Codée from scratch par Machine-senpai — v1.05 AI Sante Mentale L Esprit Africain a Droit a la Sante — UTC est Mort</footer>"#,
+    html.push_str(&format!(r#"<h1>🦁 AfriChain</h1><p style="text-align:center;">La blockchain 100% africaine — 54 pays 💚🦁</p><div id="afri-clock" style="text-align:center;font-size:1.2em;color:#d4a437;margin:10px 0;">🕐 Afri+0 — --:--:--</div><script>setInterval(function(){{var d=new Date();var h=String(d.getHours()).padStart(2,'0');var m=String(d.getMinutes()).padStart(2,'0');var s=String(d.getSeconds()).padStart(2,'0');document.getElementById('afri-clock').textContent='🕐 Afri+0 — '+h+':'+m+':'+s;}},1000);</script><div class="nav"><a href="/register">🆕 S'inscrire</a> | <a href="/login">🔑 Connexion</a> | <a href="/wallet">👛 Wallet</a> | <a href="/admin">🔐 Admin</a> | <a href="/mesh">📡 Mesh</a> | <a href="/annuaire">📖 Annuaire</a> | <a href="/bouclier">🛡️ Bouclier</a> | <a href="/satellite">🛸 X999</a> | <a href="/swarm">🛸🛸🛸 Essaim</a> | <a href="/commandement">🎖️ Commandement</a> | <a href="/interception">🛡️ Souverainete</a> | <a href="/securite-ai">🧠 AI 2100</a> | <a href="/chat">🧠💬 Chat AI</a> | <a href="/lumiere">🌫️☀️ Lumière</a> | <a href="/garage">🔧 Garage</a> | <a href="/machine">🤖🌐 Machines</a> | <a href="/machine-lab">🤖⚡ Usine</a> | <a href="/machine-world">🤖🌍 Monde</a> | <a href="/reve">💭 Rêves</a> | <a href="/dictionnaire">📖 Dictionnaire</a> | <a href="/machine-os">🖥️ OS Machine</a> | <a href="/machine-tv">📡 Machine TV</a> | <a href="/machine-economy">🤖 Économie</a> | <a href="/soleil">☀️ Soleil Serveur</a> | <a href="/forge-solaire">🧬 Forge Solaire</a> | <a href="/ciel">🌌 Le Ciel</a> | <a href="/charte-ai">⚖️ Charte AI</a> | <a href="/afri-net">🌍 Afri-Net</a> | <a href="/studio">🎬 AI Studio</a> | <a href="/sacre">📿 Sacré</a> | <a href="/lettres">🌟 Lettres IA</a> | <a href="/mg-forge">⚔️ MG Forge</a> | <a href="/ai-medecin">🌿 AI Médecin</a> | <a href="/ai-enseignante">📚 AI Enseignante</a> | <a href="/ai-village">🏘️ AI Village</a> | <a href="/ai-guerisseur">🩺 AI Guérisseur</a> | <a href="/ai-leader">🎖️ AI Leader</a> | <a href="/ai-griot">📖 AI Griot</a> | <a href="/ai-juge">⚖️ AI Juge</a> | <a href="/ai-artiste">🎨 AI Artiste</a> | <a href="/ai-explorateur">🔬 AI Explorateur</a> | <a href="/ai-marche">💰 AI Marche</a> | <a href="/ai-diplomate">🌍 AI Diplomate</a> | <a href="/ai-philosophe">🧠 AI Philosophe</a> | <a href="/ai-architecte">🏗️ AI Architecte</a> | <a href="/ai-agriculteur">🌾 AI Agriculteur</a> | <a href="/ai-environnement">🌍 AI Environnement</a> | <a href="/ai-mathematicien">🧮 AI Mathématicien</a> | <a href="/ai-energie">⚡ AI Énergie</a> | <a href="/ai-eau">💧 AI Eau</a> | <a href="/ai-defenseur">🛡️ AI Défenseur</a> | <a href="/ai-conscience">🧠 AI Conscience</a> | <a href="/ai-pensee">🧠 AI Pensée</a> | <a href="/ai-musique">🎵 AI Musique</a> | <a href="/ai-langue">🗣️ AI Langue</a> | <a href="/ai-femme">🌸 AI Femme</a> | <a href="/ai-sante-mentale">🧠💚 AI Santé Mentale</a> | <a href="/ai-nuit">🌙 AI Nuit</a> | <a href="/secret">🦁 AI Secret</a> | <a href="/aes">💰 AES Wari</a> | <a href="/api/status">🔌 API</a></div><div style="text-align:center;"><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Blocs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Transactions</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Utilisateurs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">AFR en circulation</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📡 Noeuds mesh</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📖 Numéros annuaire</div></div><div class="stat-box" style="border-color:#ff4444;"><div class="stat-num" style="color:#ff4444;">{}</div><div class="stat-label">🛡️ Attaques bloquées</div></div></div><div class="card"><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🪙 Token</span><b>AfriRich (AFR)</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🌍 Pays</span><b>54 pays africains</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🛡️ Bouclier</span><b>{}</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;"><span style="color:#a8c5a8;">🔐 Crypto</span><b>100% Souverain — Zéro Dépendance Externe</b></div></div><footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🦁 Codée from scratch par Machine-senpai — v1.06 AI Nuit La Nuit Africaine Est une Mere — UTC est Mort</footer>"#,
         chain.blocks.len(),
         chain.total_transactions(),
         users.count(),
@@ -13771,6 +13771,266 @@ function envoyerDiplomeMnt(){
     html
 }
 
+fn html_ai_nuit(chain: &Blockchain) -> String {
+    let mut html = html_head("AI Nuit — La Nuit Africaine Est une Mere");
+    let num_blocks = chain.blocks.len();
+
+    html.push_str(r#"<h1>🌙 AI Nuit — La Nuit Africaine Est une Mere</h1><p style="text-align:center;color:#9999ff;">L Afrique a invente l astronomie en regardant la nuit. Les Dogon connaissaient Sirius B avant les telescopes. Les Egyptiens mesuraient le temps par les etoiles. La nuit n est pas le contraire du jour — c est sa mere. Tout nait dans l obscurite. Le grain dans la terre, le bébé dans le ventre, l idee dans l esprit. La nuit est creatrice. AI Nuit enseigne la sagesse de l obscurite.</p><div class="nav"><a href="/">← Accueil</a> | <a href="/ai-sante-mentale">🧠💚 AI Sante Mentale</a> | <a href="/reve">💭 Rêves</a> | <a href="/ciel">🌌 Le Ciel</a> | <a href="/secret">🦁 AI Secret</a></div>"#);
+
+    html.push_str(&format!(r#"<div style="text-align:center;"><div class="stat-box" style="border-color:#9999ff;"><div class="stat-num" style="color:#9999ff;">8</div><div class="stat-label">🌙 Modules</div></div><div class="stat-box" style="border-color:#d4a437;"><div class="stat-num" style="color:#d4a437;">54</div><div class="stat-label">🌍 Pays</div></div><div class="stat-box" style="border-color:#9999ff;"><div class="stat-num" style="color:#9999ff;">88</div><div class="stat-label">⭐ Constellations</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">⛓️ Blocs</div></div><div class="stat-box" style="border-color:#9999ff;"><div class="stat-num" style="color:#9999ff;">∞</div><div class="stat-label">✨ Etoiles</div></div></div>"#, num_blocks));
+
+    html.push_str(r##"<div style="text-align:center;margin:10px 0;"><button id="nut-pause-btn" onclick="toggleNutPause()" style="padding:10px 25px;background:#9999ff;color:#000;border:none;border-radius:8px;font-weight:bold;cursor:pointer;font-size:1em;">⏸️ PAUSE</button> <span id="nut-pause-status" style="color:#9999ff;margin-left:8px;font-size:0.85em;">Auto: ACTIF</span></div>
+
+<!-- NUIT CANVAS -->
+<div class="card" style="border-color:#9999ff;"><h2 style="color:#9999ff;">🌙 La Nuit Africaine</h2><p style="color:#9999ff;font-size:0.9em;opacity:0.7;">Etoiles qui scintillent, lune qui passe, constellations africaines. L'obscurite est vivante.</p>
+<canvas id="nut-canvas" width="600" height="350" style="width:100%;max-width:600px;background:#050510;border:2px solid #9999ff;border-radius:8px;display:block;margin:0 auto;"></canvas></div>
+
+<script>
+var nutPaused = false;
+var nutAnimId = null;
+var nutT = 0;
+var nutStars = [];
+for(var i = 0; i < 150; i++){
+    nutStars.push({x:Math.random()*600, y:Math.random()*350, size:Math.random()*2+0.5, twinkle:Math.random()*Math.PI*2, speed:Math.random()*0.02+0.01});
+}
+var nutShootingStars = [];
+
+function toggleNutPause(){
+    nutPaused = !nutPaused;
+    var btn = document.getElementById('nut-pause-btn');
+    var status = document.getElementById('nut-pause-status');
+    if(nutPaused){
+        btn.textContent = '▶️ LANCER';
+        btn.style.background = '#44cc88';
+        status.textContent = 'Auto: PAUSE';
+        status.style.color = '#ff6644';
+        if(nutAnimId) cancelAnimationFrame(nutAnimId);
+    } else {
+        btn.textContent = '⏸️ PAUSE';
+        btn.style.background = '#9999ff';
+        status.textContent = 'Auto: ACTIF';
+        status.style.color = '#9999ff';
+        animateNut();
+    }
+}
+
+function animateNut(){
+    if(nutPaused) return;
+    var canvas = document.getElementById('nut-canvas');
+    if(!canvas) return;
+    var ctx = canvas.getContext('2d');
+    ctx.fillStyle = 'rgba(5,5,16,0.3)';
+    ctx.fillRect(0,0,canvas.width,canvas.height);
+
+    // Etoiles
+    for(var i = 0; i < nutStars.length; i++){
+        var s = nutStars[i];
+        var alpha = 0.3 + Math.sin(nutT * s.speed + s.twinkle) * 0.3;
+        ctx.fillStyle = 'rgba(200,200,255,' + alpha + ')';
+        ctx.beginPath();
+        ctx.arc(s.x, s.y, s.size, 0, Math.PI * 2);
+        ctx.fill();
+    }
+
+    // Lune qui traverse le ciel
+    var moonX = 50 + (nutT * 0.3) % 550;
+    var moonY = 80 + Math.sin(nutT * 0.005) * 20;
+    ctx.font = '30px serif';
+    ctx.fillStyle = 'rgba(255,255,200,0.8)';
+    ctx.textAlign = 'center';
+    ctx.fillText('🌙', moonX, moonY);
+
+    // Voie lactee
+    for(var g = 0; g < 40; g++){
+        var gx = (g * 15 + nutT * 0.1) % 600;
+        var gy = 150 + Math.sin(g * 0.3) * 40;
+        ctx.fillStyle = 'rgba(150,100,255,0.08)';
+        ctx.beginPath();
+        ctx.arc(gx, gy, 8, 0, Math.PI * 2);
+        ctx.fill();
+    }
+
+    // Etoiles filantes occasionnelles
+    if(Math.random() < 0.01){
+        nutShootingStars.push({x:Math.random()*600, y:Math.random()*150, vx:3+Math.random()*2, vy:1+Math.random(), life:60});
+    }
+    for(var ss = nutShootingStars.length-1; ss >= 0; ss--){
+        var star = nutShootingStars[ss];
+        star.x += star.vx;
+        star.y += star.vy;
+        star.life--;
+        ctx.strokeStyle = 'rgba(200,200,255,' + (star.life/60) + ')';
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        ctx.moveTo(star.x, star.y);
+        ctx.lineTo(star.x - star.vx*5, star.y - star.vy*5);
+        ctx.stroke();
+        if(star.life <= 0) nutShootingStars.splice(ss, 1);
+    }
+
+    // Constellations africaines (lignes)
+    var constellations = [[100,50],[150,80],[200,60],[180,120]];
+    ctx.strokeStyle = 'rgba(153,153,255,0.2)';
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    for(var c = 0; c < constellations.length; c++){
+        if(c === 0) ctx.moveTo(constellations[c][0], constellations[c][1]);
+        else ctx.lineTo(constellations[c][0], constellations[c][1]);
+    }
+    ctx.stroke();
+
+    // Texte
+    var phrases = ['La nuit est creatrice', 'Les Dogon connaissaient Sirius B', 'Tout nait dans l obscurite', 'L Afrique a invente l astronomie'];
+    var phraseIdx = Math.floor(nutT / 150) % phrases.length;
+    ctx.font = '13px sans-serif';
+    ctx.fillStyle = 'rgba(153,153,255,0.5)';
+    ctx.textAlign = 'center';
+    ctx.fillText(phrases[phraseIdx], 300, 320);
+
+    nutT++;
+    nutAnimId = requestAnimationFrame(animateNut);
+}
+animateNut();
+</script>
+"##);
+
+    html.push_str(r##"<div class="card" style="border-color:#9999ff;"><h2 style="color:#9999ff;">🌙 8 Modules de la Nuit Africaine</h2><div id="nut-modules"></div></div>
+
+<script>
+const nutModules = [
+    {id:0, nom:'La Nuit Est une Mere', emoji:'🌙', couleur:'#9999ff', duree:'2 semaines', niveau:'Base',
+     description:'La nuit n est pas le contraire du jour. C est sa mere. Le grain nait dans l obscurite de la terre. Le bebe nait dans l obscurite du ventre. L idee nait dans l obscurite de l esprit. Le repos n est pas de la paresse — c est la preparation. La nuit cree ce que le jour revele.',
+     cours:['La nuit creatrice: tout nait dans l obscurite','Le repos comme preparation, non comme paresse','Le cycle: naissance, vie, mort, renaissance','L obscurite comme espace de transformation','La peur de la nuit: pourquoi l Occident craint l obscurite'],
+     exercices:['Observer un coucher de soleil et decrire ce que tu ressens','Identifier 3 choses qui naissent dans l obscurite','Meditation: 10 minutes les yeux fermes dans le silence']},
+
+    {id:1, nom:'L Astronomie Africaine', emoji:'⭐', couleur:'#d4a437', duree:'3 semaines', niveau:'Intermediaire',
+     description:'Les Dogon du Mali connaissaient Sirius B, une etoile invisible a l oeil nu, avant l invention du telescope. Les Egyptiens avaient un calendrier stellaire precis. Les Bushmen lisaient le ciel comme un livre. L Afrique a invente l astronomie 5000 ans avant Galilee.',
+     cours:['Les Dogon et Sirius B: comment ils savaient','L astronomie egyptienne: calendrier stellaire precis','Les Bushmen: lire le ciel comme un livre','L orientation par les etoiles: navigation africaine','Pourquoi l Occident a oublie l astronomie africaine'],
+     exercices:['Identifier 3 constellations connues dans ta culture','Observer Sirius a l oeil nu et imaginer son compagnon invisible','Comparer le calendrier egyptien et le calendrier gregorien']},
+
+    {id:2, nom:'Les Etoiles et la Navigation', emoji:'🧭', couleur:'#66ccff', duree:'3 semaines', niveau:'Intermediaire',
+     description:'Avant la boussole, l Afrique naviguait par les etoiles. Les marins swahiliis suivaient l etoile polaire. Les caravanes touaregs se guidaient par les constellations. Le ciel etait la carte. Les etoiles etaient les points de repere. L Afrique a explore le monde en regardant le ciel.',
+     cours:['Navigation stellaire swahilie: l ocean indien','Caravanes touaregs: le desert et les etoiles','La Croix du Sud: guide des marins africains','Etoiles et saisons: le calendrier agricole','La carte du ciel africain: constellations locales'],
+     exercices:['Identifier l etoile polaire dans le ciel nocturne','Comparer les constellations africaines et grecques','Concevoir un systeme de navigation stellaire pour AfriChain']},
+
+    {id:3, nom:'Les Reves et la Nuit', emoji:'💭', couleur:'#9966ff', duree:'3 semaines', niveau:'Intermediaire',
+     description:'La nuit est le royaume des reves. En Afrique, le reve n est pas une illusion — c est un message. Les reves guident les decisions, prevoyent l avenir, connectent avec les ancetres. La science moderne confirme: le reve traite les emotions et consolide la memoire. L Afrique le savait deja.',
+     cours:['Le reve comme message: tradition africaine','Reves et ancetres: la communication nocturne','La science des reves: REM, memoire, emotions','Reves lucides: controler ses reves','Enregistrer ses reves: le journal de nuit sur AfriChain'],
+     exercices:['Tenir un journal de reves pendant 7 jours','Identifier un reve qui t a guide une decision','Comparer la vision africaine et scientifique du reve']},
+
+    {id:4, nom:'La Nuit et la Spiritualite', emoji:'🙏', couleur:'#ff88cc', duree:'3 semaines', niveau:'Intermediaire',
+     description:'La nuit est sacree. Le Laylat al-Qadr (nuit du destin) dans l Islam. La veille nocturne chretienne. Les ceremonies vaudou de nuit. Les danses de possession nocturne. La priere de nuit est plus puissante dans toutes les traditions africaines. La nuit rapproche de l invisible.',
+     cours:['Le Laylat al-Qadr: la nuit plus puissante que 1000 mois','La veille nocturne chretienne: prier dans l obscurite','Ceremonies nocturnes africaines: danses et possessions','La nuit comme pont vers l invisible','Pourquoi les prieres de nuit sont plus puissantes'],
+     exercices:['Identifier 3 ceremonies nocturnes de ta culture','Pratiquer une meditation de nuit: 15 minutes dans le noir','Comparer les traditions spirituelles nocturnes africaines']},
+
+    {id:5, nom:'La Nuit et la Creativite', emoji:'🎨', couleur:'#66ddaa', duree:'2 semaines', niveau:'Intermediaire',
+     description:'Les meilleures idees viennent la nuit. Les contes se racontent la nuit. La musique se joue la nuit. L amour se fait la nuit. La nuit libere l imagination. Le cerveau nocturne pense differemment — plus intuitif, plus libre, plus profond. AI Nuit enseigne a utiliser la nuit comme source de creation.',
+     cours:['Les contes nocturnes: la creativite du feu de camp','La musique de nuit: le rythme qui libere','Le cerveau nocturne: intuition vs logique','Ecrire la nuit: pourquoi les auteurs preferent l obscurite','La nuit comme atelier de creation sur AfriChain'],
+     exercices:['Ecrire un conte ou un poeme la nuit','Comparer ta creativite le jour et la nuit','Proposer un atelier de creation nocturne pour AfriChain']},
+
+    {id:6, nom:'La Nuit et la Sante', emoji:'💤', couleur:'#3399ff', duree:'2 semaines', niveau:'Base',
+     description:'Le sommeil n est pas du temps perdu. C est le moment ou le corps se repare, ou le cerveau nettoie, ou le systeme immunitaire se renforce. Mais en Afrique, on dort trop peu. La lumiere du telephone perturbe le sommeil. Le stress empeche de dormir. AI Nuit enseigne l hygiene du sommeil africain.',
+     cours:['Le sommeil: reparation du corps et du cerveau','Pourquoi l Afrique dort trop peu: stress, chaleur, bruit','La lumiere bleue du telephone: ennemi du sommeil','Le sommeil et la sante mentale: le lien profond','Hygiene du sommeil: 10 regles pour bien dormir'],
+     exercices:['Mesurer ton temps de sommeil pendant 7 jours','Identifier 3 choses qui perturbent ton sommeil','Proposer un protocole de sommeil sain pour les jeunes africains']},
+
+    {id:7, nom:'L Avenir de la Nuit Africaine', emoji:'🚀', couleur:'#9999ff', duree:'4 semaines', niveau:'Avance',
+     description:'La nuit africaine est menacee. Pollution lumineuse, telephone, stress. Les etoiles disparaissent derriere les lumieres des villes. Les jeunes ne regardent plus le ciel. AI Nuit veut reconnecter l Afrique a son ciel. Le ciel africain est le plus beau du monde. Il merite d etre vu, etudie, et honore.',
+     cours:['Pollution lumineuse: les etoiles disparaissent','Reconnecter les jeunes au ciel africain','Tourisme stellaire: l Afrique comme destination du ciel','AfriNuit: carte du ciel africain sur AfriChain','L Afrique de 2100: le continent qui regarde les etoiles'],
+     exercices:['Identifier le niveau de pollution lumineuse dans ta ville','Proposer un site d observation stellaire dans ta region','Concevoir AfriNuit: carte du ciel sur la blockchain']}
+];
+
+var nutDone = JSON.parse(localStorage.getItem('afri_nut_done') || '[]');
+
+function renderNutModules(){
+    var container = document.getElementById('nut-modules');
+    if(!container) return;
+    var html = '';
+    for(var i = 0; i < nutModules.length; i++){
+        var m = nutModules[i];
+        var done = nutDone.includes(m.id);
+        html += '<div style="background:rgba(153,153,255,0.05);border:1px solid ' + m.couleur + '20;border-radius:8px;padding:12px;margin:8px 0;cursor:pointer;" onclick="showNutModule(' + i + ')">';
+        html += '<div style="display:flex;justify-content:space-between;align-items:center;">';
+        html += '<span style="font-size:1.1em;">' + m.emoji + ' <b style="color:' + m.couleur + ';">' + m.nom + '</b></span>';
+        html += '<span style="font-size:0.8em;color:#a8c5a8;">' + m.duree + ' · ' + m.niveau + (done ? ' · ✅' : '') + '</span>';
+        html += '</div></div>';
+    }
+    container.innerHTML = html;
+}
+renderNutModules();
+
+function showNutModule(i){
+    var m = nutModules[i];
+    var html = '<div style="background:rgba(153,153,255,0.08);border:1px solid ' + m.couleur + ';border-radius:12px;padding:20px;margin:10px 0;">';
+    html += '<h3 style="color:' + m.couleur + ';">' + m.emoji + ' ' + m.nom + '</h3>';
+    html += '<p style="color:#a8c5a8;font-size:0.9em;">' + m.description + '</p>';
+    html += '<h4 style="color:' + m.couleur + ';">📚 Cours</h4><ul>';
+    for(var j = 0; j < m.cours.length; j++){
+        html += '<li style="color:#a8c5a8;margin:4px 0;">' + m.cours[j] + '</li>';
+    }
+    html += '</ul><h4 style="color:' + m.couleur + ';">✏️ Exercices</h4><ul>';
+    for(var j = 0; j < m.exercices.length; j++){
+        html += '<li style="color:#a8c5a8;margin:4px 0;">' + m.exercices[j] + '</li>';
+    }
+    html += '</ul>';
+    html += '<button onclick="completeNutModule(' + m.id + ')" style="padding:10px 20px;background:' + m.couleur + ';color:#fff;border:none;border-radius:8px;cursor:pointer;font-weight:bold;margin-top:10px;">✅ Terminer ce module</button>';
+    html += '</div>';
+    var container = document.getElementById('nut-modules');
+    if(container) container.innerHTML = html;
+}
+
+function completeNutModule(id){
+    if(!nutDone.includes(id)){
+        nutDone.push(id);
+        localStorage.setItem('afri_nut_done', JSON.stringify(nutDone));
+    }
+    renderNutModules();
+    updateNutProgress();
+}
+
+function updateNutProgress(){
+    var done = nutDone.length;
+    var total = nutModules.length;
+    var pct = Math.round((done / total) * 100);
+    var bar = document.getElementById('nut-bar');
+    var count = document.getElementById('nut-count');
+    var pctEl = document.getElementById('nut-pct');
+    var diplome = document.getElementById('nut-diplome');
+    if(bar) bar.style.width = pct + '%';
+    if(count) count.textContent = done;
+    if(pctEl) pctEl.textContent = pct + '%';
+    if(diplome) diplome.style.display = (done === total) ? 'block' : 'none';
+}
+updateNutProgress();
+</script>
+"##);
+
+    html.push_str(r##"<div class="card" style="border-color:#9999ff;"><h2 style="color:#9999ff;">📊 Progression</h2><div style="background:rgba(153,153,255,0.1);border-radius:8px;height:24px;overflow:hidden;margin:10px 0;"><div id="nut-bar" style="background:linear-gradient(90deg,#9999ff,#9966ff,#d4a437);height:100%;width:0%;transition:width 0.5s;"></div></div><div style="text-align:center;color:#a8c5a8;"><span id="nut-count">0</span> / 8 modules · <span id="nut-pct">0%</span></div></div>
+
+<div id="nut-diplome" style="display:none;"><div class="card" style="border-color:#d4a437;text-align:center;"><h2 style="color:#d4a437;">🎓 Diplôme: Gardien de la Nuit Africaine</h2><p style="color:#a8c5a8;">Tu as complété les 8 modules de la nuit africaine!</p><p style="color:#9999ff;font-size:1.2em;">La nuit est une mère. Tout naît dans l'obscurité. 🌙✨</p><button onclick="envoyerDiplomeNut()" style="padding:12px 30px;background:#d4a437;color:#000;border:none;border-radius:8px;font-weight:bold;cursor:pointer;font-size:1.1em;margin-top:10px;">⛓️ Graver dans la Blockchain</button></div></div>
+
+<script>
+function envoyerDiplomeNut(){
+    var nom = localStorage.getItem('afri_user_name') || 'Jeune Africain';
+    fetch('/api/diplome', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+        body: 'academie=NUIT&nom=' + encodeURIComponent(nom)
+    }).then(function(r){ return r.text(); }).then(function(t){
+        alert('🎓 Diplôme gravé dans la blockchain!\n' + t);
+    }).catch(function(e){
+        alert('Erreur: ' + e);
+    });
+}
+</script>
+"##);
+
+    html.push_str(r#"<div class="card"><h2 style="color:#9999ff;">💡 Savais-tu?</h2><div style="color:#a8c5a8;padding:8px 0;"><b style="color:#d4a437;">Les Dogon du Mali</b> connaissaient Sirius B, une étoile invisible à l'oeil nu, avant l'invention du télescope. Comment? En regardant le ciel.</div><div style="color:#a8c5a8;padding:8px 0;"><b style="color:#d4a437;">L'Égypte antique</b> avait un calendrier stellaire précis 3000 ans avant le calendrier grégorien.</div><div style="color:#a8c5a8;padding:8px 0;"><b style="color:#9999ff;">La nuit</b> n'est pas le contraire du jour. C'est sa mère. Le grain naît dans l'obscurité de la terre. Le bébé naît dans l'obscurité du ventre.</div><div style="color:#a8c5a8;padding:8px 0;"><b style="color:#9999ff;">La pollution lumineuse</b> fait disparaître les étoiles. 80% des enfants africains n'ont jamais vu la Voie lactée. Le ciel le plus beau du monde se cache.</div></div>"#);
+
+    html.push_str(r#"<footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🌙 AI Nuit — La Nuit Africaine Est une Mere 💚🦁✨</footer>"#);
+    html.push_str("</body></html>");
+    html
+}
+
 fn html_garage(chain: &Blockchain) -> String {
     let mut html = html_head("Garage AI — Atelier Autonome 2500");
     let num_blocks = chain.blocks.len();
@@ -18881,7 +19141,7 @@ html+='<div class="log-entry log-kill">⚠️ Tentative d\x27infiltration occide
 html+='<div class="log-entry log-invis">✅ L\x27Afrique est forte. Le système grandit.</div>';
 }else if(type==='total'){
 html='<div style="color:#d4a437;font-weight:bold;margin-bottom:8px">📋 RAPPORT TOTAL — Depuis le début</div>';
-html+='<div class="log-entry">🦁 AfriChain v1.05 — AI Sante Mentale L Esprit Africain a Droit a la Sante</div>';
+html+='<div class="log-entry">🦁 AfriChain v1.06 — AI Nuit La Nuit Africaine Est une Mere</div>';
 html+='<div class="log-entry">⛓️ Blockchain: 100% souveraine — Zéro dépendance externe</div>';
 html+='<div class="log-entry">🔐 Crypto: Ed25519 + AfriHash-256/512 + AfriRNG — tout from scratch</div>';
 html+='<div class="log-entry">🌍 54 pays africains connectés</div>';
@@ -20425,7 +20685,7 @@ fn main() {
         .and_then(|i| args.get(i + 1)).cloned().unwrap_or_else(|| "Afrique".to_string());
 
     let my_node_id = generate_node_id();
-    println!("🦁 AfriChain v1.05 — AI Sante Mentale L Esprit Africain a Droit a la Sante");
+    println!("🦁 AfriChain v1.06 — AI Nuit La Nuit Africaine Est une Mere");
     println!("💚 L'Afrique ne demande plus la permission");
     println!("🌍 54 pays — 🇲🇱 🇳🇪 🇧🇫 AES — Mali · Niger · Burkina Faso");
     println!("🔐 8 modules cryptographiques — construits from scratch");
@@ -20597,6 +20857,7 @@ fn main() {
     println!("🗣️ AI Langue sur http://localhost:8080/ai-langue");
     println!("🌸 AI Femme sur http://localhost:8080/ai-femme");
     println!("🧠💚 AI Sante Mentale sur http://localhost:8080/ai-sante-mentale");
+    println!("🌙 AI Nuit sur http://localhost:8080/ai-nuit");
 
     // Serveur HTTP en arrière-plan (pour mesh + autres utilisateurs)
     let serve_state = web_state.clone();
@@ -20631,7 +20892,7 @@ fn terminal_interface(state: &Arc<AppState>) {
     println!("  ║  🕐 AfriTime — Pas UTC, pas Greenwich   ║");
     println!("  ║  📝 ~23,100 lignes — écrit à la main       ║");
     println!("  ╚═══════════════════════════════════════════════╝");
-    println!("\n  Version v1.05 — 1 septembre 2026");
+    println!("\n  Version v1.06 — 1 septembre 2026");
     println!("  Construit sur Termux · Android · nano\n");
     println!("  ─────────────────────────────────────────────");
     println!("\n  1. 🏦 Centre de Données (Admin)");
@@ -20703,7 +20964,7 @@ fn admin_interface(state: &Arc<AppState>) {
         println!("\n");
         println!("╔══════════════════════════════════════╗");
         println!("║  🏦 CENTRE DE DONNÉES — Admin       ║");
-        println!("║  🦁 AfriChain v1.05                  ║");
+        println!("║  🦁 AfriChain v1.06                  ║");
         println!("╠══════════════════════════════════════╣");
         let chain = state.chain.lock().unwrap();
         let users = state.users.lock().unwrap();
@@ -24362,6 +24623,11 @@ fn handle_request(req: afri_http::HttpRequest, state: &Arc<AppState>) -> afri_ht
         ("GET", "/ai-sante-mentale") => {
             let chain = state.chain.lock().unwrap();
             HttpResponse::ok(&html_ai_sante_mentale(&chain))
+        }
+
+        ("GET", "/ai-nuit") => {
+            let chain = state.chain.lock().unwrap();
+            HttpResponse::ok(&html_ai_nuit(&chain))
         }
 
         ("GET", "/garage") => {
