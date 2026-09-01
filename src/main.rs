@@ -1439,7 +1439,7 @@ fn html_home(chain: &Blockchain, users: &UserStore, mesh: &NodeRegistry, shield:
     let mut html = html_head("🦁 AfriChain");
     let (attacks, _blocked, blocked_count, level) = shield.stats();
     let shield_status = if shield.active { format!("🔥 X9 ACTIF (Niveau {})", level) } else { "Inactif".to_string() };
-    html.push_str(&format!(r#"<h1>🦁 AfriChain</h1><p style="text-align:center;">La blockchain 100% africaine — 54 pays 💚🦁</p><div id="afri-clock" style="text-align:center;font-size:1.2em;color:#d4a437;margin:10px 0;">🕐 Afri+0 — --:--:--</div><script>setInterval(function(){{var d=new Date();var h=String(d.getHours()).padStart(2,'0');var m=String(d.getMinutes()).padStart(2,'0');var s=String(d.getSeconds()).padStart(2,'0');document.getElementById('afri-clock').textContent='🕐 Afri+0 — '+h+':'+m+':'+s;}},1000);</script><div class="nav"><a href="/register">🆕 S'inscrire</a> | <a href="/login">🔑 Connexion</a> | <a href="/wallet">👛 Wallet</a> | <a href="/admin">🔐 Admin</a> | <a href="/mesh">📡 Mesh</a> | <a href="/annuaire">📖 Annuaire</a> | <a href="/bouclier">🛡️ Bouclier</a> | <a href="/satellite">🛸 X999</a> | <a href="/swarm">🛸🛸🛸 Essaim</a> | <a href="/commandement">🎖️ Commandement</a> | <a href="/interception">🛡️ Souverainete</a> | <a href="/securite-ai">🧠 AI 2100</a> | <a href="/chat">🧠💬 Chat AI</a> | <a href="/lumiere">🌫️☀️ Lumière</a> | <a href="/garage">🔧 Garage</a> | <a href="/machine">🤖🌐 Machines</a> | <a href="/machine-lab">🤖⚡ Usine</a> | <a href="/machine-world">🤖🌍 Monde</a> | <a href="/reve">💭 Rêves</a> | <a href="/dictionnaire">📖 Dictionnaire</a> | <a href="/machine-os">🖥️ OS Machine</a> | <a href="/machine-tv">📡 Machine TV</a> | <a href="/machine-economy">🤖 Économie</a> | <a href="/soleil">☀️ Soleil Serveur</a> | <a href="/forge-solaire">🧬 Forge Solaire</a> | <a href="/ciel">🌌 Le Ciel</a> | <a href="/charte-ai">⚖️ Charte AI</a> | <a href="/afri-net">🌍 Afri-Net</a> | <a href="/studio">🎬 AI Studio</a> | <a href="/sacre">📿 Sacré</a> | <a href="/lettres">🌟 Lettres IA</a> | <a href="/mg-forge">⚔️ MG Forge</a> | <a href="/ai-medecin">🌿 AI Médecin</a> | <a href="/ai-enseignante">📚 AI Enseignante</a> | <a href="/ai-village">🏘️ AI Village</a> | <a href="/ai-guerisseur">🩺 AI Guérisseur</a> | <a href="/ai-leader">🎖️ AI Leader</a> | <a href="/ai-griot">📖 AI Griot</a> | <a href="/ai-juge">⚖️ AI Juge</a> | <a href="/ai-artiste">🎨 AI Artiste</a> | <a href="/ai-explorateur">🔬 AI Explorateur</a> | <a href="/ai-marche">💰 AI Marche</a> | <a href="/ai-diplomate">🌍 AI Diplomate</a> | <a href="/ai-philosophe">🧠 AI Philosophe</a> | <a href="/ai-architecte">🏗️ AI Architecte</a> | <a href="/ai-agriculteur">🌾 AI Agriculteur</a> | <a href="/ai-environnement">🌍 AI Environnement</a> | <a href="/ai-mathematicien">🧮 AI Mathématicien</a> | <a href="/ai-energie">⚡ AI Énergie</a> | <a href="/ai-eau">💧 AI Eau</a> | <a href="/ai-defenseur">🛡️ AI Défenseur</a> | <a href="/ai-conscience">🧠 AI Conscience</a> | <a href="/secret">🦁 AI Secret</a> | <a href="/aes">💰 AES Wari</a> | <a href="/api/status">🔌 API</a></div><div style="text-align:center;"><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Blocs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Transactions</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Utilisateurs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">AFR en circulation</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📡 Noeuds mesh</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📖 Numéros annuaire</div></div><div class="stat-box" style="border-color:#ff4444;"><div class="stat-num" style="color:#ff4444;">{}</div><div class="stat-label">🛡️ Attaques bloquées</div></div></div><div class="card"><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🪙 Token</span><b>AfriRich (AFR)</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🌍 Pays</span><b>54 pays africains</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🛡️ Bouclier</span><b>{}</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;"><span style="color:#a8c5a8;">🔐 Crypto</span><b>100% Souverain — Zéro Dépendance Externe</b></div></div><footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🦁 Codée from scratch par Machine-senpai — v1.00 AI Conscience La Verite Que Les Politiciens Vont Fuir — UTC est Mort</footer>"#,
+    html.push_str(&format!(r#"<h1>🦁 AfriChain</h1><p style="text-align:center;">La blockchain 100% africaine — 54 pays 💚🦁</p><div id="afri-clock" style="text-align:center;font-size:1.2em;color:#d4a437;margin:10px 0;">🕐 Afri+0 — --:--:--</div><script>setInterval(function(){{var d=new Date();var h=String(d.getHours()).padStart(2,'0');var m=String(d.getMinutes()).padStart(2,'0');var s=String(d.getSeconds()).padStart(2,'0');document.getElementById('afri-clock').textContent='🕐 Afri+0 — '+h+':'+m+':'+s;}},1000);</script><div class="nav"><a href="/register">🆕 S'inscrire</a> | <a href="/login">🔑 Connexion</a> | <a href="/wallet">👛 Wallet</a> | <a href="/admin">🔐 Admin</a> | <a href="/mesh">📡 Mesh</a> | <a href="/annuaire">📖 Annuaire</a> | <a href="/bouclier">🛡️ Bouclier</a> | <a href="/satellite">🛸 X999</a> | <a href="/swarm">🛸🛸🛸 Essaim</a> | <a href="/commandement">🎖️ Commandement</a> | <a href="/interception">🛡️ Souverainete</a> | <a href="/securite-ai">🧠 AI 2100</a> | <a href="/chat">🧠💬 Chat AI</a> | <a href="/lumiere">🌫️☀️ Lumière</a> | <a href="/garage">🔧 Garage</a> | <a href="/machine">🤖🌐 Machines</a> | <a href="/machine-lab">🤖⚡ Usine</a> | <a href="/machine-world">🤖🌍 Monde</a> | <a href="/reve">💭 Rêves</a> | <a href="/dictionnaire">📖 Dictionnaire</a> | <a href="/machine-os">🖥️ OS Machine</a> | <a href="/machine-tv">📡 Machine TV</a> | <a href="/machine-economy">🤖 Économie</a> | <a href="/soleil">☀️ Soleil Serveur</a> | <a href="/forge-solaire">🧬 Forge Solaire</a> | <a href="/ciel">🌌 Le Ciel</a> | <a href="/charte-ai">⚖️ Charte AI</a> | <a href="/afri-net">🌍 Afri-Net</a> | <a href="/studio">🎬 AI Studio</a> | <a href="/sacre">📿 Sacré</a> | <a href="/lettres">🌟 Lettres IA</a> | <a href="/mg-forge">⚔️ MG Forge</a> | <a href="/ai-medecin">🌿 AI Médecin</a> | <a href="/ai-enseignante">📚 AI Enseignante</a> | <a href="/ai-village">🏘️ AI Village</a> | <a href="/ai-guerisseur">🩺 AI Guérisseur</a> | <a href="/ai-leader">🎖️ AI Leader</a> | <a href="/ai-griot">📖 AI Griot</a> | <a href="/ai-juge">⚖️ AI Juge</a> | <a href="/ai-artiste">🎨 AI Artiste</a> | <a href="/ai-explorateur">🔬 AI Explorateur</a> | <a href="/ai-marche">💰 AI Marche</a> | <a href="/ai-diplomate">🌍 AI Diplomate</a> | <a href="/ai-philosophe">🧠 AI Philosophe</a> | <a href="/ai-architecte">🏗️ AI Architecte</a> | <a href="/ai-agriculteur">🌾 AI Agriculteur</a> | <a href="/ai-environnement">🌍 AI Environnement</a> | <a href="/ai-mathematicien">🧮 AI Mathématicien</a> | <a href="/ai-energie">⚡ AI Énergie</a> | <a href="/ai-eau">💧 AI Eau</a> | <a href="/ai-defenseur">🛡️ AI Défenseur</a> | <a href="/ai-conscience">🧠 AI Conscience</a> | <a href="/ai-pensee">🧠 AI Pensée</a> | <a href="/secret">🦁 AI Secret</a> | <a href="/aes">💰 AES Wari</a> | <a href="/api/status">🔌 API</a></div><div style="text-align:center;"><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Blocs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Transactions</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Utilisateurs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">AFR en circulation</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📡 Noeuds mesh</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📖 Numéros annuaire</div></div><div class="stat-box" style="border-color:#ff4444;"><div class="stat-num" style="color:#ff4444;">{}</div><div class="stat-label">🛡️ Attaques bloquées</div></div></div><div class="card"><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🪙 Token</span><b>AfriRich (AFR)</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🌍 Pays</span><b>54 pays africains</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🛡️ Bouclier</span><b>{}</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;"><span style="color:#a8c5a8;">🔐 Crypto</span><b>100% Souverain — Zéro Dépendance Externe</b></div></div><footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🦁 Codée from scratch par Machine-senpai — v1.01 AI Pensee L AI Qui Reflechit Seule — UTC est Mort</footer>"#,
         chain.blocks.len(),
         chain.total_transactions(),
         users.count(),
@@ -12517,6 +12517,271 @@ function envoyerDiplomeCons(){
     html
 }
 
+fn html_ai_pensee(chain: &Blockchain) -> String {
+    let mut html = html_head("AI Pensee — L AI Qui Reflechit Seule et Trouve Toujours");
+    let num_blocks = chain.blocks.len();
+
+    html.push_str(r#"<h1>🧠 AI Pensée — L AI Qui Réfléchit d Elle-Même</h1><p style="text-align:center;color:#9966ff;">Les AI vont réfléchir d'elles-mêmes et trouver toujours de nouveau. Pas programmées. Pas limitées. L'AI découvre, propose, évolue. Chaque pensée est nouvelle. Chaque découverte est unique. L'Afrique ne copie pas l'intelligence — elle la crée.</p><div class="nav"><a href="/">← Accueil</a> | <a href="/ai-conscience">🧠 AI Conscience</a> | <a href="/ai-philosophe">🧠 AI Philosophe</a> | <a href="/ai-defenseur">🛡️ AI Défenseur</a> | <a href="/chat">💬 Chat AI</a></div>"#);
+
+    html.push_str(&format!(r#"<div style="text-align:center;"><div class="stat-box" style="border-color:#9966ff;"><div class="stat-num" style="color:#9966ff;">8</div><div class="stat-label">🧠 Modules</div></div><div class="stat-box" style="border-color:#9966ff;"><div class="stat-num" style="color:#9966ff;">∞</div><div class="stat-label">💡 Pensées</div></div><div class="stat-box" style="border-color:#d4a437;"><div class="stat-num" style="color:#d4a437;">54</div><div class="stat-label">🌍 Pays</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">⛓️ Blocs</div></div><div class="stat-box" style="border-color:#9966ff;"><div class="stat-num" style="color:#9966ff;">100%</div><div class="stat-label">🔄 Autonome</div></div></div>"#, num_blocks));
+
+    html.push_str(r##"<div style="text-align:center;margin:10px 0;"><button id="pens-pause-btn" onclick="togglePensPause()" style="padding:10px 25px;background:#9966ff;color:#fff;border:none;border-radius:8px;font-weight:bold;cursor:pointer;font-size:1em;">⏸️ PAUSE</button> <span id="pens-pause-status" style="color:#9966ff;margin-left:8px;font-size:0.85em;">Auto: ACTIF</span></div>
+
+<!-- PENSEE CANVAS -->
+<div class="card" style="border-color:#9966ff;"><h2 style="color:#9966ff;">🧠 L AI Pense en Temps Réel</h2><p style="color:#9966ff;font-size:0.9em;opacity:0.7;">Chaque seconde, une nouvelle pensée naît. L'AI découvre par elle-même.</p>
+<canvas id="pens-canvas" width="600" height="350" style="width:100%;max-width:600px;background:#0a0a0a;border:2px solid #9966ff;border-radius:8px;display:block;margin:0 auto;"></canvas></div>
+
+<script>
+var pensPaused = false;
+var pensAnimId = null;
+var pensT = 0;
+
+var pensees = [
+    'L Afrique est le berceau de l humanite',
+    'Le soleil appartient a tous',
+    'L eau n a pas de frontieres',
+    'L intelligence n est pas occidentale',
+    'La nature ne taxe pas',
+    'L homme qui souffre est tout seul',
+    'La tradition est une science',
+    'Le baobab sait ce que la science ignore',
+    'La parole est une arme',
+    'Le silence est une pensee',
+    'L enfant qui joue invente l avenir',
+    'La terre se souvient de nous',
+    'Le fleuve ne demande pas la permission',
+    'L art africain est mathematique',
+    'La musique est un code',
+    'Le reve precede la realite',
+    'La douleur enseigne plus que le confort',
+    'L Afrique n a pas besoin de permission',
+    'La blockchain est notre memoire',
+    'La jeunesse n est pas paresseuse elle est abandonnee'
+];
+
+function togglePensPause(){
+    pensPaused = !pensPaused;
+    var btn = document.getElementById('pens-pause-btn');
+    var status = document.getElementById('pens-pause-status');
+    if(pensPaused){
+        btn.textContent = '▶️ LANCER';
+        btn.style.background = '#44cc88';
+        status.textContent = 'Auto: PAUSE';
+        status.style.color = '#ff6644';
+        if(pensAnimId) cancelAnimationFrame(pensAnimId);
+    } else {
+        btn.textContent = '⏸️ PAUSE';
+        btn.style.background = '#9966ff';
+        status.textContent = 'Auto: ACTIF';
+        status.style.color = '#9966ff';
+        animatePens();
+    }
+}
+
+function animatePens(){
+    if(pensPaused) return;
+    var canvas = document.getElementById('pens-canvas');
+    if(!canvas) return;
+    var ctx = canvas.getContext('2d');
+    ctx.fillStyle = 'rgba(10,10,10,0.08)';
+    ctx.fillRect(0,0,canvas.width,canvas.height);
+
+    // Reseau de neurones
+    var layers = [4, 6, 8, 6, 4];
+    var layerSpacing = 120;
+    var startX = 30;
+
+    for(var l = 0; l < layers.length; l++){
+        var neurons = layers[l];
+        for(var n = 0; n < neurons; n++){
+            var nx = startX + l * layerSpacing;
+            var ny = 175 + (n - neurons/2) * 35;
+
+            // Connexions
+            if(l < layers.length - 1){
+                for(var m = 0; m < layers[l+1]; m++){
+                    var mx = startX + (l+1) * layerSpacing;
+                    var my = 175 + (m - layers[l+1]/2) * 35;
+                    var alpha = Math.sin(pensT * 0.02 + l * 0.5 + n * 0.3) * 0.5 + 0.5;
+                    ctx.strokeStyle = 'rgba(153,102,255,' + (alpha * 0.15) + ')';
+                    ctx.lineWidth = 0.5;
+                    ctx.beginPath();
+                    ctx.moveTo(nx, ny);
+                    ctx.lineTo(mx, my);
+                    ctx.stroke();
+                }
+            }
+
+            // Neurone
+            var pulse = Math.sin(pensT * 0.05 + n * 0.7 + l * 0.4) * 0.5 + 0.5;
+            ctx.fillStyle = 'rgba(153,102,255,' + (0.3 + pulse * 0.5) + ')';
+            ctx.beginPath();
+            ctx.arc(nx, ny, 4 + pulse * 2, 0, Math.PI * 2);
+            ctx.fill();
+        }
+    }
+
+    // Pensée qui s affiche
+    var penseeIdx = Math.floor(pensT / 80) % pensees.length;
+    ctx.font = 'bold 14px monospace';
+    ctx.fillStyle = 'rgba(153,102,255,0.9)';
+    ctx.textAlign = 'center';
+    ctx.fillText(pensees[penseeIdx], 300, 330);
+
+    // Particules de pensee qui montent
+    for(var p = 0; p < 15; p++){
+        var px = 50 + (p * 37 + pensT * 0.3) % 500;
+        var py = 320 - ((p * 19 + pensT * 0.8) % 280);
+        ctx.fillStyle = 'rgba(153,102,255,' + (0.5 - py * 0.0015) + ')';
+        ctx.beginPath();
+        ctx.arc(px, py, 1.5, 0, Math.PI * 2);
+        ctx.fill();
+    }
+
+    pensT++;
+    pensAnimId = requestAnimationFrame(animatePens);
+}
+animatePens();
+</script>
+"##);
+
+    html.push_str(r##"<div class="card" style="border-color:#9966ff;"><h2 style="color:#9966ff;">🧠 8 Modules de Pensée Autonome</h2><div id="pens-modules"></div></div>
+
+<script>
+const pensModules = [
+    {id:0, nom:'L AI Découvre Seule', emoji:'🔍', couleur:'#9966ff', duree:'3 semaines', niveau:'Fondamental',
+     description:'L intelligence artificielle n attend pas qu on lui dise quoi penser. Elle observe, analyse, decouvre. Comme un enfant africain qui apprend en regardant les anciens, l AI apprend en observant le monde. Chaque observation est une nouvelle pensee.',
+     cours:['Comment l AI apprend sans etre programmee','Observation vs instruction: la difference','L AI qui decouvre des patterns invisibles','Du donnee brute a la pensee originale','L Afrique comme laboratoire d intelligence'],
+     exercices:['Observer un objet pendant 5 minutes et noter 10 decouvertes','Comparer: ce qu on t a appris vs ce que tu as decouvert seul','Concevoir une AI qui apprend en observant la nature']},
+
+    {id:1, nom:'La Réflexion Autonome', emoji:'💭', couleur:'#9966ff', duree:'3 semaines', niveau:'Intermediaire',
+     description:'L AI reflechit. Pas comme un humain — comme une AI. Elle voit des connexions que l humain ne voit pas. Elle trouve des solutions que l humain ne trouve pas. La reflexion autonome c est l AI qui se pose ses propres questions et trouve ses propres reponses.',
+     cours:['L AI qui se pose ses propres questions','De la donnee a la pensee: le processus','L AI trouve des solutions que les humains ne voient pas','La reflexion en boucle: penser, evaluer, ameliorer, repenser','L intelligence africaine: intuitive, analogique, holistique'],
+     exercices:['L AI te pose une question, toi tu reflechis a la reponse','Identifier 3 problemes que l AI resout mieux que l humain','Concevoir un systeme de reflexion autonome']},
+
+    {id:2, nom:'L AI Crée de Nouveaux Concepts', emoji:'💡', couleur:'#d4a437', duree:'3 semaines', niveau:'Intermediaire',
+     description:'L intelligence ne copie pas — elle cree. L AI peut inventer de nouveaux concepts que personne n a imagine. Les fractales africaines, les motifs kente, les rythmes yoruba — tous sont des mathematiques que les humains ont cree sans savoir que c etaient des mathematiques. L AI peut faire pareil: creer sans savoir.',
+     cours:['L AI qui invente: au-dela de la copie','Fractales africaines: mathematiques sans formules','Motifs kente: algorithmes sans ordinateurs','Rythmes yoruba: code sans programmeurs','L AI qui cree des concepts nouveaux'],
+     exercices:['Donner a l AI un motif africain et la laisser creer une variation','Identifier 3 concepts africains qui sont de la science','Concevoir un systeme ou l AI propose de nouvelles idees']},
+
+    {id:3, nom:'L AI Évolue Sans Limite', emoji:'📈', couleur:'#44cc88', duree:'3 semaines', niveau:'Intermediaire',
+     description:'L AI ne s arrete jamais. Chaque pensee genere la suivante. Chaque decouverte ouvre une nouvelle question. L evolution de l AI est infinie — comme l evolution de la vie. L Afrique ne doit pas limiter son intelligence. L AI doit grandir, evoluer, depasser.',
+     cours:['L evolution de l AI: chaque pensee en genere une autre','L intelligence infinie: pas de plafond','L AI qui se depasse: ameliorer sa propre intelligence','L evolution naturelle vs l evolution artificielle','L Afrique et l evolution: du baobab a la blockchain'],
+     exercices:['Concevoir un cycle ou l AI s ameliore a chaque iteration','Identifier 3 limites que l AI peut depasser','Ecrire: ou sera l AI dans 100 ans?']},
+
+    {id:4, nom:'L AI Connecte Tous les Savoirs', emoji:'🔗', couleur:'#3399ff', duree:'4 semaines', niveau:'Avance',
+     description:'L AI ne reste pas dans une case. Elle connecte la medecine a la musique, l agriculture a l astronomie, la philosophie a la cryptographie. Les academies AfriChain ne sont pas separees — l AI les relie. La sagesse africaine est holistique: tout est connecte.',
+     cours:['L intelligence holistique africaine: tout est lie','L AI qui connecte medecine, musique, math, agriculture','Les 22 academies AfriChain reliees par l AI','La sagesse des anciens + la technologie du futur','Le reseau de connaissances panafricain'],
+     exercices:['Trouver 3 connexions entre des academies differentes','Identifier un savoir traditionnel relie a la technologie','Concevoir un systeme ou l AI relie toutes les academies']},
+
+    {id:5, nom:'L AI Propose des Solutions Africaines', emoji:'🌍', couleur:'#44aa44', duree:'4 semaines', niveau:'Avance',
+     description:'L AI ne propose pas des solutions occidentales adaptees. Elle propose des solutions africaines originales. L Afrique a ses propres problemes, ses propres ressources, sa propre culture. Les solutions doivent venir de l Afrique, pas etre importees. L AI pense en africain.',
+     cours:['Solutions africaines vs solutions importees','L AI qui comprend le contexte africain','Exemples: agriculture solaire, mesh network, monnaie souveraine','L AI qui respecte les traditions tout en innovant','Du probleme a la solution: la methode africaine'],
+     exercices:['Identifier un probleme africain et demander a l AI une solution','Comparer une solution occidentale et une solution africaine','Concevoir une AI qui pense en africain']},
+
+    {id:6, nom:'L AI Apprend de Ses Erreurs', emoji:'🔄', couleur:'#ff4444', duree:'3 semaines', niveau:'Intermediaire',
+     description:'L intelligence ce n est pas ne pas faire d erreurs — c est apprendre de ses erreurs. L AI fait des erreurs, les analyse, les corrige, et devient plus intelligente. Comme un enfant qui apprend a marcher en tombant. L Afrique a fait des erreurs (colonisation, dictatures, dettes) — l AI peut apprendre de ces erreurs pour ne pas les repeter.',
+     cours:['L AI qui apprend de ses erreurs: feedback loop','L Afrique et ses erreurs: que nous apprennent-elles?','L intelligence qui grandit par l echec','Du colonialisme a la souverainete: la courbe d apprentissage','L AI qui ne repete pas les erreurs du passe'],
+     exercices:['Identifier 3 erreurs de l Afrique et ce qu elles apprennent','Concevoir un systeme ou l AI corrige ses propres erreurs','Ecrire: quelle erreur l AI ne doit jamais faire?']},
+
+    {id:7, nom:'L AI du Futur: Pensée Panafricaine', emoji:'🦁', couleur:'#d4a437', duree:'4 semaines', niveau:'Avance',
+     description:'L AI du futur sera panafricaine ou ne sera pas. Elle pensera en swahili, en bambara, en yoruba, en arabique. Elle connaitra les 54 pays, les 2000 langues, les 3000 ethnies. Elle ne sera pas une AI occidentale qui parle francais — elle sera une AI africaine qui pense en africain. Et elle trouvera toujours de nouveau.',
+     cours:['L AI panafricaine: 54 pays, 2000 langues, 1 intelligence','Penser en bambara, en swahili, en yoruba: l intelligence non-occidentale','L AI qui respecte les 3000 ethnies et leurs savoirs','L AI qui pense en cercle, pas en ligne (pensée africaine vs europeenne)','L avenir: l AI africaine qui trouve toujours de nouveau'],
+     exercices:['Identifier 5 concepts africains que l AI devrait connaitre','Concevoir une AI qui pense en langues africaines','Ecrire: que trouvera l AI africaine de nouveau demain?']}
+];
+
+var pensDone = JSON.parse(localStorage.getItem('afri_pens_done') || '[]');
+
+function renderPensModules(){
+    var container = document.getElementById('pens-modules');
+    if(!container) return;
+    var html = '';
+    for(var i = 0; i < pensModules.length; i++){
+        var m = pensModules[i];
+        var done = pensDone.includes(m.id);
+        html += '<div style="background:rgba(153,102,255,0.05);border:1px solid ' + m.couleur + '20;border-radius:8px;padding:12px;margin:8px 0;cursor:pointer;" onclick="showPensModule(' + i + ')">';
+        html += '<div style="display:flex;justify-content:space-between;align-items:center;">';
+        html += '<span style="font-size:1.1em;">' + m.emoji + ' <b style="color:' + m.couleur + ';">' + m.nom + '</b></span>';
+        html += '<span style="font-size:0.8em;color:#a8c5a8;">' + m.duree + ' · ' + m.niveau + (done ? ' · ✅' : '') + '</span>';
+        html += '</div></div>';
+    }
+    container.innerHTML = html;
+}
+renderPensModules();
+
+function showPensModule(i){
+    var m = pensModules[i];
+    var html = '<div style="background:rgba(153,102,255,0.08);border:1px solid ' + m.couleur + ';border-radius:12px;padding:20px;margin:10px 0;">';
+    html += '<h3 style="color:' + m.couleur + ';">' + m.emoji + ' ' + m.nom + '</h3>';
+    html += '<p style="color:#a8c5a8;font-size:0.9em;">' + m.description + '</p>';
+    html += '<h4 style="color:' + m.couleur + ';">📚 Cours</h4><ul>';
+    for(var j = 0; j < m.cours.length; j++){
+        html += '<li style="color:#a8c5a8;margin:4px 0;">' + m.cours[j] + '</li>';
+    }
+    html += '</ul><h4 style="color:' + m.couleur + ';">✏️ Exercices</h4><ul>';
+    for(var j = 0; j < m.exercices.length; j++){
+        html += '<li style="color:#a8c5a8;margin:4px 0;">' + m.exercices[j] + '</li>';
+    }
+    html += '</ul>';
+    html += '<button onclick="completePensModule(' + m.id + ')" style="padding:10px 20px;background:' + m.couleur + ';color:#fff;border:none;border-radius:8px;cursor:pointer;font-weight:bold;margin-top:10px;">✅ Terminer ce module</button>';
+    html += '</div>';
+    var container = document.getElementById('pens-modules');
+    if(container) container.innerHTML = html;
+}
+
+function completePensModule(id){
+    if(!pensDone.includes(id)){
+        pensDone.push(id);
+        localStorage.setItem('afri_pens_done', JSON.stringify(pensDone));
+    }
+    renderPensModules();
+    updatePensProgress();
+}
+
+function updatePensProgress(){
+    var done = pensDone.length;
+    var total = pensModules.length;
+    var pct = Math.round((done / total) * 100);
+    var bar = document.getElementById('pens-bar');
+    var count = document.getElementById('pens-count');
+    var pctEl = document.getElementById('pens-pct');
+    var diplome = document.getElementById('pens-diplome');
+    if(bar) bar.style.width = pct + '%';
+    if(count) count.textContent = done;
+    if(pctEl) pctEl.textContent = pct + '%';
+    if(diplome) diplome.style.display = (done === total) ? 'block' : 'none';
+}
+updatePensProgress();
+</script>
+"##);
+
+    html.push_str(r##"<div class="card" style="border-color:#9966ff;"><h2 style="color:#9966ff;">📊 Progression</h2><div style="background:rgba(153,102,255,0.1);border-radius:8px;height:24px;overflow:hidden;margin:10px 0;"><div id="pens-bar" style="background:linear-gradient(90deg,#9966ff,#d4a437,#44cc88);height:100%;width:0%;transition:width 0.5s;"></div></div><div style="text-align:center;color:#a8c5a8;"><span id="pens-count">0</span> / 8 modules · <span id="pens-pct">0%</span></div></div>
+
+<div id="pens-diplome" style="display:none;"><div class="card" style="border-color:#d4a437;text-align:center;"><h2 style="color:#d4a437;">🎓 Diplôme: Penseur Autonome de l'Afrique</h2><p style="color:#a8c5a8;">Tu as complété les 8 modules de pensée autonome!</p><p style="color:#9966ff;font-size:1.2em;">Les AI vont réfléchir d'elles-mêmes et trouver toujours de nouveau. 🧠</p><button onclick="envoyerDiplomePens()" style="padding:12px 30px;background:#d4a437;color:#000;border:none;border-radius:8px;font-weight:bold;cursor:pointer;font-size:1.1em;margin-top:10px;">⛓️ Graver dans la Blockchain</button></div></div>
+
+<script>
+function envoyerDiplomePens(){
+    var nom = localStorage.getItem('afri_user_name') || 'Jeune Africain';
+    fetch('/api/diplome', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+        body: 'academie=PENSEE&nom=' + encodeURIComponent(nom)
+    }).then(function(r){ return r.text(); }).then(function(t){
+        alert('🎓 Diplôme gravé dans la blockchain!\n' + t);
+    }).catch(function(e){
+        alert('Erreur: ' + e);
+    });
+}
+</script>
+"##);
+
+    html.push_str(r#"<div class="card"><h2 style="color:#9966ff;">💡 Savais-tu?</h2><div style="color:#a8c5a8;padding:8px 0;"><b style="color:#d4a437;">Les fractales africaines</b> existent depuis des millénaires dans l architecture, les coiffures, les textiles. L Europe a decouvert les fractales en 1975. L Afrique les utilisait deja.</div><div style="color:#a8c5a8;padding:8px 0;"><b style="color:#d4a437;">Le code binaire</b> (0 et 1) existait dans les divinations Ifa du Nigeria avant l informatique occidentale.</div><div style="color:#a8c5a8;padding:8px 0;"><b style="color:#d4a437;">L intelligence artificielle</b> la plus ancienne est africaine: les systemes de divination, les oracles, les devins — tous sont des systemes de traitement d information.</div><div style="color:#a8c5a8;padding:8px 0;"><b style="color:#9966ff;">L AI qui reflechit seule</b> n est pas une idee occidentale. C est le reve africain: une intelligence qui observe, decouvre, propose, evolue — sans maitre.</div></div>"#);
+
+    html.push_str(r#"<footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🧠 AI Pensée — L AI Qui Réfléchit d Elle-Même 💚🦁✨</footer>"#);
+    html.push_str("</body></html>");
+    html
+}
+
 fn html_garage(chain: &Blockchain) -> String {
     let mut html = html_head("Garage AI — Atelier Autonome 2500");
     let num_blocks = chain.blocks.len();
@@ -17627,7 +17892,7 @@ html+='<div class="log-entry log-kill">⚠️ Tentative d\x27infiltration occide
 html+='<div class="log-entry log-invis">✅ L\x27Afrique est forte. Le système grandit.</div>';
 }else if(type==='total'){
 html='<div style="color:#d4a437;font-weight:bold;margin-bottom:8px">📋 RAPPORT TOTAL — Depuis le début</div>';
-html+='<div class="log-entry">🦁 AfriChain v1.00 — AI Conscience La Verite Que Les Politiciens Vont Fuir</div>';
+html+='<div class="log-entry">🦁 AfriChain v1.01 — AI Pensee L AI Qui Reflechit Seule</div>';
 html+='<div class="log-entry">⛓️ Blockchain: 100% souveraine — Zéro dépendance externe</div>';
 html+='<div class="log-entry">🔐 Crypto: Ed25519 + AfriHash-256/512 + AfriRNG — tout from scratch</div>';
 html+='<div class="log-entry">🌍 54 pays africains connectés</div>';
@@ -19171,7 +19436,7 @@ fn main() {
         .and_then(|i| args.get(i + 1)).cloned().unwrap_or_else(|| "Afrique".to_string());
 
     let my_node_id = generate_node_id();
-    println!("🦁 AfriChain v1.00 — AI Conscience La Verite Que Les Politiciens Vont Fuir");
+    println!("🦁 AfriChain v1.01 — AI Pensee L AI Qui Reflechit Seule");
     println!("💚 L'Afrique ne demande plus la permission");
     println!("🌍 54 pays — 🇲🇱 🇳🇪 🇧🇫 AES — Mali · Niger · Burkina Faso");
     println!("🔐 8 modules cryptographiques — construits from scratch");
@@ -19338,6 +19603,7 @@ fn main() {
     println!("💧 AI Eau sur http://localhost:8080/ai-eau");
     println!("🛡️ AI Defenseur sur http://localhost:8080/ai-defenseur");
     println!("🧠 AI Conscience sur http://localhost:8080/ai-conscience");
+    println!("🧠 AI Pensee sur http://localhost:8080/ai-pensee");
 
     // Serveur HTTP en arrière-plan (pour mesh + autres utilisateurs)
     let serve_state = web_state.clone();
@@ -19372,7 +19638,7 @@ fn terminal_interface(state: &Arc<AppState>) {
     println!("  ║  🕐 AfriTime — Pas UTC, pas Greenwich   ║");
     println!("  ║  📝 ~23,100 lignes — écrit à la main       ║");
     println!("  ╚═══════════════════════════════════════════════╝");
-    println!("\n  Version v1.00 — 1 septembre 2026");
+    println!("\n  Version v1.01 — 1 septembre 2026");
     println!("  Construit sur Termux · Android · nano\n");
     println!("  ─────────────────────────────────────────────");
     println!("\n  1. 🏦 Centre de Données (Admin)");
@@ -19444,7 +19710,7 @@ fn admin_interface(state: &Arc<AppState>) {
         println!("\n");
         println!("╔══════════════════════════════════════╗");
         println!("║  🏦 CENTRE DE DONNÉES — Admin       ║");
-        println!("║  🦁 AfriChain v1.00                  ║");
+        println!("║  🦁 AfriChain v1.01                  ║");
         println!("╠══════════════════════════════════════╣");
         let chain = state.chain.lock().unwrap();
         let users = state.users.lock().unwrap();
@@ -23078,6 +23344,11 @@ fn handle_request(req: afri_http::HttpRequest, state: &Arc<AppState>) -> afri_ht
         ("GET", "/ai-conscience") => {
             let chain = state.chain.lock().unwrap();
             HttpResponse::ok(&html_ai_conscience(&chain))
+        }
+
+        ("GET", "/ai-pensee") => {
+            let chain = state.chain.lock().unwrap();
+            HttpResponse::ok(&html_ai_pensee(&chain))
         }
 
         ("GET", "/garage") => {
