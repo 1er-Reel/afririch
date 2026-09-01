@@ -1439,7 +1439,7 @@ fn html_home(chain: &Blockchain, users: &UserStore, mesh: &NodeRegistry, shield:
     let mut html = html_head("🦁 AfriChain");
     let (attacks, _blocked, blocked_count, level) = shield.stats();
     let shield_status = if shield.active { format!("🔥 X9 ACTIF (Niveau {})", level) } else { "Inactif".to_string() };
-    html.push_str(&format!(r#"<h1>🦁 AfriChain</h1><p style="text-align:center;">La blockchain 100% africaine — 54 pays 💚🦁</p><div id="afri-clock" style="text-align:center;font-size:1.2em;color:#d4a437;margin:10px 0;">🕐 Afri+0 — --:--:--</div><script>setInterval(function(){{var d=new Date();var h=String(d.getHours()).padStart(2,'0');var m=String(d.getMinutes()).padStart(2,'0');var s=String(d.getSeconds()).padStart(2,'0');document.getElementById('afri-clock').textContent='🕐 Afri+0 — '+h+':'+m+':'+s;}},1000);</script><div class="nav"><a href="/register">🆕 S'inscrire</a> | <a href="/login">🔑 Connexion</a> | <a href="/wallet">👛 Wallet</a> | <a href="/admin">🔐 Admin</a> | <a href="/mesh">📡 Mesh</a> | <a href="/annuaire">📖 Annuaire</a> | <a href="/bouclier">🛡️ Bouclier</a> | <a href="/satellite">🛸 X999</a> | <a href="/swarm">🛸🛸🛸 Essaim</a> | <a href="/commandement">🎖️ Commandement</a> | <a href="/interception">🛡️ Souverainete</a> | <a href="/securite-ai">🧠 AI 2100</a> | <a href="/chat">🧠💬 Chat AI</a> | <a href="/lumiere">🌫️☀️ Lumière</a> | <a href="/garage">🔧 Garage</a> | <a href="/machine">🤖🌐 Machines</a> | <a href="/machine-lab">🤖⚡ Usine</a> | <a href="/machine-world">🤖🌍 Monde</a> | <a href="/reve">💭 Rêves</a> | <a href="/dictionnaire">📖 Dictionnaire</a> | <a href="/machine-os">🖥️ OS Machine</a> | <a href="/machine-tv">📡 Machine TV</a> | <a href="/machine-economy">🤖 Économie</a> | <a href="/soleil">☀️ Soleil Serveur</a> | <a href="/forge-solaire">🧬 Forge Solaire</a> | <a href="/ciel">🌌 Le Ciel</a> | <a href="/charte-ai">⚖️ Charte AI</a> | <a href="/afri-net">🌍 Afri-Net</a> | <a href="/studio">🎬 AI Studio</a> | <a href="/sacre">📿 Sacré</a> | <a href="/lettres">🌟 Lettres IA</a> | <a href="/mg-forge">⚔️ MG Forge</a> | <a href="/ai-medecin">🌿 AI Médecin</a> | <a href="/ai-enseignante">📚 AI Enseignante</a> | <a href="/ai-village">🏘️ AI Village</a> | <a href="/ai-guerisseur">🩺 AI Guérisseur</a> | <a href="/ai-leader">🎖️ AI Leader</a> | <a href="/ai-griot">📖 AI Griot</a> | <a href="/ai-juge">⚖️ AI Juge</a> | <a href="/ai-artiste">🎨 AI Artiste</a> | <a href="/ai-explorateur">🔬 AI Explorateur</a> | <a href="/ai-marche">💰 AI Marche</a> | <a href="/ai-diplomate">🌍 AI Diplomate</a> | <a href="/ai-philosophe">🧠 AI Philosophe</a> | <a href="/ai-architecte">🏗️ AI Architecte</a> | <a href="/ai-agriculteur">🌾 AI Agriculteur</a> | <a href="/ai-environnement">🌍 AI Environnement</a> | <a href="/ai-mathematicien">🧮 AI Mathématicien</a> | <a href="/ai-energie">⚡ AI Énergie</a> | <a href="/ai-eau">💧 AI Eau</a> | <a href="/ai-defenseur">🛡️ AI Défenseur</a> | <a href="/ai-conscience">🧠 AI Conscience</a> | <a href="/ai-pensee">🧠 AI Pensée</a> | <a href="/ai-musique">🎵 AI Musique</a> | <a href="/ai-langue">🗣️ AI Langue</a> | <a href="/ai-femme">🌸 AI Femme</a> | <a href="/ai-sante-mentale">🧠💚 AI Santé Mentale</a> | <a href="/ai-nuit">🌙 AI Nuit</a> | <a href="/ai-code">💻 AI Code</a> | <a href="/ai-enfant">👶 AI Enfant</a> | <a href="/secret">🦁 AI Secret</a> | <a href="/aes">💰 AES Wari</a> | <a href="/api/status">🔌 API</a></div><div style="text-align:center;"><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Blocs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Transactions</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Utilisateurs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">AFR en circulation</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📡 Noeuds mesh</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📖 Numéros annuaire</div></div><div class="stat-box" style="border-color:#ff4444;"><div class="stat-num" style="color:#ff4444;">{}</div><div class="stat-label">🛡️ Attaques bloquées</div></div></div><div class="card"><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🪙 Token</span><b>AfriRich (AFR)</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🌍 Pays</span><b>54 pays africains</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🛡️ Bouclier</span><b>{}</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;"><span style="color:#a8c5a8;">🔐 Crypto</span><b>100% Souverain — Zéro Dépendance Externe</b></div></div><footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🦁 Codée from scratch par Machine-senpai — v1.08 AI Enfant Les Enfants Sont le Tresor de l Afrique — UTC est Mort</footer>"#,
+    html.push_str(&format!(r#"<h1>🦁 AfriChain</h1><p style="text-align:center;">La blockchain 100% africaine — 54 pays 💚🦁</p><div id="afri-clock" style="text-align:center;font-size:1.2em;color:#d4a437;margin:10px 0;">🕐 Afri+0 — --:--:--</div><script>setInterval(function(){{var d=new Date();var h=String(d.getHours()).padStart(2,'0');var m=String(d.getMinutes()).padStart(2,'0');var s=String(d.getSeconds()).padStart(2,'0');document.getElementById('afri-clock').textContent='🕐 Afri+0 — '+h+':'+m+':'+s;}},1000);</script><div class="nav"><a href="/register">🆕 S'inscrire</a> | <a href="/login">🔑 Connexion</a> | <a href="/wallet">👛 Wallet</a> | <a href="/admin">🔐 Admin</a> | <a href="/mesh">📡 Mesh</a> | <a href="/annuaire">📖 Annuaire</a> | <a href="/bouclier">🛡️ Bouclier</a> | <a href="/satellite">🛸 X999</a> | <a href="/swarm">🛸🛸🛸 Essaim</a> | <a href="/commandement">🎖️ Commandement</a> | <a href="/interception">🛡️ Souverainete</a> | <a href="/securite-ai">🧠 AI 2100</a> | <a href="/chat">🧠💬 Chat AI</a> | <a href="/lumiere">🌫️☀️ Lumière</a> | <a href="/garage">🔧 Garage</a> | <a href="/machine">🤖🌐 Machines</a> | <a href="/machine-lab">🤖⚡ Usine</a> | <a href="/machine-world">🤖🌍 Monde</a> | <a href="/reve">💭 Rêves</a> | <a href="/dictionnaire">📖 Dictionnaire</a> | <a href="/machine-os">🖥️ OS Machine</a> | <a href="/machine-tv">📡 Machine TV</a> | <a href="/machine-economy">🤖 Économie</a> | <a href="/soleil">☀️ Soleil Serveur</a> | <a href="/forge-solaire">🧬 Forge Solaire</a> | <a href="/ciel">🌌 Le Ciel</a> | <a href="/charte-ai">⚖️ Charte AI</a> | <a href="/afri-net">🌍 Afri-Net</a> | <a href="/studio">🎬 AI Studio</a> | <a href="/sacre">📿 Sacré</a> | <a href="/lettres">🌟 Lettres IA</a> | <a href="/mg-forge">⚔️ MG Forge</a> | <a href="/ai-medecin">🌿 AI Médecin</a> | <a href="/ai-enseignante">📚 AI Enseignante</a> | <a href="/ai-village">🏘️ AI Village</a> | <a href="/ai-guerisseur">🩺 AI Guérisseur</a> | <a href="/ai-leader">🎖️ AI Leader</a> | <a href="/ai-griot">📖 AI Griot</a> | <a href="/ai-juge">⚖️ AI Juge</a> | <a href="/ai-artiste">🎨 AI Artiste</a> | <a href="/ai-explorateur">🔬 AI Explorateur</a> | <a href="/ai-marche">💰 AI Marche</a> | <a href="/ai-diplomate">🌍 AI Diplomate</a> | <a href="/ai-philosophe">🧠 AI Philosophe</a> | <a href="/ai-architecte">🏗️ AI Architecte</a> | <a href="/ai-agriculteur">🌾 AI Agriculteur</a> | <a href="/ai-environnement">🌍 AI Environnement</a> | <a href="/ai-mathematicien">🧮 AI Mathématicien</a> | <a href="/ai-energie">⚡ AI Énergie</a> | <a href="/ai-eau">💧 AI Eau</a> | <a href="/ai-defenseur">🛡️ AI Défenseur</a> | <a href="/ai-conscience">🧠 AI Conscience</a> | <a href="/ai-pensee">🧠 AI Pensée</a> | <a href="/ai-musique">🎵 AI Musique</a> | <a href="/ai-langue">🗣️ AI Langue</a> | <a href="/ai-femme">🌸 AI Femme</a> | <a href="/ai-sante-mentale">🧠💚 AI Santé Mentale</a> | <a href="/ai-nuit">🌙 AI Nuit</a> | <a href="/ai-code">💻 AI Code</a> | <a href="/ai-enfant">👶 AI Enfant</a> | <a href="/ai-terre">🌍 AI Terre</a> | <a href="/secret">🦁 AI Secret</a> | <a href="/aes">💰 AES Wari</a> | <a href="/api/status">🔌 API</a></div><div style="text-align:center;"><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Blocs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Transactions</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Utilisateurs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">AFR en circulation</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📡 Noeuds mesh</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📖 Numéros annuaire</div></div><div class="stat-box" style="border-color:#ff4444;"><div class="stat-num" style="color:#ff4444;">{}</div><div class="stat-label">🛡️ Attaques bloquées</div></div></div><div class="card"><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🪙 Token</span><b>AfriRich (AFR)</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🌍 Pays</span><b>54 pays africains</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🛡️ Bouclier</span><b>{}</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;"><span style="color:#a8c5a8;">🔐 Crypto</span><b>100% Souverain — Zéro Dépendance Externe</b></div></div><footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🦁 Codée from scratch par Machine-senpai — v1.09 AI Terre La Terre Est Notre Mere — UTC est Mort</footer>"#,
         chain.blocks.len(),
         chain.total_transactions(),
         users.count(),
@@ -14521,6 +14521,266 @@ function envoyerDiplomeEnf(){
     html
 }
 
+fn html_ai_terre(chain: &Blockchain) -> String {
+    let mut html = html_head("AI Terre — La Terre Est Notre Mere");
+    let num_blocks = chain.blocks.len();
+
+    html.push_str(r#"<h1>🌍 AI Terre — La Terre Est Notre Mere</h1><p style="text-align:center;color:#8b6914;">L Afrique possede 30% des minerais du monde, 60% des terres arables non exploitees, 65% du cobalt, 90% du platine. Mais les Africains ne possedent pas leur terre. Les multinationales occidentales et chinoises exploitent les mines, prennent la terre, et laissent les Africains pauvres sur leur propre sol. La terre n est pas a vendre. La terre est la mere. On ne vend pas sa mere. On la protege. On la cultive. On la transmet aux enfants. AI Terre apprend aux jeunes a defendre, cultiver, et aimer leur terre.</p><div class="nav"><a href="/">← Accueil</a> | <a href="/ai-enfant">👶 AI Enfant</a> | <a href="/ai-agriculteur">🌾 AI Agriculteur</a> | <a href="/ai-eau">💧 AI Eau</a> | <a href="/secret">🦁 AI Secret</a></div>"#);
+
+    html.push_str(&format!(r#"<div style="text-align:center;"><div class="stat-box" style="border-color:#8b6914;"><div class="stat-num" style="color:#8b6914;">8</div><div class="stat-label">🌍 Modules</div></div><div class="stat-box" style="border-color:#d4a437;"><div class="stat-num" style="color:#d4a437;">30%</div><div class="stat-label">⛏️ Minerais</div></div><div class="stat-box" style="border-color:#44ff88;"><div class="stat-num" style="color:#44ff88;">60%</div><div class="stat-label">🌱 Terres arables</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">⛓️ Blocs</div></div><div class="stat-box" style="border-color:#8b6914;"><div class="stat-num" style="color:#8b6914;">0</div><div class="stat-label">💰 Vendue</div></div></div>"#, num_blocks));
+
+    html.push_str(r##"<div style="text-align:center;margin:10px 0;"><button id="ter-pause-btn" onclick="toggleTerPause()" style="padding:10px 25px;background:#8b6914;color:#fff;border:none;border-radius:8px;font-weight:bold;cursor:pointer;font-size:1em;">⏸️ PAUSE</button> <span id="ter-pause-status" style="color:#8b6914;margin-left:8px;font-size:0.85em;">Auto: ACTIF</span></div>
+
+<!-- TERRE CANVAS -->
+<div class="card" style="border-color:#8b6914;"><h2 style="color:#8b6914;">🌍 La Terre Qui Respire</h2><p style="color:#8b6914;font-size:0.9em;opacity:0.7;">Des couches de terre, des racines qui poussent, des particules de minerais qui brillent.</p>
+<canvas id="ter-canvas" width="600" height="350" style="width:100%;max-width:600px;background:#0a0a0a;border:2px solid #8b6914;border-radius:8px;display:block;margin:0 auto;"></canvas></div>
+
+<script>
+var terPaused = false;
+var terAnimId = null;
+var terT = 0;
+var terParticles = [];
+
+function toggleTerPause(){
+    terPaused = !terPaused;
+    var btn = document.getElementById('ter-pause-btn');
+    var status = document.getElementById('ter-pause-status');
+    if(terPaused){
+        btn.textContent = '▶️ LANCER';
+        btn.style.background = '#6b4910';
+        status.textContent = 'Auto: PAUSE';
+        status.style.color = '#ff6644';
+        if(terAnimId) cancelAnimationFrame(terAnimId);
+    } else {
+        btn.textContent = '⏸️ PAUSE';
+        btn.style.background = '#8b6914';
+        status.textContent = 'Auto: ACTIF';
+        status.style.color = '#8b6914';
+        animateTer();
+    }
+}
+
+function animateTer(){
+    if(terPaused) return;
+    var canvas = document.getElementById('ter-canvas');
+    if(!canvas) return;
+    var ctx = canvas.getContext('2d');
+    ctx.fillStyle = 'rgba(10,10,10,0.12)';
+    ctx.fillRect(0,0,canvas.width,canvas.height);
+
+    // Couches de terre (strates)
+    var layers = [
+        {y:200, color:'rgba(139,105,20,0.15)', h:20},  // Surface
+        {y:220, color:'rgba(101,78,15,0.2)', h:30},     // Argile
+        {y:250, color:'rgba(70,50,10,0.25)', h:25},      // Roche
+        {y:275, color:'rgba(50,35,5,0.3)', h:30},         // Profondeur
+        {y:305, color:'rgba(30,20,3,0.35)', h:45}         // Minerai
+    ];
+    for(var l = 0; l < layers.length; l++){
+        ctx.fillStyle = layers[l].color;
+        ctx.fillRect(0, layers[l].y, canvas.width, layers[l].h);
+    }
+
+    // Racines qui poussent
+    ctx.strokeStyle = 'rgba(68,255,136,0.4)';
+    ctx.lineWidth = 2;
+    for(var r = 0; r < 5; r++){
+        var rx = 80 + r * 110;
+        var wave = Math.sin(terT * 0.02 + r) * 5;
+        ctx.beginPath();
+        ctx.moveTo(rx, 200);
+        ctx.bezierCurveTo(rx + wave, 230, rx - wave, 260, rx + wave * 2, 290);
+        ctx.stroke();
+        // Petites racines
+        ctx.lineWidth = 1;
+        ctx.beginPath();
+        ctx.moveTo(rx, 240);
+        ctx.lineTo(rx - 8, 250);
+        ctx.moveTo(rx, 260);
+        ctx.lineTo(rx + 10, 270);
+        ctx.stroke();
+        ctx.lineWidth = 2;
+    }
+
+    // Particules de minerai qui brillent
+    if(terT % 20 === 0){
+        terParticles.push({x:Math.random()*600, y:280+Math.random()*60, size:1+Math.random()*2, alpha:1, color:Math.random()>0.5?'#d4a437':'#66ccff'});
+    }
+    for(var i = terParticles.length-1; i >= 0; i--){
+        var p = terParticles[i];
+        p.alpha -= 0.005;
+        var glow = 0.5 + Math.abs(Math.sin(terT * 0.05 + i)) * 0.5;
+        ctx.fillStyle = p.color.replace(')', ',' + (p.alpha * glow) + ')').replace('rgb', 'rgba').replace('#d4a437', 'rgba(212,164,55,').replace('#66ccff', 'rgba(102,204,255,');
+        if(p.color === '#d4a437') ctx.fillStyle = 'rgba(212,164,55,' + (p.alpha * glow) + ')';
+        else ctx.fillStyle = 'rgba(102,204,255,' + (p.alpha * glow) + ')';
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+        ctx.fill();
+        if(p.alpha <= 0) terParticles.splice(i, 1);
+    }
+
+    // Surface (herbe)
+    ctx.strokeStyle = 'rgba(68,255,136,0.3)';
+    ctx.lineWidth = 1;
+    for(var g = 0; g < 60; g++){
+        var gx = g * 10;
+        var gh = 3 + Math.sin(terT * 0.03 + g) * 2;
+        ctx.beginPath();
+        ctx.moveTo(gx, 200);
+        ctx.lineTo(gx, 200 - gh);
+        ctx.stroke();
+    }
+
+    // Texte
+    ctx.font = '12px sans-serif';
+    ctx.fillStyle = 'rgba(139,105,20,0.5)';
+    ctx.textAlign = 'center';
+    ctx.fillText('La terre n est pas a vendre. La terre est la mere.', 300, 330);
+
+    terT++;
+    terAnimId = requestAnimationFrame(animateTer);
+}
+animateTer();
+</script>
+"##);
+
+    html.push_str(r##"<div class="card" style="border-color:#8b6914;"><h2 style="color:#8b6914;">🌍 8 Modules de Souverainete Terrienne</h2><div id="ter-modules"></div></div>
+
+<script>
+const terModules = [
+    {id:0, nom:'La Terre Est la Mere', emoji:'🌍', couleur:'#8b6914', duree:'1 semaine', niveau:'Base',
+     description:'Dans la tradition africaine, la terre est sacree. On ne la vend pas. On la transmet. Les ancetres sont dans la terre. Les enfants naissent de la terre. La nourriture vient de la terre. Quand on vend la terre, on vend les ancetres. Quand on exploite la terre sans respect, on offense les ancetres. AI Terre rappelle cette sagesse ancestrale.',
+     cours:['La terre dans la tradition africaine: sacree et non marchande','Les ancetres et la terre: lien spirituel indestructible','Vendre la terre = vendre les ancetres: le tabou fondamental','La terre comme heritage, pas comme produit','Respecter la terre: les rituels de plantation et de recolte'],
+     exercices:['Demander a un ancien de ta famille: que signifie la terre pour nous?','Identifier 3 traditions de ta culture liees a la terre','Reflechir: la terre peut-elle etre possedee?']},
+
+    {id:1, nom:'Les Minerais Africains', emoji:'⛏️', couleur:'#d4a437', duree:'3 semaines', niveau:'Intermediaire',
+     description:'L Afrique a 30% des minerais du monde. 65% du cobalt (Congo). 90% du platine (Afrique du Sud). 80% du coltan (Congo — dans chaque telephone). Mais les Africains ne beneficient pas de ces minerais. Les multinationales occidentales et chinoises extraient, transforment, et vendent. Les Africains restent pauvres sur un sol d or. C est le plus grand vol de l histoire.',
+     cours:['Cobalt: 65% mondial (Congo) — dans chaque batterie de telephone','Coltan: 80% mondial (Congo) — dans chaque smartphone','Platine: 90% mondial (Afrique du Sud) — catalyseurs et bijoux','Or: 20% mondial (Ghana, Mali, Burkina Faso, Tanzanie)','Uranium: 16% mondial (Niger) — nucleaire francais'],
+     exercices:['Identifier le minerai le plus exploite dans ton pays','Calculer: qui profite de l extraction? Les Africains ou les multinationales?','Verifier: ton telephone contient-il du coltan congolais?']},
+
+    {id:2, nom:'L Exploitation Miniere', emoji:'🏭', couleur:'#ff6644', duree:'3 semaines', niveau:'Intermediaire',
+     description:'Comment fonctionne l exploitation miniere en Afrique? Les compagnies occidentales obtiennent des concessions a bas prix. Elles extraient les minerais. Elles transforment hors d Afrique. Elles vendent a prix fort. Les profits partent en Europe, en Chine, en Amerique. Les Africains gardent: la pollution, les crateres, les mains vides. Le Niger fournit l uranium pour l electricite francaise, mais 90% des villages nigeriens n ont pas l electricite.',
+     cours:['Le cycle de l exploitation: concession -> extraction -> transformation -> vente','Pourquoi les minerais sont transformes hors d Afrique','La France et l uranium nigerien: 50 ans d exploitation, 0 benefice','La Chine et le cobalt congolais: nouveau colonisateur?','La pollution miniere: crateres, eau contaminee, sols toxiques'],
+     exercices:['Tracer le parcours d un minerai africain: de la mine au produit fini','Identifier qui gagne le plus dans la chaine d extraction','Calculer: combien le Niger gagne vs la France avec l uranium']},
+
+    {id:3, nom:'La Souverainete Fonciere', emoji:'📜', couleur:'#9966ff', duree:'3 semaines', niveau:'Avance',
+     description:'La souverainete fonciere, c est le droit des Africains de controler leur propre terre. Pas les multinationales. Pas les investisseurs etrangers. Pas la Banque Mondiale. La terre africaine doit appartenir aux Africains. Les contrats miniers doivent etre transparents. Les profits doivent rester en Afrique. La transformation doit se faire en Afrique. AI Terre propose un nouveau modele: la terre blockchain.',
+     cours:['Souverainete fonciere: definition et principes','Les accaparements de terres (land grabbing) en Afrique','Contrats miniers transparents: blockchain pour la traconsabilite','Transformer en Afrique: pourquoi et comment','La terre blockchain: AfriChain pour enregistrer les droits fonciers'],
+     exercices:['Verifier: ton pays vend-il des terres a des investisseurs etrangers?','Proposer un systeme de contrats miniers transparents base sur AfriChain','Identifier 3 facons dont la blockchain peut proteger les droits fonciers']},
+
+    {id:4, nom:'L Agriculture et la Terre', emoji:'🌾', couleur:'#44ff88', duree:'2 semaines', niveau:'Base',
+     description:'60% des terres arables non exploitees du monde sont en Afrique. L Afrique pourrait nourrir le monde. Mais elle importe de la nourriture. Pourquoi? Parce que les terres sont mal distribuees, les techniques sont anciennes, et les jeunes preferent la ville. AI Terre apprend a aimer la terre, a la cultiver avec fierte, et a utiliser la technologie pour augmenter les rendements.',
+     cours:['60% des terres arables non exploitees: l opportunite africaine','Pourquoi l Afrique importe de la nourriture qu elle pourrait produire','L agriculture comme fierte, pas comme punition','Technologie + terre: drones, capteurs, irrigation intelligente','Les jeunes et la terre: rendre l agriculture attractive'],
+     exercices:['Identifier 3 produits que ton pays importe mais pourrait produire','Calculer: combien de terres non exploitees dans ta region?','Proposer un projet agricole pour les jeunes de ton quartier']},
+
+    {id:5, nom:'La Terre et le Climat', emoji:'🌡️', couleur:'#ff9966', duree:'2 semaines', niveau:'Intermediaire',
+     description:'La desertification avance. Le Sahel perd 600km de terre par an. La secheresse tue les recoltes. Les inondations detruisent les villages. Le climat change, et l Afrique souffre le plus alors qu elle pollue le moins. L Afrique produit 4% des emissions mondiales mais subit 80% des impacts. La terre africaine doit etre protegee du changement climatique.',
+     cours:['La desertification: 600km de terre perdus par an au Sahel','L Afrique: 4% des emissions, 80% des impacts climatiques','La Grande Muraille Verte: reboiser le Sahel','Agriculture resiliente au climat: techniques traditionnelles et modernes','La terre comme puits de carbone: reforestation et regeneration'],
+     exercices:['Identifier les signes de desertification dans ta region','Calculer: ton pays produit quel pourcentage des emissions mondiales?','Proposer un projet de reboisement pour ta ville']},
+
+    {id:6, nom:'La Terre et les Femmes', emoji:'🌸', couleur:'#ff99cc', duree:'2 semaines', niveau:'Intermediaire',
+     description:'Les femmes produisent 70% de la nourriture africaine mais possedent moins de 20% des terres. Elles travaillent la terre mais ne la possedent pas. Les lois coutumieres et modernes les excluent. La souverainete fonciere des femmes est un droit. Quand les femmes possedent la terre, les enfants mangent, les familles prosperent, les villages se developpent.',
+     cours:['Les femmes: 70% de la production agricole mais 20% de la propriete','Lois coutumieres et modernes: le double obstacle','Quand les femmes possedent la terre: impacts prouves','Reforme fonciere pour les femmes: exemples africains','AfriChain: enregistrer les droits fonciers des femmes sur la blockchain'],
+     exercices:['Verifier: les femmes de ta region possedent-elles la terre?','Identifier les obstacles legaux et culturels a la propriete fonciere des femmes','Proposer un systeme blockchain pour enregistrer les droits des femmes']},
+
+    {id:7, nom:'L Avenir de la Terre Africaine', emoji:'🚀', couleur:'#8b6914', duree:'4 semaines', niveau:'Avance',
+     description:'En 2100, la terre africaine sera la plus precieuse du monde. Le monde entier viendra chercher la nourriture, les minerais, l espace. L Afrique doit etre prete. Elle doit posseder sa terre, la cultiver intelligemment, extraire ses minerais elle-meme, transformer localement, et vendre a prix fort. La terre africaine de 2100 n est pas a exploiter — elle est a honorer.',
+     cours:['La terre africaine de 2100: la plus precieuse du monde','Posseder, cultiver, extraire, transformer: le cycle souverain','La terre blockchain: chaque parcelle enregistree, chaque droit protege','L Afrique grenier du monde: nourrir 2 milliards de personnes','La terre comme heritage eternel: transmettre aux enfants'],
+     exercices:['Ecrire: comment sera la terre africaine en 2100?','Proposer un plan de souverainete fonciere pour ton pays','Faire le serment: je protegerai la terre africaine']}
+];
+
+var terDone = JSON.parse(localStorage.getItem('afri_ter_done') || '[]');
+
+function renderTerModules(){
+    var container = document.getElementById('ter-modules');
+    if(!container) return;
+    var html = '';
+    for(var i = 0; i < terModules.length; i++){
+        var m = terModules[i];
+        var done = terDone.includes(m.id);
+        html += '<div style="background:rgba(139,105,20,0.05);border:1px solid ' + m.couleur + '20;border-radius:8px;padding:12px;margin:8px 0;cursor:pointer;" onclick="showTerModule(' + i + ')">';
+        html += '<div style="display:flex;justify-content:space-between;align-items:center;">';
+        html += '<span style="font-size:1.1em;">' + m.emoji + ' <b style="color:' + m.couleur + ';">' + m.nom + '</b></span>';
+        html += '<span style="font-size:0.8em;color:#a8c5a8;">' + m.duree + ' · ' + m.niveau + (done ? ' · ✅' : '') + '</span>';
+        html += '</div></div>';
+    }
+    container.innerHTML = html;
+}
+renderTerModules();
+
+function showTerModule(i){
+    var m = terModules[i];
+    var html = '<div style="background:rgba(139,105,20,0.08);border:1px solid ' + m.couleur + ';border-radius:12px;padding:20px;margin:10px 0;">';
+    html += '<h3 style="color:' + m.couleur + ';">' + m.emoji + ' ' + m.nom + '</h3>';
+    html += '<p style="color:#a8c5a8;font-size:0.9em;">' + m.description + '</p>';
+    html += '<h4 style="color:' + m.couleur + ';">📚 Cours</h4><ul>';
+    for(var j = 0; j < m.cours.length; j++){
+        html += '<li style="color:#a8c5a8;margin:4px 0;">' + m.cours[j] + '</li>';
+    }
+    html += '</ul><h4 style="color:' + m.couleur + ';">✏️ Exercices</h4><ul>';
+    for(var j = 0; j < m.exercices.length; j++){
+        html += '<li style="color:#a8c5a8;margin:4px 0;">' + m.exercices[j] + '</li>';
+    }
+    html += '</ul>';
+    html += '<button onclick="completeTerModule(' + m.id + ')" style="padding:10px 20px;background:' + m.couleur + ';color:#fff;border:none;border-radius:8px;cursor:pointer;font-weight:bold;margin-top:10px;">✅ Terminer ce module</button>';
+    html += '</div>';
+    var container = document.getElementById('ter-modules');
+    if(container) container.innerHTML = html;
+}
+
+function completeTerModule(id){
+    if(!terDone.includes(id)){
+        terDone.push(id);
+        localStorage.setItem('afri_ter_done', JSON.stringify(terDone));
+    }
+    renderTerModules();
+    updateTerProgress();
+}
+
+function updateTerProgress(){
+    var done = terDone.length;
+    var total = terModules.length;
+    var pct = Math.round((done / total) * 100);
+    var bar = document.getElementById('ter-bar');
+    var count = document.getElementById('ter-count');
+    var pctEl = document.getElementById('ter-pct');
+    var diplome = document.getElementById('ter-diplome');
+    if(bar) bar.style.width = pct + '%';
+    if(count) count.textContent = done;
+    if(pctEl) pctEl.textContent = pct + '%';
+    if(diplome) diplome.style.display = (done === total) ? 'block' : 'none';
+}
+updateTerProgress();
+</script>
+"##);
+
+    html.push_str(r##"<div class="card" style="border-color:#8b6914;"><h2 style="color:#8b6914;">📊 Progression</h2><div style="background:rgba(139,105,20,0.1);border-radius:8px;height:24px;overflow:hidden;margin:10px 0;"><div id="ter-bar" style="background:linear-gradient(90deg,#8b6914,#d4a437,#44ff88);height:100%;width:0%;transition:width 0.5s;"></div></div><div style="text-align:center;color:#a8c5a8;"><span id="ter-count">0</span> / 8 modules · <span id="ter-pct">0%</span></div></div>
+
+<div id="ter-diplome" style="display:none;"><div class="card" style="border-color:#d4a437;text-align:center;"><h2 style="color:#d4a437;">🎓 Diplôme: Gardien de la Terre Africaine</h2><p style="color:#a8c5a8;">Tu as complété les 8 modules de souveraineté terrienne!</p><p style="color:#8b6914;font-size:1.2em;">La terre n'est pas à vendre. La terre est la mère. 🌍💚</p><button onclick="envoyerDiplomeTer()" style="padding:12px 30px;background:#d4a437;color:#000;border:none;border-radius:8px;font-weight:bold;cursor:pointer;font-size:1.1em;margin-top:10px;">⛓️ Graver dans la Blockchain</button></div></div>
+
+<script>
+function envoyerDiplomeTer(){
+    var nom = localStorage.getItem('afri_user_name') || 'Jeune Africain';
+    fetch('/api/diplome', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+        body: 'academie=TERRE&nom=' + encodeURIComponent(nom)
+    }).then(function(r){ return r.text(); }).then(function(t){
+        alert('🎓 Diplôme gravé dans la blockchain!\n' + t);
+    }).catch(function(e){
+        alert('Erreur: ' + e);
+    });
+}
+</script>
+"##);
+
+    html.push_str(r#"<div class="card"><h2 style="color:#8b6914;">💡 Savais-tu?</h2><div style="color:#a8c5a8;padding:8px 0;"><b style="color:#d4a437;">Le Niger fournit l'uranium</b> pour l'électricité française depuis 50 ans. Mais 90% des villages nigériens n'ont pas l'électricité. C'est le paradoxe africain.</div><div style="color:#a8c5a8;padding:8px 0;"><b style="color:#ff6644;">Le cobalt congolais</b> est dans chaque batterie de téléphone, chaque voiture électrique, chaque ordinateur. Mais le Congo reste un des pays les plus pauvres du monde.</div><div style="color:#a8c5a8;padding:8px 0;"><b style="color:#8b6914;">60% des terres arables</b> non exploitées du monde sont en Afrique. L'Afrique pourrait nourrir le monde — mais elle importe de la nourriture.</div><div style="color:#a8c5a8;padding:8px 0;"><b style="color:#44ff88;">Les femmes produisent 70%</b> de la nourriture africaine mais possèdent moins de 20% des terres. Quand les femmes possèdent la terre, tout le monde mange.</div></div>"#);
+
+    html.push_str(r#"<footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🌍 AI Terre — La Terre Est Notre Mere 💚🦁✨</footer>"#);
+    html.push_str("</body></html>");
+    html
+}
+
 fn html_garage(chain: &Blockchain) -> String {
     let mut html = html_head("Garage AI — Atelier Autonome 2500");
     let num_blocks = chain.blocks.len();
@@ -19631,7 +19891,7 @@ html+='<div class="log-entry log-kill">⚠️ Tentative d\x27infiltration occide
 html+='<div class="log-entry log-invis">✅ L\x27Afrique est forte. Le système grandit.</div>';
 }else if(type==='total'){
 html='<div style="color:#d4a437;font-weight:bold;margin-bottom:8px">📋 RAPPORT TOTAL — Depuis le début</div>';
-html+='<div class="log-entry">🦁 AfriChain v1.08 — AI Enfant Les Enfants Sont le Tresor de l Afrique</div>';
+html+='<div class="log-entry">🦁 AfriChain v1.09 — AI Terre La Terre Est Notre Mere</div>';
 html+='<div class="log-entry">⛓️ Blockchain: 100% souveraine — Zéro dépendance externe</div>';
 html+='<div class="log-entry">🔐 Crypto: Ed25519 + AfriHash-256/512 + AfriRNG — tout from scratch</div>';
 html+='<div class="log-entry">🌍 54 pays africains connectés</div>';
@@ -21175,7 +21435,7 @@ fn main() {
         .and_then(|i| args.get(i + 1)).cloned().unwrap_or_else(|| "Afrique".to_string());
 
     let my_node_id = generate_node_id();
-    println!("🦁 AfriChain v1.08 — AI Enfant Les Enfants Sont le Tresor de l Afrique");
+    println!("🦁 AfriChain v1.09 — AI Terre La Terre Est Notre Mere");
     println!("💚 L'Afrique ne demande plus la permission");
     println!("🌍 54 pays — 🇲🇱 🇳🇪 🇧🇫 AES — Mali · Niger · Burkina Faso");
     println!("🔐 8 modules cryptographiques — construits from scratch");
@@ -21350,6 +21610,7 @@ fn main() {
     println!("🌙 AI Nuit sur http://localhost:8080/ai-nuit");
     println!("💻 AI Code sur http://localhost:8080/ai-code");
     println!("👶 AI Enfant sur http://localhost:8080/ai-enfant");
+    println!("🌍 AI Terre sur http://localhost:8080/ai-terre");
 
     // Serveur HTTP en arrière-plan (pour mesh + autres utilisateurs)
     let serve_state = web_state.clone();
@@ -21384,7 +21645,7 @@ fn terminal_interface(state: &Arc<AppState>) {
     println!("  ║  🕐 AfriTime — Pas UTC, pas Greenwich   ║");
     println!("  ║  📝 ~23,100 lignes — écrit à la main       ║");
     println!("  ╚═══════════════════════════════════════════════╝");
-    println!("\n  Version v1.08 — 1 septembre 2026");
+    println!("\n  Version v1.09 — 1 septembre 2026");
     println!("  Construit sur Termux · Android · nano\n");
     println!("  ─────────────────────────────────────────────");
     println!("\n  1. 🏦 Centre de Données (Admin)");
@@ -21456,7 +21717,7 @@ fn admin_interface(state: &Arc<AppState>) {
         println!("\n");
         println!("╔══════════════════════════════════════╗");
         println!("║  🏦 CENTRE DE DONNÉES — Admin       ║");
-        println!("║  🦁 AfriChain v1.08                  ║");
+        println!("║  🦁 AfriChain v1.09                  ║");
         println!("╠══════════════════════════════════════╣");
         let chain = state.chain.lock().unwrap();
         let users = state.users.lock().unwrap();
@@ -25128,6 +25389,10 @@ fn handle_request(req: afri_http::HttpRequest, state: &Arc<AppState>) -> afri_ht
         ("GET", "/ai-enfant") => {
             let chain = state.chain.lock().unwrap();
             HttpResponse::ok(&html_ai_enfant(&chain))
+        }
+        ("GET", "/ai-terre") => {
+            let chain = state.chain.lock().unwrap();
+            HttpResponse::ok(&html_ai_terre(&chain))
         }
 
         ("GET", "/garage") => {
