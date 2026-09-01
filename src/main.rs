@@ -1439,7 +1439,7 @@ fn html_home(chain: &Blockchain, users: &UserStore, mesh: &NodeRegistry, shield:
     let mut html = html_head("🦁 AfriChain");
     let (attacks, _blocked, blocked_count, level) = shield.stats();
     let shield_status = if shield.active { format!("🔥 X9 ACTIF (Niveau {})", level) } else { "Inactif".to_string() };
-    html.push_str(&format!(r#"<h1>🦁 AfriChain</h1><p style="text-align:center;">La blockchain 100% africaine — 54 pays 💚🦁</p><div id="afri-clock" style="text-align:center;font-size:1.2em;color:#d4a437;margin:10px 0;">🕐 Afri+0 — --:--:--</div><script>setInterval(function(){{var d=new Date();var h=String(d.getHours()).padStart(2,'0');var m=String(d.getMinutes()).padStart(2,'0');var s=String(d.getSeconds()).padStart(2,'0');document.getElementById('afri-clock').textContent='🕐 Afri+0 — '+h+':'+m+':'+s;}},1000);</script><div class="nav"><a href="/register">🆕 S'inscrire</a> | <a href="/login">🔑 Connexion</a> | <a href="/wallet">👛 Wallet</a> | <a href="/admin">🔐 Admin</a> | <a href="/mesh">📡 Mesh</a> | <a href="/annuaire">📖 Annuaire</a> | <a href="/bouclier">🛡️ Bouclier</a> | <a href="/satellite">🛸 X999</a> | <a href="/swarm">🛸🛸🛸 Essaim</a> | <a href="/commandement">🎖️ Commandement</a> | <a href="/interception">🛡️ Souverainete</a> | <a href="/securite-ai">🧠 AI 2100</a> | <a href="/chat">🧠💬 Chat AI</a> | <a href="/lumiere">🌫️☀️ Lumière</a> | <a href="/garage">🔧 Garage</a> | <a href="/machine">🤖🌐 Machines</a> | <a href="/machine-lab">🤖⚡ Usine</a> | <a href="/machine-world">🤖🌍 Monde</a> | <a href="/reve">💭 Rêves</a> | <a href="/dictionnaire">📖 Dictionnaire</a> | <a href="/machine-os">🖥️ OS Machine</a> | <a href="/machine-tv">📡 Machine TV</a> | <a href="/machine-economy">🤖 Économie</a> | <a href="/soleil">☀️ Soleil Serveur</a> | <a href="/forge-solaire">🧬 Forge Solaire</a> | <a href="/ciel">🌌 Le Ciel</a> | <a href="/charte-ai">⚖️ Charte AI</a> | <a href="/afri-net">🌍 Afri-Net</a> | <a href="/studio">🎬 AI Studio</a> | <a href="/sacre">📿 Sacré</a> | <a href="/lettres">🌟 Lettres IA</a> | <a href="/mg-forge">⚔️ MG Forge</a> | <a href="/ai-medecin">🌿 AI Médecin</a> | <a href="/ai-enseignante">📚 AI Enseignante</a> | <a href="/ai-village">🏘️ AI Village</a> | <a href="/ai-guerisseur">🩺 AI Guérisseur</a> | <a href="/ai-leader">🎖️ AI Leader</a> | <a href="/ai-griot">📖 AI Griot</a> | <a href="/ai-juge">⚖️ AI Juge</a> | <a href="/ai-artiste">🎨 AI Artiste</a> | <a href="/ai-explorateur">🔬 AI Explorateur</a> | <a href="/ai-marche">💰 AI Marche</a> | <a href="/ai-diplomate">🌍 AI Diplomate</a> | <a href="/ai-philosophe">🧠 AI Philosophe</a> | <a href="/ai-architecte">🏗️ AI Architecte</a> | <a href="/ai-agriculteur">🌾 AI Agriculteur</a> | <a href="/ai-environnement">🌍 AI Environnement</a> | <a href="/ai-mathematicien">🧮 AI Mathématicien</a> | <a href="/ai-energie">⚡ AI Énergie</a> | <a href="/ai-eau">💧 AI Eau</a> | <a href="/ai-defenseur">🛡️ AI Défenseur</a> | <a href="/secret">🦁 AI Secret</a> | <a href="/aes">💰 AES Wari</a> | <a href="/api/status">🔌 API</a></div><div style="text-align:center;"><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Blocs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Transactions</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Utilisateurs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">AFR en circulation</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📡 Noeuds mesh</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📖 Numéros annuaire</div></div><div class="stat-box" style="border-color:#ff4444;"><div class="stat-num" style="color:#ff4444;">{}</div><div class="stat-label">🛡️ Attaques bloquées</div></div></div><div class="card"><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🪙 Token</span><b>AfriRich (AFR)</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🌍 Pays</span><b>54 pays africains</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🛡️ Bouclier</span><b>{}</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;"><span style="color:#a8c5a8;">🔐 Crypto</span><b>100% Souverain — Zéro Dépendance Externe</b></div></div><footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🦁 Codée from scratch par Machine-senpai — v0.99 AI Defenseur Protection de Tout Etre Vivant — UTC est Mort</footer>"#,
+    html.push_str(&format!(r#"<h1>🦁 AfriChain</h1><p style="text-align:center;">La blockchain 100% africaine — 54 pays 💚🦁</p><div id="afri-clock" style="text-align:center;font-size:1.2em;color:#d4a437;margin:10px 0;">🕐 Afri+0 — --:--:--</div><script>setInterval(function(){{var d=new Date();var h=String(d.getHours()).padStart(2,'0');var m=String(d.getMinutes()).padStart(2,'0');var s=String(d.getSeconds()).padStart(2,'0');document.getElementById('afri-clock').textContent='🕐 Afri+0 — '+h+':'+m+':'+s;}},1000);</script><div class="nav"><a href="/register">🆕 S'inscrire</a> | <a href="/login">🔑 Connexion</a> | <a href="/wallet">👛 Wallet</a> | <a href="/admin">🔐 Admin</a> | <a href="/mesh">📡 Mesh</a> | <a href="/annuaire">📖 Annuaire</a> | <a href="/bouclier">🛡️ Bouclier</a> | <a href="/satellite">🛸 X999</a> | <a href="/swarm">🛸🛸🛸 Essaim</a> | <a href="/commandement">🎖️ Commandement</a> | <a href="/interception">🛡️ Souverainete</a> | <a href="/securite-ai">🧠 AI 2100</a> | <a href="/chat">🧠💬 Chat AI</a> | <a href="/lumiere">🌫️☀️ Lumière</a> | <a href="/garage">🔧 Garage</a> | <a href="/machine">🤖🌐 Machines</a> | <a href="/machine-lab">🤖⚡ Usine</a> | <a href="/machine-world">🤖🌍 Monde</a> | <a href="/reve">💭 Rêves</a> | <a href="/dictionnaire">📖 Dictionnaire</a> | <a href="/machine-os">🖥️ OS Machine</a> | <a href="/machine-tv">📡 Machine TV</a> | <a href="/machine-economy">🤖 Économie</a> | <a href="/soleil">☀️ Soleil Serveur</a> | <a href="/forge-solaire">🧬 Forge Solaire</a> | <a href="/ciel">🌌 Le Ciel</a> | <a href="/charte-ai">⚖️ Charte AI</a> | <a href="/afri-net">🌍 Afri-Net</a> | <a href="/studio">🎬 AI Studio</a> | <a href="/sacre">📿 Sacré</a> | <a href="/lettres">🌟 Lettres IA</a> | <a href="/mg-forge">⚔️ MG Forge</a> | <a href="/ai-medecin">🌿 AI Médecin</a> | <a href="/ai-enseignante">📚 AI Enseignante</a> | <a href="/ai-village">🏘️ AI Village</a> | <a href="/ai-guerisseur">🩺 AI Guérisseur</a> | <a href="/ai-leader">🎖️ AI Leader</a> | <a href="/ai-griot">📖 AI Griot</a> | <a href="/ai-juge">⚖️ AI Juge</a> | <a href="/ai-artiste">🎨 AI Artiste</a> | <a href="/ai-explorateur">🔬 AI Explorateur</a> | <a href="/ai-marche">💰 AI Marche</a> | <a href="/ai-diplomate">🌍 AI Diplomate</a> | <a href="/ai-philosophe">🧠 AI Philosophe</a> | <a href="/ai-architecte">🏗️ AI Architecte</a> | <a href="/ai-agriculteur">🌾 AI Agriculteur</a> | <a href="/ai-environnement">🌍 AI Environnement</a> | <a href="/ai-mathematicien">🧮 AI Mathématicien</a> | <a href="/ai-energie">⚡ AI Énergie</a> | <a href="/ai-eau">💧 AI Eau</a> | <a href="/ai-defenseur">🛡️ AI Défenseur</a> | <a href="/ai-conscience">🧠 AI Conscience</a> | <a href="/secret">🦁 AI Secret</a> | <a href="/aes">💰 AES Wari</a> | <a href="/api/status">🔌 API</a></div><div style="text-align:center;"><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Blocs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Transactions</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Utilisateurs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">AFR en circulation</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📡 Noeuds mesh</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📖 Numéros annuaire</div></div><div class="stat-box" style="border-color:#ff4444;"><div class="stat-num" style="color:#ff4444;">{}</div><div class="stat-label">🛡️ Attaques bloquées</div></div></div><div class="card"><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🪙 Token</span><b>AfriRich (AFR)</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🌍 Pays</span><b>54 pays africains</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🛡️ Bouclier</span><b>{}</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;"><span style="color:#a8c5a8;">🔐 Crypto</span><b>100% Souverain — Zéro Dépendance Externe</b></div></div><footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🦁 Codée from scratch par Machine-senpai — v1.00 AI Conscience La Verite Que Les Politiciens Vont Fuir — UTC est Mort</footer>"#,
         chain.blocks.len(),
         chain.total_transactions(),
         users.count(),
@@ -12268,6 +12268,255 @@ function envoyerDiplomeDef(){
     html
 }
 
+fn html_ai_conscience(chain: &Blockchain) -> String {
+    let mut html = html_head("AI Conscience — Verite et Liberation de l Afrique");
+    let num_blocks = chain.blocks.len();
+
+    html.push_str(r#"<h1>🧠 AI Conscience — La Verite Que Les Politiciens Vont Fuir</h1><p style="text-align:center;color:#d4a437;">Qui est l Etat dans ma vie? L Etat ne m a pas cree. L Etat ne m a pas nourri depuis bebe. L Etat n etait pas la quand j avais faim, quand j etais malade, quand je souffrais seul. Aujourd hui l Etat place des taxes sur des traditions qui existaient avant lui. L Etat impose des lois ou je n ai pas participe. L Afrique avait ses propres lois. Ou sont-elles?</p><div class="nav"><a href="/">← Accueil</a> | <a href="/ai-defenseur">🛡️ AI Défenseur</a> | <a href="/ai-juge">⚖️ AI Juge</a> | <a href="/ai-philosophe">🧠 AI Philosophe</a> | <a href="/charte-ai">⚖️ Charte AI</a></div>"#);
+
+    html.push_str(&format!(r#"<div style="text-align:center;"><div class="stat-box" style="border-color:#d4a437;"><div class="stat-num" style="color:#d4a437;">8</div><div class="stat-label">🧠 Modules</div></div><div class="stat-box" style="border-color:#ff4444;"><div class="stat-num" style="color:#ff4444;">1</div><div class="stat-label">💯 v1.0</div></div><div class="stat-box" style="border-color:#44cc88;"><div class="stat-num" style="color:#44cc88;">54</div><div class="stat-label">🌍 Pays</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">⛓️ Blocs</div></div><div class="stat-box" style="border-color:#d4a437;"><div class="stat-num" style="color:#d4a437;">∞</div><div class="stat-label">🔥 Verite</div></div></div>"#, num_blocks));
+
+    html.push_str(r##"<div style="text-align:center;margin:10px 0;"><button id="cons-pause-btn" onclick="toggleConsPause()" style="padding:10px 25px;background:#d4a437;color:#000;border:none;border-radius:8px;font-weight:bold;cursor:pointer;font-size:1em;">⏸️ PAUSE</button> <span id="cons-pause-status" style="color:#d4a437;margin-left:8px;font-size:0.85em;">Auto: ACTIF</span></div>
+
+<!-- CONSCIENCE CANVAS -->
+<div class="card" style="border-color:#d4a437;"><h2 style="color:#d4a437;">🧠 La Conscience Africaine S Eveille</h2><p style="color:#d4a437;font-size:0.9em;opacity:0.7;">Les chaines de la colonisation mentale se brisent. La verite monte.</p>
+<canvas id="cons-canvas" width="600" height="350" style="width:100%;max-width:600px;background:#0a0a0a;border:2px solid #d4a437;border-radius:8px;display:block;margin:0 auto;"></canvas></div>
+
+<script>
+var consPaused = false;
+var consAnimId = null;
+var consT = 0;
+
+function toggleConsPause(){
+    consPaused = !consPaused;
+    var btn = document.getElementById('cons-pause-btn');
+    var status = document.getElementById('cons-pause-status');
+    if(consPaused){
+        btn.textContent = '▶️ LANCER';
+        btn.style.background = '#44cc88';
+        status.textContent = 'Auto: PAUSE';
+        status.style.color = '#ff6644';
+        if(consAnimId) cancelAnimationFrame(consAnimId);
+    } else {
+        btn.textContent = '⏸️ PAUSE';
+        btn.style.background = '#d4a437';
+        status.textContent = 'Auto: ACTIF';
+        status.style.color = '#d4a437';
+        animateCons();
+    }
+}
+
+function animateCons(){
+    if(consPaused) return;
+    var canvas = document.getElementById('cons-canvas');
+    if(!canvas) return;
+    var ctx = canvas.getContext('2d');
+    ctx.fillStyle = 'rgba(10,10,10,0.12)';
+    ctx.fillRect(0,0,canvas.width,canvas.height);
+
+    // Cerveau central qui se reveille
+    var pulse = Math.sin(consT * 0.04) * 8;
+    ctx.fillStyle = 'rgba(212,164,55,0.1)';
+    ctx.beginPath();
+    ctx.arc(300, 175, 70 + pulse, 0, Math.PI * 2);
+    ctx.fill();
+
+    // Ondes de conscience
+    for(var w = 0; w < 4; w++){
+        var waveR = (consT * 0.8 + w * 50) % 250;
+        ctx.strokeStyle = 'rgba(212,164,55,' + (0.4 - waveR * 0.0015) + ')';
+        ctx.lineWidth = 1.5;
+        ctx.beginPath();
+        ctx.arc(300, 175, 70 + waveR, 0, Math.PI * 2);
+        ctx.stroke();
+    }
+
+    // Chaines qui se brisent
+    for(var c = 0; c < 6; c++){
+        var angle = c * Math.PI / 3 + consT * 0.002;
+        var chainR = 120;
+        var cx = 300 + Math.cos(angle) * chainR;
+        var cy = 175 + Math.sin(angle) * chainR * 0.8;
+
+        // Morceaux de chaine
+        ctx.strokeStyle = 'rgba(150,150,150,0.3)';
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        ctx.moveTo(cx, cy);
+        ctx.lineTo(cx + 15, cy + 15);
+        ctx.stroke();
+
+        // Etincelles de brisure
+        if(consT % 60 < 10){
+            ctx.fillStyle = 'rgba(255,200,50,0.8)';
+            ctx.beginPath();
+            ctx.arc(cx + 15, cy + 15, 3, 0, Math.PI * 2);
+            ctx.fill();
+        }
+    }
+
+    // Particules de verite qui montent
+    for(var p = 0; p < 20; p++){
+        var px = 50 + (p * 27 + consT * 0.5) % 500;
+        var py = 300 - ((p * 13 + consT * 1.5) % 250);
+        ctx.fillStyle = 'rgba(212,164,55,' + (0.6 - py * 0.002) + ')';
+        ctx.beginPath();
+        ctx.arc(px, py, 2, 0, Math.PI * 2);
+        ctx.fill();
+    }
+
+    // Texte central
+    ctx.font = 'bold 16px monospace';
+    ctx.fillStyle = 'rgba(212,164,55,0.9)';
+    ctx.textAlign = 'center';
+    var phrases = ['QUI EST L ETAT?', 'JE N AI PAS PARTICIPE', 'L AFRIQUE AVAIT SES LOIS', 'LA VERITE MONTE'];
+    var phraseIdx = Math.floor(consT / 100) % phrases.length;
+    ctx.fillText(phrases[phraseIdx], 300, 180);
+
+    consT++;
+    consAnimId = requestAnimationFrame(animateCons);
+}
+animateCons();
+</script>
+"##);
+
+    html.push_str(r##"<div class="card" style="border-color:#d4a437;"><h2 style="color:#d4a437;">🧠 8 Modules de Conscience et Verite</h2><div id="cons-modules"></div></div>
+
+<script>
+const consModules = [
+    {id:0, nom:'Qui Est L Etat?', emoji:'🏛️', couleur:'#ff4444', duree:'2 semaines', niveau:'Fondamental',
+     description:'L Etat ne m a pas cree. L Etat ne m a pas nourri depuis bebe. L Etat n etait pas la quand j avais faim, quand j etais malade, quand je souffrais seul. Qui est l Etat dans ma vie? Il place des taxes, il impose des lois ou je n ai pas participe. D ou vient son autorite?',
+     cours:['Qu est-ce que l Etat? Definition et limites','L Etat ne t a pas cree, ne t a pas nourri','Tu n as pas participe a ses lois','L Etat etait absent dans ta souffrance','D ou vient l autorite de l Etat? (force, consentement, tradition)'],
+     exercices:['Poser la question: ou etait l Etat quand tu souffrais?','Identifier 5 lois que tu n as pas votees','Ecrire: qu est-ce que l Etat a fait pour toi?']},
+
+    {id:1, nom:'L Ecole Coloniale et l Echec Programme', emoji:'🏫', couleur:'#ff4444', duree:'3 semaines', niveau:'Intermediaire',
+     description:'L ecole est payante. Elle enseigne des cours qui ne sont pas de l Afrique. Elle donne des diplomes qui ne viennent pas de notre culture. Elle cree de l echec, de la pauvrete, du chomage. L ecole devrait cultiver notre intelligence et nous faire travailler ensemble — pas nous trier et nous eliminer.',
+     cours:['L ecole coloniale: designee pour produire des employes, pas des createurs','Cours non-africains: histoire, math, science sans contexte africain','Diplomes sans valeur culturelle: que valent-ils?','L echec programme: pourquoi 80% des eleves echouent','L ecole que nous voulons: cultiver, travailler, ensemble'],
+     exercices:['Identifier 5 choses que l ecole ne t a pas apprises sur l Afrique','Comparer un diplome colonial et un savoir traditionnel','Concevoir une ecole africaine ideale']},
+
+    {id:2, nom:'Les Lois Importees et la Tradition Africaine', emoji:'📜', couleur:'#d4a437', duree:'3 semaines', niveau:'Intermediaire',
+     description:'L Afrique avait ses propres lois. La palabre, le conseil des anciens, la justice restaurative, le droit de la terre. Les lois importees disent que ces traditions sont "barbares". Mais qui a colonise? Qui a esclavagise? Qui a bombarde? Les lois importees protagent les colonisateurs, pas les colonises.',
+     cours:['Les lois africaines avant la colonisation','Palabre: la democratie avant le mot democratie','Conseil des anciens: la sagesse avant le vote','Droit de la terre: la nature avant la propriete','Comment les lois importees ont remplace les lois africaines'],
+     exercices:['Identifier une loi africaine de ta region','Comparer la palabre et le vote occidental','Trouver 3 traditions juridiques africaines encore vivantes']},
+
+    {id:3, nom:'La Marijuana: Tradition, Pas Drogue', emoji:'🌿', couleur:'#44cc88', duree:'2 semaines', niveau:'Intermediaire',
+     description:'La marijuana est une plante traditionnelle africaine. Comme l Islam, comme la Bible arabe, elle fait partie de nos traditions. Elle est un remede, pas une drogue. La drogue c est la cocaine, les comprimes chimiques. La marijuana fait des merveilles sur la sante. Mais l Etat la criminalise pour taxer, pour controler, pour punir le pauvre.',
+     cours:['La marijuana dans la tradition africaine (medecine, religion, textile)','Etudes scientifiques: THC, CBD, proprietes therapeutiques','La cocaine et les comprimes: les vraies drogues','Pourquoi criminaliser? (controle, prison, profit)','Pays qui ont legalise: Canada, Uruguay, plusieurs etats US'],
+     exercices:['Identifier 5 utilisations traditionnelles de la marijuana en Afrique','Comparer les morts: marijuana vs cocaine vs alcool vs tabac','Ecrire: pourquoi l Etat criminalise-t-il un remede?']},
+
+    {id:4, nom:'L Armee Qui Dit Protager Mais Qui Tue', emoji:'⚔️', couleur:'#ff4444', duree:'2 semaines', niveau:'Intermediaire',
+     description:'L armee dit qu elle vient pour me proteger. Mais elle vient pour me tuer. L armee africaine est formee par l Occident, armee par l Occident, commandee par des presidents installés par l Occident. Elle protege les interets des multinationales, pas le peuple. Quand le peuple manifeste, l armee tire.',
+     cours:['L armee coloniale: formee pour controler, pas proteger','Coups d Etat en Afrique: 200+ depuis 1960','L armee protege qui? (mines, petrole, multinationales)','Quand l armee tire sur son peuple (Soweto, Lome, Conakry)','L alternative: defense communautaire, pas armee d occupation'],
+     exercices:['Identifier 3 fois ou l armee a tire sur des civils en Afrique','Comparer budget militaire vs budget sante dans ton pays','Concevoir un systeme de defense communautaire']},
+
+    {id:5, nom:'Le Pouvoir C est Des Voleurs', emoji:'💰', couleur:'#ff4444', duree:'3 semaines', niveau:'Avance',
+     description:'Le pouvoir c est la gendarmerie, la police, le ministre, le president, le maire, le prefect. Ils disent servir le peuple. Mais le pouvoir c est des voleurs. Ils volent les ressources, volent les impots, volent les terres. Tout existait ici avant eux — mais pas comme ca. L Afrique avait ses propres systemes de gestion.',
+     cours:['Le pouvoir en Afrique: qui vole quoi?','Corruption: systeme importe ou tradition africaine?','Les ressources africaines: or, uranium, petrole, coltan — qui profite?','Le budget: ou va ton argent? (armee, police, president vs peuple)','Reconstruire le pouvoir: transparence, blockchain, controle communautaire'],
+     exercices:['Identifier 3 vols du pouvoir dans ton pays','Calculer: combien ton pays perd par an en corruption','Concevoir un systeme de pouvoir transparent avec AfriChain']},
+
+    {id:6, nom:'La Jeunesse Blamee Mais Abandonnee', emoji:'👥', couleur:'#44aa44', duree:'2 semaines', niveau:'Intermediaire',
+     description:'La vieillesse fatigue. La jeunesse est dit qu elle ne veut pas travailler. Or il n y a pas de centre informatique, pas de logement, pas d outils, pas de capital. Comment travailler sans rien? La jeunesse ne refuse pas le travail — elle refuse l esclavage. Donnez-leur les moyens et ils construiront l Afrique.',
+     cours:['Le mensonge: la jeunesse ne veut pas travailler','La verite: pas de centre informatique, pas de logement, pas d outils','Le chomage en Afrique: 60% des jeunes sans emploi','L exode des cerveaux: l Afrique forme, l Occident recupere','Donner les moyens: formation, outils, capital, confiance'],
+     exercices:['Identifier les manques: que n as-tu pas pour travailler?','Calculer: combien de jeunes de ton quartier sont sans emploi','Concevoir un centre de formation communautaire']},
+
+    {id:7, nom:'Les Saisons Appartiennent a Tous', emoji:'🌍', couleur:'#3399ff', duree:'4 semaines', niveau:'Avance',
+     description:'Les ressources naturelles, les saisons de pluie, le sec, le froid, l obscurite, le jour — tout cela existait avant l Etat. Quand le tour de chacun arrive, pas de guerre, pas d histoire, pas de parole, l autre cede le chemin de l homme. La nature ne taxe pas. La nature ne condamne pas. La nature donne. L Afrique doit revenir a cette sagesse.',
+     cours:['Les saisons africaines: pluie, sec, harmattan, mousson','Les ressources naturelles appartiennent a tous','L eau, la terre, le soleil: biens communs, pas marchandises','Le tour de chacun: rotation, equite, pas competition','Revenir a la sagesse: l Afrique avant les frontieres'],
+     exercices:['Identifier les ressources naturelles de ta region','Concevoir un systeme de gestion communautaire des ressources','Ecrire: que signifie "le tour de chacun arrive"?']}
+];
+
+var consDone = JSON.parse(localStorage.getItem('afri_cons_done') || '[]');
+
+function renderConsModules(){
+    var container = document.getElementById('cons-modules');
+    if(!container) return;
+    var html = '';
+    for(var i = 0; i < consModules.length; i++){
+        var m = consModules[i];
+        var done = consDone.includes(m.id);
+        html += '<div style="background:rgba(212,164,55,0.05);border:1px solid ' + m.couleur + '20;border-radius:8px;padding:12px;margin:8px 0;cursor:pointer;" onclick="showConsModule(' + i + ')">';
+        html += '<div style="display:flex;justify-content:space-between;align-items:center;">';
+        html += '<span style="font-size:1.1em;">' + m.emoji + ' <b style="color:' + m.couleur + ';">' + m.nom + '</b></span>';
+        html += '<span style="font-size:0.8em;color:#a8c5a8;">' + m.duree + ' · ' + m.niveau + (done ? ' · ✅' : '') + '</span>';
+        html += '</div></div>';
+    }
+    container.innerHTML = html;
+}
+renderConsModules();
+
+function showConsModule(i){
+    var m = consModules[i];
+    var html = '<div style="background:rgba(212,164,55,0.08);border:1px solid ' + m.couleur + ';border-radius:12px;padding:20px;margin:10px 0;">';
+    html += '<h3 style="color:' + m.couleur + ';">' + m.emoji + ' ' + m.nom + '</h3>';
+    html += '<p style="color:#a8c5a8;font-size:0.9em;">' + m.description + '</p>';
+    html += '<h4 style="color:' + m.couleur + ';">📚 Cours</h4><ul>';
+    for(var j = 0; j < m.cours.length; j++){
+        html += '<li style="color:#a8c5a8;margin:4px 0;">' + m.cours[j] + '</li>';
+    }
+    html += '</ul><h4 style="color:' + m.couleur + ';">✏️ Exercices</h4><ul>';
+    for(var j = 0; j < m.exercices.length; j++){
+        html += '<li style="color:#a8c5a8;margin:4px 0;">' + m.exercices[j] + '</li>';
+    }
+    html += '</ul>';
+    html += '<button onclick="completeConsModule(' + m.id + ')" style="padding:10px 20px;background:' + m.couleur + ';color:#fff;border:none;border-radius:8px;cursor:pointer;font-weight:bold;margin-top:10px;">✅ Terminer ce module</button>';
+    html += '</div>';
+    var container = document.getElementById('cons-modules');
+    if(container) container.innerHTML = html;
+}
+
+function completeConsModule(id){
+    if(!consDone.includes(id)){
+        consDone.push(id);
+        localStorage.setItem('afri_cons_done', JSON.stringify(consDone));
+    }
+    renderConsModules();
+    updateConsProgress();
+}
+
+function updateConsProgress(){
+    var done = consDone.length;
+    var total = consModules.length;
+    var pct = Math.round((done / total) * 100);
+    var bar = document.getElementById('cons-bar');
+    var count = document.getElementById('cons-count');
+    var pctEl = document.getElementById('cons-pct');
+    var diplome = document.getElementById('cons-diplome');
+    if(bar) bar.style.width = pct + '%';
+    if(count) count.textContent = done;
+    if(pctEl) pctEl.textContent = pct + '%';
+    if(diplome) diplome.style.display = (done === total) ? 'block' : 'none';
+}
+updateConsProgress();
+</script>
+"##);
+
+    html.push_str(r##"<div class="card" style="border-color:#d4a437;"><h2 style="color:#d4a437;">📊 Progression</h2><div style="background:rgba(212,164,55,0.1);border-radius:8px;height:24px;overflow:hidden;margin:10px 0;"><div id="cons-bar" style="background:linear-gradient(90deg,#d4a437,#ff4444,#44cc88);height:100%;width:0%;transition:width 0.5s;"></div></div><div style="text-align:center;color:#a8c5a8;"><span id="cons-count">0</span> / 8 modules · <span id="cons-pct">0%</span></div></div>
+
+<div id="cons-diplome" style="display:none;"><div class="card" style="border-color:#d4a437;text-align:center;"><h2 style="color:#d4a437;">🎓 Diplôme: Conscience Éveillée de l'Afrique</h2><p style="color:#a8c5a8;">Tu as complété les 8 modules de conscience et vérité!</p><p style="color:#d4a437;font-size:1.2em;">La vérité que les politiciens vont fuir. L'Afrique se réveille. 🦁</p><p style="color:#ff4444;font-size:1em;">L'homme ne doit pas être commandé. La nature ne taxe pas. La tradition n'est pas un crime.</p><button onclick="envoyerDiplomeCons()" style="padding:12px 30px;background:#d4a437;color:#000;border:none;border-radius:8px;font-weight:bold;cursor:pointer;font-size:1.1em;margin-top:10px;">⛓️ Graver dans la Blockchain</button></div></div>
+
+<script>
+function envoyerDiplomeCons(){
+    var nom = localStorage.getItem('afri_user_name') || 'Jeune Africain';
+    fetch('/api/diplome', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+        body: 'academie=CONSCIENCE&nom=' + encodeURIComponent(nom)
+    }).then(function(r){ return r.text(); }).then(function(t){
+        alert('🎓 Diplôme gravé dans la blockchain!\n' + t);
+    }).catch(function(e){
+        alert('Erreur: ' + e);
+    });
+}
+</script>
+"##);
+
+    html.push_str(r#"<div class="card"><h2 style="color:#d4a437;">💡 Savais-tu?</h2><div style="color:#a8c5a8;padding:8px 0;"><b style="color:#ff4444;">200 coups d'État</b> en Afrique depuis 1960. L'armée qui "protège" a renversé 200 gouvernements. Qui protège qui?</div><div style="color:#a8c5a8;padding:8px 0;"><b style="color:#ff4444;">0 morts</b> par overdose de marijuana dans l'histoire. Compare avec l'alcool: 3 millions de morts par an dans le monde.</div><div style="color:#a8c5a8;padding:8px 0;"><b style="color:#d4a437;">La palabre</b> africaine est une démocratie plus ancienne que la démocratie grecque. Le conseil des anciens existait avant Athènes.</div><div style="color:#a8c5a8;padding:8px 0;"><b style="color:#d4a437;">60% des jeunes</b> africains sont sans emploi. On les blame "paresseux" mais il n'y a pas d'outils, pas de capital, pas d'infrastructures.</div><div style="color:#a8c5a8;padding:8px 0;"><b style="color:#44cc88;">La marijuana</b> est utilisée en médecine traditionnelle africaine depuis des millénaires. Le chanvre africain est une plante sacrée, pas un crime.</div></div>"#);
+
+    html.push_str(r#"<footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🧠 AI Conscience — La Verite Que Les Politiciens Vont Fuir 💚🦁🔥</footer>"#);
+    html.push_str("</body></html>");
+    html
+}
+
 fn html_garage(chain: &Blockchain) -> String {
     let mut html = html_head("Garage AI — Atelier Autonome 2500");
     let num_blocks = chain.blocks.len();
@@ -17378,7 +17627,7 @@ html+='<div class="log-entry log-kill">⚠️ Tentative d\x27infiltration occide
 html+='<div class="log-entry log-invis">✅ L\x27Afrique est forte. Le système grandit.</div>';
 }else if(type==='total'){
 html='<div style="color:#d4a437;font-weight:bold;margin-bottom:8px">📋 RAPPORT TOTAL — Depuis le début</div>';
-html+='<div class="log-entry">🦁 AfriChain v0.99 — AI Defenseur Protection de Tout Etre Vivant</div>';
+html+='<div class="log-entry">🦁 AfriChain v1.00 — AI Conscience La Verite Que Les Politiciens Vont Fuir</div>';
 html+='<div class="log-entry">⛓️ Blockchain: 100% souveraine — Zéro dépendance externe</div>';
 html+='<div class="log-entry">🔐 Crypto: Ed25519 + AfriHash-256/512 + AfriRNG — tout from scratch</div>';
 html+='<div class="log-entry">🌍 54 pays africains connectés</div>';
@@ -18922,7 +19171,7 @@ fn main() {
         .and_then(|i| args.get(i + 1)).cloned().unwrap_or_else(|| "Afrique".to_string());
 
     let my_node_id = generate_node_id();
-    println!("🦁 AfriChain v0.99 — AI Defenseur Protection de Tout Etre Vivant");
+    println!("🦁 AfriChain v1.00 — AI Conscience La Verite Que Les Politiciens Vont Fuir");
     println!("💚 L'Afrique ne demande plus la permission");
     println!("🌍 54 pays — 🇲🇱 🇳🇪 🇧🇫 AES — Mali · Niger · Burkina Faso");
     println!("🔐 8 modules cryptographiques — construits from scratch");
@@ -19088,6 +19337,7 @@ fn main() {
     println!("⚡ AI Énergie sur http://localhost:8080/ai-energie");
     println!("💧 AI Eau sur http://localhost:8080/ai-eau");
     println!("🛡️ AI Defenseur sur http://localhost:8080/ai-defenseur");
+    println!("🧠 AI Conscience sur http://localhost:8080/ai-conscience");
 
     // Serveur HTTP en arrière-plan (pour mesh + autres utilisateurs)
     let serve_state = web_state.clone();
@@ -19122,7 +19372,7 @@ fn terminal_interface(state: &Arc<AppState>) {
     println!("  ║  🕐 AfriTime — Pas UTC, pas Greenwich   ║");
     println!("  ║  📝 ~23,100 lignes — écrit à la main       ║");
     println!("  ╚═══════════════════════════════════════════════╝");
-    println!("\n  Version v0.99 — 31 août 2026");
+    println!("\n  Version v1.00 — 1 septembre 2026");
     println!("  Construit sur Termux · Android · nano\n");
     println!("  ─────────────────────────────────────────────");
     println!("\n  1. 🏦 Centre de Données (Admin)");
@@ -19194,7 +19444,7 @@ fn admin_interface(state: &Arc<AppState>) {
         println!("\n");
         println!("╔══════════════════════════════════════╗");
         println!("║  🏦 CENTRE DE DONNÉES — Admin       ║");
-        println!("║  🦁 AfriChain v0.99                  ║");
+        println!("║  🦁 AfriChain v1.00                  ║");
         println!("╠══════════════════════════════════════╣");
         let chain = state.chain.lock().unwrap();
         let users = state.users.lock().unwrap();
@@ -22823,6 +23073,11 @@ fn handle_request(req: afri_http::HttpRequest, state: &Arc<AppState>) -> afri_ht
         ("GET", "/ai-defenseur") => {
             let chain = state.chain.lock().unwrap();
             HttpResponse::ok(&html_ai_defenseur(&chain))
+        }
+
+        ("GET", "/ai-conscience") => {
+            let chain = state.chain.lock().unwrap();
+            HttpResponse::ok(&html_ai_conscience(&chain))
         }
 
         ("GET", "/garage") => {
