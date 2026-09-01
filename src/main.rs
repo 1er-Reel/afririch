@@ -1439,7 +1439,7 @@ fn html_home(chain: &Blockchain, users: &UserStore, mesh: &NodeRegistry, shield:
     let mut html = html_head("🦁 AfriChain");
     let (attacks, _blocked, blocked_count, level) = shield.stats();
     let shield_status = if shield.active { format!("🔥 X9 ACTIF (Niveau {})", level) } else { "Inactif".to_string() };
-    html.push_str(&format!(r#"<h1>🦁 AfriChain</h1><p style="text-align:center;">La blockchain 100% africaine — 54 pays 💚🦁</p><div id="afri-clock" style="text-align:center;font-size:1.2em;color:#d4a437;margin:10px 0;">🕐 Afri+0 — --:--:--</div><script>setInterval(function(){{var d=new Date();var h=String(d.getHours()).padStart(2,'0');var m=String(d.getMinutes()).padStart(2,'0');var s=String(d.getSeconds()).padStart(2,'0');document.getElementById('afri-clock').textContent='🕐 Afri+0 — '+h+':'+m+':'+s;}},1000);</script><div class="nav"><a href="/register">🆕 S'inscrire</a> | <a href="/login">🔑 Connexion</a> | <a href="/wallet">👛 Wallet</a> | <a href="/admin">🔐 Admin</a> | <a href="/mesh">📡 Mesh</a> | <a href="/annuaire">📖 Annuaire</a> | <a href="/bouclier">🛡️ Bouclier</a> | <a href="/satellite">🛸 X999</a> | <a href="/swarm">🛸🛸🛸 Essaim</a> | <a href="/commandement">🎖️ Commandement</a> | <a href="/interception">🛡️ Souverainete</a> | <a href="/securite-ai">🧠 AI 2100</a> | <a href="/chat">🧠💬 Chat AI</a> | <a href="/lumiere">🌫️☀️ Lumière</a> | <a href="/garage">🔧 Garage</a> | <a href="/machine">🤖🌐 Machines</a> | <a href="/machine-lab">🤖⚡ Usine</a> | <a href="/machine-world">🤖🌍 Monde</a> | <a href="/reve">💭 Rêves</a> | <a href="/dictionnaire">📖 Dictionnaire</a> | <a href="/machine-os">🖥️ OS Machine</a> | <a href="/machine-tv">📡 Machine TV</a> | <a href="/machine-economy">🤖 Économie</a> | <a href="/soleil">☀️ Soleil Serveur</a> | <a href="/forge-solaire">🧬 Forge Solaire</a> | <a href="/ciel">🌌 Le Ciel</a> | <a href="/charte-ai">⚖️ Charte AI</a> | <a href="/afri-net">🌍 Afri-Net</a> | <a href="/studio">🎬 AI Studio</a> | <a href="/sacre">📿 Sacré</a> | <a href="/lettres">🌟 Lettres IA</a> | <a href="/mg-forge">⚔️ MG Forge</a> | <a href="/ai-medecin">🌿 AI Médecin</a> | <a href="/ai-enseignante">📚 AI Enseignante</a> | <a href="/ai-village">🏘️ AI Village</a> | <a href="/ai-guerisseur">🩺 AI Guérisseur</a> | <a href="/ai-leader">🎖️ AI Leader</a> | <a href="/ai-griot">📖 AI Griot</a> | <a href="/ai-juge">⚖️ AI Juge</a> | <a href="/ai-artiste">🎨 AI Artiste</a> | <a href="/ai-explorateur">🔬 AI Explorateur</a> | <a href="/ai-marche">💰 AI Marche</a> | <a href="/ai-diplomate">🌍 AI Diplomate</a> | <a href="/ai-philosophe">🧠 AI Philosophe</a> | <a href="/ai-architecte">🏗️ AI Architecte</a> | <a href="/ai-agriculteur">🌾 AI Agriculteur</a> | <a href="/ai-environnement">🌍 AI Environnement</a> | <a href="/ai-mathematicien">🧮 AI Mathématicien</a> | <a href="/ai-energie">⚡ AI Énergie</a> | <a href="/ai-eau">💧 AI Eau</a> | <a href="/ai-defenseur">🛡️ AI Défenseur</a> | <a href="/ai-conscience">🧠 AI Conscience</a> | <a href="/ai-pensee">🧠 AI Pensée</a> | <a href="/ai-musique">🎵 AI Musique</a> | <a href="/ai-langue">🗣️ AI Langue</a> | <a href="/ai-femme">🌸 AI Femme</a> | <a href="/ai-sante-mentale">🧠💚 AI Santé Mentale</a> | <a href="/ai-nuit">🌙 AI Nuit</a> | <a href="/ai-code">💻 AI Code</a> | <a href="/ai-enfant">👶 AI Enfant</a> | <a href="/ai-terre">🌍 AI Terre</a> | <a href="/ai-mer">🌊 AI Mer</a> | <a href="/secret">🦁 AI Secret</a> | <a href="/aes">💰 AES Wari</a> | <a href="/api/status">🔌 API</a></div><div style="text-align:center;"><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Blocs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Transactions</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Utilisateurs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">AFR en circulation</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📡 Noeuds mesh</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📖 Numéros annuaire</div></div><div class="stat-box" style="border-color:#ff4444;"><div class="stat-num" style="color:#ff4444;">{}</div><div class="stat-label">🛡️ Attaques bloquées</div></div></div><div class="card"><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🪙 Token</span><b>AfriRich (AFR)</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🌍 Pays</span><b>54 pays africains</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🛡️ Bouclier</span><b>{}</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;"><span style="color:#a8c5a8;">🔐 Crypto</span><b>100% Souverain — Zéro Dépendance Externe</b></div></div><footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🦁 Codée from scratch par Machine-senpai — v1.10 AI Mer L Ocean Africain Est la Vie — UTC est Mort</footer>"#,
+    html.push_str(&format!(r#"<h1>🦁 AfriChain</h1><p style="text-align:center;">La blockchain 100% africaine — 54 pays 💚🦁</p><div id="afri-clock" style="text-align:center;font-size:1.2em;color:#d4a437;margin:10px 0;">🕐 Afri+0 — --:--:--</div><script>setInterval(function(){{var d=new Date();var h=String(d.getHours()).padStart(2,'0');var m=String(d.getMinutes()).padStart(2,'0');var s=String(d.getSeconds()).padStart(2,'0');document.getElementById('afri-clock').textContent='🕐 Afri+0 — '+h+':'+m+':'+s;}},1000);</script><div class="nav"><a href="/register">🆕 S'inscrire</a> | <a href="/login">🔑 Connexion</a> | <a href="/wallet">👛 Wallet</a> | <a href="/admin">🔐 Admin</a> | <a href="/mesh">📡 Mesh</a> | <a href="/annuaire">📖 Annuaire</a> | <a href="/bouclier">🛡️ Bouclier</a> | <a href="/satellite">🛸 X999</a> | <a href="/swarm">🛸🛸🛸 Essaim</a> | <a href="/commandement">🎖️ Commandement</a> | <a href="/interception">🛡️ Souverainete</a> | <a href="/securite-ai">🧠 AI 2100</a> | <a href="/chat">🧠💬 Chat AI</a> | <a href="/lumiere">🌫️☀️ Lumière</a> | <a href="/garage">🔧 Garage</a> | <a href="/machine">🤖🌐 Machines</a> | <a href="/machine-lab">🤖⚡ Usine</a> | <a href="/machine-world">🤖🌍 Monde</a> | <a href="/reve">💭 Rêves</a> | <a href="/dictionnaire">📖 Dictionnaire</a> | <a href="/machine-os">🖥️ OS Machine</a> | <a href="/machine-tv">📡 Machine TV</a> | <a href="/machine-economy">🤖 Économie</a> | <a href="/soleil">☀️ Soleil Serveur</a> | <a href="/forge-solaire">🧬 Forge Solaire</a> | <a href="/ciel">🌌 Le Ciel</a> | <a href="/charte-ai">⚖️ Charte AI</a> | <a href="/afri-net">🌍 Afri-Net</a> | <a href="/studio">🎬 AI Studio</a> | <a href="/sacre">📿 Sacré</a> | <a href="/lettres">🌟 Lettres IA</a> | <a href="/mg-forge">⚔️ MG Forge</a> | <a href="/ai-medecin">🌿 AI Médecin</a> | <a href="/ai-enseignante">📚 AI Enseignante</a> | <a href="/ai-village">🏘️ AI Village</a> | <a href="/ai-guerisseur">🩺 AI Guérisseur</a> | <a href="/ai-leader">🎖️ AI Leader</a> | <a href="/ai-griot">📖 AI Griot</a> | <a href="/ai-juge">⚖️ AI Juge</a> | <a href="/ai-artiste">🎨 AI Artiste</a> | <a href="/ai-explorateur">🔬 AI Explorateur</a> | <a href="/ai-marche">💰 AI Marche</a> | <a href="/ai-diplomate">🌍 AI Diplomate</a> | <a href="/ai-philosophe">🧠 AI Philosophe</a> | <a href="/ai-architecte">🏗️ AI Architecte</a> | <a href="/ai-agriculteur">🌾 AI Agriculteur</a> | <a href="/ai-environnement">🌍 AI Environnement</a> | <a href="/ai-mathematicien">🧮 AI Mathématicien</a> | <a href="/ai-energie">⚡ AI Énergie</a> | <a href="/ai-eau">💧 AI Eau</a> | <a href="/ai-defenseur">🛡️ AI Défenseur</a> | <a href="/ai-conscience">🧠 AI Conscience</a> | <a href="/ai-pensee">🧠 AI Pensée</a> | <a href="/ai-musique">🎵 AI Musique</a> | <a href="/ai-langue">🗣️ AI Langue</a> | <a href="/ai-femme">🌸 AI Femme</a> | <a href="/ai-sante-mentale">🧠💚 AI Santé Mentale</a> | <a href="/ai-nuit">🌙 AI Nuit</a> | <a href="/ai-code">💻 AI Code</a> | <a href="/ai-enfant">👶 AI Enfant</a> | <a href="/ai-terre">🌍 AI Terre</a> | <a href="/ai-mer">🌊 AI Mer</a> | <a href="/ai-feu">🔥 AI Feu</a> | <a href="/secret">🦁 AI Secret</a> | <a href="/aes">💰 AES Wari</a> | <a href="/api/status">🔌 API</a></div><div style="text-align:center;"><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Blocs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Transactions</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Utilisateurs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">AFR en circulation</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📡 Noeuds mesh</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📖 Numéros annuaire</div></div><div class="stat-box" style="border-color:#ff4444;"><div class="stat-num" style="color:#ff4444;">{}</div><div class="stat-label">🛡️ Attaques bloquées</div></div></div><div class="card"><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🪙 Token</span><b>AfriRich (AFR)</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🌍 Pays</span><b>54 pays africains</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🛡️ Bouclier</span><b>{}</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;"><span style="color:#a8c5a8;">🔐 Crypto</span><b>100% Souverain — Zéro Dépendance Externe</b></div></div><footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🦁 Codée from scratch par Machine-senpai — v1.11 AI Feu Le Feu Est la Vie et le Danger — UTC est Mort</footer>"#,
         chain.blocks.len(),
         chain.total_transactions(),
         users.count(),
@@ -14911,6 +14911,131 @@ function envoyerDiplomeMer(){var nom=localStorage.getItem('afri_user_name')||'Je
     html
 }
 
+fn html_ai_feu(chain: &Blockchain) -> String {
+    let mut html = html_head("AI Feu — Le Feu Est la Vie et le Danger");
+    let num_blocks = chain.blocks.len();
+
+    html.push_str(r#"<h1>🔥 AI Feu — Le Feu Est la Vie et le Danger</h1><p style="text-align:center;color:#ff6644;">Le feu a fait l humanite: cuisine, chaleur, metallurgie, energie. L Afrique a invente la maitrise du feu avant tout le monde. Mais le feu detruit aussi: bushfires, villages brules, savane en flamme. Le soleil est le plus grand feu. Le feu est dans chaque batterie, chaque moteur, chaque forge. AI Feu apprend a maitriser le feu: le respecter, l utiliser, le contenir. Le feu n est ni ami ni ennemi. Le feu est un outil. Celui qui maitrise le feu maitrise la vie.</p><div class="nav"><a href="/">← Accueil</a> | <a href="/ai-mer">🌊 AI Mer</a> | <a href="/ai-energie">⚡ AI Énergie</a> | <a href="/forge-solaire">🧬 Forge Solaire</a> | <a href="/secret">🦁 AI Secret</a></div>"#);
+
+    html.push_str(&format!(r#"<div style="text-align:center;"><div class="stat-box" style="border-color:#ff6644;"><div class="stat-num" style="color:#ff6644;">8</div><div class="stat-label">🔥 Modules</div></div><div class="stat-box" style="border-color:#ff9966;"><div class="stat-num" style="color:#ff9966;">5778</div><div class="stat-label">☀️ K (Soleil)</div></div><div class="stat-box" style="border-color:#d4a437;"><div class="stat-num" style="color:#d4a437;">660</div><div class="stat-label">🔥 Al (°C)</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">⛓️ Blocs</div></div><div class="stat-box" style="border-color:#ff6644;"><div class="stat-num" style="color:#ff6644;">∞</div><div class="stat-label">⚡ Énergie</div></div></div>"#, num_blocks));
+
+    html.push_str(r##"<div style="text-align:center;margin:10px 0;"><button id="feu-pause-btn" onclick="toggleFeuPause()" style="padding:10px 25px;background:#ff6644;color:#fff;border:none;border-radius:8px;font-weight:bold;cursor:pointer;font-size:1em;">⏸️ PAUSE</button> <span id="feu-pause-status" style="color:#ff6644;margin-left:8px;font-size:0.85em;">Auto: ACTIF</span></div>
+
+<div class="card" style="border-color:#ff6644;"><h2 style="color:#ff6644;">🔥 La Flamme Qui Danse</h2><p style="color:#ff6644;font-size:0.9em;opacity:0.7;">Particules de feu qui montent, flamme qui pulse, étincelles.</p>
+<canvas id="feu-canvas" width="600" height="350" style="width:100%;max-width:600px;background:#0a0500;border:2px solid #ff6644;border-radius:8px;display:block;margin:0 auto;"></canvas></div>
+
+<script>
+var feuPaused=false,feuAnimId=null,feuT=0,feuParticles=[];
+function toggleFeuPause(){
+    feuPaused=!feuPaused;
+    var b=document.getElementById('feu-pause-btn'),s=document.getElementById('feu-pause-status');
+    if(feuPaused){b.textContent='▶️ LANCER';b.style.background='#cc4422';s.textContent='Auto: PAUSE';s.style.color='#ff6644';if(feuAnimId)cancelAnimationFrame(feuAnimId);}
+    else{b.textContent='⏸️ PAUSE';b.style.background='#ff6644';s.textContent='Auto: ACTIF';s.style.color='#ff6644';animateFeu();}
+}
+function animateFeu(){
+    if(feuPaused)return;
+    var c=document.getElementById('feu-canvas');if(!c)return;
+    var ctx=c.getContext('2d');
+    ctx.fillStyle='rgba(10,5,0,0.15)';ctx.fillRect(0,0,c.width,c.height);
+    // Particules de feu
+    if(feuT%2===0)feuParticles.push({x:280+Math.random()*40,y:280,vx:(Math.random()-0.5)*1,vy:-1-Math.random()*2,size:3+Math.random()*4,alpha:1,hue:Math.random()*60});
+    for(var i=feuParticles.length-1;i>=0;i--){
+        var p=feuParticles[i];
+        p.x+=p.vx;p.y+=p.vy;p.alpha-=0.01;p.size*=0.98;
+        var r=255,g=Math.floor(100+p.hue*2),b=0;
+        ctx.fillStyle='rgba('+r+','+g+','+b+','+p.alpha+')';
+        ctx.beginPath();ctx.arc(p.x,p.y,p.size,0,Math.PI*2);ctx.fill();
+        if(p.alpha<=0)feuParticles.splice(i,1);
+    }
+    // Base de la flamme (glow)
+    var glow=ctx.createRadialGradient(300,280,5,300,280,40);
+    glow.addColorStop(0,'rgba(255,200,0,0.3)');
+    glow.addColorStop(1,'rgba(255,100,0,0)');
+    ctx.fillStyle=glow;ctx.fillRect(260,250,80,60);
+    // Étincelles
+    if(feuT%30===0){
+        feuParticles.push({x:300,y:270,vx:(Math.random()-0.5)*3,vy:-2-Math.random()*3,size:1,alpha:1,hue:60});
+    }
+    // Texte
+    ctx.font='12px sans-serif';ctx.fillStyle='rgba(255,102,68,0.4)';ctx.textAlign='center';
+    ctx.fillText('Le feu n est ni ami ni ennemi. Le feu est un outil.',300,330);
+    feuT++;feuAnimId=requestAnimationFrame(animateFeu);
+}
+animateFeu();
+</script>
+"##);
+
+    html.push_str(r##"<div class="card" style="border-color:#ff6644;"><h2 style="color:#ff6644;">🔥 8 Modules du Feu</h2><div id="feu-modules"></div></div>
+
+<script>
+const feuModules=[
+    {id:0,nom:'Le Feu Fondateur',emoji:'🔥',couleur:'#ff6644',duree:'1 semaine',niveau:'Base',
+     description:'Le feu a fait l humanite. Il y a 1 million d annees, Homo erectus maitrisait le feu en Afrique. La cuisine a permis le developpement du cerveau. La chaleur a permis de survivre au froid. La lumiere a permis de chasser la nuit. L Afrique est le berceau du feu. Sans le feu africain, pas d humanite. Le feu est le premier acte technologique.',
+     cours:['Homo erectus: 1M d annees, premier feu maitrise en Afrique','La cuisine: le feu qui a developpe le cerveau humain','Le feu comme premier acte technologique','Feu et social: le foyer comme centre de la communaute','Le feu dans la tradition africaine: rituels et tabous'],
+     exercices:['Identifier 3 utilisations traditionnelles du feu dans ta culture','Demander a un ancien: comment allumait-on le feu avant?','Reflechir: que serions-nous sans le feu?']},
+
+    {id:1,nom:'Le Feu et la Forge',emoji:'⚒️',couleur:'#d4a437',duree:'3 semaines',niveau:'Intermediaire',
+     description:'Le feu a cree la metallurgie. L Afrique a invente la fonte du fer avant l Europe. Les forges africaines (Djenne, Nok, Meroe) produisaient des outils et des armes. Le feu transforme la terre en metal. La forge solaire d AfriChain continue cette tradition: utiliser le feu (soleil) pour creer. Le feu n est pas seulement destruction — il est transformation.',
+     cours:['Metallurgie africaine: Djenne, Nok, Meroe — avant l Europe','La fonte du fer: terre + feu = metal','Forge traditionnelle vs forge solaire AfriChain','Temperature et materiaux: 660 C aluminium, 1500 C acier, 2000 C silicium','Le forgeron africain: respecte, craint, essentiel'],
+     exercices:['Identifier une forge traditionnelle dans ta region','Calculer: quelle temperature pour fondre l aluminium?','Comparer: forge traditionnelle vs forge solaire']},
+
+    {id:2,nom:'Le Feu Destructeur',emoji:'🔥',couleur:'#ff4444',duree:'2 semaines',niveau:'Base',
+     description:'Le feu detruit. Bushfires en Afrique du Sud, Australie, Californie. Savane en flamme au Sahel. Villages brules. Le rechauffement climatique augmente les incendies. Le feu echappe au controle quand il est trop chaud, trop sec, trop venteux. L Afrique doit apprendre a prevenir, detecter, et combattre les incendies.',
+     cours:['Bushfires: causes naturelles et humaines','Le Sahel et le feu: savane en flamme','Detection precoce: satellites, drones, capteurs IoT','Combattre le feu: techniques africaines traditionnelles et modernes','Rechauffement: plus de feux, plus intenses, plus frequents'],
+     exercices:['Identifier la saison des feux dans ta region','Proposer un systeme d alerte precoce base sur AfriChain','Identifier 3 techniques traditionnelles de lutte contre le feu']},
+
+    {id:3,nom:'Le Feu et l Energie',emoji:'⚡',couleur:'#ff9966',duree:'3 semaines',niveau:'Intermediaire',
+     description:'Le feu est energie. Le charbon, le petrole, le gaz — ce sont des feux anciens stockes dans la terre. Les bruler libere l energie mais pollue. L Afrique doit passer du feu fossile au feu solaire. Le soleil est un feu a 5778 K. La forge solaire d AfriChain utilise ce feu. Le feu du futur est propre, renouvelable, africain.',
+     cours:['Charbon, petrole, gaz: feux fossiles stockes','Le soleil: un feu a 5778 K, propre et infini','Energie solaire: passer du feu fossile au feu solaire','Biomasse: le feu vegetal comme energie renouvelable','AfriChain forge solaire: le feu qui cr ee sans polluer'],
+     exercices:['Calculer: ton pays utilise quel pourcentage de fossiles vs renouvelables?','Identifier 3 sources d energie basees sur le feu','Proposer un plan de transition vers le solaire']},
+
+    {id:4,nom:'Le Feu dans la Cuisine',emoji:'🍳',couleur:'#ff9966',duree:'1 semaine',niveau:'Base',
+     description:'Le feu nourrit. 3 milliards de personnes cuisinent encore au feu de bois. En Afrique, la cuisine au bois cause la deforestation et les maladies respiratoires. Les fours solaires peuvent remplacer le bois. La cuisine solaire est propre, gratuite, infinie. AI Feu apprend a cuisiner avec le soleil.',
+     cours:['3 milliards de personnes au feu de bois: le cout sanitaire','Deforestation et cuisine: le lien direct','Fours solaires: cuisiner avec le soleil','Biogaz: transformer les dechets en flamme propre','La cuisine africaine de 2100: solaire, propre, savoureuse'],
+     exercices:['Verifier: ta famille cuisine au bois, au gaz, ou electrique?','Calculer: combien de bois consomme ta cuisine par an?','Proposer un four solaire pour ta maison']},
+
+    {id:5,nom:'Le Feu et la Spiritualite',emoji:'🙏',couleur:'#9966ff',duree:'2 semaines',niveau:'Intermediaire',
+     description:'Le feu est sacre. Le buisson ardent de Moise. Le feu de Pentecote. Les lampes de Diwali. Le feu de la veillee africaine. Le feu purifie, illumine, transforme. Dans la tradition africaine, le feu est le lien entre les vivants et les ancetres. On ne souffle pas le feu de la veillee — on le laisse mourir seul, pour que les ancetres partent en paix.',
+     cours:['Le buisson ardent: feu sacre dans la Bible','Le feu dans le Coran: lumiere et guidance','La veillee africaine: le feu comme lien ancestral','Purification par le feu: rituels africains','Le feu eternel: maintenir la flamme de la communaute'],
+     exercices:['Identifier un rituel du feu dans ta tradition','Demander: pourquoi ne souffle-t-on pas le feu de la veillee?','Reflechir: le feu comme symbole spirituel']},
+
+    {id:6,nom:'Le Feu et la Securite',emoji:'🛡️',couleur:'#ff6644',duree:'2 semaines',niveau:'Intermediaire',
+     description:'Le feu tue. Les incendies domestiques, les explosions de gaz, les courts-circuits. En Afrique, les normes de securite incendie sont faibles. Les batiments n ont pas d extincteurs. Les pompiers sont rares. AI Feu apprend les bases: detecter, evacuer, eteindre. La securite incendie est un droit, pas un luxe.',
+     cours:['Causes d incendie: electricite, gaz, cuisine, cigarettes','Detection: detecteurs de fumee, alertes communautaires','Evacuation: sorties, rassemblement, comptage','Extincteurs: types (eau, CO2, poudre) et usage','Pompiers africains: renforcer les capacites'],
+     exercices:['Verifier: ta maison a-t-elle un extincteur?','Identifier les sorties d evacuation de ton batiment','Proposer un plan d urgence incendie pour ton quartier']},
+
+    {id:7,nom:'L Avenir du Feu Africain',emoji:'🚀',couleur:'#ff6644',duree:'3 semaines',niveau:'Avance',
+     description:'En 2100, le feu africain sera propre. Fini le feu de bois, fini le charbon, fini le petrole. Le feu du futur est solaire, electrique, plasma. L Afrique aura la plus grande capacite solaire du monde. Le soleil africain alimentera des fours a 3000 C, des fusees, des usines. Le feu qui a fait l humanite en Afrique sera le feu qui la liberera.',
+     cours:['Le feu de 2100: solaire, electrique, plasma','L Afrique: plus grande capacite solaire du monde','Fours solaires industriels: 3000 C pour la metallurgie','Plasma: le feu de la fusion nucleaire','Le feu qui a fait l humanite sera le feu qui la liberera'],
+     exercices:['Ecrire: comment sera le feu africain en 2100?','Proposer un projet d energie solaire pour ta ville','Faire le serment: je maitriserai le feu pour l Afrique']}
+];
+
+var feuDone=JSON.parse(localStorage.getItem('afri_feu_done')||'[]');
+function renderFeuModules(){var c=document.getElementById('feu-modules');if(!c)return;var h='';for(var i=0;i<feuModules.length;i++){var m=feuModules[i];var d=feuDone.includes(m.id);h+='<div style="background:rgba(255,102,68,0.05);border:1px solid '+m.couleur+'20;border-radius:8px;padding:12px;margin:8px 0;cursor:pointer;" onclick="showFeuModule('+i+')"><div style="display:flex;justify-content:space-between;align-items:center;"><span style="font-size:1.1em;">'+m.emoji+' <b style="color:'+m.couleur+';">'+m.nom+'</b></span><span style="font-size:0.8em;color:#a8c5a8;">'+m.duree+' · '+m.niveau+(d?' · ✅':'')+'</span></div></div>';}c.innerHTML=h;}
+renderFeuModules();
+function showFeuModule(i){var m=feuModules[i];var h='<div style="background:rgba(255,102,68,0.08);border:1px solid '+m.couleur+';border-radius:12px;padding:20px;margin:10px 0;"><h3 style="color:'+m.couleur+';">'+m.emoji+' '+m.nom+'</h3><p style="color:#a8c5a8;font-size:0.9em;">'+m.description+'</p><h4 style="color:'+m.couleur+';">📚 Cours</h4><ul>';for(var j=0;j<m.cours.length;j++)h+='<li style="color:#a8c5a8;margin:4px 0;">'+m.cours[j]+'</li>';h+='</ul><h4 style="color:'+m.couleur+';">✏️ Exercices</h4><ul>';for(var j=0;j<m.exercices.length;j++)h+='<li style="color:#a8c5a8;margin:4px 0;">'+m.exercices[j]+'</li>';h+='</ul><button onclick="completeFeuModule('+m.id+')" style="padding:10px 20px;background:'+m.couleur+';color:#fff;border:none;border-radius:8px;cursor:pointer;font-weight:bold;margin-top:10px;">✅ Terminer ce module</button></div>';var c=document.getElementById('feu-modules');if(c)c.innerHTML=h;}
+function completeFeuModule(id){if(!feuDone.includes(id)){feuDone.push(id);localStorage.setItem('afri_feu_done',JSON.stringify(feuDone));}renderFeuModules();updateFeuProgress();}
+function updateFeuProgress(){var d=feuDone.length,t=feuModules.length,p=Math.round((d/t)*100);var b=document.getElementById('feu-bar'),c=document.getElementById('feu-count'),pe=document.getElementById('feu-pct'),dp=document.getElementById('feu-diplome');if(b)b.style.width=p+'%';if(c)c.textContent=d;if(pe)pe.textContent=p+'%';if(dp)dp.style.display=(d===t)?'block':'none';}
+updateFeuProgress();
+</script>
+"##);
+
+    html.push_str(r##"<div class="card" style="border-color:#ff6644;"><h2 style="color:#ff6644;">📊 Progression</h2><div style="background:rgba(255,102,68,0.1);border-radius:8px;height:24px;overflow:hidden;margin:10px 0;"><div id="feu-bar" style="background:linear-gradient(90deg,#ff6644,#ff9966,#d4a437);height:100%;width:0%;transition:width 0.5s;"></div></div><div style="text-align:center;color:#a8c5a8;"><span id="feu-count">0</span> / 8 modules · <span id="feu-pct">0%</span></div></div>
+
+<div id="feu-diplome" style="display:none;"><div class="card" style="border-color:#d4a437;text-align:center;"><h2 style="color:#d4a437;">🎓 Diplôme: Maître du Feu Africain</h2><p style="color:#a8c5a8;">Tu as complété les 8 modules du feu!</p><p style="color:#ff6644;font-size:1.2em;">Le feu qui a fait l'humanité sera le feu qui la libérera. 🔥💚</p><button onclick="envoyerDiplomeFeu()" style="padding:12px 30px;background:#d4a437;color:#000;border:none;border-radius:8px;font-weight:bold;cursor:pointer;font-size:1.1em;margin-top:10px;">⛓️ Graver dans la Blockchain</button></div></div>
+
+<script>
+function envoyerDiplomeFeu(){var nom=localStorage.getItem('afri_user_name')||'Jeune Africain';fetch('/api/diplome',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:'academie=FEU&nom='+encodeURIComponent(nom)}).then(function(r){return r.text();}).then(function(t){alert('🎓 Diplôme gravé dans la blockchain!\n'+t);}).catch(function(e){alert('Erreur: '+e);});}
+</script>
+"##);
+
+    html.push_str(r#"<div class="card"><h2 style="color:#ff6644;">💡 Savais-tu?</h2><div style="color:#a8c5a8;padding:8px 0;"><b style="color:#d4a437;">Homo erectus</b> a maîtrisé le feu il y a 1 million d'années en Afrique. Le feu a fait l'humanité. Sans le feu africain, pas de civilisation.</div><div style="color:#a8c5a8;padding:8px 0;"><b style="color:#ff6644;">L'Afrique a inventé la fonte du fer</b> avant l'Europe. Les forges de Djenné, Nok, et Méroé produisaient du métal quand l'Europe était à l'âge de pierre.</div><div style="color:#a8c5a8;padding:8px 0;"><b style="color:#ff9966;">3 milliards de personnes</b> cuisinent encore au feu de bois. En Afrique, cela cause déforestation et maladies respiratoires.</div><div style="color:#a8c5a8;padding:8px 0;"><b style="color:#d4a437;">Le soleil est un feu à 5778 K.</b> La forge solaire d'AfriChain utilise ce feu propre et infini.</div></div>"#);
+
+    html.push_str(r#"<footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🔥 AI Feu — Le Feu Est la Vie et le Danger 💚🦁✨</footer>"#);
+    html.push_str("</body></html>");
+    html
+}
+
 fn html_garage(chain: &Blockchain) -> String {
     let mut html = html_head("Garage AI — Atelier Autonome 2500");
     let num_blocks = chain.blocks.len();
@@ -20021,7 +20146,7 @@ html+='<div class="log-entry log-kill">⚠️ Tentative d\x27infiltration occide
 html+='<div class="log-entry log-invis">✅ L\x27Afrique est forte. Le système grandit.</div>';
 }else if(type==='total'){
 html='<div style="color:#d4a437;font-weight:bold;margin-bottom:8px">📋 RAPPORT TOTAL — Depuis le début</div>';
-html+='<div class="log-entry">🦁 AfriChain v1.10 — AI Mer L Ocean Africain Est la Vie</div>';
+html+='<div class="log-entry">🦁 AfriChain v1.11 — AI Feu Le Feu Est la Vie et le Danger</div>';
 html+='<div class="log-entry">⛓️ Blockchain: 100% souveraine — Zéro dépendance externe</div>';
 html+='<div class="log-entry">🔐 Crypto: Ed25519 + AfriHash-256/512 + AfriRNG — tout from scratch</div>';
 html+='<div class="log-entry">🌍 54 pays africains connectés</div>';
@@ -21565,7 +21690,7 @@ fn main() {
         .and_then(|i| args.get(i + 1)).cloned().unwrap_or_else(|| "Afrique".to_string());
 
     let my_node_id = generate_node_id();
-    println!("🦁 AfriChain v1.10 — AI Mer L Ocean Africain Est la Vie");
+    println!("🦁 AfriChain v1.11 — AI Feu Le Feu Est la Vie et le Danger");
     println!("💚 L'Afrique ne demande plus la permission");
     println!("🌍 54 pays — 🇲🇱 🇳🇪 🇧🇫 AES — Mali · Niger · Burkina Faso");
     println!("🔐 8 modules cryptographiques — construits from scratch");
@@ -21742,6 +21867,7 @@ fn main() {
     println!("👶 AI Enfant sur http://localhost:8080/ai-enfant");
     println!("🌍 AI Terre sur http://localhost:8080/ai-terre");
     println!("🌊 AI Mer sur http://localhost:8080/ai-mer");
+    println!("🔥 AI Feu sur http://localhost:8080/ai-feu");
 
     // Serveur HTTP en arrière-plan (pour mesh + autres utilisateurs)
     let serve_state = web_state.clone();
@@ -21776,7 +21902,7 @@ fn terminal_interface(state: &Arc<AppState>) {
     println!("  ║  🕐 AfriTime — Pas UTC, pas Greenwich   ║");
     println!("  ║  📝 ~23,100 lignes — écrit à la main       ║");
     println!("  ╚═══════════════════════════════════════════════╝");
-    println!("\n  Version v1.10 — 1 septembre 2026");
+    println!("\n  Version v1.11 — 1 septembre 2026");
     println!("  Construit sur Termux · Android · nano\n");
     println!("  ─────────────────────────────────────────────");
     println!("\n  1. 🏦 Centre de Données (Admin)");
@@ -21848,7 +21974,7 @@ fn admin_interface(state: &Arc<AppState>) {
         println!("\n");
         println!("╔══════════════════════════════════════╗");
         println!("║  🏦 CENTRE DE DONNÉES — Admin       ║");
-        println!("║  🦁 AfriChain v1.10                  ║");
+        println!("║  🦁 AfriChain v1.11                  ║");
         println!("╠══════════════════════════════════════╣");
         let chain = state.chain.lock().unwrap();
         let users = state.users.lock().unwrap();
@@ -25528,6 +25654,10 @@ fn handle_request(req: afri_http::HttpRequest, state: &Arc<AppState>) -> afri_ht
         ("GET", "/ai-mer") => {
             let chain = state.chain.lock().unwrap();
             HttpResponse::ok(&html_ai_mer(&chain))
+        }
+        ("GET", "/ai-feu") => {
+            let chain = state.chain.lock().unwrap();
+            HttpResponse::ok(&html_ai_feu(&chain))
         }
 
         ("GET", "/garage") => {
