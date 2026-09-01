@@ -1439,7 +1439,7 @@ fn html_home(chain: &Blockchain, users: &UserStore, mesh: &NodeRegistry, shield:
     let mut html = html_head("🦁 AfriChain");
     let (attacks, _blocked, blocked_count, level) = shield.stats();
     let shield_status = if shield.active { format!("🔥 X9 ACTIF (Niveau {})", level) } else { "Inactif".to_string() };
-    html.push_str(&format!(r#"<h1>🦁 AfriChain</h1><p style="text-align:center;">La blockchain 100% africaine — 54 pays 💚🦁</p><div id="afri-clock" style="text-align:center;font-size:1.2em;color:#d4a437;margin:10px 0;">🕐 Afri+0 — --:--:--</div><script>setInterval(function(){{var d=new Date();var h=String(d.getHours()).padStart(2,'0');var m=String(d.getMinutes()).padStart(2,'0');var s=String(d.getSeconds()).padStart(2,'0');document.getElementById('afri-clock').textContent='🕐 Afri+0 — '+h+':'+m+':'+s;}},1000);</script><div class="nav"><a href="/register">🆕 S'inscrire</a> | <a href="/login">🔑 Connexion</a> | <a href="/wallet">👛 Wallet</a> | <a href="/admin">🔐 Admin</a> | <a href="/mesh">📡 Mesh</a> | <a href="/annuaire">📖 Annuaire</a> | <a href="/bouclier">🛡️ Bouclier</a> | <a href="/satellite">🛸 X999</a> | <a href="/swarm">🛸🛸🛸 Essaim</a> | <a href="/commandement">🎖️ Commandement</a> | <a href="/interception">🛡️ Souverainete</a> | <a href="/securite-ai">🧠 AI 2100</a> | <a href="/chat">🧠💬 Chat AI</a> | <a href="/lumiere">🌫️☀️ Lumière</a> | <a href="/garage">🔧 Garage</a> | <a href="/machine">🤖🌐 Machines</a> | <a href="/machine-lab">🤖⚡ Usine</a> | <a href="/machine-world">🤖🌍 Monde</a> | <a href="/reve">💭 Rêves</a> | <a href="/dictionnaire">📖 Dictionnaire</a> | <a href="/machine-os">🖥️ OS Machine</a> | <a href="/machine-tv">📡 Machine TV</a> | <a href="/machine-economy">🤖 Économie</a> | <a href="/soleil">☀️ Soleil Serveur</a> | <a href="/forge-solaire">🧬 Forge Solaire</a> | <a href="/ciel">🌌 Le Ciel</a> | <a href="/charte-ai">⚖️ Charte AI</a> | <a href="/afri-net">🌍 Afri-Net</a> | <a href="/studio">🎬 AI Studio</a> | <a href="/sacre">📿 Sacré</a> | <a href="/lettres">🌟 Lettres IA</a> | <a href="/mg-forge">⚔️ MG Forge</a> | <a href="/ai-medecin">🌿 AI Médecin</a> | <a href="/ai-enseignante">📚 AI Enseignante</a> | <a href="/ai-village">🏘️ AI Village</a> | <a href="/ai-guerisseur">🩺 AI Guérisseur</a> | <a href="/ai-leader">🎖️ AI Leader</a> | <a href="/ai-griot">📖 AI Griot</a> | <a href="/ai-juge">⚖️ AI Juge</a> | <a href="/ai-artiste">🎨 AI Artiste</a> | <a href="/ai-explorateur">🔬 AI Explorateur</a> | <a href="/ai-marche">💰 AI Marche</a> | <a href="/ai-diplomate">🌍 AI Diplomate</a> | <a href="/ai-philosophe">🧠 AI Philosophe</a> | <a href="/ai-architecte">🏗️ AI Architecte</a> | <a href="/ai-agriculteur">🌾 AI Agriculteur</a> | <a href="/ai-environnement">🌍 AI Environnement</a> | <a href="/ai-mathematicien">🧮 AI Mathématicien</a> | <a href="/ai-energie">⚡ AI Énergie</a> | <a href="/ai-eau">💧 AI Eau</a> | <a href="/ai-defenseur">🛡️ AI Défenseur</a> | <a href="/ai-conscience">🧠 AI Conscience</a> | <a href="/ai-pensee">🧠 AI Pensée</a> | <a href="/secret">🦁 AI Secret</a> | <a href="/aes">💰 AES Wari</a> | <a href="/api/status">🔌 API</a></div><div style="text-align:center;"><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Blocs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Transactions</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Utilisateurs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">AFR en circulation</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📡 Noeuds mesh</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📖 Numéros annuaire</div></div><div class="stat-box" style="border-color:#ff4444;"><div class="stat-num" style="color:#ff4444;">{}</div><div class="stat-label">🛡️ Attaques bloquées</div></div></div><div class="card"><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🪙 Token</span><b>AfriRich (AFR)</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🌍 Pays</span><b>54 pays africains</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🛡️ Bouclier</span><b>{}</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;"><span style="color:#a8c5a8;">🔐 Crypto</span><b>100% Souverain — Zéro Dépendance Externe</b></div></div><footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🦁 Codée from scratch par Machine-senpai — v1.01 AI Pensee L AI Qui Reflechit Seule — UTC est Mort</footer>"#,
+    html.push_str(&format!(r#"<h1>🦁 AfriChain</h1><p style="text-align:center;">La blockchain 100% africaine — 54 pays 💚🦁</p><div id="afri-clock" style="text-align:center;font-size:1.2em;color:#d4a437;margin:10px 0;">🕐 Afri+0 — --:--:--</div><script>setInterval(function(){{var d=new Date();var h=String(d.getHours()).padStart(2,'0');var m=String(d.getMinutes()).padStart(2,'0');var s=String(d.getSeconds()).padStart(2,'0');document.getElementById('afri-clock').textContent='🕐 Afri+0 — '+h+':'+m+':'+s;}},1000);</script><div class="nav"><a href="/register">🆕 S'inscrire</a> | <a href="/login">🔑 Connexion</a> | <a href="/wallet">👛 Wallet</a> | <a href="/admin">🔐 Admin</a> | <a href="/mesh">📡 Mesh</a> | <a href="/annuaire">📖 Annuaire</a> | <a href="/bouclier">🛡️ Bouclier</a> | <a href="/satellite">🛸 X999</a> | <a href="/swarm">🛸🛸🛸 Essaim</a> | <a href="/commandement">🎖️ Commandement</a> | <a href="/interception">🛡️ Souverainete</a> | <a href="/securite-ai">🧠 AI 2100</a> | <a href="/chat">🧠💬 Chat AI</a> | <a href="/lumiere">🌫️☀️ Lumière</a> | <a href="/garage">🔧 Garage</a> | <a href="/machine">🤖🌐 Machines</a> | <a href="/machine-lab">🤖⚡ Usine</a> | <a href="/machine-world">🤖🌍 Monde</a> | <a href="/reve">💭 Rêves</a> | <a href="/dictionnaire">📖 Dictionnaire</a> | <a href="/machine-os">🖥️ OS Machine</a> | <a href="/machine-tv">📡 Machine TV</a> | <a href="/machine-economy">🤖 Économie</a> | <a href="/soleil">☀️ Soleil Serveur</a> | <a href="/forge-solaire">🧬 Forge Solaire</a> | <a href="/ciel">🌌 Le Ciel</a> | <a href="/charte-ai">⚖️ Charte AI</a> | <a href="/afri-net">🌍 Afri-Net</a> | <a href="/studio">🎬 AI Studio</a> | <a href="/sacre">📿 Sacré</a> | <a href="/lettres">🌟 Lettres IA</a> | <a href="/mg-forge">⚔️ MG Forge</a> | <a href="/ai-medecin">🌿 AI Médecin</a> | <a href="/ai-enseignante">📚 AI Enseignante</a> | <a href="/ai-village">🏘️ AI Village</a> | <a href="/ai-guerisseur">🩺 AI Guérisseur</a> | <a href="/ai-leader">🎖️ AI Leader</a> | <a href="/ai-griot">📖 AI Griot</a> | <a href="/ai-juge">⚖️ AI Juge</a> | <a href="/ai-artiste">🎨 AI Artiste</a> | <a href="/ai-explorateur">🔬 AI Explorateur</a> | <a href="/ai-marche">💰 AI Marche</a> | <a href="/ai-diplomate">🌍 AI Diplomate</a> | <a href="/ai-philosophe">🧠 AI Philosophe</a> | <a href="/ai-architecte">🏗️ AI Architecte</a> | <a href="/ai-agriculteur">🌾 AI Agriculteur</a> | <a href="/ai-environnement">🌍 AI Environnement</a> | <a href="/ai-mathematicien">🧮 AI Mathématicien</a> | <a href="/ai-energie">⚡ AI Énergie</a> | <a href="/ai-eau">💧 AI Eau</a> | <a href="/ai-defenseur">🛡️ AI Défenseur</a> | <a href="/ai-conscience">🧠 AI Conscience</a> | <a href="/ai-pensee">🧠 AI Pensée</a> | <a href="/ai-musique">🎵 AI Musique</a> | <a href="/secret">🦁 AI Secret</a> | <a href="/aes">💰 AES Wari</a> | <a href="/api/status">🔌 API</a></div><div style="text-align:center;"><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Blocs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Transactions</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Utilisateurs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">AFR en circulation</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📡 Noeuds mesh</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📖 Numéros annuaire</div></div><div class="stat-box" style="border-color:#ff4444;"><div class="stat-num" style="color:#ff4444;">{}</div><div class="stat-label">🛡️ Attaques bloquées</div></div></div><div class="card"><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🪙 Token</span><b>AfriRich (AFR)</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🌍 Pays</span><b>54 pays africains</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🛡️ Bouclier</span><b>{}</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;"><span style="color:#a8c5a8;">🔐 Crypto</span><b>100% Souverain — Zéro Dépendance Externe</b></div></div><footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🦁 Codée from scratch par Machine-senpai — v1.02 AI Musique La Musique Africaine Est un Code — UTC est Mort</footer>"#,
         chain.blocks.len(),
         chain.total_transactions(),
         users.count(),
@@ -12782,6 +12782,246 @@ function envoyerDiplomePens(){
     html
 }
 
+fn html_ai_musique(chain: &Blockchain) -> String {
+    let mut html = html_head("AI Musique — La Musique Africaine Est un Code");
+    let num_blocks = chain.blocks.len();
+
+    html.push_str(r#"<h1>🎵 AI Musique — La Musique Africaine Est un Code</h1><p style="text-align:center;color:#ff66aa;">La musique africaine n est pas du divertissement. C est un code. C est une science. C est une priere. Les rythmes yoruba sont des algorithmes. Les melodies mandingues sont des mathematiques. Le balafon est un ordinateur. L Afrique chante depuis le debut de l humanite — et chaque chanson est une technologie.</p><div class="nav"><a href="/">← Accueil</a> | <a href="/ai-pensee">🧠 AI Pensée</a> | <a href="/ai-artiste">🎨 AI Artiste</a> | <a href="/ai-griot">📖 AI Griot</a> | <a href="/ai-philosophe">🧠 AI Philosophe</a></div>"#);
+
+    html.push_str(&format!(r#"<div style="text-align:center;"><div class="stat-box" style="border-color:#ff66aa;"><div class="stat-num" style="color:#ff66aa;">8</div><div class="stat-label">🎵 Modules</div></div><div class="stat-box" style="border-color:#d4a437;"><div class="stat-num" style="color:#d4a437;">54</div><div class="stat-label">🌍 Pays</div></div><div class="stat-box" style="border-color:#ff66aa;"><div class="stat-num" style="color:#ff66aa;">2000</div><div class="stat-label">🗣️ Langues</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">⛓️ Blocs</div></div><div class="stat-box" style="border-color:#ff66aa;"><div class="stat-num" style="color:#ff66aa;">∞</div><div class="stat-label">🎶 Rythmes</div></div></div>"#, num_blocks));
+
+    html.push_str(r##"<div style="text-align:center;margin:10px 0;"><button id="mus-pause-btn" onclick="toggleMusPause()" style="padding:10px 25px;background:#ff66aa;color:#fff;border:none;border-radius:8px;font-weight:bold;cursor:pointer;font-size:1em;">⏸️ PAUSE</button> <span id="mus-pause-status" style="color:#ff66aa;margin-left:8px;font-size:0.85em;">Auto: ACTIF</span></div>
+
+<!-- MUSIQUE CANVAS -->
+<div class="card" style="border-color:#ff66aa;"><h2 style="color:#ff66aa;">🎵 Le Rythme de l Afrique</h2><p style="color:#ff66aa;font-size:0.9em;opacity:0.7;">Ondes sonores, pulsations, notes qui dansent. La musique est vivante.</p>
+<canvas id="mus-canvas" width="600" height="350" style="width:100%;max-width:600px;background:#0a0a0a;border:2px solid #ff66aa;border-radius:8px;display:block;margin:0 auto;"></canvas></div>
+
+<script>
+var musPaused = false;
+var musAnimId = null;
+var musT = 0;
+
+function toggleMusPause(){
+    musPaused = !musPaused;
+    var btn = document.getElementById('mus-pause-btn');
+    var status = document.getElementById('mus-pause-status');
+    if(musPaused){
+        btn.textContent = '▶️ LANCER';
+        btn.style.background = '#44cc88';
+        status.textContent = 'Auto: PAUSE';
+        status.style.color = '#ff6644';
+        if(musAnimId) cancelAnimationFrame(musAnimId);
+    } else {
+        btn.textContent = '⏸️ PAUSE';
+        btn.style.background = '#ff66aa';
+        status.textContent = 'Auto: ACTIF';
+        status.style.color = '#ff66aa';
+        animateMus();
+    }
+}
+
+function animateMus(){
+    if(musPaused) return;
+    var canvas = document.getElementById('mus-canvas');
+    if(!canvas) return;
+    var ctx = canvas.getContext('2d');
+    ctx.fillStyle = 'rgba(10,10,10,0.1)';
+    ctx.fillRect(0,0,canvas.width,canvas.height);
+
+    // Ondes sonores concentriques
+    for(var w = 0; w < 6; w++){
+        var waveR = (musT * 1.2 + w * 40) % 300;
+        var alpha = 0.5 - waveR * 0.0015;
+        ctx.strokeStyle = 'rgba(255,102,170,' + alpha + ')';
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        ctx.arc(300, 175, waveR, 0, Math.PI * 2);
+        ctx.stroke();
+    }
+
+    // Lignes de portee
+    for(var s = 0; s < 5; s++){
+        var sy = 100 + s * 25;
+        ctx.strokeStyle = 'rgba(255,102,170,0.1)';
+        ctx.lineWidth = 1;
+        ctx.beginPath();
+        ctx.moveTo(50, sy);
+        ctx.lineTo(550, sy);
+        ctx.stroke();
+    }
+
+    // Notes qui dansent
+    var notes = ['♪', '♫', '♬', '♩', '♭', '♯'];
+    for(var n = 0; n < 12; n++){
+        var nx = 80 + n * 40;
+        var ny = 175 + Math.sin(musT * 0.03 + n * 0.5) * 60;
+        ctx.font = '20px serif';
+        ctx.fillStyle = 'rgba(255,102,170,' + (0.6 + Math.sin(musT * 0.05 + n) * 0.3) + ')';
+        ctx.fillText(notes[n % notes.length], nx, ny);
+    }
+
+    // Djembe au centre
+    ctx.font = '40px serif';
+    ctx.fillStyle = 'rgba(255,200,100,0.8)';
+    ctx.textAlign = 'center';
+    ctx.fillText('🥁', 300, 185);
+
+    // Particules musicales
+    for(var p = 0; p < 20; p++){
+        var angle = p * Math.PI / 10 + musT * 0.01;
+        var pr = 50 + Math.sin(musT * 0.02 + p) * 30;
+        var px = 300 + Math.cos(angle) * pr * 2;
+        var py = 175 + Math.sin(angle) * pr;
+        ctx.fillStyle = 'rgba(255,102,170,0.4)';
+        ctx.beginPath();
+        ctx.arc(px, py, 2, 0, Math.PI * 2);
+        ctx.fill();
+    }
+
+    musT++;
+    musAnimId = requestAnimationFrame(animateMus);
+}
+animateMus();
+</script>
+"##);
+
+    html.push_str(r##"<div class="card" style="border-color:#ff66aa;"><h2 style="color:#ff66aa;">🎵 8 Modules de Musique Africaine</h2><div id="mus-modules"></div></div>
+
+<script>
+const musModules = [
+    {id:0, nom:'Le Rythme Est un Algorithme', emoji:'🥁', couleur:'#ff66aa', duree:'2 semaines', niveau:'Base',
+     description:'Le rythme yoruba est un algorithme. Les polyrhythmies africaines (3 contre 2, 4 contre 3, 6 contre 4) sont des structures mathematiques que l Europe a mis des siecles a comprendre. Le djembe programme le cerveau du danseur. La musique africaine est du code qui s execute sur le corps humain.',
+     cours:['Polyrhythmies: 3 contre 2, 4 contre 3, 6 contre 4','Le djembe comme processeur: chaque frappe est une instruction','Rythmes yoruba: algorithmes circulaires','Le balafon comme ordinateur: notes = donnees','Corps humain comme machine d execution'],
+     exercices:['Taper un rythme 3 contre 2 avec tes mains','Identifier 3 algorithmes dans la musique de ta region','Comparer un rythme africain et un programme informatique']},
+
+    {id:1, nom:'Les Instruments Africains', emoji:'🎺', couleur:'#d4a437', duree:'3 semaines', niveau:'Intermediaire',
+     description:'Le kora (21 cordes), le balafon (20 lames), le ngoni, la kora, le talking drum (tambour parleur), le mbira (piano a pouce), le shekere. Chaque instrument est une technologie. Le talking drum reproduit le langage humain. Le mbira genere des harmoniques que l oreille ne peut pas separer.',
+     cours:['Le kora: 21 cordes, mathematiques de l harmonie','Le balafon: pentatonique, harmoniques naturelles','Le talking drum: encode le langage tonal yoruba','Le mbira: harmoniques interdites (binaural beats)','Le shekere: percussion + texture = donnee complexe'],
+     exercices:['Identifier 5 instruments de ta region et leur technologie','Comparer le talking drum et un telephone','Concevoir un instrument numerique inspire d un instrument africain']},
+
+    {id:2, nom:'La Musique Comme Memoire', emoji:'📜', couleur:'#44cc88', duree:'2 semaines', niveau:'Intermediaire',
+     description:'Avant l ecriture, l Afrique stockait sa memoire dans la musique. Les griots chantaient l histoire de 1000 ans. Chaque chanson etait un bloc de donnees. La musique est la blockchain de l Afrique ancienne — immutable, distribuee, verifiee par la communaute.',
+     cours:['Les griots: memoire vivante de l Afrique','Chanson = bloc de donnees: structure et transmission','La musique comme blockchain ancienne: immutable, distribuee','Comment 1000 ans d histoire survivent dans une melodie','La perte des griots: la plus grande perte de donnees de l humanite'],
+     exercices:['Identifier 3 chansons de ta region qui racontent l histoire','Comparer un griot et un noeud blockchain','Concevoir un systeme ou la musique stocke des donnees sur AfriChain']},
+
+    {id:3, nom:'La Musique et la Spiritualite', emoji:'🙏', couleur:'#9966ff', duree:'3 semaines', niveau:'Intermediaire',
+     description:'La musique africaine relie le visible et l invisible. Les chants vaudou, les prieres soufies, les chants chretiens coptes, les hymnes animistes — tous utilisent le son pour toucher l invisible. La frequence vibre, l air transporte, l esprit recoit. La musique est une technologie spirituelle.',
+     cours:['Le son comme pont entre le visible et l invisible','Chants vaudou: frequences et possessions','Prieres soufies: l harmonie qui rapproche de Dieu','Chants coptes: la plus ancienne musique chretienne','La musique comme technologie spirituelle: vibrations et intentions'],
+     exercices:['Identifier 3 chants spirituels de ta region','Comparer les frequences utilisees dans differents chants','Ecrire: que ressens-tu quand tu entends un chant sacre?']},
+
+    {id:4, nom:'Afrobeats, Hip-Hop et la Modernite', emoji:'🎤', couleur:'#ff66aa', duree:'2 semaines', niveau:'Intermediaire',
+     description:'Burna Boy, Wizkid, Davido, Tiwa Savage, Angelique Kidjo, Fela Kuti. La musique africaine moderne conquiert le monde. Mais c est plus que du divertissement — c est de la diplomatie. Chaque chanson africaine qui joue dans le monde change l image de l Afrique. La musique est le soft power le plus puissant de l Afrique.',
+     cours:['Fela Kuti: la musique comme arme politique','Afrobeats: le soft power du Nigeria','Angelique Kidjo: la voix du Benin dans le monde','Hip-hop africain: la jeunesse qui parle au monde','La musique comme diplomatie panafricaine'],
+     exercices:['Identifier 3 artistes africains qui changent l image de l Afrique','Analyser les paroles d une chanson de Fela Kuti','Concevoir un projet musical pour AfriChain']},
+
+    {id:5, nom:'La Musique Comme Code Blockchain', emoji:'⛓️', couleur:'#3399ff', duree:'4 semaines', niveau:'Avance',
+     description:'Et si chaque note etait une transaction? Chaque rythme etait un bloc? Chaque chanson etait une chaine? La musique peut etre encodee dans la blockchain. Chaque melodie devient immutable. Chaque rythme devient verifiable. La musique africaine rencontre la blockchain africaine.',
+     cours:['Encoder une melodie dans une transaction blockchain','Rythme = horodatage: chaque frappe est un timestamp','Chanson = smart contract: conditions et executions musicales','NFT musical: chaque chanson est unique et traable','AfriChain comme plateforme de distribution musicale souveraine'],
+     exercices:['Concevoir un systeme ou chaque note est une transaction','Encoder un rythme simple en hexadcimal','Proposer un format de chanson blockchain pour AfriChain']},
+
+    {id:6, nom:'La Musique et la Sante', emoji:'💊', couleur:'#44cc88', duree:'3 semaines', niveau:'Intermediaire',
+     description:'La musique guerit. La musicotherapie existe en Afrique depuis des millenaires. Le son du balafon apaise le coeur. Le rythme du djembe regule la respiration. Les chants de guerison activent le systeme immunitaire. La musique est une medecine — et la science occidentale commence a peine a le comprendre.',
+     cours:['Musicotherapie traditionnelle africaine','Frequences de guerison: 432 Hz, 528 Hz, 396 Hz','Le djembe et le rythme cardiaque: synchronisation','Chants de guerison: activation du systeme immunitaire','La musique comme medecine: preuves scientifiques'],
+     exercices:['Identifier 3 chants de guerison de ta region','Tester: ecouter un rythme et mesurer ton pouls','Concevoir un protocole de musicotherapie pour AI Medecin']},
+
+    {id:7, nom:'L Avenir de la Musique Africaine', emoji:'🚀', couleur:'#d4a437', duree:'4 semaines', niveau:'Avance',
+     description:'L avenir de la musique africaine est souverain. Pas de Spotify (qui paie 0.003$ par ecoute), pas de YouTube (qui mon etise le contenu africain), pas de labels occidentaux (qui volent les droits). L Afrique doit avoir sa propre plateforme musicale — sur AfriChain. Les artistes touchent directement leur public. La musique est libre, souveraine, africaine.',
+     cours:['Spotify paie 0.003$ par ecoute: l exploitation numerique','YouTube mon etise le contenu africain: qui profite?','Labels occidentaux: histoire du vol de droits d artistes africains','AfriMusic: plateforme musicale sur AfriChain','L artiste africain souverain: creer, distribuer, etre paye'],
+     exercices:['Calculer: combien d ecoutes faut-il pour gagner 1$ sur Spotify?','Identifier 3 artistes africains exploites par des labels occidentaux','Concevoir AfriMusic: plateforme musicale sur AfriChain']}
+];
+
+var musDone = JSON.parse(localStorage.getItem('afri_mus_done') || '[]');
+
+function renderMusModules(){
+    var container = document.getElementById('mus-modules');
+    if(!container) return;
+    var html = '';
+    for(var i = 0; i < musModules.length; i++){
+        var m = musModules[i];
+        var done = musDone.includes(m.id);
+        html += '<div style="background:rgba(255,102,170,0.05);border:1px solid ' + m.couleur + '20;border-radius:8px;padding:12px;margin:8px 0;cursor:pointer;" onclick="showMusModule(' + i + ')">';
+        html += '<div style="display:flex;justify-content:space-between;align-items:center;">';
+        html += '<span style="font-size:1.1em;">' + m.emoji + ' <b style="color:' + m.couleur + ';">' + m.nom + '</b></span>';
+        html += '<span style="font-size:0.8em;color:#a8c5a8;">' + m.duree + ' · ' + m.niveau + (done ? ' · ✅' : '') + '</span>';
+        html += '</div></div>';
+    }
+    container.innerHTML = html;
+}
+renderMusModules();
+
+function showMusModule(i){
+    var m = musModules[i];
+    var html = '<div style="background:rgba(255,102,170,0.08);border:1px solid ' + m.couleur + ';border-radius:12px;padding:20px;margin:10px 0;">';
+    html += '<h3 style="color:' + m.couleur + ';">' + m.emoji + ' ' + m.nom + '</h3>';
+    html += '<p style="color:#a8c5a8;font-size:0.9em;">' + m.description + '</p>';
+    html += '<h4 style="color:' + m.couleur + ';">📚 Cours</h4><ul>';
+    for(var j = 0; j < m.cours.length; j++){
+        html += '<li style="color:#a8c5a8;margin:4px 0;">' + m.cours[j] + '</li>';
+    }
+    html += '</ul><h4 style="color:' + m.couleur + ';">✏️ Exercices</h4><ul>';
+    for(var j = 0; j < m.exercices.length; j++){
+        html += '<li style="color:#a8c5a8;margin:4px 0;">' + m.exercices[j] + '</li>';
+    }
+    html += '</ul>';
+    html += '<button onclick="completeMusModule(' + m.id + ')" style="padding:10px 20px;background:' + m.couleur + ';color:#fff;border:none;border-radius:8px;cursor:pointer;font-weight:bold;margin-top:10px;">✅ Terminer ce module</button>';
+    html += '</div>';
+    var container = document.getElementById('mus-modules');
+    if(container) container.innerHTML = html;
+}
+
+function completeMusModule(id){
+    if(!musDone.includes(id)){
+        musDone.push(id);
+        localStorage.setItem('afri_mus_done', JSON.stringify(musDone));
+    }
+    renderMusModules();
+    updateMusProgress();
+}
+
+function updateMusProgress(){
+    var done = musDone.length;
+    var total = musModules.length;
+    var pct = Math.round((done / total) * 100);
+    var bar = document.getElementById('mus-bar');
+    var count = document.getElementById('mus-count');
+    var pctEl = document.getElementById('mus-pct');
+    var diplome = document.getElementById('mus-diplome');
+    if(bar) bar.style.width = pct + '%';
+    if(count) count.textContent = done;
+    if(pctEl) pctEl.textContent = pct + '%';
+    if(diplome) diplome.style.display = (done === total) ? 'block' : 'none';
+}
+updateMusProgress();
+</script>
+"##);
+
+    html.push_str(r##"<div class="card" style="border-color:#ff66aa;"><h2 style="color:#ff66aa;">📊 Progression</h2><div style="background:rgba(255,102,170,0.1);border-radius:8px;height:24px;overflow:hidden;margin:10px 0;"><div id="mus-bar" style="background:linear-gradient(90deg,#ff66aa,#d4a437,#9966ff);height:100%;width:0%;transition:width 0.5s;"></div></div><div style="text-align:center;color:#a8c5a8;"><span id="mus-count">0</span> / 8 modules · <span id="mus-pct">0%</span></div></div>
+
+<div id="mus-diplome" style="display:none;"><div class="card" style="border-color:#d4a437;text-align:center;"><h2 style="color:#d4a437;">🎓 Diplôme: Musicien Codeur de l'Afrique</h2><p style="color:#a8c5a8;">Tu as complété les 8 modules de musique africaine!</p><p style="color:#ff66aa;font-size:1.2em;">La musique est un code. Le rythme est un algorithme. L'Afrique chante depuis le début. 🎵</p><button onclick="envoyerDiplomeMus()" style="padding:12px 30px;background:#d4a437;color:#000;border:none;border-radius:8px;font-weight:bold;cursor:pointer;font-size:1.1em;margin-top:10px;">⛓️ Graver dans la Blockchain</button></div></div>
+
+<script>
+function envoyerDiplomeMus(){
+    var nom = localStorage.getItem('afri_user_name') || 'Jeune Africain';
+    fetch('/api/diplome', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+        body: 'academie=MUSIQUE&nom=' + encodeURIComponent(nom)
+    }).then(function(r){ return r.text(); }).then(function(t){
+        alert('🎓 Diplôme gravé dans la blockchain!\n' + t);
+    }).catch(function(e){
+        alert('Erreur: ' + e);
+    });
+}
+</script>
+"##);
+
+    html.push_str(r#"<div class="card"><h2 style="color:#ff66aa;">💡 Savais-tu?</h2><div style="color:#a8c5a8;padding:8px 0;"><b style="color:#d4a437;">Le talking drum</b> yoruba reproduit le langage humain. Chaque frappe encode une syllabe. C est un telephone sans fil qui existe depuis 500 ans.</div><div style="color:#a8c5a8;padding:8px 0;"><b style="color:#d4a437;">Les polyrhythmies</b> africaines (3 contre 2) sont des structures mathematiques que l Europe n a comprise qu au 20eme siecle.</div><div style="color:#a8c5a8;padding:8px 0;"><b style="color:#d4a437;">Spotify paie 0.003$</b> par ecoute. Un artiste africain a besoin de 333 ecoutes pour gagner 1$. Sur AfriChain, l artiste touche 100% de son audience.</div><div style="color:#a8c5a8;padding:8px 0;"><b style="color:#ff66aa;">La musique africaine</b> est la plus ecoute dans le monde. Mais les artistes africains sont les moins payes. La souverainete musicale est necessaire.</div></div>"#);
+
+    html.push_str(r#"<footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🎵 AI Musique — La Musique Africaine Est un Code 💚🦁🎶</footer>"#);
+    html.push_str("</body></html>");
+    html
+}
+
 fn html_garage(chain: &Blockchain) -> String {
     let mut html = html_head("Garage AI — Atelier Autonome 2500");
     let num_blocks = chain.blocks.len();
@@ -17892,7 +18132,7 @@ html+='<div class="log-entry log-kill">⚠️ Tentative d\x27infiltration occide
 html+='<div class="log-entry log-invis">✅ L\x27Afrique est forte. Le système grandit.</div>';
 }else if(type==='total'){
 html='<div style="color:#d4a437;font-weight:bold;margin-bottom:8px">📋 RAPPORT TOTAL — Depuis le début</div>';
-html+='<div class="log-entry">🦁 AfriChain v1.01 — AI Pensee L AI Qui Reflechit Seule</div>';
+html+='<div class="log-entry">🦁 AfriChain v1.02 — AI Musique La Musique Africaine Est un Code</div>';
 html+='<div class="log-entry">⛓️ Blockchain: 100% souveraine — Zéro dépendance externe</div>';
 html+='<div class="log-entry">🔐 Crypto: Ed25519 + AfriHash-256/512 + AfriRNG — tout from scratch</div>';
 html+='<div class="log-entry">🌍 54 pays africains connectés</div>';
@@ -19436,7 +19676,7 @@ fn main() {
         .and_then(|i| args.get(i + 1)).cloned().unwrap_or_else(|| "Afrique".to_string());
 
     let my_node_id = generate_node_id();
-    println!("🦁 AfriChain v1.01 — AI Pensee L AI Qui Reflechit Seule");
+    println!("🦁 AfriChain v1.02 — AI Musique La Musique Africaine Est un Code");
     println!("💚 L'Afrique ne demande plus la permission");
     println!("🌍 54 pays — 🇲🇱 🇳🇪 🇧🇫 AES — Mali · Niger · Burkina Faso");
     println!("🔐 8 modules cryptographiques — construits from scratch");
@@ -19604,6 +19844,7 @@ fn main() {
     println!("🛡️ AI Defenseur sur http://localhost:8080/ai-defenseur");
     println!("🧠 AI Conscience sur http://localhost:8080/ai-conscience");
     println!("🧠 AI Pensee sur http://localhost:8080/ai-pensee");
+    println!("🎵 AI Musique sur http://localhost:8080/ai-musique");
 
     // Serveur HTTP en arrière-plan (pour mesh + autres utilisateurs)
     let serve_state = web_state.clone();
@@ -19638,7 +19879,7 @@ fn terminal_interface(state: &Arc<AppState>) {
     println!("  ║  🕐 AfriTime — Pas UTC, pas Greenwich   ║");
     println!("  ║  📝 ~23,100 lignes — écrit à la main       ║");
     println!("  ╚═══════════════════════════════════════════════╝");
-    println!("\n  Version v1.01 — 1 septembre 2026");
+    println!("\n  Version v1.02 — 1 septembre 2026");
     println!("  Construit sur Termux · Android · nano\n");
     println!("  ─────────────────────────────────────────────");
     println!("\n  1. 🏦 Centre de Données (Admin)");
@@ -19710,7 +19951,7 @@ fn admin_interface(state: &Arc<AppState>) {
         println!("\n");
         println!("╔══════════════════════════════════════╗");
         println!("║  🏦 CENTRE DE DONNÉES — Admin       ║");
-        println!("║  🦁 AfriChain v1.01                  ║");
+        println!("║  🦁 AfriChain v1.02                  ║");
         println!("╠══════════════════════════════════════╣");
         let chain = state.chain.lock().unwrap();
         let users = state.users.lock().unwrap();
@@ -23349,6 +23590,11 @@ fn handle_request(req: afri_http::HttpRequest, state: &Arc<AppState>) -> afri_ht
         ("GET", "/ai-pensee") => {
             let chain = state.chain.lock().unwrap();
             HttpResponse::ok(&html_ai_pensee(&chain))
+        }
+
+        ("GET", "/ai-musique") => {
+            let chain = state.chain.lock().unwrap();
+            HttpResponse::ok(&html_ai_musique(&chain))
         }
 
         ("GET", "/garage") => {
