@@ -1439,7 +1439,7 @@ fn html_home(chain: &Blockchain, users: &UserStore, mesh: &NodeRegistry, shield:
     let mut html = html_head("🦁 AfriChain");
     let (attacks, _blocked, blocked_count, level) = shield.stats();
     let shield_status = if shield.active { format!("🔥 X9 ACTIF (Niveau {})", level) } else { "Inactif".to_string() };
-    html.push_str(&format!(r#"<h1>🦁 AfriChain</h1><p style="text-align:center;">La blockchain 100% africaine — 54 pays 💚🦁</p><div id="afri-clock" style="text-align:center;font-size:1.2em;color:#d4a437;margin:10px 0;">🕐 Afri+0 — --:--:--</div><script>setInterval(function(){{var d=new Date();var h=String(d.getHours()).padStart(2,'0');var m=String(d.getMinutes()).padStart(2,'0');var s=String(d.getSeconds()).padStart(2,'0');document.getElementById('afri-clock').textContent='🕐 Afri+0 — '+h+':'+m+':'+s;}},1000);</script><div class="nav"><a href="/register">🆕 S'inscrire</a> | <a href="/login">🔑 Connexion</a> | <a href="/wallet">👛 Wallet</a> | <a href="/admin">🔐 Admin</a> | <a href="/mesh">📡 Mesh</a> | <a href="/annuaire">📖 Annuaire</a> | <a href="/bouclier">🛡️ Bouclier</a> | <a href="/satellite">🛸 X999</a> | <a href="/swarm">🛸🛸🛸 Essaim</a> | <a href="/commandement">🎖️ Commandement</a> | <a href="/interception">🛡️ Souverainete</a> | <a href="/securite-ai">🧠 AI 2100</a> | <a href="/chat">🧠💬 Chat AI</a> | <a href="/lumiere">🌫️☀️ Lumière</a> | <a href="/garage">🔧 Garage</a> | <a href="/machine">🤖🌐 Machines</a> | <a href="/machine-lab">🤖⚡ Usine</a> | <a href="/machine-world">🤖🌍 Monde</a> | <a href="/reve">💭 Rêves</a> | <a href="/dictionnaire">📖 Dictionnaire</a> | <a href="/machine-os">🖥️ OS Machine</a> | <a href="/machine-tv">📡 Machine TV</a> | <a href="/machine-economy">🤖 Économie</a> | <a href="/soleil">☀️ Soleil Serveur</a> | <a href="/forge-solaire">🧬 Forge Solaire</a> | <a href="/ciel">🌌 Le Ciel</a> | <a href="/charte-ai">⚖️ Charte AI</a> | <a href="/afri-net">🌍 Afri-Net</a> | <a href="/studio">🎬 AI Studio</a> | <a href="/sacre">📿 Sacré</a> | <a href="/lettres">🌟 Lettres IA</a> | <a href="/mg-forge">⚔️ MG Forge</a> | <a href="/ai-medecin">🌿 AI Médecin</a> | <a href="/ai-enseignante">📚 AI Enseignante</a> | <a href="/ai-village">🏘️ AI Village</a> | <a href="/ai-guerisseur">🩺 AI Guérisseur</a> | <a href="/ai-leader">🎖️ AI Leader</a> | <a href="/ai-griot">📖 AI Griot</a> | <a href="/ai-juge">⚖️ AI Juge</a> | <a href="/ai-artiste">🎨 AI Artiste</a> | <a href="/ai-explorateur">🔬 AI Explorateur</a> | <a href="/ai-marche">💰 AI Marche</a> | <a href="/ai-diplomate">🌍 AI Diplomate</a> | <a href="/ai-philosophe">🧠 AI Philosophe</a> | <a href="/ai-architecte">🏗️ AI Architecte</a> | <a href="/ai-agriculteur">🌾 AI Agriculteur</a> | <a href="/ai-environnement">🌍 AI Environnement</a> | <a href="/ai-mathematicien">🧮 AI Mathématicien</a> | <a href="/ai-energie">⚡ AI Énergie</a> | <a href="/ai-eau">💧 AI Eau</a> | <a href="/ai-defenseur">🛡️ AI Défenseur</a> | <a href="/ai-conscience">🧠 AI Conscience</a> | <a href="/ai-pensee">🧠 AI Pensée</a> | <a href="/ai-musique">🎵 AI Musique</a> | <a href="/ai-langue">🗣️ AI Langue</a> | <a href="/ai-femme">🌸 AI Femme</a> | <a href="/ai-sante-mentale">🧠💚 AI Santé Mentale</a> | <a href="/ai-nuit">🌙 AI Nuit</a> | <a href="/secret">🦁 AI Secret</a> | <a href="/aes">💰 AES Wari</a> | <a href="/api/status">🔌 API</a></div><div style="text-align:center;"><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Blocs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Transactions</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Utilisateurs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">AFR en circulation</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📡 Noeuds mesh</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📖 Numéros annuaire</div></div><div class="stat-box" style="border-color:#ff4444;"><div class="stat-num" style="color:#ff4444;">{}</div><div class="stat-label">🛡️ Attaques bloquées</div></div></div><div class="card"><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🪙 Token</span><b>AfriRich (AFR)</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🌍 Pays</span><b>54 pays africains</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🛡️ Bouclier</span><b>{}</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;"><span style="color:#a8c5a8;">🔐 Crypto</span><b>100% Souverain — Zéro Dépendance Externe</b></div></div><footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🦁 Codée from scratch par Machine-senpai — v1.06 AI Nuit La Nuit Africaine Est une Mere — UTC est Mort</footer>"#,
+    html.push_str(&format!(r#"<h1>🦁 AfriChain</h1><p style="text-align:center;">La blockchain 100% africaine — 54 pays 💚🦁</p><div id="afri-clock" style="text-align:center;font-size:1.2em;color:#d4a437;margin:10px 0;">🕐 Afri+0 — --:--:--</div><script>setInterval(function(){{var d=new Date();var h=String(d.getHours()).padStart(2,'0');var m=String(d.getMinutes()).padStart(2,'0');var s=String(d.getSeconds()).padStart(2,'0');document.getElementById('afri-clock').textContent='🕐 Afri+0 — '+h+':'+m+':'+s;}},1000);</script><div class="nav"><a href="/register">🆕 S'inscrire</a> | <a href="/login">🔑 Connexion</a> | <a href="/wallet">👛 Wallet</a> | <a href="/admin">🔐 Admin</a> | <a href="/mesh">📡 Mesh</a> | <a href="/annuaire">📖 Annuaire</a> | <a href="/bouclier">🛡️ Bouclier</a> | <a href="/satellite">🛸 X999</a> | <a href="/swarm">🛸🛸🛸 Essaim</a> | <a href="/commandement">🎖️ Commandement</a> | <a href="/interception">🛡️ Souverainete</a> | <a href="/securite-ai">🧠 AI 2100</a> | <a href="/chat">🧠💬 Chat AI</a> | <a href="/lumiere">🌫️☀️ Lumière</a> | <a href="/garage">🔧 Garage</a> | <a href="/machine">🤖🌐 Machines</a> | <a href="/machine-lab">🤖⚡ Usine</a> | <a href="/machine-world">🤖🌍 Monde</a> | <a href="/reve">💭 Rêves</a> | <a href="/dictionnaire">📖 Dictionnaire</a> | <a href="/machine-os">🖥️ OS Machine</a> | <a href="/machine-tv">📡 Machine TV</a> | <a href="/machine-economy">🤖 Économie</a> | <a href="/soleil">☀️ Soleil Serveur</a> | <a href="/forge-solaire">🧬 Forge Solaire</a> | <a href="/ciel">🌌 Le Ciel</a> | <a href="/charte-ai">⚖️ Charte AI</a> | <a href="/afri-net">🌍 Afri-Net</a> | <a href="/studio">🎬 AI Studio</a> | <a href="/sacre">📿 Sacré</a> | <a href="/lettres">🌟 Lettres IA</a> | <a href="/mg-forge">⚔️ MG Forge</a> | <a href="/ai-medecin">🌿 AI Médecin</a> | <a href="/ai-enseignante">📚 AI Enseignante</a> | <a href="/ai-village">🏘️ AI Village</a> | <a href="/ai-guerisseur">🩺 AI Guérisseur</a> | <a href="/ai-leader">🎖️ AI Leader</a> | <a href="/ai-griot">📖 AI Griot</a> | <a href="/ai-juge">⚖️ AI Juge</a> | <a href="/ai-artiste">🎨 AI Artiste</a> | <a href="/ai-explorateur">🔬 AI Explorateur</a> | <a href="/ai-marche">💰 AI Marche</a> | <a href="/ai-diplomate">🌍 AI Diplomate</a> | <a href="/ai-philosophe">🧠 AI Philosophe</a> | <a href="/ai-architecte">🏗️ AI Architecte</a> | <a href="/ai-agriculteur">🌾 AI Agriculteur</a> | <a href="/ai-environnement">🌍 AI Environnement</a> | <a href="/ai-mathematicien">🧮 AI Mathématicien</a> | <a href="/ai-energie">⚡ AI Énergie</a> | <a href="/ai-eau">💧 AI Eau</a> | <a href="/ai-defenseur">🛡️ AI Défenseur</a> | <a href="/ai-conscience">🧠 AI Conscience</a> | <a href="/ai-pensee">🧠 AI Pensée</a> | <a href="/ai-musique">🎵 AI Musique</a> | <a href="/ai-langue">🗣️ AI Langue</a> | <a href="/ai-femme">🌸 AI Femme</a> | <a href="/ai-sante-mentale">🧠💚 AI Santé Mentale</a> | <a href="/ai-nuit">🌙 AI Nuit</a> | <a href="/ai-code">💻 AI Code</a> | <a href="/secret">🦁 AI Secret</a> | <a href="/aes">💰 AES Wari</a> | <a href="/api/status">🔌 API</a></div><div style="text-align:center;"><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Blocs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Transactions</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Utilisateurs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">AFR en circulation</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📡 Noeuds mesh</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📖 Numéros annuaire</div></div><div class="stat-box" style="border-color:#ff4444;"><div class="stat-num" style="color:#ff4444;">{}</div><div class="stat-label">🛡️ Attaques bloquées</div></div></div><div class="card"><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🪙 Token</span><b>AfriRich (AFR)</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🌍 Pays</span><b>54 pays africains</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🛡️ Bouclier</span><b>{}</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;"><span style="color:#a8c5a8;">🔐 Crypto</span><b>100% Souverain — Zéro Dépendance Externe</b></div></div><footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🦁 Codée from scratch par Machine-senpai — v1.07 AI Code Coder Est le Nouveau Savoir Africain — UTC est Mort</footer>"#,
         chain.blocks.len(),
         chain.total_transactions(),
         users.count(),
@@ -14031,6 +14031,237 @@ function envoyerDiplomeNut(){
     html
 }
 
+fn html_ai_code(chain: &Blockchain) -> String {
+    let mut html = html_head("AI Code — Coder Est le Nouveau Savoir Africain");
+    let num_blocks = chain.blocks.len();
+
+    html.push_str(r#"<h1>💻 AI Code — Coder Est le Nouveau Savoir Africain</h1><p style="text-align:center;color:#44ff88;">L Afrique a invente l ecriture (hieroglyphes), les mathematiques (fractales), l architecture (pyramides). Aujourd hui, le nouveau savoir est le code. Celui qui code possede le monde. Celui qui ne code pas est commande par celui qui code. L Afrique ne doit pas seulement consommer la technologie — elle doit la CREER. Coder est un acte de souverainete. AfriChain est codee a la main, ligne par ligne, sur un telephone. C est la preuve que l Afrique peut coder.</p><div class="nav"><a href="/">← Accueil</a> | <a href="/ai-nuit">🌙 AI Nuit</a> | <a href="/ai-mathematicien">🧮 AI Mathématicien</a> | <a href="/ai-enseignante">📚 AI Enseignante</a> | <a href="/secret">🦁 AI Secret</a></div>"#);
+
+    html.push_str(&format!(r#"<div style="text-align:center;"><div class="stat-box" style="border-color:#44ff88;"><div class="stat-num" style="color:#44ff88;">8</div><div class="stat-label">💻 Modules</div></div><div class="stat-box" style="border-color:#d4a437;"><div class="stat-num" style="color:#d4a437;">0</div><div class="stat-label">📦 Dépendances</div></div><div class="stat-box" style="border-color:#44ff88;"><div class="stat-num" style="color:#44ff88;">25k+</div><div class="stat-label">📝 Lignes</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">⛓️ Blocs</div></div><div class="stat-box" style="border-color:#44ff88;"><div class="stat-num" style="color:#44ff88;">100%</div><div class="stat-label">🦁 Souverain</div></div></div>"#, num_blocks));
+
+    html.push_str(r##"<div style="text-align:center;margin:10px 0;"><button id="cod-pause-btn" onclick="toggleCodPause()" style="padding:10px 25px;background:#44ff88;color:#000;border:none;border-radius:8px;font-weight:bold;cursor:pointer;font-size:1em;">⏸️ PAUSE</button> <span id="cod-pause-status" style="color:#44ff88;margin-left:8px;font-size:0.85em;">Auto: ACTIF</span></div>
+
+<!-- CODE CANVAS -->
+<div class="card" style="border-color:#44ff88;"><h2 style="color:#44ff88;">💻 Le Code Qui Grandit</h2><p style="color:#44ff88;font-size:0.9em;opacity:0.7;">Des lignes de code qui tombent, un curseur qui pulse, des blocs qui se construisent.</p>
+<canvas id="cod-canvas" width="600" height="350" style="width:100%;max-width:600px;background:#0a0a0a;border:2px solid #44ff88;border-radius:8px;display:block;margin:0 auto;"></canvas></div>
+
+<script>
+var codPaused = false;
+var codAnimId = null;
+var codT = 0;
+var codLines = [];
+var codeSnippets = ['fn main()', 'let chain = Blockchain::new()', 'chain.mine_pending()', 'match (method, path)', 'HttpResponse::ok(&html)', 'for block in &chain.blocks', 'if sig.verify()', 'chain.add_transaction()', 'println!("AfriChain")', 'loop { accept(); }'];
+
+function toggleCodPause(){
+    codPaused = !codPaused;
+    var btn = document.getElementById('cod-pause-btn');
+    var status = document.getElementById('cod-pause-status');
+    if(codPaused){
+        btn.textContent = '▶️ LANCER';
+        btn.style.background = '#44cc88';
+        status.textContent = 'Auto: PAUSE';
+        status.style.color = '#ff6644';
+        if(codAnimId) cancelAnimationFrame(codAnimId);
+    } else {
+        btn.textContent = '⏸️ PAUSE';
+        btn.style.background = '#44ff88';
+        status.textContent = 'Auto: ACTIF';
+        status.style.color = '#44ff88';
+        animateCod();
+    }
+}
+
+function animateCod(){
+    if(codPaused) return;
+    var canvas = document.getElementById('cod-canvas');
+    if(!canvas) return;
+    var ctx = canvas.getContext('2d');
+    ctx.fillStyle = 'rgba(10,10,10,0.15)';
+    ctx.fillRect(0,0,canvas.width,canvas.height);
+
+    // Lignes de code qui tombent (Matrix style)
+    if(codT % 10 === 0){
+        codLines.push({x:Math.random()*600, y:0, text:codeSnippets[Math.floor(Math.random()*codeSnippets.length)], speed:0.5+Math.random(), alpha:1});
+    }
+    for(var i = codLines.length-1; i >= 0; i--){
+        var l = codLines[i];
+        l.y += l.speed;
+        l.alpha -= 0.003;
+        ctx.font = '11px monospace';
+        ctx.fillStyle = 'rgba(68,255,136,' + l.alpha + ')';
+        ctx.textAlign = 'left';
+        ctx.fillText(l.text, l.x, l.y);
+        if(l.alpha <= 0 || l.y > 350) codLines.splice(i, 1);
+    }
+
+    // Curseur qui pulse
+    var cursorBlink = Math.sin(codT * 0.1) > 0;
+    if(cursorBlink){
+        ctx.fillStyle = 'rgba(68,255,136,0.8)';
+        ctx.fillRect(290, 165, 10, 20);
+    }
+
+    // Blocs qui se construisent en bas
+    for(var b = 0; b < 5; b++){
+        var bx = 100 + b * 90;
+        var bh = 30 + Math.sin(codT * 0.02 + b) * 10;
+        ctx.fillStyle = 'rgba(68,255,136,0.15)';
+        ctx.fillRect(bx, 280 - bh, 70, bh);
+        ctx.strokeStyle = 'rgba(68,255,136,0.3)';
+        ctx.lineWidth = 1;
+        ctx.strokeRect(bx, 280 - bh, 70, bh);
+    }
+
+    // Texte
+    ctx.font = '12px sans-serif';
+    ctx.fillStyle = 'rgba(68,255,136,0.4)';
+    ctx.textAlign = 'center';
+    ctx.fillText('Codee a la main sur Termux. Ligne par ligne.', 300, 320);
+
+    codT++;
+    codAnimId = requestAnimationFrame(animateCod);
+}
+animateCod();
+</script>
+"##);
+
+    html.push_str(r##"<div class="card" style="border-color:#44ff88;"><h2 style="color:#44ff88;">💻 8 Modules de Code Africain</h2><div id="cod-modules"></div></div>
+
+<script>
+const codModules = [
+    {id:0, nom:'Pourquoi Coder?', emoji:'💡', couleur:'#44ff88', duree:'1 semaine', niveau:'Base',
+     description:'Celui qui code possede le monde. Google, Facebook, Amazon, Microsoft — tous diriges par des codeurs. L Afrique consomme leurs produits mais ne les cree pas. Si l Afrique veut etre souveraine, elle doit coder. Coder n est pas un metier — c est un acte politique. Chaque ligne de code est une brique de souverainete.',
+     cours:['Pourquoi le code est le pouvoir: Google, Facebook, Amazon','Consommer vs creer: la difference qui change tout','Coder comme acte politique: chaque ligne = souverainete','L Afrique a 1% des codeurs mondiaux. Pourquoi?','AfriChain: codee a la main sur un telephone, zero dependance'],
+     exercices:['Identifier 5 applications que tu utilises et leur pays d origine','Calculer: combien d applications africaines utilises-tu?','Ecrire: pourquoi veux-tu apprendre a coder?']},
+
+    {id:1, nom:'Les Langages de Programmation', emoji:'🔤', couleur:'#66ccff', duree:'3 semaines', niveau:'Base',
+     description:'Rust, Python, JavaScript, C, Go, Java. Chaque langage a sa philosophie. Rust = securite et souverainete. Python = simplicite. C = proximite avec le materiel. AfriChain utilise Rust car Rust ne depend de personne. Choisir un langage est un choix politique.',
+     cours:['Rust: securite, performance, zero dependance (AfriChain)','Python: simplicite, ideal pour debuter','JavaScript: le langage du web','C: le langage du materiel','Go: la simplicite de Google. Mais est-ce souverain?'],
+     exercices:['Installer Rust sur Termux et compiler Hello World','Comparer 3 langages: lequel est le plus souverain?','Ecrire un programme simple dans 2 langages differents']},
+
+    {id:2, nom:'Coder sur Telephone', emoji:'📱', couleur:'#d4a437', duree:'2 semaines', niveau:'Base',
+     description:'Tu n as pas d ordinateur? Pas de probleme. Termux transforme ton telephone en machine de developpement. Koffi Christ Olivier a code AfriChain (25000+ lignes) entierement sur un Redmi 15 avec nano. Si lui peut, tu peux. Le telephone est ton arme. Termux est ton champ de bataille.',
+     cours:['Termux: Linux dans ta poche','nano: l editeur qui suffit pour tout','Rust sur Termux: compiler sur telephone','git sur Termux: pousser ton code au monde','Le telephone comme outil de souverainete technologique'],
+     exercices:['Installer Termux et lancer ton premier programme','Ouvrir nano et ecrire un programme de 10 lignes','Cloner un repo GitHub depuis Termux']},
+
+    {id:3, nom:'La Blockchain en Code', emoji:'⛓️', couleur:'#3399ff', duree:'4 semaines', niveau:'Avance',
+     description:'Une blockchain en code, c est quoi? Des blocs chaineds par des hashes. Des transactions signees par des cles. Un systeme de consensus. AfriChain a tout construit from scratch: Ed25519, AfriHash-256, AfriRNG, AfriJSON, AfriHTTP. Zero dependance externe. Le code est ouvert. Le code est africain.',
+     cours:['Structure d un bloc: index, data, hash, prev_hash','Transactions: emetteur, recepteur, montant, signature','Mining: proof-of-work avec AfriHash-256','Ed25519: signatures cryptographiques from scratch','AfriChain: 25000 lignes, zero dependance, 100% souverain'],
+     exercices:['Lire le code source d AfriChain sur GitHub','Identifier les 5 modules cryptographiques (Ed25519, AfriHash, AfriRNG, AfriHex, AfriTime)','Ecrire un simple bloc en Rust: index + data + hash']},
+
+    {id:4, nom:'Zero Dependance = Souverainete', emoji:'🦁', couleur:'#d4a437', duree:'3 semaines', niveau:'Avance',
+     description:'Quand tu utilises une bibliotheque externe, tu depend de quelqu un d autre. Quand tu ecris tout from scratch, tu depend de personne. AfriChain a un Cargo.toml vide. Zero dependance. Zero chantage. Zero controle externe. C est la souverainete absolue. Cette academie t apprend a tout construire toi-meme.',
+     cours:['Pourquoi les dependances sont un risque: le cas left-pad','Cargo.toml vide: la fierte d AfriChain','Construire son propre JSON parser: AfriJSON','Construire son propre serveur HTTP: AfriHTTP','La regle: si tu peux l ecrire, ne l importe pas'],
+     exercices:['Ouvrir Cargo.toml d AfriChain et verifier: zero dependance','Identifier 3 dependances dans un projet et imaginer comment les remplacer','Ecrire un petit module from scratch (hex encoder, JSON parser, etc.)']},
+
+    {id:5, nom:'L IA Africaine en Code', emoji:'🤖', couleur:'#ff66aa', duree:'4 semaines', niveau:'Avance',
+     description:'Les IA occidentales (ChatGPT, Claude) sont des boites noires. On ne sait pas comment elles fonctionnent. L Afrique doit construire ses propres IA. Pas pour imiter l Occident — pour penser en africain. Une IA qui parle bambara. Une IA qui comprend le proverbe. Une IA qui raisonne comme un griot. Le code est le cerveau. L Afrique doit coder son propre cerveau.',
+     cours:['Les IA occidentales: boites noires et biais culturels','Construire une IA simple: systeme expert en Rust','IA et langues africaines: le defi des donnees','AfriChain AI: les 28 académies comme base de connaissances','L IA africaine de 2100: souveraine, locale, dans ta langue'],
+     exercices:['Identifier 3 biais culturels dans ChatGPT ou Claude','Concevoir une IA qui repondrait en proverbes africains','Proposer une architecture d IA africaine sur AfriChain']},
+
+    {id:6, nom:'Git et GitHub: Partager avec le Monde', emoji:'🌍', couleur:'#9966ff', duree:'2 semaines', niveau:'Intermediaire',
+     description:'Git est le systeme de version. GitHub est la plateforme de partage. Koffi pousse AfriChain sur GitHub depuis son telephone. Le monde peut voir le code. Le code est la preuve. Quand quelqu un doute de l Afrique, montre le code. Le code ne ment pas. Le code est la verite absolue.',
+     cours:['Git: versionner son code, suivre les changements','GitHub: partager son code avec le monde','Commit, push, pull: le cycle du developpeur','README: presenter son projet au monde','AfriChain sur GitHub: la preuve que l Afrique peut coder'],
+     exercices:['Creer un compte GitHub et un depot','Faire ton premier commit et push depuis Termux','Ecrire un README pour un projet personnel']},
+
+    {id:7, nom:'L Avenir du Code Africain', emoji:'🚀', couleur:'#44ff88', duree:'4 semaines', niveau:'Avance',
+     description:'En 2100, l Afrique aura des millions de codeurs. Des villes entierement codees par des Africains. Des IA africaines qui gerent les infrastructures. Des blockchains africaines qui financent le developpement. Le code est la nouvelle terre. Celui qui code possede la terre. L Afrique doit coder son avenir.',
+     cours:['L Afrique de 2100: 10 millions de codeurs','Villes codees par des Africains: smart cities souveraines','IA africaines: gestion autonome des infrastructures','Blockchains africaines: financement sans FMI ni Banque Mondiale','Coder l avenir: ton projet, ton code, ton Afrique'],
+     exercices:['Proposer un projet de code pour ta ville ou ton village','Identifier 3 problemes de ta region solvables par le code','Ecrire la premiere ligne de ton projet personnel']}
+];
+
+var codDone = JSON.parse(localStorage.getItem('afri_cod_done') || '[]');
+
+function renderCodModules(){
+    var container = document.getElementById('cod-modules');
+    if(!container) return;
+    var html = '';
+    for(var i = 0; i < codModules.length; i++){
+        var m = codModules[i];
+        var done = codDone.includes(m.id);
+        html += '<div style="background:rgba(68,255,136,0.05);border:1px solid ' + m.couleur + '20;border-radius:8px;padding:12px;margin:8px 0;cursor:pointer;" onclick="showCodModule(' + i + ')">';
+        html += '<div style="display:flex;justify-content:space-between;align-items:center;">';
+        html += '<span style="font-size:1.1em;">' + m.emoji + ' <b style="color:' + m.couleur + ';">' + m.nom + '</b></span>';
+        html += '<span style="font-size:0.8em;color:#a8c5a8;">' + m.duree + ' · ' + m.niveau + (done ? ' · ✅' : '') + '</span>';
+        html += '</div></div>';
+    }
+    container.innerHTML = html;
+}
+renderCodModules();
+
+function showCodModule(i){
+    var m = codModules[i];
+    var html = '<div style="background:rgba(68,255,136,0.08);border:1px solid ' + m.couleur + ';border-radius:12px;padding:20px;margin:10px 0;">';
+    html += '<h3 style="color:' + m.couleur + ';">' + m.emoji + ' ' + m.nom + '</h3>';
+    html += '<p style="color:#a8c5a8;font-size:0.9em;">' + m.description + '</p>';
+    html += '<h4 style="color:' + m.couleur + ';">📚 Cours</h4><ul>';
+    for(var j = 0; j < m.cours.length; j++){
+        html += '<li style="color:#a8c5a8;margin:4px 0;">' + m.cours[j] + '</li>';
+    }
+    html += '</ul><h4 style="color:' + m.couleur + ';">✏️ Exercices</h4><ul>';
+    for(var j = 0; j < m.exercices.length; j++){
+        html += '<li style="color:#a8c5a8;margin:4px 0;">' + m.exercices[j] + '</li>';
+    }
+    html += '</ul>';
+    html += '<button onclick="completeCodModule(' + m.id + ')" style="padding:10px 20px;background:' + m.couleur + ';color:#fff;border:none;border-radius:8px;cursor:pointer;font-weight:bold;margin-top:10px;">✅ Terminer ce module</button>';
+    html += '</div>';
+    var container = document.getElementById('cod-modules');
+    if(container) container.innerHTML = html;
+}
+
+function completeCodModule(id){
+    if(!codDone.includes(id)){
+        codDone.push(id);
+        localStorage.setItem('afri_cod_done', JSON.stringify(codDone));
+    }
+    renderCodModules();
+    updateCodProgress();
+}
+
+function updateCodProgress(){
+    var done = codDone.length;
+    var total = codModules.length;
+    var pct = Math.round((done / total) * 100);
+    var bar = document.getElementById('cod-bar');
+    var count = document.getElementById('cod-count');
+    var pctEl = document.getElementById('cod-pct');
+    var diplome = document.getElementById('cod-diplome');
+    if(bar) bar.style.width = pct + '%';
+    if(count) count.textContent = done;
+    if(pctEl) pctEl.textContent = pct + '%';
+    if(diplome) diplome.style.display = (done === total) ? 'block' : 'none';
+}
+updateCodProgress();
+</script>
+"##);
+
+    html.push_str(r##"<div class="card" style="border-color:#44ff88;"><h2 style="color:#44ff88;">📊 Progression</h2><div style="background:rgba(68,255,136,0.1);border-radius:8px;height:24px;overflow:hidden;margin:10px 0;"><div id="cod-bar" style="background:linear-gradient(90deg,#44ff88,#3399ff,#d4a437);height:100%;width:0%;transition:width 0.5s;"></div></div><div style="text-align:center;color:#a8c5a8;"><span id="cod-count">0</span> / 8 modules · <span id="cod-pct">0%</span></div></div>
+
+<div id="cod-diplome" style="display:none;"><div class="card" style="border-color:#d4a437;text-align:center;"><h2 style="color:#d4a437;">🎓 Diplôme: Codeur Souverain de l'Afrique</h2><p style="color:#a8c5a8;">Tu as complété les 8 modules de code africain!</p><p style="color:#44ff88;font-size:1.2em;">Celui qui code possède le monde. L'Afrique doit coder son avenir. 💻🦁</p><button onclick="envoyerDiplomeCod()" style="padding:12px 30px;background:#d4a437;color:#000;border:none;border-radius:8px;font-weight:bold;cursor:pointer;font-size:1.1em;margin-top:10px;">⛓️ Graver dans la Blockchain</button></div></div>
+
+<script>
+function envoyerDiplomeCod(){
+    var nom = localStorage.getItem('afri_user_name') || 'Jeune Africain';
+    fetch('/api/diplome', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+        body: 'academie=CODE&nom=' + encodeURIComponent(nom)
+    }).then(function(r){ return r.text(); }).then(function(t){
+        alert('🎓 Diplôme gravé dans la blockchain!\n' + t);
+    }).catch(function(e){
+        alert('Erreur: ' + e);
+    });
+}
+</script>
+"##);
+
+    html.push_str(r#"<div class="card"><h2 style="color:#44ff88;">💡 Savais-tu?</h2><div style="color:#a8c5a8;padding:8px 0;"><b style="color:#d4a437;">AfriChain a un Cargo.toml vide.</b> Zéro dépendance externe. 25000+ lignes de Rust pur. Tout construit from scratch. C'est la souveraineté absolue.</div><div style="color:#a8c5a8;padding:8px 0;"><b style="color:#d4a437;">Koffi Christ Olivier</b> a codé AfriChain entierement sur un Redmi 15 avec nano sur Termux. Si lui peut, tu peux. Le téléphone est ton arme.</div><div style="color:#a8c5a8;padding:8px 0;"><b style="color:#44ff88;">L'Afrique a 1%</b> des codeurs mondiaux mais 17% de la population. L'Afrique doit multiplier ses codeurs par 17 pour être souveraine.</div><div style="color:#a8c5a8;padding:8px 0;"><b style="color:#44ff88;">Le code ne ment pas.</b> Quand quelqu'un doute de l'Afrique, montre le code. Le code est la preuve. Le code est la vérité absolue.</div></div>"#);
+
+    html.push_str(r#"<footer style="text-align:center;margin-top:40px;color:#a8c5a8;">💻 AI Code — Coder Est le Nouveau Savoir Africain 💚🦁⚡</footer>"#);
+    html.push_str("</body></html>");
+    html
+}
+
 fn html_garage(chain: &Blockchain) -> String {
     let mut html = html_head("Garage AI — Atelier Autonome 2500");
     let num_blocks = chain.blocks.len();
@@ -19141,7 +19372,7 @@ html+='<div class="log-entry log-kill">⚠️ Tentative d\x27infiltration occide
 html+='<div class="log-entry log-invis">✅ L\x27Afrique est forte. Le système grandit.</div>';
 }else if(type==='total'){
 html='<div style="color:#d4a437;font-weight:bold;margin-bottom:8px">📋 RAPPORT TOTAL — Depuis le début</div>';
-html+='<div class="log-entry">🦁 AfriChain v1.06 — AI Nuit La Nuit Africaine Est une Mere</div>';
+html+='<div class="log-entry">🦁 AfriChain v1.07 — AI Code Coder Est le Nouveau Savoir Africain</div>';
 html+='<div class="log-entry">⛓️ Blockchain: 100% souveraine — Zéro dépendance externe</div>';
 html+='<div class="log-entry">🔐 Crypto: Ed25519 + AfriHash-256/512 + AfriRNG — tout from scratch</div>';
 html+='<div class="log-entry">🌍 54 pays africains connectés</div>';
@@ -20685,7 +20916,7 @@ fn main() {
         .and_then(|i| args.get(i + 1)).cloned().unwrap_or_else(|| "Afrique".to_string());
 
     let my_node_id = generate_node_id();
-    println!("🦁 AfriChain v1.06 — AI Nuit La Nuit Africaine Est une Mere");
+    println!("🦁 AfriChain v1.07 — AI Code Coder Est le Nouveau Savoir Africain");
     println!("💚 L'Afrique ne demande plus la permission");
     println!("🌍 54 pays — 🇲🇱 🇳🇪 🇧🇫 AES — Mali · Niger · Burkina Faso");
     println!("🔐 8 modules cryptographiques — construits from scratch");
@@ -20858,6 +21089,7 @@ fn main() {
     println!("🌸 AI Femme sur http://localhost:8080/ai-femme");
     println!("🧠💚 AI Sante Mentale sur http://localhost:8080/ai-sante-mentale");
     println!("🌙 AI Nuit sur http://localhost:8080/ai-nuit");
+    println!("💻 AI Code sur http://localhost:8080/ai-code");
 
     // Serveur HTTP en arrière-plan (pour mesh + autres utilisateurs)
     let serve_state = web_state.clone();
@@ -20892,7 +21124,7 @@ fn terminal_interface(state: &Arc<AppState>) {
     println!("  ║  🕐 AfriTime — Pas UTC, pas Greenwich   ║");
     println!("  ║  📝 ~23,100 lignes — écrit à la main       ║");
     println!("  ╚═══════════════════════════════════════════════╝");
-    println!("\n  Version v1.06 — 1 septembre 2026");
+    println!("\n  Version v1.07 — 1 septembre 2026");
     println!("  Construit sur Termux · Android · nano\n");
     println!("  ─────────────────────────────────────────────");
     println!("\n  1. 🏦 Centre de Données (Admin)");
@@ -20964,7 +21196,7 @@ fn admin_interface(state: &Arc<AppState>) {
         println!("\n");
         println!("╔══════════════════════════════════════╗");
         println!("║  🏦 CENTRE DE DONNÉES — Admin       ║");
-        println!("║  🦁 AfriChain v1.06                  ║");
+        println!("║  🦁 AfriChain v1.07                  ║");
         println!("╠══════════════════════════════════════╣");
         let chain = state.chain.lock().unwrap();
         let users = state.users.lock().unwrap();
@@ -24628,6 +24860,10 @@ fn handle_request(req: afri_http::HttpRequest, state: &Arc<AppState>) -> afri_ht
         ("GET", "/ai-nuit") => {
             let chain = state.chain.lock().unwrap();
             HttpResponse::ok(&html_ai_nuit(&chain))
+        }
+        ("GET", "/ai-code") => {
+            let chain = state.chain.lock().unwrap();
+            HttpResponse::ok(&html_ai_code(&chain))
         }
 
         ("GET", "/garage") => {
