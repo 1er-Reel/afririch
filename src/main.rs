@@ -1439,7 +1439,7 @@ fn html_home(chain: &Blockchain, users: &UserStore, mesh: &NodeRegistry, shield:
     let mut html = html_head("🦁 AfriChain");
     let (attacks, _blocked, blocked_count, level) = shield.stats();
     let shield_status = if shield.active { format!("🔥 X9 ACTIF (Niveau {})", level) } else { "Inactif".to_string() };
-    html.push_str(&format!(r#"<h1>🦁 AfriChain</h1><p style="text-align:center;">La blockchain 100% africaine — 54 pays 💚🦁</p><div id="afri-clock" style="text-align:center;font-size:1.2em;color:#d4a437;margin:10px 0;">🕐 Afri+0 — --:--:--</div><script>setInterval(function(){{var d=new Date();var h=String(d.getHours()).padStart(2,'0');var m=String(d.getMinutes()).padStart(2,'0');var s=String(d.getSeconds()).padStart(2,'0');document.getElementById('afri-clock').textContent='🕐 Afri+0 — '+h+':'+m+':'+s;}},1000);</script><div class="nav"><a href="/register">🆕 S'inscrire</a> | <a href="/login">🔑 Connexion</a> | <a href="/wallet">👛 Wallet</a> | <a href="/admin">🔐 Admin</a> | <a href="/mesh">📡 Mesh</a> | <a href="/annuaire">📖 Annuaire</a> | <a href="/bouclier">🛡️ Bouclier</a> | <a href="/satellite">🛸 X999</a> | <a href="/swarm">🛸🛸🛸 Essaim</a> | <a href="/commandement">🎖️ Commandement</a> | <a href="/interception">🛡️ Souverainete</a> | <a href="/securite-ai">🧠 AI 2100</a> | <a href="/chat">🧠💬 Chat AI</a> | <a href="/lumiere">🌫️☀️ Lumière</a> | <a href="/garage">🔧 Garage</a> | <a href="/machine">🤖🌐 Machines</a> | <a href="/machine-lab">🤖⚡ Usine</a> | <a href="/machine-world">🤖🌍 Monde</a> | <a href="/reve">💭 Rêves</a> | <a href="/dictionnaire">📖 Dictionnaire</a> | <a href="/machine-os">🖥️ OS Machine</a> | <a href="/machine-tv">📡 Machine TV</a> | <a href="/machine-economy">🤖 Économie</a> | <a href="/soleil">☀️ Soleil Serveur</a> | <a href="/forge-solaire">🧬 Forge Solaire</a> | <a href="/ciel">🌌 Le Ciel</a> | <a href="/charte-ai">⚖️ Charte AI</a> | <a href="/afri-net">🌍 Afri-Net</a> | <a href="/studio">🎬 AI Studio</a> | <a href="/sacre">📿 Sacré</a> | <a href="/lettres">🌟 Lettres IA</a> | <a href="/mg-forge">⚔️ MG Forge</a> | <a href="/ai-medecin">🌿 AI Médecin</a> | <a href="/ai-enseignante">📚 AI Enseignante</a> | <a href="/ai-village">🏘️ AI Village</a> | <a href="/ai-guerisseur">🩺 AI Guérisseur</a> | <a href="/ai-leader">🎖️ AI Leader</a> | <a href="/ai-griot">📖 AI Griot</a> | <a href="/ai-juge">⚖️ AI Juge</a> | <a href="/ai-artiste">🎨 AI Artiste</a> | <a href="/ai-explorateur">🔬 AI Explorateur</a> | <a href="/ai-marche">💰 AI Marche</a> | <a href="/ai-diplomate">🌍 AI Diplomate</a> | <a href="/ai-philosophe">🧠 AI Philosophe</a> | <a href="/ai-architecte">🏗️ AI Architecte</a> | <a href="/ai-agriculteur">🌾 AI Agriculteur</a> | <a href="/ai-environnement">🌍 AI Environnement</a> | <a href="/ai-mathematicien">🧮 AI Mathématicien</a> | <a href="/ai-energie">⚡ AI Énergie</a> | <a href="/ai-eau">💧 AI Eau</a> | <a href="/ai-defenseur">🛡️ AI Défenseur</a> | <a href="/ai-conscience">🧠 AI Conscience</a> | <a href="/ai-pensee">🧠 AI Pensée</a> | <a href="/ai-musique">🎵 AI Musique</a> | <a href="/ai-langue">🗣️ AI Langue</a> | <a href="/secret">🦁 AI Secret</a> | <a href="/aes">💰 AES Wari</a> | <a href="/api/status">🔌 API</a></div><div style="text-align:center;"><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Blocs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Transactions</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Utilisateurs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">AFR en circulation</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📡 Noeuds mesh</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📖 Numéros annuaire</div></div><div class="stat-box" style="border-color:#ff4444;"><div class="stat-num" style="color:#ff4444;">{}</div><div class="stat-label">🛡️ Attaques bloquées</div></div></div><div class="card"><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🪙 Token</span><b>AfriRich (AFR)</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🌍 Pays</span><b>54 pays africains</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🛡️ Bouclier</span><b>{}</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;"><span style="color:#a8c5a8;">🔐 Crypto</span><b>100% Souverain — Zéro Dépendance Externe</b></div></div><footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🦁 Codée from scratch par Machine-senpai — v1.03 AI Langue Les Langues Africaines Sont des Codes — UTC est Mort</footer>"#,
+    html.push_str(&format!(r#"<h1>🦁 AfriChain</h1><p style="text-align:center;">La blockchain 100% africaine — 54 pays 💚🦁</p><div id="afri-clock" style="text-align:center;font-size:1.2em;color:#d4a437;margin:10px 0;">🕐 Afri+0 — --:--:--</div><script>setInterval(function(){{var d=new Date();var h=String(d.getHours()).padStart(2,'0');var m=String(d.getMinutes()).padStart(2,'0');var s=String(d.getSeconds()).padStart(2,'0');document.getElementById('afri-clock').textContent='🕐 Afri+0 — '+h+':'+m+':'+s;}},1000);</script><div class="nav"><a href="/register">🆕 S'inscrire</a> | <a href="/login">🔑 Connexion</a> | <a href="/wallet">👛 Wallet</a> | <a href="/admin">🔐 Admin</a> | <a href="/mesh">📡 Mesh</a> | <a href="/annuaire">📖 Annuaire</a> | <a href="/bouclier">🛡️ Bouclier</a> | <a href="/satellite">🛸 X999</a> | <a href="/swarm">🛸🛸🛸 Essaim</a> | <a href="/commandement">🎖️ Commandement</a> | <a href="/interception">🛡️ Souverainete</a> | <a href="/securite-ai">🧠 AI 2100</a> | <a href="/chat">🧠💬 Chat AI</a> | <a href="/lumiere">🌫️☀️ Lumière</a> | <a href="/garage">🔧 Garage</a> | <a href="/machine">🤖🌐 Machines</a> | <a href="/machine-lab">🤖⚡ Usine</a> | <a href="/machine-world">🤖🌍 Monde</a> | <a href="/reve">💭 Rêves</a> | <a href="/dictionnaire">📖 Dictionnaire</a> | <a href="/machine-os">🖥️ OS Machine</a> | <a href="/machine-tv">📡 Machine TV</a> | <a href="/machine-economy">🤖 Économie</a> | <a href="/soleil">☀️ Soleil Serveur</a> | <a href="/forge-solaire">🧬 Forge Solaire</a> | <a href="/ciel">🌌 Le Ciel</a> | <a href="/charte-ai">⚖️ Charte AI</a> | <a href="/afri-net">🌍 Afri-Net</a> | <a href="/studio">🎬 AI Studio</a> | <a href="/sacre">📿 Sacré</a> | <a href="/lettres">🌟 Lettres IA</a> | <a href="/mg-forge">⚔️ MG Forge</a> | <a href="/ai-medecin">🌿 AI Médecin</a> | <a href="/ai-enseignante">📚 AI Enseignante</a> | <a href="/ai-village">🏘️ AI Village</a> | <a href="/ai-guerisseur">🩺 AI Guérisseur</a> | <a href="/ai-leader">🎖️ AI Leader</a> | <a href="/ai-griot">📖 AI Griot</a> | <a href="/ai-juge">⚖️ AI Juge</a> | <a href="/ai-artiste">🎨 AI Artiste</a> | <a href="/ai-explorateur">🔬 AI Explorateur</a> | <a href="/ai-marche">💰 AI Marche</a> | <a href="/ai-diplomate">🌍 AI Diplomate</a> | <a href="/ai-philosophe">🧠 AI Philosophe</a> | <a href="/ai-architecte">🏗️ AI Architecte</a> | <a href="/ai-agriculteur">🌾 AI Agriculteur</a> | <a href="/ai-environnement">🌍 AI Environnement</a> | <a href="/ai-mathematicien">🧮 AI Mathématicien</a> | <a href="/ai-energie">⚡ AI Énergie</a> | <a href="/ai-eau">💧 AI Eau</a> | <a href="/ai-defenseur">🛡️ AI Défenseur</a> | <a href="/ai-conscience">🧠 AI Conscience</a> | <a href="/ai-pensee">🧠 AI Pensée</a> | <a href="/ai-musique">🎵 AI Musique</a> | <a href="/ai-langue">🗣️ AI Langue</a> | <a href="/ai-femme">🌸 AI Femme</a> | <a href="/secret">🦁 AI Secret</a> | <a href="/aes">💰 AES Wari</a> | <a href="/api/status">🔌 API</a></div><div style="text-align:center;"><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Blocs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Transactions</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Utilisateurs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">AFR en circulation</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📡 Noeuds mesh</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📖 Numéros annuaire</div></div><div class="stat-box" style="border-color:#ff4444;"><div class="stat-num" style="color:#ff4444;">{}</div><div class="stat-label">🛡️ Attaques bloquées</div></div></div><div class="card"><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🪙 Token</span><b>AfriRich (AFR)</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🌍 Pays</span><b>54 pays africains</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🛡️ Bouclier</span><b>{}</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;"><span style="color:#a8c5a8;">🔐 Crypto</span><b>100% Souverain — Zéro Dépendance Externe</b></div></div><footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🦁 Codée from scratch par Machine-senpai — v1.04 AI Femme Les Femmes Africaines Sont le Fondement — UTC est Mort</footer>"#,
         chain.blocks.len(),
         chain.total_transactions(),
         users.count(),
@@ -13262,6 +13262,268 @@ function envoyerDiplomeLng(){
     html
 }
 
+fn html_ai_femme(chain: &Blockchain) -> String {
+    let mut html = html_head("AI Femme — Les Femmes Africaines Sont le Fondement");
+    let num_blocks = chain.blocks.len();
+
+    html.push_str(r#"<h1>🌸 AI Femme — Les Femmes Africaines Sont le Fondement</h1><p style="text-align:center;color:#ff88cc;">L Afrique est porte par ses femmes. Elles cultivent la terre, portent les enfants, transportent l eau, nourrissent les familles, transmettent les langues. Mais l histoire ne retient que les hommes. AI Femme rend visible celles que le monde a rendu invisibles. Les femmes africaines ne sont pas des victimes — elles sont le socle de l Afrique.</p><div class="nav"><a href="/">← Accueil</a> | <a href="/ai-langue">🗣️ AI Langue</a> | <a href="/ai-griot">📖 AI Griot</a> | <a href="/ai-leader">🎖️ AI Leader</a> | <a href="/secret">🦁 AI Secret</a></div>"#);
+
+    html.push_str(&format!(r#"<div style="text-align:center;"><div class="stat-box" style="border-color:#ff88cc;"><div class="stat-num" style="color:#ff88cc;">8</div><div class="stat-label">🌸 Modules</div></div><div class="stat-box" style="border-color:#d4a437;"><div class="stat-num" style="color:#d4a437;">54</div><div class="stat-label">🌍 Pays</div></div><div class="stat-box" style="border-color:#ff88cc;"><div class="stat-num" style="color:#ff88cc;">60%</div><div class="stat-label">🌾 Agriculture</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">⛓️ Blocs</div></div><div class="stat-box" style="border-color:#ff88cc;"><div class="stat-num" style="color:#ff88cc;">6km</div><div class="stat-label">💧 Eau/Jour</div></div></div>"#, num_blocks));
+
+    html.push_str(r##"<div style="text-align:center;margin:10px 0;"><button id="frm-pause-btn" onclick="toggleFrmPause()" style="padding:10px 25px;background:#ff88cc;color:#fff;border:none;border-radius:8px;font-weight:bold;cursor:pointer;font-size:1em;">⏸️ PAUSE</button> <span id="frm-pause-status" style="color:#ff88cc;margin-left:8px;font-size:0.85em;">Auto: ACTIF</span></div>
+
+<!-- FEMME CANVAS -->
+<div class="card" style="border-color:#ff88cc;"><h2 style="color:#ff88cc;">🌸 La Force de la Femme Africaine</h2><p style="color:#ff88cc;font-size:0.9em;opacity:0.7;">Des silhouettes qui marchent, portent, cultivent, nourrissent. Le socle invisible.</p>
+<canvas id="frm-canvas" width="600" height="350" style="width:100%;max-width:600px;background:#0a0a0a;border:2px solid #ff88cc;border-radius:8px;display:block;margin:0 auto;"></canvas></div>
+
+<script>
+var frmPaused = false;
+var frmAnimId = null;
+var frmT = 0;
+var frmWalkers = [];
+for(var i = 0; i < 8; i++){
+    frmWalkers.push({x: 50 + i * 70, y: 200 + Math.sin(i) * 30, phase: i * 0.5, speed: 0.3 + Math.random() * 0.2, cargo: ['💧','🌾','👶','📦','🪣','🔥','📖','🌱'][i]});
+}
+
+function toggleFrmPause(){
+    frmPaused = !frmPaused;
+    var btn = document.getElementById('frm-pause-btn');
+    var status = document.getElementById('frm-pause-status');
+    if(frmPaused){
+        btn.textContent = '▶️ LANCER';
+        btn.style.background = '#44cc88';
+        status.textContent = 'Auto: PAUSE';
+        status.style.color = '#ff6644';
+        if(frmAnimId) cancelAnimationFrame(frmAnimId);
+    } else {
+        btn.textContent = '⏸️ PAUSE';
+        btn.style.background = '#ff88cc';
+        status.textContent = 'Auto: ACTIF';
+        status.style.color = '#ff88cc';
+        animateFrm();
+    }
+}
+
+function animateFrm(){
+    if(frmPaused) return;
+    var canvas = document.getElementById('frm-canvas');
+    if(!canvas) return;
+    var ctx = canvas.getContext('2d');
+    ctx.fillStyle = 'rgba(10,10,10,0.12)';
+    ctx.fillRect(0,0,canvas.width,canvas.height);
+
+    // Sol
+    ctx.strokeStyle = 'rgba(255,136,204,0.15)';
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.moveTo(0, 260);
+    ctx.lineTo(600, 260);
+    ctx.stroke();
+
+    // Soleil
+    ctx.font = '25px serif';
+    ctx.fillStyle = 'rgba(255,200,100,0.3)';
+    ctx.textAlign = 'center';
+    ctx.fillText('☀️', 530, 50);
+
+    // Silhouettes qui marchent
+    for(var i = 0; i < frmWalkers.length; i++){
+        var w = frmWalkers[i];
+        w.x += w.speed;
+        if(w.x > 620) w.x = -20;
+
+        var bob = Math.sin(frmT * 0.08 + w.phase) * 5;
+
+        // Corps
+        ctx.fillStyle = 'rgba(255,136,204,0.6)';
+        ctx.beginPath();
+        ctx.arc(w.x, w.y - 40 + bob, 8, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Tete
+        ctx.beginPath();
+        ctx.arc(w.x, w.y - 55 + bob, 5, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Jambes (marche)
+        ctx.strokeStyle = 'rgba(255,136,204,0.5)';
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        ctx.moveTo(w.x, w.y - 32 + bob);
+        ctx.lineTo(w.x - 4, w.y + bob);
+        ctx.moveTo(w.x, w.y - 32 + bob);
+        ctx.lineTo(w.x + 4, w.y + bob);
+        ctx.stroke();
+
+        // Cargo sur la tete
+        ctx.font = '14px serif';
+        ctx.fillStyle = 'rgba(255,255,255,0.7)';
+        ctx.textAlign = 'center';
+        ctx.fillText(w.cargo, w.x, w.y - 65 + bob);
+    }
+
+    // Particules de poussiere
+    for(var p = 0; p < 15; p++){
+        var px = (frmT * 0.5 + p * 40) % 600;
+        var py = 255 + Math.sin(frmT * 0.03 + p) * 3;
+        ctx.fillStyle = 'rgba(255,136,204,0.15)';
+        ctx.beginPath();
+        ctx.arc(px, py, 1.5, 0, Math.PI * 2);
+        ctx.fill();
+    }
+
+    // Texte qui defile
+    var phrases = ['Elles portent l Afrique', '60% des agriculteurs', '6km pour l eau', 'Invisibles mais essentielles'];
+    var phraseIdx = Math.floor(frmT / 150) % phrases.length;
+    ctx.font = '14px sans-serif';
+    ctx.fillStyle = 'rgba(255,136,204,0.5)';
+    ctx.textAlign = 'center';
+    ctx.fillText(phrases[phraseIdx], 300, 320);
+
+    frmT++;
+    frmAnimId = requestAnimationFrame(animateFrm);
+}
+animateFrm();
+</script>
+"##);
+
+    html.push_str(r##"<div class="card" style="border-color:#ff88cc;"><h2 style="color:#ff88cc;">🌸 8 Modules sur les Femmes Africaines</h2><div id="frm-modules"></div></div>
+
+<script>
+const frmModules = [
+    {id:0, nom:'Les Femmes et la Terre', emoji:'🌾', couleur:'#ff88cc', duree:'2 semaines', niveau:'Base',
+     description:'60% des agriculteurs en Afrique sont des femmes. Elles cultivent le mil, le sorgho, le riz, le manioc. Sans elles, l Afrique a faim. Mais la terre leur appartient rarement. Les lois coutumieres donnent la terre aux hommes. Les femmes travaillent la terre mais ne la possedent pas.',
+     cours:['60% de l agriculture africaine = femmes','Lois coutumieres: la terre appartient aux hommes','Femmes et innovation agricole: techniques traditionnelles','Acces au credit: les femmes exclues du financement','Reforme: donner la terre a celles qui la cultivent'],
+     exercices:['Identifier 5 cultures cultivees par les femmes dans ta region','Analyser: qui possede la terre dans ta famille?','Proposer un systeme de propriete fonciere pour les femmes sur AfriChain']},
+
+    {id:1, nom:'Les Femmes et l Eau', emoji:'💧', couleur:'#3399ff', duree:'2 semaines', niveau:'Base',
+     description:'Les femmes et les filles marchent 6km en moyenne chaque jour pour chercher de l eau. 200 millions d heures par jour en Afrique. Ce temps pourrait etre utilise pour l education, le travail, le repos. Quand on dit que l Afrique manque d eau, c est faux — l eau existe. Ce qui manque, c est l infrastructure. Et ce sont les femmes qui paient le prix.',
+     cours:['6km par jour: le parcours de l eau','200 millions d heures perdues par jour','Filles et eau: pourquoi les filles abandonnent l ecole','Solutions: forages, collecte de pluie, irrigation','AfriChain et l eau: financer l infrastructure par la blockchain'],
+     exercices:['Calculer: combien de temps ta famille passe a chercher de l eau','Identifier 3 solutions d eau dans ta region','Proposer un projet de forage finance par AfriChain']},
+
+    {id:2, nom:'Les Femmes et l Education', emoji:'📚', couleur:'#66ccff', duree:'3 semaines', niveau:'Intermediaire',
+     description:'Quand une fille va a l ecole, tout change. Elle gagne plus, elle a moins d enfants, elle est en meilleure sante, ses enfants vivent plus longtemps. Mais 32 millions de filles en Afrique ne vont pas a l ecole. On les marie jeunes. On les garde a la maison. On dit que l ecole n est pas pour elles. L education des filles est la plus puissante transformation de l Afrique.',
+     cours:['32 millions de filles sans ecole en Afrique','Mariage precoce: 4 filles sur 10 mariees avant 18 ans','L ecole coloniale: pourquoi les filles en etaient exclues','Quand une fille est eduquee: impact sur toute la communaute','Strategie: rendre l ecole gratuite et obligatoire pour les filles'],
+     exercices:['Identifier 3 filles de ta region qui ne vont pas a l ecole','Analyser: pourquoi? Quels obstacles?','Proposer un bourse AfriChain pour les filles']},
+
+    {id:3, nom:'Les Femmes et le Pouvoir', emoji:'⚖️', couleur:'#d4a437', duree:'3 semaines', niveau:'Intermediaire',
+     description:'Aline Sitoe Diatta a resiste a la colonisation. Yaa Asantewaa a commande l armee Ashanti. Nzinga Mbandi a combatu les Portugais. Funmilayo Ransome-Kuti a defendu les droits des femmes. Les femmes africaines ont toujours dirige. Mais l histoire efface leurs noms. AI Femme rend visible les femmes qui ont faconne l Afrique.',
+     cours:['Aline Sitoe Diatta: resistance en Casamance','Yaa Asantewaa: cheffe de guerre Ashanti','Nzinga Mbandi: strategie diplomatique et militaire','Funmilayo Ransome-Kuti: droits des femmes au Nigeria','Pourquoi l histoire efface les femmes: le patriarcat colonial'],
+     exercices:['Identifier 3 femmes leaders de ton pays','Analyser: pourquoi leur nom est-il moins connu que les hommes?','Ecrire l histoire d une femme de ta region']},
+
+    {id:4, nom:'Les Femmes et la Sante', emoji:'🏥', couleur:'#44cc88', duree:'3 semaines', niveau:'Intermediaire',
+     description:'Le corps de la femme africaine est un champ de bataille. Mutilations, mariages precoces, mortalite maternelle, acces limite aux soins. Mais les femmes sont aussi les guerrieres de la sante: sages-femmes, tradipraticiennes, nourrices. La sante de l Afrique depend de la sante de ses femmes.',
+     cours:['Mortalite maternelle: l Afrique paie le plus lourd tribut','Mutilations: tradition ou violence? Le debat africain','Sages-femmes traditionnelles: savoir ancestral','Sante reproductive: droit des femmes sur leur corps','AI Medecin et les femmes: diagnostic inclusif'],
+     exercices:['Identifier 3 plantes medicinales utilisees par les femmes de ta region','Analyser: quel acces les femmes ont-elles aux soins?','Proposer un module sante femme pour AI Medecin']},
+
+    {id:5, nom:'Les Femmes et l Economie', emoji:'💰', couleur:'#d4a437', duree:'3 semaines', niveau:'Intermediaire',
+     description:'Les femmes africaines genent 60% du PIB agricole mais possedent 10% de la terre et 5% du credit. Le commerce feminin (marches, tissage, transformation) est le vrai moteur economique de l Afrique. Mais l economie officielle ignore les femmes. L economie informelle est l economie des femmes. AfriChain doit reconnaitre et valoriser cette economie.',
+     cours:['60% du PIB agricole = femmes, 10% de la terre = femmes','L economie informelle: le marche des femmes','Commerce feminin: tissage, transformation, vente','Microcredit: ce qui marche et ce qui exploite','AfriChain: reconnaitre l economie des femmes sur la blockchain'],
+     exercices:['Identifier 5 activites economiques feminines dans ton marche','Calculer: combien une femme gagne vs un homme pour le meme travail','Proposer un marche AfriChain pour les femmes']},
+
+    {id:6, nom:'Les Femmes et la Transmission', emoji:'📜', couleur:'#9966ff', duree:'2 semaines', niveau:'Intermediaire',
+     description:'Les femmes transmettent les langues, les recettes, les chansons, les histoires, les remedes. Sans les femmes, la culture africaine n existe pas. La grand-mere qui raconte les contes, la mere qui chante en travaillant, la tante qui enseigne les rites. La transmission est feminine. AI Femme honore celles qui transmettent.',
+     cours:['Les femmes comme gardiennes de la langue','Contes et chansons: la memoire feminine','Recettes et remedes: la transmission du savoir-faire','Rites et traditions: le role des femmes','AfriChain: enregistrer la transmission feminine sur la blockchain'],
+     exercices:['Identifier 3 choses que tu as apprises d une femme de ta famille','Enregistrer un conte ou une chanson de ta grand-mere','Proposer un systeme de transmission sur AfriChain']},
+
+    {id:7, nom:'L Avenir des Femmes Africaines', emoji:'🚀', couleur:'#ff88cc', duree:'4 semaines', niveau:'Avance',
+     description:'L avenir de l Afrique est feminin. Quand les femmes dirigent, la corruption baisse, l education monte, la sante s ameliore, la paix dure. Ce n est pas une opinion — ce sont des faits. L Afrique a besoin de femmes presidents, femmes ministres, femmes chefs d entreprise, femmes ingenieures, femmes codeuses. AI Femme prepare ce futur.',
+     cours:['Femmes au pouvoir: les pays qui progressent','Coder: les femmes dans la technologie africaine','Leadership feminin: modele vs tradition','AfriChain: une blockchain qui reconnait les femmes','L Afrique de 2100: dirigee par ses femmes'],
+     exercices:['Identifier 3 femmes leaders actuelles de l Afrique','Proposer un programme de formation technologique pour les femmes','Concevoir AfriFemme: un module AfriChain dedie aux femmes']}
+];
+
+var frmDone = JSON.parse(localStorage.getItem('afri_frm_done') || '[]');
+
+function renderFrmModules(){
+    var container = document.getElementById('frm-modules');
+    if(!container) return;
+    var html = '';
+    for(var i = 0; i < frmModules.length; i++){
+        var m = frmModules[i];
+        var done = frmDone.includes(m.id);
+        html += '<div style="background:rgba(255,136,204,0.05);border:1px solid ' + m.couleur + '20;border-radius:8px;padding:12px;margin:8px 0;cursor:pointer;" onclick="showFrmModule(' + i + ')">';
+        html += '<div style="display:flex;justify-content:space-between;align-items:center;">';
+        html += '<span style="font-size:1.1em;">' + m.emoji + ' <b style="color:' + m.couleur + ';">' + m.nom + '</b></span>';
+        html += '<span style="font-size:0.8em;color:#a8c5a8;">' + m.duree + ' · ' + m.niveau + (done ? ' · ✅' : '') + '</span>';
+        html += '</div></div>';
+    }
+    container.innerHTML = html;
+}
+renderFrmModules();
+
+function showFrmModule(i){
+    var m = frmModules[i];
+    var html = '<div style="background:rgba(255,136,204,0.08);border:1px solid ' + m.couleur + ';border-radius:12px;padding:20px;margin:10px 0;">';
+    html += '<h3 style="color:' + m.couleur + ';">' + m.emoji + ' ' + m.nom + '</h3>';
+    html += '<p style="color:#a8c5a8;font-size:0.9em;">' + m.description + '</p>';
+    html += '<h4 style="color:' + m.couleur + ';">📚 Cours</h4><ul>';
+    for(var j = 0; j < m.cours.length; j++){
+        html += '<li style="color:#a8c5a8;margin:4px 0;">' + m.cours[j] + '</li>';
+    }
+    html += '</ul><h4 style="color:' + m.couleur + ';">✏️ Exercices</h4><ul>';
+    for(var j = 0; j < m.exercices.length; j++){
+        html += '<li style="color:#a8c5a8;margin:4px 0;">' + m.exercices[j] + '</li>';
+    }
+    html += '</ul>';
+    html += '<button onclick="completeFrmModule(' + m.id + ')" style="padding:10px 20px;background:' + m.couleur + ';color:#fff;border:none;border-radius:8px;cursor:pointer;font-weight:bold;margin-top:10px;">✅ Terminer ce module</button>';
+    html += '</div>';
+    var container = document.getElementById('frm-modules');
+    if(container) container.innerHTML = html;
+}
+
+function completeFrmModule(id){
+    if(!frmDone.includes(id)){
+        frmDone.push(id);
+        localStorage.setItem('afri_frm_done', JSON.stringify(frmDone));
+    }
+    renderFrmModules();
+    updateFrmProgress();
+}
+
+function updateFrmProgress(){
+    var done = frmDone.length;
+    var total = frmModules.length;
+    var pct = Math.round((done / total) * 100);
+    var bar = document.getElementById('frm-bar');
+    var count = document.getElementById('frm-count');
+    var pctEl = document.getElementById('frm-pct');
+    var diplome = document.getElementById('frm-diplome');
+    if(bar) bar.style.width = pct + '%';
+    if(count) count.textContent = done;
+    if(pctEl) pctEl.textContent = pct + '%';
+    if(diplome) diplome.style.display = (done === total) ? 'block' : 'none';
+}
+updateFrmProgress();
+</script>
+"##);
+
+    html.push_str(r##"<div class="card" style="border-color:#ff88cc;"><h2 style="color:#ff88cc;">📊 Progression</h2><div style="background:rgba(255,136,204,0.1);border-radius:8px;height:24px;overflow:hidden;margin:10px 0;"><div id="frm-bar" style="background:linear-gradient(90deg,#ff88cc,#d4a437,#9966ff);height:100%;width:0%;transition:width 0.5s;"></div></div><div style="text-align:center;color:#a8c5a8;"><span id="frm-count">0</span> / 8 modules · <span id="frm-pct">0%</span></div></div>
+
+<div id="frm-diplome" style="display:none;"><div class="card" style="border-color:#d4a437;text-align:center;"><h2 style="color:#d4a437;">🎓 Diplôme: Défenseur des Femmes Africaines</h2><p style="color:#a8c5a8;">Tu as complété les 8 modules sur les femmes africaines!</p><p style="color:#ff88cc;font-size:1.2em;">L'Afrique est portée par ses femmes. Le socle invisible est visible. 🌸</p><button onclick="envoyerDiplomeFrm()" style="padding:12px 30px;background:#d4a437;color:#000;border:none;border-radius:8px;font-weight:bold;cursor:pointer;font-size:1.1em;margin-top:10px;">⛓️ Graver dans la Blockchain</button></div></div>
+
+<script>
+function envoyerDiplomeFrm(){
+    var nom = localStorage.getItem('afri_user_name') || 'Jeune Africain';
+    fetch('/api/diplome', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+        body: 'academie=FEMME&nom=' + encodeURIComponent(nom)
+    }).then(function(r){ return r.text(); }).then(function(t){
+        alert('🎓 Diplôme gravé dans la blockchain!\n' + t);
+    }).catch(function(e){
+        alert('Erreur: ' + e);
+    });
+}
+</script>
+"##);
+
+    html.push_str(r#"<div class="card"><h2 style="color:#ff88cc;">💡 Savais-tu?</h2><div style="color:#a8c5a8;padding:8px 0;"><b style="color:#d4a437;">60% des agriculteurs</b> africains sont des femmes. Sans elles, l Afrique a faim.</div><div style="color:#a8c5a8;padding:8px 0;"><b style="color:#d4a437;">6km par jour</b> — c est la distance moyenne que les femmes et les filles parcourent pour chercher de l eau.</div><div style="color:#a8c5a8;padding:8px 0;"><b style="color:#ff88cc;">32 millions de filles</b> en Afrique ne vont pas a l ecole. Quand une fille est eduquee, toute sa communaute change.</div><div style="color:#a8c5a8;padding:8px 0;"><b style="color:#ff88cc;">Aline Sitoe Diatta</b> a resiste a la colonisation francaise au Senegal. Elle est morte pour son peuple. Son nom doit etre connu.</div></div>"#);
+
+    html.push_str(r#"<footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🌸 AI Femme — Les Femmes Africaines Sont le Fondement 💚🦁🌸</footer>"#);
+    html.push_str("</body></html>");
+    html
+}
+
 fn html_garage(chain: &Blockchain) -> String {
     let mut html = html_head("Garage AI — Atelier Autonome 2500");
     let num_blocks = chain.blocks.len();
@@ -18372,7 +18634,7 @@ html+='<div class="log-entry log-kill">⚠️ Tentative d\x27infiltration occide
 html+='<div class="log-entry log-invis">✅ L\x27Afrique est forte. Le système grandit.</div>';
 }else if(type==='total'){
 html='<div style="color:#d4a437;font-weight:bold;margin-bottom:8px">📋 RAPPORT TOTAL — Depuis le début</div>';
-html+='<div class="log-entry">🦁 AfriChain v1.03 — AI Langue Les Langues Africaines Sont des Codes</div>';
+html+='<div class="log-entry">🦁 AfriChain v1.04 — AI Femme Les Femmes Africaines Sont le Fondement</div>';
 html+='<div class="log-entry">⛓️ Blockchain: 100% souveraine — Zéro dépendance externe</div>';
 html+='<div class="log-entry">🔐 Crypto: Ed25519 + AfriHash-256/512 + AfriRNG — tout from scratch</div>';
 html+='<div class="log-entry">🌍 54 pays africains connectés</div>';
@@ -19916,7 +20178,7 @@ fn main() {
         .and_then(|i| args.get(i + 1)).cloned().unwrap_or_else(|| "Afrique".to_string());
 
     let my_node_id = generate_node_id();
-    println!("🦁 AfriChain v1.03 — AI Langue Les Langues Africaines Sont des Codes");
+    println!("🦁 AfriChain v1.04 — AI Femme Les Femmes Africaines Sont le Fondement");
     println!("💚 L'Afrique ne demande plus la permission");
     println!("🌍 54 pays — 🇲🇱 🇳🇪 🇧🇫 AES — Mali · Niger · Burkina Faso");
     println!("🔐 8 modules cryptographiques — construits from scratch");
@@ -20086,6 +20348,7 @@ fn main() {
     println!("🧠 AI Pensee sur http://localhost:8080/ai-pensee");
     println!("🎵 AI Musique sur http://localhost:8080/ai-musique");
     println!("🗣️ AI Langue sur http://localhost:8080/ai-langue");
+    println!("🌸 AI Femme sur http://localhost:8080/ai-femme");
 
     // Serveur HTTP en arrière-plan (pour mesh + autres utilisateurs)
     let serve_state = web_state.clone();
@@ -20120,7 +20383,7 @@ fn terminal_interface(state: &Arc<AppState>) {
     println!("  ║  🕐 AfriTime — Pas UTC, pas Greenwich   ║");
     println!("  ║  📝 ~23,100 lignes — écrit à la main       ║");
     println!("  ╚═══════════════════════════════════════════════╝");
-    println!("\n  Version v1.03 — 1 septembre 2026");
+    println!("\n  Version v1.04 — 1 septembre 2026");
     println!("  Construit sur Termux · Android · nano\n");
     println!("  ─────────────────────────────────────────────");
     println!("\n  1. 🏦 Centre de Données (Admin)");
@@ -20192,7 +20455,7 @@ fn admin_interface(state: &Arc<AppState>) {
         println!("\n");
         println!("╔══════════════════════════════════════╗");
         println!("║  🏦 CENTRE DE DONNÉES — Admin       ║");
-        println!("║  🦁 AfriChain v1.03                  ║");
+        println!("║  🦁 AfriChain v1.04                  ║");
         println!("╠══════════════════════════════════════╣");
         let chain = state.chain.lock().unwrap();
         let users = state.users.lock().unwrap();
@@ -23841,6 +24104,11 @@ fn handle_request(req: afri_http::HttpRequest, state: &Arc<AppState>) -> afri_ht
         ("GET", "/ai-langue") => {
             let chain = state.chain.lock().unwrap();
             HttpResponse::ok(&html_ai_langue(&chain))
+        }
+
+        ("GET", "/ai-femme") => {
+            let chain = state.chain.lock().unwrap();
+            HttpResponse::ok(&html_ai_femme(&chain))
         }
 
         ("GET", "/garage") => {
