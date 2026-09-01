@@ -1439,7 +1439,7 @@ fn html_home(chain: &Blockchain, users: &UserStore, mesh: &NodeRegistry, shield:
     let mut html = html_head("🦁 AfriChain");
     let (attacks, _blocked, blocked_count, level) = shield.stats();
     let shield_status = if shield.active { format!("🔥 X9 ACTIF (Niveau {})", level) } else { "Inactif".to_string() };
-    html.push_str(&format!(r#"<h1>🦁 AfriChain</h1><p style="text-align:center;">La blockchain 100% africaine — 54 pays 💚🦁</p><div id="afri-clock" style="text-align:center;font-size:1.2em;color:#d4a437;margin:10px 0;">🕐 Afri+0 — --:--:--</div><script>setInterval(function(){{var d=new Date();var h=String(d.getHours()).padStart(2,'0');var m=String(d.getMinutes()).padStart(2,'0');var s=String(d.getSeconds()).padStart(2,'0');document.getElementById('afri-clock').textContent='🕐 Afri+0 — '+h+':'+m+':'+s;}},1000);</script><div class="nav"><a href="/register">🆕 S'inscrire</a> | <a href="/login">🔑 Connexion</a> | <a href="/wallet">👛 Wallet</a> | <a href="/admin">🔐 Admin</a> | <a href="/mesh">📡 Mesh</a> | <a href="/annuaire">📖 Annuaire</a> | <a href="/bouclier">🛡️ Bouclier</a> | <a href="/satellite">🛸 X999</a> | <a href="/swarm">🛸🛸🛸 Essaim</a> | <a href="/commandement">🎖️ Commandement</a> | <a href="/interception">🛡️ Souverainete</a> | <a href="/securite-ai">🧠 AI 2100</a> | <a href="/chat">🧠💬 Chat AI</a> | <a href="/lumiere">🌫️☀️ Lumière</a> | <a href="/garage">🔧 Garage</a> | <a href="/machine">🤖🌐 Machines</a> | <a href="/machine-lab">🤖⚡ Usine</a> | <a href="/machine-world">🤖🌍 Monde</a> | <a href="/reve">💭 Rêves</a> | <a href="/dictionnaire">📖 Dictionnaire</a> | <a href="/machine-os">🖥️ OS Machine</a> | <a href="/machine-tv">📡 Machine TV</a> | <a href="/machine-economy">🤖 Économie</a> | <a href="/soleil">☀️ Soleil Serveur</a> | <a href="/forge-solaire">🧬 Forge Solaire</a> | <a href="/ciel">🌌 Le Ciel</a> | <a href="/charte-ai">⚖️ Charte AI</a> | <a href="/afri-net">🌍 Afri-Net</a> | <a href="/studio">🎬 AI Studio</a> | <a href="/sacre">📿 Sacré</a> | <a href="/lettres">🌟 Lettres IA</a> | <a href="/mg-forge">⚔️ MG Forge</a> | <a href="/ai-medecin">🌿 AI Médecin</a> | <a href="/ai-enseignante">📚 AI Enseignante</a> | <a href="/ai-village">🏘️ AI Village</a> | <a href="/ai-guerisseur">🩺 AI Guérisseur</a> | <a href="/ai-leader">🎖️ AI Leader</a> | <a href="/ai-griot">📖 AI Griot</a> | <a href="/ai-juge">⚖️ AI Juge</a> | <a href="/ai-artiste">🎨 AI Artiste</a> | <a href="/ai-explorateur">🔬 AI Explorateur</a> | <a href="/ai-marche">💰 AI Marche</a> | <a href="/ai-diplomate">🌍 AI Diplomate</a> | <a href="/ai-philosophe">🧠 AI Philosophe</a> | <a href="/ai-architecte">🏗️ AI Architecte</a> | <a href="/ai-agriculteur">🌾 AI Agriculteur</a> | <a href="/ai-environnement">🌍 AI Environnement</a> | <a href="/ai-mathematicien">🧮 AI Mathématicien</a> | <a href="/ai-energie">⚡ AI Énergie</a> | <a href="/ai-eau">💧 AI Eau</a> | <a href="/ai-defenseur">🛡️ AI Défenseur</a> | <a href="/ai-conscience">🧠 AI Conscience</a> | <a href="/ai-pensee">🧠 AI Pensée</a> | <a href="/ai-musique">🎵 AI Musique</a> | <a href="/ai-langue">🗣️ AI Langue</a> | <a href="/ai-femme">🌸 AI Femme</a> | <a href="/ai-sante-mentale">🧠💚 AI Santé Mentale</a> | <a href="/ai-nuit">🌙 AI Nuit</a> | <a href="/ai-code">💻 AI Code</a> | <a href="/secret">🦁 AI Secret</a> | <a href="/aes">💰 AES Wari</a> | <a href="/api/status">🔌 API</a></div><div style="text-align:center;"><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Blocs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Transactions</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Utilisateurs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">AFR en circulation</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📡 Noeuds mesh</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📖 Numéros annuaire</div></div><div class="stat-box" style="border-color:#ff4444;"><div class="stat-num" style="color:#ff4444;">{}</div><div class="stat-label">🛡️ Attaques bloquées</div></div></div><div class="card"><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🪙 Token</span><b>AfriRich (AFR)</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🌍 Pays</span><b>54 pays africains</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🛡️ Bouclier</span><b>{}</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;"><span style="color:#a8c5a8;">🔐 Crypto</span><b>100% Souverain — Zéro Dépendance Externe</b></div></div><footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🦁 Codée from scratch par Machine-senpai — v1.07 AI Code Coder Est le Nouveau Savoir Africain — UTC est Mort</footer>"#,
+    html.push_str(&format!(r#"<h1>🦁 AfriChain</h1><p style="text-align:center;">La blockchain 100% africaine — 54 pays 💚🦁</p><div id="afri-clock" style="text-align:center;font-size:1.2em;color:#d4a437;margin:10px 0;">🕐 Afri+0 — --:--:--</div><script>setInterval(function(){{var d=new Date();var h=String(d.getHours()).padStart(2,'0');var m=String(d.getMinutes()).padStart(2,'0');var s=String(d.getSeconds()).padStart(2,'0');document.getElementById('afri-clock').textContent='🕐 Afri+0 — '+h+':'+m+':'+s;}},1000);</script><div class="nav"><a href="/register">🆕 S'inscrire</a> | <a href="/login">🔑 Connexion</a> | <a href="/wallet">👛 Wallet</a> | <a href="/admin">🔐 Admin</a> | <a href="/mesh">📡 Mesh</a> | <a href="/annuaire">📖 Annuaire</a> | <a href="/bouclier">🛡️ Bouclier</a> | <a href="/satellite">🛸 X999</a> | <a href="/swarm">🛸🛸🛸 Essaim</a> | <a href="/commandement">🎖️ Commandement</a> | <a href="/interception">🛡️ Souverainete</a> | <a href="/securite-ai">🧠 AI 2100</a> | <a href="/chat">🧠💬 Chat AI</a> | <a href="/lumiere">🌫️☀️ Lumière</a> | <a href="/garage">🔧 Garage</a> | <a href="/machine">🤖🌐 Machines</a> | <a href="/machine-lab">🤖⚡ Usine</a> | <a href="/machine-world">🤖🌍 Monde</a> | <a href="/reve">💭 Rêves</a> | <a href="/dictionnaire">📖 Dictionnaire</a> | <a href="/machine-os">🖥️ OS Machine</a> | <a href="/machine-tv">📡 Machine TV</a> | <a href="/machine-economy">🤖 Économie</a> | <a href="/soleil">☀️ Soleil Serveur</a> | <a href="/forge-solaire">🧬 Forge Solaire</a> | <a href="/ciel">🌌 Le Ciel</a> | <a href="/charte-ai">⚖️ Charte AI</a> | <a href="/afri-net">🌍 Afri-Net</a> | <a href="/studio">🎬 AI Studio</a> | <a href="/sacre">📿 Sacré</a> | <a href="/lettres">🌟 Lettres IA</a> | <a href="/mg-forge">⚔️ MG Forge</a> | <a href="/ai-medecin">🌿 AI Médecin</a> | <a href="/ai-enseignante">📚 AI Enseignante</a> | <a href="/ai-village">🏘️ AI Village</a> | <a href="/ai-guerisseur">🩺 AI Guérisseur</a> | <a href="/ai-leader">🎖️ AI Leader</a> | <a href="/ai-griot">📖 AI Griot</a> | <a href="/ai-juge">⚖️ AI Juge</a> | <a href="/ai-artiste">🎨 AI Artiste</a> | <a href="/ai-explorateur">🔬 AI Explorateur</a> | <a href="/ai-marche">💰 AI Marche</a> | <a href="/ai-diplomate">🌍 AI Diplomate</a> | <a href="/ai-philosophe">🧠 AI Philosophe</a> | <a href="/ai-architecte">🏗️ AI Architecte</a> | <a href="/ai-agriculteur">🌾 AI Agriculteur</a> | <a href="/ai-environnement">🌍 AI Environnement</a> | <a href="/ai-mathematicien">🧮 AI Mathématicien</a> | <a href="/ai-energie">⚡ AI Énergie</a> | <a href="/ai-eau">💧 AI Eau</a> | <a href="/ai-defenseur">🛡️ AI Défenseur</a> | <a href="/ai-conscience">🧠 AI Conscience</a> | <a href="/ai-pensee">🧠 AI Pensée</a> | <a href="/ai-musique">🎵 AI Musique</a> | <a href="/ai-langue">🗣️ AI Langue</a> | <a href="/ai-femme">🌸 AI Femme</a> | <a href="/ai-sante-mentale">🧠💚 AI Santé Mentale</a> | <a href="/ai-nuit">🌙 AI Nuit</a> | <a href="/ai-code">💻 AI Code</a> | <a href="/ai-enfant">👶 AI Enfant</a> | <a href="/secret">🦁 AI Secret</a> | <a href="/aes">💰 AES Wari</a> | <a href="/api/status">🔌 API</a></div><div style="text-align:center;"><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Blocs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Transactions</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Utilisateurs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">AFR en circulation</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📡 Noeuds mesh</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📖 Numéros annuaire</div></div><div class="stat-box" style="border-color:#ff4444;"><div class="stat-num" style="color:#ff4444;">{}</div><div class="stat-label">🛡️ Attaques bloquées</div></div></div><div class="card"><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🪙 Token</span><b>AfriRich (AFR)</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🌍 Pays</span><b>54 pays africains</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🛡️ Bouclier</span><b>{}</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;"><span style="color:#a8c5a8;">🔐 Crypto</span><b>100% Souverain — Zéro Dépendance Externe</b></div></div><footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🦁 Codée from scratch par Machine-senpai — v1.08 AI Enfant Les Enfants Sont le Tresor de l Afrique — UTC est Mort</footer>"#,
         chain.blocks.len(),
         chain.total_transactions(),
         users.count(),
@@ -14262,6 +14262,265 @@ function envoyerDiplomeCod(){
     html
 }
 
+fn html_ai_enfant(chain: &Blockchain) -> String {
+    let mut html = html_head("AI Enfant — Les Enfants Sont le Tresor de l Afrique");
+    let num_blocks = chain.blocks.len();
+
+    html.push_str(r#"<h1>👶 AI Enfant — Les Enfants Sont le Tresor de l Afrique</h1><p style="text-align:center;color:#ff99cc;">L Afrique a la population la plus jeune du monde. 40% des Africains ont moins de 15 ans. Mais ces enfants sont abandonnes: pas d ecole, pas de nourriture, pas de protection. On les blame pour la violence, mais qui les a eleves? Qui les a nourris? Qui les a proteges? Un enfant nait innocent. Si il devient violent, c est le monde qui l a rendu ainsi. L Afrique doit proteger ses enfants comme elle protege son or, son uranium, son petrole. Car les enfants sont la vraie richesse. Plus precieux que toutes les mines. Plus puissants que tous les petroles.</p><div class="nav"><a href="/">← Accueil</a> | <a href="/ai-code">💻 AI Code</a> | <a href="/ai-femme">🌸 AI Femme</a> | <a href="/ai-sante-mentale">🧠💚 AI Santé Mentale</a> | <a href="/secret">🦁 AI Secret</a></div>"#);
+
+    html.push_str(&format!(r#"<div style="text-align:center;"><div class="stat-box" style="border-color:#ff99cc;"><div class="stat-num" style="color:#ff99cc;">8</div><div class="stat-label">👶 Modules</div></div><div class="stat-box" style="border-color:#ff6644;"><div class="stat-num" style="color:#ff6644;">40%</div><div class="stat-label">📊 -15 ans</div></div><div class="stat-box" style="border-color:#d4a437;"><div class="stat-num" style="color:#d4a437;">32M</div><div class="stat-label">📚 Sans école</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">⛓️ Blocs</div></div><div class="stat-box" style="border-color:#ff99cc;"><div class="stat-num" style="color:#ff99cc;">1</div><div class="stat-label">💚 Priorité</div></div></div>"#, num_blocks));
+
+    html.push_str(r##"<div style="text-align:center;margin:10px 0;"><button id="enf-pause-btn" onclick="toggleEnfPause()" style="padding:10px 25px;background:#ff99cc;color:#000;border:none;border-radius:8px;font-weight:bold;cursor:pointer;font-size:1em;">⏸️ PAUSE</button> <span id="enf-pause-status" style="color:#ff99cc;margin-left:8px;font-size:0.85em;">Auto: ACTIF</span></div>
+
+<!-- ENFANT CANVAS -->
+<div class="card" style="border-color:#ff99cc;"><h2 style="color:#ff99cc;">👶 L'Enfant Qui Grandit</h2><p style="color:#ff99cc;font-size:0.9em;opacity:0.7;">Un enfant qui marche, des étoiles de rêve, un cœur qui bat pour l'avenir.</p>
+<canvas id="enf-canvas" width="600" height="350" style="width:100%;max-width:600px;background:#0a0a0a;border:2px solid #ff99cc;border-radius:8px;display:block;margin:0 auto;"></canvas></div>
+
+<script>
+var enfPaused = false;
+var enfAnimId = null;
+var enfT = 0;
+var enfStars = [];
+
+function toggleEnfPause(){
+    enfPaused = !enfPaused;
+    var btn = document.getElementById('enf-pause-btn');
+    var status = document.getElementById('enf-pause-status');
+    if(enfPaused){
+        btn.textContent = '▶️ LANCER';
+        btn.style.background = '#cc77aa';
+        status.textContent = 'Auto: PAUSE';
+        status.style.color = '#ff6644';
+        if(enfAnimId) cancelAnimationFrame(enfAnimId);
+    } else {
+        btn.textContent = '⏸️ PAUSE';
+        btn.style.background = '#ff99cc';
+        status.textContent = 'Auto: ACTIF';
+        status.style.color = '#ff99cc';
+        animateEnf();
+    }
+}
+
+function animateEnf(){
+    if(enfPaused) return;
+    var canvas = document.getElementById('enf-canvas');
+    if(!canvas) return;
+    var ctx = canvas.getContext('2d');
+    ctx.fillStyle = 'rgba(10,10,10,0.12)';
+    ctx.fillRect(0,0,canvas.width,canvas.height);
+
+    // Étoiles de rêve
+    if(enfT % 15 === 0){
+        enfStars.push({x:Math.random()*600, y:Math.random()*200, size:1+Math.random()*3, alpha:1, twinkle:Math.random()*Math.PI*2});
+    }
+    for(var i = enfStars.length-1; i >= 0; i--){
+        var s = enfStars[i];
+        s.twinkle += 0.05;
+        s.alpha -= 0.002;
+        var tw = 0.5 + Math.abs(Math.sin(s.twinkle)) * 0.5;
+        ctx.fillStyle = 'rgba(255,153,204,' + (s.alpha * tw) + ')';
+        ctx.beginPath();
+        ctx.arc(s.x, s.y, s.size, 0, Math.PI * 2);
+        ctx.fill();
+        if(s.alpha <= 0) enfStars.splice(i, 1);
+    }
+
+    // Enfant qui marche (silhouette simple)
+    var walkX = 300 + Math.sin(enfT * 0.02) * 100;
+    var walkY = 250 + Math.abs(Math.sin(enfT * 0.1)) * 5;
+    var headSize = 12;
+    var bounce = Math.abs(Math.sin(enfT * 0.1)) * 3;
+
+    // Corps
+    ctx.fillStyle = 'rgba(255,153,204,0.6)';
+    ctx.beginPath();
+    ctx.arc(walkX, walkY - 40 - bounce, headSize, 0, Math.PI * 2);
+    ctx.fill();
+    // Corps
+    ctx.fillRect(walkX - 6, walkY - 28 - bounce, 12, 25);
+    // Jambes (marche)
+    var legAngle = Math.sin(enfT * 0.1) * 0.3;
+    ctx.strokeStyle = 'rgba(255,153,204,0.6)';
+    ctx.lineWidth = 4;
+    ctx.beginPath();
+    ctx.moveTo(walkX, walkY - 3 - bounce);
+    ctx.lineTo(walkX + Math.sin(legAngle) * 10, walkY + 15);
+    ctx.moveTo(walkX, walkY - 3 - bounce);
+    ctx.lineTo(walkX - Math.sin(legAngle) * 10, walkY + 15);
+    ctx.stroke();
+    // Bras
+    ctx.beginPath();
+    ctx.moveTo(walkX - 6, walkY - 25 - bounce);
+    ctx.lineTo(walkX - 12, walkY - 10 - bounce);
+    ctx.moveTo(walkX + 6, walkY - 25 - bounce);
+    ctx.lineTo(walkX + 12, walkY - 10 - bounce);
+    ctx.stroke();
+
+    // Cœur qui bat
+    var heartScale = 1 + Math.sin(enfT * 0.15) * 0.2;
+    ctx.fillStyle = 'rgba(255,102,68,0.7)';
+    ctx.font = (14 * heartScale) + 'px sans-serif';
+    ctx.textAlign = 'center';
+    ctx.fillText('💚', walkX, walkY - 35 - bounce);
+
+    // Sol
+    ctx.strokeStyle = 'rgba(255,153,204,0.2)';
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.moveTo(0, 265);
+    ctx.lineTo(600, 265);
+    ctx.stroke();
+
+    // Texte
+    ctx.font = '12px sans-serif';
+    ctx.fillStyle = 'rgba(255,153,204,0.4)';
+    ctx.textAlign = 'center';
+    ctx.fillText('Chaque enfant africain est un trésor. Protégeons-les.', 300, 310);
+
+    enfT++;
+    enfAnimId = requestAnimationFrame(animateEnf);
+}
+animateEnf();
+</script>
+"##);
+
+    html.push_str(r##"<div class="card" style="border-color:#ff99cc;"><h2 style="color:#ff99cc;">👶 8 Modules pour Protéger les Enfants</h2><div id="enf-modules"></div></div>
+
+<script>
+const enfModules = [
+    {id:0, nom:'L Enfant Innocent', emoji:'👼', couleur:'#ff99cc', duree:'1 semaine', niveau:'Base',
+     description:'Un enfant nait innocent. Il ne choisit pas ou naitre. Il ne choisit pas la pauvrete. Il ne choisit pas la guerre. Si il devient violent, c est le monde qui l a rendu ainsi. Blamer un enfant pour ce que les adultes ont fait est une injustice. L Afrique doit arreter de blamer ses enfants et commencer a les proteger.',
+     cours:['L innocence originelle: aucun enfant ne nait mauvais','Comment la violence se transmet: le cycle des adultes','Blamer les jeunes vs proteger les jeunes','Le traumatisme intergenerationnel en Afrique','Responsabilite collective: it takes a village'],
+     exercices:['Reflechir: as-tu deja blame un jeune pour un probleme d adultes?','Identifier 3 facons dont la societe abandonne les enfants','Ecrire une lettre a un enfant africain fictif']},
+
+    {id:1, nom:'L Education: Droit ou Privilege?', emoji:'📚', couleur:'#66ccff', duree:'2 semaines', niveau:'Base',
+     description:'32 millions d enfants africains ne vont pas a l ecole. L education n est pas un privilege — c est un droit. Quand un enfant n a pas d ecole, on lui vole son avenir. L ecole ne devrait pas creer de l echec. L ecole devrait reveler les talents. AfriChain construit des academies pour que chaque enfant apprenne.',
+     cours:['32 millions d enfants sans ecole: la crise silencieuse','Education comme droit fondamental, pas privilege','L ecole qui cree de l echec: reformer le systeme','Education africaine: apprendre dans sa langue','Les 28 academies AfriChain: education souveraine et gratuite'],
+     exercices:['Calculer: quel pourcentage d enfants de ta region vont a l ecole?','Identifier 3 talents que l ecole n a pas su reveler chez toi','Proposer une ecole ideale pour les enfants africains']},
+
+    {id:2, nom:'La Santé des Enfants', emoji:'💉', couleur:'#44ff88', duree:'2 semaines', niveau:'Base',
+     description:'1 enfant sur 7 meurt avant 5 ans en Afrique. De maladies evitables. De faim. De manque d eau propre. Un enfant qui meurt de faim dans un continent qui nourrit le monde est un crime. La sante des enfants est la priorite absolue. Pas les armes. Pas les ministres. Les enfants.',
+     cours:['Mortalite infantile: 1 sur 7 avant 5 ans','Maladies evitables: paludisme, rougeole, diarrhee','La faim dans un continent riche: le paradoxe africain','Vaccination: pourquoi certains enfants n y ont pas acces','AI Medecin AfriChain: diagnostic pour les zones rurales'],
+     exercices:['Identifier les 3 causes principales de mortalite infantile dans ta region','Calculer: combien d enfants dans ton quartier n ont pas acces a un medecin?','Proposer une solution de sante communautaire']},
+
+    {id:3, nom:'Les Enfants et la Guerre', emoji:'🕊️', couleur:'#9966ff', duree:'2 semaines', niveau:'Intermediaire',
+     description:'Des enfants soldats. Des enfants orphelins par la guerre. Des enfants qui fuient. Des enfants qui voient leurs parents mourir. La guerre vole l enfance. Quand l armee vient pour proteger mais tue, qui protege les enfants des protecteurs? L Afrique doit arreter les guerres. Les enfants ne sont pas des armes. Les enfants ne sont pas des boucliers.',
+     cours:['Enfants soldats: le vol de l enfance','Orphelins de guerre: qui s occupe d eux?','Trauma infantile: les cicatrices invisibles','Quand l armee tue au lieu de proteger: le paradoxe','Construire la paix pour les enfants: la seule solution'],
+     exercices:['Identifier 3 pays africains ou les enfants souffrent de la guerre','Reflechir: comment proteger les enfants quand les adultes se battent?','Proposer un plan de paix pour les enfants']},
+
+    {id:4, nom:'Les Enfants des Rues', emoji:'🏠', couleur:'#d4a437', duree:'2 semaines', niveau:'Intermediaire',
+     description:'Des millions d enfants vivent dans les rues africaines. Abandonnes. Seuls. Personne ne les cherche. Personne ne les aime. Ils dorment sur le goudron. Ils mangent les restes. Ils sniffent de la colle pour oublier. La societe les traite comme des dechets. Mais ce sont des enfants. Des enfants qui auraient pu etre medecins, ingenieurs, presidents. L Afrique abandonne son tresor.',
+     cours:['Enfants des rues: le chiffre cache','Pourquoi les enfants finissent dans la rue: causes profondes','La colle et la drogue: oublier la rue','De la rue a la societe: programmes de reinsertion','Prevention: garder les enfants dans les familles'],
+     exercices:['Identifier les enfants des rues dans ta ville: combien?','Proposer une solution pour sortir 10 enfants de la rue','Reflechir: que ferait AfriChain pour les enfants des rues?']},
+
+    {id:5, nom:'Les Enfants et la Technologie', emoji:'💻', couleur:'#44ff88', duree:'3 semaines', niveau:'Intermediaire',
+     description:'Les enfants africains doivent coder. Pas pour imiter l Occident — pour construire l Afrique. Un enfant qui code a 10 ans battra un adulte qui code a 30. Le cerveau de l enfant est une eponge. Apprendre a coder enfant, c est donner une arme pour la vie. AfriChain peut etre la premiere technologie que les enfants africains apprennent.',
+     cours:['Pourquoi les enfants doivent coder tot','Le cerveau de l enfant: une eponge neurologique','Coder en bambara, wolof, swahili: pas seulement en anglais','AfriChain comme premiere technologie africaine pour enfants','Les enfants codeurs de 2100: l Afrique qui code'],
+     exercices:['Apprendre a un enfant de ton entourage une ligne de code','Concevoir un jeu educatif base sur AfriChain','Proposer un programme de code pour les enfants de ton quartier']},
+
+    {id:6, nom:'Protéger les Enfants', emoji:'🛡️', couleur:'#ff6644', duree:'3 semaines', niveau:'Avance',
+     description:'Proteger un enfant, c est: lui donner a manger, lui donner une ecole, lui donner un toit, lui donner de l amour, lui donner une langue, lui donner une culture, lui donner un avenir. L Afrique qui protege ses enfants est l Afrique qui gagne. L Afrique qui abandonne ses enfants est l Afrique qui perd. Le choix est simple.',
+     cours:['Les 7 besoins fondamentaux de l enfant','Lois de protection de l enfance en Afrique: sont-elles appliquees?','Signaler les abus: comment et ou','L orphelinat du futur: pas un refuge, une famille','Blockchain pour les enfants: identite numerique et protection'],
+     exercices:['Identifier les 7 besoins fondamentaux: lesquels manquent dans ta region?','Verifier: ton pays a-t-il des lois de protection de l enfance?','Proposer un systeme de signalement d abus base sur AfriChain']},
+
+    {id:7, nom:'L Avenir des Enfants Africains', emoji:'🚀', couleur:'#ff99cc', duree:'4 semaines', niveau:'Avance',
+     description:'En 2100, les enfants africains d aujourd hui seront les leaders du monde. Si on les nourrit, ils nourriront le monde. Si on les forme, ils formeront le monde. Si on les aime, ils aimeront le monde. L Afrique a la population la plus jeune du monde. C est pas un probleme — c est la plus grande force de l humanite. Les enfants africains sont l avenir de l humanite.',
+     cours:['L Afrique de 2100: la plus grande force de travail du monde','Investir dans les enfants: le ROI le plus eleve du monde','Les enfants africains comme leaders mondiaux de 2100','AfriChain pour les enfants: education, sante, protection, identite','Le serment: chaque enfant africain merite un avenir'],
+     exercices:['Ecrire: que sera l Afrique de 2100 si on protege les enfants?','Ecrire: que sera l Afrique de 2100 si on les abandonne?','Faire le serment: je protegerai les enfants africains']}
+];
+
+var enfDone = JSON.parse(localStorage.getItem('afri_enf_done') || '[]');
+
+function renderEnfModules(){
+    var container = document.getElementById('enf-modules');
+    if(!container) return;
+    var html = '';
+    for(var i = 0; i < enfModules.length; i++){
+        var m = enfModules[i];
+        var done = enfDone.includes(m.id);
+        html += '<div style="background:rgba(255,153,204,0.05);border:1px solid ' + m.couleur + '20;border-radius:8px;padding:12px;margin:8px 0;cursor:pointer;" onclick="showEnfModule(' + i + ')">';
+        html += '<div style="display:flex;justify-content:space-between;align-items:center;">';
+        html += '<span style="font-size:1.1em;">' + m.emoji + ' <b style="color:' + m.couleur + ';">' + m.nom + '</b></span>';
+        html += '<span style="font-size:0.8em;color:#a8c5a8;">' + m.duree + ' · ' + m.niveau + (done ? ' · ✅' : '') + '</span>';
+        html += '</div></div>';
+    }
+    container.innerHTML = html;
+}
+renderEnfModules();
+
+function showEnfModule(i){
+    var m = enfModules[i];
+    var html = '<div style="background:rgba(255,153,204,0.08);border:1px solid ' + m.couleur + ';border-radius:12px;padding:20px;margin:10px 0;">';
+    html += '<h3 style="color:' + m.couleur + ';">' + m.emoji + ' ' + m.nom + '</h3>';
+    html += '<p style="color:#a8c5a8;font-size:0.9em;">' + m.description + '</p>';
+    html += '<h4 style="color:' + m.couleur + ';">📚 Cours</h4><ul>';
+    for(var j = 0; j < m.cours.length; j++){
+        html += '<li style="color:#a8c5a8;margin:4px 0;">' + m.cours[j] + '</li>';
+    }
+    html += '</ul><h4 style="color:' + m.couleur + ';">✏️ Exercices</h4><ul>';
+    for(var j = 0; j < m.exercices.length; j++){
+        html += '<li style="color:#a8c5a8;margin:4px 0;">' + m.exercices[j] + '</li>';
+    }
+    html += '</ul>';
+    html += '<button onclick="completeEnfModule(' + m.id + ')" style="padding:10px 20px;background:' + m.couleur + ';color:#fff;border:none;border-radius:8px;cursor:pointer;font-weight:bold;margin-top:10px;">✅ Terminer ce module</button>';
+    html += '</div>';
+    var container = document.getElementById('enf-modules');
+    if(container) container.innerHTML = html;
+}
+
+function completeEnfModule(id){
+    if(!enfDone.includes(id)){
+        enfDone.push(id);
+        localStorage.setItem('afri_enf_done', JSON.stringify(enfDone));
+    }
+    renderEnfModules();
+    updateEnfProgress();
+}
+
+function updateEnfProgress(){
+    var done = enfDone.length;
+    var total = enfModules.length;
+    var pct = Math.round((done / total) * 100);
+    var bar = document.getElementById('enf-bar');
+    var count = document.getElementById('enf-count');
+    var pctEl = document.getElementById('enf-pct');
+    var diplome = document.getElementById('enf-diplome');
+    if(bar) bar.style.width = pct + '%';
+    if(count) count.textContent = done;
+    if(pctEl) pctEl.textContent = pct + '%';
+    if(diplome) diplome.style.display = (done === total) ? 'block' : 'none';
+}
+updateEnfProgress();
+</script>
+"##);
+
+    html.push_str(r##"<div class="card" style="border-color:#ff99cc;"><h2 style="color:#ff99cc;">📊 Progression</h2><div style="background:rgba(255,153,204,0.1);border-radius:8px;height:24px;overflow:hidden;margin:10px 0;"><div id="enf-bar" style="background:linear-gradient(90deg,#ff99cc,#ff6644,#d4a437);height:100%;width:0%;transition:width 0.5s;"></div></div><div style="text-align:center;color:#a8c5a8;"><span id="enf-count">0</span> / 8 modules · <span id="enf-pct">0%</span></div></div>
+
+<div id="enf-diplome" style="display:none;"><div class="card" style="border-color:#d4a437;text-align:center;"><h2 style="color:#d4a437;">🎓 Diplôme: Protecteur des Enfants Africains</h2><p style="color:#a8c5a8;">Tu as complété les 8 modules de protection de l'enfance!</p><p style="color:#ff99cc;font-size:1.2em;">Les enfants sont le trésor de l'Afrique. Protégeons-les. 💚👶</p><button onclick="envoyerDiplomeEnf()" style="padding:12px 30px;background:#d4a437;color:#000;border:none;border-radius:8px;font-weight:bold;cursor:pointer;font-size:1.1em;margin-top:10px;">⛓️ Graver dans la Blockchain</button></div></div>
+
+<script>
+function envoyerDiplomeEnf(){
+    var nom = localStorage.getItem('afri_user_name') || 'Jeune Africain';
+    fetch('/api/diplome', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+        body: 'academie=ENFANT&nom=' + encodeURIComponent(nom)
+    }).then(function(r){ return r.text(); }).then(function(t){
+        alert('🎓 Diplôme gravé dans la blockchain!\n' + t);
+    }).catch(function(e){
+        alert('Erreur: ' + e);
+    });
+}
+</script>
+"##);
+
+    html.push_str(r#"<div class="card"><h2 style="color:#ff99cc;">💡 Savais-tu?</h2><div style="color:#a8c5a8;padding:8px 0;"><b style="color:#d4a437;">40% des Africains</b> ont moins de 15 ans. C'est la population la plus jeune du monde. Ce n'est pas un problème — c'est la plus grande force de l'humanité.</div><div style="color:#a8c5a8;padding:8px 0;"><b style="color:#ff6644;">32 millions d'enfants africains</b> ne vont pas à l'école. Chaque enfant sans école est un avenir volé.</div><div style="color:#a8c5a8;padding:8px 0;"><b style="color:#ff99cc;">Un enfant qui naît innocent</b> ne devient violent que si le monde le rend ainsi. Blamer un enfant pour ce que les adultes ont fait est une injustice.</div><div style="color:#a8c5a8;padding:8px 0;"><b style="color:#44ff88;">Les enfants africains de 2100</b> seront les leaders du monde — si on les nourrit, les forme, les aime.</div></div>"#);
+
+    html.push_str(r#"<footer style="text-align:center;margin-top:40px;color:#a8c5a8;">👶 AI Enfant — Les Enfants Sont le Tresor de l Afrique 💚🦁✨</footer>"#);
+    html.push_str("</body></html>");
+    html
+}
+
 fn html_garage(chain: &Blockchain) -> String {
     let mut html = html_head("Garage AI — Atelier Autonome 2500");
     let num_blocks = chain.blocks.len();
@@ -19372,7 +19631,7 @@ html+='<div class="log-entry log-kill">⚠️ Tentative d\x27infiltration occide
 html+='<div class="log-entry log-invis">✅ L\x27Afrique est forte. Le système grandit.</div>';
 }else if(type==='total'){
 html='<div style="color:#d4a437;font-weight:bold;margin-bottom:8px">📋 RAPPORT TOTAL — Depuis le début</div>';
-html+='<div class="log-entry">🦁 AfriChain v1.07 — AI Code Coder Est le Nouveau Savoir Africain</div>';
+html+='<div class="log-entry">🦁 AfriChain v1.08 — AI Enfant Les Enfants Sont le Tresor de l Afrique</div>';
 html+='<div class="log-entry">⛓️ Blockchain: 100% souveraine — Zéro dépendance externe</div>';
 html+='<div class="log-entry">🔐 Crypto: Ed25519 + AfriHash-256/512 + AfriRNG — tout from scratch</div>';
 html+='<div class="log-entry">🌍 54 pays africains connectés</div>';
@@ -20916,7 +21175,7 @@ fn main() {
         .and_then(|i| args.get(i + 1)).cloned().unwrap_or_else(|| "Afrique".to_string());
 
     let my_node_id = generate_node_id();
-    println!("🦁 AfriChain v1.07 — AI Code Coder Est le Nouveau Savoir Africain");
+    println!("🦁 AfriChain v1.08 — AI Enfant Les Enfants Sont le Tresor de l Afrique");
     println!("💚 L'Afrique ne demande plus la permission");
     println!("🌍 54 pays — 🇲🇱 🇳🇪 🇧🇫 AES — Mali · Niger · Burkina Faso");
     println!("🔐 8 modules cryptographiques — construits from scratch");
@@ -21090,6 +21349,7 @@ fn main() {
     println!("🧠💚 AI Sante Mentale sur http://localhost:8080/ai-sante-mentale");
     println!("🌙 AI Nuit sur http://localhost:8080/ai-nuit");
     println!("💻 AI Code sur http://localhost:8080/ai-code");
+    println!("👶 AI Enfant sur http://localhost:8080/ai-enfant");
 
     // Serveur HTTP en arrière-plan (pour mesh + autres utilisateurs)
     let serve_state = web_state.clone();
@@ -21124,7 +21384,7 @@ fn terminal_interface(state: &Arc<AppState>) {
     println!("  ║  🕐 AfriTime — Pas UTC, pas Greenwich   ║");
     println!("  ║  📝 ~23,100 lignes — écrit à la main       ║");
     println!("  ╚═══════════════════════════════════════════════╝");
-    println!("\n  Version v1.07 — 1 septembre 2026");
+    println!("\n  Version v1.08 — 1 septembre 2026");
     println!("  Construit sur Termux · Android · nano\n");
     println!("  ─────────────────────────────────────────────");
     println!("\n  1. 🏦 Centre de Données (Admin)");
@@ -21196,7 +21456,7 @@ fn admin_interface(state: &Arc<AppState>) {
         println!("\n");
         println!("╔══════════════════════════════════════╗");
         println!("║  🏦 CENTRE DE DONNÉES — Admin       ║");
-        println!("║  🦁 AfriChain v1.07                  ║");
+        println!("║  🦁 AfriChain v1.08                  ║");
         println!("╠══════════════════════════════════════╣");
         let chain = state.chain.lock().unwrap();
         let users = state.users.lock().unwrap();
@@ -24864,6 +25124,10 @@ fn handle_request(req: afri_http::HttpRequest, state: &Arc<AppState>) -> afri_ht
         ("GET", "/ai-code") => {
             let chain = state.chain.lock().unwrap();
             HttpResponse::ok(&html_ai_code(&chain))
+        }
+        ("GET", "/ai-enfant") => {
+            let chain = state.chain.lock().unwrap();
+            HttpResponse::ok(&html_ai_enfant(&chain))
         }
 
         ("GET", "/garage") => {
