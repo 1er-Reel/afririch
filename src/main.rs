@@ -1439,7 +1439,7 @@ fn html_home(chain: &Blockchain, users: &UserStore, mesh: &NodeRegistry, shield:
     let mut html = html_head("🦁 AfriChain");
     let (attacks, _blocked, blocked_count, level) = shield.stats();
     let shield_status = if shield.active { format!("🔥 X9 ACTIF (Niveau {})", level) } else { "Inactif".to_string() };
-    html.push_str(&format!(r#"<h1>🦁 AfriChain</h1><p style="text-align:center;">La blockchain 100% africaine — 54 pays 💚🦁</p><div id="afri-clock" style="text-align:center;font-size:1.2em;color:#d4a437;margin:10px 0;">🕐 Afri+0 — --:--:--</div><script>setInterval(function(){{var d=new Date();var h=String(d.getHours()).padStart(2,'0');var m=String(d.getMinutes()).padStart(2,'0');var s=String(d.getSeconds()).padStart(2,'0');document.getElementById('afri-clock').textContent='🕐 Afri+0 — '+h+':'+m+':'+s;}},1000);</script><div class="nav"><a href="/register">🆕 S'inscrire</a> | <a href="/login">🔑 Connexion</a> | <a href="/wallet">👛 Wallet</a> | <a href="/admin">🔐 Admin</a> | <a href="/mesh">📡 Mesh</a> | <a href="/annuaire">📖 Annuaire</a> | <a href="/bouclier">🛡️ Bouclier</a> | <a href="/satellite">🛸 X999</a> | <a href="/swarm">🛸🛸🛸 Essaim</a> | <a href="/commandement">🎖️ Commandement</a> | <a href="/interception">🛡️ Souverainete</a> | <a href="/securite-ai">🧠 AI 2100</a> | <a href="/chat">🧠💬 Chat AI</a> | <a href="/lumiere">🌫️☀️ Lumière</a> | <a href="/garage">🔧 Garage</a> | <a href="/machine">🤖🌐 Machines</a> | <a href="/machine-lab">🤖⚡ Usine</a> | <a href="/machine-world">🤖🌍 Monde</a> | <a href="/reve">💭 Rêves</a> | <a href="/dictionnaire">📖 Dictionnaire</a> | <a href="/machine-os">🖥️ OS Machine</a> | <a href="/machine-tv">📡 Machine TV</a> | <a href="/machine-economy">🤖 Économie</a> | <a href="/soleil">☀️ Soleil Serveur</a> | <a href="/forge-solaire">🧬 Forge Solaire</a> | <a href="/ciel">🌌 Le Ciel</a> | <a href="/charte-ai">⚖️ Charte AI</a> | <a href="/afri-net">🌍 Afri-Net</a> | <a href="/studio">🎬 AI Studio</a> | <a href="/sacre">📿 Sacré</a> | <a href="/lettres">🌟 Lettres IA</a> | <a href="/mg-forge">⚔️ MG Forge</a> | <a href="/ai-medecin">🌿 AI Médecin</a> | <a href="/ai-enseignante">📚 AI Enseignante</a> | <a href="/ai-village">🏘️ AI Village</a> | <a href="/ai-guerisseur">🩺 AI Guérisseur</a> | <a href="/ai-leader">🎖️ AI Leader</a> | <a href="/ai-griot">📖 AI Griot</a> | <a href="/ai-juge">⚖️ AI Juge</a> | <a href="/ai-artiste">🎨 AI Artiste</a> | <a href="/ai-explorateur">🔬 AI Explorateur</a> | <a href="/ai-marche">💰 AI Marche</a> | <a href="/ai-diplomate">🌍 AI Diplomate</a> | <a href="/ai-philosophe">🧠 AI Philosophe</a> | <a href="/ai-architecte">🏗️ AI Architecte</a> | <a href="/ai-agriculteur">🌾 AI Agriculteur</a> | <a href="/ai-environnement">🌍 AI Environnement</a> | <a href="/ai-mathematicien">🧮 AI Mathématicien</a> | <a href="/ai-energie">⚡ AI Énergie</a> | <a href="/ai-eau">💧 AI Eau</a> | <a href="/ai-defenseur">🛡️ AI Défenseur</a> | <a href="/ai-conscience">🧠 AI Conscience</a> | <a href="/ai-pensee">🧠 AI Pensée</a> | <a href="/ai-musique">🎵 AI Musique</a> | <a href="/ai-langue">🗣️ AI Langue</a> | <a href="/ai-femme">🌸 AI Femme</a> | <a href="/ai-sante-mentale">🧠💚 AI Santé Mentale</a> | <a href="/ai-nuit">🌙 AI Nuit</a> | <a href="/ai-code">💻 AI Code</a> | <a href="/ai-enfant">👶 AI Enfant</a> | <a href="/ai-terre">🌍 AI Terre</a> | <a href="/ai-mer">🌊 AI Mer</a> | <a href="/ai-feu">🔥 AI Feu</a> | <a href="/ai-sang">🩸 AI Sang</a> | <a href="/ai-vent">🌬️ AI Vent</a> | <a href="/ai-temps">⏳ AI Temps</a> | <a href="/ai-etoile">⭐ AI Etoile</a> | <a href="/secret">🦁 AI Secret</a> | <a href="/aes">💰 AES Wari</a> | <a href="/api/status">🔌 API</a></div><div style="text-align:center;"><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Blocs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Transactions</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Utilisateurs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">AFR en circulation</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📡 Noeuds mesh</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📖 Numéros annuaire</div></div><div class="stat-box" style="border-color:#ff4444;"><div class="stat-num" style="color:#ff4444;">{}</div><div class="stat-label">🛡️ Attaques bloquées</div></div></div><div class="card"><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🪙 Token</span><b>AfriRich (AFR)</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🌍 Pays</span><b>54 pays africains</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🛡️ Bouclier</span><b>{}</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;"><span style="color:#a8c5a8;">🔐 Crypto</span><b>100% Souverain — Zéro Dépendance Externe</b></div></div><footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🦁 Codée from scratch par Machine-senpai — v1.15 AI Etoile Les Etoiles Sont les Ancetres Qui Regardent — UTC est Mort</footer>"#,
+    html.push_str(&format!(r#"<h1>🦁 AfriChain</h1><p style="text-align:center;">La blockchain 100% africaine — 54 pays 💚🦁</p><div id="afri-clock" style="text-align:center;font-size:1.2em;color:#d4a437;margin:10px 0;">🕐 Afri+0 — --:--:--</div><script>setInterval(function(){{var d=new Date();var h=String(d.getHours()).padStart(2,'0');var m=String(d.getMinutes()).padStart(2,'0');var s=String(d.getSeconds()).padStart(2,'0');document.getElementById('afri-clock').textContent='🕐 Afri+0 — '+h+':'+m+':'+s;}},1000);</script><div class="nav"><a href="/register">🆕 S'inscrire</a> | <a href="/login">🔑 Connexion</a> | <a href="/wallet">👛 Wallet</a> | <a href="/admin">🔐 Admin</a> | <a href="/mesh">📡 Mesh</a> | <a href="/annuaire">📖 Annuaire</a> | <a href="/bouclier">🛡️ Bouclier</a> | <a href="/satellite">🛸 X999</a> | <a href="/swarm">🛸🛸🛸 Essaim</a> | <a href="/commandement">🎖️ Commandement</a> | <a href="/interception">🛡️ Souverainete</a> | <a href="/securite-ai">🧠 AI 2100</a> | <a href="/chat">🧠💬 Chat AI</a> | <a href="/lumiere">🌫️☀️ Lumière</a> | <a href="/garage">🔧 Garage</a> | <a href="/machine">🤖🌐 Machines</a> | <a href="/machine-lab">🤖⚡ Usine</a> | <a href="/machine-world">🤖🌍 Monde</a> | <a href="/reve">💭 Rêves</a> | <a href="/dictionnaire">📖 Dictionnaire</a> | <a href="/machine-os">🖥️ OS Machine</a> | <a href="/machine-tv">📡 Machine TV</a> | <a href="/machine-economy">🤖 Économie</a> | <a href="/soleil">☀️ Soleil Serveur</a> | <a href="/forge-solaire">🧬 Forge Solaire</a> | <a href="/ciel">🌌 Le Ciel</a> | <a href="/charte-ai">⚖️ Charte AI</a> | <a href="/afri-net">🌍 Afri-Net</a> | <a href="/studio">🎬 AI Studio</a> | <a href="/sacre">📿 Sacré</a> | <a href="/lettres">🌟 Lettres IA</a> | <a href="/mg-forge">⚔️ MG Forge</a> | <a href="/ai-medecin">🌿 AI Médecin</a> | <a href="/ai-enseignante">📚 AI Enseignante</a> | <a href="/ai-village">🏘️ AI Village</a> | <a href="/ai-guerisseur">🩺 AI Guérisseur</a> | <a href="/ai-leader">🎖️ AI Leader</a> | <a href="/ai-griot">📖 AI Griot</a> | <a href="/ai-juge">⚖️ AI Juge</a> | <a href="/ai-artiste">🎨 AI Artiste</a> | <a href="/ai-explorateur">🔬 AI Explorateur</a> | <a href="/ai-marche">💰 AI Marche</a> | <a href="/ai-diplomate">🌍 AI Diplomate</a> | <a href="/ai-philosophe">🧠 AI Philosophe</a> | <a href="/ai-architecte">🏗️ AI Architecte</a> | <a href="/ai-agriculteur">🌾 AI Agriculteur</a> | <a href="/ai-environnement">🌍 AI Environnement</a> | <a href="/ai-mathematicien">🧮 AI Mathématicien</a> | <a href="/ai-energie">⚡ AI Énergie</a> | <a href="/ai-eau">💧 AI Eau</a> | <a href="/ai-defenseur">🛡️ AI Défenseur</a> | <a href="/ai-conscience">🧠 AI Conscience</a> | <a href="/ai-pensee">🧠 AI Pensée</a> | <a href="/ai-musique">🎵 AI Musique</a> | <a href="/ai-langue">🗣️ AI Langue</a> | <a href="/ai-femme">🌸 AI Femme</a> | <a href="/ai-sante-mentale">🧠💚 AI Santé Mentale</a> | <a href="/ai-nuit">🌙 AI Nuit</a> | <a href="/ai-code">💻 AI Code</a> | <a href="/ai-enfant">👶 AI Enfant</a> | <a href="/ai-terre">🌍 AI Terre</a> | <a href="/ai-mer">🌊 AI Mer</a> | <a href="/ai-feu">🔥 AI Feu</a> | <a href="/ai-sang">🩸 AI Sang</a> | <a href="/ai-vent">🌬️ AI Vent</a> | <a href="/ai-temps">⏳ AI Temps</a> | <a href="/ai-etoile">⭐ AI Etoile</a> | <a href="/ai-pierre">🪨 AI Pierre</a> | <a href="/secret">🦁 AI Secret</a> | <a href="/aes">💰 AES Wari</a> | <a href="/api/status">🔌 API</a></div><div style="text-align:center;"><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Blocs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Transactions</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Utilisateurs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">AFR en circulation</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📡 Noeuds mesh</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📖 Numéros annuaire</div></div><div class="stat-box" style="border-color:#ff4444;"><div class="stat-num" style="color:#ff4444;">{}</div><div class="stat-label">🛡️ Attaques bloquées</div></div></div><div class="card"><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🪙 Token</span><b>AfriRich (AFR)</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🌍 Pays</span><b>54 pays africains</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🛡️ Bouclier</span><b>{}</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;"><span style="color:#a8c5a8;">🔐 Crypto</span><b>100% Souverain — Zéro Dépendance Externe</b></div></div><footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🦁 Codée from scratch par Machine-senpai — v1.16 AI Pierre La Pierre Est la Memoire de la Terre — UTC est Mort</footer>"#,
         chain.blocks.len(),
         chain.total_transactions(),
         users.count(),
@@ -15579,6 +15579,144 @@ function envoyerDiplomeEtoile(){var nom=localStorage.getItem('afri_user_name')||
     html
 }
 
+fn html_ai_pierre(chain: &Blockchain) -> String {
+    let mut html = html_head("AI Pierre — La Pierre Est la Memoire de la Terre");
+    let num_blocks = chain.blocks.len();
+
+    html.push_str(r#"<h1>🪨 AI Pierre — La Pierre Est la Memoire de la Terre</h1><p style="text-align:center;color:#aa8866;">La pierre est la memoire de la Terre. Les montagnes, les rochers, les grains de sable — tout est pierre. La pierre porte les fossiles, les minerais, l histoire geologique. L Afrique est le continent le plus riche en minerais: 30% des minerais mondiaux, cobalt du Congo, platine d Afrique du Sud, uranium du Niger, or du Ghana, diamants de Botswana. Mais l Afrique n extrait que la matiere premiere — elle ne transforme pas. AI Pierre apprend a comprendre, extraire, et transformer la pierre africaine. La pierre brute ne vaut rien. La pierre transformee vaut tout.</p><div class="nav"><a href="/">← Accueil</a> | <a href="/ai-etoile">⭐ AI Etoile</a> | <a href="/ai-terre">🌍 AI Terre</a> | <a href="/ai-architecte">🏗️ AI Architecte</a> | <a href="/secret">🦁 AI Secret</a></div>"#);
+
+    html.push_str(&format!(r#"<div style="text-align:center;"><div class="stat-box" style="border-color:#aa8866;"><div class="stat-num" style="color:#aa8866;">8</div><div class="stat-label">🪨 Modules</div></div><div class="stat-box" style="border-color:#d4a437;"><div class="stat-num" style="color:#d4a437;">30%</div><div class="stat-label">⛏️ Minerais</div></div><div class="stat-box" style="border-color:#ff6644;"><div class="stat-num" style="color:#ff6644;">70%</div><div class="stat-label">💎 Cobalt RDC</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">⛓️ Blocs</div></div><div class="stat-box" style="border-color:#aa8866;"><div class="stat-num" style="color:#aa8866;">∞</div><div class="stat-label">🪨 Roches</div></div></div>"#, num_blocks));
+
+    html.push_str(r##"<div style="text-align:center;margin:10px 0;"><button id="pierre-pause-btn" onclick="togglePierrePause()" style="padding:10px 25px;background:#aa8866;color:#fff;border:none;border-radius:8px;font-weight:bold;cursor:pointer;font-size:1em;">⏸️ PAUSE</button> <span id="pierre-pause-status" style="color:#aa8866;margin-left:8px;font-size:0.85em;">Auto: ACTIF</span></div>
+
+<div class="card" style="border-color:#aa8866;"><h2 style="color:#aa8866;">🪨 La Pierre Qui Se Forme</h2><p style="color:#aa8866;font-size:0.9em;opacity:0.7;">Couches geologiques, cristaux qui poussent, minerais qui brillent.</p>
+<canvas id="pierre-canvas" width="600" height="350" style="width:100%;max-width:600px;background:#1a1208;border:2px solid #aa8866;border-radius:8px;display:block;margin:0 auto;"></canvas></div>
+
+<script>
+var pierrePaused=false,pierreAnimId=null,pierreT=0,pierreCrystals=[];
+function togglePierrePause(){
+    pierrePaused=!pierrePaused;
+    var b=document.getElementById('pierre-pause-btn'),s=document.getElementById('pierre-pause-status');
+    if(pierrePaused){b.textContent='▶️ LANCER';b.style.background='#886644';s.textContent='Auto: PAUSE';s.style.color='#ff6644';if(pierreAnimId)cancelAnimationFrame(pierreAnimId);}
+    else{b.textContent='⏸️ PAUSE';b.style.background='#aa8866';s.textContent='Auto: ACTIF';s.style.color='#aa8866';animatePierre();}
+}
+function animatePierre(){
+    if(pierrePaused)return;
+    var c=document.getElementById('pierre-canvas');if(!c)return;
+    var ctx=c.getContext('2d');
+    ctx.fillStyle='rgba(26,18,8,0.08)';ctx.fillRect(0,0,c.width,c.height);
+    // Couches geologiques
+    var layers=['#3a2a18','#4a3a20','#5a4a28','#6a5a30','#7a6a38'];
+    for(var l=0;l<5;l++){
+        ctx.fillStyle=layers[l];ctx.globalAlpha=0.3;
+        ctx.fillRect(0,250+l*20,600,20);
+        ctx.globalAlpha=1;
+    }
+    // Cristaux qui poussent
+    if(pierreT%5===0)pierreCrystals.push({x:100+Math.random()*400,y:300,angle:Math.random()*Math.PI,size:0,maxSize:5+Math.random()*15,growth:0.1+Math.random()*0.2,colour:Math.random()<0.3?'#d4a437':Math.random()<0.5?'#66ccff':'#aa8866'});
+    for(var i=pierreCrystals.length-1;i>=0;i--){
+        var cr=pierreCrystals[i];
+        if(cr.size<cr.maxSize)cr.size+=cr.growth;
+        ctx.strokeStyle=cr.colour;ctx.lineWidth=2;ctx.globalAlpha=0.6;
+        // Crystal shape (hexagon)
+        ctx.beginPath();
+        for(var s=0;s<6;s++){
+            var a=cr.angle+s*Math.PI/3;
+            var px=cr.x+Math.cos(a)*cr.size,py=cr.y+Math.sin(a)*cr.size;
+            if(s===0)ctx.moveTo(px,py);else ctx.lineTo(px,py);
+        }
+        ctx.closePath();ctx.stroke();
+        // Inner glow
+        ctx.fillStyle=cr.colour;ctx.globalAlpha=0.1;
+        ctx.fill();
+        ctx.globalAlpha=1;
+    }
+    // Veines de minerai
+    ctx.strokeStyle='rgba(212,164,55,0.15)';ctx.lineWidth=1;
+    for(var v=0;v<5;v++){
+        var vx=v*120+Math.sin(pierreT*0.01+v)*20;
+        ctx.beginPath();ctx.moveTo(vx,0);ctx.lineTo(vx+10,350);ctx.stroke();
+    }
+    // Texte
+    ctx.font='12px sans-serif';ctx.fillStyle='rgba(170,136,102,0.4)';ctx.textAlign='center';
+    ctx.fillText('La pierre brute ne vaut rien. La pierre transformee vaut tout.',300,335);
+    pierreT++;pierreAnimId=requestAnimationFrame(animatePierre);
+}
+animatePierre();
+</script>
+"##);
+
+    html.push_str(r##"<div class="card" style="border-color:#aa8866;"><h2 style="color:#aa8866;">🪨 8 Modules de la Pierre</h2><div id="pierre-modules"></div></div>
+
+<script>
+const pierreModules=[
+    {id:0,nom:'La Pierre Est la Memoire de la Terre',emoji:'🪨',couleur:'#aa8866',duree:'1 semaine',niveau:'Base',
+     description:'La pierre est la plus ancienne memoire de la Terre. Les roches racontent l histoire du planet: volcans, oceans, deserts, montagnes. Les fossiles dans la pierre sont les temoins de la vie ancienne. L Afrique a les plus vieilles roches du monde: 4 milliards d annees en Afrique du Sud. La pierre n est pas morte. Elle ecrit l histoire de la Terre.',
+     cours:['Les 3 types de roches: ignee, sedimentaire, metamorphique','Les plus vieilles roches: 4 milliards d annees, Afrique du Sud','Les fossiles: la vie ancienne emprisonnee dans la pierre','La tectonique: comment les continents se deplacent','La pierre comme archive geologique'],
+     exercices:['Identifier: quelles roches trouve-t-on dans ta region?','Observer: trouver un fossile ou une roche interessante','Reflechir: que raconte la pierre de ta region?']},
+
+    {id:1,nom:'Les Minerais Africains',emoji:'⛏️',couleur:'#d4a437',duree:'3 semaines',niveau:'Intermediaire',
+     description:'L Afrique a 30% des minerais mondiaux. Cobalt (70% mondial, RDC), platine (80% mondial, Afrique du Sud), uranium (Niger), or (Ghana, Afrique du Sud), diamants (Botswana, RDC), coltan (RDC), manganese (Gabon), chrome (Afrique du Sud). Ces minerais font les telephones, les voitures, les ordinateurs. Sans minerais africains, pas de technologie mondiale. Mais l Afrique exporte la pierre brute et importe le produit fini. Le vol le plus ancien.',
+     cours:['Cobalt: 70% mondial, RDC, dans chaque telephone et batterie','Platine: 80% mondial, Afrique du Sud, catalyseurs et bijoux','Uranium: Niger, energie nucleaire francaise','Or: Ghana, Afrique du Sud, Mali, Burkina Faso','Coltan: RDC, dans chaque smartphone — le conflit du minerai','Diamants: Botswana, RDC, valeur et sang'],
+     exercices:['Identifier: quels minerais dans ton pays?','Verifier: ton telephone contient du cobalt congolais','Calculer: combien vaut la pierre brute vs le produit fini?']},
+
+    {id:2,nom:'L Exploitation Miniere',emoji:'⚒️',couleur:'#ff6644',duree:'3 semaines',niveau:'Intermediaire',
+     description:'L exploitation miniere en Afrique est dominee par des etrangers. Les compagnies occidentales et chinoises extraient, transforment a l exterieur, et revendent a prix d or. L Afrique ne garde que 3-5% de la valeur. Les mines sont souvent: travail des enfants, pollution, conflits armes, corruption. Le cobalt du Congo alimente le monde mais le Congo reste pauvre. AI Pierre apprend a transformer sur place, a garder la valeur, a proteger les mineurs.',
+     cours:['Le systeme: extraction brute, transformation exterieure, revente','3-5%: la part de l Afrique dans la valeur de ses minerais','Travail des enfants: le cobalt du Congo et les enfants mineurs','Pollution: cyanure, mercure, acides dans les mines','Conflits: coltan, or, diamants comme minerais de sang'],
+     exercices:['Verifier: qui exploite les mines dans ton pays?','Identifier: les conditions des mineurs locaux','Proposer: comment l Afrique peut transformer sur place?']},
+
+    {id:3,nom:'La Transformation Miniere',emoji:'🏭',couleur:'#66ccff',duree:'3 semaines',niveau:'Avance',
+     description:'La pierre brute ne vaut rien. Le cobalt brut vaut quelques dollars. La batterie au cobalt vaut des centaines. L Afrique doit transformer ses minerais sur place. Raffiner le cobalt au Congo. Fondre le platine en Afrique du Sud. Faconner les diamants au Botswana. La transformation crée des emplois, garde la valeur, et construit l industrie. AI Pierre apprend les etapes de transformation.',
+     cours:['Le cobalt: pierre brute vs batterie finie — 100x de valeur','La raffinerie: transformer sur place, pas exporter brut','La chaine de valeur: extraction, transformation, fabrication, vente','AfriChain Minerai: registre de transformation sur blockchain','Politique: exiger la transformation locale avant l exportation'],
+     exercices:['Calculer: cobalt brut vs batterie — quelle difference de prix?','Identifier: ton pays exporte-t-il brut ou transforme?','Proposer: une raffinerie pour ton pays']},
+
+    {id:4,nom:'La Pierre et la Construction',emoji:'🏗️',couleur:'#aa8866',duree:'2 semaines',niveau:'Intermediaire',
+     description:'La pierre construit. Le granit, le calcaire, le sable, l argile — tous viennent de la pierre. Les pyramides sont en pierre. Les mosquées de banco sont en terre. Les routes sont en pierre. AI Pierre apprend a utiliser les pierres locales pour construire africain: pas d importation de ciment, mais des materiaux locaux. La pierre est partout, gratuite, eternelle.',
+     cours:['Granit, calcaire, sable, argile: les pierres de construction','Les pyramides: construire en pierre pour l eternite','Le banco: terre crue + paille, construction traditionnelle africaine','Ciment local vs importation: le cout de la dependance','AfriChain Architecte: construire avec les pierres du pays'],
+     exercices:['Identifier: quelles pierres de construction dans ta region?','Comparer: ciment importe vs materiaux locaux','Proposer: une construction en pierre locale pour ta communaute']},
+
+    {id:5,nom:'La Pierre et la Spiritualite',emoji:'🙏',couleur:'#9966ff',duree:'2 semaines',niveau:'Intermediaire',
+     description:'La pierre est sacree. Les menhirs, les pierres levées, les montagnes sacrees. Le Kaaba a La Mecque est une pierre noire. Les Dogons taillent la pierre selon les etoiles. Les pyramides sont en pierre parce que la pierre defie le temps. La pierre est le lien entre la Terre et le ciel, entre le materiel et le spirituel. AI Pierre honore la sagesse de la pierre sacree.',
+     cours:['La Kaaba: la pierre noire sacree de l Islam','Les menhirs et pierres levees d Afrique','Les montagnes sacrees: Kilimandjaro, Drakensberg, Atlas','Les pyramides: la pierre qui defie le temps','La pierre comme lien entre Terre et ciel'],
+     exercices:['Identifier: une pierre sacree dans ta tradition','Visiter: une montagne sacree de ta region','Reflechir: pourquoi la pierre est-elle sacree?']},
+
+    {id:6,nom:'La Pierre et l Art',emoji:'🎨',couleur:'#ff9966',duree:'2 semaines',niveau:'Intermediaire',
+     description:'La pierre est le premier materiau d art. Les peintures rupestres du Sahara, les sculptures Nok, les masques en pierre de Zimbabwe (Grand Zimbabwe). La pierre garde l art pour l eternite. Les peintures rupestres africaines ont 10 000 ans et sont encore visibles. AI Pierre apprend a sculpter, peindre, et creer avec la pierre africaine.',
+     cours:['Les peintures rupestres du Sahara: 10 000 ans, encore visibles','Les sculptures Nok: terre cuite il y a 2500 ans au Nigeria','Le Grand Zimbabwe: constructions en pierre, 11e siecle','La sculpture sur pierre: tradition africaine continue','La pierre comme materiau d art eternel'],
+     exercices:['Identifier: un art rupestre ou une sculpture en pierre dans ta region','Essayer: sculpter une petite forme dans une pierre tendre','Proposer: un projet d art sur pierre pour ta communaute']},
+
+    {id:7,nom:'L Avenir de la Pierre Africaine',emoji:'🚀',couleur:'#aa8866',duree:'3 semaines',niveau:'Avance',
+     description:'En 2100, l Afrique transformera ses minerais sur place. Plus d exportation de pierre brute. Les raffineries africaines produiront les batteries, les bijoux, les composants. Les mines seront propres, securisees, sans enfants. La pierre africaine vaudra sa vraie valeur. Le continent qui possede 30% des minerais du monde aura 100% de leur valeur. La pierre brute ne vaut rien. La pierre transformee vaut tout.',
+     cours:['Transformation 100% locale: fin de l exportation brute','Raffineries africaines: batteries, bijoux, composants','Mines propres: technologie, securite, zero enfant','AfriChain Minerai: traconsabilite de la mine au produit fini','La pierre africaine a sa vraie valeur: 30% des minerais = 30% de la valeur mondiale'],
+     exercices:['Ecrire: comment sera l industrie miniere africaine en 2100?','Proposer: une raffinerie pour ton pays','Faire le serment: je transformerai la pierre africaine']}
+];
+
+var pierreDone=JSON.parse(localStorage.getItem('afri_pierre_done')||'[]');
+function renderPierreModules(){var c=document.getElementById('pierre-modules');if(!c)return;var h='';for(var i=0;i<pierreModules.length;i++){var m=pierreModules[i];var d=pierreDone.includes(m.id);h+='<div style="background:rgba(170,136,102,0.05);border:1px solid '+m.couleur+'20;border-radius:8px;padding:12px;margin:8px 0;cursor:pointer;" onclick="showPierreModule('+i+')"><div style="display:flex;justify-content:space-between;align-items:center;"><span style="font-size:1.1em;">'+m.emoji+' <b style="color:'+m.couleur+';">'+m.nom+'</b></span><span style="font-size:0.8em;color:#a8c5a8;">'+m.duree+' · '+m.niveau+(d?' · ✅':'')+'</span></div></div>';}c.innerHTML=h;}
+renderPierreModules();
+function showPierreModule(i){var m=pierreModules[i];var h='<div style="background:rgba(170,136,102,0.08);border:1px solid '+m.couleur+';border-radius:12px;padding:20px;margin:10px 0;"><h3 style="color:'+m.couleur+';">'+m.emoji+' '+m.nom+'</h3><p style="color:#a8c5a8;font-size:0.9em;">'+m.description+'</p><h4 style="color:'+m.couleur+';">📚 Cours</h4><ul>';for(var j=0;j<m.cours.length;j++)h+='<li style="color:#a8c5a8;margin:4px 0;">'+m.cours[j]+'</li>';h+='</ul><h4 style="color:'+m.couleur+';">✏️ Exercices</h4><ul>';for(var j=0;j<m.exercices.length;j++)h+='<li style="color:#a8c5a8;margin:4px 0;">'+m.exercices[j]+'</li>';h+='</ul><button onclick="completePierreModule('+m.id+')" style="padding:10px 20px;background:'+m.couleur+';color:#fff;border:none;border-radius:8px;cursor:pointer;font-weight:bold;margin-top:10px;">✅ Terminer ce module</button></div>';var c=document.getElementById('pierre-modules');if(c)c.innerHTML=h;}
+function completePierreModule(id){if(!pierreDone.includes(id)){pierreDone.push(id);localStorage.setItem('afri_pierre_done',JSON.stringify(pierreDone));}renderPierreModules();updatePierreProgress();}
+function updatePierreProgress(){var d=pierreDone.length,t=pierreModules.length,p=Math.round((d/t)*100);var b=document.getElementById('pierre-bar'),c=document.getElementById('pierre-count'),pe=document.getElementById('pierre-pct'),dp=document.getElementById('pierre-diplome');if(b)b.style.width=p+'%';if(c)c.textContent=d;if(pe)pe.textContent=p+'%';if(dp)dp.style.display=(d===t)?'block':'none';}
+updatePierreProgress();
+</script>
+"##);
+
+    html.push_str(r##"<div class="card" style="border-color:#aa8866;"><h2 style="color:#aa8866;">📊 Progression</h2><div style="background:rgba(170,136,102,0.1);border-radius:8px;height:24px;overflow:hidden;margin:10px 0;"><div id="pierre-bar" style="background:linear-gradient(90deg,#aa8866,#d4a437,#66ccff);height:100%;width:0%;transition:width 0.5s;"></div></div><div style="text-align:center;color:#a8c5a8;"><span id="pierre-count">0</span> / 8 modules · <span id="pierre-pct">0%</span></div></div>
+
+<div id="pierre-diplome" style="display:none;"><div class="card" style="border-color:#d4a437;text-align:center;"><h2 style="color:#d4a437;">🎓 Diplôme: Maître de la Pierre Africaine</h2><p style="color:#a8c5a8;">Tu as complété les 8 modules de la pierre!</p><p style="color:#aa8866;font-size:1.2em;">La pierre brute ne vaut rien. La pierre transformée vaut tout. 🪨💚</p><button onclick="envoyerDiplomePierre()" style="padding:12px 30px;background:#d4a437;color:#000;border:none;border-radius:8px;font-weight:bold;cursor:pointer;font-size:1.1em;margin-top:10px;">⛓️ Graver dans la Blockchain</button></div></div>
+
+<script>
+function envoyerDiplomePierre(){var nom=localStorage.getItem('afri_user_name')||'Jeune Africain';fetch('/api/diplome',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:'academie=PIERRE&nom='+encodeURIComponent(nom)}).then(function(r){return r.text();}).then(function(t){alert('🎓 Diplôme gravé dans la blockchain!\n'+t);}).catch(function(e){alert('Erreur: '+e);});}
+</script>
+"##);
+
+    html.push_str(r#"<div class="card"><h2 style="color:#aa8866;">💡 Savais-tu?</h2><div style="color:#a8c5a8;padding:8px 0;"><b style="color:#d4a437;">70% du cobalt mondial</b> vient de la RDC. Il est dans chaque téléphone et chaque batterie électrique. Mais le Congo reste pauvre.</div><div style="color:#a8c5a8;padding:8px 0;"><b style="color:#aa8866;">Les plus vieilles roches du monde</b> (4 milliards d'années) se trouvent en Afrique du Sud. La pierre africaine est la mémoire de la Terre.</div><div style="color:#a8c5a8;padding:8px 0;"><b style="color:#ff6644;">L'Afrique ne garde que 3-5%</b> de la valeur de ses minerais. Elle exporte la pierre brute et importe le produit fini.</div><div style="color:#a8c5a8;padding:8px 0;"><b style="color:#9966ff;">Le Grand Zimbabwe</b> est une construction en pierre du 11e siècle — preuve que l'Afrique bâtissait en pierre pour l'éternité.</div></div>"#);
+
+    html.push_str(r#"<footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🪨 AI Pierre — La Pierre Est la Memoire de la Terre 💚🦁✨</footer>"#);
+    html.push_str("</body></html>");
+    html
+}
+
 fn html_garage(chain: &Blockchain) -> String {
     let mut html = html_head("Garage AI — Atelier Autonome 2500");
     let num_blocks = chain.blocks.len();
@@ -20689,7 +20827,7 @@ html+='<div class="log-entry log-kill">⚠️ Tentative d\x27infiltration occide
 html+='<div class="log-entry log-invis">✅ L\x27Afrique est forte. Le système grandit.</div>';
 }else if(type==='total'){
 html='<div style="color:#d4a437;font-weight:bold;margin-bottom:8px">📋 RAPPORT TOTAL — Depuis le début</div>';
-html+='<div class="log-entry">🦁 AfriChain v1.15 — AI Etoile Les Etoiles Sont les Ancetres Qui Regardent</div>';
+html+='<div class="log-entry">🦁 AfriChain v1.16 — AI Pierre La Pierre Est la Memoire de la Terre</div>';
 html+='<div class="log-entry">⛓️ Blockchain: 100% souveraine — Zéro dépendance externe</div>';
 html+='<div class="log-entry">🔐 Crypto: Ed25519 + AfriHash-256/512 + AfriRNG — tout from scratch</div>';
 html+='<div class="log-entry">🌍 54 pays africains connectés</div>';
@@ -22233,7 +22371,7 @@ fn main() {
         .and_then(|i| args.get(i + 1)).cloned().unwrap_or_else(|| "Afrique".to_string());
 
     let my_node_id = generate_node_id();
-    println!("🦁 AfriChain v1.15 — AI Etoile Les Etoiles Sont les Ancetres Qui Regardent");
+    println!("🦁 AfriChain v1.16 — AI Pierre La Pierre Est la Memoire de la Terre");
     println!("💚 L'Afrique ne demande plus la permission");
     println!("🌍 54 pays — 🇲🇱 🇳🇪 🇧🇫 AES — Mali · Niger · Burkina Faso");
     println!("🔐 8 modules cryptographiques — construits from scratch");
@@ -22415,6 +22553,7 @@ fn main() {
     println!("🌬️ AI Vent sur http://localhost:8080/ai-vent");
     println!("⏳ AI Temps sur http://localhost:8080/ai-temps");
     println!("⭐ AI Etoile sur http://localhost:8080/ai-etoile");
+    println!("🪨 AI Pierre sur http://localhost:8080/ai-pierre");
 
     // Serveur HTTP en arrière-plan (pour mesh + autres utilisateurs)
     let serve_state = web_state.clone();
@@ -22449,7 +22588,7 @@ fn terminal_interface(state: &Arc<AppState>) {
     println!("  ║  🕐 AfriTime — Pas UTC, pas Greenwich   ║");
     println!("  ║  📝 ~23,100 lignes — écrit à la main       ║");
     println!("  ╚═══════════════════════════════════════════════╝");
-    println!("\n  Version v1.15 — 2 septembre 2026");
+    println!("\n  Version v1.16 — 2 septembre 2026");
     println!("  Construit sur Termux · Android · nano\n");
     println!("  ─────────────────────────────────────────────");
     println!("\n  1. 🏦 Centre de Données (Admin)");
@@ -22521,7 +22660,7 @@ fn admin_interface(state: &Arc<AppState>) {
         println!("\n");
         println!("╔══════════════════════════════════════╗");
         println!("║  🏦 CENTRE DE DONNÉES — Admin       ║");
-        println!("║  🦁 AfriChain v1.15                  ║");
+        println!("║  🦁 AfriChain v1.16                  ║");
         println!("╠══════════════════════════════════════╣");
         let chain = state.chain.lock().unwrap();
         let users = state.users.lock().unwrap();
@@ -26221,6 +26360,10 @@ fn handle_request(req: afri_http::HttpRequest, state: &Arc<AppState>) -> afri_ht
         ("GET", "/ai-etoile") => {
             let chain = state.chain.lock().unwrap();
             HttpResponse::ok(&html_ai_etoile(&chain))
+        }
+        ("GET", "/ai-pierre") => {
+            let chain = state.chain.lock().unwrap();
+            HttpResponse::ok(&html_ai_pierre(&chain))
         }
 
         ("GET", "/garage") => {
