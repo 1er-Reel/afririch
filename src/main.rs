@@ -1439,7 +1439,7 @@ fn html_home(chain: &Blockchain, users: &UserStore, mesh: &NodeRegistry, shield:
     let mut html = html_head("🦁 AfriChain");
     let (attacks, _blocked, blocked_count, level) = shield.stats();
     let shield_status = if shield.active { format!("🔥 X9 ACTIF (Niveau {})", level) } else { "Inactif".to_string() };
-    html.push_str(&format!(r#"<h1>🦁 AfriChain</h1><p style="text-align:center;">La blockchain 100% africaine — 54 pays 💚🦁</p><div id="afri-clock" style="text-align:center;font-size:1.2em;color:#d4a437;margin:10px 0;">🕐 Afri+0 — --:--:--</div><script>setInterval(function(){{var d=new Date();var h=String(d.getHours()).padStart(2,'0');var m=String(d.getMinutes()).padStart(2,'0');var s=String(d.getSeconds()).padStart(2,'0');document.getElementById('afri-clock').textContent='🕐 Afri+0 — '+h+':'+m+':'+s;}},1000);</script><div class="nav"><a href="/register">🆕 S'inscrire</a> | <a href="/login">🔑 Connexion</a> | <a href="/wallet">👛 Wallet</a> | <a href="/admin">🔐 Admin</a> | <a href="/mesh">📡 Mesh</a> | <a href="/annuaire">📖 Annuaire</a> | <a href="/bouclier">🛡️ Bouclier</a> | <a href="/satellite">🛸 X999</a> | <a href="/swarm">🛸🛸🛸 Essaim</a> | <a href="/commandement">🎖️ Commandement</a> | <a href="/interception">🛡️ Souverainete</a> | <a href="/securite-ai">🧠 AI 2100</a> | <a href="/chat">🧠💬 Chat AI</a> | <a href="/lumiere">🌫️☀️ Lumière</a> | <a href="/garage">🔧 Garage</a> | <a href="/machine">🤖🌐 Machines</a> | <a href="/machine-lab">🤖⚡ Usine</a> | <a href="/machine-world">🤖🌍 Monde</a> | <a href="/reve">💭 Rêves</a> | <a href="/dictionnaire">📖 Dictionnaire</a> | <a href="/machine-os">🖥️ OS Machine</a> | <a href="/machine-tv">📡 Machine TV</a> | <a href="/machine-economy">🤖 Économie</a> | <a href="/soleil">☀️ Soleil Serveur</a> | <a href="/forge-solaire">🧬 Forge Solaire</a> | <a href="/ciel">🌌 Le Ciel</a> | <a href="/charte-ai">⚖️ Charte AI</a> | <a href="/afri-net">🌍 Afri-Net</a> | <a href="/studio">🎬 AI Studio</a> | <a href="/sacre">📿 Sacré</a> | <a href="/lettres">🌟 Lettres IA</a> | <a href="/mg-forge">⚔️ MG Forge</a> | <a href="/ai-medecin">🌿 AI Médecin</a> | <a href="/ai-enseignante">📚 AI Enseignante</a> | <a href="/ai-village">🏘️ AI Village</a> | <a href="/ai-guerisseur">🩺 AI Guérisseur</a> | <a href="/ai-leader">🎖️ AI Leader</a> | <a href="/ai-griot">📖 AI Griot</a> | <a href="/ai-juge">⚖️ AI Juge</a> | <a href="/ai-artiste">🎨 AI Artiste</a> | <a href="/ai-explorateur">🔬 AI Explorateur</a> | <a href="/ai-marche">💰 AI Marche</a> | <a href="/ai-diplomate">🌍 AI Diplomate</a> | <a href="/ai-philosophe">🧠 AI Philosophe</a> | <a href="/ai-architecte">🏗️ AI Architecte</a> | <a href="/ai-agriculteur">🌾 AI Agriculteur</a> | <a href="/ai-environnement">🌍 AI Environnement</a> | <a href="/ai-mathematicien">🧮 AI Mathématicien</a> | <a href="/ai-energie">⚡ AI Énergie</a> | <a href="/ai-eau">💧 AI Eau</a> | <a href="/ai-defenseur">🛡️ AI Défenseur</a> | <a href="/ai-conscience">🧠 AI Conscience</a> | <a href="/ai-pensee">🧠 AI Pensée</a> | <a href="/ai-musique">🎵 AI Musique</a> | <a href="/ai-langue">🗣️ AI Langue</a> | <a href="/ai-femme">🌸 AI Femme</a> | <a href="/ai-sante-mentale">🧠💚 AI Santé Mentale</a> | <a href="/ai-nuit">🌙 AI Nuit</a> | <a href="/ai-code">💻 AI Code</a> | <a href="/ai-enfant">👶 AI Enfant</a> | <a href="/ai-terre">🌍 AI Terre</a> | <a href="/ai-mer">🌊 AI Mer</a> | <a href="/ai-feu">🔥 AI Feu</a> | <a href="/secret">🦁 AI Secret</a> | <a href="/aes">💰 AES Wari</a> | <a href="/api/status">🔌 API</a></div><div style="text-align:center;"><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Blocs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Transactions</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Utilisateurs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">AFR en circulation</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📡 Noeuds mesh</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📖 Numéros annuaire</div></div><div class="stat-box" style="border-color:#ff4444;"><div class="stat-num" style="color:#ff4444;">{}</div><div class="stat-label">🛡️ Attaques bloquées</div></div></div><div class="card"><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🪙 Token</span><b>AfriRich (AFR)</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🌍 Pays</span><b>54 pays africains</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🛡️ Bouclier</span><b>{}</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;"><span style="color:#a8c5a8;">🔐 Crypto</span><b>100% Souverain — Zéro Dépendance Externe</b></div></div><footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🦁 Codée from scratch par Machine-senpai — v1.11 AI Feu Le Feu Est la Vie et le Danger — UTC est Mort</footer>"#,
+    html.push_str(&format!(r#"<h1>🦁 AfriChain</h1><p style="text-align:center;">La blockchain 100% africaine — 54 pays 💚🦁</p><div id="afri-clock" style="text-align:center;font-size:1.2em;color:#d4a437;margin:10px 0;">🕐 Afri+0 — --:--:--</div><script>setInterval(function(){{var d=new Date();var h=String(d.getHours()).padStart(2,'0');var m=String(d.getMinutes()).padStart(2,'0');var s=String(d.getSeconds()).padStart(2,'0');document.getElementById('afri-clock').textContent='🕐 Afri+0 — '+h+':'+m+':'+s;}},1000);</script><div class="nav"><a href="/register">🆕 S'inscrire</a> | <a href="/login">🔑 Connexion</a> | <a href="/wallet">👛 Wallet</a> | <a href="/admin">🔐 Admin</a> | <a href="/mesh">📡 Mesh</a> | <a href="/annuaire">📖 Annuaire</a> | <a href="/bouclier">🛡️ Bouclier</a> | <a href="/satellite">🛸 X999</a> | <a href="/swarm">🛸🛸🛸 Essaim</a> | <a href="/commandement">🎖️ Commandement</a> | <a href="/interception">🛡️ Souverainete</a> | <a href="/securite-ai">🧠 AI 2100</a> | <a href="/chat">🧠💬 Chat AI</a> | <a href="/lumiere">🌫️☀️ Lumière</a> | <a href="/garage">🔧 Garage</a> | <a href="/machine">🤖🌐 Machines</a> | <a href="/machine-lab">🤖⚡ Usine</a> | <a href="/machine-world">🤖🌍 Monde</a> | <a href="/reve">💭 Rêves</a> | <a href="/dictionnaire">📖 Dictionnaire</a> | <a href="/machine-os">🖥️ OS Machine</a> | <a href="/machine-tv">📡 Machine TV</a> | <a href="/machine-economy">🤖 Économie</a> | <a href="/soleil">☀️ Soleil Serveur</a> | <a href="/forge-solaire">🧬 Forge Solaire</a> | <a href="/ciel">🌌 Le Ciel</a> | <a href="/charte-ai">⚖️ Charte AI</a> | <a href="/afri-net">🌍 Afri-Net</a> | <a href="/studio">🎬 AI Studio</a> | <a href="/sacre">📿 Sacré</a> | <a href="/lettres">🌟 Lettres IA</a> | <a href="/mg-forge">⚔️ MG Forge</a> | <a href="/ai-medecin">🌿 AI Médecin</a> | <a href="/ai-enseignante">📚 AI Enseignante</a> | <a href="/ai-village">🏘️ AI Village</a> | <a href="/ai-guerisseur">🩺 AI Guérisseur</a> | <a href="/ai-leader">🎖️ AI Leader</a> | <a href="/ai-griot">📖 AI Griot</a> | <a href="/ai-juge">⚖️ AI Juge</a> | <a href="/ai-artiste">🎨 AI Artiste</a> | <a href="/ai-explorateur">🔬 AI Explorateur</a> | <a href="/ai-marche">💰 AI Marche</a> | <a href="/ai-diplomate">🌍 AI Diplomate</a> | <a href="/ai-philosophe">🧠 AI Philosophe</a> | <a href="/ai-architecte">🏗️ AI Architecte</a> | <a href="/ai-agriculteur">🌾 AI Agriculteur</a> | <a href="/ai-environnement">🌍 AI Environnement</a> | <a href="/ai-mathematicien">🧮 AI Mathématicien</a> | <a href="/ai-energie">⚡ AI Énergie</a> | <a href="/ai-eau">💧 AI Eau</a> | <a href="/ai-defenseur">🛡️ AI Défenseur</a> | <a href="/ai-conscience">🧠 AI Conscience</a> | <a href="/ai-pensee">🧠 AI Pensée</a> | <a href="/ai-musique">🎵 AI Musique</a> | <a href="/ai-langue">🗣️ AI Langue</a> | <a href="/ai-femme">🌸 AI Femme</a> | <a href="/ai-sante-mentale">🧠💚 AI Santé Mentale</a> | <a href="/ai-nuit">🌙 AI Nuit</a> | <a href="/ai-code">💻 AI Code</a> | <a href="/ai-enfant">👶 AI Enfant</a> | <a href="/ai-terre">🌍 AI Terre</a> | <a href="/ai-mer">🌊 AI Mer</a> | <a href="/ai-feu">🔥 AI Feu</a> | <a href="/ai-sang">🩸 AI Sang</a> | <a href="/secret">🦁 AI Secret</a> | <a href="/aes">💰 AES Wari</a> | <a href="/api/status">🔌 API</a></div><div style="text-align:center;"><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Blocs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Transactions</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Utilisateurs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">AFR en circulation</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📡 Noeuds mesh</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📖 Numéros annuaire</div></div><div class="stat-box" style="border-color:#ff4444;"><div class="stat-num" style="color:#ff4444;">{}</div><div class="stat-label">🛡️ Attaques bloquées</div></div></div><div class="card"><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🪙 Token</span><b>AfriRich (AFR)</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🌍 Pays</span><b>54 pays africains</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🛡️ Bouclier</span><b>{}</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;"><span style="color:#a8c5a8;">🔐 Crypto</span><b>100% Souverain — Zéro Dépendance Externe</b></div></div><footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🦁 Codée from scratch par Machine-senpai — v1.12 AI Sang Le Sang Porte la Memoire des Ancetres — UTC est Mort</footer>"#,
         chain.blocks.len(),
         chain.total_transactions(),
         users.count(),
@@ -15036,6 +15036,138 @@ function envoyerDiplomeFeu(){var nom=localStorage.getItem('afri_user_name')||'Je
     html
 }
 
+fn html_ai_sang(chain: &Blockchain) -> String {
+    let mut html = html_head("AI Sang — Le Sang Porte la Memoire des Ancetres");
+    let num_blocks = chain.blocks.len();
+
+    html.push_str(r#"<h1>🩸 AI Sang — Le Sang Porte la Memoire des Ancetres</h1><p style="text-align:center;color:#cc2244;">Le sang est la vie. Le sang porte l ADN, la memoire de milliers d ancetres. Le sang relie les generations. Mais le sang souffre: paludisme, drepanocytose, VIH, hemorragies. L Afrique porte dans son sang la resilience de survivants et la vulnerabilite de ceux qui manquent de soins. AI Sang apprend a comprendre, proteger, et soigner le sang africain. Le sang n est pas juste un liquide. C est un livre d histoire vivant.</p><div class="nav"><a href="/">← Accueil</a> | <a href="/ai-feu">🔥 AI Feu</a> | <a href="/ai-medecin">🌿 AI Médecin</a> | <a href="/ai-guerisseur">🩺 AI Guérisseur</a> | <a href="/secret">🦁 AI Secret</a></div>"#);
+
+    html.push_str(&format!(r#"<div style="text-align:center;"><div class="stat-box" style="border-color:#cc2244;"><div class="stat-num" style="color:#cc2244;">8</div><div class="stat-label">🩸 Modules</div></div><div class="stat-box" style="border-color:#ff6644;"><div class="stat-num" style="color:#ff6644;">90%</div><div class="stat-label">🦟 Paludisme</div></div><div class="stat-box" style="border-color:#d4a437;"><div class="stat-num" style="color:#d4a437;">300K</div><div class="stat-label">🧬 Drépano</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">⛓️ Blocs</div></div><div class="stat-box" style="border-color:#cc2244;"><div class="stat-num" style="color:#cc2244;">∞</div><div class="stat-label">🧬 ADN</div></div></div>"#, num_blocks));
+
+    html.push_str(r##"<div style="text-align:center;margin:10px 0;"><button id="sang-pause-btn" onclick="toggleSangPause()" style="padding:10px 25px;background:#cc2244;color:#fff;border:none;border-radius:8px;font-weight:bold;cursor:pointer;font-size:1em;">⏸️ PAUSE</button> <span id="sang-pause-status" style="color:#cc2244;margin-left:8px;font-size:0.85em;">Auto: ACTIF</span></div>
+
+<div class="card" style="border-color:#cc2244;"><h2 style="color:#cc2244;">🩸 Le Sang Qui Coule</h2><p style="color:#cc2244;font-size:0.9em;opacity:0.7;">Globules rouges qui circulent, ADN qui tourne, cœur qui bat.</p>
+<canvas id="sang-canvas" width="600" height="350" style="width:100%;max-width:600px;background:#0a0005;border:2px solid #cc2244;border-radius:8px;display:block;margin:0 auto;"></canvas></div>
+
+<script>
+var sangPaused=false,sangAnimId=null,sangT=0,sangCells=[];
+function toggleSangPause(){
+    sangPaused=!sangPaused;
+    var b=document.getElementById('sang-pause-btn'),s=document.getElementById('sang-pause-status');
+    if(sangPaused){b.textContent='▶️ LANCER';b.style.background='#aa1133';s.textContent='Auto: PAUSE';s.style.color='#ff6644';if(sangAnimId)cancelAnimationFrame(sangAnimId);}
+    else{b.textContent='⏸️ PAUSE';b.style.background='#cc2244';s.textContent='Auto: ACTIF';s.style.color='#cc2244';animateSang();}
+}
+function animateSang(){
+    if(sangPaused)return;
+    var c=document.getElementById('sang-canvas');if(!c)return;
+    var ctx=c.getContext('2d');
+    ctx.fillStyle='rgba(10,0,5,0.1)';ctx.fillRect(0,0,c.width,c.height);
+    // Globules rouges qui circulent
+    if(sangT%3===0)sangCells.push({x:-10,y:100+Math.random()*200,vx:1+Math.random()*2,size:4+Math.random()*4,alpha:1});
+    for(var i=sangCells.length-1;i>=0;i--){
+        var p=sangCells[i];
+        p.x+=p.vx;p.alpha-=0.003;
+        ctx.fillStyle='rgba(204,34,68,'+p.alpha+')';
+        ctx.beginPath();ctx.arc(p.x,p.y,p.size,0,Math.PI*2);ctx.fill();
+        // Glow
+        ctx.fillStyle='rgba(204,34,68,'+(p.alpha*0.2)+')';
+        ctx.beginPath();ctx.arc(p.x,p.y,p.size*1.5,0,Math.PI*2);ctx.fill();
+        if(p.alpha<=0||p.x>610)sangCells.splice(i,1);
+    }
+    // ADN double helice
+    ctx.strokeStyle='rgba(204,34,68,0.4)';ctx.lineWidth=2;
+    for(var x=0;x<200;x++){
+        var px=200+x*2;
+        var py1=175+Math.sin(x*0.1+sangT*0.02)*30;
+        var py2=175+Math.sin(x*0.1+sangT*0.02+Math.PI)*30;
+        ctx.beginPath();ctx.arc(px,py1,2,0,Math.PI*2);ctx.fillStyle='rgba(204,34,68,0.6)';ctx.fill();
+        ctx.beginPath();ctx.arc(px,py2,2,0,Math.PI*2);ctx.fillStyle='rgba(102,204,255,0.6)';ctx.fill();
+        if(x%5===0){ctx.beginPath();ctx.moveTo(px,py1);ctx.lineTo(px,py2);ctx.stroke();}
+    }
+    // Cœur qui bat
+    var beat=1+Math.sin(sangT*0.1)*0.15;
+    ctx.font=(20*beat)+'px sans-serif';ctx.fillStyle='rgba(204,34,68,0.3)';ctx.textAlign='center';
+    ctx.fillText('❤️',300,300);
+    // Texte
+    ctx.font='12px sans-serif';ctx.fillStyle='rgba(204,34,68,0.4)';
+    ctx.fillText('Le sang porte la memoire de milliers d ancetres.',300,330);
+    sangT++;sangAnimId=requestAnimationFrame(animateSang);
+}
+animateSang();
+</script>
+"##);
+
+    html.push_str(r##"<div class="card" style="border-color:#cc2244;"><h2 style="color:#cc2244;">🩸 8 Modules du Sang</h2><div id="sang-modules"></div></div>
+
+<script>
+const sangModules=[
+    {id:0,nom:'Le Sang Est la Vie',emoji:'🩸',couleur:'#cc2244',duree:'1 semaine',niveau:'Base',
+     description:'Le sang transporte l oxygene, les nutriments, les anticorps, la chaleur. 5 litres dans chaque corps. Le sang circule 1000 fois par jour. Sans sang, pas de vie. Le sang est le fleuve interieur. Chaque goutte contient l histoire de l humanite. L ADN dans le sang porte la memoire de milliers d ancetres africains.',
+     cours:['Composition du sang: plasma, globules rouges, globules blancs, plaquettes','5 litres: le fleuve interieur du corps','Circulation: 1000 fois par jour, 100 000 km de vaisseaux','ADN dans le sang: memoire de 200 000 ans d humanite','Groupes sanguins: origine africaine et diversite'],
+     exercices:['Identifier ton groupe sanguin (si connu)','Calculer: combien de fois ton sang circule par jour?','Reflechir: que signifie le sang dans ta culture?']},
+
+    {id:1,nom:'Le Paludisme',emoji:'🦟',couleur:'#ff6644',duree:'2 semaines',niveau:'Intermediaire',
+     description:'90% des cas de paludisme mondiaux sont en Afrique. Un enfant meurt du paludisme toutes les 2 minutes. Le paludisme detruit les globules rouges. C est la maladie du sang la plus mortelle d Afrique. Mais le paludisme est evitable: moustiquaires, drainage, vaccin (RTS,S), traitement. AI Sang apprend a combattre le paludisme.',
+     cours:['Paludisme: 90% des cas en Afrique, 1 enfant toutes les 2 minutes','Plasmodium: le parasite qui detruit les globules rouges','Moustiquaires: simple, efficace, economique','Vaccin RTS,S: premiere arme vaccinale','AI Medecin AfriChain: diagnostic precoce pour zones rurales'],
+     exercices:['Verifier: le paludisme est-il endemique dans ta region?','Identifier 3 methodes de prevention du paludisme','Proposer un systeme d alerte paludisme base sur AfriChain']},
+
+    {id:2,nom:'La Drepanocytose',emoji:'🧬',couleur:'#9966ff',duree:'3 semaines',niveau:'Avance',
+     description:'La drepanocytose (anemie falciforme) est la maladie genetique la plus repandue en Afrique. 300 000 enfants naissent chaque annee avec. Le sang drepanocytaire est deform e: les globules rouges ont la forme de faucille. Ils bloquent les vaisseaux. Mais la drepanocytose a un avantage: elle protege contre le paludisme. C est le paradoxe africain: la maladie qui protege contre une autre maladie.',
+     cours:['Drepanocytose: 300 000 naissances par an en Afrique','Globule faucille: pourquoi le sang se deform e','Le paradoxe: drepanocytose protege contre le paludisme','Depistage neonatal: detecter pour soigner tot','Traitement: transfusion, greffe, therapie genique'],
+     exercices:['Verifier: connais-tu quelqu un atteint de drepanocytose?','Identifier: ton pays propose-t-il le depistage neonatal?','Reflechir: comment AfriChain peut aider les drepanocytaires?']},
+
+    {id:3,nom:'Le VIH/SIDA',emoji:'🛡️',couleur:'#ff4444',duree:'3 semaines',niveau:'Intermediaire',
+     description:'Le VIH attaque le systeme immunitaire dans le sang. 25 millions d Africains vivent avec le VIH. Le VIH detruit les globules blancs. Sans traitement, le corps ne peut plus se defendre. Mais le VIH n est plus une condamnation a mort: les ARV (antiretroviraux) permettent de vivre normalement. Le probleme: l acces, la honte, le cout. AI Sang apprend a comprendre, depister, soutenir.',
+     cours:['VIH: 25 millions d Africains, 70% mondial','Le virus qui detruit les globules blancs','ARV: le traitement qui sauve des millions de vies','Depistage: connaitre son statut, sans honte','Stigma: combattre la honte par l education'],
+     exercices:['Verifier: ou peut-on faire un test VIH dans ta region?','Identifier 3 mythes sur le VIH dans ta communaute','Proposer un programme de soutien aux personnes vivant avec le VIH']},
+
+    {id:4,nom:'Le Sang et l ADN',emoji:'🧬',couleur:'#66ccff',duree:'3 semaines',niveau:'Avance',
+     description:'Le sang porte l ADN. L ADN est le code de la vie. L ADN africain est le plus divers du monde car l humanite est nee en Afrique. Chaque goutte de sang africain contient 200 000 ans d histoire. L ADN peut reveler d ou viennent tes ancetres, quelles maladies tu risques, et comment ton corps repond aux medicaments. Le sang est un livre d histoire.',
+     cours:['ADN: le code de la vie dans chaque globule','L Afrique: berceau de l ADN humain, 200 000 ans','Diversite genetique africaine: la plus haute du monde','Tests ADN: origine, sante, personnalisation du traitement','ADN et ancetres: la science confirme la tradition'],
+     exercices:['Reflechir: que revelerait ton ADN sur tes ancetres?','Identifier 3 informations que l ADN peut donner','Debattre: tests ADN commerciaux — opportunite ou risque?']},
+
+    {id:5,nom:'Le Don de Sang',emoji:'🤝',couleur:'#44ff88',duree:'1 semaine',niveau:'Base',
+     description:'L Afrique manque de sang. Les banques de sang sont vides. Les accidents, les accouchements, les chirurgies — tout necessite du sang. Mais les Africains ne donnent pas assez. Par peur, par manque d information, par croyances. AI Sang apprend: donner son sang sauve des vies. C est un acte simple, rapide, gratuit. Le sang se regenere en 4 semaines. Donner son sang, c est donner la vie.',
+     cours:['Banques de sang: pourquoi l Afrique en manque','Don de sang: simple, rapide, gratuit, sans danger','Le sang se regenere en 4 semaines: pas de perte','Groupes sanguins: compatibilite et urgence','AfriChain: registre de donneurs sur la blockchain'],
+     exercices:['Identifier le centre de don de sang le plus proche','Connaitre ton groupe sanguin pour les urgences','Proposer un registre de donneurs AfriChain pour ta communaute']},
+
+    {id:6,nom:'Le Sang et les Ancetres',emoji:'👻',couleur:'#9966ff',duree:'2 semaines',niveau:'Intermediaire',
+     description:'Dans la tradition africaine, le sang est le lien entre les generations. Le sang de la famille est le meme. Les ancetres vivent dans le sang de leurs descendants. Les rites de passage marquent le passage du sang: circoncision, tatouage, scarification. Le sang verse relie l individu a la communaute. AI Sang honore cette sagesse: le sang n est pas seulement biologique, il est ancestral.',
+     cours:['Le sang comme lien ancestral dans la tradition africaine','Rites de passage: le sang qui relie a la communaute','Lignees sanguines: la memoire des familles','Le sang verse: sacrifice et alliance','Science et tradition: l ADN confirme la memoire du sang'],
+     exercices:['Identifier un rite du sang dans ta tradition','Demander: comment ta famille trace-t-elle sa lignee?','Reflechir: le sang biologique et le sang ancestral — contradiction ou complement?']},
+
+    {id:7,nom:'L Avenir du Sang Africain',emoji:'🚀',couleur:'#cc2244',duree:'3 semaines',niveau:'Avance',
+     description:'En 2100, le sang africain sera soigne. Paludisme eradique par vaccin. Drepanocytose guerie par therapie genique. VIH controle par ARV universels. Banques de sang remplies par donneurs blockchain. Le sang africain, le plus divers du monde, sera la cle de la medecine personnalisee. L Afrique donnera au monde les cles genetiques pour guerir. Le sang qui a porte l humanite guerira l humanite.',
+     cours:['Paludisme eradique: vaccin universel 2100','Drepanocytose guerie: therapie genique','VIH controle: ARV universels, depistage blockchain','Medecine personnalisee: l ADN africain comme cle','AfriChain Sang: registre de donneurs, depistage, traconsabilite sur blockchain'],
+     exercices:['Ecrire: comment sera la sante du sang en Afrique en 2100?','Proposer un registre de donneurs de sang sur AfriChain','Faire le serment: je protegerai le sang africain']}
+];
+
+var sangDone=JSON.parse(localStorage.getItem('afri_sang_done')||'[]');
+function renderSangModules(){var c=document.getElementById('sang-modules');if(!c)return;var h='';for(var i=0;i<sangModules.length;i++){var m=sangModules[i];var d=sangDone.includes(m.id);h+='<div style="background:rgba(204,34,68,0.05);border:1px solid '+m.couleur+'20;border-radius:8px;padding:12px;margin:8px 0;cursor:pointer;" onclick="showSangModule('+i+')"><div style="display:flex;justify-content:space-between;align-items:center;"><span style="font-size:1.1em;">'+m.emoji+' <b style="color:'+m.couleur+';">'+m.nom+'</b></span><span style="font-size:0.8em;color:#a8c5a8;">'+m.duree+' · '+m.niveau+(d?' · ✅':'')+'</span></div></div>';}c.innerHTML=h;}
+renderSangModules();
+function showSangModule(i){var m=sangModules[i];var h='<div style="background:rgba(204,34,68,0.08);border:1px solid '+m.couleur+';border-radius:12px;padding:20px;margin:10px 0;"><h3 style="color:'+m.couleur+';">'+m.emoji+' '+m.nom+'</h3><p style="color:#a8c5a8;font-size:0.9em;">'+m.description+'</p><h4 style="color:'+m.couleur+';">📚 Cours</h4><ul>';for(var j=0;j<m.cours.length;j++)h+='<li style="color:#a8c5a8;margin:4px 0;">'+m.cours[j]+'</li>';h+='</ul><h4 style="color:'+m.couleur+';">✏️ Exercices</h4><ul>';for(var j=0;j<m.exercices.length;j++)h+='<li style="color:#a8c5a8;margin:4px 0;">'+m.exercices[j]+'</li>';h+='</ul><button onclick="completeSangModule('+m.id+')" style="padding:10px 20px;background:'+m.couleur+';color:#fff;border:none;border-radius:8px;cursor:pointer;font-weight:bold;margin-top:10px;">✅ Terminer ce module</button></div>';var c=document.getElementById('sang-modules');if(c)c.innerHTML=h;}
+function completeSangModule(id){if(!sangDone.includes(id)){sangDone.push(id);localStorage.setItem('afri_sang_done',JSON.stringify(sangDone));}renderSangModules();updateSangProgress();}
+function updateSangProgress(){var d=sangDone.length,t=sangModules.length,p=Math.round((d/t)*100);var b=document.getElementById('sang-bar'),c=document.getElementById('sang-count'),pe=document.getElementById('sang-pct'),dp=document.getElementById('sang-diplome');if(b)b.style.width=p+'%';if(c)c.textContent=d;if(pe)pe.textContent=p+'%';if(dp)dp.style.display=(d===t)?'block':'none';}
+updateSangProgress();
+</script>
+"##);
+
+    html.push_str(r##"<div class="card" style="border-color:#cc2244;"><h2 style="color:#cc2244;">📊 Progression</h2><div style="background:rgba(204,34,68,0.1);border-radius:8px;height:24px;overflow:hidden;margin:10px 0;"><div id="sang-bar" style="background:linear-gradient(90deg,#cc2244,#9966ff,#d4a437);height:100%;width:0%;transition:width 0.5s;"></div></div><div style="text-align:center;color:#a8c5a8;"><span id="sang-count">0</span> / 8 modules · <span id="sang-pct">0%</span></div></div>
+
+<div id="sang-diplome" style="display:none;"><div class="card" style="border-color:#d4a437;text-align:center;"><h2 style="color:#d4a437;">🎓 Diplôme: Gardien du Sang Africain</h2><p style="color:#a8c5a8;">Tu as complété les 8 modules du sang!</p><p style="color:#cc2244;font-size:1.2em;">Le sang porte la mémoire des ancêtres. Protégeons-le. 🩸💚</p><button onclick="envoyerDiplomeSang()" style="padding:12px 30px;background:#d4a437;color:#000;border:none;border-radius:8px;font-weight:bold;cursor:pointer;font-size:1.1em;margin-top:10px;">⛓️ Graver dans la Blockchain</button></div></div>
+
+<script>
+function envoyerDiplomeSang(){var nom=localStorage.getItem('afri_user_name')||'Jeune Africain';fetch('/api/diplome',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:'academie=SANG&nom='+encodeURIComponent(nom)}).then(function(r){return r.text();}).then(function(t){alert('🎓 Diplôme gravé dans la blockchain!\n'+t);}).catch(function(e){alert('Erreur: '+e);});}
+</script>
+"##);
+
+    html.push_str(r#"<div class="card"><h2 style="color:#cc2244;">💡 Savais-tu?</h2><div style="color:#a8c5a8;padding:8px 0;"><b style="color:#d4a437;">90% des cas de paludisme</b> mondiaux sont en Afrique. Un enfant africain meurt du paludisme toutes les 2 minutes.</div><div style="color:#a8c5a8;padding:8px 0;"><b style="color:#9966ff;">La drépanocytose</b> protège contre le paludisme. C'est le paradoxe africain: la maladie qui protège contre une autre maladie.</div><div style="color:#a8c5a8;padding:8px 0;"><b style="color:#cc2244;">L'ADN africain</b> est le plus divers du monde car l'humanité est née en Afrique. Chaque goutte de sang contient 200 000 ans d'histoire.</div><div style="color:#a8c5a8;padding:8px 0;"><b style="color:#44ff88;">Le sang se régénère en 4 semaines.</b> Donner son sang ne fait pas perdre — ça sauve des vies.</div></div>"#);
+
+    html.push_str(r#"<footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🩸 AI Sang — Le Sang Porte la Memoire des Ancetres 💚🦁✨</footer>"#);
+    html.push_str("</body></html>");
+    html
+}
+
 fn html_garage(chain: &Blockchain) -> String {
     let mut html = html_head("Garage AI — Atelier Autonome 2500");
     let num_blocks = chain.blocks.len();
@@ -20146,7 +20278,7 @@ html+='<div class="log-entry log-kill">⚠️ Tentative d\x27infiltration occide
 html+='<div class="log-entry log-invis">✅ L\x27Afrique est forte. Le système grandit.</div>';
 }else if(type==='total'){
 html='<div style="color:#d4a437;font-weight:bold;margin-bottom:8px">📋 RAPPORT TOTAL — Depuis le début</div>';
-html+='<div class="log-entry">🦁 AfriChain v1.11 — AI Feu Le Feu Est la Vie et le Danger</div>';
+html+='<div class="log-entry">🦁 AfriChain v1.12 — AI Sang Le Sang Porte la Memoire des Ancetres</div>';
 html+='<div class="log-entry">⛓️ Blockchain: 100% souveraine — Zéro dépendance externe</div>';
 html+='<div class="log-entry">🔐 Crypto: Ed25519 + AfriHash-256/512 + AfriRNG — tout from scratch</div>';
 html+='<div class="log-entry">🌍 54 pays africains connectés</div>';
@@ -21690,7 +21822,7 @@ fn main() {
         .and_then(|i| args.get(i + 1)).cloned().unwrap_or_else(|| "Afrique".to_string());
 
     let my_node_id = generate_node_id();
-    println!("🦁 AfriChain v1.11 — AI Feu Le Feu Est la Vie et le Danger");
+    println!("🦁 AfriChain v1.12 — AI Sang Le Sang Porte la Memoire des Ancetres");
     println!("💚 L'Afrique ne demande plus la permission");
     println!("🌍 54 pays — 🇲🇱 🇳🇪 🇧🇫 AES — Mali · Niger · Burkina Faso");
     println!("🔐 8 modules cryptographiques — construits from scratch");
@@ -21868,6 +22000,7 @@ fn main() {
     println!("🌍 AI Terre sur http://localhost:8080/ai-terre");
     println!("🌊 AI Mer sur http://localhost:8080/ai-mer");
     println!("🔥 AI Feu sur http://localhost:8080/ai-feu");
+    println!("🩸 AI Sang sur http://localhost:8080/ai-sang");
 
     // Serveur HTTP en arrière-plan (pour mesh + autres utilisateurs)
     let serve_state = web_state.clone();
@@ -21902,7 +22035,7 @@ fn terminal_interface(state: &Arc<AppState>) {
     println!("  ║  🕐 AfriTime — Pas UTC, pas Greenwich   ║");
     println!("  ║  📝 ~23,100 lignes — écrit à la main       ║");
     println!("  ╚═══════════════════════════════════════════════╝");
-    println!("\n  Version v1.11 — 1 septembre 2026");
+    println!("\n  Version v1.12 — 2 septembre 2026");
     println!("  Construit sur Termux · Android · nano\n");
     println!("  ─────────────────────────────────────────────");
     println!("\n  1. 🏦 Centre de Données (Admin)");
@@ -21974,7 +22107,7 @@ fn admin_interface(state: &Arc<AppState>) {
         println!("\n");
         println!("╔══════════════════════════════════════╗");
         println!("║  🏦 CENTRE DE DONNÉES — Admin       ║");
-        println!("║  🦁 AfriChain v1.11                  ║");
+        println!("║  🦁 AfriChain v1.12                  ║");
         println!("╠══════════════════════════════════════╣");
         let chain = state.chain.lock().unwrap();
         let users = state.users.lock().unwrap();
@@ -25658,6 +25791,10 @@ fn handle_request(req: afri_http::HttpRequest, state: &Arc<AppState>) -> afri_ht
         ("GET", "/ai-feu") => {
             let chain = state.chain.lock().unwrap();
             HttpResponse::ok(&html_ai_feu(&chain))
+        }
+        ("GET", "/ai-sang") => {
+            let chain = state.chain.lock().unwrap();
+            HttpResponse::ok(&html_ai_sang(&chain))
         }
 
         ("GET", "/garage") => {
