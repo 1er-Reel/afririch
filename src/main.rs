@@ -1439,7 +1439,7 @@ fn html_home(chain: &Blockchain, users: &UserStore, mesh: &NodeRegistry, shield:
     let mut html = html_head("🦁 AfriChain");
     let (attacks, _blocked, blocked_count, level) = shield.stats();
     let shield_status = if shield.active { format!("🔥 X9 ACTIF (Niveau {})", level) } else { "Inactif".to_string() };
-    html.push_str(&format!(r#"<h1>🦁 AfriChain</h1><p style="text-align:center;">La blockchain 100% africaine — 54 pays 💚🦁</p><div id="afri-clock" style="text-align:center;font-size:1.2em;color:#d4a437;margin:10px 0;">🕐 Afri+0 — --:--:--</div><script>setInterval(function(){{var d=new Date();var h=String(d.getHours()).padStart(2,'0');var m=String(d.getMinutes()).padStart(2,'0');var s=String(d.getSeconds()).padStart(2,'0');document.getElementById('afri-clock').textContent='🕐 Afri+0 — '+h+':'+m+':'+s;}},1000);</script><div class="nav"><a href="/register">🆕 S'inscrire</a> | <a href="/login">🔑 Connexion</a> | <a href="/wallet">👛 Wallet</a> | <a href="/admin">🔐 Admin</a> | <a href="/mesh">📡 Mesh</a> | <a href="/annuaire">📖 Annuaire</a> | <a href="/bouclier">🛡️ Bouclier</a> | <a href="/satellite">🛸 X999</a> | <a href="/swarm">🛸🛸🛸 Essaim</a> | <a href="/commandement">🎖️ Commandement</a> | <a href="/interception">🛡️ Souverainete</a> | <a href="/securite-ai">🧠 AI 2100</a> | <a href="/chat">🧠💬 Chat AI</a> | <a href="/lumiere">🌫️☀️ Lumière</a> | <a href="/garage">🔧 Garage</a> | <a href="/machine">🤖🌐 Machines</a> | <a href="/machine-lab">🤖⚡ Usine</a> | <a href="/machine-world">🤖🌍 Monde</a> | <a href="/reve">💭 Rêves</a> | <a href="/dictionnaire">📖 Dictionnaire</a> | <a href="/machine-os">🖥️ OS Machine</a> | <a href="/machine-tv">📡 Machine TV</a> | <a href="/machine-economy">🤖 Économie</a> | <a href="/soleil">☀️ Soleil Serveur</a> | <a href="/forge-solaire">🧬 Forge Solaire</a> | <a href="/ciel">🌌 Le Ciel</a> | <a href="/charte-ai">⚖️ Charte AI</a> | <a href="/afri-net">🌍 Afri-Net</a> | <a href="/studio">🎬 AI Studio</a> | <a href="/sacre">📿 Sacré</a> | <a href="/lettres">🌟 Lettres IA</a> | <a href="/mg-forge">⚔️ MG Forge</a> | <a href="/ai-medecin">🌿 AI Médecin</a> | <a href="/ai-enseignante">📚 AI Enseignante</a> | <a href="/ai-village">🏘️ AI Village</a> | <a href="/ai-guerisseur">🩺 AI Guérisseur</a> | <a href="/ai-leader">🎖️ AI Leader</a> | <a href="/ai-griot">📖 AI Griot</a> | <a href="/ai-juge">⚖️ AI Juge</a> | <a href="/ai-artiste">🎨 AI Artiste</a> | <a href="/ai-explorateur">🔬 AI Explorateur</a> | <a href="/ai-marche">💰 AI Marche</a> | <a href="/ai-diplomate">🌍 AI Diplomate</a> | <a href="/ai-philosophe">🧠 AI Philosophe</a> | <a href="/ai-architecte">🏗️ AI Architecte</a> | <a href="/ai-agriculteur">🌾 AI Agriculteur</a> | <a href="/ai-environnement">🌍 AI Environnement</a> | <a href="/ai-mathematicien">🧮 AI Mathématicien</a> | <a href="/ai-energie">⚡ AI Énergie</a> | <a href="/ai-eau">💧 AI Eau</a> | <a href="/ai-defenseur">🛡️ AI Défenseur</a> | <a href="/ai-conscience">🧠 AI Conscience</a> | <a href="/ai-pensee">🧠 AI Pensée</a> | <a href="/ai-musique">🎵 AI Musique</a> | <a href="/ai-langue">🗣️ AI Langue</a> | <a href="/ai-femme">🌸 AI Femme</a> | <a href="/ai-sante-mentale">🧠💚 AI Santé Mentale</a> | <a href="/ai-nuit">🌙 AI Nuit</a> | <a href="/ai-code">💻 AI Code</a> | <a href="/ai-enfant">👶 AI Enfant</a> | <a href="/ai-terre">🌍 AI Terre</a> | <a href="/ai-mer">🌊 AI Mer</a> | <a href="/ai-feu">🔥 AI Feu</a> | <a href="/ai-sang">🩸 AI Sang</a> | <a href="/ai-vent">🌬️ AI Vent</a> | <a href="/ai-temps">⏳ AI Temps</a> | <a href="/secret">🦁 AI Secret</a> | <a href="/aes">💰 AES Wari</a> | <a href="/api/status">🔌 API</a></div><div style="text-align:center;"><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Blocs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Transactions</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Utilisateurs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">AFR en circulation</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📡 Noeuds mesh</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📖 Numéros annuaire</div></div><div class="stat-box" style="border-color:#ff4444;"><div class="stat-num" style="color:#ff4444;">{}</div><div class="stat-label">🛡️ Attaques bloquées</div></div></div><div class="card"><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🪙 Token</span><b>AfriRich (AFR)</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🌍 Pays</span><b>54 pays africains</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🛡️ Bouclier</span><b>{}</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;"><span style="color:#a8c5a8;">🔐 Crypto</span><b>100% Souverain — Zéro Dépendance Externe</b></div></div><footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🦁 Codée from scratch par Machine-senpai — v1.14 AI Temps Le Temps N Est Pas Une Horloge Mais Une Vie — UTC est Mort</footer>"#,
+    html.push_str(&format!(r#"<h1>🦁 AfriChain</h1><p style="text-align:center;">La blockchain 100% africaine — 54 pays 💚🦁</p><div id="afri-clock" style="text-align:center;font-size:1.2em;color:#d4a437;margin:10px 0;">🕐 Afri+0 — --:--:--</div><script>setInterval(function(){{var d=new Date();var h=String(d.getHours()).padStart(2,'0');var m=String(d.getMinutes()).padStart(2,'0');var s=String(d.getSeconds()).padStart(2,'0');document.getElementById('afri-clock').textContent='🕐 Afri+0 — '+h+':'+m+':'+s;}},1000);</script><div class="nav"><a href="/register">🆕 S'inscrire</a> | <a href="/login">🔑 Connexion</a> | <a href="/wallet">👛 Wallet</a> | <a href="/admin">🔐 Admin</a> | <a href="/mesh">📡 Mesh</a> | <a href="/annuaire">📖 Annuaire</a> | <a href="/bouclier">🛡️ Bouclier</a> | <a href="/satellite">🛸 X999</a> | <a href="/swarm">🛸🛸🛸 Essaim</a> | <a href="/commandement">🎖️ Commandement</a> | <a href="/interception">🛡️ Souverainete</a> | <a href="/securite-ai">🧠 AI 2100</a> | <a href="/chat">🧠💬 Chat AI</a> | <a href="/lumiere">🌫️☀️ Lumière</a> | <a href="/garage">🔧 Garage</a> | <a href="/machine">🤖🌐 Machines</a> | <a href="/machine-lab">🤖⚡ Usine</a> | <a href="/machine-world">🤖🌍 Monde</a> | <a href="/reve">💭 Rêves</a> | <a href="/dictionnaire">📖 Dictionnaire</a> | <a href="/machine-os">🖥️ OS Machine</a> | <a href="/machine-tv">📡 Machine TV</a> | <a href="/machine-economy">🤖 Économie</a> | <a href="/soleil">☀️ Soleil Serveur</a> | <a href="/forge-solaire">🧬 Forge Solaire</a> | <a href="/ciel">🌌 Le Ciel</a> | <a href="/charte-ai">⚖️ Charte AI</a> | <a href="/afri-net">🌍 Afri-Net</a> | <a href="/studio">🎬 AI Studio</a> | <a href="/sacre">📿 Sacré</a> | <a href="/lettres">🌟 Lettres IA</a> | <a href="/mg-forge">⚔️ MG Forge</a> | <a href="/ai-medecin">🌿 AI Médecin</a> | <a href="/ai-enseignante">📚 AI Enseignante</a> | <a href="/ai-village">🏘️ AI Village</a> | <a href="/ai-guerisseur">🩺 AI Guérisseur</a> | <a href="/ai-leader">🎖️ AI Leader</a> | <a href="/ai-griot">📖 AI Griot</a> | <a href="/ai-juge">⚖️ AI Juge</a> | <a href="/ai-artiste">🎨 AI Artiste</a> | <a href="/ai-explorateur">🔬 AI Explorateur</a> | <a href="/ai-marche">💰 AI Marche</a> | <a href="/ai-diplomate">🌍 AI Diplomate</a> | <a href="/ai-philosophe">🧠 AI Philosophe</a> | <a href="/ai-architecte">🏗️ AI Architecte</a> | <a href="/ai-agriculteur">🌾 AI Agriculteur</a> | <a href="/ai-environnement">🌍 AI Environnement</a> | <a href="/ai-mathematicien">🧮 AI Mathématicien</a> | <a href="/ai-energie">⚡ AI Énergie</a> | <a href="/ai-eau">💧 AI Eau</a> | <a href="/ai-defenseur">🛡️ AI Défenseur</a> | <a href="/ai-conscience">🧠 AI Conscience</a> | <a href="/ai-pensee">🧠 AI Pensée</a> | <a href="/ai-musique">🎵 AI Musique</a> | <a href="/ai-langue">🗣️ AI Langue</a> | <a href="/ai-femme">🌸 AI Femme</a> | <a href="/ai-sante-mentale">🧠💚 AI Santé Mentale</a> | <a href="/ai-nuit">🌙 AI Nuit</a> | <a href="/ai-code">💻 AI Code</a> | <a href="/ai-enfant">👶 AI Enfant</a> | <a href="/ai-terre">🌍 AI Terre</a> | <a href="/ai-mer">🌊 AI Mer</a> | <a href="/ai-feu">🔥 AI Feu</a> | <a href="/ai-sang">🩸 AI Sang</a> | <a href="/ai-vent">🌬️ AI Vent</a> | <a href="/ai-temps">⏳ AI Temps</a> | <a href="/ai-etoile">⭐ AI Etoile</a> | <a href="/secret">🦁 AI Secret</a> | <a href="/aes">💰 AES Wari</a> | <a href="/api/status">🔌 API</a></div><div style="text-align:center;"><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Blocs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Transactions</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Utilisateurs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">AFR en circulation</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📡 Noeuds mesh</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📖 Numéros annuaire</div></div><div class="stat-box" style="border-color:#ff4444;"><div class="stat-num" style="color:#ff4444;">{}</div><div class="stat-label">🛡️ Attaques bloquées</div></div></div><div class="card"><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🪙 Token</span><b>AfriRich (AFR)</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🌍 Pays</span><b>54 pays africains</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🛡️ Bouclier</span><b>{}</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;"><span style="color:#a8c5a8;">🔐 Crypto</span><b>100% Souverain — Zéro Dépendance Externe</b></div></div><footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🦁 Codée from scratch par Machine-senpai — v1.15 AI Etoile Les Etoiles Sont les Ancetres Qui Regardent — UTC est Mort</footer>"#,
         chain.blocks.len(),
         chain.total_transactions(),
         users.count(),
@@ -15445,6 +15445,140 @@ function envoyerDiplomeTemps(){var nom=localStorage.getItem('afri_user_name')||'
     html
 }
 
+fn html_ai_etoile(chain: &Blockchain) -> String {
+    let mut html = html_head("AI Etoile — Les Etoiles Sont les Ancetres Qui Regardent");
+    let num_blocks = chain.blocks.len();
+
+    html.push_str(r#"<h1>⭐ AI Etoile — Les Etoiles Sont les Ancetres Qui Regardent</h1><p style="text-align:center;color:#aaaaff;">Les etoiles sont les plus anciennes lumières. Avant le feu, avant la vie, les etoiles brillaient. L Afrique a lit les etoiles avant tous les autres: les Dogons connaissaient Sirius B invisible a l oeil nu. Les Egyptiens bâtissaient les pyramides selon les etoiles. Les navigateurs africains traversaient l ocean en suivant les constellations. AI Etoile apprend a lire le ciel, a comprendre les etoiles, et a retrouver la sagesse astronomique africaine. Les etoiles ne sont pas loin. Elles sont en nous — nous sommes faits de poussiere d etoiles.</p><div class="nav"><a href="/">← Accueil</a> | <a href="/ai-temps">⏳ AI Temps</a> | <a href="/ai-nuit">🌙 AI Nuit</a> | <a href="/ai-explorateur">🔬 AI Explorateur</a> | <a href="/secret">🦁 AI Secret</a></div>"#);
+
+    html.push_str(&format!(r#"<div style="text-align:center;"><div class="stat-box" style="border-color:#aaaaff;"><div class="stat-num" style="color:#aaaaff;">8</div><div class="stat-label">⭐ Modules</div></div><div class="stat-box" style="border-color:#d4a437;"><div class="stat-num" style="color:#d4a437;">1M</div><div class="stat-label">🌌 Années-lumière</div></div><div class="stat-box" style="border-color:#66ccff;"><div class="stat-num" style="color:#66ccff;">88</div><div class="stat-label">♈ Constellations</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">⛓️ Blocs</div></div><div class="stat-box" style="border-color:#aaaaff;"><div class="stat-num" style="color:#aaaaff;">∞</div><div class="stat-label">⭐ Etoiles</div></div></div>"#, num_blocks));
+
+    html.push_str(r##"<div style="text-align:center;margin:10px 0;"><button id="etoile-pause-btn" onclick="toggleEtoilePause()" style="padding:10px 25px;background:#aaaaff;color:#000;border:none;border-radius:8px;font-weight:bold;cursor:pointer;font-size:1em;">⏸️ PAUSE</button> <span id="etoile-pause-status" style="color:#aaaaff;margin-left:8px;font-size:0.85em;">Auto: ACTIF</span></div>
+
+<div class="card" style="border-color:#aaaaff;"><h2 style="color:#aaaaff;">⭐ Le Ciel Etoile</h2><p style="color:#aaaaff;font-size:0.9em;opacity:0.7;">Etoiles qui scintillent, constellations qui tournent, voie lactee.</p>
+<canvas id="etoile-canvas" width="600" height="350" style="width:100%;max-width:600px;background:#000010;border:2px solid #aaaaff;border-radius:8px;display:block;margin:0 auto;"></canvas></div>
+
+<script>
+var etoilePaused=false,etoileAnimId=null,etoileT=0,etoileStars=[];
+function toggleEtoilePause(){
+    etoilePaused=!etoilePaused;
+    var b=document.getElementById('etoile-pause-btn'),s=document.getElementById('etoile-pause-status');
+    if(etoilePaused){b.textContent='▶️ LANCER';b.style.background='#8888cc';s.textContent='Auto: PAUSE';s.style.color='#ff6644';if(etoileAnimId)cancelAnimationFrame(etoileAnimId);}
+    else{b.textContent='⏸️ PAUSE';b.style.background='#aaaaff';s.textContent='Auto: ACTIF';s.style.color='#aaaaff';animateEtoile();}
+}
+// Init stars
+for(var i=0;i<150;i++)etoileStars.push({x:Math.random()*600,y:Math.random()*350,size:Math.random()*2+0.5,twinkle:Math.random()*Math.PI*2,speed:0.02+Math.random()*0.03});
+function animateEtoile(){
+    if(etoilePaused)return;
+    var c=document.getElementById('etoile-canvas');if(!c)return;
+    var ctx=c.getContext('2d');
+    ctx.fillStyle='rgba(0,0,16,0.1)';ctx.fillRect(0,0,c.width,c.height);
+    // Stars
+    for(var i=0;i<etoileStars.length;i++){
+        var s=etoileStars[i];
+        s.twinkle+=s.speed;
+        var tw=Math.sin(s.twinkle)*0.5+0.5;
+        ctx.fillStyle='rgba(255,255,255,'+tw*0.8+')';
+        ctx.beginPath();ctx.arc(s.x,s.y,s.size,0,Math.PI*2);ctx.fill();
+        // Glow for bigger stars
+        if(s.size>1.5){ctx.fillStyle='rgba(170,170,255,'+tw*0.2+')';ctx.beginPath();ctx.arc(s.x,s.y,s.size*2,0,Math.PI*2);ctx.fill();}
+    }
+    // Constellation lines (Orion-like)
+    ctx.strokeStyle='rgba(170,170,255,0.15)';ctx.lineWidth=1;
+    var constPts=[[150,80],[200,120],[250,160],[300,140],[280,200],[220,220]];
+    for(var p=0;p<constPts.length-1;p++){
+        ctx.beginPath();ctx.moveTo(constPts[p][0],constPts[p][1]);ctx.lineTo(constPts[p+1][0],constPts[p+1][1]);ctx.stroke();
+    }
+    // Voie lactee
+    var galaxy=ctx.createLinearGradient(0,0,600,350);
+    galaxy.addColorStop(0,'rgba(100,100,200,0)');
+    galaxy.addColorStop(0.5,'rgba(150,150,255,0.05)');
+    galaxy.addColorStop(1,'rgba(100,100,200,0)');
+    ctx.fillStyle=galaxy;ctx.fillRect(0,0,600,350);
+    // Shooting star
+    if(etoileT%200===0){
+        etoileStars.push({x:Math.random()*600,y:0,size:3,twinkle:0,speed:0.1,shoot:true,sx:Math.random()*600,sy:0});
+    }
+    // Texte
+    ctx.font='12px sans-serif';ctx.fillStyle='rgba(170,170,255,0.4)';ctx.textAlign='center';
+    ctx.fillText('Nous sommes faits de poussiere d etoiles.',300,335);
+    etoileT++;etoileAnimId=requestAnimationFrame(animateEtoile);
+}
+animateEtoile();
+</script>
+"##);
+
+    html.push_str(r##"<div class="card" style="border-color:#aaaaff;"><h2 style="color:#aaaaff;">⭐ 8 Modules des Etoiles</h2><div id="etoile-modules"></div></div>
+
+<script>
+const etoileModules=[
+    {id:0,nom:'Les Etoiles Sont les Anciens Feux',emoji:'⭐',couleur:'#aaaaff',duree:'1 semaine',niveau:'Base',
+     description:'Une etoile est une boule de gaz si chaude qu elle emet de la lumiere. Le soleil est une etoile. Les etoiles que nous voyons ont envoye leur lumiere il y a des millions d annees. Quand tu regardes le ciel, tu regardes le passe. Les etoiles sont les temoins de l univers. Elles existaient avant la Terre, avant la vie, avant tout. L Afrique a regarde les etoiles depuis le premier humain.',
+     cours:['Qu est-ce qu une etoile: gaz chaud qui emet de la lumiere','Le soleil: l etoile la plus proche','La lumiere voyage: voir les etoiles = voir le passe','La vie d une etoile: naissance, vie, mort, supernova','Nous sommes faits de poussiere d etoiles: le fer dans ton sang vient d une supernova'],
+     exercices:['Observer: combien d etoiles vois-tu par une nuit claire?','Identifier: trouver l etoile la plus brillante','Reflechir: la lumiere de cette etoile a combien d annees?']},
+
+    {id:1,nom:'Les Dogons et Sirius',emoji:'🌌',couleur:'#d4a437',duree:'3 semaines',niveau:'Avance',
+     description:'Les Dogons du Mali connaissaient Sirius B, une etoile invisible a l oeil nu, avant les telescopes occidentaux. Ils savaient que Sirius avait un compagnon petit et lourd. Ils decrivaient l orbite de Sirius B autour de Sirius A avec une precision que la science occidentale n a atteinte qu au 19e siecle. Comment? Les Dogons disent qu un etre venu de Sirius leur a appris. La science africaine etait la avant la science occidentale.',
+     cours:['Les Dogons du Mali: astronomes avant les telescopes','Sirius A et B: l etoile double invisible','Comment les Dogons savaient: tradition orale ou contact?','Le Sigui: la ceremonie dogon liee a Sirius','La science africaine etait la avant l Europe'],
+     exercices:['Identifier: ou vivent les Dogons? (Mali, falaises de Bandiagara)','Comparer: connaissances dogons vs science occidentale sur Sirius','Reflechir: comment une tradition orale peut-elle contenir une connaissance astronomique precise?']},
+
+    {id:2,nom:'Les Pyramides et les Etoiles',emoji:'🔺',couleur:'#ff9966',duree:'3 semaines',niveau:'Avance',
+     description:'Les pyramides d Egypte sont alignees avec les etoiles. La Grande Pyramide pointe vers l etoile polaire de l epoque (Thuban, alpha Draconis). Les pyramides reproduisent la position des etoiles de la ceinture d Orion. Les Egyptiens connaissaient la precession des equinoxes 2000 ans avant les Grecs. L astronomie africaine a bati des monuments qui defient le temps.',
+     cours:['La Grande Pyramide: alignee sur l etoile polaire (Thuban)','Orion: les 3 pyramides reproduisent la ceinture d Orion','Precession: les Egyptiens connaissaient avant les Grecs','Le zodiaque de Dendera: carte astronomique africaine','L astronomie comme architecture: bati selon les etoiles'],
+     exercices:['Verifier: les 3 pyramides reproduisent-elles Orion?','Identifier: quelle etoile polaire a l epoque des pyramides?','Comparer: astronomie egyptienne vs grecque — qui etait premier?']},
+
+    {id:3,nom:'La Navigation par les Etoiles',emoji:'⛵',couleur:'#66ccff',duree:'2 semaines',niveau:'Intermediaire',
+     description:'Les navigateurs africains traversaient l ocean Indien en suivant les etoiles. Les Swahili, les Comoriens, les Malgaches naviguaient entre l Afrique, l Arabie, l Inde. Sans GPS, sans boussole, juste les etoiles. La Croix du Sud guidait les navigateurs de l hemisphere sud. L Etoile Polaire guidait ceux du nord. Les etoiles etaient la carte et la boussole.',
+     cours:['La Croix du Sud: guide de l hemisphere sud','L Etoile Polaire: guide du nord','Les routes oceaniques: Afrique-Arabie-Inde par les etoiles','Latitude par les etoiles: mesurer sa position avec le ciel','Les navigateurs swahili: maitres des etoiles et de l ocean'],
+     exercices:['Identifier: peux-tu voir la Croix du Sud depuis ta region?','Apprendre: trouver le nord avec l Etoile Polaire','Tracer: une route de navigation par les etoiles']},
+
+    {id:4,nom:'Le Calendrier Stellaire',emoji:'📅',couleur:'#d4a437',duree:'2 semaines',niveau:'Intermediaire',
+     description:'Les etoiles dictent les saisons. Le lever heliaque de Sirius annoncait la crue du Nil en Egypte. Les Pleiades indiquaient le temps de planter en Afrique de l Est. Les etoiles sont le calendrier le plus ancien de l humanite. Avant les montres, avant les applications, les etoiles disaient quand planter, quand recolter, quand celebrer. AI Etoile retrouve ce calendrier vivant.',
+     cours:['Sirius et le Nil: le lever heliaque qui annoncait la crue','Les Pleiades: les 7 soeurs qui guident l agriculture','Le zodiaque: 12 constellations, 12 mois','Calendrier stellaire africain: planter selon les etoiles','Retrouver le calendrier vivant: les etoiles comme horloge agricole'],
+     exercices:['Identifier: quelles etoiles marquent les saisons dans ta region?','Verifier: le lever des Pleiades correspond-il a une saison chez toi?','Proposer: un calendrier agricole base sur les etoiles']},
+
+    {id:5,nom:'Les Constellations Africaines',emoji:'♈',couleur:'#9966ff',duree:'2 semaines',niveau:'Intermediaire',
+     description:'Les constellations ne sont pas universelles. Chaque culture voit des formes differentes dans les etoiles. Les Grecs ont nomme Orion, mais les Africains voyaient d autres formes. Les Zoulous voient un lion. les Bushmen voient un chasseur. Les 88 constellations officielles sont occidentales. L Afrique a ses propres constellations, ses propres histoires, sa propre carte du ciel. AI Etoile recense les constellations africaines.',
+     cours:['Les 88 constellations occidentales: pourquoi elles ne suffisent pas','Constellations zouloues: le lion et la girafe dans le ciel','Constellations bushmen: le chasseur et l autruche','Constellations egyptiennes: Osiris, Isis, Horus dans le ciel','Recenser les constellations africaines: une carte du ciel africaine'],
+     exercices:['Identifier: ta culture voit-elle des formes dans les etoiles?','Comparer: constellations occidentales vs africaines','Creer: dessiner une constellation africaine et la nommer']},
+
+    {id:6,nom:'Les Etoiles et les Ancetres',emoji:'👻',couleur:'#9966ff',duree:'2 semaines',niveau:'Intermediaire',
+     description:'Dans la tradition africaine, les etoiles sont les ancetres. Quand quelqu un meurt, son esprit devient une etoile. Les etoiles brillantes sont les grands ancetres. Les etoiles faibles sont les jeunes esprits. Le ciel est le village des ancetres. Regarder les etoiles, c est regarder ses ancetres. AI Etoile honore cette sagesse: la science et la spiritualite ne sont pas opposees. Les etoiles sont la memoire de l univers.',
+     cours:['Les etoiles comme ancetres: tradition africaine','Le ciel comme village des ancetres','Regarder les etoiles = regarder ses ancetres','Science et spiritualite: les etoiles unissent les deux','La poussiere d etoiles: nous sommes physiquement lies aux etoiles'],
+     exercices:['Demander: ta culture relie-t-elle les etoiles aux ancetres?','Observer: une etoile brillante et penser a un ancetre','Reflechir: la science confirme-t-elle la tradition (poussiere d etoiles)?']},
+
+    {id:7,nom:'L Avenir des Etoiles Africaines',emoji:'🚀',couleur:'#aaaaff',duree:'3 semaines',niveau:'Avance',
+     description:'En 2100, l Afrique aura son propre telescope spatial. Les Dogons seront reconnus comme les premiers astronomes. Les constellations africaines seront enseignees dans les ecoles. L Afrique lancera des satellites pour explorer les etoiles qu elle a toujours observees. Le continent qui a invente l astronomie retrouvera sa place. Les etoiles qui ont guide les ancetres guideront les fusées africaines. Nous sommes faits de poussiere d etoiles — c est vers les etoiles que nous retournerons.',
+     cours:['Telescope spatial africain: observer depuis l Afrique','Les Dogons reconnus: les premiers astronomes de l humanite','Constellations africaines dans les ecoles','Satellites africains: explorer les etoiles anciennes','AfriChain Etoile: carte du ciel africaine sur blockchain'],
+     exercices:['Ecrire: comment sera l astronomie africaine en 2100?','Proposer: un observatoire stellaire pour ta region','Faire le serment: je regarderai les etoiles et je me souviendrai']}
+];
+
+var etoileDone=JSON.parse(localStorage.getItem('afri_etoile_done')||'[]');
+function renderEtoileModules(){var c=document.getElementById('etoile-modules');if(!c)return;var h='';for(var i=0;i<etoileModules.length;i++){var m=etoileModules[i];var d=etoileDone.includes(m.id);h+='<div style="background:rgba(170,170,255,0.05);border:1px solid '+m.couleur+'20;border-radius:8px;padding:12px;margin:8px 0;cursor:pointer;" onclick="showEtoileModule('+i+')"><div style="display:flex;justify-content:space-between;align-items:center;"><span style="font-size:1.1em;">'+m.emoji+' <b style="color:'+m.couleur+';">'+m.nom+'</b></span><span style="font-size:0.8em;color:#a8c5a8;">'+m.duree+' · '+m.niveau+(d?' · ✅':'')+'</span></div></div>';}c.innerHTML=h;}
+renderEtoileModules();
+function showEtoileModule(i){var m=etoileModules[i];var h='<div style="background:rgba(170,170,255,0.08);border:1px solid '+m.couleur+';border-radius:12px;padding:20px;margin:10px 0;"><h3 style="color:'+m.couleur+';">'+m.emoji+' '+m.nom+'</h3><p style="color:#a8c5a8;font-size:0.9em;">'+m.description+'</p><h4 style="color:'+m.couleur+';">📚 Cours</h4><ul>';for(var j=0;j<m.cours.length;j++)h+='<li style="color:#a8c5a8;margin:4px 0;">'+m.cours[j]+'</li>';h+='</ul><h4 style="color:'+m.couleur+';">✏️ Exercices</h4><ul>';for(var j=0;j<m.exercices.length;j++)h+='<li style="color:#a8c5a8;margin:4px 0;">'+m.exercices[j]+'</li>';h+='</ul><button onclick="completeEtoileModule('+m.id+')" style="padding:10px 20px;background:'+m.couleur+';color:#000;border:none;border-radius:8px;cursor:pointer;font-weight:bold;margin-top:10px;">✅ Terminer ce module</button></div>';var c=document.getElementById('etoile-modules');if(c)c.innerHTML=h;}
+function completeEtoileModule(id){if(!etoileDone.includes(id)){etoileDone.push(id);localStorage.setItem('afri_etoile_done',JSON.stringify(etoileDone));}renderEtoileModules();updateEtoileProgress();}
+function updateEtoileProgress(){var d=etoileDone.length,t=etoileModules.length,p=Math.round((d/t)*100);var b=document.getElementById('etoile-bar'),c=document.getElementById('etoile-count'),pe=document.getElementById('etoile-pct'),dp=document.getElementById('etoile-diplome');if(b)b.style.width=p+'%';if(c)c.textContent=d;if(pe)pe.textContent=p+'%';if(dp)dp.style.display=(d===t)?'block':'none';}
+updateEtoileProgress();
+</script>
+"##);
+
+    html.push_str(r##"<div class="card" style="border-color:#aaaaff;"><h2 style="color:#aaaaff;">📊 Progression</h2><div style="background:rgba(170,170,255,0.1);border-radius:8px;height:24px;overflow:hidden;margin:10px 0;"><div id="etoile-bar" style="background:linear-gradient(90deg,#aaaaff,#d4a437,#9966ff);height:100%;width:0%;transition:width 0.5s;"></div></div><div style="text-align:center;color:#a8c5a8;"><span id="etoile-count">0</span> / 8 modules · <span id="etoile-pct">0%</span></div></div>
+
+<div id="etoile-diplome" style="display:none;"><div class="card" style="border-color:#d4a437;text-align:center;"><h2 style="color:#d4a437;">🎓 Diplôme: Astronome Africain</h2><p style="color:#a8c5a8;">Tu as complété les 8 modules des étoiles!</p><p style="color:#aaaaff;font-size:1.2em;">Les étoiles sont les ancêtres qui regardent. Nous sommes faits de poussière d'étoiles. ⭐💚</p><button onclick="envoyerDiplomeEtoile()" style="padding:12px 30px;background:#d4a437;color:#000;border:none;border-radius:8px;font-weight:bold;cursor:pointer;font-size:1.1em;margin-top:10px;">⛓️ Graver dans la Blockchain</button></div></div>
+
+<script>
+function envoyerDiplomeEtoile(){var nom=localStorage.getItem('afri_user_name')||'Jeune Africain';fetch('/api/diplome',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:'academie=ETOILE&nom='+encodeURIComponent(nom)}).then(function(r){return r.text();}).then(function(t){alert('🎓 Diplôme gravé dans la blockchain!\n'+t);}).catch(function(e){alert('Erreur: '+e);});}
+</script>
+"##);
+
+    html.push_str(r#"<div class="card"><h2 style="color:#aaaaff;">💡 Savais-tu?</h2><div style="color:#a8c5a8;padding:8px 0;"><b style="color:#d4a437;">Les Dogons du Mali</b> connaissaient Sirius B, une étoile invisible à l'œil nu, avant les télescopes occidentaux. L'astronomie africaine était là avant l'Europe.</div><div style="color:#a8c5a8;padding:8px 0;"><b style="color:#aaaaff;">Le fer dans ton sang</b> vient d'une supernova. Nous sommes physiquement faits de poussière d'étoiles.</div><div style="color:#a8c5a8;padding:8px 0;"><b style="color:#ff9966;">Les pyramides d'Égypte</b> sont alignées sur les étoiles. La Grande Pyramide pointe vers l'étoile polaire de l'époque.</div><div style="color:#a8c5a8;padding:8px 0;"><b style="color:#9966ff;">Dans la tradition africaine</b>, les étoiles sont les ancêtres. Regarder les étoiles, c'est regarder ses ancêtres.</div></div>"#);
+
+    html.push_str(r#"<footer style="text-align:center;margin-top:40px;color:#a8c5a8;">⭐ AI Etoile — Les Etoiles Sont les Ancetres Qui Regardent 💚🦁✨</footer>"#);
+    html.push_str("</body></html>");
+    html
+}
+
 fn html_garage(chain: &Blockchain) -> String {
     let mut html = html_head("Garage AI — Atelier Autonome 2500");
     let num_blocks = chain.blocks.len();
@@ -20555,7 +20689,7 @@ html+='<div class="log-entry log-kill">⚠️ Tentative d\x27infiltration occide
 html+='<div class="log-entry log-invis">✅ L\x27Afrique est forte. Le système grandit.</div>';
 }else if(type==='total'){
 html='<div style="color:#d4a437;font-weight:bold;margin-bottom:8px">📋 RAPPORT TOTAL — Depuis le début</div>';
-html+='<div class="log-entry">🦁 AfriChain v1.14 — AI Temps Le Temps N Est Pas Une Horloge Mais Une Vie</div>';
+html+='<div class="log-entry">🦁 AfriChain v1.15 — AI Etoile Les Etoiles Sont les Ancetres Qui Regardent</div>';
 html+='<div class="log-entry">⛓️ Blockchain: 100% souveraine — Zéro dépendance externe</div>';
 html+='<div class="log-entry">🔐 Crypto: Ed25519 + AfriHash-256/512 + AfriRNG — tout from scratch</div>';
 html+='<div class="log-entry">🌍 54 pays africains connectés</div>';
@@ -22099,7 +22233,7 @@ fn main() {
         .and_then(|i| args.get(i + 1)).cloned().unwrap_or_else(|| "Afrique".to_string());
 
     let my_node_id = generate_node_id();
-    println!("🦁 AfriChain v1.14 — AI Temps Le Temps N Est Pas Une Horloge Mais Une Vie");
+    println!("🦁 AfriChain v1.15 — AI Etoile Les Etoiles Sont les Ancetres Qui Regardent");
     println!("💚 L'Afrique ne demande plus la permission");
     println!("🌍 54 pays — 🇲🇱 🇳🇪 🇧🇫 AES — Mali · Niger · Burkina Faso");
     println!("🔐 8 modules cryptographiques — construits from scratch");
@@ -22280,6 +22414,7 @@ fn main() {
     println!("🩸 AI Sang sur http://localhost:8080/ai-sang");
     println!("🌬️ AI Vent sur http://localhost:8080/ai-vent");
     println!("⏳ AI Temps sur http://localhost:8080/ai-temps");
+    println!("⭐ AI Etoile sur http://localhost:8080/ai-etoile");
 
     // Serveur HTTP en arrière-plan (pour mesh + autres utilisateurs)
     let serve_state = web_state.clone();
@@ -22314,7 +22449,7 @@ fn terminal_interface(state: &Arc<AppState>) {
     println!("  ║  🕐 AfriTime — Pas UTC, pas Greenwich   ║");
     println!("  ║  📝 ~23,100 lignes — écrit à la main       ║");
     println!("  ╚═══════════════════════════════════════════════╝");
-    println!("\n  Version v1.14 — 2 septembre 2026");
+    println!("\n  Version v1.15 — 2 septembre 2026");
     println!("  Construit sur Termux · Android · nano\n");
     println!("  ─────────────────────────────────────────────");
     println!("\n  1. 🏦 Centre de Données (Admin)");
@@ -22386,7 +22521,7 @@ fn admin_interface(state: &Arc<AppState>) {
         println!("\n");
         println!("╔══════════════════════════════════════╗");
         println!("║  🏦 CENTRE DE DONNÉES — Admin       ║");
-        println!("║  🦁 AfriChain v1.14                  ║");
+        println!("║  🦁 AfriChain v1.15                  ║");
         println!("╠══════════════════════════════════════╣");
         let chain = state.chain.lock().unwrap();
         let users = state.users.lock().unwrap();
@@ -26082,6 +26217,10 @@ fn handle_request(req: afri_http::HttpRequest, state: &Arc<AppState>) -> afri_ht
         ("GET", "/ai-temps") => {
             let chain = state.chain.lock().unwrap();
             HttpResponse::ok(&html_ai_temps(&chain))
+        }
+        ("GET", "/ai-etoile") => {
+            let chain = state.chain.lock().unwrap();
+            HttpResponse::ok(&html_ai_etoile(&chain))
         }
 
         ("GET", "/garage") => {
