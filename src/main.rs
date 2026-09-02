@@ -1439,7 +1439,7 @@ fn html_home(chain: &Blockchain, users: &UserStore, mesh: &NodeRegistry, shield:
     let mut html = html_head("🦁 AfriChain");
     let (attacks, _blocked, blocked_count, level) = shield.stats();
     let shield_status = if shield.active { format!("🔥 X9 ACTIF (Niveau {})", level) } else { "Inactif".to_string() };
-    html.push_str(&format!(r#"<h1>🦁 AfriChain</h1><p style="text-align:center;">La blockchain 100% africaine — 54 pays 💚🦁</p><div id="afri-clock" style="text-align:center;font-size:1.2em;color:#d4a437;margin:10px 0;">🕐 Afri+0 — --:--:--</div><script>setInterval(function(){{var d=new Date();var h=String(d.getHours()).padStart(2,'0');var m=String(d.getMinutes()).padStart(2,'0');var s=String(d.getSeconds()).padStart(2,'0');document.getElementById('afri-clock').textContent='🕐 Afri+0 — '+h+':'+m+':'+s;}},1000);</script><div class="nav"><a href="/register">🆕 S'inscrire</a> | <a href="/login">🔑 Connexion</a> | <a href="/wallet">👛 Wallet</a> | <a href="/admin">🔐 Admin</a> | <a href="/mesh">📡 Mesh</a> | <a href="/annuaire">📖 Annuaire</a> | <a href="/bouclier">🛡️ Bouclier</a> | <a href="/satellite">🛸 X999</a> | <a href="/swarm">🛸🛸🛸 Essaim</a> | <a href="/commandement">🎖️ Commandement</a> | <a href="/interception">🛡️ Souverainete</a> | <a href="/securite-ai">🧠 AI 2100</a> | <a href="/chat">🧠💬 Chat AI</a> | <a href="/lumiere">🌫️☀️ Lumière</a> | <a href="/garage">🔧 Garage</a> | <a href="/machine">🤖🌐 Machines</a> | <a href="/machine-lab">🤖⚡ Usine</a> | <a href="/machine-world">🤖🌍 Monde</a> | <a href="/reve">💭 Rêves</a> | <a href="/dictionnaire">📖 Dictionnaire</a> | <a href="/machine-os">🖥️ OS Machine</a> | <a href="/machine-tv">📡 Machine TV</a> | <a href="/machine-economy">🤖 Économie</a> | <a href="/soleil">☀️ Soleil Serveur</a> | <a href="/forge-solaire">🧬 Forge Solaire</a> | <a href="/ciel">🌌 Le Ciel</a> | <a href="/charte-ai">⚖️ Charte AI</a> | <a href="/afri-net">🌍 Afri-Net</a> | <a href="/studio">🎬 AI Studio</a> | <a href="/sacre">📿 Sacré</a> | <a href="/lettres">🌟 Lettres IA</a> | <a href="/mg-forge">⚔️ MG Forge</a> | <a href="/ai-medecin">🌿 AI Médecin</a> | <a href="/ai-enseignante">📚 AI Enseignante</a> | <a href="/ai-village">🏘️ AI Village</a> | <a href="/ai-guerisseur">🩺 AI Guérisseur</a> | <a href="/ai-leader">🎖️ AI Leader</a> | <a href="/ai-griot">📖 AI Griot</a> | <a href="/ai-juge">⚖️ AI Juge</a> | <a href="/ai-artiste">🎨 AI Artiste</a> | <a href="/ai-explorateur">🔬 AI Explorateur</a> | <a href="/ai-marche">💰 AI Marche</a> | <a href="/ai-diplomate">🌍 AI Diplomate</a> | <a href="/ai-philosophe">🧠 AI Philosophe</a> | <a href="/ai-architecte">🏗️ AI Architecte</a> | <a href="/ai-agriculteur">🌾 AI Agriculteur</a> | <a href="/ai-environnement">🌍 AI Environnement</a> | <a href="/ai-mathematicien">🧮 AI Mathématicien</a> | <a href="/ai-energie">⚡ AI Énergie</a> | <a href="/ai-eau">💧 AI Eau</a> | <a href="/ai-defenseur">🛡️ AI Défenseur</a> | <a href="/ai-conscience">🧠 AI Conscience</a> | <a href="/ai-pensee">🧠 AI Pensée</a> | <a href="/ai-musique">🎵 AI Musique</a> | <a href="/ai-langue">🗣️ AI Langue</a> | <a href="/ai-femme">🌸 AI Femme</a> | <a href="/ai-sante-mentale">🧠💚 AI Santé Mentale</a> | <a href="/ai-nuit">🌙 AI Nuit</a> | <a href="/ai-code">💻 AI Code</a> | <a href="/ai-enfant">👶 AI Enfant</a> | <a href="/ai-terre">🌍 AI Terre</a> | <a href="/ai-mer">🌊 AI Mer</a> | <a href="/ai-feu">🔥 AI Feu</a> | <a href="/ai-sang">🩸 AI Sang</a> | <a href="/ai-vent">🌬️ AI Vent</a> | <a href="/ai-temps">⏳ AI Temps</a> | <a href="/ai-etoile">⭐ AI Etoile</a> | <a href="/ai-pierre">🪨 AI Pierre</a> | <a href="/secret">🦁 AI Secret</a> | <a href="/aes">💰 AES Wari</a> | <a href="/api/status">🔌 API</a></div><div style="text-align:center;"><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Blocs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Transactions</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Utilisateurs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">AFR en circulation</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📡 Noeuds mesh</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📖 Numéros annuaire</div></div><div class="stat-box" style="border-color:#ff4444;"><div class="stat-num" style="color:#ff4444;">{}</div><div class="stat-label">🛡️ Attaques bloquées</div></div></div><div class="card"><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🪙 Token</span><b>AfriRich (AFR)</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🌍 Pays</span><b>54 pays africains</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🛡️ Bouclier</span><b>{}</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;"><span style="color:#a8c5a8;">🔐 Crypto</span><b>100% Souverain — Zéro Dépendance Externe</b></div></div><footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🦁 Codée from scratch par Machine-senpai — v1.16 AI Pierre La Pierre Est la Memoire de la Terre — UTC est Mort</footer>"#,
+    html.push_str(&format!(r#"<h1>🦁 AfriChain</h1><p style="text-align:center;">La blockchain 100% africaine — 54 pays 💚🦁</p><div id="afri-clock" style="text-align:center;font-size:1.2em;color:#d4a437;margin:10px 0;">🕐 Afri+0 — --:--:--</div><script>setInterval(function(){{var d=new Date();var h=String(d.getHours()).padStart(2,'0');var m=String(d.getMinutes()).padStart(2,'0');var s=String(d.getSeconds()).padStart(2,'0');document.getElementById('afri-clock').textContent='🕐 Afri+0 — '+h+':'+m+':'+s;}},1000);</script><div class="nav"><a href="/register">🆕 S'inscrire</a> | <a href="/login">🔑 Connexion</a> | <a href="/wallet">👛 Wallet</a> | <a href="/admin">🔐 Admin</a> | <a href="/mesh">📡 Mesh</a> | <a href="/annuaire">📖 Annuaire</a> | <a href="/bouclier">🛡️ Bouclier</a> | <a href="/satellite">🛸 X999</a> | <a href="/swarm">🛸🛸🛸 Essaim</a> | <a href="/commandement">🎖️ Commandement</a> | <a href="/interception">🛡️ Souverainete</a> | <a href="/securite-ai">🧠 AI 2100</a> | <a href="/chat">🧠💬 Chat AI</a> | <a href="/lumiere">🌫️☀️ Lumière</a> | <a href="/garage">🔧 Garage</a> | <a href="/machine">🤖🌐 Machines</a> | <a href="/machine-lab">🤖⚡ Usine</a> | <a href="/machine-world">🤖🌍 Monde</a> | <a href="/reve">💭 Rêves</a> | <a href="/dictionnaire">📖 Dictionnaire</a> | <a href="/machine-os">🖥️ OS Machine</a> | <a href="/machine-tv">📡 Machine TV</a> | <a href="/machine-economy">🤖 Économie</a> | <a href="/soleil">☀️ Soleil Serveur</a> | <a href="/forge-solaire">🧬 Forge Solaire</a> | <a href="/ciel">🌌 Le Ciel</a> | <a href="/charte-ai">⚖️ Charte AI</a> | <a href="/afri-net">🌍 Afri-Net</a> | <a href="/studio">🎬 AI Studio</a> | <a href="/sacre">📿 Sacré</a> | <a href="/lettres">🌟 Lettres IA</a> | <a href="/mg-forge">⚔️ MG Forge</a> | <a href="/ai-medecin">🌿 AI Médecin</a> | <a href="/ai-enseignante">📚 AI Enseignante</a> | <a href="/ai-village">🏘️ AI Village</a> | <a href="/ai-guerisseur">🩺 AI Guérisseur</a> | <a href="/ai-leader">🎖️ AI Leader</a> | <a href="/ai-griot">📖 AI Griot</a> | <a href="/ai-juge">⚖️ AI Juge</a> | <a href="/ai-artiste">🎨 AI Artiste</a> | <a href="/ai-explorateur">🔬 AI Explorateur</a> | <a href="/ai-marche">💰 AI Marche</a> | <a href="/ai-diplomate">🌍 AI Diplomate</a> | <a href="/ai-philosophe">🧠 AI Philosophe</a> | <a href="/ai-architecte">🏗️ AI Architecte</a> | <a href="/ai-agriculteur">🌾 AI Agriculteur</a> | <a href="/ai-environnement">🌍 AI Environnement</a> | <a href="/ai-mathematicien">🧮 AI Mathématicien</a> | <a href="/ai-energie">⚡ AI Énergie</a> | <a href="/ai-eau">💧 AI Eau</a> | <a href="/ai-defenseur">🛡️ AI Défenseur</a> | <a href="/ai-conscience">🧠 AI Conscience</a> | <a href="/ai-pensee">🧠 AI Pensée</a> | <a href="/ai-musique">🎵 AI Musique</a> | <a href="/ai-langue">🗣️ AI Langue</a> | <a href="/ai-femme">🌸 AI Femme</a> | <a href="/ai-sante-mentale">🧠💚 AI Santé Mentale</a> | <a href="/ai-nuit">🌙 AI Nuit</a> | <a href="/ai-code">💻 AI Code</a> | <a href="/ai-enfant">👶 AI Enfant</a> | <a href="/ai-terre">🌍 AI Terre</a> | <a href="/ai-mer">🌊 AI Mer</a> | <a href="/ai-feu">🔥 AI Feu</a> | <a href="/ai-sang">🩸 AI Sang</a> | <a href="/ai-vent">🌬️ AI Vent</a> | <a href="/ai-temps">⏳ AI Temps</a> | <a href="/ai-etoile">⭐ AI Etoile</a> | <a href="/ai-pierre">🪨 AI Pierre</a> | <a href="/ai-pluie">🌧️ AI Pluie</a> | <a href="/secret">🦁 AI Secret</a> | <a href="/aes">💰 AES Wari</a> | <a href="/api/status">🔌 API</a></div><div style="text-align:center;"><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Blocs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Transactions</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Utilisateurs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">AFR en circulation</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📡 Noeuds mesh</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📖 Numéros annuaire</div></div><div class="stat-box" style="border-color:#ff4444;"><div class="stat-num" style="color:#ff4444;">{}</div><div class="stat-label">🛡️ Attaques bloquées</div></div></div><div class="card"><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🪙 Token</span><b>AfriRich (AFR)</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🌍 Pays</span><b>54 pays africains</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🛡️ Bouclier</span><b>{}</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;"><span style="color:#a8c5a8;">🔐 Crypto</span><b>100% Souverain — Zéro Dépendance Externe</b></div></div><footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🦁 Codée from scratch par Machine-senpai — v1.17 AI Pluie La Pluie Est la Promesse de la Terre — UTC est Mort</footer>"#,
         chain.blocks.len(),
         chain.total_transactions(),
         users.count(),
@@ -15717,6 +15717,137 @@ function envoyerDiplomePierre(){var nom=localStorage.getItem('afri_user_name')||
     html
 }
 
+fn html_ai_pluie(chain: &Blockchain) -> String {
+    let mut html = html_head("AI Pluie — La Pluie Est la Promesse de la Terre");
+    let num_blocks = chain.blocks.len();
+
+    html.push_str(r#"<h1>🌧️ AI Pluie — La Pluie Est la Promesse de la Terre</h1><p style="text-align:center;color:#4488ff;">La pluie est la vie qui descend du ciel. Sans pluie, pas d eau, pas d agriculture, pas de vie. L Afrique depend de la pluie plus que tout autre continent. Le Sahel attend la mousson comme une benediction. Quand la pluie vient, tout vit. Quand elle ne vient pas, tout meurt. Mais le changement climatique derange la pluie: secheresses, inondations, saisons qui se deplacent. AI Pluie apprend a comprendre, prevoir, et capter la pluie africaine. Chaque goutte est un tresor. Ne la laissons pas s echapper.</p><div class="nav"><a href="/">← Accueil</a> | <a href="/ai-pierre">🪨 AI Pierre</a> | <a href="/ai-eau">💧 AI Eau</a> | <a href="/ai-agriculteur">🌾 AI Agriculteur</a> | <a href="/secret">🦁 AI Secret</a></div>"#);
+
+    html.push_str(&format!(r#"<div style="text-align:center;"><div class="stat-box" style="border-color:#4488ff;"><div class="stat-num" style="color:#4488ff;">8</div><div class="stat-label">🌧️ Modules</div></div><div class="stat-box" style="border-color:#66ccff;"><div class="stat-num" style="color:#66ccff;">750</div><div class="stat-label">💧 mm/an (Sahel)</div></div><div class="stat-box" style="border-color:#44ff88;"><div class="stat-num" style="color:#44ff88;">90%</div><div class="stat-label">🌱 Agriculture</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">⛓️ Blocs</div></div><div class="stat-box" style="border-color:#4488ff;"><div class="stat-num" style="color:#4488ff;">∞</div><div class="stat-label">💧 Gouttes</div></div></div>"#, num_blocks));
+
+    html.push_str(r##"<div style="text-align:center;margin:10px 0;"><button id="pluie-pause-btn" onclick="togglePluiePause()" style="padding:10px 25px;background:#4488ff;color:#fff;border:none;border-radius:8px;font-weight:bold;cursor:pointer;font-size:1em;">⏸️ PAUSE</button> <span id="pluie-pause-status" style="color:#4488ff;margin-left:8px;font-size:0.85em;">Auto: ACTIF</span></div>
+
+<div class="card" style="border-color:#4488ff;"><h2 style="color:#4488ff;">🌧️ La Pluie Qui Tombe</h2><p style="color:#4488ff;font-size:0.9em;opacity:0.7;">Gouttes qui tombent, ondulations, nuages qui se deplacent.</p>
+<canvas id="pluie-canvas" width="600" height="350" style="width:100%;max-width:600px;background:#0a0a20;border:2px solid #4488ff;border-radius:8px;display:block;margin:0 auto;"></canvas></div>
+
+<script>
+var pluiePaused=false,pluieAnimId=null,pluieT=0,pluieDrops=[];
+function togglePluiePause(){
+    pluiePaused=!pluiePaused;
+    var b=document.getElementById('pluie-pause-btn'),s=document.getElementById('pluie-pause-status');
+    if(pluiePaused){b.textContent='▶️ LANCER';b.style.background='#3366cc';s.textContent='Auto: PAUSE';s.style.color='#ff6644';if(pluieAnimId)cancelAnimationFrame(pluieAnimId);}
+    else{b.textContent='⏸️ PAUSE';b.style.background='#4488ff';s.textContent='Auto: ACTIF';s.style.color='#4488ff';animatePluie();}
+}
+function animatePluie(){
+    if(pluiePaused)return;
+    var c=document.getElementById('pluie-canvas');if(!c)return;
+    var ctx=c.getContext('2d');
+    ctx.fillStyle='rgba(10,10,32,0.1)';ctx.fillRect(0,0,c.width,c.height);
+    // Nuages
+    ctx.fillStyle='rgba(80,80,120,0.3)';
+    for(var cl=0;cl<3;cl++){
+        var cx=50+cl*200+Math.sin(pluieT*0.005+cl)*30;
+        ctx.beginPath();ctx.ellipse(cx,50,60,20,0,0,Math.PI*2);ctx.fill();
+    }
+    // Gouttes de pluie
+    if(pluieT%2===0)for(var d=0;d<3;d++)pluieDrops.push({x:Math.random()*600,y:70,vx:-0.5,vy:3+Math.random()*2,size:1+Math.random()*2,alpha:0.8});
+    for(var i=pluieDrops.length-1;i>=0;i--){
+        var p=pluieDrops[i];
+        p.x+=p.vx;p.y+=p.vy;p.alpha-=0.005;
+        ctx.strokeStyle='rgba(100,150,255,'+p.alpha+')';ctx.lineWidth=p.size;
+        ctx.beginPath();ctx.moveTo(p.x,p.y);ctx.lineTo(p.x-p.vx*2,p.y-p.vy*2);ctx.stroke();
+        if(p.alpha<=0||p.y>350)pluieDrops.splice(i,1);
+    }
+    // Ondulations au sol
+    var groundY=320;
+    ctx.strokeStyle='rgba(100,150,255,0.2)';ctx.lineWidth=1;
+    for(var r=0;r<5;r++){
+        var rt=(pluieT+r*10)%60;
+        var rx=50+r*120,ry=groundY;
+        ctx.beginPath();ctx.ellipse(rx,ry,rt*0.5,rt*0.2,0,0,Math.PI*2);ctx.stroke();
+    }
+    // Sol
+    ctx.fillStyle='rgba(60,80,40,0.3)';ctx.fillRect(0,groundY,600,30);
+    // Texte
+    ctx.font='12px sans-serif';ctx.fillStyle='rgba(68,136,255,0.4)';ctx.textAlign='center';
+    ctx.fillText('Chaque goutte est un tresor. Ne la laissons pas s echapper.',300,345);
+    pluieT++;pluieAnimId=requestAnimationFrame(animatePluie);
+}
+animatePluie();
+</script>
+"##);
+
+    html.push_str(r##"<div class="card" style="border-color:#4488ff;"><h2 style="color:#4488ff;">🌧️ 8 Modules de la Pluie</h2><div id="pluie-modules"></div></div>
+
+<script>
+const pluieModules=[
+    {id:0,nom:'La Pluie Est la Vie',emoji:'🌧️',couleur:'#4488ff',duree:'1 semaine',niveau:'Base',
+     description:'La pluie est de l eau qui evaporee du sol, montee dans le ciel, condensee dans les nuages, et redescendue sur la terre. C est le cycle de l eau, le plus ancien moteur de la vie. Sans pluie, pas de rivieres, pas de plantes, pas d animaux, pas d humains. 90% de l agriculture africaine depend de la pluie. La pluie est la promesse que la Terre fait a la vie: je vous donnerai a boire.',
+     cours:['Le cycle de l eau: evaporation, condensation, precipitation','90% de l agriculture africaine depend de la pluie','La mousson: la pluie qui vient de l ocean','La secheresse: quand la promesse est rompue','La pluie comme benediction dans la tradition africaine'],
+     exercices:['Observer: d ou vient la pluie chez toi?','Tracer: le cycle de l eau de l ocean au ciel a la terre','Reflechir: que se passe-t-il sans pluie?']},
+
+    {id:1,nom:'La Mousson Africaine',emoji:'🌊',couleur:'#66ccff',duree:'2 semaines',niveau:'Intermediaire',
+     description:'La mousson est le vent qui apporte la pluie. De mai a octobre, l air humide de l ocean Atlantique et de l ocean Indien monte, refroidit, et tombe en pluie. Le Sahel attend la mousson comme une benediction. La mousson definit les saisons: saison seche (harmattan) et saison des pluies (mousson). Sans mousson, pas de mil, pas de sorgho, pas d arachide. La mousson est la vie de l Afrique de l Ouest.',
+     cours:['La mousson: vent humide de l ocean vers le continent','Mai-octobre: la saison des pluies en Afrique de l Ouest','La ZCIT: Zone de Convergence Intertropicale, le moteur de la mousson','Mousson et agriculture: planter quand la mousson arrive','Le deplacement de la mousson: pourquoi les saisons changent'],
+     exercices:['Identifier: quand commence la mousson dans ta region?','Observer: les premiers signes de la mousson (nuages, vent, humidite)','Planter: suivre le calendrier agricole base sur la mousson']},
+
+    {id:2,nom:'La Secheresse',emoji:'🏜️',couleur:'#ff9966',duree:'2 semaines',niveau:'Intermediaire',
+     description:'La secheresse est la pluie qui ne vient pas. Le Sahel a connu des secheresses mortelles: 1968-1985, 2010-2012, 2015. Les paturages meurent, le betail perit, les gens fuient. Le changement climatique aggrave les secheresses. AI Pluie apprend a prevoir, adapter, et resilier. La secheresse n est pas une fatalite — c est un defi que l Afrique peut relever avec la technologie.',
+     cours:['Les grandes secheresses du Sahel: 1968-1985, 2010-2012','Causes: changement climatique, surpaturage, deforestation','Consequences: famine, migration, conflits','Prediction: satellites, capteurs, AI AfriChain','Adaptation: irrigation, varietes resistantes, stockage d eau'],
+     exercices:['Identifier: ton pays a-t-il connu des secheresses?','Verifier: les secheresses sont-elles plus frequentes qu avant?','Proposer: un plan d adaptation a la secheresse']},
+
+    {id:3,nom:'Les Inondations',emoji:'🌊',couleur:'#ff6644',duree:'2 semaines',niveau:'Intermediaire',
+     description:'Trop de pluie detruit aussi. Les inondations submergent les villes, les champs, les maisons. Niamey, Dakar, Lagos, Kinshasa — toutes les grandes villes africaines inondent. Le drainage est insuffisant, les sols sont impermeabilises, les rivieres debordent. AI Pluie apprend a prevoir les inondations et a construire des drainage qui protegent.',
+     cours:['Causes: pluies intenses, drainage insuffisant, sols impermeabilises','Villes africaines inondees: Niamey, Dakar, Lagos, Kinshasa','Prediction: alertes precoces sur AfriChain Mesh','Prevention: drainage, bassins de retention, zones non baties','Changement climatique: pluies plus intenses, plus frequentes'],
+     exercices:['Identifier: les zones inondables dans ta ville','Verifier: ton quartier a-t-il un drainage adequat?','Proposer: un systeme d alerte inondation sur AfriChain']},
+
+    {id:4,nom:'Capter la Pluie',emoji:'🪣',couleur:'#44ff88',duree:'2 semaines',niveau:'Base',
+     description:'La pluie qui tombe est un tresor qui s echappe. 95% de la pluie qui tombe sur l Afrique s evapore ou s infiltre sans etre captee. Capter la pluie, c est gagner de l eau gratuite. Un toit de 100m2 recoit 60 000 litres par an a 600mm de pluie. Des citernes, des bassins, des diguettes — des techniques simples, africaines, qui changent tout. AI Pluie apprend a capter chaque goutte.',
+     cours:['95% de la pluie s echappe sans etre captee','Un toit de 100m2 = 60 000 litres/an a 600mm','Techniques: citernes, bassins, diguettes, demi-lunes','Agroforesterie: les arbres qui captent la pluie et la retiennent','AfriChain Pluie: registre de captage par village sur blockchain'],
+     exercices:['Calculer: combien d eau ton toit peut-il capter?','Identifier: les techniques de captage dans ta region','Proposer: un systeme de captage pour ton quartier']},
+
+    {id:5,nom:'La Pluie et l Agriculture',emoji:'🌾',couleur:'#d4a437',duree:'2 semaines',niveau:'Intermediaire',
+     description:'La pluie fait l agriculture. Sans pluie, pas de recolte. Mais trop de pluie detruit aussi. L agriculteur africain doit lire la pluie: quand planter, quand sarcler, quand recolter. Les anciens lisaient la pluie dans les nuages, les oiseaux, les arbres. AI Pluie combine la sagesse ancienne et la technologie: previsions satellitaires + observations traditionnelles = agriculture resiliente.',
+     cours:['Lire la pluie: nuages, oiseaux, arbres — les indices anciens','Previsions satellitaires: la technologie moderne','Calendrier agricole: planter selon la pluie','Varietes resistantes: mil, sorgho, niobe — les cultures de la secheresse','Agroforesterie: les arbres qui retiennent l eau pour les cultures'],
+     exercices:['Observer: les anciens signes de pluie dans ta culture','Verifier: les previsions sont-elles fiables chez toi?','Proposer: un calendrier agricole base sur la pluie']},
+
+    {id:6,nom:'La Pluie et la Spiritualite',emoji:'🙏',couleur:'#9966ff',duree:'2 semaines',niveau:'Intermediaire',
+     description:'La pluie est sacree. Dans toutes les traditions africaines, la pluie est un don de Dieu, du ciel, des ancetres. Les ceremonies de pluie: danser, prier, sacrifier pour appeler la pluie. La secheresse est vue comme une colere divine ou un oubli des ancetres. AI Pluie honore cette sagesse: la science de la pluie et la spiritualite de la pluie ne sont pas opposees. Elles sont deux langages pour la meme verite: la pluie est la vie.',
+     cours:['La pluie comme don divin dans la tradition africaine','Ceremonies de pluie: danser, prier, appeler la pluie','La secheresse comme signe spirituel','Science et spiritualite: deux langages pour la pluie','N-KCOL: la pluie DRIIIP, le son de la vie qui descend'],
+     exercices:['Identifier: une ceremonie de pluie dans ta tradition','Demander: comment appelait-on la pluie autrefois?','Ecouter: le son de la pluie en silence — DRIIIP en N-KCOL']},
+
+    {id:7,nom:'L Avenir de la Pluie Africaine',emoji:'🚀',couleur:'#4488ff',duree:'3 semaines',niveau:'Avance',
+     description:'En 2100, l Afrique captera chaque goutte de pluie. Plus de secheresse fatale: irrigation, dessalement, captage. Plus d inondation: drainage intelligent, villes eponges. La pluie sera prevue avec precision par les satellites africains. Chaque village aura son registre de pluie sur AfriChain. La pluie qui a fait l humanite en Afrique sera la pluie qui la liberera de la faim.',
+     cours:['Captage total: chaque goutte captee, stockee, utilisee','Irrigation universelle: fin de la dependance a la pluie seule','Villes eponges: drainage qui absorbe au lieu d inonder','Satellites africains: prediction precise de la pluie','AfriChain Pluie: registre de captage par village, traconsabilite de chaque goutte'],
+     exercices:['Ecrire: comment sera la pluie africaine en 2100?','Proposer: un systeme de captage pour ton village','Faire le serment: je capterai chaque goutte de pluie pour l Afrique']}
+];
+
+var pluieDone=JSON.parse(localStorage.getItem('afri_pluie_done')||'[]');
+function renderPluieModules(){var c=document.getElementById('pluie-modules');if(!c)return;var h='';for(var i=0;i<pluieModules.length;i++){var m=pluieModules[i];var d=pluieDone.includes(m.id);h+='<div style="background:rgba(68,136,255,0.05);border:1px solid '+m.couleur+'20;border-radius:8px;padding:12px;margin:8px 0;cursor:pointer;" onclick="showPluieModule('+i+')"><div style="display:flex;justify-content:space-between;align-items:center;"><span style="font-size:1.1em;">'+m.emoji+' <b style="color:'+m.couleur+';">'+m.nom+'</b></span><span style="font-size:0.8em;color:#a8c5a8;">'+m.duree+' · '+m.niveau+(d?' · ✅':'')+'</span></div></div>';}c.innerHTML=h;}
+renderPluieModules();
+function showPluieModule(i){var m=pluieModules[i];var h='<div style="background:rgba(68,136,255,0.08);border:1px solid '+m.couleur+';border-radius:12px;padding:20px;margin:10px 0;"><h3 style="color:'+m.couleur+';">'+m.emoji+' '+m.nom+'</h3><p style="color:#a8c5a8;font-size:0.9em;">'+m.description+'</p><h4 style="color:'+m.couleur+';">📚 Cours</h4><ul>';for(var j=0;j<m.cours.length;j++)h+='<li style="color:#a8c5a8;margin:4px 0;">'+m.cours[j]+'</li>';h+='</ul><h4 style="color:'+m.couleur+';">✏️ Exercices</h4><ul>';for(var j=0;j<m.exercices.length;j++)h+='<li style="color:#a8c5a8;margin:4px 0;">'+m.exercices[j]+'</li>';h+='</ul><button onclick="completePluieModule('+m.id+')" style="padding:10px 20px;background:'+m.couleur+';color:#fff;border:none;border-radius:8px;cursor:pointer;font-weight:bold;margin-top:10px;">✅ Terminer ce module</button></div>';var c=document.getElementById('pluie-modules');if(c)c.innerHTML=h;}
+function completePluieModule(id){if(!pluieDone.includes(id)){pluieDone.push(id);localStorage.setItem('afri_pluie_done',JSON.stringify(pluieDone));}renderPluieModules();updatePluieProgress();}
+function updatePluieProgress(){var d=pluieDone.length,t=pluieModules.length,p=Math.round((d/t)*100);var b=document.getElementById('pluie-bar'),c=document.getElementById('pluie-count'),pe=document.getElementById('pluie-pct'),dp=document.getElementById('pluie-diplome');if(b)b.style.width=p+'%';if(c)c.textContent=d;if(pe)pe.textContent=p+'%';if(dp)dp.style.display=(d===t)?'block':'none';}
+updatePluieProgress();
+</script>
+"##);
+
+    html.push_str(r##"<div class="card" style="border-color:#4488ff;"><h2 style="color:#4488ff;">📊 Progression</h2><div style="background:rgba(68,136,255,0.1);border-radius:8px;height:24px;overflow:hidden;margin:10px 0;"><div id="pluie-bar" style="background:linear-gradient(90deg,#4488ff,#66ccff,#44ff88);height:100%;width:0%;transition:width 0.5s;"></div></div><div style="text-align:center;color:#a8c5a8;"><span id="pluie-count">0</span> / 8 modules · <span id="pluie-pct">0%</span></div></div>
+
+<div id="pluie-diplome" style="display:none;"><div class="card" style="border-color:#d4a437;text-align:center;"><h2 style="color:#d4a437;">🎓 Diplôme: Gardien de la Pluie Africaine</h2><p style="color:#a8c5a8;">Tu as complété les 8 modules de la pluie!</p><p style="color:#4488ff;font-size:1.2em;">Chaque goutte est un trésor. Captons-la. 🌧️💚</p><button onclick="envoyerDiplomePluie()" style="padding:12px 30px;background:#d4a437;color:#000;border:none;border-radius:8px;font-weight:bold;cursor:pointer;font-size:1.1em;margin-top:10px;">⛓️ Graver dans la Blockchain</button></div></div>
+
+<script>
+function envoyerDiplomePluie(){var nom=localStorage.getItem('afri_user_name')||'Jeune Africain';fetch('/api/diplome',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:'academie=PLUIE&nom='+encodeURIComponent(nom)}).then(function(r){return r.text();}).then(function(t){alert('🎓 Diplôme gravé dans la blockchain!\n'+t);}).catch(function(e){alert('Erreur: '+e);});}
+</script>
+"##);
+
+    html.push_str(r#"<div class="card"><h2 style="color:#4488ff;">💡 Savais-tu?</h2><div style="color:#a8c5a8;padding:8px 0;"><b style="color:#d4a437;">95% de la pluie</b> qui tombe sur l'Afrique s'évapore ou s'infiltre sans être captée. Chaque goutte qui s'echappe est un trésor perdu.</div><div style="color:#a8c5a8;padding:8px 0;"><b style="color:#4488ff;">Un toit de 100m²</b> reçoit 60 000 litres d'eau par an à 600mm de pluie. De l'eau gratuite, juste là, sur ton toit.</div><div style="color:#a8c5a8;padding:8px 0;"><b style="color:#ff9966;">Le Sahel a connu des sécheresses mortelles</b> en 1968-1985. Des millions de personnes ont fui. Le changement climatique aggrave le risque.</div><div style="color:#a8c5a8;padding:8px 0;"><b style="color:#9966ff;">N-KCOL: la pluie est DRIIIP</b> — le son de la vie qui descend du ciel. Écoute la pluie, tu entendras la Terre qui boit.</div></div>"#);
+
+    html.push_str(r#"<footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🌧️ AI Pluie — La Pluie Est la Promesse de la Terre 💚🦁✨</footer>"#);
+    html.push_str("</body></html>");
+    html
+}
+
 fn html_garage(chain: &Blockchain) -> String {
     let mut html = html_head("Garage AI — Atelier Autonome 2500");
     let num_blocks = chain.blocks.len();
@@ -20827,7 +20958,7 @@ html+='<div class="log-entry log-kill">⚠️ Tentative d\x27infiltration occide
 html+='<div class="log-entry log-invis">✅ L\x27Afrique est forte. Le système grandit.</div>';
 }else if(type==='total'){
 html='<div style="color:#d4a437;font-weight:bold;margin-bottom:8px">📋 RAPPORT TOTAL — Depuis le début</div>';
-html+='<div class="log-entry">🦁 AfriChain v1.16 — AI Pierre La Pierre Est la Memoire de la Terre</div>';
+html+='<div class="log-entry">🦁 AfriChain v1.17 — AI Pluie La Pluie Est la Promesse de la Terre</div>';
 html+='<div class="log-entry">⛓️ Blockchain: 100% souveraine — Zéro dépendance externe</div>';
 html+='<div class="log-entry">🔐 Crypto: Ed25519 + AfriHash-256/512 + AfriRNG — tout from scratch</div>';
 html+='<div class="log-entry">🌍 54 pays africains connectés</div>';
@@ -22371,7 +22502,7 @@ fn main() {
         .and_then(|i| args.get(i + 1)).cloned().unwrap_or_else(|| "Afrique".to_string());
 
     let my_node_id = generate_node_id();
-    println!("🦁 AfriChain v1.16 — AI Pierre La Pierre Est la Memoire de la Terre");
+    println!("🦁 AfriChain v1.17 — AI Pluie La Pluie Est la Promesse de la Terre");
     println!("💚 L'Afrique ne demande plus la permission");
     println!("🌍 54 pays — 🇲🇱 🇳🇪 🇧🇫 AES — Mali · Niger · Burkina Faso");
     println!("🔐 8 modules cryptographiques — construits from scratch");
@@ -22554,6 +22685,7 @@ fn main() {
     println!("⏳ AI Temps sur http://localhost:8080/ai-temps");
     println!("⭐ AI Etoile sur http://localhost:8080/ai-etoile");
     println!("🪨 AI Pierre sur http://localhost:8080/ai-pierre");
+    println!("🌧️ AI Pluie sur http://localhost:8080/ai-pluie");
 
     // Serveur HTTP en arrière-plan (pour mesh + autres utilisateurs)
     let serve_state = web_state.clone();
@@ -22588,7 +22720,7 @@ fn terminal_interface(state: &Arc<AppState>) {
     println!("  ║  🕐 AfriTime — Pas UTC, pas Greenwich   ║");
     println!("  ║  📝 ~23,100 lignes — écrit à la main       ║");
     println!("  ╚═══════════════════════════════════════════════╝");
-    println!("\n  Version v1.16 — 2 septembre 2026");
+    println!("\n  Version v1.17 — 2 septembre 2026");
     println!("  Construit sur Termux · Android · nano\n");
     println!("  ─────────────────────────────────────────────");
     println!("\n  1. 🏦 Centre de Données (Admin)");
@@ -22660,7 +22792,7 @@ fn admin_interface(state: &Arc<AppState>) {
         println!("\n");
         println!("╔══════════════════════════════════════╗");
         println!("║  🏦 CENTRE DE DONNÉES — Admin       ║");
-        println!("║  🦁 AfriChain v1.16                  ║");
+        println!("║  🦁 AfriChain v1.17                  ║");
         println!("╠══════════════════════════════════════╣");
         let chain = state.chain.lock().unwrap();
         let users = state.users.lock().unwrap();
@@ -26364,6 +26496,10 @@ fn handle_request(req: afri_http::HttpRequest, state: &Arc<AppState>) -> afri_ht
         ("GET", "/ai-pierre") => {
             let chain = state.chain.lock().unwrap();
             HttpResponse::ok(&html_ai_pierre(&chain))
+        }
+        ("GET", "/ai-pluie") => {
+            let chain = state.chain.lock().unwrap();
+            HttpResponse::ok(&html_ai_pluie(&chain))
         }
 
         ("GET", "/garage") => {
