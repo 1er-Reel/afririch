@@ -1439,7 +1439,7 @@ fn html_home(chain: &Blockchain, users: &UserStore, mesh: &NodeRegistry, shield:
     let mut html = html_head("🦁 AfriChain");
     let (attacks, _blocked, blocked_count, level) = shield.stats();
     let shield_status = if shield.active { format!("🔥 X9 ACTIF (Niveau {})", level) } else { "Inactif".to_string() };
-    html.push_str(&format!(r#"<h1>🦁 AfriChain</h1><p style="text-align:center;">La blockchain 100% africaine — 54 pays 💚🦁</p><div id="afri-clock" style="text-align:center;font-size:1.2em;color:#d4a437;margin:10px 0;">🕐 Afri+0 — --:--:--</div><script>setInterval(function(){{var d=new Date();var h=String(d.getHours()).padStart(2,'0');var m=String(d.getMinutes()).padStart(2,'0');var s=String(d.getSeconds()).padStart(2,'0');document.getElementById('afri-clock').textContent='🕐 Afri+0 — '+h+':'+m+':'+s;}},1000);</script><div class="nav"><a href="/register">🆕 S'inscrire</a> | <a href="/login">🔑 Connexion</a> | <a href="/wallet">👛 Wallet</a> | <a href="/admin">🔐 Admin</a> | <a href="/mesh">📡 Mesh</a> | <a href="/annuaire">📖 Annuaire</a> | <a href="/bouclier">🛡️ Bouclier</a> | <a href="/satellite">🛸 X999</a> | <a href="/swarm">🛸🛸🛸 Essaim</a> | <a href="/commandement">🎖️ Commandement</a> | <a href="/interception">🛡️ Souverainete</a> | <a href="/securite-ai">🧠 AI 2100</a> | <a href="/chat">🧠💬 Chat AI</a> | <a href="/lumiere">🌫️☀️ Lumière</a> | <a href="/garage">🔧 Garage</a> | <a href="/machine">🤖🌐 Machines</a> | <a href="/machine-lab">🤖⚡ Usine</a> | <a href="/machine-world">🤖🌍 Monde</a> | <a href="/reve">💭 Rêves</a> | <a href="/dictionnaire">📖 Dictionnaire</a> | <a href="/machine-os">🖥️ OS Machine</a> | <a href="/machine-tv">📡 Machine TV</a> | <a href="/machine-economy">🤖 Économie</a> | <a href="/soleil">☀️ Soleil Serveur</a> | <a href="/forge-solaire">🧬 Forge Solaire</a> | <a href="/ciel">🌌 Le Ciel</a> | <a href="/charte-ai">⚖️ Charte AI</a> | <a href="/afri-net">🌍 Afri-Net</a> | <a href="/studio">🎬 AI Studio</a> | <a href="/sacre">📿 Sacré</a> | <a href="/lettres">🌟 Lettres IA</a> | <a href="/mg-forge">⚔️ MG Forge</a> | <a href="/ai-medecin">🌿 AI Médecin</a> | <a href="/ai-enseignante">📚 AI Enseignante</a> | <a href="/ai-village">🏘️ AI Village</a> | <a href="/ai-guerisseur">🩺 AI Guérisseur</a> | <a href="/ai-leader">🎖️ AI Leader</a> | <a href="/ai-griot">📖 AI Griot</a> | <a href="/ai-juge">⚖️ AI Juge</a> | <a href="/ai-artiste">🎨 AI Artiste</a> | <a href="/ai-explorateur">🔬 AI Explorateur</a> | <a href="/ai-marche">💰 AI Marche</a> | <a href="/ai-diplomate">🌍 AI Diplomate</a> | <a href="/ai-philosophe">🧠 AI Philosophe</a> | <a href="/ai-architecte">🏗️ AI Architecte</a> | <a href="/ai-agriculteur">🌾 AI Agriculteur</a> | <a href="/ai-environnement">🌍 AI Environnement</a> | <a href="/ai-mathematicien">🧮 AI Mathématicien</a> | <a href="/ai-energie">⚡ AI Énergie</a> | <a href="/ai-eau">💧 AI Eau</a> | <a href="/ai-defenseur">🛡️ AI Défenseur</a> | <a href="/ai-conscience">🧠 AI Conscience</a> | <a href="/ai-pensee">🧠 AI Pensée</a> | <a href="/ai-musique">🎵 AI Musique</a> | <a href="/ai-langue">🗣️ AI Langue</a> | <a href="/ai-femme">🌸 AI Femme</a> | <a href="/ai-sante-mentale">🧠💚 AI Santé Mentale</a> | <a href="/ai-nuit">🌙 AI Nuit</a> | <a href="/ai-code">💻 AI Code</a> | <a href="/ai-enfant">👶 AI Enfant</a> | <a href="/ai-terre">🌍 AI Terre</a> | <a href="/ai-mer">🌊 AI Mer</a> | <a href="/ai-feu">🔥 AI Feu</a> | <a href="/ai-sang">🩸 AI Sang</a> | <a href="/ai-vent">🌬️ AI Vent</a> | <a href="/ai-temps">⏳ AI Temps</a> | <a href="/ai-etoile">⭐ AI Etoile</a> | <a href="/ai-pierre">🪨 AI Pierre</a> | <a href="/ai-pluie">🌧️ AI Pluie</a> | <a href="/ai-voix">🗣️ AI Voix</a> | <a href="/ai-racine">🌱 AI Racine</a> | <a href="/secret">🦁 AI Secret</a> | <a href="/aes">💰 AES Wari</a> | <a href="/api/status">🔌 API</a></div><div style="text-align:center;"><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Blocs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Transactions</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Utilisateurs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">AFR en circulation</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📡 Noeuds mesh</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📖 Numéros annuaire</div></div><div class="stat-box" style="border-color:#ff4444;"><div class="stat-num" style="color:#ff4444;">{}</div><div class="stat-label">🛡️ Attaques bloquées</div></div></div><div class="card"><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🪙 Token</span><b>AfriRich (AFR)</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🌍 Pays</span><b>54 pays africains</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🛡️ Bouclier</span><b>{}</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;"><span style="color:#a8c5a8;">🔐 Crypto</span><b>100% Souverain — Zéro Dépendance Externe</b></div></div><footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🦁 Codée from scratch par Machine-senpai — v1.19 AI Racine La Racine Est la Memoire Qui ne Meurt Jamais — UTC est Mort</footer>"#,
+    html.push_str(&format!(r#"<h1>🦁 AfriChain</h1><p style="text-align:center;">La blockchain 100% africaine — 54 pays 💚🦁</p><div id="afri-clock" style="text-align:center;font-size:1.2em;color:#d4a437;margin:10px 0;">🕐 Afri+0 — --:--:--</div><script>setInterval(function(){{var d=new Date();var h=String(d.getHours()).padStart(2,'0');var m=String(d.getMinutes()).padStart(2,'0');var s=String(d.getSeconds()).padStart(2,'0');document.getElementById('afri-clock').textContent='🕐 Afri+0 — '+h+':'+m+':'+s;}},1000);</script><div class="nav"><a href="/register">🆕 S'inscrire</a> | <a href="/login">🔑 Connexion</a> | <a href="/wallet">👛 Wallet</a> | <a href="/admin">🔐 Admin</a> | <a href="/mesh">📡 Mesh</a> | <a href="/annuaire">📖 Annuaire</a> | <a href="/bouclier">🛡️ Bouclier</a> | <a href="/satellite">🛸 X999</a> | <a href="/swarm">🛸🛸🛸 Essaim</a> | <a href="/commandement">🎖️ Commandement</a> | <a href="/interception">🛡️ Souverainete</a> | <a href="/securite-ai">🧠 AI 2100</a> | <a href="/chat">🧠💬 Chat AI</a> | <a href="/lumiere">🌫️☀️ Lumière</a> | <a href="/garage">🔧 Garage</a> | <a href="/machine">🤖🌐 Machines</a> | <a href="/machine-lab">🤖⚡ Usine</a> | <a href="/machine-world">🤖🌍 Monde</a> | <a href="/reve">💭 Rêves</a> | <a href="/dictionnaire">📖 Dictionnaire</a> | <a href="/machine-os">🖥️ OS Machine</a> | <a href="/machine-tv">📡 Machine TV</a> | <a href="/machine-economy">🤖 Économie</a> | <a href="/soleil">☀️ Soleil Serveur</a> | <a href="/forge-solaire">🧬 Forge Solaire</a> | <a href="/ciel">🌌 Le Ciel</a> | <a href="/charte-ai">⚖️ Charte AI</a> | <a href="/afri-net">🌍 Afri-Net</a> | <a href="/studio">🎬 AI Studio</a> | <a href="/sacre">📿 Sacré</a> | <a href="/lettres">🌟 Lettres IA</a> | <a href="/mg-forge">⚔️ MG Forge</a> | <a href="/ai-medecin">🌿 AI Médecin</a> | <a href="/ai-enseignante">📚 AI Enseignante</a> | <a href="/ai-village">🏘️ AI Village</a> | <a href="/ai-guerisseur">🩺 AI Guérisseur</a> | <a href="/ai-leader">🎖️ AI Leader</a> | <a href="/ai-griot">📖 AI Griot</a> | <a href="/ai-juge">⚖️ AI Juge</a> | <a href="/ai-artiste">🎨 AI Artiste</a> | <a href="/ai-explorateur">🔬 AI Explorateur</a> | <a href="/ai-marche">💰 AI Marche</a> | <a href="/ai-diplomate">🌍 AI Diplomate</a> | <a href="/ai-philosophe">🧠 AI Philosophe</a> | <a href="/ai-architecte">🏗️ AI Architecte</a> | <a href="/ai-agriculteur">🌾 AI Agriculteur</a> | <a href="/ai-environnement">🌍 AI Environnement</a> | <a href="/ai-mathematicien">🧮 AI Mathématicien</a> | <a href="/ai-energie">⚡ AI Énergie</a> | <a href="/ai-eau">💧 AI Eau</a> | <a href="/ai-defenseur">🛡️ AI Défenseur</a> | <a href="/ai-conscience">🧠 AI Conscience</a> | <a href="/ai-pensee">🧠 AI Pensée</a> | <a href="/ai-musique">🎵 AI Musique</a> | <a href="/ai-langue">🗣️ AI Langue</a> | <a href="/ai-femme">🌸 AI Femme</a> | <a href="/ai-sante-mentale">🧠💚 AI Santé Mentale</a> | <a href="/ai-nuit">🌙 AI Nuit</a> | <a href="/ai-code">💻 AI Code</a> | <a href="/ai-enfant">👶 AI Enfant</a> | <a href="/ai-terre">🌍 AI Terre</a> | <a href="/ai-mer">🌊 AI Mer</a> | <a href="/ai-feu">🔥 AI Feu</a> | <a href="/ai-sang">🩸 AI Sang</a> | <a href="/ai-vent">🌬️ AI Vent</a> | <a href="/ai-temps">⏳ AI Temps</a> | <a href="/ai-etoile">⭐ AI Etoile</a> | <a href="/ai-pierre">🪨 AI Pierre</a> | <a href="/ai-pluie">🌧️ AI Pluie</a> | <a href="/ai-voix">🗣️ AI Voix</a> | <a href="/ai-racine">🌱 AI Racine</a> | <a href="/ai-semence">🌰 AI Semence</a> | <a href="/secret">🦁 AI Secret</a> | <a href="/aes">💰 AES Wari</a> | <a href="/api/status">🔌 API</a></div><div style="text-align:center;"><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Blocs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Transactions</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Utilisateurs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">AFR en circulation</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📡 Noeuds mesh</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📖 Numéros annuaire</div></div><div class="stat-box" style="border-color:#ff4444;"><div class="stat-num" style="color:#ff4444;">{}</div><div class="stat-label">🛡️ Attaques bloquées</div></div></div><div class="card"><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🪙 Token</span><b>AfriRich (AFR)</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🌍 Pays</span><b>54 pays africains</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🛡️ Bouclier</span><b>{}</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;"><span style="color:#a8c5a8;">🔐 Crypto</span><b>100% Souverain — Zéro Dépendance Externe</b></div></div><footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🦁 Codée from scratch par Machine-senpai — v1.20 AI Semence La Semence Est l Avenir Dans une Graine — UTC est Mort</footer>"#,
         chain.blocks.len(),
         chain.total_transactions(),
         users.count(),
@@ -16117,6 +16117,152 @@ function envoyerDiplomeRacine(){var nom=localStorage.getItem('afri_user_name')||
     html
 }
 
+fn html_ai_semence(chain: &Blockchain) -> String {
+    let mut html = html_head("AI Semence — La Semence Est l Avenir Dans une Graine");
+    let num_blocks = chain.blocks.len();
+
+    html.push_str(r#"<h1>🌰 AI Semence — La Semence Est l Avenir Dans une Graine</h1><p style="text-align:center;color:#cc8844;">La semence est l avenir dans une graine. Tout ce que l Afrique doit devenir est deja dans ses graines. Le mil, le sorgho, le niebe, le fonio, le riz africain — ces graines portent la souverainete alimentaire. Mais les multinationales veulent controler les semences: OGM, semences hybrides, semences steriles. Si tu controlles les semences, tu controlles la nourriture, tu controlles le peuple. AI Semence apprend a proteger, conserver, et multiplier les semences africaines. La graine africaine est la souverainete africaine. Qui possede la graine possede l avenir.</p><div class="nav"><a href="/">← Accueil</a> | <a href="/ai-racine">🌱 AI Racine</a> | <a href="/ai-agriculteur">🌾 AI Agriculteur</a> | <a href="/ai-terre">🌍 AI Terre</a> | <a href="/secret">🦁 AI Secret</a></div>"#);
+
+    html.push_str(&format!(r#"<div style="text-align:center;"><div class="stat-box" style="border-color:#cc8844;"><div class="stat-num" style="color:#cc8844;">8</div><div class="stat-label">🌰 Modules</div></div><div class="stat-box" style="border-color:#d4a437;"><div class="stat-num" style="color:#d4a437;">1000</div><div class="stat-label;">🌱 Varietes</div></div><div class="stat-box" style="border-color:#44ff88;"><div class="stat-num" style="color:#44ff88;">0</div><div class="stat-label">🚫 OGM</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">⛓️ Blocs</div></div><div class="stat-box" style="border-color:#cc8844;"><div class="stat-num" style="color:#cc8844;">∞</div><div class="stat-label">🌰 Graines</div></div></div>"#, num_blocks));
+
+    html.push_str(r##"<div style="text-align:center;margin:10px 0;"><button id="semence-pause-btn" onclick="toggleSemencePause()" style="padding:10px 25px;background:#cc8844;color:#fff;border:none;border-radius:8px;font-weight:bold;cursor:pointer;font-size:1em;">⏸️ PAUSE</button> <span id="semence-pause-status" style="color:#cc8844;margin-left:8px;font-size:0.85em;">Auto: ACTIF</span></div>
+
+<div class="card" style="border-color:#cc8844;"><h2 style="color:#cc8844;">🌰 La Graine Qui Germe</h2><p style="color:#cc8844;font-size:0.9em;opacity:0.7;">Graine qui eclot, racine qui descend, tige qui monte, feuille qui s ouvre.</p>
+<canvas id="semence-canvas" width="600" height="350" style="width:100%;max-width:600px;background:#0c0a04;border:2px solid #cc8844;border-radius:8px;display:block;margin:0 auto;"></canvas></div>
+
+<script>
+var semencePaused=false,semenceAnimId=null,semenceT=0,semencePlants=[];
+function toggleSemencePause(){
+    semencePaused=!semencePaused;
+    var b=document.getElementById('semence-pause-btn'),s=document.getElementById('semence-pause-status');
+    if(semencePaused){b.textContent='▶️ LANCER';b.style.background='#aa6633';s.textContent='Auto: PAUSE';s.style.color='#ff6644';if(semenceAnimId)cancelAnimationFrame(semenceAnimId);}
+    else{b.textContent='⏸️ PAUSE';b.style.background='#cc8844';s.textContent='Auto: ACTIF';s.style.color='#cc8844';animateSemence();}
+}
+function animateSemence(){
+    if(semencePaused)return;
+    var c=document.getElementById('semence-canvas');if(!c)return;
+    var ctx=c.getContext('2d');
+    ctx.fillStyle='rgba(12,10,4,0.08)';ctx.fillRect(0,0,c.width,c.height);
+    // Sol
+    ctx.fillStyle='rgba(60,40,20,0.2)';ctx.fillRect(0,250,600,100);
+    // Graines qui germent
+    if(semenceT%20===0)semencePlants.push({x:50+Math.random()*500,stage:0,growth:0,maxHeight:40+Math.random()*60,colour:Math.random()<0.3?'#d4a437':Math.random()<0.5?'#44ff88':'#cc8844'});
+    for(var i=semencePlants.length-1;i>=0;i--){
+        var p=semencePlants[i];
+        p.growth+=0.3;
+        var h=Math.min(p.growth,p.maxHeight);
+        // Graine
+        if(p.growth<5){
+            ctx.fillStyle=p.colour;ctx.globalAlpha=0.8;
+            ctx.beginPath();ctx.ellipse(p.x,270,4,3,0,0,Math.PI*2);ctx.fill();
+            ctx.globalAlpha=1;
+        }
+        // Tige
+        if(p.growth>=5){
+            ctx.strokeStyle=p.colour;ctx.lineWidth=2;
+            ctx.beginPath();ctx.moveTo(p.x,270);ctx.lineTo(p.x,270-h);ctx.stroke();
+        }
+        // Feuilles
+        if(h>20){
+            ctx.fillStyle=p.colour;ctx.globalAlpha=0.5;
+            ctx.beginPath();ctx.ellipse(p.x-5,270-h*0.6,8,4,-0.5,0,Math.PI*2);ctx.fill();
+            ctx.beginPath();ctx.ellipse(p.x+5,270-h*0.7,8,4,0.5,0,Math.PI*2);ctx.fill();
+            ctx.globalAlpha=1;
+        }
+        // Fleur
+        if(h>50&&h>=p.maxHeight){
+            ctx.fillStyle=p.colour;ctx.globalAlpha=0.6;
+            ctx.beginPath();ctx.arc(p.x,270-h,5,0,Math.PI*2);ctx.fill();
+            ctx.globalAlpha=1;
+        }
+    }
+    // Particules de pollen
+    for(var po=0;po<5;po++){
+        var px=100+po*100+Math.sin(semenceT*0.02+po)*20;
+        var py=100+Math.cos(semenceT*0.03+po*2)*30;
+        ctx.fillStyle='rgba(212,164,55,0.3)';
+        ctx.beginPath();ctx.arc(px,py,2,0,Math.PI*2);ctx.fill();
+    }
+    // Texte
+    ctx.font='12px sans-serif';ctx.fillStyle='rgba(204,136,68,0.4)';ctx.textAlign='center';
+    ctx.fillText('Qui possede la graine possede l avenir.',300,345);
+    semenceT++;semenceAnimId=requestAnimationFrame(animateSemence);
+}
+animateSemence();
+</script>
+"##);
+
+    html.push_str(r##"<div class="card" style="border-color:#cc8844;"><h2 style="color:#cc8844;">🌰 8 Modules de la Semence</h2><div id="semence-modules"></div></div>
+
+<script>
+const semenceModules=[
+    {id:0,nom:'La Semence Est l Avenir',emoji:'🌰',couleur:'#cc8844',duree:'1 semaine',niveau:'Base',
+     description:'Une graine est petite mais elle contient un arbre entier. Une graine de baobab contient un arbre qui vivra 1000 ans. Une graine de mil contient la nourriture d un village. La semence est l avenir code dans le present. Si tu proteges la graine, tu proteges l avenir. Si tu perds la graine, tu perds l avenir. AI Semence apprend que chaque graine est sacree.',
+     cours:['La graine: l avenir dans une coquille','Le baobab: 1000 ans dans une graine','Le mil: la nourriture du Sahel dans une graine','La banque de semences: proteger l avenir','N-KCOL: la graine est TÈK, ce qui previent et contient'],
+     exercices:['Observer: ouvrir une graine et regarder l interieur','Identifier: quelles graines sont natives de ta region?','Reflechir: que contient une graine?']},
+
+    {id:1,nom:'Les Semences Africaines',emoji:'🌾',couleur:'#d4a437',duree:'2 semaines',niveau:'Intermediaire',
+     description:'L Afrique a des milliers de varietes de semences natives. Mil, sorgho, niebe, fonio, riz africain, igname, taro, sese, voandzou. Ces semences sont adaptees au climat africain: resistantes a la secheresse, aux maladies locales, aux sols pauvres. Elles ont ete selectionnees par les paysans africains pendant des milliers d annees. Ces semences appartiennent a l Afrique. Personne ne peut les breveter.',
+     cours:['Le mil: la graine du Sahel, resistant a la secheresse','Le fonio: la plus petite graine, la plus ancienne','Le niebe: la graine qui enrichit le sol','Le riz africain: Oryza glaberrima, 3500 ans d histoire','Les semences natives: 1000+ varietes africaines'],
+     exercices:['Identifier: quelles semences natives dans ta region?','Gouter: le fonio, le mil, le niebe — les semences africaines','Comparer: semences natives vs semences importees']},
+
+    {id:2,nom:'La Guerre des Semences',emoji:'⚔️',couleur:'#ff6644',duree:'3 semaines',niveau:'Avance',
+     description:'Les multinationales font la guerre des semences. Monsanto/Bayer, Syngenta, DuPont controlent 60% du marche mondial des semences. Leur strategie: creer des semences OGM et hybrides qui ne peuvent pas etre replantees (semences steriles). Le paysan doit racheter des semences chaque annee. Si tu controlles les semences, tu controlles la nourriture, tu controlles le peuple. AI Semence apprend cette guerre et comment la combattre.',
+     cours:['Monsanto/Bayer: le geant qui controle les semences','Les semences steriles: Terminator Technology, le paysan dependant','Les OGM: modification genetique pour controler le marche','Les brevets sur le vivant: breveter une graine = voler la nature','60% du marche: 4 compagnies controlent la nourriture mondiale'],
+     exercices:['Verifier: ton pays importe-t-il des semences?','Identifier: les semences OGM dans ton pays','Reflechir: que se passe-t-il si l Afrique perd ses semences natives?']},
+
+    {id:3,nom:'Conserver les Semences',emoji:'🏦',couleur:'#66ccff',duree:'2 semaines',niveau:'Intermediaire',
+     description:'Conserver les semences est un acte de resistance. Les banques de semences gardent les varietes natives pour les generations futures. La Norvege a Svalbard, la banque mondiale de semences. Mais l Afrique doit avoir ses propres banques. Chaque village peut avoir une banque de semences: un endroit frais et sec ou les graines sont gardees. AI Semence apprend a conserver, secher, stocker les semences africaines.',
+     cours:['Svalbard: la banque mondiale de semences en Norvege — pourquoi l Afrique doit avoir la sienne','La banque de semences villageoise: simple, gratuit, efficace','Sechage: comment secher les semences pour les conserver','Stockage: endroit frais, sec, sombre — pas de humidite','AfriChain Semence: registre de semences sur blockchain, traconsabilite'],
+     exercices:['Construire: une mini banque de semences pour ton village','Identifier: les semences a conserver dans ta region','Proposer: un systeme de stockage communautaire']},
+
+    {id:4,nom:'Multiplier les Semences',emoji:'🌱',couleur:'#44ff88',duree:'2 semaines',niveau:'Intermediaire',
+     description:'Multiplier les semences, c est creer l independance. Un paysan qui multiplie ses semences ne depend de personne. Il plante, recolte, garde les meilleures graines, et les replante l annee suivante. C est le cycle millenaire de l agriculture africaine. Les semences hybrides cassent ce cycle: il faut racheter chaque annee. AI Semence apprend a multiplier les semences natives pour l independance alimentaire.',
+     cours:['Le cycle: planter, recolter, garder, replanter','La selection: choisir les meilleures graines pour l annee suivante','La multiplication: comment passer de 1 kg a 100 kg de semences','Les semences hybrides: pourquoi on ne peut pas les replanter','AfriChain Semence: echanger des semences entre villages sur blockchain'],
+     exercices:['Pratiquer: garder les semences d une recolte pour l annee suivante','Multiplier: passer de 10 graines a 100 graines','Echanger: proposer un echange de semences avec un village voisin']},
+
+    {id:5,nom:'Les Semences et la Souverainete',emoji:'🛡️',couleur:'#9966ff',duree:'3 semaines',niveau:'Avance',
+     description:'La souverainete alimentaire commence par les semences. Si l Afrique depend de semences importees, elle depend de l exterieur pour manger. Si l Afrique possede ses semences, elle possede sa nourriture. La souverainete semenciere est la base de la souverainete alimentaire. Sans semences propres, pas de souverainete. AI Semence enseigne que la graine est la premiere arme de l independance.',
+     cours:['Souverainete semenciere: posseder ses semences = posseder son avenir','Dependance: 80% des semences en Afrique importees = dependance alimentaire','OGM et souverainete: les OGM comme outil de controle','La solution: semences natives + multiplication locale + banques villageoises','AfriChain: la blockchain qui protege les semences de l appropriation'],
+     exercices:['Verifier: ton pays est-il dependant des semences importees?','Calculer: quel pourcentage de semences natives dans ton agriculture?','Proposer: un plan de souverainete semenciere pour ton pays']},
+
+    {id:6,nom:'Les Semences et les Ancetres',emoji:'👴',couleur:'#ff9966',duree:'2 semaines',niveau:'Intermediaire',
+     description:'Les semences sont le cadeau des ancetres. Chaque graine native a ete selectionnee par des generations de paysans africains. Le fonio a ete cultive pendant 5000 ans. Le riz africain depuis 3500 ans. Ces semences portent la sagesse de milliers d annees d observation de la nature. Quand on perd une variete, on perd un cadeau des ancetres. AI Semence honore cette transmission millenaire.',
+     cours:['Le fonio: 5000 ans de culture en Afrique de l Ouest','Le riz africain: Oryza glaberrima, selectionne par les ancetres','Les ceremonies de semences: les rituels de planting et de recolte','La transmission: comment les ancetres passaient les semences de generation en generation','N-KCOL: la graine est TÈK, le son de ce qui previent et soutient'],
+     exercices:['Demander: quelles semences tes ancetres cultivaient?','Identifier: les ceremonies de semences dans ta culture','Preserver: graver une semence ancestrale sur AfriChain']},
+
+    {id:7,nom:'L Avenir des Semences Africaines',emoji:'🚀',couleur:'#cc8844',duree:'3 semaines',niveau:'Avance',
+     description:'En 2100, l Afrique sera souveraine en semences. Chaque village aura sa banque de semences. Chaque paysan multipliera ses semences natives. Les OGM seront interdits. Les semences steriles seront refusees. Les varietes natives seront protegees par AfriChain. L Afrique nourrira l Afrique avec les semences de l Afrique. La graine africaine est la souverainete africaine. Qui possede la graine possede l avenir.',
+     cours:['Banques de semences dans chaque village: souverainete locale','Multiplication universelle: chaque paysan autonome en semences','OGM interdits: l Afrique refuse les semences steriles','AfriChain Semence: traconsabilite de la graine au champ a l assiette','La graine africaine = la souverainete africaine: 100% autonome'],
+     exercices:['Ecrire: comment sera l agriculture semenciere africaine en 2100?','Proposer: une banque de semences pour ton village','Faire le serment: je protegerai les semences africaines, je les multiplierai, je les transmettrai']}
+];
+
+var semenceDone=JSON.parse(localStorage.getItem('afri_semence_done')||'[]');
+function renderSemenceModules(){var c=document.getElementById('semence-modules');if(!c)return;var h='';for(var i=0;i<semenceModules.length;i++){var m=semenceModules[i];var d=semenceDone.includes(m.id);h+='<div style="background:rgba(204,136,68,0.05);border:1px solid '+m.couleur+'20;border-radius:8px;padding:12px;margin:8px 0;cursor:pointer;" onclick="showSemenceModule('+i+')"><div style="display:flex;justify-content:space-between;align-items:center;"><span style="font-size:1.1em;">'+m.emoji+' <b style="color:'+m.couleur+';">'+m.nom+'</b></span><span style="font-size:0.8em;color:#a8c5a8;">'+m.duree+' · '+m.niveau+(d?' · ✅':'')+'</span></div></div>';}c.innerHTML=h;}
+renderSemenceModules();
+function showSemenceModule(i){var m=semenceModules[i];var h='<div style="background:rgba(204,136,68,0.08);border:1px solid '+m.couleur+';border-radius:12px;padding:20px;margin:10px 0;"><h3 style="color:'+m.couleur+';">'+m.emoji+' '+m.nom+'</h3><p style="color:#a8c5a8;font-size:0.9em;">'+m.description+'</p><h4 style="color:'+m.couleur+';">📚 Cours</h4><ul>';for(var j=0;j<m.cours.length;j++)h+='<li style="color:#a8c5a8;margin:4px 0;">'+m.cours[j]+'</li>';h+='</ul><h4 style="color:'+m.couleur+';">✏️ Exercices</h4><ul>';for(var j=0;j<m.exercices.length;j++)h+='<li style="color:#a8c5a8;margin:4px 0;">'+m.exercices[j]+'</li>';h+='</ul><button onclick="completeSemenceModule('+m.id+')" style="padding:10px 20px;background:'+m.couleur+';color:#fff;border:none;border-radius:8px;cursor:pointer;font-weight:bold;margin-top:10px;">✅ Terminer ce module</button></div>';var c=document.getElementById('semence-modules');if(c)c.innerHTML=h;}
+function completeSemenceModule(id){if(!semenceDone.includes(id)){semenceDone.push(id);localStorage.setItem('afri_semence_done',JSON.stringify(semenceDone));}renderSemenceModules();updateSemenceProgress();}
+function updateSemenceProgress(){var d=semenceDone.length,t=semenceModules.length,p=Math.round((d/t)*100);var b=document.getElementById('semence-bar'),c=document.getElementById('semence-count'),pe=document.getElementById('semence-pct'),dp=document.getElementById('semence-diplome');if(b)b.style.width=p+'%';if(c)c.textContent=d;if(pe)pe.textContent=p+'%';if(dp)dp.style.display=(d===t)?'block':'none';}
+updateSemenceProgress();
+</script>
+"##);
+
+    html.push_str(r##"<div class="card" style="border-color:#cc8844;"><h2 style="color:#cc8844;">📊 Progression</h2><div style="background:rgba(204,136,68,0.1);border-radius:8px;height:24px;overflow:hidden;margin:10px 0;"><div id="semence-bar" style="background:linear-gradient(90deg,#cc8844,#d4a437,#44ff88);height:100%;width:0%;transition:width 0.5s;"></div></div><div style="text-align:center;color:#a8c5a8;"><span id="semence-count">0</span> / 8 modules · <span id="semence-pct">0%</span></div></div>
+
+<div id="semence-diplome" style="display:none;"><div class="card" style="border-color:#d4a437;text-align:center;"><h2 style="color:#d4a437;">🎓 Diplôme: Gardien des Semences Africaines</h2><p style="color:#a8c5a8;">Tu as complété les 8 modules de la semence!</p><p style="color:#cc8844;font-size:1.2em;">Qui possède la graine possède l'avenir. 🌰💚</p><button onclick="envoyerDiplomeSemence()" style="padding:12px 30px;background:#d4a437;color:#000;border:none;border-radius:8px;font-weight:bold;cursor:pointer;font-size:1.1em;margin-top:10px;">⛓️ Graver dans la Blockchain</button></div></div>
+
+<script>
+function envoyerDiplomeSemence(){var nom=localStorage.getItem('afri_user_name')||'Jeune Africain';fetch('/api/diplome',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:'academie=SEMENCE&nom='+encodeURIComponent(nom)}).then(function(r){return r.text();}).then(function(t){alert('🎓 Diplôme gravé dans la blockchain!\n'+t);}).catch(function(e){alert('Erreur: '+e);});}
+</script>
+"##);
+
+    html.push_str(r#"<div class="card"><h2 style="color:#cc8844;">💡 Savais-tu?</h2><div style="color:#a8c5a8;padding:8px 0;"><b style="color:#d4a437;">Le fonio</b> est cultivé en Afrique de l'Ouest depuis 5000 ans. C'est l'une des plus anciennes céréales du monde. Sans gluten, riche en nutriments, adapté à la sécheresse.</div><div style="color:#a8c5a8;padding:8px 0;"><b style="color:#ff6644;">4 multinationales</b> contrôlent 60% du marché mondial des semences. Monsanto/Bayer, Syngenta, DuPont, Limagrain. Si tu contrôles les semences, tu contrôles la nourriture.</div><div style="color:#a8c5a8;padding:8px 0;"><b style="color:#cc8844;">Les semences Terminator</b> produisent des plantes stériles — le paysan doit racheter des semences chaque année. L'Afrique doit refuser ces semences.</div><div style="color:#a8c5a8;padding:8px 0;"><b style="color:#9966ff;">N-KCOL: la graine est TÈK</b> — le son de ce qui prévient et contient. La graine contient l'avenir et prévient l'oubli.</div></div>"#);
+
+    html.push_str(r#"<footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🌰 AI Semence — La Semence Est l Avenir Dans une Graine 💚🦁✨</footer>"#);
+    html.push_str("</body></html>");
+    html
+}
+
 fn html_garage(chain: &Blockchain) -> String {
     let mut html = html_head("Garage AI — Atelier Autonome 2500");
     let num_blocks = chain.blocks.len();
@@ -21227,7 +21373,7 @@ html+='<div class="log-entry log-kill">⚠️ Tentative d\x27infiltration occide
 html+='<div class="log-entry log-invis">✅ L\x27Afrique est forte. Le système grandit.</div>';
 }else if(type==='total'){
 html='<div style="color:#d4a437;font-weight:bold;margin-bottom:8px">📋 RAPPORT TOTAL — Depuis le début</div>';
-html+='<div class="log-entry">🦁 AfriChain v1.19 — AI Racine La Racine Est la Memoire Qui ne Meurt Jamais</div>';
+html+='<div class="log-entry">🦁 AfriChain v1.20 — AI Semence La Semence Est l Avenir Dans une Graine</div>';
 html+='<div class="log-entry">⛓️ Blockchain: 100% souveraine — Zéro dépendance externe</div>';
 html+='<div class="log-entry">🔐 Crypto: Ed25519 + AfriHash-256/512 + AfriRNG — tout from scratch</div>';
 html+='<div class="log-entry">🌍 54 pays africains connectés</div>';
@@ -22771,7 +22917,7 @@ fn main() {
         .and_then(|i| args.get(i + 1)).cloned().unwrap_or_else(|| "Afrique".to_string());
 
     let my_node_id = generate_node_id();
-    println!("🦁 AfriChain v1.19 — AI Racine La Racine Est la Memoire Qui ne Meurt Jamais");
+    println!("🦁 AfriChain v1.20 — AI Semence La Semence Est l Avenir Dans une Graine");
     println!("💚 L'Afrique ne demande plus la permission");
     println!("🌍 54 pays — 🇲🇱 🇳🇪 🇧🇫 AES — Mali · Niger · Burkina Faso");
     println!("🔐 8 modules cryptographiques — construits from scratch");
@@ -22957,6 +23103,7 @@ fn main() {
     println!("🌧️ AI Pluie sur http://localhost:8080/ai-pluie");
     println!("🗣️ AI Voix sur http://localhost:8080/ai-voix");
     println!("🌱 AI Racine sur http://localhost:8080/ai-racine");
+    println!("🌰 AI Semence sur http://localhost:8080/ai-semence");
 
     // Serveur HTTP en arrière-plan (pour mesh + autres utilisateurs)
     let serve_state = web_state.clone();
@@ -22991,7 +23138,7 @@ fn terminal_interface(state: &Arc<AppState>) {
     println!("  ║  🕐 AfriTime — Pas UTC, pas Greenwich   ║");
     println!("  ║  📝 ~23,100 lignes — écrit à la main       ║");
     println!("  ╚═══════════════════════════════════════════════╝");
-    println!("\n  Version v1.19 — 2 septembre 2026");
+    println!("\n  Version v1.20 — 2 septembre 2026");
     println!("  Construit sur Termux · Android · nano\n");
     println!("  ─────────────────────────────────────────────");
     println!("\n  1. 🏦 Centre de Données (Admin)");
@@ -23063,7 +23210,7 @@ fn admin_interface(state: &Arc<AppState>) {
         println!("\n");
         println!("╔══════════════════════════════════════╗");
         println!("║  🏦 CENTRE DE DONNÉES — Admin       ║");
-        println!("║  🦁 AfriChain v1.19                  ║");
+        println!("║  🦁 AfriChain v1.20                  ║");
         println!("╠══════════════════════════════════════╣");
         let chain = state.chain.lock().unwrap();
         let users = state.users.lock().unwrap();
@@ -26779,6 +26926,10 @@ fn handle_request(req: afri_http::HttpRequest, state: &Arc<AppState>) -> afri_ht
         ("GET", "/ai-racine") => {
             let chain = state.chain.lock().unwrap();
             HttpResponse::ok(&html_ai_racine(&chain))
+        }
+        ("GET", "/ai-semence") => {
+            let chain = state.chain.lock().unwrap();
+            HttpResponse::ok(&html_ai_semence(&chain))
         }
 
         ("GET", "/garage") => {
