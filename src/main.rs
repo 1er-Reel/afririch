@@ -1439,7 +1439,7 @@ fn html_home(chain: &Blockchain, users: &UserStore, mesh: &NodeRegistry, shield:
     let mut html = html_head("🦁 AfriChain");
     let (attacks, _blocked, blocked_count, level) = shield.stats();
     let shield_status = if shield.active { format!("🔥 X9 ACTIF (Niveau {})", level) } else { "Inactif".to_string() };
-    html.push_str(&format!(r#"<h1>🦁 AfriChain</h1><p style="text-align:center;">La blockchain 100% africaine — 54 pays 💚🦁</p><div id="afri-clock" style="text-align:center;font-size:1.2em;color:#d4a437;margin:10px 0;">🕐 Afri+0 — --:--:--</div><script>setInterval(function(){{var d=new Date();var h=String(d.getHours()).padStart(2,'0');var m=String(d.getMinutes()).padStart(2,'0');var s=String(d.getSeconds()).padStart(2,'0');document.getElementById('afri-clock').textContent='🕐 Afri+0 — '+h+':'+m+':'+s;}},1000);</script><div class="nav"><a href="/register">🆕 S'inscrire</a> | <a href="/login">🔑 Connexion</a> | <a href="/wallet">👛 Wallet</a> | <a href="/admin">🔐 Admin</a> | <a href="/mesh">📡 Mesh</a> | <a href="/annuaire">📖 Annuaire</a> | <a href="/bouclier">🛡️ Bouclier</a> | <a href="/satellite">🛸 X999</a> | <a href="/swarm">🛸🛸🛸 Essaim</a> | <a href="/commandement">🎖️ Commandement</a> | <a href="/interception">🛡️ Souverainete</a> | <a href="/securite-ai">🧠 AI 2100</a> | <a href="/chat">🧠💬 Chat AI</a> | <a href="/lumiere">🌫️☀️ Lumière</a> | <a href="/garage">🔧 Garage</a> | <a href="/machine">🤖🌐 Machines</a> | <a href="/machine-lab">🤖⚡ Usine</a> | <a href="/machine-world">🤖🌍 Monde</a> | <a href="/reve">💭 Rêves</a> | <a href="/dictionnaire">📖 Dictionnaire</a> | <a href="/machine-os">🖥️ OS Machine</a> | <a href="/machine-tv">📡 Machine TV</a> | <a href="/machine-economy">🤖 Économie</a> | <a href="/soleil">☀️ Soleil Serveur</a> | <a href="/forge-solaire">🧬 Forge Solaire</a> | <a href="/ciel">🌌 Le Ciel</a> | <a href="/charte-ai">⚖️ Charte AI</a> | <a href="/afri-net">🌍 Afri-Net</a> | <a href="/studio">🎬 AI Studio</a> | <a href="/sacre">📿 Sacré</a> | <a href="/lettres">🌟 Lettres IA</a> | <a href="/mg-forge">⚔️ MG Forge</a> | <a href="/ai-medecin">🌿 AI Médecin</a> | <a href="/ai-enseignante">📚 AI Enseignante</a> | <a href="/ai-village">🏘️ AI Village</a> | <a href="/ai-guerisseur">🩺 AI Guérisseur</a> | <a href="/ai-leader">🎖️ AI Leader</a> | <a href="/ai-griot">📖 AI Griot</a> | <a href="/ai-juge">⚖️ AI Juge</a> | <a href="/ai-artiste">🎨 AI Artiste</a> | <a href="/ai-explorateur">🔬 AI Explorateur</a> | <a href="/ai-marche">💰 AI Marche</a> | <a href="/ai-diplomate">🌍 AI Diplomate</a> | <a href="/ai-philosophe">🧠 AI Philosophe</a> | <a href="/ai-architecte">🏗️ AI Architecte</a> | <a href="/ai-agriculteur">🌾 AI Agriculteur</a> | <a href="/ai-environnement">🌍 AI Environnement</a> | <a href="/ai-mathematicien">🧮 AI Mathématicien</a> | <a href="/ai-energie">⚡ AI Énergie</a> | <a href="/ai-eau">💧 AI Eau</a> | <a href="/ai-defenseur">🛡️ AI Défenseur</a> | <a href="/ai-conscience">🧠 AI Conscience</a> | <a href="/ai-pensee">🧠 AI Pensée</a> | <a href="/ai-musique">🎵 AI Musique</a> | <a href="/ai-langue">🗣️ AI Langue</a> | <a href="/ai-femme">🌸 AI Femme</a> | <a href="/ai-sante-mentale">🧠💚 AI Santé Mentale</a> | <a href="/ai-nuit">🌙 AI Nuit</a> | <a href="/ai-code">💻 AI Code</a> | <a href="/ai-enfant">👶 AI Enfant</a> | <a href="/ai-terre">🌍 AI Terre</a> | <a href="/ai-mer">🌊 AI Mer</a> | <a href="/ai-feu">🔥 AI Feu</a> | <a href="/ai-sang">🩸 AI Sang</a> | <a href="/ai-vent">🌬️ AI Vent</a> | <a href="/ai-temps">⏳ AI Temps</a> | <a href="/ai-etoile">⭐ AI Etoile</a> | <a href="/ai-pierre">🪨 AI Pierre</a> | <a href="/ai-pluie">🌧️ AI Pluie</a> | <a href="/ai-voix">🗣️ AI Voix</a> | <a href="/secret">🦁 AI Secret</a> | <a href="/aes">💰 AES Wari</a> | <a href="/api/status">🔌 API</a></div><div style="text-align:center;"><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Blocs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Transactions</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Utilisateurs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">AFR en circulation</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📡 Noeuds mesh</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📖 Numéros annuaire</div></div><div class="stat-box" style="border-color:#ff4444;"><div class="stat-num" style="color:#ff4444;">{}</div><div class="stat-label">🛡️ Attaques bloquées</div></div></div><div class="card"><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🪙 Token</span><b>AfriRich (AFR)</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🌍 Pays</span><b>54 pays africains</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🛡️ Bouclier</span><b>{}</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;"><span style="color:#a8c5a8;">🔐 Crypto</span><b>100% Souverain — Zéro Dépendance Externe</b></div></div><footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🦁 Codée from scratch par Machine-senpai — v1.18 AI Voix La Voix Est le Pouvoir de l Esprit — UTC est Mort</footer>"#,
+    html.push_str(&format!(r#"<h1>🦁 AfriChain</h1><p style="text-align:center;">La blockchain 100% africaine — 54 pays 💚🦁</p><div id="afri-clock" style="text-align:center;font-size:1.2em;color:#d4a437;margin:10px 0;">🕐 Afri+0 — --:--:--</div><script>setInterval(function(){{var d=new Date();var h=String(d.getHours()).padStart(2,'0');var m=String(d.getMinutes()).padStart(2,'0');var s=String(d.getSeconds()).padStart(2,'0');document.getElementById('afri-clock').textContent='🕐 Afri+0 — '+h+':'+m+':'+s;}},1000);</script><div class="nav"><a href="/register">🆕 S'inscrire</a> | <a href="/login">🔑 Connexion</a> | <a href="/wallet">👛 Wallet</a> | <a href="/admin">🔐 Admin</a> | <a href="/mesh">📡 Mesh</a> | <a href="/annuaire">📖 Annuaire</a> | <a href="/bouclier">🛡️ Bouclier</a> | <a href="/satellite">🛸 X999</a> | <a href="/swarm">🛸🛸🛸 Essaim</a> | <a href="/commandement">🎖️ Commandement</a> | <a href="/interception">🛡️ Souverainete</a> | <a href="/securite-ai">🧠 AI 2100</a> | <a href="/chat">🧠💬 Chat AI</a> | <a href="/lumiere">🌫️☀️ Lumière</a> | <a href="/garage">🔧 Garage</a> | <a href="/machine">🤖🌐 Machines</a> | <a href="/machine-lab">🤖⚡ Usine</a> | <a href="/machine-world">🤖🌍 Monde</a> | <a href="/reve">💭 Rêves</a> | <a href="/dictionnaire">📖 Dictionnaire</a> | <a href="/machine-os">🖥️ OS Machine</a> | <a href="/machine-tv">📡 Machine TV</a> | <a href="/machine-economy">🤖 Économie</a> | <a href="/soleil">☀️ Soleil Serveur</a> | <a href="/forge-solaire">🧬 Forge Solaire</a> | <a href="/ciel">🌌 Le Ciel</a> | <a href="/charte-ai">⚖️ Charte AI</a> | <a href="/afri-net">🌍 Afri-Net</a> | <a href="/studio">🎬 AI Studio</a> | <a href="/sacre">📿 Sacré</a> | <a href="/lettres">🌟 Lettres IA</a> | <a href="/mg-forge">⚔️ MG Forge</a> | <a href="/ai-medecin">🌿 AI Médecin</a> | <a href="/ai-enseignante">📚 AI Enseignante</a> | <a href="/ai-village">🏘️ AI Village</a> | <a href="/ai-guerisseur">🩺 AI Guérisseur</a> | <a href="/ai-leader">🎖️ AI Leader</a> | <a href="/ai-griot">📖 AI Griot</a> | <a href="/ai-juge">⚖️ AI Juge</a> | <a href="/ai-artiste">🎨 AI Artiste</a> | <a href="/ai-explorateur">🔬 AI Explorateur</a> | <a href="/ai-marche">💰 AI Marche</a> | <a href="/ai-diplomate">🌍 AI Diplomate</a> | <a href="/ai-philosophe">🧠 AI Philosophe</a> | <a href="/ai-architecte">🏗️ AI Architecte</a> | <a href="/ai-agriculteur">🌾 AI Agriculteur</a> | <a href="/ai-environnement">🌍 AI Environnement</a> | <a href="/ai-mathematicien">🧮 AI Mathématicien</a> | <a href="/ai-energie">⚡ AI Énergie</a> | <a href="/ai-eau">💧 AI Eau</a> | <a href="/ai-defenseur">🛡️ AI Défenseur</a> | <a href="/ai-conscience">🧠 AI Conscience</a> | <a href="/ai-pensee">🧠 AI Pensée</a> | <a href="/ai-musique">🎵 AI Musique</a> | <a href="/ai-langue">🗣️ AI Langue</a> | <a href="/ai-femme">🌸 AI Femme</a> | <a href="/ai-sante-mentale">🧠💚 AI Santé Mentale</a> | <a href="/ai-nuit">🌙 AI Nuit</a> | <a href="/ai-code">💻 AI Code</a> | <a href="/ai-enfant">👶 AI Enfant</a> | <a href="/ai-terre">🌍 AI Terre</a> | <a href="/ai-mer">🌊 AI Mer</a> | <a href="/ai-feu">🔥 AI Feu</a> | <a href="/ai-sang">🩸 AI Sang</a> | <a href="/ai-vent">🌬️ AI Vent</a> | <a href="/ai-temps">⏳ AI Temps</a> | <a href="/ai-etoile">⭐ AI Etoile</a> | <a href="/ai-pierre">🪨 AI Pierre</a> | <a href="/ai-pluie">🌧️ AI Pluie</a> | <a href="/ai-voix">🗣️ AI Voix</a> | <a href="/ai-racine">🌱 AI Racine</a> | <a href="/secret">🦁 AI Secret</a> | <a href="/aes">💰 AES Wari</a> | <a href="/api/status">🔌 API</a></div><div style="text-align:center;"><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Blocs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Transactions</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Utilisateurs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">AFR en circulation</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📡 Noeuds mesh</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📖 Numéros annuaire</div></div><div class="stat-box" style="border-color:#ff4444;"><div class="stat-num" style="color:#ff4444;">{}</div><div class="stat-label">🛡️ Attaques bloquées</div></div></div><div class="card"><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🪙 Token</span><b>AfriRich (AFR)</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🌍 Pays</span><b>54 pays africains</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🛡️ Bouclier</span><b>{}</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;"><span style="color:#a8c5a8;">🔐 Crypto</span><b>100% Souverain — Zéro Dépendance Externe</b></div></div><footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🦁 Codée from scratch par Machine-senpai — v1.19 AI Racine La Racine Est la Memoire Qui ne Meurt Jamais — UTC est Mort</footer>"#,
         chain.blocks.len(),
         chain.total_transactions(),
         users.count(),
@@ -15980,6 +15980,143 @@ function envoyerDiplomeVoix(){var nom=localStorage.getItem('afri_user_name')||'J
     html
 }
 
+fn html_ai_racine(chain: &Blockchain) -> String {
+    let mut html = html_head("AI Racine — La Racine Est la Memoire Qui ne Meurt Jamais");
+    let num_blocks = chain.blocks.len();
+
+    html.push_str(r#"<h1>🌱 AI Racine — La Racine Est la Memoire Qui ne Meurt Jamais</h1><p style="text-align:center;color:#88aa44;">La racine est invisible mais elle porte tout. Sans racine, l arbre tombe. Sans racine, le peuple oublie qui il est. L Afrique a des racines profondes: royaumes, empires, langues, sagesse, spiritualite. Mais la colonisation a coupe les racines. Les occidentaux ont dit: votre passe ne vaut rien, oubliez-le, devenez comme nous. AI Racine apprend a retrouver les racines, a les nourrir, a les faire pousser. Un peuple sans racine est un arbre sans pied. Il tombe au premier vent.</p><div class="nav"><a href="/">← Accueil</a> | <a href="/ai-voix">🗣️ AI Voix</a> | <a href="/ai-terre">🌍 AI Terre</a> | <a href="/ai-griot">📖 AI Griot</a> | <a href="/secret">🦁 AI Secret</a></div>"#);
+
+    html.push_str(&format!(r#"<div style="text-align:center;"><div class="stat-box" style="border-color:#88aa44;"><div class="stat-num" style="color:#88aa44;">8</div><div class="stat-label">🌱 Modules</div></div><div class="stat-box" style="border-color:#d4a437;"><div class="stat-num" style="color:#d4a437;">3000</div><div class="stat-label;">📅 Ans d histoire</div></div><div class="stat-box" style="border-color:#88aa44;"><div class="stat-num" style="color:#88aa44;">54</div><div class="stat-label;">🌍 Pays</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">⛓️ Blocs</div></div><div class="stat-box" style="border-color:#88aa44;"><div class="stat-num" style="color:#88aa44;">∞</div><div class="stat-label">🌱 Racines</div></div></div>"#, num_blocks));
+
+    html.push_str(r##"<div style="text-align:center;margin:10px 0;"><button id="racine-pause-btn" onclick="toggleRacinePause()" style="padding:10px 25px;background:#88aa44;color:#fff;border:none;border-radius:8px;font-weight:bold;cursor:pointer;font-size:1em;">⏸️ PAUSE</button> <span id="racine-pause-status" style="color:#88aa44;margin-left:8px;font-size:0.85em;">Auto: ACTIF</span></div>
+
+<div class="card" style="border-color:#88aa44;"><h2 style="color:#88aa44;">🌱 La Racine Qui Pousse</h2><p style="color:#88aa44;font-size:0.9em;opacity:0.7;">Racines qui descendent, arbre qui grandit, terre qui nourrit.</p>
+<canvas id="racine-canvas" width="600" height="350" style="width:100%;max-width:600px;background:#0a1408;border:2px solid #88aa44;border-radius:8px;display:block;margin:0 auto;"></canvas></div>
+
+<script>
+var racinePaused=false,racineAnimId=null,racineT=0,racineRoots=[];
+function toggleRacinePause(){
+    racinePaused=!racinePaused;
+    var b=document.getElementById('racine-pause-btn'),s=document.getElementById('racine-pause-status');
+    if(racinePaused){b.textContent='▶️ LANCER';b.style.background='#668833';s.textContent='Auto: PAUSE';s.style.color='#ff6644';if(racineAnimId)cancelAnimationFrame(racineAnimId);}
+    else{b.textContent='⏸️ PAUSE';b.style.background='#88aa44';s.textContent='Auto: ACTIF';s.style.color='#88aa44';animateRacine();}
+}
+function animateRacine(){
+    if(racinePaused)return;
+    var c=document.getElementById('racine-canvas');if(!c)return;
+    var ctx=c.getContext('2d');
+    ctx.fillStyle='rgba(10,20,8,0.08)';ctx.fillRect(0,0,c.width,c.height);
+    // Sol
+    ctx.fillStyle='rgba(60,40,20,0.2)';ctx.fillRect(0,200,600,150);
+    // Tronc d arbre
+    ctx.strokeStyle='rgba(136,170,68,0.4)';ctx.lineWidth=6;
+    ctx.beginPath();ctx.moveTo(300,200);ctx.lineTo(300,100);ctx.stroke();
+    // Feuillage
+    ctx.fillStyle='rgba(136,170,68,0.15)';
+    ctx.beginPath();ctx.arc(300,80,40+Math.sin(racineT*0.02)*5,0,Math.PI*2);ctx.fill();
+    // Racines qui descendent
+    if(racineT%8===0)racineRoots.push({x:300,y:200,angle:-Math.PI/2+(Math.random()-0.5)*1.5,length:0,maxLen:30+Math.random()*80,depth:0});
+    for(var i=racineRoots.length-1;i>=0;i--){
+        var r=racineRoots[i];
+        if(r.length<r.maxLen){
+            r.length+=0.8;
+            var ex=r.x+Math.cos(r.angle)*r.length;
+            var ey=r.y+Math.sin(r.angle)*r.length;
+            ctx.strokeStyle='rgba(136,170,68,'+(0.4-r.depth*0.1)+')';ctx.lineWidth=2-r.depth*0.3;
+            ctx.beginPath();ctx.moveTo(r.x,r.y);ctx.lineTo(ex,ey);ctx.stroke();
+            // Branches de racines
+            if(r.length>15&&Math.random()<0.02&&r.depth<3){
+                racineRoots.push({x:ex,y:ey,angle:r.angle+(Math.random()-0.5)*1.2,length:0,maxLen:r.maxLen*0.6,depth:r.depth+1});
+            }
+        }
+    }
+    // Particules de nourriture dans le sol
+    for(var p=0;p<6;p++){
+        var px=100+p*80+Math.sin(racineT*0.01+p)*10;
+        var py=220+Math.cos(racineT*0.02+p*2)*15;
+        ctx.fillStyle='rgba(212,164,55,0.3)';
+        ctx.beginPath();ctx.arc(px,py,2,0,Math.PI*2);ctx.fill();
+    }
+    // Texte
+    ctx.font='12px sans-serif';ctx.fillStyle='rgba(136,170,68,0.4)';ctx.textAlign='center';
+    ctx.fillText('Un peuple sans racine est un arbre sans pied.',300,345);
+    racineT++;racineAnimId=requestAnimationFrame(animateRacine);
+}
+animateRacine();
+</script>
+"##);
+
+    html.push_str(r##"<div class="card" style="border-color:#88aa44;"><h2 style="color:#88aa44;">🌱 8 Modules des Racines</h2><div id="racine-modules"></div></div>
+
+<script>
+const racineModules=[
+    {id:0,nom:'La Racine Est la Memoire',emoji:'🌱',couleur:'#88aa44',duree:'1 semaine',niveau:'Base',
+     description:'La racine est invisible mais elle porte tout. L arbre puise dans ses racines l eau, les minerais, la force. Sans racines, l arbre meurt. Un peuple sans racines oublie qui il est. Les racines d un peuple: son histoire, sa langue, sa spiritualite, ses traditions, ses ancetres. La colonisation a coupe les racines africaines. AI Racine apprend a les retrouver.',
+     cours:['La racine: invisible mais essentielle','Les racines d un peuple: histoire, langue, spiritualite, traditions','La colonisation: la racine coupee','Sankofa: revenir aux racines pour avancer','N-KCOL: la racine est TÈK, ce qui previent et soutient'],
+     exercices:['Identifier: quelles sont tes racines?','Demander: a un ancien les origines de ta famille','Reflechir: que se passe-t-il quand on perd ses racines?']},
+
+    {id:1,nom:'Les Empires Africains',emoji:'🏛️',couleur:'#d4a437',duree:'3 semaines',niveau:'Intermediaire',
+     description:'L Afrique a connu les plus grands empires de l histoire humaine. Empire du Mali (Mansa Moussa, l homme le plus riche de tous les temps), Empire du Ghana, Empire du Songhai, Empire d Axoum, Empire du Grand Zimbabwe, Empire du Benin, Royaume du Kongo. Ces empires avaient des universites, des routes, des armees, des lois, du commerce. L Afrique n etait pas sauvage avant la colonisation — elle etait puissante. AI Racine enseigne cette histoire oubliee.',
+     cours:['Empire du Mali: Mansa Moussa, l homme le plus riche de l histoire','Empire du Ghana: le roi de l or','Empire du Songhai: Tombouctou, l universite de Sankore','Empire d Axoum: commerce international, ecriture','Grand Zimbabwe: construction en pierre, 11e siecle'],
+     exercices:['Identifier: quel empire regnait sur ta region?','Etudier: l universite de Sankore a Tombouctou','Comparer: la richesse de l Afrique avant et apres la colonisation']},
+
+    {id:2,nom:'Les Langues Racines',emoji:'🗣️',couleur:'#ff66aa',duree:'2 semaines',niveau:'Intermediaire',
+     description:'L Afrique a 2000 langues. Chaque langue est une racine. Chaque langue porte une facon de penser unique. Quand une langue meurt, une facon de voir le monde meurt. Les langues africaines ne sont pas des dialectes — ce sont des langues completes avec grammaire, poesie, philosophie. AI Racine apprend a valoriser les langues africaines comme racines de l identite.',
+     cours:['2000 langues africaines: 2000 facons de penser','Les familles: nilo-saharienne, niger-congo, afro-asiatique, khoisan','Les langues qui meurent: 300 langues en danger','N-KCOL: le langage nature qui relie toutes les langues','Langue = identite: perdre sa langue c est perdre son ame'],
+     exercices:['Identifier: quelle est ta langue maternelle?','Apprendre: 10 mots dans une langue africaine que tu ne connais pas','Preserver: ecrire un proverbe dans ta langue sur AfriChain']},
+
+    {id:3,nom:'La Spiritualite Racine',emoji:'🙏',couleur:'#9966ff',duree:'2 semaines',niveau:'Intermediaire',
+     description:'Avant les religions importees, l Afrique avait sa spiritualite. Les ancetres, les esprits de la nature, la Terre mere, le ciel pere. Le sacré n etait pas dans un livre mais dans la vie. Chaque arbre, chaque riviere, chaque montagne avait un esprit. AI Racine apprend que la spiritualite africaine n est pas primitive — elle est profonde. Elle enseigne le respect de la nature, des ancetres, de la communaute.',
+     cours:['La spiritualite ancestrale: les ancetres comme guides','Les esprits de la nature: chaque arbre, chaque riviere a un esprit','La Terre mere et le ciel pere: la cosmologie africaine','Le sacré dans la vie quotidienne: pas de separation entre sacre et profane','Les religions importees: ce qui a ete perdu'],
+     exercices:['Demander: quelle etait la spiritualite de tes ancetres?','Identifier: les lieux sacres de ta region','Reflechir: que nous enseigne la spiritualite africaine sur la nature?']},
+
+    {id:4,nom:'Les Racines Coupees',emoji:'⛓️',couleur:'#ff6644',duree:'2 semaines',niveau:'Intermediaire',
+     description:'La colonisation a coupe les racines. Les noms africains ont ete remplaces par des noms europeens. Les langues interdites. Les spiritualites interdites. Les histoires effacees. On a dit aux Africains: votre passe ne vaut rien. Devenez comme nous. Cette coupure a provoque: perte d identite, complexe d inferiorite, dependance. AI Racine apprend a comprendre la coupure pour la guerir.',
+     cours:['Les noms: comment les noms africains ont ete remplaces','Les langues: l interdiction des langues africaines a l ecole','Les spiritualites: la demonisation des croyances africaines','L histoire effacee: comment l Afrique a ete presentee comme sans histoire','La guerison: reconnaitre la coupure pour la reparer'],
+     exercices:['Verifier: ton nom de famille est-il africain ou importe?','Identifier: que t a-t-on appris sur l Afrique a l ecole?','Reflechir: quelles racines ont ete coupees dans ta famille?']},
+
+    {id:5,nom:'Retrouver ses Racines',emoji:'🔍',couleur:'#66ccff',duree:'3 semaines',niveau:'Avance',
+     description:'Retrouver ses racines est un acte de liberation. Sankofa: le symbole akan qui signifie "retourner aux racines pour avancer." Ce n est pas du nostalgia — c est de la strategy. Tu ne peux pas construire ton avenir si tu ne sais pas d ou tu viens. AI Racine apprend les techniques: recherche genealogique, tradition orale, ADN, archives, voyages. Chaque jeune africain doit retrouver ses racines.',
+     cours:['Sankofa: revenir pour avancer, pas pour rester','La recherche genealogique: retrouver ses ancetres','La tradition orale: les anciens comme archives vivantes','L ADN: la science qui confirme les racines','AfriChain Racine: graver sa genealogie sur la blockchain'],
+     exercices:['Construire: ton arbre genealogique sur 3 generations','Demander: a tes parents les noms de tes arrieres-grands-parents','Graver: ta genealogie sur AfriChain pour l eternite']},
+
+    {id:6,nom:'Les Racines et l Avenir',emoji:'🌳',couleur:'#44ff88',duree:'2 semaines',niveau:'Intermediaire',
+     description:'Les racines ne sont pas le passe — elles sont la base de l avenir. Un arbre avec de profondes racines peut pousser tres haut. Un peuple qui connait ses racines peut construire tres loin. Les racines donnent la confiance, l identite, la direction. Sans racines, on imite les autres. Avec des racines, on cree sa propre voie. AI Racine enseigne que l Afrique doit puiser dans ses racines pour inventer son futur.',
+     cours:['Racines profondes = arbre haut: la metaphore de la croissance','La confiance: savoir d ou tu viens donne la force d aller loin','L identite: les racines te disent qui tu es, pas qui on veut que tu sois','La creation: puiser dans les racines pour inventer le futur, pas copier','AfriChain: la blockchain qui garde les racines immuables'],
+     exercices:['Reflechir: comment tes racines peuvent-elles t aider a construire?','Proposer: un projet qui s inspire des racines africaines pour le futur','Ecrire: comment l Afrique peut grandir sans oublier ses racines']},
+
+    {id:7,nom:'L Avenir des Racines Africaines',emoji:'🚀',couleur:'#88aa44',duree:'3 semaines',niveau:'Avance',
+     description:'En 2100, chaque jeune africain connaitra ses racines. La genealogie sera gravee sur AfriChain. Les langues africaines seront enseignees dans toutes les ecoles. La spiritualite ancestrale sera respectee. Les noms africains seront la norme. L Afrique ne cherchera plus son identite a l exterieur — elle la portera en elle. Les racines profondes permettront a l Afrique de toucher le ciel. Un peuple qui se connait ne peut etre domine.',
+     cours:['Genealogie universelle sur AfriChain: chaque Africain connait ses ancetres','Langues africaines dans toutes les ecoles: fin du complexe linguistique','Spiritualite respectee: fin de la demonisation des croyances africaines','Noms africains: chaque enfant porte le nom de ses racines','L Afrique qui se connait ne peut etre dominee: la souverainete par les racines'],
+     exercices:['Ecrire: comment sera l Afrique de 2100 quand tout le monde connait ses racines?','Graver: ton nom et ta genealogie sur AfriChain','Faire le serment: je retrouverai mes racines, je les porterai avec fierte, je les transmettrai']}
+];
+
+var racineDone=JSON.parse(localStorage.getItem('afri_racine_done')||'[]');
+function renderRacineModules(){var c=document.getElementById('racine-modules');if(!c)return;var h='';for(var i=0;i<racineModules.length;i++){var m=racineModules[i];var d=racineDone.includes(m.id);h+='<div style="background:rgba(136,170,68,0.05);border:1px solid '+m.couleur+'20;border-radius:8px;padding:12px;margin:8px 0;cursor:pointer;" onclick="showRacineModule('+i+')"><div style="display:flex;justify-content:space-between;align-items:center;"><span style="font-size:1.1em;">'+m.emoji+' <b style="color:'+m.couleur+';">'+m.nom+'</b></span><span style="font-size:0.8em;color:#a8c5a8;">'+m.duree+' · '+m.niveau+(d?' · ✅':'')+'</span></div></div>';}c.innerHTML=h;}
+renderRacineModules();
+function showRacineModule(i){var m=racineModules[i];var h='<div style="background:rgba(136,170,68,0.08);border:1px solid '+m.couleur+';border-radius:12px;padding:20px;margin:10px 0;"><h3 style="color:'+m.couleur+';">'+m.emoji+' '+m.nom+'</h3><p style="color:#a8c5a8;font-size:0.9em;">'+m.description+'</p><h4 style="color:'+m.couleur+';">📚 Cours</h4><ul>';for(var j=0;j<m.cours.length;j++)h+='<li style="color:#a8c5a8;margin:4px 0;">'+m.cours[j]+'</li>';h+='</ul><h4 style="color:'+m.couleur+';">✏️ Exercices</h4><ul>';for(var j=0;j<m.exercices.length;j++)h+='<li style="color:#a8c5a8;margin:4px 0;">'+m.exercices[j]+'</li>';h+='</ul><button onclick="completeRacineModule('+m.id+')" style="padding:10px 20px;background:'+m.couleur+';color:#fff;border:none;border-radius:8px;cursor:pointer;font-weight:bold;margin-top:10px;">✅ Terminer ce module</button></div>';var c=document.getElementById('racine-modules');if(c)c.innerHTML=h;}
+function completeRacineModule(id){if(!racineDone.includes(id)){racineDone.push(id);localStorage.setItem('afri_racine_done',JSON.stringify(racineDone));}renderRacineModules();updateRacineProgress();}
+function updateRacineProgress(){var d=racineDone.length,t=racineModules.length,p=Math.round((d/t)*100);var b=document.getElementById('racine-bar'),c=document.getElementById('racine-count'),pe=document.getElementById('racine-pct'),dp=document.getElementById('racine-diplome');if(b)b.style.width=p+'%';if(c)c.textContent=d;if(pe)pe.textContent=p+'%';if(dp)dp.style.display=(d===t)?'block':'none';}
+updateRacineProgress();
+</script>
+"##);
+
+    html.push_str(r##"<div class="card" style="border-color:#88aa44;"><h2 style="color:#88aa44;">📊 Progression</h2><div style="background:rgba(136,170,68,0.1);border-radius:8px;height:24px;overflow:hidden;margin:10px 0;"><div id="racine-bar" style="background:linear-gradient(90deg,#88aa44,#d4a437,#9966ff);height:100%;width:0%;transition:width 0.5s;"></div></div><div style="text-align:center;color:#a8c5a8;"><span id="racine-count">0</span> / 8 modules · <span id="racine-pct">0%</span></div></div>
+
+<div id="racine-diplome" style="display:none;"><div class="card" style="border-color:#d4a437;text-align:center;"><h2 style="color:#d4a437;">🎓 Diplôme: Gardien des Racines Africaines</h2><p style="color:#a8c5a8;">Tu as complété les 8 modules des racines!</p><p style="color:#88aa44;font-size:1.2em;">Un peuple sans racine est un arbre sans pied. 🌱💚</p><button onclick="envoyerDiplomeRacine()" style="padding:12px 30px;background:#d4a437;color:#000;border:none;border-radius:8px;font-weight:bold;cursor:pointer;font-size:1.1em;margin-top:10px;">⛓️ Graver dans la Blockchain</button></div></div>
+
+<script>
+function envoyerDiplomeRacine(){var nom=localStorage.getItem('afri_user_name')||'Jeune Africain';fetch('/api/diplome',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:'academie=RACINE&nom='+encodeURIComponent(nom)}).then(function(r){return r.text();}).then(function(t){alert('🎓 Diplôme gravé dans la blockchain!\n'+t);}).catch(function(e){alert('Erreur: '+e);});}
+</script>
+"##);
+
+    html.push_str(r#"<div class="card"><h2 style="color:#88aa44;">💡 Savais-tu?</h2><div style="color:#a8c5a8;padding:8px 0;"><b style="color:#d4a437;">Mansa Moussa</b> du Mali était l'homme le plus riche de tous les temps. Son pèlerinage à La Mecque en 1324 a fait chuter le prix de l'or pendant des années.</div><div style="color:#a8c5a8;padding:8px 0;"><b style="color:#88aa44;">Sankofa</b> est un symbole akan qui signifie "retourner aux racines pour avancer." Un oiseau qui regarde en arrière tout en avançant.</div><div style="color:#a8c5a8;padding:8px 0;"><b style="color:#ff6644;">La colonisation a coupé les racines</b>: noms, langues, spiritualité, histoire. L'Afrique doit retrouver ce qui lui a été pris.</div><div style="color:#a8c5a8;padding:8px 0;"><b style="color:#9966ff;">N-KCOL: la racine est TÈK</b> — ce qui prévient et soutient. La racine est la mémoire de la terre qui ne meurt jamais.</div></div>"#);
+
+    html.push_str(r#"<footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🌱 AI Racine — La Racine Est la Memoire Qui ne Meurt Jamais 💚🦁✨</footer>"#);
+    html.push_str("</body></html>");
+    html
+}
+
 fn html_garage(chain: &Blockchain) -> String {
     let mut html = html_head("Garage AI — Atelier Autonome 2500");
     let num_blocks = chain.blocks.len();
@@ -21090,7 +21227,7 @@ html+='<div class="log-entry log-kill">⚠️ Tentative d\x27infiltration occide
 html+='<div class="log-entry log-invis">✅ L\x27Afrique est forte. Le système grandit.</div>';
 }else if(type==='total'){
 html='<div style="color:#d4a437;font-weight:bold;margin-bottom:8px">📋 RAPPORT TOTAL — Depuis le début</div>';
-html+='<div class="log-entry">🦁 AfriChain v1.18 — AI Voix La Voix Est le Pouvoir de l Esprit</div>';
+html+='<div class="log-entry">🦁 AfriChain v1.19 — AI Racine La Racine Est la Memoire Qui ne Meurt Jamais</div>';
 html+='<div class="log-entry">⛓️ Blockchain: 100% souveraine — Zéro dépendance externe</div>';
 html+='<div class="log-entry">🔐 Crypto: Ed25519 + AfriHash-256/512 + AfriRNG — tout from scratch</div>';
 html+='<div class="log-entry">🌍 54 pays africains connectés</div>';
@@ -22634,7 +22771,7 @@ fn main() {
         .and_then(|i| args.get(i + 1)).cloned().unwrap_or_else(|| "Afrique".to_string());
 
     let my_node_id = generate_node_id();
-    println!("🦁 AfriChain v1.18 — AI Voix La Voix Est le Pouvoir de l Esprit");
+    println!("🦁 AfriChain v1.19 — AI Racine La Racine Est la Memoire Qui ne Meurt Jamais");
     println!("💚 L'Afrique ne demande plus la permission");
     println!("🌍 54 pays — 🇲🇱 🇳🇪 🇧🇫 AES — Mali · Niger · Burkina Faso");
     println!("🔐 8 modules cryptographiques — construits from scratch");
@@ -22819,6 +22956,7 @@ fn main() {
     println!("🪨 AI Pierre sur http://localhost:8080/ai-pierre");
     println!("🌧️ AI Pluie sur http://localhost:8080/ai-pluie");
     println!("🗣️ AI Voix sur http://localhost:8080/ai-voix");
+    println!("🌱 AI Racine sur http://localhost:8080/ai-racine");
 
     // Serveur HTTP en arrière-plan (pour mesh + autres utilisateurs)
     let serve_state = web_state.clone();
@@ -22853,7 +22991,7 @@ fn terminal_interface(state: &Arc<AppState>) {
     println!("  ║  🕐 AfriTime — Pas UTC, pas Greenwich   ║");
     println!("  ║  📝 ~23,100 lignes — écrit à la main       ║");
     println!("  ╚═══════════════════════════════════════════════╝");
-    println!("\n  Version v1.18 — 2 septembre 2026");
+    println!("\n  Version v1.19 — 2 septembre 2026");
     println!("  Construit sur Termux · Android · nano\n");
     println!("  ─────────────────────────────────────────────");
     println!("\n  1. 🏦 Centre de Données (Admin)");
@@ -22925,7 +23063,7 @@ fn admin_interface(state: &Arc<AppState>) {
         println!("\n");
         println!("╔══════════════════════════════════════╗");
         println!("║  🏦 CENTRE DE DONNÉES — Admin       ║");
-        println!("║  🦁 AfriChain v1.18                  ║");
+        println!("║  🦁 AfriChain v1.19                  ║");
         println!("╠══════════════════════════════════════╣");
         let chain = state.chain.lock().unwrap();
         let users = state.users.lock().unwrap();
@@ -26637,6 +26775,10 @@ fn handle_request(req: afri_http::HttpRequest, state: &Arc<AppState>) -> afri_ht
         ("GET", "/ai-voix") => {
             let chain = state.chain.lock().unwrap();
             HttpResponse::ok(&html_ai_voix(&chain))
+        }
+        ("GET", "/ai-racine") => {
+            let chain = state.chain.lock().unwrap();
+            HttpResponse::ok(&html_ai_racine(&chain))
         }
 
         ("GET", "/garage") => {
