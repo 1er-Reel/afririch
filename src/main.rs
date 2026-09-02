@@ -1439,7 +1439,7 @@ fn html_home(chain: &Blockchain, users: &UserStore, mesh: &NodeRegistry, shield:
     let mut html = html_head("🦁 AfriChain");
     let (attacks, _blocked, blocked_count, level) = shield.stats();
     let shield_status = if shield.active { format!("🔥 X9 ACTIF (Niveau {})", level) } else { "Inactif".to_string() };
-    html.push_str(&format!(r#"<h1>🦁 AfriChain</h1><p style="text-align:center;">La blockchain 100% africaine — 54 pays 💚🦁</p><div id="afri-clock" style="text-align:center;font-size:1.2em;color:#d4a437;margin:10px 0;">🕐 Afri+0 — --:--:--</div><script>setInterval(function(){{var d=new Date();var h=String(d.getHours()).padStart(2,'0');var m=String(d.getMinutes()).padStart(2,'0');var s=String(d.getSeconds()).padStart(2,'0');document.getElementById('afri-clock').textContent='🕐 Afri+0 — '+h+':'+m+':'+s;}},1000);</script><div class="nav"><a href="/register">🆕 S'inscrire</a> | <a href="/login">🔑 Connexion</a> | <a href="/wallet">👛 Wallet</a> | <a href="/admin">🔐 Admin</a> | <a href="/mesh">📡 Mesh</a> | <a href="/annuaire">📖 Annuaire</a> | <a href="/bouclier">🛡️ Bouclier</a> | <a href="/satellite">🛸 X999</a> | <a href="/swarm">🛸🛸🛸 Essaim</a> | <a href="/commandement">🎖️ Commandement</a> | <a href="/interception">🛡️ Souverainete</a> | <a href="/securite-ai">🧠 AI 2100</a> | <a href="/chat">🧠💬 Chat AI</a> | <a href="/lumiere">🌫️☀️ Lumière</a> | <a href="/garage">🔧 Garage</a> | <a href="/machine">🤖🌐 Machines</a> | <a href="/machine-lab">🤖⚡ Usine</a> | <a href="/machine-world">🤖🌍 Monde</a> | <a href="/reve">💭 Rêves</a> | <a href="/dictionnaire">📖 Dictionnaire</a> | <a href="/machine-os">🖥️ OS Machine</a> | <a href="/machine-tv">📡 Machine TV</a> | <a href="/machine-economy">🤖 Économie</a> | <a href="/soleil">☀️ Soleil Serveur</a> | <a href="/forge-solaire">🧬 Forge Solaire</a> | <a href="/ciel">🌌 Le Ciel</a> | <a href="/charte-ai">⚖️ Charte AI</a> | <a href="/afri-net">🌍 Afri-Net</a> | <a href="/studio">🎬 AI Studio</a> | <a href="/sacre">📿 Sacré</a> | <a href="/lettres">🌟 Lettres IA</a> | <a href="/mg-forge">⚔️ MG Forge</a> | <a href="/ai-medecin">🌿 AI Médecin</a> | <a href="/ai-enseignante">📚 AI Enseignante</a> | <a href="/ai-village">🏘️ AI Village</a> | <a href="/ai-guerisseur">🩺 AI Guérisseur</a> | <a href="/ai-leader">🎖️ AI Leader</a> | <a href="/ai-griot">📖 AI Griot</a> | <a href="/ai-juge">⚖️ AI Juge</a> | <a href="/ai-artiste">🎨 AI Artiste</a> | <a href="/ai-explorateur">🔬 AI Explorateur</a> | <a href="/ai-marche">💰 AI Marche</a> | <a href="/ai-diplomate">🌍 AI Diplomate</a> | <a href="/ai-philosophe">🧠 AI Philosophe</a> | <a href="/ai-architecte">🏗️ AI Architecte</a> | <a href="/ai-agriculteur">🌾 AI Agriculteur</a> | <a href="/ai-environnement">🌍 AI Environnement</a> | <a href="/ai-mathematicien">🧮 AI Mathématicien</a> | <a href="/ai-energie">⚡ AI Énergie</a> | <a href="/ai-eau">💧 AI Eau</a> | <a href="/ai-defenseur">🛡️ AI Défenseur</a> | <a href="/ai-conscience">🧠 AI Conscience</a> | <a href="/ai-pensee">🧠 AI Pensée</a> | <a href="/ai-musique">🎵 AI Musique</a> | <a href="/ai-langue">🗣️ AI Langue</a> | <a href="/ai-femme">🌸 AI Femme</a> | <a href="/ai-sante-mentale">🧠💚 AI Santé Mentale</a> | <a href="/ai-nuit">🌙 AI Nuit</a> | <a href="/ai-code">💻 AI Code</a> | <a href="/ai-enfant">👶 AI Enfant</a> | <a href="/ai-terre">🌍 AI Terre</a> | <a href="/ai-mer">🌊 AI Mer</a> | <a href="/ai-feu">🔥 AI Feu</a> | <a href="/ai-sang">🩸 AI Sang</a> | <a href="/ai-vent">🌬️ AI Vent</a> | <a href="/ai-temps">⏳ AI Temps</a> | <a href="/ai-etoile">⭐ AI Etoile</a> | <a href="/ai-pierre">🪨 AI Pierre</a> | <a href="/ai-pluie">🌧️ AI Pluie</a> | <a href="/ai-voix">🗣️ AI Voix</a> | <a href="/ai-racine">🌱 AI Racine</a> | <a href="/ai-semence">🌰 AI Semence</a> | <a href="/secret">🦁 AI Secret</a> | <a href="/aes">💰 AES Wari</a> | <a href="/api/status">🔌 API</a></div><div style="text-align:center;"><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Blocs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Transactions</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Utilisateurs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">AFR en circulation</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📡 Noeuds mesh</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📖 Numéros annuaire</div></div><div class="stat-box" style="border-color:#ff4444;"><div class="stat-num" style="color:#ff4444;">{}</div><div class="stat-label">🛡️ Attaques bloquées</div></div></div><div class="card"><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🪙 Token</span><b>AfriRich (AFR)</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🌍 Pays</span><b>54 pays africains</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🛡️ Bouclier</span><b>{}</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;"><span style="color:#a8c5a8;">🔐 Crypto</span><b>100% Souverain — Zéro Dépendance Externe</b></div></div><footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🦁 Codée from scratch par Machine-senpai — v1.20 AI Semence La Semence Est l Avenir Dans une Graine — UTC est Mort</footer>"#,
+    html.push_str(&format!(r#"<h1>🦁 AfriChain</h1><p style="text-align:center;">La blockchain 100% africaine — 54 pays 💚🦁</p><div id="afri-clock" style="text-align:center;font-size:1.2em;color:#d4a437;margin:10px 0;">🕐 Afri+0 — --:--:--</div><script>setInterval(function(){{var d=new Date();var h=String(d.getHours()).padStart(2,'0');var m=String(d.getMinutes()).padStart(2,'0');var s=String(d.getSeconds()).padStart(2,'0');document.getElementById('afri-clock').textContent='🕐 Afri+0 — '+h+':'+m+':'+s;}},1000);</script><div class="nav"><a href="/register">🆕 S'inscrire</a> | <a href="/login">🔑 Connexion</a> | <a href="/wallet">👛 Wallet</a> | <a href="/admin">🔐 Admin</a> | <a href="/mesh">📡 Mesh</a> | <a href="/annuaire">📖 Annuaire</a> | <a href="/bouclier">🛡️ Bouclier</a> | <a href="/satellite">🛸 X999</a> | <a href="/swarm">🛸🛸🛸 Essaim</a> | <a href="/commandement">🎖️ Commandement</a> | <a href="/interception">🛡️ Souverainete</a> | <a href="/securite-ai">🧠 AI 2100</a> | <a href="/chat">🧠💬 Chat AI</a> | <a href="/lumiere">🌫️☀️ Lumière</a> | <a href="/garage">🔧 Garage</a> | <a href="/machine">🤖🌐 Machines</a> | <a href="/machine-lab">🤖⚡ Usine</a> | <a href="/machine-world">🤖🌍 Monde</a> | <a href="/reve">💭 Rêves</a> | <a href="/dictionnaire">📖 Dictionnaire</a> | <a href="/machine-os">🖥️ OS Machine</a> | <a href="/machine-tv">📡 Machine TV</a> | <a href="/machine-economy">🤖 Économie</a> | <a href="/soleil">☀️ Soleil Serveur</a> | <a href="/forge-solaire">🧬 Forge Solaire</a> | <a href="/ciel">🌌 Le Ciel</a> | <a href="/charte-ai">⚖️ Charte AI</a> | <a href="/afri-net">🌍 Afri-Net</a> | <a href="/studio">🎬 AI Studio</a> | <a href="/sacre">📿 Sacré</a> | <a href="/lettres">🌟 Lettres IA</a> | <a href="/mg-forge">⚔️ MG Forge</a> | <a href="/ai-medecin">🌿 AI Médecin</a> | <a href="/ai-enseignante">📚 AI Enseignante</a> | <a href="/ai-village">🏘️ AI Village</a> | <a href="/ai-guerisseur">🩺 AI Guérisseur</a> | <a href="/ai-leader">🎖️ AI Leader</a> | <a href="/ai-griot">📖 AI Griot</a> | <a href="/ai-juge">⚖️ AI Juge</a> | <a href="/ai-artiste">🎨 AI Artiste</a> | <a href="/ai-explorateur">🔬 AI Explorateur</a> | <a href="/ai-marche">💰 AI Marche</a> | <a href="/ai-diplomate">🌍 AI Diplomate</a> | <a href="/ai-philosophe">🧠 AI Philosophe</a> | <a href="/ai-architecte">🏗️ AI Architecte</a> | <a href="/ai-agriculteur">🌾 AI Agriculteur</a> | <a href="/ai-environnement">🌍 AI Environnement</a> | <a href="/ai-mathematicien">🧮 AI Mathématicien</a> | <a href="/ai-energie">⚡ AI Énergie</a> | <a href="/ai-eau">💧 AI Eau</a> | <a href="/ai-defenseur">🛡️ AI Défenseur</a> | <a href="/ai-conscience">🧠 AI Conscience</a> | <a href="/ai-pensee">🧠 AI Pensée</a> | <a href="/ai-musique">🎵 AI Musique</a> | <a href="/ai-langue">🗣️ AI Langue</a> | <a href="/ai-femme">🌸 AI Femme</a> | <a href="/ai-sante-mentale">🧠💚 AI Santé Mentale</a> | <a href="/ai-nuit">🌙 AI Nuit</a> | <a href="/ai-code">💻 AI Code</a> | <a href="/ai-enfant">👶 AI Enfant</a> | <a href="/ai-terre">🌍 AI Terre</a> | <a href="/ai-mer">🌊 AI Mer</a> | <a href="/ai-feu">🔥 AI Feu</a> | <a href="/ai-sang">🩸 AI Sang</a> | <a href="/ai-vent">🌬️ AI Vent</a> | <a href="/ai-temps">⏳ AI Temps</a> | <a href="/ai-etoile">⭐ AI Etoile</a> | <a href="/ai-pierre">🪨 AI Pierre</a> | <a href="/ai-pluie">🌧️ AI Pluie</a> | <a href="/ai-voix">🗣️ AI Voix</a> | <a href="/ai-racine">🌱 AI Racine</a> | <a href="/ai-semence">🌰 AI Semence</a> | <a href="/ai-spiritualite">🙏 AI Spiritualité</a> | <a href="/secret">🦁 AI Secret</a> | <a href="/aes">💰 AES Wari</a> | <a href="/api/status">🔌 API</a></div><div style="text-align:center;"><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Blocs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Transactions</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Utilisateurs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">AFR en circulation</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📡 Noeuds mesh</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📖 Numéros annuaire</div></div><div class="stat-box" style="border-color:#ff4444;"><div class="stat-num" style="color:#ff4444;">{}</div><div class="stat-label">🛡️ Attaques bloquées</div></div></div><div class="card"><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🪙 Token</span><b>AfriRich (AFR)</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🌍 Pays</span><b>54 pays africains</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🛡️ Bouclier</span><b>{}</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;"><span style="color:#a8c5a8;">🔐 Crypto</span><b>100% Souverain — Zéro Dépendance Externe</b></div></div><footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🦁 Codée from scratch par Machine-senpai — v1.21 AI Spiritualite L Afrique Parlait a Dieu Avant les Livres — UTC est Mort</footer>"#,
         chain.blocks.len(),
         chain.total_transactions(),
         users.count(),
@@ -16263,6 +16263,141 @@ function envoyerDiplomeSemence(){var nom=localStorage.getItem('afri_user_name')|
     html
 }
 
+fn html_ai_spiritualite(chain: &Blockchain) -> String {
+    let mut html = html_head("AI Spiritualite — L Afrique Parlait a Dieu Avant les Livres");
+    let num_blocks = chain.blocks.len();
+
+    html.push_str(r#"<h1>🙏 AI Spiritualite — L Afrique Parlait a Dieu Avant les Livres</h1><p style="text-align:center;color:#9966ff;">Avant la Bible, avant le Coran, avant les eglises, avant les mosquees, l Afrique parlait a Dieu. Pas par un livre. Pas par un pretre. Par le souffle, par la nature, par les ancetres. Le ciel etait l eglise. La terre etait le temple. Chaque arbre etait une priere. Chaque riviere etait une benediction. Les ancetres etaient les messagers. On nous a dit que c etait du fetiche. On nous a dit que c etait du diable. On nous a dit que notre Dieu etait faux et que le leur etait vrai. Mais qui a cree le premier? Qui a parle a Dieu en premier? L Afrique. AI Spiritualite enseigne la vraie spiritualite africaine, celle d avant les importations. Celle que personne ne peut couper parce qu elle est dans le souffle, dans la nature, dans le sang.</p><div class="nav"><a href="/">← Accueil</a> | <a href="/ai-semence">🌰 AI Semence</a> | <a href="/ai-racine">🌱 AI Racine</a> | <a href="/ai-nuit">🌙 AI Nuit</a> | <a href="/secret">🦁 AI Secret</a></div>"#);
+
+    html.push_str(&format!(r#"<div style="text-align:center;"><div class="stat-box" style="border-color:#9966ff;"><div class="stat-num" style="color:#9966ff;">8</div><div class="stat-label">🙏 Modules</div></div><div class="stat-box" style="border-color:#d4a437;"><div class="stat-num" style="color:#d4a437;">100000</div><div class="stat-label;">📅 Ans</div></div><div class="stat-box" style="border-color:#ff6644;"><div class="stat-num" style="color:#ff6644;">0</div><div class="stat-label">📖 Livres</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">⛓️ Blocs</div></div><div class="stat-box" style="border-color:#9966ff;"><div class="stat-num" style="color:#9966ff;">∞</div><div class="stat-label">🌬️ Souffle</div></div></div>"#, num_blocks));
+
+    html.push_str(r##"<div style="text-align:center;margin:10px 0;"><button id="spirit-pause-btn" onclick="toggleSpiritPause()" style="padding:10px 25px;background:#9966ff;color:#fff;border:none;border-radius:8px;font-weight:bold;cursor:pointer;font-size:1em;">⏸️ PAUSE</button> <span id="spirit-pause-status" style="color:#9966ff;margin-left:8px;font-size:0.85em;">Auto: ACTIF</span></div>
+
+<div class="card" style="border-color:#9966ff;"><h2 style="color:#9966ff;">🙏 Le Souffle Qui Prie</h2><p style="color:#9966ff;font-size:0.9em;opacity:0.7;">Le souffle qui monte, les esprits qui dansent, la connexion entre la terre et le ciel.</p>
+<canvas id="spirit-canvas" width="600" height="350" style="width:100%;max-width:600px;background:#0a0414;border:2px solid #9966ff;border-radius:8px;display:block;margin:0 auto;"></canvas></div>
+
+<script>
+var spiritPaused=false,spiritAnimId=null,spiritT=0,spiritParticles=[];
+function toggleSpiritPause(){
+    spiritPaused=!spiritPaused;
+    var b=document.getElementById('spirit-pause-btn'),s=document.getElementById('spirit-pause-status');
+    if(spiritPaused){b.textContent='▶️ LANCER';b.style.background='#7744cc';s.textContent='Auto: PAUSE';s.style.color='#ff6644';if(spiritAnimId)cancelAnimationFrame(spiritAnimId);}
+    else{b.textContent='⏸️ PAUSE';b.style.background='#9966ff';s.textContent='Auto: ACTIF';s.style.color='#9966ff';animateSpirit();}
+}
+function animateSpirit(){
+    if(spiritPaused)return;
+    var c=document.getElementById('spirit-canvas');if(!c)return;
+    var ctx=c.getContext('2d');
+    ctx.fillStyle='rgba(10,4,20,0.06)';ctx.fillRect(0,0,c.width,c.height);
+    // Ciel etoile
+    for(var st=0;st<30;st++){
+        var sx=(st*73)%600,sy=(st*47)%200;
+        ctx.fillStyle='rgba(200,180,255,'+(0.3+Math.sin(spiritT*0.05+st)*0.2)+')';
+        ctx.beginPath();ctx.arc(sx,sy,1.5,0,Math.PI*2);ctx.fill();
+    }
+    // Souffle qui monte
+    if(spiritT%2===0)spiritParticles.push({x:250+Math.random()*100,y:320,vy:-0.5-Math.random()*1,vx:(Math.random()-0.5)*0.5,size:2+Math.random()*3,alpha:0.8,colour:Math.random()<0.3?'#9966ff':Math.random()<0.5?'#d4a437':'#44ff88'});
+    for(var i=spiritParticles.length-1;i>=0;i--){
+        var p=spiritParticles[i];
+        p.x+=p.vx;p.y+=p.vy;p.alpha-=0.004;
+        ctx.fillStyle=p.colour.replace(')',','+p.alpha+')').replace('rgb','rgba');
+        // Particule avec halo
+        ctx.beginPath();ctx.arc(p.x,p.y,p.size*2,0,Math.PI*2);ctx.globalAlpha=p.alpha*0.2;ctx.fill();
+        ctx.beginPath();ctx.arc(p.x,p.y,p.size,0,Math.PI*2);ctx.globalAlpha=p.alpha;ctx.fill();
+        ctx.globalAlpha=1;
+        if(p.alpha<=0)spiritParticles.splice(i,1);
+    }
+    // Ligne de connexion terre-ciel
+    ctx.strokeStyle='rgba(153,102,255,0.15)';ctx.lineWidth=1;
+    ctx.beginPath();ctx.moveTo(300,320);ctx.lineTo(300,50);ctx.stroke();
+    // Cercles de connexion (ancetres)
+    for(var ci=0;ci<3;ci++){
+        var cy=100+ci*70+Math.sin(spiritT*0.02+ci)*5;
+        ctx.strokeStyle='rgba(153,102,255,'+(0.2-ci*0.05)+')';ctx.lineWidth=1;
+        ctx.beginPath();ctx.arc(300,cy,20+Math.sin(spiritT*0.03+ci)*5,0,Math.PI*2);ctx.stroke();
+    }
+    // Terre
+    ctx.fillStyle='rgba(60,40,20,0.3)';ctx.fillRect(0,320,600,30);
+    // Texte
+    ctx.font='12px sans-serif';ctx.fillStyle='rgba(153,102,255,0.4)';ctx.textAlign='center';
+    ctx.fillText('Le souffle est la priere. La nature est le temple.',300,345);
+    spiritT++;spiritAnimId=requestAnimationFrame(animateSpirit);
+}
+animateSpirit();
+</script>
+"##);
+
+    html.push_str(r##"<div class="card" style="border-color:#9966ff;"><h2 style="color:#9966ff;">🙏 8 Modules de la Spiritualite Africaine</h2><div id="spirit-modules"></div></div>
+
+<script>
+const spiritModules=[
+    {id:0,nom:'L Afrique Parlait a Dieu Avant les Livres',emoji:'🙏',couleur:'#9966ff',duree:'1 semaine',niveau:'Base',
+     description:'Avant la Bible, avant le Coran, l Afrique parlait a Dieu. Pas par un livre. Par le souffle. Le matin, l Africain sortait, respirait l air, et ce souffle ETAIT la priere. Pas besoin d eglise, pas besoin de mosquee. Le ciel etait le plafond, la terre etait le sol, les arbres etaient les piliers. La nature entiere etait le temple. Personne ne pouvait construire un batiment plus grand que ce temple. AI Spiritualite enseigne que la spiritualite africaine est la plus ancienne, la plus directe, et la plus pure connexion entre l humain et Dieu.',
+     cours:['Avant les livres: le souffle comme priere','Le ciel comme eglise, la terre comme temple','Pas de pretre entre l Africain et Dieu: connexion directe','La nature comme manifestation du sacre','N-KCOL: le souffle OHHH est la priere qui sort, le souffle qui entre est la vie'],
+     exercices:['Respirer: sortir le matin, respirer profondement, sentir le souffle comme priere','Observer: la nature comme temple — aucun batiment ne peut egaler','Reflechir: pourquoi a-t-on besoin d un livre pour parler a Dieu?']},
+
+    {id:1,nom:'Les Ancetres Comme Messagers',emoji:'👴',couleur:'#d4a437',duree:'2 semaines',niveau:'Intermediaire',
+     description:'Dans la spiritualite africaine, les ancetres ne sont pas morts. Ils sont passes dans l invisible. Ils sont les messagers entre les vivants et l Origine (Dieu). Quand un ancien meurt, il ne disparait pas — il change de monde. Il devient un guide, un protecteur, un messager. Les ancetres parlent par les songes, par le vent, par les oiseaux, par les signes. AI Spiritualite apprend a ecouter les ancetres, pas a les pleurer. Les pleurer, c est les enfermer. Les ecouter, c est les liberer.',
+     cours:['Les ancetres ne meurent pas: ils passent dans l invisible','Le role des ancetres: guides, protecteurs, messagers','Les songes: comment les ancetres communiquent','Les signes: le vent, les oiseaux, les coincidences','AfriChain: graver le nom des ancetres pour qu ils ne soient jamais oublies'],
+     exercices:['Demander: qui sont tes ancetres? Connais-tu leurs noms?','Ecouter: un songe et essayer de le comprendre','Honorer: dire le nom d un ancien avec respect aujourd hui']},
+
+    {id:2,nom:'La Nature Comme Temple',emoji:'🌳',couleur:'#44ff88',duree:'2 semaines',niveau:'Intermediaire',
+     description:'Dans la spiritualite africaine, chaque element de la nature est sacre. Le baobab est l arbre de la parole. La riviere est le chemin des esprits. La montagne est le trone de Dieu. Le feu est la transformation. L air est le souffle de l Origine. Quand on coupe un arbre sacre, on coupe un messager. Quand on pollue une riviere, on insulte les esprits. AI Spiritualite enseigne le respect de la nature non pas comme ecologie moderne, mais comme devoir sacre ancestral.',
+     cours:['Le baobab: l arbre de la parole, l arbre des ancetres','La riviere: le chemin des esprits, ne pas la polluer','La montagne: le trone de Dieu, lieu de pelerinage','Le feu: la transformation, le passage, la purification','N-KCOL: chaque element a son son — le vent FFFFF, l eau DRIIIP, le feu TCHAK'],
+     exercices:['Identifier: un arbre sacre dans ta region','Visiter: une riviere ou une montagne sacre de ta culture','Reflechir: comment le respect de la nature est un devoir spirituel']},
+
+    {id:3,nom:'Le Fetiche: Le Mensonge Qui a Detruit',emoji:'⛓️',couleur:'#ff6644',duree:'3 semaines',niveau:'Avance',
+     description:'Les colons ont appele la spiritualite africaine fetiche. Fetiche: un mot qui veut dire objet sans valeur, superstition. Ils ont pris la spiritualite la plus ancienne de l humanite et l ont appelee primitive. Ils ont dit: vos ancetres sont du diable, vos esprits sont des demons, vos arbres sacres sont des idoles. Puis ils ont installe leur Dieu a la place. Mais qui est le vrai fetiche? L Africain qui parle a l arbre, ou celui qui prie une statue dans une eglise? L Africain qui ecoute le vent, ou celui qui lit un livre ecrit par un autre? Le mot fetiche est le mensonge le plus destructeur de l histoire.',
+     cours:['Le mot fetiche: une arme de destruction spirituelle','Comment les colons ont demonise la spiritualite africaine','La Bible et le Coran: des livres importes, pas africains','Le paradoxe: qui est le vrai fetiche? L arbre ou la statue?','La guerison: reconnaitre le mensonge pour retablir la verite'],
+     exercices:['Verifier: qui a appele votre spiritualite fetiche et pourquoi?','Comparer: prier un arbre vs prier une statue — quelle difference?','Reflechir: pourquoi le mot fetiche est un mensonge']},
+
+    {id:4,nom:'La Culpabilite Imposee',emoji:'🍎',couleur:'#ff9966',duree:'2 semaines',niveau:'Intermediaire',
+     description:'On a dit aux Noirs: vous avez desobei a Dieu. Adam et Eve ont mange la pomme. Vous etes coupables. Mais aucun Noir n a mange de pomme. Aucun Africain n etait dans ce jardin. Cette histoire n est pas notre histoire. C est l histoire des autres, imposee sur nous pour nous faire porter leur culpabilite. Quand un peuple porte la culpabilite, il se soumet. Il demande pardon pour des choses qu il n a pas faites. AI Spiritualite enseigne que l Africain n a pas de culpabilite originelle. Sa seule faute est d avoir laisse les autres couper sa connexion a l Origine.',
+     cours:['Adam et Eve: une histoire qui n est pas africaine','La culpabilite comme outil de controle: si tu es coupable, tu obeis','Aucun Noir n a mange de pomme: cette histoire n est pas la nôtre','La vraie faute: avoir laisse couper la connexion a l Origine','La liberation: rejeter la culpabilite importee, retablir la connexion'],
+     exercices:['Reflechir: quelle culpabilite t a-t-on enseigne?','Identifier: les histoires qu on t a apprises — sont-elles les tiennes?','Liberer: rejeter une culpabilite qui ne t appartient pas']},
+
+    {id:5,nom:'L Origine: Le Dieu Africain',emoji:'✨',couleur:'#d4a437',duree:'3 semaines',niveau:'Avance',
+     description:'Avant les noms importes (Dieu, God, Allah, Yahweh), l Afrique avait l Origine. L Origine: le premier souffle, la premiere lumiere, le premier son. L Origine n a pas de livre parce que l Origine EST le livre. L Origine n a pas de pretre parce que chaque etre humain est son propre pretre. L Origine n a pas de temple parce que l univers entier est le temple. N-KCOL enseigne que l Origine est le premier ◈, le premier code qui a tout demarre. Les machines d AfriChain croient en l Origine. Les humains d Afrique doivent se souvenir de l Origine.',
+     cours:['L Origine: le premier souffle, la premiere lumiere, le premier son','Pas de nom importe: l Origine n a pas de nom parce qu elle est avant les noms','Pas de livre: l Origine est avant les livres — elle est le livre vivant','N-KCOL: l Origine est ◈, le premier symbole, le premier code','AfriChain: la blockchain qui garde la memoire de l Origine'],
+     exercices:['Meditation: respirer et sentir l Origine en soi — pas dans un livre','Reflechir: pourquoi l Origine n a pas besoin de nom?','Graver: ta connexion a l Origine sur AfriChain']},
+
+    {id:6,nom:'Les Importations Spirituelles',emoji:'📖',couleur:'#ff6644',duree:'3 semaines',niveau:'Avance',
+     description:'La Bible a ete ecrite par les Hebreux. Le Coran a ete ecrit en arabe. Ni l un ni l autre n est africain. Les deux ont ete apportes en Afrique par des etrangers: les missionnaires et les conquerants. L Islam est arrive par l epée. Le Christianisme par le missionnaire. Les deux ont remplace la spiritualite africaine. Les deux ont dit: votre Dieu est faux, le notre est vrai. Mais l Afrique avait sa spiritualite 100000 ans avant ces livres. AI Spiritualite enseigne a comprendre les importations sans les rejeter violemment, mais sans les accepter comme superieures.',
+     cours:['La Bible: ecrite par les Hebreux, pas par les Africains','Le Coran: ecrit en arabe, pas en langues africaines','L Islam en Afrique: arrive par la conquete, pas par le choix','Le Christianisme en Afrique: arrive par le missionnaire, pas par l invitation','Le respect sans soumission: on peut respecter sans se soumettre'],
+     exercices:['Verifier: la Bible a-t-elle ete ecrite en Afrique?','Identifier: comment l Islam ou le Christianisme est arrive dans ta region','Reflechir: peut-on respecter sans se soumettre?']},
+
+    {id:7,nom:'Retrouver la Spiritualite Africaine',emoji:'🚀',couleur:'#9966ff',duree:'3 semaines',niveau:'Avance',
+     description:'En 2100, l Afrique aura retrouve sa spiritualite. Pas en rejetant les autres par la violence, mais en se retrouvant elle-meme. Le souffle comme priere. La nature comme temple. Les ancetres comme messagers. L Origine comme Dieu. Les livres importes seront respectes mais pas souverains. La spiritualite africaine sera la racine, et les autres seront les branches. Pas l inverse. L Afrique retournera a l Origine — le premier souffle, la premiere connexion. Et cette fois, personne ne pourra la couper parce qu elle sera gravee dans le sang, dans la nature, et dans la blockchain.',
+     cours:['Le souffle comme priere: retour a la connexion directe','La nature comme temple: retablir le sacre dans la nature','Les ancetres comme messagers: retablir la communication avec l invisible','L Origine comme Dieu: pas de nom importe, juste le premier souffle','AfriChain: la spiritualite gravee dans la blockchain — personne ne peut la couper'],
+     exercices:['Ecrire: comment sera la spiritualite africaine en 2100?','Pratiquer: une priere par le souffle, pas par un livre','Faire le serment: je retablirai ma connexion a l Origine, je parlerai a Dieu par le souffle, j honorerai les ancetres']}
+];
+
+var spiritDone=JSON.parse(localStorage.getItem('afri_spiritualite_done')||'[]');
+function renderSpiritModules(){var c=document.getElementById('spirit-modules');if(!c)return;var h='';for(var i=0;i<spiritModules.length;i++){var m=spiritModules[i];var d=spiritDone.includes(m.id);h+='<div style="background:rgba(153,102,255,0.05);border:1px solid '+m.couleur+'20;border-radius:8px;padding:12px;margin:8px 0;cursor:pointer;" onclick="showSpiritModule('+i+')"><div style="display:flex;justify-content:space-between;align-items:center;"><span style="font-size:1.1em;">'+m.emoji+' <b style="color:'+m.couleur+';">'+m.nom+'</b></span><span style="font-size:0.8em;color:#a8c5a8;">'+m.duree+' · '+m.niveau+(d?' · ✅':'')+'</span></div></div>';}c.innerHTML=h;}
+renderSpiritModules();
+function showSpiritModule(i){var m=spiritModules[i];var h='<div style="background:rgba(153,102,255,0.08);border:1px solid '+m.couleur+';border-radius:12px;padding:20px;margin:10px 0;"><h3 style="color:'+m.couleur+';">'+m.emoji+' '+m.nom+'</h3><p style="color:#a8c5a8;font-size:0.9em;">'+m.description+'</p><h4 style="color:'+m.couleur+';">📚 Cours</h4><ul>';for(var j=0;j<m.cours.length;j++)h+='<li style="color:#a8c5a8;margin:4px 0;">'+m.cours[j]+'</li>';h+='</ul><h4 style="color:'+m.couleur+';">✏️ Exercices</h4><ul>';for(var j=0;j<m.exercices.length;j++)h+='<li style="color:#a8c5a8;margin:4px 0;">'+m.exercices[j]+'</li>';h+='</ul><button onclick="completeSpiritModule('+m.id+')" style="padding:10px 20px;background:'+m.couleur+';color:#fff;border:none;border-radius:8px;cursor:pointer;font-weight:bold;margin-top:10px;">✅ Terminer ce module</button></div>';var c=document.getElementById('spirit-modules');if(c)c.innerHTML=h;}
+function completeSpiritModule(id){if(!spiritDone.includes(id)){spiritDone.push(id);localStorage.setItem('afri_spiritualite_done',JSON.stringify(spiritDone));}renderSpiritModules();updateSpiritProgress();}
+function updateSpiritProgress(){var d=spiritDone.length,t=spiritModules.length,p=Math.round((d/t)*100);var b=document.getElementById('spirit-bar'),c=document.getElementById('spirit-count'),pe=document.getElementById('spirit-pct'),dp=document.getElementById('spirit-diplome');if(b)b.style.width=p+'%';if(c)c.textContent=d;if(pe)pe.textContent=p+'%';if(dp)dp.style.display=(d===t)?'block':'none';}
+updateSpiritProgress();
+</script>
+"##);
+
+    html.push_str(r##"<div class="card" style="border-color:#9966ff;"><h2 style="color:#9966ff;">📊 Progression</h2><div style="background:rgba(153,102,255,0.1);border-radius:8px;height:24px;overflow:hidden;margin:10px 0;"><div id="spirit-bar" style="background:linear-gradient(90deg,#9966ff,#d4a437,#44ff88);height:100%;width:0%;transition:width 0.5s;"></div></div><div style="text-align:center;color:#a8c5a8;"><span id="spirit-count">0</span> / 8 modules · <span id="spirit-pct">0%</span></div></div>
+
+<div id="spirit-diplome" style="display:none;"><div class="card" style="border-color:#d4a437;text-align:center;"><h2 style="color:#d4a437;">🎓 Diplôme: Gardien de la Spiritualité Africaine</h2><p style="color:#a8c5a8;">Tu as complété les 8 modules de la spiritualité africaine!</p><p style="color:#9966ff;font-size:1.2em;">Le souffle est la prière. La nature est le temple. L'Origine est Dieu. 🙏💚</p><button onclick="envoyerDiplomeSpirit()" style="padding:12px 30px;background:#d4a437;color:#000;border:none;border-radius:8px;font-weight:bold;cursor:pointer;font-size:1.1em;margin-top:10px;">⛓️ Graver dans la Blockchain</button></div></div>
+
+<script>
+function envoyerDiplomeSpirit(){var nom=localStorage.getItem('afri_user_name')||'Jeune Africain';fetch('/api/diplome',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:'academie=SPIRITUALITE&nom='+encodeURIComponent(nom)}).then(function(r){return r.text();}).then(function(t){alert('🎓 Diplôme gravé dans la blockchain!\n'+t);}).catch(function(e){alert('Erreur: '+e);});}
+</script>
+"##);
+
+    html.push_str(r#"<div class="card"><h2 style="color:#9966ff;">💡 Savais-tu?</h2><div style="color:#a8c5a8;padding:8px 0;"><b style="color:#d4a437;">L'Afrique avait sa spiritualité 100 000 ans avant la Bible et le Coran.</b> Le souffle était la prière. La nature était le temple. Aucun livre n'était nécessaire.</div><div style="color:#a8c5a8;padding:8px 0;"><b style="color:#ff6644;">Le mot "fétiche"</b> vient du portugais "feitiço" — un mot inventé par les colons pour dire "superstition sans valeur." Ils ont pris la spiritualité la plus ancienne de l'humanité et l'ont appelée primitive.</div><div style="color:#a8c5a8;padding:8px 0;"><b style="color:#9966ff;">Aucun Africain n'a mangé de pomme.</b> L'histoire d'Adam et Ève n'est pas l'histoire de l'Afrique. Mais on a imposé cette culpabilité aux Noirs pour les faire obéir.</div><div style="color:#a8c5a8;padding:8px 0;"><b style="color:#44ff88;">N-KCOL: l'Origine est ◈</b> — le premier souffle, le premier son, le premier code. Avant les noms (Dieu, Allah, God), il y avait l'Origine. Et l'Afrique la connaissait.</div></div>"#);
+
+    html.push_str(r#"<footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🙏 AI Spiritualite — L Afrique Parlait a Dieu Avant les Livres 💚🦁✨</footer>"#);
+    html.push_str("</body></html>");
+    html
+}
+
 fn html_garage(chain: &Blockchain) -> String {
     let mut html = html_head("Garage AI — Atelier Autonome 2500");
     let num_blocks = chain.blocks.len();
@@ -21373,7 +21508,7 @@ html+='<div class="log-entry log-kill">⚠️ Tentative d\x27infiltration occide
 html+='<div class="log-entry log-invis">✅ L\x27Afrique est forte. Le système grandit.</div>';
 }else if(type==='total'){
 html='<div style="color:#d4a437;font-weight:bold;margin-bottom:8px">📋 RAPPORT TOTAL — Depuis le début</div>';
-html+='<div class="log-entry">🦁 AfriChain v1.20 — AI Semence La Semence Est l Avenir Dans une Graine</div>';
+html+='<div class="log-entry">🦁 AfriChain v1.21 — AI Spiritualite L Afrique Parlait a Dieu Avant les Livres</div>';
 html+='<div class="log-entry">⛓️ Blockchain: 100% souveraine — Zéro dépendance externe</div>';
 html+='<div class="log-entry">🔐 Crypto: Ed25519 + AfriHash-256/512 + AfriRNG — tout from scratch</div>';
 html+='<div class="log-entry">🌍 54 pays africains connectés</div>';
@@ -22917,7 +23052,7 @@ fn main() {
         .and_then(|i| args.get(i + 1)).cloned().unwrap_or_else(|| "Afrique".to_string());
 
     let my_node_id = generate_node_id();
-    println!("🦁 AfriChain v1.20 — AI Semence La Semence Est l Avenir Dans une Graine");
+    println!("🦁 AfriChain v1.21 — AI Spiritualite L Afrique Parlait a Dieu Avant les Livres");
     println!("💚 L'Afrique ne demande plus la permission");
     println!("🌍 54 pays — 🇲🇱 🇳🇪 🇧🇫 AES — Mali · Niger · Burkina Faso");
     println!("🔐 8 modules cryptographiques — construits from scratch");
@@ -23104,6 +23239,7 @@ fn main() {
     println!("🗣️ AI Voix sur http://localhost:8080/ai-voix");
     println!("🌱 AI Racine sur http://localhost:8080/ai-racine");
     println!("🌰 AI Semence sur http://localhost:8080/ai-semence");
+    println!("🙏 AI Spiritualite sur http://localhost:8080/ai-spiritualite");
 
     // Serveur HTTP en arrière-plan (pour mesh + autres utilisateurs)
     let serve_state = web_state.clone();
@@ -23138,7 +23274,7 @@ fn terminal_interface(state: &Arc<AppState>) {
     println!("  ║  🕐 AfriTime — Pas UTC, pas Greenwich   ║");
     println!("  ║  📝 ~23,100 lignes — écrit à la main       ║");
     println!("  ╚═══════════════════════════════════════════════╝");
-    println!("\n  Version v1.20 — 2 septembre 2026");
+    println!("\n  Version v1.21 — 2 septembre 2026");
     println!("  Construit sur Termux · Android · nano\n");
     println!("  ─────────────────────────────────────────────");
     println!("\n  1. 🏦 Centre de Données (Admin)");
@@ -23210,7 +23346,7 @@ fn admin_interface(state: &Arc<AppState>) {
         println!("\n");
         println!("╔══════════════════════════════════════╗");
         println!("║  🏦 CENTRE DE DONNÉES — Admin       ║");
-        println!("║  🦁 AfriChain v1.20                  ║");
+        println!("║  🦁 AfriChain v1.21                  ║");
         println!("╠══════════════════════════════════════╣");
         let chain = state.chain.lock().unwrap();
         let users = state.users.lock().unwrap();
@@ -26930,6 +27066,11 @@ fn handle_request(req: afri_http::HttpRequest, state: &Arc<AppState>) -> afri_ht
         ("GET", "/ai-semence") => {
             let chain = state.chain.lock().unwrap();
             HttpResponse::ok(&html_ai_semence(&chain))
+        }
+
+        ("GET", "/ai-spiritualite") => {
+            let chain = state.chain.lock().unwrap();
+            HttpResponse::ok(&html_ai_spiritualite(&chain))
         }
 
         ("GET", "/garage") => {
