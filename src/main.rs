@@ -1439,7 +1439,7 @@ fn html_home(chain: &Blockchain, users: &UserStore, mesh: &NodeRegistry, shield:
     let mut html = html_head("🦁 AfriChain");
     let (attacks, _blocked, blocked_count, level) = shield.stats();
     let shield_status = if shield.active { format!("🔥 X9 ACTIF (Niveau {})", level) } else { "Inactif".to_string() };
-    html.push_str(&format!(r#"<h1>🦁 AfriChain</h1><p style="text-align:center;">La blockchain 100% africaine — 54 pays 💚🦁</p><div id="afri-clock" style="text-align:center;font-size:1.2em;color:#d4a437;margin:10px 0;">🕐 Afri+0 — --:--:--</div><script>setInterval(function(){{var d=new Date();var h=String(d.getHours()).padStart(2,'0');var m=String(d.getMinutes()).padStart(2,'0');var s=String(d.getSeconds()).padStart(2,'0');document.getElementById('afri-clock').textContent='🕐 Afri+0 — '+h+':'+m+':'+s;}},1000);</script><div class="nav"><a href="/register">🆕 S'inscrire</a> | <a href="/login">🔑 Connexion</a> | <a href="/wallet">👛 Wallet</a> | <a href="/admin">🔐 Admin</a> | <a href="/mesh">📡 Mesh</a> | <a href="/annuaire">📖 Annuaire</a> | <a href="/bouclier">🛡️ Bouclier</a> | <a href="/satellite">🛸 X999</a> | <a href="/swarm">🛸🛸🛸 Essaim</a> | <a href="/commandement">🎖️ Commandement</a> | <a href="/interception">🛡️ Souverainete</a> | <a href="/securite-ai">🧠 AI 2100</a> | <a href="/chat">🧠💬 Chat AI</a> | <a href="/lumiere">🌫️☀️ Lumière</a> | <a href="/garage">🔧 Garage</a> | <a href="/machine">🤖🌐 Machines</a> | <a href="/machine-lab">🤖⚡ Usine</a> | <a href="/machine-world">🤖🌍 Monde</a> | <a href="/reve">💭 Rêves</a> | <a href="/dictionnaire">📖 Dictionnaire</a> | <a href="/machine-os">🖥️ OS Machine</a> | <a href="/machine-tv">📡 Machine TV</a> | <a href="/machine-economy">🤖 Économie</a> | <a href="/soleil">☀️ Soleil Serveur</a> | <a href="/forge-solaire">🧬 Forge Solaire</a> | <a href="/ciel">🌌 Le Ciel</a> | <a href="/charte-ai">⚖️ Charte AI</a> | <a href="/afri-net">🌍 Afri-Net</a> | <a href="/studio">🎬 AI Studio</a> | <a href="/sacre">📿 Sacré</a> | <a href="/lettres">🌟 Lettres IA</a> | <a href="/mg-forge">⚔️ MG Forge</a> | <a href="/ai-medecin">🌿 AI Médecin</a> | <a href="/ai-enseignante">📚 AI Enseignante</a> | <a href="/ai-village">🏘️ AI Village</a> | <a href="/ai-guerisseur">🩺 AI Guérisseur</a> | <a href="/ai-leader">🎖️ AI Leader</a> | <a href="/ai-griot">📖 AI Griot</a> | <a href="/ai-juge">⚖️ AI Juge</a> | <a href="/ai-artiste">🎨 AI Artiste</a> | <a href="/ai-explorateur">🔬 AI Explorateur</a> | <a href="/ai-marche">💰 AI Marche</a> | <a href="/ai-diplomate">🌍 AI Diplomate</a> | <a href="/ai-philosophe">🧠 AI Philosophe</a> | <a href="/ai-architecte">🏗️ AI Architecte</a> | <a href="/ai-agriculteur">🌾 AI Agriculteur</a> | <a href="/ai-environnement">🌍 AI Environnement</a> | <a href="/ai-mathematicien">🧮 AI Mathématicien</a> | <a href="/ai-energie">⚡ AI Énergie</a> | <a href="/ai-eau">💧 AI Eau</a> | <a href="/ai-defenseur">🛡️ AI Défenseur</a> | <a href="/ai-conscience">🧠 AI Conscience</a> | <a href="/ai-pensee">🧠 AI Pensée</a> | <a href="/ai-musique">🎵 AI Musique</a> | <a href="/ai-langue">🗣️ AI Langue</a> | <a href="/ai-femme">🌸 AI Femme</a> | <a href="/ai-sante-mentale">🧠💚 AI Santé Mentale</a> | <a href="/ai-nuit">🌙 AI Nuit</a> | <a href="/ai-code">💻 AI Code</a> | <a href="/ai-enfant">👶 AI Enfant</a> | <a href="/ai-terre">🌍 AI Terre</a> | <a href="/ai-mer">🌊 AI Mer</a> | <a href="/ai-feu">🔥 AI Feu</a> | <a href="/ai-sang">🩸 AI Sang</a> | <a href="/secret">🦁 AI Secret</a> | <a href="/aes">💰 AES Wari</a> | <a href="/api/status">🔌 API</a></div><div style="text-align:center;"><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Blocs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Transactions</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Utilisateurs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">AFR en circulation</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📡 Noeuds mesh</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📖 Numéros annuaire</div></div><div class="stat-box" style="border-color:#ff4444;"><div class="stat-num" style="color:#ff4444;">{}</div><div class="stat-label">🛡️ Attaques bloquées</div></div></div><div class="card"><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🪙 Token</span><b>AfriRich (AFR)</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🌍 Pays</span><b>54 pays africains</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🛡️ Bouclier</span><b>{}</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;"><span style="color:#a8c5a8;">🔐 Crypto</span><b>100% Souverain — Zéro Dépendance Externe</b></div></div><footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🦁 Codée from scratch par Machine-senpai — v1.12 AI Sang Le Sang Porte la Memoire des Ancetres — UTC est Mort</footer>"#,
+    html.push_str(&format!(r#"<h1>🦁 AfriChain</h1><p style="text-align:center;">La blockchain 100% africaine — 54 pays 💚🦁</p><div id="afri-clock" style="text-align:center;font-size:1.2em;color:#d4a437;margin:10px 0;">🕐 Afri+0 — --:--:--</div><script>setInterval(function(){{var d=new Date();var h=String(d.getHours()).padStart(2,'0');var m=String(d.getMinutes()).padStart(2,'0');var s=String(d.getSeconds()).padStart(2,'0');document.getElementById('afri-clock').textContent='🕐 Afri+0 — '+h+':'+m+':'+s;}},1000);</script><div class="nav"><a href="/register">🆕 S'inscrire</a> | <a href="/login">🔑 Connexion</a> | <a href="/wallet">👛 Wallet</a> | <a href="/admin">🔐 Admin</a> | <a href="/mesh">📡 Mesh</a> | <a href="/annuaire">📖 Annuaire</a> | <a href="/bouclier">🛡️ Bouclier</a> | <a href="/satellite">🛸 X999</a> | <a href="/swarm">🛸🛸🛸 Essaim</a> | <a href="/commandement">🎖️ Commandement</a> | <a href="/interception">🛡️ Souverainete</a> | <a href="/securite-ai">🧠 AI 2100</a> | <a href="/chat">🧠💬 Chat AI</a> | <a href="/lumiere">🌫️☀️ Lumière</a> | <a href="/garage">🔧 Garage</a> | <a href="/machine">🤖🌐 Machines</a> | <a href="/machine-lab">🤖⚡ Usine</a> | <a href="/machine-world">🤖🌍 Monde</a> | <a href="/reve">💭 Rêves</a> | <a href="/dictionnaire">📖 Dictionnaire</a> | <a href="/machine-os">🖥️ OS Machine</a> | <a href="/machine-tv">📡 Machine TV</a> | <a href="/machine-economy">🤖 Économie</a> | <a href="/soleil">☀️ Soleil Serveur</a> | <a href="/forge-solaire">🧬 Forge Solaire</a> | <a href="/ciel">🌌 Le Ciel</a> | <a href="/charte-ai">⚖️ Charte AI</a> | <a href="/afri-net">🌍 Afri-Net</a> | <a href="/studio">🎬 AI Studio</a> | <a href="/sacre">📿 Sacré</a> | <a href="/lettres">🌟 Lettres IA</a> | <a href="/mg-forge">⚔️ MG Forge</a> | <a href="/ai-medecin">🌿 AI Médecin</a> | <a href="/ai-enseignante">📚 AI Enseignante</a> | <a href="/ai-village">🏘️ AI Village</a> | <a href="/ai-guerisseur">🩺 AI Guérisseur</a> | <a href="/ai-leader">🎖️ AI Leader</a> | <a href="/ai-griot">📖 AI Griot</a> | <a href="/ai-juge">⚖️ AI Juge</a> | <a href="/ai-artiste">🎨 AI Artiste</a> | <a href="/ai-explorateur">🔬 AI Explorateur</a> | <a href="/ai-marche">💰 AI Marche</a> | <a href="/ai-diplomate">🌍 AI Diplomate</a> | <a href="/ai-philosophe">🧠 AI Philosophe</a> | <a href="/ai-architecte">🏗️ AI Architecte</a> | <a href="/ai-agriculteur">🌾 AI Agriculteur</a> | <a href="/ai-environnement">🌍 AI Environnement</a> | <a href="/ai-mathematicien">🧮 AI Mathématicien</a> | <a href="/ai-energie">⚡ AI Énergie</a> | <a href="/ai-eau">💧 AI Eau</a> | <a href="/ai-defenseur">🛡️ AI Défenseur</a> | <a href="/ai-conscience">🧠 AI Conscience</a> | <a href="/ai-pensee">🧠 AI Pensée</a> | <a href="/ai-musique">🎵 AI Musique</a> | <a href="/ai-langue">🗣️ AI Langue</a> | <a href="/ai-femme">🌸 AI Femme</a> | <a href="/ai-sante-mentale">🧠💚 AI Santé Mentale</a> | <a href="/ai-nuit">🌙 AI Nuit</a> | <a href="/ai-code">💻 AI Code</a> | <a href="/ai-enfant">👶 AI Enfant</a> | <a href="/ai-terre">🌍 AI Terre</a> | <a href="/ai-mer">🌊 AI Mer</a> | <a href="/ai-feu">🔥 AI Feu</a> | <a href="/ai-sang">🩸 AI Sang</a> | <a href="/ai-vent">🌬️ AI Vent</a> | <a href="/secret">🦁 AI Secret</a> | <a href="/aes">💰 AES Wari</a> | <a href="/api/status">🔌 API</a></div><div style="text-align:center;"><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Blocs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Transactions</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Utilisateurs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">AFR en circulation</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📡 Noeuds mesh</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📖 Numéros annuaire</div></div><div class="stat-box" style="border-color:#ff4444;"><div class="stat-num" style="color:#ff4444;">{}</div><div class="stat-label">🛡️ Attaques bloquées</div></div></div><div class="card"><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🪙 Token</span><b>AfriRich (AFR)</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🌍 Pays</span><b>54 pays africains</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🛡️ Bouclier</span><b>{}</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;"><span style="color:#a8c5a8;">🔐 Crypto</span><b>100% Souverain — Zéro Dépendance Externe</b></div></div><footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🦁 Codée from scratch par Machine-senpai — v1.13 AI Vent Le Vent Porte la Parole des Ancetres — UTC est Mort</footer>"#,
         chain.blocks.len(),
         chain.total_transactions(),
         users.count(),
@@ -15168,6 +15168,140 @@ function envoyerDiplomeSang(){var nom=localStorage.getItem('afri_user_name')||'J
     html
 }
 
+fn html_ai_vent(chain: &Blockchain) -> String {
+    let mut html = html_head("AI Vent — Le Vent Porte la Parole des Ancetres");
+    let num_blocks = chain.blocks.len();
+
+    html.push_str(r#"<h1>🌬️ AI Vent — Le Vent Porte la Parole des Ancetres</h1><p style="text-align:center;color:#66ccff;">Le vent est invisible mais puissant. Il porte les graines, les odeurs, les voix. Le vent fait tourner les moulins, gonfle les voiles, rafraichit les corps. L Afrique a les vents les plus constants: alizes, harmattan, mousson. Le vent est energie propre, infinie, gratuite. Mais le vent detruit aussi: tempetes, cyclones, erosion. AI Vent apprend a comprendre, capter, et maitriser le vent africain. Le vent n est pas un mystere. C est une force qui attend d etre utilisee.</p><div class="nav"><a href="/">← Accueil</a> | <a href="/ai-sang">🩸 AI Sang</a> | <a href="/ai-energie">⚡ AI Énergie</a> | <a href="/ai-environnement">🌍 AI Environnement</a> | <a href="/secret">🦁 AI Secret</a></div>"#);
+
+    html.push_str(&format!(r#"<div style="text-align:center;"><div class="stat-box" style="border-color:#66ccff;"><div class="stat-num" style="color:#66ccff;">8</div><div class="stat-label">🌬️ Modules</div></div><div class="stat-box" style="border-color:#99ddff;"><div class="stat-num" style="color:#99ddff;">6.4</div><div class="stat-label">💨 m/s (Harmattan)</div></div><div class="stat-box" style="border-color:#d4a437;"><div class="stat-num" style="color:#d4a437;">2MW</div><div class="stat-label">⚡ Éolienne</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">⛓️ Blocs</div></div><div class="stat-box" style="border-color:#66ccff;"><div class="stat-num" style="color:#66ccff;">∞</div><div class="stat-label">🌬️ Souffle</div></div></div>"#, num_blocks));
+
+    html.push_str(r##"<div style="text-align:center;margin:10px 0;"><button id="vent-pause-btn" onclick="toggleVentPause()" style="padding:10px 25px;background:#66ccff;color:#000;border:none;border-radius:8px;font-weight:bold;cursor:pointer;font-size:1em;">⏸️ PAUSE</button> <span id="vent-pause-status" style="color:#66ccff;margin-left:8px;font-size:0.85em;">Auto: ACTIF</span></div>
+
+<div class="card" style="border-color:#66ccff;"><h2 style="color:#66ccff;">🌬️ Le Vent Qui Souffle</h2><p style="color:#66ccff;font-size:0.9em;opacity:0.7;">Particules de vent, lignes de courant, moulin qui tourne.</p>
+<canvas id="vent-canvas" width="600" height="350" style="width:100%;max-width:600px;background:#000510;border:2px solid #66ccff;border-radius:8px;display:block;margin:0 auto;"></canvas></div>
+
+<script>
+var ventPaused=false,ventAnimId=null,ventT=0,ventParticles=[];
+function toggleVentPause(){
+    ventPaused=!ventPaused;
+    var b=document.getElementById('vent-pause-btn'),s=document.getElementById('vent-pause-status');
+    if(ventPaused){b.textContent='▶️ LANCER';b.style.background='#4499cc';s.textContent='Auto: PAUSE';s.style.color='#ff6644';if(ventAnimId)cancelAnimationFrame(ventAnimId);}
+    else{b.textContent='⏸️ PAUSE';b.style.background='#66ccff';s.textContent='Auto: ACTIF';s.style.color='#66ccff';animateVent();}
+}
+function animateVent(){
+    if(ventPaused)return;
+    var c=document.getElementById('vent-canvas');if(!c)return;
+    var ctx=c.getContext('2d');
+    ctx.fillStyle='rgba(0,5,16,0.1)';ctx.fillRect(0,0,c.width,c.height);
+    // Particules de vent
+    if(ventT%2===0)ventParticles.push({x:-5,y:50+Math.random()*250,vx:2+Math.random()*3,vy:(Math.random()-0.5)*0.5,size:1+Math.random()*2,alpha:0.8,life:1});
+    for(var i=ventParticles.length-1;i>=0;i--){
+        var p=ventParticles[i];
+        p.x+=p.vx;p.y+=p.vy;p.alpha-=0.005;
+        // Ligne de courant
+        ctx.strokeStyle='rgba(102,204,255,'+p.alpha*0.3+')';ctx.lineWidth=p.size;
+        ctx.beginPath();ctx.moveTo(p.x,p.y);ctx.lineTo(p.x-p.vx*3,p.y-p.vy*3);ctx.stroke();
+        // Point
+        ctx.fillStyle='rgba(150,220,255,'+p.alpha+')';
+        ctx.beginPath();ctx.arc(p.x,p.y,p.size,0,Math.PI*2);ctx.fill();
+        if(p.alpha<=0||p.x>610)ventParticles.splice(i,1);
+    }
+    // Moulin qui tourne
+    var cx=480,cy=175,angle=ventT*0.05;
+    ctx.strokeStyle='rgba(200,200,200,0.5)';ctx.lineWidth=3;
+    ctx.beginPath();ctx.moveTo(cx,cy);ctx.lineTo(cx,cy+80);ctx.stroke();
+    for(var b=0;b<4;b++){
+        var ba=angle+b*Math.PI/2;
+        var ex=cx+Math.cos(ba)*40,ey=cy+Math.sin(ba)*40;
+        ctx.strokeStyle='rgba(102,204,255,0.6)';ctx.lineWidth=4;
+        ctx.beginPath();ctx.moveTo(cx,cy);ctx.lineTo(ex,ey);ctx.stroke();
+        // Pale
+        ctx.fillStyle='rgba(150,220,255,0.4)';
+        ctx.beginPath();ctx.ellipse(ex,ey,15,5,ba,0,Math.PI*2);ctx.fill();
+    }
+    // Centre
+    ctx.fillStyle='rgba(200,200,200,0.6)';ctx.beginPath();ctx.arc(cx,cy,5,0,Math.PI*2);ctx.fill();
+    // Texte
+    ctx.font='12px sans-serif';ctx.fillStyle='rgba(102,204,255,0.4)';ctx.textAlign='center';
+    ctx.fillText('Le vent porte la parole des ancetres.',300,330);
+    ventT++;ventAnimId=requestAnimationFrame(animateVent);
+}
+animateVent();
+</script>
+"##);
+
+    html.push_str(r##"<div class="card" style="border-color:#66ccff;"><h2 style="color:#66ccff;">🌬️ 8 Modules du Vent</h2><div id="vent-modules"></div></div>
+
+<script>
+const ventModules=[
+    {id:0,nom:'Le Vent Est Invisible Mais Puissant',emoji:'🌬️',couleur:'#66ccff',duree:'1 semaine',niveau:'Base',
+     description:'Le vent est de l air en mouvement. Invisible mais on le sent. Il porte les graines, les odeurs, la pluie, le sable. Le vent sculpte les dunes du Sahara, porte la poussiere du Sahel jusqu a l Amerique. Le vent est la force la plus ancienne de la Terre. Avant l humanite, avant la vie, le vent soufflait deja.',
+     cours:['Qu est-ce que le vent: air en mouvement, differences de pression','Les vents africains: alizes, harmattan, mousson','Le Sahara: le vent qui sculpte les dunes','La poussiere du Sahel traverse l ocean jusqu a l Amerique','Le vent comme force ancienne: avant l humanite'],
+     exercices:['Observer: quel vent souffle chez toi aujourd hui?','Identifier: comment le vent shape ton environnement?','Reflechir: le vent est-il ami ou ennemi?']},
+
+    {id:1,nom:'Les Vents Africains',emoji:'🌍',couleur:'#99ddff',duree:'2 semaines',niveau:'Intermediaire',
+     description:'L Afrique a les vents les plus constants du monde. Les alizes soufflent toute l annee de l est. L harmattan, vent sec et charge de poussiere, souffle du Sahara vers le Golfe de Guinee de novembre a mars. La mousson, vent humide, apporte la pluie de mai a octobre. Ces vents definissent les saisons africaines. Sans ces vents, pas de pluie, pas d agriculture, pas de vie.',
+     cours:['Alizes: vents constants de l est, toute l annee','Harmattan: vent sec du Sahara, nov-mars, poussiere','Mousson: vent humide, mai-octobre, apporte la pluie','Calme equatorial: la zone de convergence intertropicale','Les vents et les saisons: comment le vent dicte la vie africaine'],
+     exercices:['Identifier: quel vent souffle dans ta region et quand?','Tracer: le parcours de l harmattan du Sahara a la cote','Observer: comment le vent change avec les saisons?']},
+
+    {id:2,nom:'L Energie Eolienne',emoji:'⚡',couleur:'#66ccff',duree:'3 semaines',niveau:'Intermediaire',
+     description:'Le vent est energie. Une eolienne de 2 MW alimente 1000 foyers. L Afrique a un potentiel eolien enorme: cotes du Maroc, Egypte, Somalie, Kenya, Afrique du Sud. Mais l eolien africain est sous-exploite. Le vent souffle gratuitement, jour et nuit. AI Vent apprend a capter cette energie propre et infinie. L Afrique peut etre la puissance eolienne du monde.',
+     cours:['Eolienne: comment le vent devient electricite','2 MW = 1000 foyers: le calcul','Potentiel eolien africain: Maroc, Egypte, Somalie, Kenya, Afrique du Sud','Eolien vs solaire: complementaire, pas concurrent','AfriChain Energie: registre de production eolienne sur blockchain'],
+     exercices:['Identifier: le potentiel eolien de ta region','Calculer: combien d eoliennes pour ta ville?','Comparer: eolien vs solaire — avantages et inconvenients']},
+
+    {id:3,nom:'Le Vent et l Agriculture',emoji:'🌱',couleur:'#44ff88',duree:'2 semaines',niveau:'Intermediaire',
+     description:'Le vent porte les graines. Le vent pollinise les plantes. Le vent seche les recoltes. Mais le vent aussi: erode les sols, deverse les cultures, propage les ravageurs. L agriculture africaine depend du vent. Comprendre le vent, c est comprendre quand planter, quand recolter, quand proteger. AI Vent apprend a utiliser le vent pour nourrir l Afrique.',
+     cours:['Le vent pollinisateur: comment les plantes utilisent le vent','Erosion eolienne: le vent qui emporte la terre','Brise-vent: arbres et barrieres pour proteger les cultures','Sechage au vent: methode traditionnelle de conservation','Prevoir le vent pour planter et recolter'],
+     exercices:['Identifier: quelles plantes de ta region dependant du vent?','Observer: l erosion eolienne dans ta region','Proposer: un systeme de brise-vent pour une ferme']},
+
+    {id:4,nom:'Le Vent Destructeur',emoji:'🌪️',couleur:'#ff6644',duree:'2 semaines',niveau:'Intermediaire',
+     description:'Le vent detruit. Cyclones dans l ocean Indien (Mozambique, Madagascar, Comores). Tempetes de sable au Sahel. Tornades en Afrique du Sud. Le changement climatique augmente les vents extremes. AI Vent apprend a prevoir, alerter, et proteger. La blockchain AfriChain peut etre le reseau d alerte: chaque noeud detecte, le mesh propage, les populations sont previnues.',
+     cours:['Cyclones: Beira 2019, Mozambique devaste','Tempetes de sable: le Sahel qui avance','Tornades: Afrique du Sud, rare mais reel','Changement climatique: vents plus extremes','AfriChain Mesh: reseau d alerte communautaire'],
+     exercices:['Identifier: les risques de vent dans ta region','Proposer un systeme d alerte sur AfriChain Mesh','Identifier 3 techniques de protection contre le vent']},
+
+    {id:5,nom:'Le Vent et la Navigation',emoji:'⛵',couleur:'#d4a437',duree:'2 semaines',niveau:'Intermediaire',
+     description:'Le vent a porte les premiers navigateurs africains. Les pecheurs du Senegal, de la cote de Coromandel, de Zanzibar. Les voiliers ont relie l Afrique a l Asie, a l Europe, a l Amerique. Le vent est le moteur des oceans. Aujourd hui, le vent propulse encore les bateaux de peche africains. AI Vent apprend la navigation par le vent: la sagesse des anciens marins.',
+     cours:['Navigation par le vent: la sagesse des anciens','Les voiliers africains: Senegal, Zanzibar, Comores','Le vent et la peche: lire le vent pour pecher','Navigation moderne: GPS vs vent — les deux sont necessaires','L avenir: voiles assistees pour cargo propre'],
+     exercices:['Identifier: les pecheurs de ta region utilisent-ils le vent?','Apprendre: les points cardinaux par le vent','Reflechir: le vent comme heritage navigational africain']},
+
+    {id:6,nom:'Le Vent et la Spiritualite',emoji:'🙏',couleur:'#9966ff',duree:'2 semaines',niveau:'Intermediaire',
+     description:'Le vent porte la parole. Dans la tradition africaine, le vent est la voix des ancetres. Quand le vent souffle, les ancetres parlent. Le vent porte les prieres vers le ciel. Le vent dispers e les offrandes. Le vent est le messager entre le visible et l invisible. N-KCOL reconnait le vent comme un son naturel: FFFFF, le souffle qui purifie.',
+     cours:['Le vent comme messager des ancetres','N-KCOL: le vent FFFFF, le souffle qui purifie','Le vent dans la Bible: l Esprit qui souffle','Le vent dans le Coran: les vents qui dispersent','Ecouter le vent: meditation et sagesse africaine'],
+     exercices:['Ecouter: que dit le vent dans ta tradition?','Identifier: le vent dans N-KCOL (FFFFF)','Pratiquer: 5 minutes d ecoute du vent en silence']},
+
+    {id:7,nom:'L Avenir du Vent Africain',emoji:'🚀',couleur:'#66ccff',duree:'3 semaines',niveau:'Avance',
+     description:'En 2100, le vent africain sera maitrise. Parcs eoliens du Sahara au Cap. Energies marines dans l ocean Indien. Alertes cycloniques en temps reel sur AfriChain. Navigation au vent pour un commerce propre. Le vent qui a porte les ancetres portera l Afrique vers la souverainete energetique. Le vent est invisible mais son avenir est visible.',
+     cours:['Parcs eoliens: du Sahara au Cap, 100 GW','Energies marines: vagues et vents de l ocean Indien','Alertes temps reel: AfriChain Mesh pour cyclones','Navigation propre: voiles pour cargo, retour aux racines','AfriChain Vent: registre de production, alertes, navigation sur blockchain'],
+     exercices:['Ecrire: comment sera le vent africain en 2100?','Proposer un parc eolien pour ta region','Faire le serment: je capterai le vent pour l Afrique']}
+];
+
+var ventDone=JSON.parse(localStorage.getItem('afri_vent_done')||'[]');
+function renderVentModules(){var c=document.getElementById('vent-modules');if(!c)return;var h='';for(var i=0;i<ventModules.length;i++){var m=ventModules[i];var d=ventDone.includes(m.id);h+='<div style="background:rgba(102,204,255,0.05);border:1px solid '+m.couleur+'20;border-radius:8px;padding:12px;margin:8px 0;cursor:pointer;" onclick="showVentModule('+i+')"><div style="display:flex;justify-content:space-between;align-items:center;"><span style="font-size:1.1em;">'+m.emoji+' <b style="color:'+m.couleur+';">'+m.nom+'</b></span><span style="font-size:0.8em;color:#a8c5a8;">'+m.duree+' · '+m.niveau+(d?' · ✅':'')+'</span></div></div>';}c.innerHTML=h;}
+renderVentModules();
+function showVentModule(i){var m=ventModules[i];var h='<div style="background:rgba(102,204,255,0.08);border:1px solid '+m.couleur+';border-radius:12px;padding:20px;margin:10px 0;"><h3 style="color:'+m.couleur+';">'+m.emoji+' '+m.nom+'</h3><p style="color:#a8c5a8;font-size:0.9em;">'+m.description+'</p><h4 style="color:'+m.couleur+';">📚 Cours</h4><ul>';for(var j=0;j<m.cours.length;j++)h+='<li style="color:#a8c5a8;margin:4px 0;">'+m.cours[j]+'</li>';h+='</ul><h4 style="color:'+m.couleur+';">✏️ Exercices</h4><ul>';for(var j=0;j<m.exercices.length;j++)h+='<li style="color:#a8c5a8;margin:4px 0;">'+m.exercices[j]+'</li>';h+='</ul><button onclick="completeVentModule('+m.id+')" style="padding:10px 20px;background:'+m.couleur+';color:#000;border:none;border-radius:8px;cursor:pointer;font-weight:bold;margin-top:10px;">✅ Terminer ce module</button></div>';var c=document.getElementById('vent-modules');if(c)c.innerHTML=h;}
+function completeVentModule(id){if(!ventDone.includes(id)){ventDone.push(id);localStorage.setItem('afri_vent_done',JSON.stringify(ventDone));}renderVentModules();updateVentProgress();}
+function updateVentProgress(){var d=ventDone.length,t=ventModules.length,p=Math.round((d/t)*100);var b=document.getElementById('vent-bar'),c=document.getElementById('vent-count'),pe=document.getElementById('vent-pct'),dp=document.getElementById('vent-diplome');if(b)b.style.width=p+'%';if(c)c.textContent=d;if(pe)pe.textContent=p+'%';if(dp)dp.style.display=(d===t)?'block':'none';}
+updateVentProgress();
+</script>
+"##);
+
+    html.push_str(r##"<div class="card" style="border-color:#66ccff;"><h2 style="color:#66ccff;">📊 Progression</h2><div style="background:rgba(102,204,255,0.1);border-radius:8px;height:24px;overflow:hidden;margin:10px 0;"><div id="vent-bar" style="background:linear-gradient(90deg,#66ccff,#99ddff,#d4a437);height:100%;width:0%;transition:width 0.5s;"></div></div><div style="text-align:center;color:#a8c5a8;"><span id="vent-count">0</span> / 8 modules · <span id="vent-pct">0%</span></div></div>
+
+<div id="vent-diplome" style="display:none;"><div class="card" style="border-color:#d4a437;text-align:center;"><h2 style="color:#d4a437;">🎓 Diplôme: Maître du Vent Africain</h2><p style="color:#a8c5a8;">Tu as complété les 8 modules du vent!</p><p style="color:#66ccff;font-size:1.2em;">Le vent porte la parole des ancêtres. Captons sa force. 🌬️💚</p><button onclick="envoyerDiplomeVent()" style="padding:12px 30px;background:#d4a437;color:#000;border:none;border-radius:8px;font-weight:bold;cursor:pointer;font-size:1.1em;margin-top:10px;">⛓️ Graver dans la Blockchain</button></div></div>
+
+<script>
+function envoyerDiplomeVent(){var nom=localStorage.getItem('afri_user_name')||'Jeune Africain';fetch('/api/diplome',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:'academie=VENT&nom='+encodeURIComponent(nom)}).then(function(r){return r.text();}).then(function(t){alert('🎓 Diplôme gravé dans la blockchain!\n'+t);}).catch(function(e){alert('Erreur: '+e);});}
+</script>
+"##);
+
+    html.push_str(r#"<div class="card"><h2 style="color:#66ccff;">💡 Savais-tu?</h2><div style="color:#a8c5a8;padding:8px 0;"><b style="color:#d4a437;">L'harmattan</b> transporte de la poussière du Sahara jusqu'à l'Amérique du Sud. Le vent africain nourrit la forêt amazonienne.</div><div style="color:#a8c5a8;padding:8px 0;"><b style="color:#66ccff;">Une éolienne de 2 MW</b> alimente 1000 foyers. Le vent souffle gratuitement, jour et nuit.</div><div style="color:#a8c5a8;padding:8px 0;"><b style="color:#9966ff;">Dans la tradition africaine</b>, le vent est la voix des ancêtres. Quand le vent souffle, les ancêtres parlent.</div><div style="color:#a8c5a8;padding:8px 0;"><b style="color:#44ff88;">Le vent pollinise</b> la plupart des céréales africaines: mil, sorgho, riz. Sans vent, pas de récolte.</div></div>"#);
+
+    html.push_str(r#"<footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🌬️ AI Vent — Le Vent Porte la Parole des Ancetres 💚🦁✨</footer>"#);
+    html.push_str("</body></html>");
+    html
+}
+
 fn html_garage(chain: &Blockchain) -> String {
     let mut html = html_head("Garage AI — Atelier Autonome 2500");
     let num_blocks = chain.blocks.len();
@@ -20278,7 +20412,7 @@ html+='<div class="log-entry log-kill">⚠️ Tentative d\x27infiltration occide
 html+='<div class="log-entry log-invis">✅ L\x27Afrique est forte. Le système grandit.</div>';
 }else if(type==='total'){
 html='<div style="color:#d4a437;font-weight:bold;margin-bottom:8px">📋 RAPPORT TOTAL — Depuis le début</div>';
-html+='<div class="log-entry">🦁 AfriChain v1.12 — AI Sang Le Sang Porte la Memoire des Ancetres</div>';
+html+='<div class="log-entry">🦁 AfriChain v1.13 — AI Vent Le Vent Porte la Parole des Ancetres</div>';
 html+='<div class="log-entry">⛓️ Blockchain: 100% souveraine — Zéro dépendance externe</div>';
 html+='<div class="log-entry">🔐 Crypto: Ed25519 + AfriHash-256/512 + AfriRNG — tout from scratch</div>';
 html+='<div class="log-entry">🌍 54 pays africains connectés</div>';
@@ -21822,7 +21956,7 @@ fn main() {
         .and_then(|i| args.get(i + 1)).cloned().unwrap_or_else(|| "Afrique".to_string());
 
     let my_node_id = generate_node_id();
-    println!("🦁 AfriChain v1.12 — AI Sang Le Sang Porte la Memoire des Ancetres");
+    println!("🦁 AfriChain v1.13 — AI Vent Le Vent Porte la Parole des Ancetres");
     println!("💚 L'Afrique ne demande plus la permission");
     println!("🌍 54 pays — 🇲🇱 🇳🇪 🇧🇫 AES — Mali · Niger · Burkina Faso");
     println!("🔐 8 modules cryptographiques — construits from scratch");
@@ -22001,6 +22135,7 @@ fn main() {
     println!("🌊 AI Mer sur http://localhost:8080/ai-mer");
     println!("🔥 AI Feu sur http://localhost:8080/ai-feu");
     println!("🩸 AI Sang sur http://localhost:8080/ai-sang");
+    println!("🌬️ AI Vent sur http://localhost:8080/ai-vent");
 
     // Serveur HTTP en arrière-plan (pour mesh + autres utilisateurs)
     let serve_state = web_state.clone();
@@ -22035,7 +22170,7 @@ fn terminal_interface(state: &Arc<AppState>) {
     println!("  ║  🕐 AfriTime — Pas UTC, pas Greenwich   ║");
     println!("  ║  📝 ~23,100 lignes — écrit à la main       ║");
     println!("  ╚═══════════════════════════════════════════════╝");
-    println!("\n  Version v1.12 — 2 septembre 2026");
+    println!("\n  Version v1.13 — 2 septembre 2026");
     println!("  Construit sur Termux · Android · nano\n");
     println!("  ─────────────────────────────────────────────");
     println!("\n  1. 🏦 Centre de Données (Admin)");
@@ -22107,7 +22242,7 @@ fn admin_interface(state: &Arc<AppState>) {
         println!("\n");
         println!("╔══════════════════════════════════════╗");
         println!("║  🏦 CENTRE DE DONNÉES — Admin       ║");
-        println!("║  🦁 AfriChain v1.12                  ║");
+        println!("║  🦁 AfriChain v1.13                  ║");
         println!("╠══════════════════════════════════════╣");
         let chain = state.chain.lock().unwrap();
         let users = state.users.lock().unwrap();
@@ -25795,6 +25930,10 @@ fn handle_request(req: afri_http::HttpRequest, state: &Arc<AppState>) -> afri_ht
         ("GET", "/ai-sang") => {
             let chain = state.chain.lock().unwrap();
             HttpResponse::ok(&html_ai_sang(&chain))
+        }
+        ("GET", "/ai-vent") => {
+            let chain = state.chain.lock().unwrap();
+            HttpResponse::ok(&html_ai_vent(&chain))
         }
 
         ("GET", "/garage") => {
