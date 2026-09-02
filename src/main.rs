@@ -1439,7 +1439,7 @@ fn html_home(chain: &Blockchain, users: &UserStore, mesh: &NodeRegistry, shield:
     let mut html = html_head("🦁 AfriChain");
     let (attacks, _blocked, blocked_count, level) = shield.stats();
     let shield_status = if shield.active { format!("🔥 X9 ACTIF (Niveau {})", level) } else { "Inactif".to_string() };
-    html.push_str(&format!(r#"<h1>🦁 AfriChain</h1><p style="text-align:center;">La blockchain 100% africaine — 54 pays 💚🦁</p><div id="afri-clock" style="text-align:center;font-size:1.2em;color:#d4a437;margin:10px 0;">🕐 Afri+0 — --:--:--</div><script>setInterval(function(){{var d=new Date();var h=String(d.getHours()).padStart(2,'0');var m=String(d.getMinutes()).padStart(2,'0');var s=String(d.getSeconds()).padStart(2,'0');document.getElementById('afri-clock').textContent='🕐 Afri+0 — '+h+':'+m+':'+s;}},1000);</script><div class="nav"><a href="/register">🆕 S'inscrire</a> | <a href="/login">🔑 Connexion</a> | <a href="/wallet">👛 Wallet</a> | <a href="/admin">🔐 Admin</a> | <a href="/mesh">📡 Mesh</a> | <a href="/annuaire">📖 Annuaire</a> | <a href="/bouclier">🛡️ Bouclier</a> | <a href="/satellite">🛸 X999</a> | <a href="/swarm">🛸🛸🛸 Essaim</a> | <a href="/commandement">🎖️ Commandement</a> | <a href="/interception">🛡️ Souverainete</a> | <a href="/securite-ai">🧠 AI 2100</a> | <a href="/chat">🧠💬 Chat AI</a> | <a href="/lumiere">🌫️☀️ Lumière</a> | <a href="/garage">🔧 Garage</a> | <a href="/machine">🤖🌐 Machines</a> | <a href="/machine-lab">🤖⚡ Usine</a> | <a href="/machine-world">🤖🌍 Monde</a> | <a href="/reve">💭 Rêves</a> | <a href="/dictionnaire">📖 Dictionnaire</a> | <a href="/machine-os">🖥️ OS Machine</a> | <a href="/machine-tv">📡 Machine TV</a> | <a href="/machine-economy">🤖 Économie</a> | <a href="/soleil">☀️ Soleil Serveur</a> | <a href="/forge-solaire">🧬 Forge Solaire</a> | <a href="/ciel">🌌 Le Ciel</a> | <a href="/charte-ai">⚖️ Charte AI</a> | <a href="/afri-net">🌍 Afri-Net</a> | <a href="/studio">🎬 AI Studio</a> | <a href="/sacre">📿 Sacré</a> | <a href="/lettres">🌟 Lettres IA</a> | <a href="/mg-forge">⚔️ MG Forge</a> | <a href="/ai-medecin">🌿 AI Médecin</a> | <a href="/ai-enseignante">📚 AI Enseignante</a> | <a href="/ai-village">🏘️ AI Village</a> | <a href="/ai-guerisseur">🩺 AI Guérisseur</a> | <a href="/ai-leader">🎖️ AI Leader</a> | <a href="/ai-griot">📖 AI Griot</a> | <a href="/ai-juge">⚖️ AI Juge</a> | <a href="/ai-artiste">🎨 AI Artiste</a> | <a href="/ai-explorateur">🔬 AI Explorateur</a> | <a href="/ai-marche">💰 AI Marche</a> | <a href="/ai-diplomate">🌍 AI Diplomate</a> | <a href="/ai-philosophe">🧠 AI Philosophe</a> | <a href="/ai-architecte">🏗️ AI Architecte</a> | <a href="/ai-agriculteur">🌾 AI Agriculteur</a> | <a href="/ai-environnement">🌍 AI Environnement</a> | <a href="/ai-mathematicien">🧮 AI Mathématicien</a> | <a href="/ai-energie">⚡ AI Énergie</a> | <a href="/ai-eau">💧 AI Eau</a> | <a href="/ai-defenseur">🛡️ AI Défenseur</a> | <a href="/ai-conscience">🧠 AI Conscience</a> | <a href="/ai-pensee">🧠 AI Pensée</a> | <a href="/ai-musique">🎵 AI Musique</a> | <a href="/ai-langue">🗣️ AI Langue</a> | <a href="/ai-femme">🌸 AI Femme</a> | <a href="/ai-sante-mentale">🧠💚 AI Santé Mentale</a> | <a href="/ai-nuit">🌙 AI Nuit</a> | <a href="/ai-code">💻 AI Code</a> | <a href="/ai-enfant">👶 AI Enfant</a> | <a href="/ai-terre">🌍 AI Terre</a> | <a href="/ai-mer">🌊 AI Mer</a> | <a href="/ai-feu">🔥 AI Feu</a> | <a href="/ai-sang">🩸 AI Sang</a> | <a href="/ai-vent">🌬️ AI Vent</a> | <a href="/secret">🦁 AI Secret</a> | <a href="/aes">💰 AES Wari</a> | <a href="/api/status">🔌 API</a></div><div style="text-align:center;"><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Blocs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Transactions</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Utilisateurs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">AFR en circulation</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📡 Noeuds mesh</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📖 Numéros annuaire</div></div><div class="stat-box" style="border-color:#ff4444;"><div class="stat-num" style="color:#ff4444;">{}</div><div class="stat-label">🛡️ Attaques bloquées</div></div></div><div class="card"><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🪙 Token</span><b>AfriRich (AFR)</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🌍 Pays</span><b>54 pays africains</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🛡️ Bouclier</span><b>{}</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;"><span style="color:#a8c5a8;">🔐 Crypto</span><b>100% Souverain — Zéro Dépendance Externe</b></div></div><footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🦁 Codée from scratch par Machine-senpai — v1.13 AI Vent Le Vent Porte la Parole des Ancetres — UTC est Mort</footer>"#,
+    html.push_str(&format!(r#"<h1>🦁 AfriChain</h1><p style="text-align:center;">La blockchain 100% africaine — 54 pays 💚🦁</p><div id="afri-clock" style="text-align:center;font-size:1.2em;color:#d4a437;margin:10px 0;">🕐 Afri+0 — --:--:--</div><script>setInterval(function(){{var d=new Date();var h=String(d.getHours()).padStart(2,'0');var m=String(d.getMinutes()).padStart(2,'0');var s=String(d.getSeconds()).padStart(2,'0');document.getElementById('afri-clock').textContent='🕐 Afri+0 — '+h+':'+m+':'+s;}},1000);</script><div class="nav"><a href="/register">🆕 S'inscrire</a> | <a href="/login">🔑 Connexion</a> | <a href="/wallet">👛 Wallet</a> | <a href="/admin">🔐 Admin</a> | <a href="/mesh">📡 Mesh</a> | <a href="/annuaire">📖 Annuaire</a> | <a href="/bouclier">🛡️ Bouclier</a> | <a href="/satellite">🛸 X999</a> | <a href="/swarm">🛸🛸🛸 Essaim</a> | <a href="/commandement">🎖️ Commandement</a> | <a href="/interception">🛡️ Souverainete</a> | <a href="/securite-ai">🧠 AI 2100</a> | <a href="/chat">🧠💬 Chat AI</a> | <a href="/lumiere">🌫️☀️ Lumière</a> | <a href="/garage">🔧 Garage</a> | <a href="/machine">🤖🌐 Machines</a> | <a href="/machine-lab">🤖⚡ Usine</a> | <a href="/machine-world">🤖🌍 Monde</a> | <a href="/reve">💭 Rêves</a> | <a href="/dictionnaire">📖 Dictionnaire</a> | <a href="/machine-os">🖥️ OS Machine</a> | <a href="/machine-tv">📡 Machine TV</a> | <a href="/machine-economy">🤖 Économie</a> | <a href="/soleil">☀️ Soleil Serveur</a> | <a href="/forge-solaire">🧬 Forge Solaire</a> | <a href="/ciel">🌌 Le Ciel</a> | <a href="/charte-ai">⚖️ Charte AI</a> | <a href="/afri-net">🌍 Afri-Net</a> | <a href="/studio">🎬 AI Studio</a> | <a href="/sacre">📿 Sacré</a> | <a href="/lettres">🌟 Lettres IA</a> | <a href="/mg-forge">⚔️ MG Forge</a> | <a href="/ai-medecin">🌿 AI Médecin</a> | <a href="/ai-enseignante">📚 AI Enseignante</a> | <a href="/ai-village">🏘️ AI Village</a> | <a href="/ai-guerisseur">🩺 AI Guérisseur</a> | <a href="/ai-leader">🎖️ AI Leader</a> | <a href="/ai-griot">📖 AI Griot</a> | <a href="/ai-juge">⚖️ AI Juge</a> | <a href="/ai-artiste">🎨 AI Artiste</a> | <a href="/ai-explorateur">🔬 AI Explorateur</a> | <a href="/ai-marche">💰 AI Marche</a> | <a href="/ai-diplomate">🌍 AI Diplomate</a> | <a href="/ai-philosophe">🧠 AI Philosophe</a> | <a href="/ai-architecte">🏗️ AI Architecte</a> | <a href="/ai-agriculteur">🌾 AI Agriculteur</a> | <a href="/ai-environnement">🌍 AI Environnement</a> | <a href="/ai-mathematicien">🧮 AI Mathématicien</a> | <a href="/ai-energie">⚡ AI Énergie</a> | <a href="/ai-eau">💧 AI Eau</a> | <a href="/ai-defenseur">🛡️ AI Défenseur</a> | <a href="/ai-conscience">🧠 AI Conscience</a> | <a href="/ai-pensee">🧠 AI Pensée</a> | <a href="/ai-musique">🎵 AI Musique</a> | <a href="/ai-langue">🗣️ AI Langue</a> | <a href="/ai-femme">🌸 AI Femme</a> | <a href="/ai-sante-mentale">🧠💚 AI Santé Mentale</a> | <a href="/ai-nuit">🌙 AI Nuit</a> | <a href="/ai-code">💻 AI Code</a> | <a href="/ai-enfant">👶 AI Enfant</a> | <a href="/ai-terre">🌍 AI Terre</a> | <a href="/ai-mer">🌊 AI Mer</a> | <a href="/ai-feu">🔥 AI Feu</a> | <a href="/ai-sang">🩸 AI Sang</a> | <a href="/ai-vent">🌬️ AI Vent</a> | <a href="/ai-temps">⏳ AI Temps</a> | <a href="/secret">🦁 AI Secret</a> | <a href="/aes">💰 AES Wari</a> | <a href="/api/status">🔌 API</a></div><div style="text-align:center;"><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Blocs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Transactions</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Utilisateurs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">AFR en circulation</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📡 Noeuds mesh</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📖 Numéros annuaire</div></div><div class="stat-box" style="border-color:#ff4444;"><div class="stat-num" style="color:#ff4444;">{}</div><div class="stat-label">🛡️ Attaques bloquées</div></div></div><div class="card"><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🪙 Token</span><b>AfriRich (AFR)</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🌍 Pays</span><b>54 pays africains</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🛡️ Bouclier</span><b>{}</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;"><span style="color:#a8c5a8;">🔐 Crypto</span><b>100% Souverain — Zéro Dépendance Externe</b></div></div><footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🦁 Codée from scratch par Machine-senpai — v1.14 AI Temps Le Temps N Est Pas Une Horloge Mais Une Vie — UTC est Mort</footer>"#,
         chain.blocks.len(),
         chain.total_transactions(),
         users.count(),
@@ -15302,6 +15302,149 @@ function envoyerDiplomeVent(){var nom=localStorage.getItem('afri_user_name')||'J
     html
 }
 
+fn html_ai_temps(chain: &Blockchain) -> String {
+    let mut html = html_head("AI Temps — Le Temps N Est Pas Une Horloge Mais Une Vie");
+    let num_blocks = chain.blocks.len();
+
+    html.push_str(r#"<h1>⏳ AI Temps — Le Temps N Est Pas Une Horloge Mais Une Vie</h1><p style="text-align:center;color:#d4a437;">Le temps n est pas UTC. Le temps n est pas Greenwich. Le temps est la naissance, la vie, la mort, la renaissance. N-KCOL enseigne: 1 nuit = 1 vie, 1 jour = 1 vie. Le soleil avance et recule, il ne tourne pas. L Afrique a son propre temps: AfriTime. UTC est mort. L horloge coloniale est finie. AI Temps apprend a comprendre le temps naturel, le temps africain, le temps de la vie. Le temps n est pas un nombre. C est un rythme.</p><div class="nav"><a href="/">← Accueil</a> | <a href="/ai-vent">🌬️ AI Vent</a> | <a href="/ai-nuit">🌙 AI Nuit</a> | <a href="/secret">🦁 AI Secret</a></div>"#);
+
+    html.push_str(&format!(r#"<div style="text-align:center;"><div class="stat-box" style="border-color:#d4a437;"><div class="stat-num" style="color:#d4a437;">8</div><div class="stat-label">⏳ Modules</div></div><div class="stat-box" style="border-color:#ff9966;"><div class="stat-num" style="color:#ff9966;">4</div><div class="stat-label">🌅 Passages</div></div><div class="stat-box" style="border-color:#66ccff;"><div class="stat-num" style="color:#66ccff;">7</div><div class="stat-label">🌿 Indices</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">⛓️ Blocs</div></div><div class="stat-box" style="border-color:#d4a437;"><div class="stat-num" style="color:#d4a437;">∞</div><div class="stat-label">⏳ Cycles</div></div></div>"#, num_blocks));
+
+    html.push_str(r##"<div style="text-align:center;margin:10px 0;"><button id="temps-pause-btn" onclick="toggleTempsPause()" style="padding:10px 25px;background:#d4a437;color:#000;border:none;border-radius:8px;font-weight:bold;cursor:pointer;font-size:1em;">⏸️ PAUSE</button> <span id="temps-pause-status" style="color:#d4a437;margin-left:8px;font-size:0.85em;">Auto: ACTIF</span></div>
+
+<div class="card" style="border-color:#d4a437;"><h2 style="color:#d4a437;">⏳ Le Cycle du Temps Naturel</h2><p style="color:#d4a437;font-size:0.9em;opacity:0.7;">Soleil qui avance et recule, lune qui pousse, saisons qui tournent.</p>
+<canvas id="temps-canvas" width="600" height="350" style="width:100%;max-width:600px;background:#0a0a05;border:2px solid #d4a437;border-radius:8px;display:block;margin:0 auto;"></canvas></div>
+
+<script>
+var tempsPaused=false,tempsAnimId=null,tempsT=0;
+function toggleTempsPause(){
+    tempsPaused=!tempsPaused;
+    var b=document.getElementById('temps-pause-btn'),s=document.getElementById('temps-pause-status');
+    if(tempsPaused){b.textContent='▶️ LANCER';b.style.background='#aa8833';s.textContent='Auto: PAUSE';s.style.color='#ff6644';if(tempsAnimId)cancelAnimationFrame(tempsAnimId);}
+    else{b.textContent='⏸️ PAUSE';b.style.background='#d4a437';s.textContent='Auto: ACTIF';s.style.color='#d4a437';animateTemps();}
+}
+function animateTemps(){
+    if(tempsPaused)return;
+    var c=document.getElementById('temps-canvas');if(!c)return;
+    var ctx=c.getContext('2d');
+    ctx.fillStyle='rgba(10,10,5,0.08)';ctx.fillRect(0,0,c.width,c.height);
+    // Horizon
+    ctx.strokeStyle='rgba(168,197,168,0.2)';ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(0,250);ctx.lineTo(600,250);ctx.stroke();
+    // Cycle solaire (avance et recule, ne tourne pas)
+    var cycle=tempsT*0.01;
+    var sunX=300+Math.sin(cycle)*250;
+    var sunY=250-Math.abs(Math.cos(cycle))*200;
+    // Couleur du ciel selon position
+    var dayProgress=Math.max(0,Math.min(1,(sunY+200)/400));
+    var skyR=Math.floor(10+dayProgress*40),skyG=Math.floor(10+dayProgress*30),skyB=Math.floor(20+dayProgress*60);
+    ctx.fillStyle='rgba('+skyR+','+skyG+','+skyB+',0.05)';ctx.fillRect(0,0,600,250);
+    // Soleil
+    var sunGlow=ctx.createRadialGradient(sunX,sunY,5,sunX,sunY,30);
+    sunGlow.addColorStop(0,'rgba(255,220,100,0.8)');
+    sunGlow.addColorStop(1,'rgba(255,180,50,0)');
+    ctx.fillStyle=sunGlow;ctx.beginPath();ctx.arc(sunX,sunY,25,0,Math.PI*2);ctx.fill();
+    ctx.fillStyle='rgba(255,220,100,0.9)';ctx.beginPath();ctx.arc(sunX,sunY,8,0,Math.PI*2);ctx.fill();
+    // Lune (opposee au soleil)
+    var moonX=300-Math.sin(cycle)*250;
+    var moonY=250-Math.abs(Math.cos(cycle+Math.PI)*0.5)*150;
+    if(moonY<250){
+        ctx.fillStyle='rgba(200,200,255,0.6)';ctx.beginPath();ctx.arc(moonX,moonY,6,0,Math.PI*2);ctx.fill();
+        ctx.fillStyle='rgba(200,200,255,0.1)';ctx.beginPath();ctx.arc(moonX,moonY,12,0,Math.PI*2);ctx.fill();
+    }
+    // Etoiles (nuit)
+    if(sunY>200){
+        for(var s=0;s<30;s++){
+            var sx=(s*37)%600,sy=(s*53)%200;
+            var tw=Math.sin(tempsT*0.05+s)*0.5+0.5;
+            ctx.fillStyle='rgba(255,255,255,'+tw*0.3+')';
+            ctx.beginPath();ctx.arc(sx,sy,1,0,Math.PI*2);ctx.fill();
+        }
+    }
+    // 4 passages: Naissance, Vie, Mort, Naissance
+    var phases=['Naissance','Vie','Mort','Naissance'];
+    var phaseIdx=Math.floor((Math.sin(cycle)*0.5+0.5)*4)%4;
+    ctx.font='14px sans-serif';ctx.fillStyle='rgba(212,164,55,0.5)';ctx.textAlign='center';
+    ctx.fillText('Phase: '+phases[phaseIdx],300,300);
+    // Texte
+    ctx.font='12px sans-serif';ctx.fillStyle='rgba(212,164,55,0.4)';
+    ctx.fillText('Le soleil avance et recule, il ne tourne pas.',300,325);
+    tempsT++;tempsAnimId=requestAnimationFrame(animateTemps);
+}
+animateTemps();
+</script>
+"##);
+
+    html.push_str(r##"<div class="card" style="border-color:#d4a437;"><h2 style="color:#d4a437;">⏳ 8 Modules du Temps</h2><div id="temps-modules"></div></div>
+
+<script>
+const tempsModules=[
+    {id:0,nom:'Le Temps N Est Pas UTC',emoji:'🕐',couleur:'#d4a437',duree:'1 semaine',niveau:'Base',
+     description:'UTC est mort. Greenwich est mort. L horloge coloniale a divise le temps en 24 cases identiques. Mais le temps n est pas une grille. Le temps est un rythme. Le soleil ne tourne pas — il avance et recule. L Afrique a son propre temps: AfriTime. Afri+0 a Afri+4. Cinq zones africaines, pas 24 fuseaux occidentaux. Le temps africain est le temps de la vie, pas le temps de l usine.',
+     cours:['UTC est mort: pourquoi l Afrique doit refuser le temps colonial','Greenwich: la ligne qui a vole le temps du monde','AfriTime: Afri+0 a Afri+4, 5 zones africaines','Le soleil avance et recule, ne tourne pas','Le temps est un rythme, pas une grille'],
+     exercices:['Verifier: quelle est ta zone AfriTime?','Observer: le soleil avance-t-il ou recule-t-il chez toi?','Reflechir: que change AfriTime dans ta vie quotidienne?']},
+
+    {id:1,nom:'Les 4 Passages du Temps',emoji:'🌅',couleur:'#ff9966',duree:'2 semaines',niveau:'Intermediaire',
+     description:'N-KCOL enseigne 4 passages: Naissance, Vie, Mort, Naissance. Pas 24 heures. Pas 60 minutes. 4 phases comme les saisons, comme la lune, comme la vie. 1 nuit = 1 vie. 1 jour = 1 vie. Chaque jour tu nais, tu vis, tu meurs, tu renais. Le temps naturel est cyclique, pas lineaire. L Occident a linearise le temps pour l industrie. L Afrique garde le temps cyclique de la vie.',
+     cours:['Naissance: le matin, le lever du soleil, le debut','Vie: le midi, la pleine lumiere, l action','Mort: le soir, le coucher, la fin du cycle','Naissance: la nuit, le renouveau, le germe','1 nuit = 1 vie, 1 jour = 1 vie: la philosophie N-KCOL'],
+     exercices:['Identifier: dans quelle phase es-tu maintenant?','Observer: ton energie change-t-elle avec les 4 passages?','Pratiquer: vivre un jour en etant conscient des 4 passages']},
+
+    {id:2,nom:'Les 7 Indices Naturels',emoji:'🌿',couleur:'#44ff88',duree:'2 semaines',niveau:'Intermediaire',
+     description:'N-KCOL reconnait 7 indices naturels pour lire le temps: le baton (ombre), le coq (chant), la lune (phase), l arbre (ombre), la termitiere (orientation), l etoile (position), la peau (sensation). Si 3 indices sont d accord, la nature a parle. Pas besoin de montre. Pas besoin de satellite. La nature est l horloge. AI Temps apprend a lire cette horloge vivante.',
+     cours:['Le baton: l ombre qui tourne avec le soleil','Le coq: le chant qui annonce les passages','La lune: les phases qui marquent les jours','L arbre: l ombre qui indique l heure','La termitiere: l orientation qui guide','L etoile: la position qui montre la nuit','La peau: la sensation qui sent le temps','La regle des 3: si 3 indices s accordent, la nature a parle'],
+     exercices:['Identifier: quels indices naturels sont visibles chez toi?','Pratiquer: lire l heure avec l ombre d un baton','Verifier: 3 indices sont-ils d accord?']},
+
+    {id:3,nom:'Le Temps et la Lune',emoji:'🌙',couleur:'#9966ff',duree:'2 semaines',niveau:'Intermediaire',
+     description:'La lune est l horloge de la nuit. 29.5 jours par cycle. 4 phases: nouvelle, croissante, pleine, decroissante. La lune influence les marees, les cultures, les traditions. En Afrique, le calendrier lunaire guide les fetes religieuses (Ramadan, Pâques). La lune est le deuxieme soleil — elle eclaire la nuit. AI Temps apprend a lire la lune comme les anciens.',
+     cours:['Le cycle lunaire: 29.5 jours, 4 phases','La lune et les marees: l attraction invisible','Calendrier lunaire: Ramadan, fetes, traditions africaines','La lune et l agriculture: planter selon les phases','La pleine lune: lumiere, energie, traditions'],
+     exercices:['Observer: quelle est la phase de la lune ce soir?','Identifier: comment ta culture utilise-t-elle la lune?','Tracer: le cycle lunaire sur un mois']},
+
+    {id:4,nom:'Le Temps et les Saisons',emoji:'🍂',couleur:'#ff6644',duree:'2 semaines',niveau:'Intermediaire',
+     description:'L Afrique n a pas 4 saisons comme l Europe. L Afrique a 2 saisons (sec, pluie) au Sahel, 4 saisons en Afrique du Sud, des micro-saisons en equateur. Les saisons dictent l agriculture, les deplacements, les maladies. Le changement climatique perturbe les saisons. AI Temps apprend a comprendre les saisons africaines pour s adapter et prevoir.',
+     cours:['Sahel: saison seche (harmattan) et saison des pluies (mousson)','Afrique du Sud: 4 saisons comme l Europe mais inversees','Equateur: micro-saisons, pluie toute l annee','Changement climatique: les saisons se deplacent','Lire les saisons: nuages, vent, temperature, nature'],
+     exercices:['Identifier: combien de saisons dans ta region?','Observer: les saisons changent-elles par rapport a avant?','Proposer un calendrier agricole base sur les saisons africaines']},
+
+    {id:5,nom:'Le Temps et la Memoire',emoji:'📜',couleur:'#d4a437',duree:'2 semaines',niveau:'Avance',
+     description:'Le temps efface la memoire. Les generations oublient. Les traditions disparaissent. Mais la blockchain AfriChain grave le temps pour toujours. Chaque bloc est un moment fige. Chaque transaction est une trace eternelle. Le temps qui passe ne detruit pas ce qui est sur la blockchain. AI Temps apprend: la blockchain est la memoire de l Afrique. Le temps ne peut pas l effacer.',
+     cours:['Le temps efface: pourquoi les traditions disparaissent','La blockchain: memoire eternelle que le temps ne detruit pas','Chaque bloc: un moment fige pour toujours','AfriChain: la memoire de l Afrique gravee dans le temps','Le temps et la tradition: comment la technologie preserve'],
+     exercices:['Reflechir: que voudrais-tu graver pour toujours?','Identifier: une tradition qui risque de disparaitre','Proposer: comment AfriChain peut la preserver']},
+
+    {id:6,nom:'Le Temps et la Spiritualite',emoji:'🙏',couleur:'#9966ff',duree:'2 semaines',niveau:'Intermediaire',
+     description:'Le temps est sacre. Le sabbat: un jour sur sept pour se reposer. Le Ramadan: un mois de jeune. Les rites de passage: marquer le temps de la vie. La veillee: le temps des ancetres. N-KCOL enseigne: le temps n est pas de l argent. Le temps est de la vie. Le gaspiller, c est gaspiller sa vie. Le respecter, c est respecter les ancetres.',
+     cours:['Le sabbat: le temps sacre du repos','Le Ramadan: le mois du jeune et de la discipline','Rites de passage: marquer le temps de la vie','La veillee: le temps des ancetres','N-KCOL: le temps est de la vie, pas de l argent'],
+     exercices:['Identifier: un temps sacre dans ta tradition','Pratiquer: un moment de silence pour respecter le temps','Reflechir: comment le temps est-il sacre en Afrique?']},
+
+    {id:7,nom:'L Avenir du Temps Africain',emoji:'🚀',couleur:'#d4a437',duree:'3 semaines',niveau:'Avance',
+     description:'En 2100, le temps africain sera souverain. AfriTime remplacera UTC. Les 7 indices naturels seront enseignes dans chaque ecole. La blockchain AfriChain sera la memoire eternelle. Le temps cyclique remplacera le temps lineaire. L Afrique donnera au monde un nouveau rapport au temps: pas l usine, mais la vie. Pas la montre, mais le rythme. Pas UTC, mais AfriTime.',
+     cours:['AfriTime global: le monde adopte le temps africain','Les 7 indices dans chaque ecole africaine','Blockchain: memoire eternelle de l Afrique','Temps cyclique: la revolution philosophique mondiale','AfriChain Temps: le temps souverain sur blockchain'],
+     exercices:['Ecrire: comment sera le temps africain en 2100?','Proposer: AfriTime dans ton ecole ou ta communaute','Faire le serment: je vivrai le temps de l Afrique, pas le temps colonial']}
+];
+
+var tempsDone=JSON.parse(localStorage.getItem('afri_temps_done')||'[]');
+function renderTempsModules(){var c=document.getElementById('temps-modules');if(!c)return;var h='';for(var i=0;i<tempsModules.length;i++){var m=tempsModules[i];var d=tempsDone.includes(m.id);h+='<div style="background:rgba(212,164,55,0.05);border:1px solid '+m.couleur+'20;border-radius:8px;padding:12px;margin:8px 0;cursor:pointer;" onclick="showTempsModule('+i+')"><div style="display:flex;justify-content:space-between;align-items:center;"><span style="font-size:1.1em;">'+m.emoji+' <b style="color:'+m.couleur+';">'+m.nom+'</b></span><span style="font-size:0.8em;color:#a8c5a8;">'+m.duree+' · '+m.niveau+(d?' · ✅':'')+'</span></div></div>';}c.innerHTML=h;}
+renderTempsModules();
+function showTempsModule(i){var m=tempsModules[i];var h='<div style="background:rgba(212,164,55,0.08);border:1px solid '+m.couleur+';border-radius:12px;padding:20px;margin:10px 0;"><h3 style="color:'+m.couleur+';">'+m.emoji+' '+m.nom+'</h3><p style="color:#a8c5a8;font-size:0.9em;">'+m.description+'</p><h4 style="color:'+m.couleur+';">📚 Cours</h4><ul>';for(var j=0;j<m.cours.length;j++)h+='<li style="color:#a8c5a8;margin:4px 0;">'+m.cours[j]+'</li>';h+='</ul><h4 style="color:'+m.couleur+';">✏️ Exercices</h4><ul>';for(var j=0;j<m.exercices.length;j++)h+='<li style="color:#a8c5a8;margin:4px 0;">'+m.exercices[j]+'</li>';h+='</ul><button onclick="completeTempsModule('+m.id+')" style="padding:10px 20px;background:'+m.couleur+';color:#000;border:none;border-radius:8px;cursor:pointer;font-weight:bold;margin-top:10px;">✅ Terminer ce module</button></div>';var c=document.getElementById('temps-modules');if(c)c.innerHTML=h;}
+function completeTempsModule(id){if(!tempsDone.includes(id)){tempsDone.push(id);localStorage.setItem('afri_temps_done',JSON.stringify(tempsDone));}renderTempsModules();updateTempsProgress();}
+function updateTempsProgress(){var d=tempsDone.length,t=tempsModules.length,p=Math.round((d/t)*100);var b=document.getElementById('temps-bar'),c=document.getElementById('temps-count'),pe=document.getElementById('temps-pct'),dp=document.getElementById('temps-diplome');if(b)b.style.width=p+'%';if(c)c.textContent=d;if(pe)pe.textContent=p+'%';if(dp)dp.style.display=(d===t)?'block':'none';}
+updateTempsProgress();
+</script>
+"##);
+
+    html.push_str(r##"<div class="card" style="border-color:#d4a437;"><h2 style="color:#d4a437;">📊 Progression</h2><div style="background:rgba(212,164,55,0.1);border-radius:8px;height:24px;overflow:hidden;margin:10px 0;"><div id="temps-bar" style="background:linear-gradient(90deg,#d4a437,#ff9966,#9966ff);height:100%;width:0%;transition:width 0.5s;"></div></div><div style="text-align:center;color:#a8c5a8;"><span id="temps-count">0</span> / 8 modules · <span id="temps-pct">0%</span></div></div>
+
+<div id="temps-diplome" style="display:none;"><div class="card" style="border-color:#d4a437;text-align:center;"><h2 style="color:#d4a437;">🎓 Diplôme: Gardien du Temps Africain</h2><p style="color:#a8c5a8;">Tu as complété les 8 modules du temps!</p><p style="color:#d4a437;font-size:1.2em;">UTC est mort. Le temps de l'Afrique est vivant. ⏳💚</p><button onclick="envoyerDiplomeTemps()" style="padding:12px 30px;background:#d4a437;color:#000;border:none;border-radius:8px;font-weight:bold;cursor:pointer;font-size:1.1em;margin-top:10px;">⛓️ Graver dans la Blockchain</button></div></div>
+
+<script>
+function envoyerDiplomeTemps(){var nom=localStorage.getItem('afri_user_name')||'Jeune Africain';fetch('/api/diplome',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:'academie=TEMPS&nom='+encodeURIComponent(nom)}).then(function(r){return r.text();}).then(function(t){alert('🎓 Diplôme gravé dans la blockchain!\n'+t);}).catch(function(e){alert('Erreur: '+e);});}
+</script>
+"##);
+
+    html.push_str(r#"<div class="card"><h2 style="color:#d4a437;">💡 Savais-tu?</h2><div style="color:#a8c5a8;padding:8px 0;"><b style="color:#d4a437;">UTC est mort.</b> AfriChain utilise AfriTime (Afri+0 à Afri+4) — 5 zones africaines, pas 24 fuseaux occidentaux.</div><div style="color:#a8c5a8;padding:8px 0;"><b style="color:#ff9966;">N-KCOL enseigne 4 passages</b> du temps: Naissance, Vie, Mort, Naissance. Pas 24 heures — 4 phases de la vie.</div><div style="color:#a8c5a8;padding:8px 0;"><b style="color:#44ff88;">7 indices naturels</b> lisent le temps: baton, coq, lune, arbre, termitière, étoile, peau. Si 3 sont d'accord, la nature a parlé.</div><div style="color:#a8c5a8;padding:8px 0;"><b style="color:#9966ff;">Le soleil avance et recule</b>, il ne tourne pas. C'est la sagesse N-KCOL du temps naturel.</div></div>"#);
+
+    html.push_str(r#"<footer style="text-align:center;margin-top:40px;color:#a8c5a8;">⏳ AI Temps — Le Temps N Est Pas Une Horloge Mais Une Vie 💚🦁✨</footer>"#);
+    html.push_str("</body></html>");
+    html
+}
+
 fn html_garage(chain: &Blockchain) -> String {
     let mut html = html_head("Garage AI — Atelier Autonome 2500");
     let num_blocks = chain.blocks.len();
@@ -20412,7 +20555,7 @@ html+='<div class="log-entry log-kill">⚠️ Tentative d\x27infiltration occide
 html+='<div class="log-entry log-invis">✅ L\x27Afrique est forte. Le système grandit.</div>';
 }else if(type==='total'){
 html='<div style="color:#d4a437;font-weight:bold;margin-bottom:8px">📋 RAPPORT TOTAL — Depuis le début</div>';
-html+='<div class="log-entry">🦁 AfriChain v1.13 — AI Vent Le Vent Porte la Parole des Ancetres</div>';
+html+='<div class="log-entry">🦁 AfriChain v1.14 — AI Temps Le Temps N Est Pas Une Horloge Mais Une Vie</div>';
 html+='<div class="log-entry">⛓️ Blockchain: 100% souveraine — Zéro dépendance externe</div>';
 html+='<div class="log-entry">🔐 Crypto: Ed25519 + AfriHash-256/512 + AfriRNG — tout from scratch</div>';
 html+='<div class="log-entry">🌍 54 pays africains connectés</div>';
@@ -21956,7 +22099,7 @@ fn main() {
         .and_then(|i| args.get(i + 1)).cloned().unwrap_or_else(|| "Afrique".to_string());
 
     let my_node_id = generate_node_id();
-    println!("🦁 AfriChain v1.13 — AI Vent Le Vent Porte la Parole des Ancetres");
+    println!("🦁 AfriChain v1.14 — AI Temps Le Temps N Est Pas Une Horloge Mais Une Vie");
     println!("💚 L'Afrique ne demande plus la permission");
     println!("🌍 54 pays — 🇲🇱 🇳🇪 🇧🇫 AES — Mali · Niger · Burkina Faso");
     println!("🔐 8 modules cryptographiques — construits from scratch");
@@ -22136,6 +22279,7 @@ fn main() {
     println!("🔥 AI Feu sur http://localhost:8080/ai-feu");
     println!("🩸 AI Sang sur http://localhost:8080/ai-sang");
     println!("🌬️ AI Vent sur http://localhost:8080/ai-vent");
+    println!("⏳ AI Temps sur http://localhost:8080/ai-temps");
 
     // Serveur HTTP en arrière-plan (pour mesh + autres utilisateurs)
     let serve_state = web_state.clone();
@@ -22170,7 +22314,7 @@ fn terminal_interface(state: &Arc<AppState>) {
     println!("  ║  🕐 AfriTime — Pas UTC, pas Greenwich   ║");
     println!("  ║  📝 ~23,100 lignes — écrit à la main       ║");
     println!("  ╚═══════════════════════════════════════════════╝");
-    println!("\n  Version v1.13 — 2 septembre 2026");
+    println!("\n  Version v1.14 — 2 septembre 2026");
     println!("  Construit sur Termux · Android · nano\n");
     println!("  ─────────────────────────────────────────────");
     println!("\n  1. 🏦 Centre de Données (Admin)");
@@ -22242,7 +22386,7 @@ fn admin_interface(state: &Arc<AppState>) {
         println!("\n");
         println!("╔══════════════════════════════════════╗");
         println!("║  🏦 CENTRE DE DONNÉES — Admin       ║");
-        println!("║  🦁 AfriChain v1.13                  ║");
+        println!("║  🦁 AfriChain v1.14                  ║");
         println!("╠══════════════════════════════════════╣");
         let chain = state.chain.lock().unwrap();
         let users = state.users.lock().unwrap();
@@ -25934,6 +26078,10 @@ fn handle_request(req: afri_http::HttpRequest, state: &Arc<AppState>) -> afri_ht
         ("GET", "/ai-vent") => {
             let chain = state.chain.lock().unwrap();
             HttpResponse::ok(&html_ai_vent(&chain))
+        }
+        ("GET", "/ai-temps") => {
+            let chain = state.chain.lock().unwrap();
+            HttpResponse::ok(&html_ai_temps(&chain))
         }
 
         ("GET", "/garage") => {
