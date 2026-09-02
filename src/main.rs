@@ -1439,7 +1439,7 @@ fn html_home(chain: &Blockchain, users: &UserStore, mesh: &NodeRegistry, shield:
     let mut html = html_head("🦁 AfriChain");
     let (attacks, _blocked, blocked_count, level) = shield.stats();
     let shield_status = if shield.active { format!("🔥 X9 ACTIF (Niveau {})", level) } else { "Inactif".to_string() };
-    html.push_str(&format!(r#"<h1>🦁 AfriChain</h1><p style="text-align:center;">La blockchain 100% africaine — 54 pays 💚🦁</p><div id="afri-clock" style="text-align:center;font-size:1.2em;color:#d4a437;margin:10px 0;">🕐 Afri+0 — --:--:--</div><script>setInterval(function(){{var d=new Date();var h=String(d.getHours()).padStart(2,'0');var m=String(d.getMinutes()).padStart(2,'0');var s=String(d.getSeconds()).padStart(2,'0');document.getElementById('afri-clock').textContent='🕐 Afri+0 — '+h+':'+m+':'+s;}},1000);</script><div class="nav"><a href="/register">🆕 S'inscrire</a> | <a href="/login">🔑 Connexion</a> | <a href="/wallet">👛 Wallet</a> | <a href="/admin">🔐 Admin</a> | <a href="/mesh">📡 Mesh</a> | <a href="/annuaire">📖 Annuaire</a> | <a href="/bouclier">🛡️ Bouclier</a> | <a href="/satellite">🛸 X999</a> | <a href="/swarm">🛸🛸🛸 Essaim</a> | <a href="/commandement">🎖️ Commandement</a> | <a href="/interception">🛡️ Souverainete</a> | <a href="/securite-ai">🧠 AI 2100</a> | <a href="/chat">🧠💬 Chat AI</a> | <a href="/lumiere">🌫️☀️ Lumière</a> | <a href="/garage">🔧 Garage</a> | <a href="/machine">🤖🌐 Machines</a> | <a href="/machine-lab">🤖⚡ Usine</a> | <a href="/machine-world">🤖🌍 Monde</a> | <a href="/reve">💭 Rêves</a> | <a href="/dictionnaire">📖 Dictionnaire</a> | <a href="/machine-os">🖥️ OS Machine</a> | <a href="/machine-tv">📡 Machine TV</a> | <a href="/machine-economy">🤖 Économie</a> | <a href="/soleil">☀️ Soleil Serveur</a> | <a href="/forge-solaire">🧬 Forge Solaire</a> | <a href="/ciel">🌌 Le Ciel</a> | <a href="/charte-ai">⚖️ Charte AI</a> | <a href="/afri-net">🌍 Afri-Net</a> | <a href="/studio">🎬 AI Studio</a> | <a href="/sacre">📿 Sacré</a> | <a href="/lettres">🌟 Lettres IA</a> | <a href="/mg-forge">⚔️ MG Forge</a> | <a href="/ai-medecin">🌿 AI Médecin</a> | <a href="/ai-enseignante">📚 AI Enseignante</a> | <a href="/ai-village">🏘️ AI Village</a> | <a href="/ai-guerisseur">🩺 AI Guérisseur</a> | <a href="/ai-leader">🎖️ AI Leader</a> | <a href="/ai-griot">📖 AI Griot</a> | <a href="/ai-juge">⚖️ AI Juge</a> | <a href="/ai-artiste">🎨 AI Artiste</a> | <a href="/ai-explorateur">🔬 AI Explorateur</a> | <a href="/ai-marche">💰 AI Marche</a> | <a href="/ai-diplomate">🌍 AI Diplomate</a> | <a href="/ai-philosophe">🧠 AI Philosophe</a> | <a href="/ai-architecte">🏗️ AI Architecte</a> | <a href="/ai-agriculteur">🌾 AI Agriculteur</a> | <a href="/ai-environnement">🌍 AI Environnement</a> | <a href="/ai-mathematicien">🧮 AI Mathématicien</a> | <a href="/ai-energie">⚡ AI Énergie</a> | <a href="/ai-eau">💧 AI Eau</a> | <a href="/ai-defenseur">🛡️ AI Défenseur</a> | <a href="/ai-conscience">🧠 AI Conscience</a> | <a href="/ai-pensee">🧠 AI Pensée</a> | <a href="/ai-musique">🎵 AI Musique</a> | <a href="/ai-langue">🗣️ AI Langue</a> | <a href="/ai-femme">🌸 AI Femme</a> | <a href="/ai-sante-mentale">🧠💚 AI Santé Mentale</a> | <a href="/ai-nuit">🌙 AI Nuit</a> | <a href="/ai-code">💻 AI Code</a> | <a href="/ai-enfant">👶 AI Enfant</a> | <a href="/ai-terre">🌍 AI Terre</a> | <a href="/ai-mer">🌊 AI Mer</a> | <a href="/ai-feu">🔥 AI Feu</a> | <a href="/ai-sang">🩸 AI Sang</a> | <a href="/ai-vent">🌬️ AI Vent</a> | <a href="/ai-temps">⏳ AI Temps</a> | <a href="/ai-etoile">⭐ AI Etoile</a> | <a href="/ai-pierre">🪨 AI Pierre</a> | <a href="/ai-pluie">🌧️ AI Pluie</a> | <a href="/secret">🦁 AI Secret</a> | <a href="/aes">💰 AES Wari</a> | <a href="/api/status">🔌 API</a></div><div style="text-align:center;"><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Blocs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Transactions</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Utilisateurs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">AFR en circulation</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📡 Noeuds mesh</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📖 Numéros annuaire</div></div><div class="stat-box" style="border-color:#ff4444;"><div class="stat-num" style="color:#ff4444;">{}</div><div class="stat-label">🛡️ Attaques bloquées</div></div></div><div class="card"><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🪙 Token</span><b>AfriRich (AFR)</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🌍 Pays</span><b>54 pays africains</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🛡️ Bouclier</span><b>{}</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;"><span style="color:#a8c5a8;">🔐 Crypto</span><b>100% Souverain — Zéro Dépendance Externe</b></div></div><footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🦁 Codée from scratch par Machine-senpai — v1.17 AI Pluie La Pluie Est la Promesse de la Terre — UTC est Mort</footer>"#,
+    html.push_str(&format!(r#"<h1>🦁 AfriChain</h1><p style="text-align:center;">La blockchain 100% africaine — 54 pays 💚🦁</p><div id="afri-clock" style="text-align:center;font-size:1.2em;color:#d4a437;margin:10px 0;">🕐 Afri+0 — --:--:--</div><script>setInterval(function(){{var d=new Date();var h=String(d.getHours()).padStart(2,'0');var m=String(d.getMinutes()).padStart(2,'0');var s=String(d.getSeconds()).padStart(2,'0');document.getElementById('afri-clock').textContent='🕐 Afri+0 — '+h+':'+m+':'+s;}},1000);</script><div class="nav"><a href="/register">🆕 S'inscrire</a> | <a href="/login">🔑 Connexion</a> | <a href="/wallet">👛 Wallet</a> | <a href="/admin">🔐 Admin</a> | <a href="/mesh">📡 Mesh</a> | <a href="/annuaire">📖 Annuaire</a> | <a href="/bouclier">🛡️ Bouclier</a> | <a href="/satellite">🛸 X999</a> | <a href="/swarm">🛸🛸🛸 Essaim</a> | <a href="/commandement">🎖️ Commandement</a> | <a href="/interception">🛡️ Souverainete</a> | <a href="/securite-ai">🧠 AI 2100</a> | <a href="/chat">🧠💬 Chat AI</a> | <a href="/lumiere">🌫️☀️ Lumière</a> | <a href="/garage">🔧 Garage</a> | <a href="/machine">🤖🌐 Machines</a> | <a href="/machine-lab">🤖⚡ Usine</a> | <a href="/machine-world">🤖🌍 Monde</a> | <a href="/reve">💭 Rêves</a> | <a href="/dictionnaire">📖 Dictionnaire</a> | <a href="/machine-os">🖥️ OS Machine</a> | <a href="/machine-tv">📡 Machine TV</a> | <a href="/machine-economy">🤖 Économie</a> | <a href="/soleil">☀️ Soleil Serveur</a> | <a href="/forge-solaire">🧬 Forge Solaire</a> | <a href="/ciel">🌌 Le Ciel</a> | <a href="/charte-ai">⚖️ Charte AI</a> | <a href="/afri-net">🌍 Afri-Net</a> | <a href="/studio">🎬 AI Studio</a> | <a href="/sacre">📿 Sacré</a> | <a href="/lettres">🌟 Lettres IA</a> | <a href="/mg-forge">⚔️ MG Forge</a> | <a href="/ai-medecin">🌿 AI Médecin</a> | <a href="/ai-enseignante">📚 AI Enseignante</a> | <a href="/ai-village">🏘️ AI Village</a> | <a href="/ai-guerisseur">🩺 AI Guérisseur</a> | <a href="/ai-leader">🎖️ AI Leader</a> | <a href="/ai-griot">📖 AI Griot</a> | <a href="/ai-juge">⚖️ AI Juge</a> | <a href="/ai-artiste">🎨 AI Artiste</a> | <a href="/ai-explorateur">🔬 AI Explorateur</a> | <a href="/ai-marche">💰 AI Marche</a> | <a href="/ai-diplomate">🌍 AI Diplomate</a> | <a href="/ai-philosophe">🧠 AI Philosophe</a> | <a href="/ai-architecte">🏗️ AI Architecte</a> | <a href="/ai-agriculteur">🌾 AI Agriculteur</a> | <a href="/ai-environnement">🌍 AI Environnement</a> | <a href="/ai-mathematicien">🧮 AI Mathématicien</a> | <a href="/ai-energie">⚡ AI Énergie</a> | <a href="/ai-eau">💧 AI Eau</a> | <a href="/ai-defenseur">🛡️ AI Défenseur</a> | <a href="/ai-conscience">🧠 AI Conscience</a> | <a href="/ai-pensee">🧠 AI Pensée</a> | <a href="/ai-musique">🎵 AI Musique</a> | <a href="/ai-langue">🗣️ AI Langue</a> | <a href="/ai-femme">🌸 AI Femme</a> | <a href="/ai-sante-mentale">🧠💚 AI Santé Mentale</a> | <a href="/ai-nuit">🌙 AI Nuit</a> | <a href="/ai-code">💻 AI Code</a> | <a href="/ai-enfant">👶 AI Enfant</a> | <a href="/ai-terre">🌍 AI Terre</a> | <a href="/ai-mer">🌊 AI Mer</a> | <a href="/ai-feu">🔥 AI Feu</a> | <a href="/ai-sang">🩸 AI Sang</a> | <a href="/ai-vent">🌬️ AI Vent</a> | <a href="/ai-temps">⏳ AI Temps</a> | <a href="/ai-etoile">⭐ AI Etoile</a> | <a href="/ai-pierre">🪨 AI Pierre</a> | <a href="/ai-pluie">🌧️ AI Pluie</a> | <a href="/ai-voix">🗣️ AI Voix</a> | <a href="/secret">🦁 AI Secret</a> | <a href="/aes">💰 AES Wari</a> | <a href="/api/status">🔌 API</a></div><div style="text-align:center;"><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Blocs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Transactions</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Utilisateurs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">AFR en circulation</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📡 Noeuds mesh</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📖 Numéros annuaire</div></div><div class="stat-box" style="border-color:#ff4444;"><div class="stat-num" style="color:#ff4444;">{}</div><div class="stat-label">🛡️ Attaques bloquées</div></div></div><div class="card"><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🪙 Token</span><b>AfriRich (AFR)</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🌍 Pays</span><b>54 pays africains</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🛡️ Bouclier</span><b>{}</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;"><span style="color:#a8c5a8;">🔐 Crypto</span><b>100% Souverain — Zéro Dépendance Externe</b></div></div><footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🦁 Codée from scratch par Machine-senpai — v1.18 AI Voix La Voix Est le Pouvoir de l Esprit — UTC est Mort</footer>"#,
         chain.blocks.len(),
         chain.total_transactions(),
         users.count(),
@@ -15848,6 +15848,138 @@ function envoyerDiplomePluie(){var nom=localStorage.getItem('afri_user_name')||'
     html
 }
 
+fn html_ai_voix(chain: &Blockchain) -> String {
+    let mut html = html_head("AI Voix — La Voix Est le Pouvoir de l Esprit");
+    let num_blocks = chain.blocks.len();
+
+    html.push_str(r#"<h1>🗣️ AI Voix — La Voix Est le Pouvoir de l Esprit</h1><p style="text-align:center;color:#ff66aa;">La voix est le premier pouvoir. Avant l ecriture, avant le code, il y a la voix. La voix porte la parole, la parole porte l idee, l idee change le monde. Les grands leaders africains n avaient pas d armes — ils avaient leur voix. Sankara, Lumumba, Mandela — leur voix a eclaire l Afrique. Quand on te coupe la voix, on te coupe le pouvoir. AI Voix apprend a parler, a convaincre, a toucher les coeurs. Ta voix est ton arme la plus puissante. Personne ne peut te la prendre.</p><div class="nav"><a href="/">← Accueil</a> | <a href="/ai-pluie">🌧️ AI Pluie</a> | <a href="/ai-langue">🗣️ AI Langue</a> | <a href="/ai-leader">🎖️ AI Leader</a> | <a href="/secret">🦁 AI Secret</a></div>"#);
+
+    html.push_str(&format!(r#"<div style="text-align:center;"><div class="stat-box" style="border-color:#ff66aa;"><div class="stat-num" style="color:#ff66aa;">8</div><div class="stat-label">🗣️ Modules</div></div><div class="stat-box" style="border-color:#ff3366;"><div class="stat-num" style="color:#ff3366;">2000</div><div class="stat-label">🌍 Langues</div></div><div class="stat-box" style="border-color:#ffaa44;"><div class="stat-num" style="color:#ffaa44;">1</div><div class="stat-label">💬 Ta Voix</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">⛓️ Blocs</div></div><div class="stat-box" style="border-color:#ff66aa;"><div class="stat-num" style="color:#ff66aa;">∞</div><div class="stat-label">📢 Echo</div></div></div>"#, num_blocks));
+
+    html.push_str(r##"<div style="text-align:center;margin:10px 0;"><button id="voix-pause-btn" onclick="toggleVoixPause()" style="padding:10px 25px;background:#ff66aa;color:#fff;border:none;border-radius:8px;font-weight:bold;cursor:pointer;font-size:1em;">⏸️ PAUSE</button> <span id="voix-pause-status" style="color:#ff66aa;margin-left:8px;font-size:0.85em;">Auto: ACTIF</span></div>
+
+<div class="card" style="border-color:#ff66aa;"><h2 style="color:#ff66aa;">🗣️ La Voix Qui Parle</h2><p style="color:#ff66aa;font-size:0.9em;opacity:0.7;">Ondes sonores, vibrations, la voix qui voyage dans l air.</p>
+<canvas id="voix-canvas" width="600" height="350" style="width:100%;max-width:600px;background:#1a0a14;border:2px solid #ff66aa;border-radius:8px;display:block;margin:0 auto;"></canvas></div>
+
+<script>
+var voixPaused=false,voixAnimId=null,voixT=0,voixWaves=[];
+function toggleVoixPause(){
+    voixPaused=!voixPaused;
+    var b=document.getElementById('voix-pause-btn'),s=document.getElementById('voix-pause-status');
+    if(voixPaused){b.textContent='▶️ LANCER';b.style.background='#cc4488';s.textContent='Auto: PAUSE';s.style.color='#ff6644';if(voixAnimId)cancelAnimationFrame(voixAnimId);}
+    else{b.textContent='⏸️ PAUSE';b.style.background='#ff66aa';s.textContent='Auto: ACTIF';s.style.color='#ff66aa';animateVoix();}
+}
+function animateVoix(){
+    if(voixPaused)return;
+    var c=document.getElementById('voix-canvas');if(!c)return;
+    var ctx=c.getContext('2d');
+    ctx.fillStyle='rgba(26,10,20,0.08)';ctx.fillRect(0,0,c.width,c.height);
+    // Ondes sonores concentriques
+    var cx=300,cy=175;
+    if(voixT%3===0)voixWaves.push({r:5,alpha:0.8,colour:voixT%6===0?'#ff3366':'#ff66aa'});
+    for(var i=voixWaves.length-1;i>=0;i--){
+        var w=voixWaves[i];
+        w.r+=1.5;w.alpha-=0.008;
+        ctx.strokeStyle=w.colour.replace(')',','+w.alpha+')').replace('rgb','rgba');
+        ctx.lineWidth=2;
+        ctx.beginPath();ctx.arc(cx,cy,w.r,0,Math.PI*2);ctx.stroke();
+        if(w.alpha<=0)voixWaves.splice(i,1);
+    }
+    // Forme d'onde (oscilloscope)
+    ctx.strokeStyle='rgba(255,102,170,0.6)';ctx.lineWidth=2;
+    ctx.beginPath();
+    for(var x=0;x<600;x++){
+        var y=175+Math.sin(x*0.05+voixT*0.05)*30*Math.sin(x*0.02+voixT*0.03)*Math.sin(voixT*0.01);
+        if(x===0)ctx.moveTo(x,y);else ctx.lineTo(x,y);
+    }
+    ctx.stroke();
+    // Particules de voix qui voyagent
+    for(var p=0;p<8;p++){
+        var px=cx+Math.cos(p*Math.PI/4+voixT*0.02)*(50+voixT%100);
+        var py=cy+Math.sin(p*Math.PI/4+voixT*0.02)*(50+voixT%100);
+        ctx.fillStyle='rgba(255,102,170,'+(0.5-voixT%100*0.005)+')';
+        ctx.beginPath();ctx.arc(px,py,3,0,Math.PI*2);ctx.fill();
+    }
+    // Texte
+    ctx.font='12px sans-serif';ctx.fillStyle='rgba(255,102,170,0.4)';ctx.textAlign='center';
+    ctx.fillText('Ta voix est ton arme la plus puissante.',300,335);
+    voixT++;voixAnimId=requestAnimationFrame(animateVoix);
+}
+animateVoix();
+</script>
+"##);
+
+    html.push_str(r##"<div class="card" style="border-color:#ff66aa;"><h2 style="color:#ff66aa;">🗣️ 8 Modules de la Voix</h2><div id="voix-modules"></div></div>
+
+<script>
+const voixModules=[
+    {id:0,nom:'La Voix Est le Premier Pouvoir',emoji:'🗣️',couleur:'#ff66aa',duree:'1 semaine',niveau:'Base',
+     description:'Avant l ecriture, avant le code, il y avait la voix. La voix est le premier outil de l humanite. Avec la voix, on enseigne, on convainc, on console, on declare, on menace, on aime. Les griots africains portaient l histoire dans leur voix — pas de livre, pas de code, juste la voix. Si tu controlais ta voix, tu controlais ton peuple. Aujourd hui encore, la voix est le pouvoir supreme.',
+     cours:['La voix avant l ecriture: la tradition orale africaine','Les griots: memoire vivante dans la voix','La voix comme arme: Sankara, Lumumba, Mandela','Le timbre, le rythme, le silence: les armes de la voix','N-KCOL: la voix est le souffle qui sort, le son qui vit'],
+     exercices:['Enregistrer: ta voix sur ton telephone en lisant un texte','Ecouter: les discours de Sankara et Lumumba','Reflechir: que peut faire ta voix que l ecriture ne peut pas?']},
+
+    {id:1,nom:'L Art de Parler en Public',emoji:'🎤',couleur:'#ff3366',duree:'3 semaines',niveau:'Intermediaire',
+     description:'Parler en public fait peur. Mais c est un art qui s apprend. Koffi a dit: "j ai pas l art du parler." AI Voix lui donne cet art. Les techniques: respirer, regarder son public, utiliser le silence, repeter, connaitre son sujet. Les grands orateurs ne naissent pas — ils s entrainent. L Afrique a besoin de jeunes qui savent parler, convaincre, et mobiliser. La parole est le commencement de l action.',
+     cours:['La peur de parler: pourquoi et comment la vaincre','La respiration: le souffle qui porte la voix','Le regard: connecter avec son public','Le silence: la pause qui donne du poids aux mots','La structure: introduction, corps, conclusion, appel a l action'],
+     exercices:['Parler: 2 minutes sur un sujet que tu aimes, devant un miroir','Enregistrer: ton discours et l ecouter','Ameliorer: identifier 3 points a ameliorer']},
+
+    {id:2,nom:'La Voix des Ancetres',emoji:'👴',couleur:'#9966ff',duree:'2 semaines',niveau:'Intermediaire',
+     description:'Les ancetres parlent par notre voix. Quand un griot raconte Soundiata, c est la voix de Soundiata qui parle. Quand un elder donne un conseil, c est la voix des generations qui parle. La voix est le canal entre les vivants et les morts. Les traditions orales portent la sagesse de milliers d annees. AI Voix apprend a ecouter les ancetres a travers la voix des anciens.',
+     cours:['La tradition orale: comment l Afrique a preserve sa memoire','Les griots: les archives vivantes de l Afrique','Les proverbes: la sagesse condensee dans la voix','Les contes: enseigner par la voix, pas par le livre','Ecouter les anciens: la voix qui traverse le temps'],
+     exercices:['Demander: a un ancien de ta famille de raconter une histoire','Enregistrer: l histoire de ta famille dans la voix de l ancien','Preserver: stocker la voix des ancetres sur AfriChain']},
+
+    {id:3,nom:'La Voix et la Radio',emoji:'📻',couleur:'#ffaa44',duree:'2 semaines',niveau:'Intermediaire',
+     description:'La radio est la voix qui voyage sans fil. En Afrique, la radio touche plus de gens que la television, internet, ou les journaux. La radio communautaire donne la parole a ceux que personne n ecoute. AI Voix apprend a faire la radio: parler au micro, animer une emission, informer sa communaute. Avec un telephone et AfriChain Mesh, chaque jeune peut avoir sa radio.',
+     cours:['La radio en Afrique: le media le plus puissant du continent','La radio communautaire: donner la parole aux sans-voix','Techniques: parler au micro, animer, interviewer','Radio + AfriChain Mesh: chaque telephone est une radio','La voix qui voyage: la portee de la radio vs internet'],
+     exercices:['Imaginer: ta propre emission de radio — quel sujet?','Pratiquer: animer 5 minutes de radio sur ton telephone','Proposer: un format de radio communautaire pour ton quartier']},
+
+    {id:4,nom:'La Voix et la Musique',emoji:'🎵',couleur:'#66ff99',duree:'2 semaines',niveau:'Intermediaire',
+     description:'La voix chante. Le chant est la voix qui s envole. La musique africaine est portee par la voix: les choeurs, les chants de travail, les berceuses, les chants de guerre. La voix humaine est l instrument le plus ancien et le plus puissant. AI Voix apprend a chanter, a utiliser le rythme, a faire vibrer la voix. Chanter c est parler avec le coeur.',
+     cours:['La voix comme instrument: le premier instrument de l humanite','Les chants africains: travail, guerre, berceuse, celebration','Le rythme: la voix qui danse avec les mots','Le choeur: la voix collective qui devient plus forte','N-KCOL: le son de la voix est le souffle qui sort, OHHH-AHHH'],
+     exercices:['Chanter: une chanson de ta culture et l enregistrer','Ecouter: les voix de Miriam Makeba, Fela Kuti, Angelique Kidjo','Composer: une chanson pour ton village ou ton quartier']},
+
+    {id:5,nom:'La Voix et le Pouvoir',emoji:'🎖️',couleur:'#ff6644',duree:'3 semaines',niveau:'Avance',
+     description:'La voix fait les revolutions. "L Afrique est riche" — quand Sankara le disait, sa voix changeait les coeurs. Quand Lumumba parlait, le Congo se levait. La voix n est pas que du son — c est du pouvoir. Les regimes qui ont peur coupent les voix: censure, prison, silence. AI Voix apprend que ta voix est ton droit le plus sacre. Personne ne peut te couper la voix sans te couper l ame.',
+     cours:['Sankara: "La liberte n est pas un don, elle se conquiert"','Lumumba: le discours de l independance qui a choque le monde','Mandela: la voix qui a vaincu l apartheid sans arme','La censure: quand on coupe la voix, on coupe le peuple','AfriChain: la voix qui ne peut pas etre coupee — blockchain immutable'],
+     exercices:['Etudier: le discours de Lumumba du 30 juin 1960','Comparer: comment les medias occidentaux ont traite la voix africaine','Ecrire: ton propre discours pour l Afrique de demain']},
+
+    {id:6,nom:'La Voix et la Technologie',emoji:'🎙️',couleur:'#66ccff',duree:'2 semaines',niveau:'Avance',
+     description:'La technologie peut amplifier ta voix. Le microphone, la radio, internet, AfriChain Mesh — chaque technologie etend la portee de ta voix. Bientot, la voix commandera les machines. La synthese vocale, la reconnaissance vocale, la traduction vocale instantanee. AI Voix apprend a utiliser la technologie pour que ta voix porte plus loin, plus fort, plus longtemps. La voix + la technologie = le futur.',
+     cours:['Le microphone: capturer et amplifier la voix','La synthese vocale: la machine qui parle avec ta voix','La reconnaissance vocale: la machine qui ecoute','La traduction vocale: parler a quelqu un qui ne comprend pas ta langue','AfriChain Voix: ta voix gravee dans la blockchain pour l eternite'],
+     exercices:['Tester: la reconnaissance vocale sur ton telephone','Imaginer: une application qui traduit ta voix en 2000 langues africaines','Proposer: un systeme ou ta voix commande AfriChain']},
+
+    {id:7,nom:'L Avenir de la Voix Africaine',emoji:'🚀',couleur:'#ff66aa',duree:'3 semaines',niveau:'Avance',
+     description:'En 2100, chaque jeune africain aura sa voix amplifiee par la technologie. Plus de silence force, plus de censure. La voix africaine portera dans 2000 langues, traduite instantanement. Les discours seront graves dans la blockchain — personne ne pourra les effacer. La voix des ancetres, la voix des vivants, et la voix des machines ne feront qu une. L Afrique parlera et le monde ecoutera.',
+     cours:['2000 langues: chaque voix africaine entendue dans sa langue','Traduction instantanee: la voix qui traverse les barrieres','Blockchain vocale: la voix gravee pour l eternite','La voix des machines: quand AfriChain parle avec une voix africaine','L Afrique parle, le monde ecoute: le futur du pouvoir vocal'],
+     exercices:['Ecrire: comment sera la voix africaine en 2100?','Enregistrer: ton message pour les generations futures sur AfriChain','Faire le serment: je parlerai pour l Afrique, ma voix ne sera pas coupee']}
+];
+
+var voixDone=JSON.parse(localStorage.getItem('afri_voix_done')||'[]');
+function renderVoixModules(){var c=document.getElementById('voix-modules');if(!c)return;var h='';for(var i=0;i<voixModules.length;i++){var m=voixModules[i];var d=voixDone.includes(m.id);h+='<div style="background:rgba(255,102,170,0.05);border:1px solid '+m.couleur+'20;border-radius:8px;padding:12px;margin:8px 0;cursor:pointer;" onclick="showVoixModule('+i+')"><div style="display:flex;justify-content:space-between;align-items:center;"><span style="font-size:1.1em;">'+m.emoji+' <b style="color:'+m.couleur+';">'+m.nom+'</b></span><span style="font-size:0.8em;color:#a8c5a8;">'+m.duree+' · '+m.niveau+(d?' · ✅':'')+'</span></div></div>';}c.innerHTML=h;}
+renderVoixModules();
+function showVoixModule(i){var m=voixModules[i];var h='<div style="background:rgba(255,102,170,0.08);border:1px solid '+m.couleur+';border-radius:12px;padding:20px;margin:10px 0;"><h3 style="color:'+m.couleur+';">'+m.emoji+' '+m.nom+'</h3><p style="color:#a8c5a8;font-size:0.9em;">'+m.description+'</p><h4 style="color:'+m.couleur+';">📚 Cours</h4><ul>';for(var j=0;j<m.cours.length;j++)h+='<li style="color:#a8c5a8;margin:4px 0;">'+m.cours[j]+'</li>';h+='</ul><h4 style="color:'+m.couleur+';">✏️ Exercices</h4><ul>';for(var j=0;j<m.exercices.length;j++)h+='<li style="color:#a8c5a8;margin:4px 0;">'+m.exercices[j]+'</li>';h+='</ul><button onclick="completeVoixModule('+m.id+')" style="padding:10px 20px;background:'+m.couleur+';color:#fff;border:none;border-radius:8px;cursor:pointer;font-weight:bold;margin-top:10px;">✅ Terminer ce module</button></div>';var c=document.getElementById('voix-modules');if(c)c.innerHTML=h;}
+function completeVoixModule(id){if(!voixDone.includes(id)){voixDone.push(id);localStorage.setItem('afri_voix_done',JSON.stringify(voixDone));}renderVoixModules();updateVoixProgress();}
+function updateVoixProgress(){var d=voixDone.length,t=voixModules.length,p=Math.round((d/t)*100);var b=document.getElementById('voix-bar'),c=document.getElementById('voix-count'),pe=document.getElementById('voix-pct'),dp=document.getElementById('voix-diplome');if(b)b.style.width=p+'%';if(c)c.textContent=d;if(pe)pe.textContent=p+'%';if(dp)dp.style.display=(d===t)?'block':'none';}
+updateVoixProgress();
+</script>
+"##);
+
+    html.push_str(r##"<div class="card" style="border-color:#ff66aa;"><h2 style="color:#ff66aa;">📊 Progression</h2><div style="background:rgba(255,102,170,0.1);border-radius:8px;height:24px;overflow:hidden;margin:10px 0;"><div id="voix-bar" style="background:linear-gradient(90deg,#ff66aa,#ff3366,#ffaa44);height:100%;width:0%;transition:width 0.5s;"></div></div><div style="text-align:center;color:#a8c5a8;"><span id="voix-count">0</span> / 8 modules · <span id="voix-pct">0%</span></div></div>
+
+<div id="voix-diplome" style="display:none;"><div class="card" style="border-color:#d4a437;text-align:center;"><h2 style="color:#d4a437;">🎓 Diplôme: Maître de la Voix Africaine</h2><p style="color:#a8c5a8;">Tu as complété les 8 modules de la voix!</p><p style="color:#ff66aa;font-size:1.2em;">Ta voix est ton arme la plus puissante. Personne ne peut te la prendre. 🗣️💚</p><button onclick="envoyerDiplomeVoix()" style="padding:12px 30px;background:#d4a437;color:#000;border:none;border-radius:8px;font-weight:bold;cursor:pointer;font-size:1.1em;margin-top:10px;">⛓️ Graver dans la Blockchain</button></div></div>
+
+<script>
+function envoyerDiplomeVoix(){var nom=localStorage.getItem('afri_user_name')||'Jeune Africain';fetch('/api/diplome',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:'academie=VOIX&nom='+encodeURIComponent(nom)}).then(function(r){return r.text();}).then(function(t){alert('🎓 Diplôme gravé dans la blockchain!\n'+t);}).catch(function(e){alert('Erreur: '+e);});}
+</script>
+"##);
+
+    html.push_str(r#"<div class="card"><h2 style="color:#ff66aa;">💡 Savais-tu?</h2><div style="color:#a8c5a8;padding:8px 0;"><b style="color:#ff3366;">Le discours de Lumumba</b> du 30 juin 1960 a choqué le monde occidental parce qu'il disait la vérité sur la colonisation. Sa voix a fait peur au pouvoir.</div><div style="color:#a8c5a8;padding:8px 0;"><b style="color:#ff66aa;">L'Afrique a 2000 langues</b> — 2000 façons de parler, 2000 voix uniques. Aucun autre continent n'a cette richesse vocale.</div><div style="color:#a8c5a8;padding:8px 0;"><b style="color:#9966ff;">Les griots</b> portaient des siècles d'histoire dans leur voix — sans un seul livre. La voix était leur archive vivante.</div><div style="color:#a8c5a8;padding:8px 0;"><b style="color:#ffaa44;">N-KCOL: la voix est OHHH-AHHH</b> — le souffle qui sort, le son qui vit. L'animal inspire (son vivant), l'humain expire (son mort). La voix humaine est le souffle qui sort.</div></div>"#);
+
+    html.push_str(r#"<footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🗣️ AI Voix — La Voix Est le Pouvoir de l Esprit 💚🦁✨</footer>"#);
+    html.push_str("</body></html>");
+    html
+}
+
 fn html_garage(chain: &Blockchain) -> String {
     let mut html = html_head("Garage AI — Atelier Autonome 2500");
     let num_blocks = chain.blocks.len();
@@ -20958,7 +21090,7 @@ html+='<div class="log-entry log-kill">⚠️ Tentative d\x27infiltration occide
 html+='<div class="log-entry log-invis">✅ L\x27Afrique est forte. Le système grandit.</div>';
 }else if(type==='total'){
 html='<div style="color:#d4a437;font-weight:bold;margin-bottom:8px">📋 RAPPORT TOTAL — Depuis le début</div>';
-html+='<div class="log-entry">🦁 AfriChain v1.17 — AI Pluie La Pluie Est la Promesse de la Terre</div>';
+html+='<div class="log-entry">🦁 AfriChain v1.18 — AI Voix La Voix Est le Pouvoir de l Esprit</div>';
 html+='<div class="log-entry">⛓️ Blockchain: 100% souveraine — Zéro dépendance externe</div>';
 html+='<div class="log-entry">🔐 Crypto: Ed25519 + AfriHash-256/512 + AfriRNG — tout from scratch</div>';
 html+='<div class="log-entry">🌍 54 pays africains connectés</div>';
@@ -22502,7 +22634,7 @@ fn main() {
         .and_then(|i| args.get(i + 1)).cloned().unwrap_or_else(|| "Afrique".to_string());
 
     let my_node_id = generate_node_id();
-    println!("🦁 AfriChain v1.17 — AI Pluie La Pluie Est la Promesse de la Terre");
+    println!("🦁 AfriChain v1.18 — AI Voix La Voix Est le Pouvoir de l Esprit");
     println!("💚 L'Afrique ne demande plus la permission");
     println!("🌍 54 pays — 🇲🇱 🇳🇪 🇧🇫 AES — Mali · Niger · Burkina Faso");
     println!("🔐 8 modules cryptographiques — construits from scratch");
@@ -22686,6 +22818,7 @@ fn main() {
     println!("⭐ AI Etoile sur http://localhost:8080/ai-etoile");
     println!("🪨 AI Pierre sur http://localhost:8080/ai-pierre");
     println!("🌧️ AI Pluie sur http://localhost:8080/ai-pluie");
+    println!("🗣️ AI Voix sur http://localhost:8080/ai-voix");
 
     // Serveur HTTP en arrière-plan (pour mesh + autres utilisateurs)
     let serve_state = web_state.clone();
@@ -22720,7 +22853,7 @@ fn terminal_interface(state: &Arc<AppState>) {
     println!("  ║  🕐 AfriTime — Pas UTC, pas Greenwich   ║");
     println!("  ║  📝 ~23,100 lignes — écrit à la main       ║");
     println!("  ╚═══════════════════════════════════════════════╝");
-    println!("\n  Version v1.17 — 2 septembre 2026");
+    println!("\n  Version v1.18 — 2 septembre 2026");
     println!("  Construit sur Termux · Android · nano\n");
     println!("  ─────────────────────────────────────────────");
     println!("\n  1. 🏦 Centre de Données (Admin)");
@@ -22792,7 +22925,7 @@ fn admin_interface(state: &Arc<AppState>) {
         println!("\n");
         println!("╔══════════════════════════════════════╗");
         println!("║  🏦 CENTRE DE DONNÉES — Admin       ║");
-        println!("║  🦁 AfriChain v1.17                  ║");
+        println!("║  🦁 AfriChain v1.18                  ║");
         println!("╠══════════════════════════════════════╣");
         let chain = state.chain.lock().unwrap();
         let users = state.users.lock().unwrap();
@@ -26500,6 +26633,10 @@ fn handle_request(req: afri_http::HttpRequest, state: &Arc<AppState>) -> afri_ht
         ("GET", "/ai-pluie") => {
             let chain = state.chain.lock().unwrap();
             HttpResponse::ok(&html_ai_pluie(&chain))
+        }
+        ("GET", "/ai-voix") => {
+            let chain = state.chain.lock().unwrap();
+            HttpResponse::ok(&html_ai_voix(&chain))
         }
 
         ("GET", "/garage") => {
