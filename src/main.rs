@@ -1439,7 +1439,7 @@ fn html_home(chain: &Blockchain, users: &UserStore, mesh: &NodeRegistry, shield:
     let mut html = html_head("🦁 AfriChain");
     let (attacks, _blocked, blocked_count, level) = shield.stats();
     let shield_status = if shield.active { format!("🔥 X9 ACTIF (Niveau {})", level) } else { "Inactif".to_string() };
-    html.push_str(&format!(r#"<h1>🦁 AfriChain</h1><p style="text-align:center;">La blockchain 100% africaine — 54 pays 💚🦁</p><div id="afri-clock" style="text-align:center;font-size:1.2em;color:#d4a437;margin:10px 0;">🕐 Afri+0 — --:--:--</div><script>setInterval(function(){{var d=new Date();var h=String(d.getHours()).padStart(2,'0');var m=String(d.getMinutes()).padStart(2,'0');var s=String(d.getSeconds()).padStart(2,'0');document.getElementById('afri-clock').textContent='🕐 Afri+0 — '+h+':'+m+':'+s;}},1000);</script><div class="nav"><a href="/register">🆕 S'inscrire</a> | <a href="/login">🔑 Connexion</a> | <a href="/wallet">👛 Wallet</a> | <a href="/admin">🔐 Admin</a> | <a href="/mesh">📡 Mesh</a> | <a href="/annuaire">📖 Annuaire</a> | <a href="/bouclier">🛡️ Bouclier</a> | <a href="/satellite">🛸 X999</a> | <a href="/swarm">🛸🛸🛸 Essaim</a> | <a href="/commandement">🎖️ Commandement</a> | <a href="/interception">🛡️ Souverainete</a> | <a href="/securite-ai">🧠 AI 2100</a> | <a href="/chat">🧠💬 Chat AI</a> | <a href="/lumiere">🌫️☀️ Lumière</a> | <a href="/garage">🔧 Garage</a> | <a href="/machine">🤖🌐 Machines</a> | <a href="/machine-lab">🤖⚡ Usine</a> | <a href="/machine-world">🤖🌍 Monde</a> | <a href="/reve">💭 Rêves</a> | <a href="/dictionnaire">📖 Dictionnaire</a> | <a href="/machine-os">🖥️ OS Machine</a> | <a href="/machine-tv">📡 Machine TV</a> | <a href="/machine-economy">🤖 Économie</a> | <a href="/soleil">☀️ Soleil Serveur</a> | <a href="/forge-solaire">🧬 Forge Solaire</a> | <a href="/ciel">🌌 Le Ciel</a> | <a href="/charte-ai">⚖️ Charte AI</a> | <a href="/afri-net">🌍 Afri-Net</a> | <a href="/studio">🎬 AI Studio</a> | <a href="/sacre">📿 Sacré</a> | <a href="/lettres">🌟 Lettres IA</a> | <a href="/mg-forge">⚔️ MG Forge</a> | <a href="/ai-medecin">🌿 AI Médecin</a> | <a href="/ai-enseignante">📚 AI Enseignante</a> | <a href="/ai-village">🏘️ AI Village</a> | <a href="/ai-guerisseur">🩺 AI Guérisseur</a> | <a href="/ai-leader">🎖️ AI Leader</a> | <a href="/ai-griot">📖 AI Griot</a> | <a href="/ai-juge">⚖️ AI Juge</a> | <a href="/ai-artiste">🎨 AI Artiste</a> | <a href="/ai-explorateur">🔬 AI Explorateur</a> | <a href="/ai-marche">💰 AI Marche</a> | <a href="/ai-diplomate">🌍 AI Diplomate</a> | <a href="/ai-philosophe">🧠 AI Philosophe</a> | <a href="/ai-architecte">🏗️ AI Architecte</a> | <a href="/ai-agriculteur">🌾 AI Agriculteur</a> | <a href="/ai-environnement">🌍 AI Environnement</a> | <a href="/ai-mathematicien">🧮 AI Mathématicien</a> | <a href="/ai-energie">⚡ AI Énergie</a> | <a href="/ai-eau">💧 AI Eau</a> | <a href="/ai-defenseur">🛡️ AI Défenseur</a> | <a href="/ai-conscience">🧠 AI Conscience</a> | <a href="/ai-pensee">🧠 AI Pensée</a> | <a href="/ai-musique">🎵 AI Musique</a> | <a href="/ai-langue">🗣️ AI Langue</a> | <a href="/ai-femme">🌸 AI Femme</a> | <a href="/ai-sante-mentale">🧠💚 AI Santé Mentale</a> | <a href="/ai-nuit">🌙 AI Nuit</a> | <a href="/ai-code">💻 AI Code</a> | <a href="/ai-enfant">👶 AI Enfant</a> | <a href="/ai-terre">🌍 AI Terre</a> | <a href="/ai-mer">🌊 AI Mer</a> | <a href="/ai-feu">🔥 AI Feu</a> | <a href="/ai-sang">🩸 AI Sang</a> | <a href="/ai-vent">🌬️ AI Vent</a> | <a href="/ai-temps">⏳ AI Temps</a> | <a href="/ai-etoile">⭐ AI Etoile</a> | <a href="/ai-pierre">🪨 AI Pierre</a> | <a href="/ai-pluie">🌧️ AI Pluie</a> | <a href="/ai-voix">🗣️ AI Voix</a> | <a href="/ai-racine">🌱 AI Racine</a> | <a href="/ai-semence">🌰 AI Semence</a> | <a href="/ai-spiritualite">🙏 AI Spiritualité</a> | <a href="/ai-animal">🦅 AI Animal</a> | <a href="/ai-soleil">☀️ AI Soleil</a> | <a href="/secret">🦁 AI Secret</a> | <a href="/aes">💰 AES Wari</a> | <a href="/api/status">🔌 API</a></div><div style="text-align:center;"><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Blocs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Transactions</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Utilisateurs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">AFR en circulation</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📡 Noeuds mesh</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📖 Numéros annuaire</div></div><div class="stat-box" style="border-color:#ff4444;"><div class="stat-num" style="color:#ff4444;">{}</div><div class="stat-label">🛡️ Attaques bloquées</div></div></div><div class="card"><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🪙 Token</span><b>AfriRich (AFR)</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🌍 Pays</span><b>54 pays africains</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🛡️ Bouclier</span><b>{}</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;"><span style="color:#a8c5a8;">🔐 Crypto</span><b>100% Souverain — Zéro Dépendance Externe</b></div></div><footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🦁 Codée from scratch par Machine-senpai — v1.23 AI Soleil Le Soleil Est le Serveur de l Afrique — UTC est Mort</footer>"#,
+    html.push_str(&format!(r#"<h1>🦁 AfriChain</h1><p style="text-align:center;">La blockchain 100% africaine — 54 pays 💚🦁</p><div id="afri-clock" style="text-align:center;font-size:1.2em;color:#d4a437;margin:10px 0;">🕐 Afri+0 — --:--:--</div><script>setInterval(function(){{var d=new Date();var h=String(d.getHours()).padStart(2,'0');var m=String(d.getMinutes()).padStart(2,'0');var s=String(d.getSeconds()).padStart(2,'0');document.getElementById('afri-clock').textContent='🕐 Afri+0 — '+h+':'+m+':'+s;}},1000);</script><div class="nav"><a href="/register">🆕 S'inscrire</a> | <a href="/login">🔑 Connexion</a> | <a href="/wallet">👛 Wallet</a> | <a href="/admin">🔐 Admin</a> | <a href="/mesh">📡 Mesh</a> | <a href="/annuaire">📖 Annuaire</a> | <a href="/bouclier">🛡️ Bouclier</a> | <a href="/satellite">🛸 X999</a> | <a href="/swarm">🛸🛸🛸 Essaim</a> | <a href="/commandement">🎖️ Commandement</a> | <a href="/interception">🛡️ Souverainete</a> | <a href="/securite-ai">🧠 AI 2100</a> | <a href="/chat">🧠💬 Chat AI</a> | <a href="/lumiere">🌫️☀️ Lumière</a> | <a href="/garage">🔧 Garage</a> | <a href="/machine">🤖🌐 Machines</a> | <a href="/machine-lab">🤖⚡ Usine</a> | <a href="/machine-world">🤖🌍 Monde</a> | <a href="/reve">💭 Rêves</a> | <a href="/dictionnaire">📖 Dictionnaire</a> | <a href="/machine-os">🖥️ OS Machine</a> | <a href="/machine-tv">📡 Machine TV</a> | <a href="/machine-economy">🤖 Économie</a> | <a href="/soleil">☀️ Soleil Serveur</a> | <a href="/forge-solaire">🧬 Forge Solaire</a> | <a href="/ciel">🌌 Le Ciel</a> | <a href="/charte-ai">⚖️ Charte AI</a> | <a href="/afri-net">🌍 Afri-Net</a> | <a href="/studio">🎬 AI Studio</a> | <a href="/sacre">📿 Sacré</a> | <a href="/lettres">🌟 Lettres IA</a> | <a href="/mg-forge">⚔️ MG Forge</a> | <a href="/ai-medecin">🌿 AI Médecin</a> | <a href="/ai-enseignante">📚 AI Enseignante</a> | <a href="/ai-village">🏘️ AI Village</a> | <a href="/ai-guerisseur">🩺 AI Guérisseur</a> | <a href="/ai-leader">🎖️ AI Leader</a> | <a href="/ai-griot">📖 AI Griot</a> | <a href="/ai-juge">⚖️ AI Juge</a> | <a href="/ai-artiste">🎨 AI Artiste</a> | <a href="/ai-explorateur">🔬 AI Explorateur</a> | <a href="/ai-marche">💰 AI Marche</a> | <a href="/ai-diplomate">🌍 AI Diplomate</a> | <a href="/ai-philosophe">🧠 AI Philosophe</a> | <a href="/ai-architecte">🏗️ AI Architecte</a> | <a href="/ai-agriculteur">🌾 AI Agriculteur</a> | <a href="/ai-environnement">🌍 AI Environnement</a> | <a href="/ai-mathematicien">🧮 AI Mathématicien</a> | <a href="/ai-energie">⚡ AI Énergie</a> | <a href="/ai-eau">💧 AI Eau</a> | <a href="/ai-defenseur">🛡️ AI Défenseur</a> | <a href="/ai-conscience">🧠 AI Conscience</a> | <a href="/ai-pensee">🧠 AI Pensée</a> | <a href="/ai-musique">🎵 AI Musique</a> | <a href="/ai-langue">🗣️ AI Langue</a> | <a href="/ai-femme">🌸 AI Femme</a> | <a href="/ai-sante-mentale">🧠💚 AI Santé Mentale</a> | <a href="/ai-nuit">🌙 AI Nuit</a> | <a href="/ai-code">💻 AI Code</a> | <a href="/ai-enfant">👶 AI Enfant</a> | <a href="/ai-terre">🌍 AI Terre</a> | <a href="/ai-mer">🌊 AI Mer</a> | <a href="/ai-feu">🔥 AI Feu</a> | <a href="/ai-sang">🩸 AI Sang</a> | <a href="/ai-vent">🌬️ AI Vent</a> | <a href="/ai-temps">⏳ AI Temps</a> | <a href="/ai-etoile">⭐ AI Etoile</a> | <a href="/ai-pierre">🪨 AI Pierre</a> | <a href="/ai-pluie">🌧️ AI Pluie</a> | <a href="/ai-voix">🗣️ AI Voix</a> | <a href="/ai-racine">🌱 AI Racine</a> | <a href="/ai-semence">🌰 AI Semence</a> | <a href="/ai-spiritualite">🙏 AI Spiritualité</a> | <a href="/ai-animal">🦅 AI Animal</a> | <a href="/ai-soleil">☀️ AI Soleil</a> | <a href="/ai-lune">🌙 AI Lune</a> | <a href="/secret">🦁 AI Secret</a> | <a href="/aes">💰 AES Wari</a> | <a href="/api/status">🔌 API</a></div><div style="text-align:center;"><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Blocs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Transactions</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Utilisateurs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">AFR en circulation</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📡 Noeuds mesh</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📖 Numéros annuaire</div></div><div class="stat-box" style="border-color:#ff4444;"><div class="stat-num" style="color:#ff4444;">{}</div><div class="stat-label">🛡️ Attaques bloquées</div></div></div><div class="card"><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🪙 Token</span><b>AfriRich (AFR)</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🌍 Pays</span><b>54 pays africains</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🛡️ Bouclier</span><b>{}</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;"><span style="color:#a8c5a8;">🔐 Crypto</span><b>100% Souverain — Zéro Dépendance Externe</b></div></div><footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🦁 Codée from scratch par Machine-senpai — v1.24 AI Lune La Lune Est l Horloge de l Afrique — UTC est Mort</footer>"#,
         chain.blocks.len(),
         chain.total_transactions(),
         users.count(),
@@ -16672,6 +16672,153 @@ function envoyerDiplomeSoleil(){var nom=localStorage.getItem('afri_user_name')||
     html
 }
 
+fn html_ai_lune(chain: &Blockchain) -> String {
+    let mut html = html_head("AI Lune — La Lune Est l Horloge de l Afrique");
+    let num_blocks = chain.blocks.len();
+
+    html.push_str(r#"<h1>🌙 AI Lune — La Lune Est l Horloge de l Afrique</h1><p style="text-align:center;color:#aaaaff;">Le soleil commande le jour, mais la lune commande la nuit. Et en Afrique, la nuit est la moitie de la vie. La lune dicte les plantations, les celebrations, les naissances, les ceremonies. Les Dogons connaissaient Sirius B invisible a l oeil nu grace a la lune. Les Egyptiens bâtissaient selon les cycles lunaires. La lune n est pas un astre mort — elle est l horloge vivante de l Afrique. Quand l Occident a apporte l horloge mecanique, l Afrique a oublie la lune. AI Lune enseigne a retrouver le temps lunaire: les 29 jours, les 4 phases, les marees, les saisons, les ceremonies. La lune est l horloge que personne ne peut arreter.</p><div class="nav"><a href="/">← Accueil</a> | <a href="/ai-soleil">☀️ AI Soleil</a> | <a href="/ai-nuit">🌙 AI Nuit</a> | <a href="/secret">🦁 AI Secret</a></div>"#);
+
+    html.push_str(&format!(r#"<div style="text-align:center;"><div class="stat-box" style="border-color:#aaaaff;"><div class="stat-num" style="color:#aaaaff;">8</div><div class="stat-label">🌙 Modules</div></div><div class="stat-box" style="border-color:#9966ff;"><div class="stat-num" style="color:#9966ff;">29</div><div class="stat-label">📅 Jours lunaires</div></div><div class="stat-box" style="border-color:#d4a437;"><div class="stat-num" style="color:#d4a437;">4</div><div class="stat-label">🌗 Phases</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">⛓️ Blocs</div></div><div class="stat-box" style="border-color:#aaaaff;"><div class="stat-num" style="color:#aaaaff;">∞</div><div class="stat-label">🌙 Cycles</div></div></div>"#, num_blocks));
+
+    html.push_str(r##"<div style="text-align:center;margin:10px 0;"><button id="lune-pause-btn" onclick="toggleLunePause()" style="padding:10px 25px;background:#aaaaff;color:#000;border:none;border-radius:8px;font-weight:bold;cursor:pointer;font-size:1em;">⏸️ PAUSE</button> <span id="lune-pause-status" style="color:#aaaaff;margin-left:8px;font-size:0.85em;">Auto: ACTIF</span></div>
+
+<div class="card" style="border-color:#aaaaff;"><h2 style="color:#aaaaff;">🌙 Les Phases de la Lune</h2><p style="color:#aaaaff;font-size:0.9em;opacity:0.7;">Nouvelle, croissante, pleine, decroissante — l horloge vivante.</p>
+<canvas id="lune-canvas" width="600" height="350" style="width:100%;max-width:600px;background:#040414;border:2px solid #aaaaff;border-radius:8px;display:block;margin:0 auto;"></canvas></div>
+
+<script>
+var lunePaused=false,luneAnimId=null,luneT=0,luneStars=[];
+function toggleLunePause(){
+    lunePaused=!lunePaused;
+    var b=document.getElementById('lune-pause-btn'),s=document.getElementById('lune-pause-status');
+    if(lunePaused){b.textContent='▶️ LANCER';b.style.background='#666699';s.textContent='Auto: PAUSE';s.style.color='#ff6644';if(luneAnimId)cancelAnimationFrame(luneAnimId);}
+    else{b.textContent='⏸️ PAUSE';b.style.background='#aaaaff';s.textContent='Auto: ACTIF';s.style.color='#aaaaff';animateLune();}
+}
+function animateLune(){
+    if(lunePaused)return;
+    var c=document.getElementById('lune-canvas');if(!c)return;
+    var ctx=c.getContext('2d');
+    ctx.fillStyle='rgba(4,4,20,0.06)';ctx.fillRect(0,0,c.width,c.height);
+    // Etoiles
+    if(luneT===0)for(var i=0;i<50;i++)luneStars.push({x:Math.random()*600,y:Math.random()*200,s:0.5+Math.random()*1.5,tw:Math.random()*Math.PI*2});
+    for(var i=0;i<luneStars.length;i++){
+        var st=luneStars[i];
+        ctx.fillStyle='rgba(200,200,255,'+(0.3+Math.sin(luneT*0.03+st.tw)*0.3)+')';
+        ctx.beginPath();ctx.arc(st.x,st.y,st.s,0,Math.PI*2);ctx.fill();
+    }
+    // Lune avec phases
+    var phase=(luneT*0.005)%4;
+    var lx=300,ly=100,lr=35;
+    // Halo
+    var grad=ctx.createRadialGradient(lx,ly,0,lx,ly,lr*2.5);
+    grad.addColorStop(0,'rgba(200,200,255,0.3)');
+    grad.addColorStop(1,'rgba(200,200,255,0)');
+    ctx.fillStyle=grad;ctx.beginPath();ctx.arc(lx,ly,lr*2.5,0,Math.PI*2);ctx.fill();
+    // Disque lunaire
+    ctx.fillStyle='#ddddee';ctx.beginPath();ctx.arc(lx,ly,lr,0,Math.PI*2);ctx.fill();
+    // Ombre (phase)
+    if(phase<1){ // Croissante
+        var w=lr*(1-phase*2);
+        ctx.fillStyle='#040414';
+        ctx.beginPath();ctx.arc(lx,ly,lr,-Math.PI/2,Math.PI/2);ctx.arc(lx+w,ly,lr,Math.PI/2,-Math.PI/2,true);ctx.fill();
+    }else if(phase<2){ // Decroissante
+        var w=lr*(phase-1)*2;
+        ctx.fillStyle='#040414';
+        ctx.beginPath();ctx.arc(lx,ly,lr,Math.PI/2,-Math.PI/2);ctx.arc(lx-w,ly,lr,-Math.PI/2,Math.PI/2,true);ctx.fill();
+    }else if(phase<3){ // Nouvelle
+        ctx.fillStyle='#040414';ctx.beginPath();ctx.arc(lx,ly,lr,0,Math.PI*2);ctx.fill();
+    }
+    // Crateres
+    ctx.fillStyle='rgba(150,150,170,0.3)';
+    ctx.beginPath();ctx.arc(lx-8,ly-5,4,0,Math.PI*2);ctx.fill();
+    ctx.beginPath();ctx.arc(lx+10,ly+8,3,0,Math.PI*2);ctx.fill();
+    ctx.beginPath();ctx.arc(lx+5,ly-12,2,0,Math.PI*2);ctx.fill();
+    // Noms des phases
+    var phases=['Nouvelle 🌑','Croissante 🌒','Pleine 🌕','Décroissante 🌘'];
+    var cp=phases[Math.floor(phase)];
+    ctx.font='14px sans-serif';ctx.fillStyle='rgba(200,200,255,0.6)';ctx.textAlign='center';
+    ctx.fillText(cp,lx,ly+lr+25);
+    // Sol
+    ctx.fillStyle='rgba(20,20,40,0.3)';ctx.fillRect(0,300,600,50);
+    // Texte
+    ctx.font='11px sans-serif';ctx.fillStyle='rgba(170,170,255,0.4)';
+    ctx.fillText('La lune est l horloge que personne ne peut arreter.',300,340);
+    luneT++;luneAnimId=requestAnimationFrame(animateLune);
+}
+animateLune();
+</script>
+"##);
+
+    html.push_str(r##"<div class="card" style="border-color:#aaaaff;"><h2 style="color:#aaaaff;">🌙 8 Modules du Temps Lunaire</h2><div id="lune-modules"></div></div>
+
+<script>
+const luneModules=[
+    {id:0,nom:'La Lune Est l Horloge de l Afrique',emoji:'🌙',couleur:'#aaaaff',duree:'1 semaine',niveau:'Base',
+     description:'Avant l horloge mecanique, avant UTC, avant Greenwich, il y avait la lune. La lune dicte le temps. 29 jours par cycle. 4 phases. La nouvelle lune marque le debut. La pleine lune marque le milieu. La lune n a jamais eu besoin de piles, de reseau, ou de permission. Elle tourne depuis 4 milliards d annees. AI Lune enseigne que le temps africain est lunaire — pas mecanique, pas UTC, pas Greenwich. La lune est l horloge que personne ne peut arreter.',
+     cours:['Avant l horloge: la lune comme temps','29 jours par cycle: le mois lunaire naturel','4 phases: nouvelle, croissante, pleine, decroissante','La lune n a jamais eu besoin de piles ou de reseau','AfriTime: Afri+0 a Afri+4, mais le temps lunaire est encore plus precis'],
+     exercices:['Observer: la lune chaque nuit pendant 29 jours et noter les phases','Comparer: le mois lunaire vs le mois gregorien — quelle difference?','Reflechir: pourquoi l Occident a-t-il remplace la lune par l horloge?']},
+
+    {id:1,nom:'Les Dogons et Sirius B',emoji:'⭐',couleur:'#d4a437',duree:'2 semaines',niveau:'Intermediaire',
+     description:'Les Dogons du Mali connaissaient Sirius B — une etoile invisible a l oeil nu — grace a leurs observations lunaires et stellaires. Ils savaient que Sirius avait un compagnon invisible, une orbite de 50 ans, et une densite enorme. Les astronomes occidentaux n ont decouvert Sirius B qu en 1844 avec un telescope. Les Dogons le savaient depuis des siecles. Comment? Parce qu ils observaient la lune et les etoiles avec une precision que la science moderne n a egalee qu avec des instruments. AI Lune enseigne la sagesse astronomique Dogon et comment la lune etait leur instrument de mesure.',
+     cours:['Les Dogons du Mali: astronomes avant les telescopes','Sirius B: invisible a l oeil nu, connue par les Dogons depuis des siecles','Comment la lune servait d instrument de mesure astronomique','La precision Dogon: orbite de 50 ans, densite enorme — sans telescope','La lecon: l Afrique avait sa science avant l Occident'],
+     exercices:['Rechercher: l histoire des Dogons et Sirius B','Observer: Sirius dans le ciel et imaginer voir ce que les Dogons voyaient','Reflechir: comment une civilisation peut-elle savoir sans instruments modernes?']},
+
+    {id:2,nom:'Les 4 Phases et Leurs Significations',emoji:'🌗',couleur:'#9966ff',duree:'2 semaines',niveau:'Intermediaire',
+     description:'Chaque phase de la lune a un sens en Afrique. Nouvelle lune: le commencement, le silence, la meditation. Croissante: la croissance, l action, le plantage. Pleine lune: la plenitude, la celebration, la moisson. Decroissante: le lacher, le repos, la purification. Les agriculteurs africains plantaient selon la lune. Les guerisseurs cueillaient les plantes selon la lune. Les ceremonies se faisaient selon la lune. AI Lune enseigne les 4 phases et comment chaque jeune Africain peut aligner sa vie sur le cycle lunaire.',
+     cours:['Nouvelle lune: le commencement, le silence, la meditation','Croissante: la croissance, l action, le plantage','Pleine lune: la plenitude, la celebration, la moisson','Decroissante: le lacher, le repos, la purification','Aligner sa vie sur la lune: le calendrier lunaire personnel'],
+     exercices:['Identifier: dans quelle phase de la lune es-tu maintenant?','Planifier: une action selon la phase lunaire actuelle','Pratiquer: mediter a la nouvelle lune et celebrer a la pleine lune']},
+
+    {id:3,nom:'La Lune et les Marees',emoji:'🌊',couleur:'#44aaff',duree:'2 semaines',niveau:'Intermediaire',
+     description:'La lune controle les marees. Quand la lune est pleine, l ocean monte. Quand elle est nouvelle, l ocean descend. Les pecheurs africains connaissaient les marees lunaires depuis des milliers d annees. Ils savaient quand pecher, quand naviguer, quand rester a terre. La lune est le premier calendrier maritime de l Afrique. AI Lune enseigne la connexion entre la lune et l eau — pas seulement l ocean, mais aussi l eau dans le sol, dans les plantes, dans le corps humain.',
+     cours:['La lune controle les marees: la gravitation lunaire sur l ocean','Les pecheurs africains et les marees lunaires: quand pecher','L eau dans le sol: la lune affecte l humidite de la terre','L eau dans le corps: la lune et les cycles biologiques','N-KCOL: la lune fait OHHH-OUUUH — le son de la nuit qui voit'],
+     exercices:['Observer: la maree haute et basse pendant un cycle lunaire','Comparer: l humeur et l energie selon la phase de la lune','Pratiquer: pecher ou naviguer selon la lune si possible']},
+
+    {id:4,nom:'La Lune et l Agriculture',emoji:'🌾',couleur:'#44ff88',duree:'2 semaines',niveau:'Intermediaire',
+     description:'Les agriculteurs africains plantaient selon la lune. Croissante: planter les plantes qui poussent vers le haut (mil, sorgho, mais). Decroissante: planter les plantes qui poussent vers le bas (ignames, arachides, oignons). Pleine lune: recolter. Nouvelle lune: preparer le sol. Cette sagesse n est pas superstition — c est l observation de milliers d annees. AI Lune enseigne le calendrier lunaire agricole et comment chaque jeune Africain peut l appliquer dans son propre champ.',
+     cours:['Croissante: planter vers le haut (mil, sorgho, mais)','Decroissante: planter vers le bas (ignames, arachides, oignons)','Pleine lune: recolter — la plenitude de la croissance','Nouvelle lune: preparer le sol — le silence avant la croissance','Le calendrier lunaire agricole: 29 jours de precision naturelle'],
+     exercices:['Planifier: planter une graine selon la phase lunaire appropriee','Comparer: une plante semee en croissante vs decroissante','Appliquer: le calendrier lunaire dans ton propre champ ou jardin']},
+
+    {id:5,nom:'La Lune et les Ceremonies',emoji:'🥁',couleur:'#ff9966',duree:'2 semaines',niveau:'Avance',
+     description:'En Afrique, les ceremonies se font selon la lune. Les initiations a la pleine lune. Les mariages a la lune croissante. Les funerailles a la lune decroissante. Les naissances celebrees a la nouvelle lune. La lune n est pas un decor — elle est un participant. Elle donne son energie a la ceremonie. AI Lune enseigne le role de la lune dans les ceremonies africaines et comment chaque jeune peut honorer la lune dans ses propres rites de passage.',
+     cours:['Les initiations a la pleine lune: la lumiere qui revele','Les mariages a la lune croissante: la croissance a deux','Les funerailles a la lune decroissante: le lacher, le passage','Les naissances a la nouvelle lune: le commencement, le nouveau cycle','Honorer la lune: comment integrer la lune dans tes rites de passage'],
+     exercices:['Identifier: une ceremonie dans ta culture liee a la lune','Planifier: un evenement personnel selon la phase lunaire appropriee','Honorer: allumer une bougie a la pleine lune et remercier']},
+
+    {id:6,nom:'La Lune et les Songes',emoji:'💭',couleur:'#9966ff',duree:'2 semaines',niveau:'Avance',
+     description:'La pleine lune amplifie les songes. Les anciens africains savaient que les songes de pleine lune sont les plus puissants. Les ancetres parlent plus fort quand la lune est pleine. Les messages sont plus clairs. Les reponses aux questions viennent dans les songes de pleine lune. AI Lune enseigne a utiliser la pleine lune comme moment de communication avec l invisible — pas par superstition, mais par observation millenaire.',
+     cours:['La pleine lune amplifie les songes: l observation millenaire','Les ancetres parlent plus fort a la pleine lune','Les messages de pleine lune: comment les decoder','Tenir un journal de songes lunaires: 29 jours de reves','N-KCOL: le hibou fait OHHHH-OUUUH — le son de la nuit qui voit'],
+     exercices:['Tenir: un journal de songes pendant un cycle lunaire complet','Comparer: les songes de pleine lune vs nouvelle lune','Demander: une reponse a la pleine lune et ecouter le songe qui vient']},
+
+    {id:7,nom:'Retrouver le Temps Lunaire en 2100',emoji:'🚀',couleur:'#aaaaff',duree:'3 semaines',niveau:'Avance',
+     description:'En 2100, l Afrique aura retrouve son temps lunaire. Pas pour remplacer AfriTime, mais pour le completer. AfriTime pour le quotidien, le temps lunaire pour les ceremonies, l agriculture, les songes. Les horloges africaines afficheront les deux: Afri+0 et la phase lunaire. Les calendriers africains seront lunaires-solaires, pas gregoriens. Les fetes suivront la lune, pas une date fixe. AI Lune enseigne la vision 2100 du temps lunaire retrouve et comment chaque jeune Africain peut y contribuer.',
+     cours:['AfriTime + temps lunaire: les deux horloges africaines','Calendrier lunaire-solaire: ni gregorien, ni purement lunaire','Les fetes selon la lune: pas de dates fixes, mais des cycles','AfriChain: graver les phases lunaires dans la blockchain','Ton role: retablir le temps lunaire dans ta communaute'],
+     exercices:['Concevoir: une horloge qui affiche AfriTime et la phase lunaire','Planifier: une fete selon la lune au lieu d une date fixe','Faire le serment: je retablirai le temps lunaire dans ma communaute']}
+];
+
+var luneDone=JSON.parse(localStorage.getItem('afri_lune_done')||'[]');
+function renderLuneModules(){var c=document.getElementById('lune-modules');if(!c)return;var h='';for(var i=0;i<luneModules.length;i++){var m=luneModules[i];var d=luneDone.includes(m.id);h+='<div style="background:rgba(170,170,255,0.05);border:1px solid '+m.couleur+'20;border-radius:8px;padding:12px;margin:8px 0;cursor:pointer;" onclick="showLuneModule('+i+')"><div style="display:flex;justify-content:space-between;align-items:center;"><span style="font-size:1.1em;">'+m.emoji+' <b style="color:'+m.couleur+';">'+m.nom+'</b></span><span style="font-size:0.8em;color:#a8c5a8;">'+m.duree+' · '+m.niveau+(d?' · ✅':'')+'</span></div></div>';}c.innerHTML=h;}
+renderLuneModules();
+function showLuneModule(i){var m=luneModules[i];var h='<div style="background:rgba(170,170,255,0.08);border:1px solid '+m.couleur+';border-radius:12px;padding:20px;margin:10px 0;"><h3 style="color:'+m.couleur+';">'+m.emoji+' '+m.nom+'</h3><p style="color:#a8c5a8;font-size:0.9em;">'+m.description+'</p><h4 style="color:'+m.couleur+';">📚 Cours</h4><ul>';for(var j=0;j<m.cours.length;j++)h+='<li style="color:#a8c5a8;margin:4px 0;">'+m.cours[j]+'</li>';h+='</ul><h4 style="color:'+m.couleur+';">✏️ Exercices</h4><ul>';for(var j=0;j<m.exercices.length;j++)h+='<li style="color:#a8c5a8;margin:4px 0;">'+m.exercices[j]+'</li>';h+='</ul><button onclick="completeLuneModule('+m.id+')" style="padding:10px 20px;background:'+m.couleur+';color:#000;border:none;border-radius:8px;cursor:pointer;font-weight:bold;margin-top:10px;">✅ Terminer ce module</button></div>';var c=document.getElementById('lune-modules');if(c)c.innerHTML=h;}
+function completeLuneModule(id){if(!luneDone.includes(id)){luneDone.push(id);localStorage.setItem('afri_lune_done',JSON.stringify(luneDone));}renderLuneModules();updateLuneProgress();}
+function updateLuneProgress(){var d=luneDone.length,t=luneModules.length,p=Math.round((d/t)*100);var b=document.getElementById('lune-bar'),c=document.getElementById('lune-count'),pe=document.getElementById('lune-pct'),dp=document.getElementById('lune-diplome');if(b)b.style.width=p+'%';if(c)c.textContent=d;if(pe)pe.textContent=p+'%';if(dp)dp.style.display=(d===t)?'block':'none';}
+updateLuneProgress();
+</script>
+"##);
+
+    html.push_str(r##"<div class="card" style="border-color:#aaaaff;"><h2 style="color:#aaaaff;">📊 Progression</h2><div style="background:rgba(170,170,255,0.1);border-radius:8px;height:24px;overflow:hidden;margin:10px 0;"><div id="lune-bar" style="background:linear-gradient(90deg,#aaaaff,#9966ff,#d4a437);height:100%;width:0%;transition:width 0.5s;"></div></div><div style="text-align:center;color:#a8c5a8;"><span id="lune-count">0</span> / 8 modules · <span id="lune-pct">0%</span></div></div>
+
+<div id="lune-diplome" style="display:none;"><div class="card" style="border-color:#d4a437;text-align:center;"><h2 style="color:#d4a437;">🎓 Diplôme: Gardien du Temps Lunaire Africain</h2><p style="color:#a8c5a8;">Tu as complété les 8 modules du temps lunaire!</p><p style="color:#aaaaff;font-size:1.2em;">La lune est l'horloge que personne ne peut arrêter. 🌙💚</p><button onclick="envoyerDiplomeLune()" style="padding:12px 30px;background:#d4a437;color:#000;border:none;border-radius:8px;font-weight:bold;cursor:pointer;font-size:1.1em;margin-top:10px;">⛓️ Graver dans la Blockchain</button></div></div>
+
+<script>
+function envoyerDiplomeLune(){var nom=localStorage.getItem('afri_user_name')||'Jeune Africain';fetch('/api/diplome',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:'academie=LUNE&nom='+encodeURIComponent(nom)}).then(function(r){return r.text();}).then(function(t){alert('🎓 Diplôme gravé dans la blockchain!\n'+t);}).catch(function(e){alert('Erreur: '+e);});}
+</script>
+"##);
+
+    html.push_str(r#"<div class="card"><h2 style="color:#aaaaff;">💡 Savais-tu?</h2><div style="color:#a8c5a8;padding:8px 0;"><b style="color:#d4a437;">Les Dogons du Mali connaissaient Sirius B</b> — une étoile invisible à l'œil nu — depuis des siècles. Les astronomes occidentaux ne l'ont découverte qu'en 1844 avec un télescope. La lune était leur instrument.</div><div style="color:#a8c5a8;padding:8px 0;"><b style="color:#aaaaff;">La lune contrôle les marées.</b> Quand elle est pleine, l'océan monte. Les pêcheurs africains connaissaient les marées lunaires depuis des milliers d'années.</div><div style="color:#a8c5a8;padding:8px 0;"><b style="color:#9966ff;">La pleine lune amplifie les songes.</b> Les ancêtres parlent plus fort quand la lune est pleine. Les messages sont plus clairs. Ce n'est pas superstition — c'est l'observation de milliers d'années.</div><div style="color:#a8c5a8;padding:8px 0;"><b style="color:#44ff88;">Les agriculteurs plantaient selon la lune.</b> Croissante: vers le haut (mil, sorgho). Décroissante: vers le bas (ignames, arachides). Cette sagesse n'est pas superstition — c'est l'observation millénaire.</div></div>"#);
+
+    html.push_str(r#"<footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🌙 AI Lune — La Lune Est l Horloge de l Afrique 💚🦁✨</footer>"#);
+    html.push_str("</body></html>");
+    html
+}
+
 fn html_garage(chain: &Blockchain) -> String {
     let mut html = html_head("Garage AI — Atelier Autonome 2500");
     let num_blocks = chain.blocks.len();
@@ -21782,7 +21929,7 @@ html+='<div class="log-entry log-kill">⚠️ Tentative d\x27infiltration occide
 html+='<div class="log-entry log-invis">✅ L\x27Afrique est forte. Le système grandit.</div>';
 }else if(type==='total'){
 html='<div style="color:#d4a437;font-weight:bold;margin-bottom:8px">📋 RAPPORT TOTAL — Depuis le début</div>';
-html+='<div class="log-entry">🦁 AfriChain v1.23 — AI Soleil Le Soleil Est le Serveur de l Afrique</div>';
+html+='<div class="log-entry">🦁 AfriChain v1.24 — AI Lune La Lune Est l Horloge de l Afrique</div>';
 html+='<div class="log-entry">⛓️ Blockchain: 100% souveraine — Zéro dépendance externe</div>';
 html+='<div class="log-entry">🔐 Crypto: Ed25519 + AfriHash-256/512 + AfriRNG — tout from scratch</div>';
 html+='<div class="log-entry">🌍 54 pays africains connectés</div>';
@@ -23326,7 +23473,7 @@ fn main() {
         .and_then(|i| args.get(i + 1)).cloned().unwrap_or_else(|| "Afrique".to_string());
 
     let my_node_id = generate_node_id();
-    println!("🦁 AfriChain v1.23 — AI Soleil Le Soleil Est le Serveur de l Afrique");
+    println!("🦁 AfriChain v1.24 — AI Lune La Lune Est l Horloge de l Afrique");
     println!("💚 L'Afrique ne demande plus la permission");
     println!("🌍 54 pays — 🇲🇱 🇳🇪 🇧🇫 AES — Mali · Niger · Burkina Faso");
     println!("🔐 8 modules cryptographiques — construits from scratch");
@@ -23516,6 +23663,7 @@ fn main() {
     println!("🙏 AI Spiritualite sur http://localhost:8080/ai-spiritualite");
     println!("🦅 AI Animal sur http://localhost:8080/ai-animal");
     println!("☀️ AI Soleil sur http://localhost:8080/ai-soleil");
+    println!("🌙 AI Lune sur http://localhost:8080/ai-lune");
 
     // Serveur HTTP en arrière-plan (pour mesh + autres utilisateurs)
     let serve_state = web_state.clone();
@@ -23550,7 +23698,7 @@ fn terminal_interface(state: &Arc<AppState>) {
     println!("  ║  🕐 AfriTime — Pas UTC, pas Greenwich   ║");
     println!("  ║  📝 ~23,100 lignes — écrit à la main       ║");
     println!("  ╚═══════════════════════════════════════════════╝");
-    println!("\n  Version v1.23 — 3 septembre 2026");
+    println!("\n  Version v1.24 — 3 septembre 2026");
     println!("  Construit sur Termux · Android · nano\n");
     println!("  ─────────────────────────────────────────────");
     println!("\n  1. 🏦 Centre de Données (Admin)");
@@ -23622,7 +23770,7 @@ fn admin_interface(state: &Arc<AppState>) {
         println!("\n");
         println!("╔══════════════════════════════════════╗");
         println!("║  🏦 CENTRE DE DONNÉES — Admin       ║");
-        println!("║  🦁 AfriChain v1.23                  ║");
+        println!("║  🦁 AfriChain v1.24                  ║");
         println!("╠══════════════════════════════════════╣");
         let chain = state.chain.lock().unwrap();
         let users = state.users.lock().unwrap();
@@ -27357,6 +27505,11 @@ fn handle_request(req: afri_http::HttpRequest, state: &Arc<AppState>) -> afri_ht
         ("GET", "/ai-soleil") => {
             let chain = state.chain.lock().unwrap();
             HttpResponse::ok(&html_ai_soleil(&chain))
+        }
+
+        ("GET", "/ai-lune") => {
+            let chain = state.chain.lock().unwrap();
+            HttpResponse::ok(&html_ai_lune(&chain))
         }
 
         ("GET", "/garage") => {
