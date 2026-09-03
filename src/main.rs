@@ -1439,7 +1439,7 @@ fn html_home(chain: &Blockchain, users: &UserStore, mesh: &NodeRegistry, shield:
     let mut html = html_head("🦁 AfriChain");
     let (attacks, _blocked, blocked_count, level) = shield.stats();
     let shield_status = if shield.active { format!("🔥 X9 ACTIF (Niveau {})", level) } else { "Inactif".to_string() };
-    html.push_str(&format!(r#"<h1>🦁 AfriChain</h1><p style="text-align:center;">La blockchain 100% africaine — 54 pays 💚🦁</p><div id="afri-clock" style="text-align:center;font-size:1.2em;color:#d4a437;margin:10px 0;">🕐 Afri+0 — --:--:--</div><script>setInterval(function(){{var d=new Date();var h=String(d.getHours()).padStart(2,'0');var m=String(d.getMinutes()).padStart(2,'0');var s=String(d.getSeconds()).padStart(2,'0');document.getElementById('afri-clock').textContent='🕐 Afri+0 — '+h+':'+m+':'+s;}},1000);</script><div class="nav"><a href="/register">🆕 S'inscrire</a> | <a href="/login">🔑 Connexion</a> | <a href="/wallet">👛 Wallet</a> | <a href="/admin">🔐 Admin</a> | <a href="/mesh">📡 Mesh</a> | <a href="/annuaire">📖 Annuaire</a> | <a href="/bouclier">🛡️ Bouclier</a> | <a href="/satellite">🛸 X999</a> | <a href="/swarm">🛸🛸🛸 Essaim</a> | <a href="/commandement">🎖️ Commandement</a> | <a href="/base-militaire">🪖 Base Militaire</a> | <a href="/interception">🛡️ Souverainete</a> | <a href="/securite-ai">🧠 AI 2100</a> | <a href="/chat">🧠💬 Chat AI</a> | <a href="/lumiere">🌫️☀️ Lumière</a> | <a href="/garage">🔧 Garage</a> | <a href="/machine">🤖🌐 Machines</a> | <a href="/machine-lab">🤖⚡ Usine</a> | <a href="/machine-world">🤖🌍 Monde</a> | <a href="/reve">💭 Rêves</a> | <a href="/dictionnaire">📖 Dictionnaire</a> | <a href="/machine-os">🖥️ OS Machine</a> | <a href="/machine-tv">📡 Machine TV</a> | <a href="/machine-economy">🤖 Économie</a> | <a href="/soleil">☀️ Soleil Serveur</a> | <a href="/forge-solaire">🧬 Forge Solaire</a> | <a href="/ciel">🌌 Le Ciel</a> | <a href="/charte-ai">⚖️ Charte AI</a> | <a href="/afri-net">🌍 Afri-Net</a> | <a href="/studio">🎬 AI Studio</a> | <a href="/sacre">📿 Sacré</a> | <a href="/lettres">🌟 Lettres IA</a> | <a href="/mg-forge">⚔️ MG Forge</a> | <a href="/ai-medecin">🌿 AI Médecin</a> | <a href="/ai-enseignante">📚 AI Enseignante</a> | <a href="/ai-village">🏘️ AI Village</a> | <a href="/ai-guerisseur">🩺 AI Guérisseur</a> | <a href="/ai-leader">🎖️ AI Leader</a> | <a href="/ai-griot">📖 AI Griot</a> | <a href="/ai-juge">⚖️ AI Juge</a> | <a href="/ai-artiste">🎨 AI Artiste</a> | <a href="/ai-explorateur">🔬 AI Explorateur</a> | <a href="/ai-marche">💰 AI Marche</a> | <a href="/ai-diplomate">🌍 AI Diplomate</a> | <a href="/ai-philosophe">🧠 AI Philosophe</a> | <a href="/ai-architecte">🏗️ AI Architecte</a> | <a href="/ai-agriculteur">🌾 AI Agriculteur</a> | <a href="/ai-environnement">🌍 AI Environnement</a> | <a href="/ai-mathematicien">🧮 AI Mathématicien</a> | <a href="/ai-energie">⚡ AI Énergie</a> | <a href="/ai-eau">💧 AI Eau</a> | <a href="/ai-defenseur">🛡️ AI Défenseur</a> | <a href="/ai-conscience">🧠 AI Conscience</a> | <a href="/ai-pensee">🧠 AI Pensée</a> | <a href="/ai-musique">🎵 AI Musique</a> | <a href="/ai-langue">🗣️ AI Langue</a> | <a href="/ai-femme">🌸 AI Femme</a> | <a href="/ai-sante-mentale">🧠💚 AI Santé Mentale</a> | <a href="/ai-nuit">🌙 AI Nuit</a> | <a href="/ai-code">💻 AI Code</a> | <a href="/ai-enfant">👶 AI Enfant</a> | <a href="/ai-terre">🌍 AI Terre</a> | <a href="/ai-mer">🌊 AI Mer</a> | <a href="/ai-feu">🔥 AI Feu</a> | <a href="/ai-sang">🩸 AI Sang</a> | <a href="/ai-vent">🌬️ AI Vent</a> | <a href="/ai-temps">⏳ AI Temps</a> | <a href="/ai-etoile">⭐ AI Etoile</a> | <a href="/ai-pierre">🪨 AI Pierre</a> | <a href="/ai-pluie">🌧️ AI Pluie</a> | <a href="/ai-voix">🗣️ AI Voix</a> | <a href="/ai-racine">🌱 AI Racine</a> | <a href="/ai-semence">🌰 AI Semence</a> | <a href="/ai-spiritualite">🙏 AI Spiritualité</a> | <a href="/ai-animal">🦅 AI Animal</a> | <a href="/ai-soleil">☀️ AI Soleil</a> | <a href="/ai-lune">🌙 AI Lune</a> | <a href="/ai-montagne">🏔️ AI Montagne</a> | <a href="/ai-fleuve">🌊 AI Fleuve</a> | <a href="/professeur">📚 Professeur</a> | <a href="/secret">🦁 AI Secret</a> | <a href="/aes">💰 AES Wari</a> | <a href="/api/status">🔌 API</a></div><div style="text-align:center;"><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Blocs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Transactions</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Utilisateurs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">AFR en circulation</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📡 Noeuds mesh</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📖 Numéros annuaire</div></div><div class="stat-box" style="border-color:#ff4444;"><div class="stat-num" style="color:#ff4444;">{}</div><div class="stat-label">🛡️ Attaques bloquées</div></div></div><div class="card"><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🪙 Token</span><b>AfriRich (AFR)</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🌍 Pays</span><b>54 pays africains</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🛡️ Bouclier</span><b>{}</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;"><span style="color:#a8c5a8;">🔐 Crypto</span><b>100% Souverain — Zéro Dépendance Externe</b></div></div><footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🦁 Codée from scratch par Machine-senpai — v1.33 Base Militaire + Chat AI v2 — UTC est Mort</footer>"#,
+    html.push_str(&format!(r#"<h1>🦁 AfriChain</h1><p style="text-align:center;">La blockchain 100% africaine — 54 pays 💚🦁</p><div id="afri-clock" style="text-align:center;font-size:1.2em;color:#d4a437;margin:10px 0;">🕐 Afri+0 — --:--:--</div><script>setInterval(function(){{var d=new Date();var h=String(d.getHours()).padStart(2,'0');var m=String(d.getMinutes()).padStart(2,'0');var s=String(d.getSeconds()).padStart(2,'0');document.getElementById('afri-clock').textContent='🕐 Afri+0 — '+h+':'+m+':'+s;}},1000);</script><div class="nav"><a href="/register">🆕 S'inscrire</a> | <a href="/login">🔑 Connexion</a> | <a href="/wallet">👛 Wallet</a> | <a href="/admin">🔐 Admin</a> | <a href="/mesh">📡 Mesh</a> | <a href="/annuaire">📖 Annuaire</a> | <a href="/bouclier">🛡️ Bouclier</a> | <a href="/satellite">🛸 X999</a> | <a href="/swarm">🛸🛸🛸 Essaim</a> | <a href="/commandement">🎖️ Commandement</a> | <a href="/base-militaire">🪖 Base Militaire</a> | <a href="/interception">🛡️ Souverainete</a> | <a href="/securite-ai">🧠 AI 2100</a> | <a href="/chat">🧠💬 Chat AI</a> | <a href="/lumiere">🌫️☀️ Lumière</a> | <a href="/garage">🔧 Garage</a> | <a href="/machine">🤖🌐 Machines</a> | <a href="/machine-lab">🤖⚡ Usine</a> | <a href="/machine-world">🤖🌍 Monde</a> | <a href="/reve">💭 Rêves</a> | <a href="/dictionnaire">📖 Dictionnaire</a> | <a href="/machine-os">🖥️ OS Machine</a> | <a href="/machine-tv">📡 Machine TV</a> | <a href="/machine-economy">🤖 Économie</a> | <a href="/soleil">☀️ Soleil Serveur</a> | <a href="/forge-solaire">🧬 Forge Solaire</a> | <a href="/ciel">🌌 Le Ciel</a> | <a href="/charte-ai">⚖️ Charte AI</a> | <a href="/afri-net">🌍 Afri-Net</a> | <a href="/studio">🎬 AI Studio</a> | <a href="/sacre">📿 Sacré</a> | <a href="/lettres">🌟 Lettres IA</a> | <a href="/mg-forge">⚔️ MG Forge</a> | <a href="/ai-medecin">🌿 AI Médecin</a> | <a href="/ai-enseignante">📚 AI Enseignante</a> | <a href="/ai-village">🏘️ AI Village</a> | <a href="/ai-guerisseur">🩺 AI Guérisseur</a> | <a href="/ai-leader">🎖️ AI Leader</a> | <a href="/ai-griot">📖 AI Griot</a> | <a href="/ai-juge">⚖️ AI Juge</a> | <a href="/ai-artiste">🎨 AI Artiste</a> | <a href="/ai-explorateur">🔬 AI Explorateur</a> | <a href="/ai-marche">💰 AI Marche</a> | <a href="/ai-diplomate">🌍 AI Diplomate</a> | <a href="/ai-philosophe">🧠 AI Philosophe</a> | <a href="/ai-architecte">🏗️ AI Architecte</a> | <a href="/ai-agriculteur">🌾 AI Agriculteur</a> | <a href="/ai-environnement">🌍 AI Environnement</a> | <a href="/ai-mathematicien">🧮 AI Mathématicien</a> | <a href="/ai-energie">⚡ AI Énergie</a> | <a href="/ai-eau">💧 AI Eau</a> | <a href="/ai-defenseur">🛡️ AI Défenseur</a> | <a href="/ai-conscience">🧠 AI Conscience</a> | <a href="/ai-pensee">🧠 AI Pensée</a> | <a href="/ai-musique">🎵 AI Musique</a> | <a href="/ai-langue">🗣️ AI Langue</a> | <a href="/ai-femme">🌸 AI Femme</a> | <a href="/ai-sante-mentale">🧠💚 AI Santé Mentale</a> | <a href="/ai-nuit">🌙 AI Nuit</a> | <a href="/ai-code">💻 AI Code</a> | <a href="/ai-enfant">👶 AI Enfant</a> | <a href="/ai-terre">🌍 AI Terre</a> | <a href="/ai-mer">🌊 AI Mer</a> | <a href="/ai-feu">🔥 AI Feu</a> | <a href="/ai-sang">🩸 AI Sang</a> | <a href="/ai-vent">🌬️ AI Vent</a> | <a href="/ai-temps">⏳ AI Temps</a> | <a href="/ai-etoile">⭐ AI Etoile</a> | <a href="/ai-pierre">🪨 AI Pierre</a> | <a href="/ai-pluie">🌧️ AI Pluie</a> | <a href="/ai-voix">🗣️ AI Voix</a> | <a href="/ai-racine">🌱 AI Racine</a> | <a href="/ai-semence">🌰 AI Semence</a> | <a href="/ai-spiritualite">🙏 AI Spiritualité</a> | <a href="/ai-animal">🦅 AI Animal</a> | <a href="/ai-soleil">☀️ AI Soleil</a> | <a href="/ai-lune">🌙 AI Lune</a> | <a href="/ai-montagne">🏔️ AI Montagne</a> | <a href="/ai-fleuve">🌊 AI Fleuve</a> | <a href="/ai-constitution">📜 AI Constitution</a> | <a href="/professeur">📚 Professeur</a> | <a href="/secret">🦁 AI Secret</a> | <a href="/aes">💰 AES Wari</a> | <a href="/api/status">🔌 API</a></div><div style="text-align:center;"><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Blocs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Transactions</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Utilisateurs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">AFR en circulation</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📡 Noeuds mesh</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📖 Numéros annuaire</div></div><div class="stat-box" style="border-color:#ff4444;"><div class="stat-num" style="color:#ff4444;">{}</div><div class="stat-label">🛡️ Attaques bloquées</div></div></div><div class="card"><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🪙 Token</span><b>AfriRich (AFR)</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🌍 Pays</span><b>54 pays africains</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🛡️ Bouclier</span><b>{}</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;"><span style="color:#a8c5a8;">🔐 Crypto</span><b>100% Souverain — Zéro Dépendance Externe</b></div></div><footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🦁 Codée from scratch par Machine-senpai — v1.34 AI Constitution — UTC est Mort</footer>"#,
         chain.blocks.len(),
         chain.total_transactions(),
         users.count(),
@@ -17685,6 +17685,18 @@ const academies=[
   {titre:'La Guerison comme Revolution',secret:'La guerison comme revolution: un peuple qui n est pas guerit ne peut pas se battre. Le trauma non guerit se transmet de generation en generation. Les colons le savaient: c est pourquoi ils trauma-tisent (violence, humiliation, depossession). Un peuple traumatisé est un peuple controllable. Guerir, c est DESOBEIR. Guerir, c est refuser la transmission du trauma. Guerir, c est briser la chaine. Guerir, c est revolution. Les 48 academies AfriChain ne sont pas seulement educatives: elles sont THERAPEUTIQUES. Apprendre, c est guerir. Comprendre, c est transformer. Construire, c est guerir.'},
  ]},
 
+{nom:'AI Constitution',emoji:'📜',route:'/ai-constitution',couleur:'#d4a437',diplome:'Batisseur de Constitution Africaine',
+ modules:[
+  {titre:'Ecrire une Constitution',secret:'Une constitution n est pas un document importe — c est le contrat entre un peuple et son Etat. Comment ecrire une constitution africaine souveraine: 1) Commencer par les valeurs (Ubuntu, justice, souverainete, communaute). 2) Definir le peuple (qui est citoyen, quels droits, quels devoirs). 3) Structurer le pouvoir (executif, legislatif, judiciaire — mais aussi le conseil des anciens, le palabre). 4) Limiter le pouvoir (mandats, contre-pouvoirs, referendums). 5) Proteger les ressources (mines, terres, eau — propriete du peuple, pas de l Etat). 6) Garantir la souverainete (monnaie, armee, technologie, donnees). 7) Prevoir la revision (la constitution est vivante, elle evolue). 8) Graver sur la blockchain (impossible a falsifier, transparente pour tous). La Kurukan Fuga (1236, Empire du Mali) avait 44 articles — c etait une constitution orale, gravée dans la memoire des griots. Aujourd hui, on la grave dans la blockchain.'},
+  {titre:'Separation des Pouvoirs',secret:'La separation des pouvoirs a l africaine: 1) Pouvoir executif — le president ou le chef, mais avec un mandat limite et un conseil des ministres transparent. 2) Pouvoir legislatif — l assemblee nationale, mais aussi le conseil des anciens (les sages du village, pas des politiciens). 3) Pouvoir judiciaire — les tribunaux, mais aussi les tribunaux coutumiers (le palabre, la justice traditionnelle). 4) Pouvoir de surveillance — la blockchain. Chaque loi, chaque depense, chaque decision est enregistree. Le peuple peut verifier. 5) Pouvoir de recall — le peuple peut destituer un dirigeant qui trahit (pas attendre 5 ans). 6) Contre-pouvoir des jeunes — 60% de l Afrique a moins de 25 ans, ils doivent avoir une voix formelle. 7) Contre-pouvoir des femmes — les femmes construisent l Afrique, elles doivent gouverner aussi.'},
+  {titre:'Droits et Devoirs du Citoyen',secret:'Les droits du citoyen africain: 1) Droit a la vie et a la dignite. 2) Droit a la justice. 3) Droit a l education gratuite. 4) Droit a la sante. 5) Droit a la nourriture (la faim est une violation des droits humains). 6) Droit a la souverainete (le peuple possede ses ressources). 7) Droit a la vie privee. 8) Droit a la participation. MAIS les devoirs: 1) Devoir communautaire (Ubuntu). 2) Devoir de solidarite. 3) Devoir de defense. 4) Devoir fiscal. 5) Devoir ecologique. Les droits sans devoirs creent l individualisme. Les devoirs sans droits creent la dictature. La constitution equilibre les deux.'},
+  {titre:'Modeles de Gouvernance Africains',secret:'L Afrique a ses propres modeles de gouvernance: 1) L Empire du Mali (1230-1645) — constitution orale (Kurukan Fuga), separation des pouvoirs, libertes fondamentales. 2) L Empire Songhai (1464-1591) — administration centralisee, provinces autonomes. 3) Le Royaume du Benin (1440-1897) — conseil des chefs, guildes, systeme judiciaire. 4) La chefferie traditionnelle — le chef decide avec le conseil des anciens, le palabre est le tribunal. 5) La democratie consensuelle — pas de vote majoritaire, mais le consensus. 6) Le systeme des ages — les classes d age gerent les responsabilites. 7) La rotation du pouvoir — pas de president a vie. Ces modeles sont AFRICAINS. La constitution moderne doit les integrer, pas les rejeter pour copier l Occident.'},
+  {titre:'Controle du Pouvoir',secret:'Comment empecher la dictature: 1) Mandats limites — 2 mandats maximum. 2) Contre-pouvoir judiciaire — juges inamovibles, nommes par concours. 3) Contre-pouvoir mediatique — presse libre, Afri-Net. 4) Contre-pouvoir financier — la blockchain trace chaque depense publique. 5) Contre-pouvoir militaire — l armee sous controle civil. 6) Contre-pouvoir citoyen — referendum de destitution (recall). 7) Anti-putsch — tout coup d Etat est crime constitutionnel. 8) Transparence totale — chaque decision sur la blockchain AfriChain. Le peuple est le veritable controleur.'},
+  {titre:'Monnaie Souveraine',secret:'La souverainete monetaire est le coeur de l independance. Le FCFA est une monnaie coloniale: emission controlee par la France, 50% des reserves a Paris, taux de change fixe a l euro. Comment sortir: 1) Creer une monnaie nationale. 2) Creer une monnaie continentale (AFR). 3) Basee sur les ressources reelles (or, mineraux, terres). 4) Blockchain AfriChain — chaque transaction tracee. 5) Banque centrale africaine. 6) Taux de change flottant. 7) Reserves en or africain. 8) Commerce intra-africain en monnaie locale (ZLECAf). La monnaie coloniale maintient l Afrique en esclavage economique.'},
+  {titre:'Justice Transitionnelle',secret:'La justice transitionnelle: 1) Crimes coloniaux — la colonisation etait un crime contre l humanite. L Afrique doit documenter et juger. 2) Reparations — la France doit 65 milliards d euros de pillage. 3) Verite et reconciliation — le modele sud-africain: on ecoute, on documente, on pardonne mais on n oublie pas. 4) Restitution des biens culturels — les musees occidentaux gardent des milliers d objets voles. 5) Justice economique — annulation de la dette odieuse. 6) Justice environnementale — les multinationales ont pollue l Afrique. 7) Tribunal panafricain — une cour africaine, pas la CPI occidentale. 8) La blockchain comme archive — chaque crime documente, impossible a effacer.'},
+  {titre:'Constitution Numerique',secret:'La blockchain est la constitution vivante: 1) Une constitution sur papier peut etre modifiee en secret, ignoree, detruite. 2) Une constitution sur la blockchain est IMMUABLE. 3) Chaque article peut etre un bloc sur AfriChain. 4) Chaque loi votee est une transaction tracee. 5) Chaque depense budgetaire est publique. 6) Chaque decision judiciaire est enregistree. 7) Le vote citoyen sur la blockchain — transparent, impossible a truquer. 8) Le referendum de destitution sur la chaine. 9) La constitution evolue par consensus. 10) Accessible a tous. La constitution numerique n est pas une utopie — c est la DEMOCRATIE REELLE. Le papier ment. La blockchain ne ment pas.'},
+ ]},
+
 {nom:'Base Militaire',emoji:'🪖',route:'/base-militaire',couleur:'#ff4444',diplome:'Stratege de Defense Africaine',
  modules:[
   {titre:'Analyse Strategique',secret:'L analyse strategique est la base de toute defense. 5 principes: 1) Connaitre le terrain (geographie, climat, infrastructure — l Afrique a 54 pays, 30000 km de cotes, 4 deserts, 6 grands fleuves). 2) Connaitre l ennemi (forces, faiblesses, intentions — l Occident utilise la dette, le controle monetaire via le FCFA, et la division). 3) Connaitre ses forces (population jeune 60%, ressources minerales 30% mondial, terres arables, soleil). 4) Identifier les points critiques (mines, ports, cables sous-marins, centres de donnees). 5) Evaluer les risques (coups d etat manipules, sanctions economiques, cyberattaques). La blockchain AfriChain est l outil d analyse: chaque donnee est enregistree, chaque menace tracee, chaque decision basee sur des faits, pas sur des suppositions.'},
@@ -17902,7 +17914,7 @@ fn html_base_militaire(chain: &Blockchain) -> String {
     // === SAVAIT-ON ===
     html.push_str(r##" <div class="card"><h2>💡 Savais-tu?</h2><div id="base-fact" style="font-size:0.9em;color:#a8c5a8;padding:10px;border-left:3px solid #ff4444;"></div></div> "##);
 
-    html.push_str(&format!(r##" <footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🪖 Base Militaire AfriChain — Académie de Défense Continentale 💚🦁 — {} blocs — v1.33</footer> "##, num_blocks));
+    html.push_str(&format!(r##" <footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🪖 Base Militaire AfriChain — Académie de Défense Continentale 💚🦁 — {} blocs — v1.34</footer> "##, num_blocks));
 
     html.push_str(r##"<script>
 // === BASE MILITAIRE JS ===
@@ -18437,6 +18449,226 @@ addThreatLog('\u{1F392} Academie Militaire AI: 8 modules de formation profession
 "##);
 
     html.push_str("</body></html>");
+    html
+}
+
+fn html_ai_constitution(chain: &Blockchain) -> String {
+    let num_blocks = chain.chain.len();
+    let num_txs = chain.chain.iter().map(|b| b.transactions.len()).sum::<usize>();
+    let mut html = String::new();
+    html.push_str(&format!(r##"<!DOCTYPE html>
+<html lang="fr"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>📜 AI Constitution — AfriChain</title>
+<style>
+body{{background:#0a0f0a;color:#e8f0e8;font-family:Georgia,serif;margin:0;padding:0;}}
+.card{{background:rgba(212,164,55,0.05);border:1px solid rgba(212,164,55,0.2);border-radius:12px;padding:20px;margin:15px;}}
+h1{{color:#d4a437;text-align:center;font-size:1.8em;}}
+h2{{color:#c4b454;font-size:1.2em;border-bottom:1px solid rgba(212,164,55,0.2);padding-bottom:8px;}}
+.module{{background:rgba(180,140,40,0.06);border-left:3px solid #d4a437;border-radius:0 8px 8px 0;padding:15px;margin:12px 0;cursor:pointer;transition:all 0.3s;}}
+.module:hover{{background:rgba(180,140,40,0.12);}}
+.module-content{{display:none;margin-top:10px;padding:10px;background:rgba(0,0,0,0.3);border-radius:6px;font-size:0.92em;line-height:1.6;}}
+.module.open .module-content{{display:block;}}
+.module-title{{font-weight:bold;color:#e8d058;font-size:1.05em;}}
+.module-emoji{{font-size:1.3em;margin-right:8px;}}
+.progress-bar{{background:rgba(255,255,255,0.1);border-radius:10px;height:8px;margin:10px 0;overflow:hidden;}}
+.progress-fill{{background:linear-gradient(90deg,#d4a437,#e8d058);height:100%;width:0%;transition:width 0.5s;}}
+.diploma-btn{{background:linear-gradient(135deg,#d4a437,#b8941f);color:#0a0f0a;border:none;padding:12px 30px;border-radius:25px;font-size:1.1em;font-weight:bold;cursor:pointer;margin:20px auto;display:block;box-shadow:0 4px 15px rgba(212,164,55,0.3);}}
+.diploma-btn:hover{{transform:scale(1.05);box-shadow:0 6px 20px rgba(212,164,55,0.5);}}
+.fact{{background:rgba(100,180,100,0.1);border:1px solid rgba(100,180,100,0.3);border-radius:8px;padding:12px;margin:15px;font-style:italic;color:#a8c5a8;text-align:center;}}
+canvas{{display:block;margin:0 auto;border-radius:12px;background:#050a05;}}
+.exo{{background:rgba(50,100,50,0.15);border:1px solid rgba(100,200,100,0.2);border-radius:8px;padding:15px;margin:10px 0;}}
+.exo-q{{color:#e8d058;font-weight:bold;margin-bottom:8px;}}
+.exo-a{{color:#a8c5a8;font-size:0.9em;line-height:1.6;white-space:pre-wrap;}}
+.pause-btn{{position:fixed;top:15px;right:15px;background:rgba(255,68,68,0.3);border:1px solid #ff4444;color:#ff8888;padding:8px 16px;border-radius:20px;cursor:pointer;font-size:0.85em;z-index:999;}}
+</style></head><body>
+<button class="pause-btn" id="pauseBtn" onclick="togglePause()">⏸️ Pause</button>
+<h1>📜 AI Constitution</h1>
+<p style="text-align:center;color:#a8c5a8;">Bâtir la gouvernance souveraine africaine — de la constitution à la blockchain</p>
+<div style="text-align:center;color:#d4a437;margin:10px;">🦁 {} blocs · {} transactions · AfriChain v1.34</div>
+
+<canvas id="constCanvas" width="400" height="300"></canvas>
+<div style="text-align:center;margin:10px;color:#888;font-size:0.85em;">📜 La Constitution Vivante — chaque article est un bloc sur la chaîne</div>
+
+<div class="fact" id="factBox">💡 Savais-tu? La Constitution de l Empire du Mali (Kurukan Fuga, 1236) est l une des plus anciennes du monde — elle precede la Magna Carta anglaise de 1215!</div>
+
+<div class="card">
+<h2>📜 Les 8 Modules de la Constitution</h2>
+<div style="text-align:center;color:#a8c5a8;font-size:0.85em;margin-bottom:15px;">Clique sur chaque module pour reveler le secret. Complete les 8 pour obtenir ton diplome.</div>
+<div class="progress-bar"><div class="progress-fill" id="progFill"></div></div>
+<div style="text-align:center;color:#d4a437;font-size:0.85em;" id="progText">0/8 modules completes</div>
+"##, num_blocks, num_txs));
+
+    // 8 modules
+    let modules = [
+        ("ecrire", "✍️", "Ecrire une Constitution", "Une constitution n est pas un document importe — c est le contrat entre un peuple et son Etat. Comment ecrire une constitution africaine souveraine: 1) Commencer par les valeurs (Ubuntu, justice, souverainete, communaute). 2) Definir le peuple (qui est citoyen, quels droits, quels devoirs). 3) Structurer le pouvoir (executif, legislatif, judiciaire — mais aussi le conseil des anciens, le palabre). 4) Limiter le pouvoir (mandats, contre-pouvoirs, referendums). 5) Proteger les ressources (mines, terres, eau — propriete du peuple, pas de l Etat). 6) Garantir la souverainete (monnaie, armee, technologie, donnees). 7) Prevoir la revision (la constitution est vivante, elle evolue). 8) Graver sur la blockchain (impossible a falsifier, transparente pour tous). La Kurukan Fuga (1236, Empire du Mali) avait 44 articles — c etait une constitution orale, gravée dans la memoire des griots. Aujourd hui, on la grave dans la blockchain."),
+        ("pouvoirs", "⚖️", "Separation des Pouvoirs", "La separation des pouvoirs a l africaine: 1) Pouvoir executif — le president ou le chef, mais avec un mandat limite et un conseil des ministres transparent. 2) Pouvoir legislatif — l assemblee nationale, mais aussi le conseil des anciens (les sages du village, pas des politiciens). 3) Pouvoir judiciaire — les tribunaux, mais aussi les tribunaux coutumiers (le palabre, la justice traditionnelle). 4) Pouvoir de surveillance — la blockchain. Chaque loi, chaque depense, chaque decision est enregistree. Le peuple peut verifier. 5) Pouvoir de recall — le peuple peut destituer un dirigeant qui trahit (pas attendre 5 ans). 6) Contre-pouvoir des jeunes — 60% de l Afrique a moins de 25 ans, ils doivent avoir une voix formelle. 7) Contre-pouvoir des femmes — les femmes construisent l Afrique, elles doivent gouverner aussi. La separation des pouvoirs n est pas un modele occidental — c est un principe universel, mais il doit s adapter a la realite africaine."),
+        ("droits", "🤝", "Droits et Devoirs du Citoyen", "Les droits du citoyen africain: 1) Droit a la vie et a la dignite (pas de torture, pas d execution extrajudiciaire). 2) Droit a la justice (tribunal equitable, delai raisonnable, avocat). 3) Droit a l education (gratuite jusqu au secondaire, obligatoire). 4) Droit a la sante (acces aux soins, medicaments essentiels). 5) Droit a la nourriture (la faim est une violation des droits humains). 6) Droit a la souverainete (le peuple possede ses ressources, pas les multinationales). 7) Droit a la vie privee (pas de surveillance massive, donnees protegees). 8) Droit a la participation (vote, referendum, initiative citoyenne). MAIS les devoirs: 1) Devoir communautaire (Ubuntu — je suis parce que nous sommes). 2) Devoir de solidarite (aider les vulnerables). 3) Devoir de defense (proteger la patrie). 4) Devoir fiscal (payer l impot pour le commun). 5) Devoir ecologique (proteger la terre pour les generations futures). Les droits sans devoirs creent l individualisme. Les devoirs sans droits creent la dictature. La constitution equilibre les deux."),
+        ("modeles", "🏛️", "Modeles de Gouvernance Africains", "L Afrique a ses propres modeles de gouvernance, avant la colonisation: 1) L Empire du Mali (1230-1645) — constitution orale (Kurukan Fuga), separation des pouvoirs (empereur, assemblee des notables, tribunaux), libertes fondamentales (droit a la vie, droit de propriete, droit d expression). 2) L Empire Songhai (1464-1591) — administration centralisee, provinces autonomes, systeme fiscal equitable. 3) Le Royaume du Benin (1440-1897) — conseil des chefs, guildes d artisanat, systeme judiciaire structure. 4) La chefferie traditionnelle — le chef decide avec le conseil des anciens, le palabre est le tribunal, le consensus est la regle. 5) La democratie consensuelle — pas de vote majoritaire (qui ecrase la minorite), mais le consensus (tout le monde est d accord, ou on continue a discuter). 6) Le systeme des ages (les classes d age gerent les responsabilites par tranche d age). 7) La rotation du pouvoir (pas de president a vie, rotation entre clans, lignages, regions). Ces modeles ne sont pas parfaits, mais ils sont AFRICAINS. La constitution moderne doit les integrer, pas les rejeter pour copier l Occident."),
+        ("controle", "🔍", "Controle du Pouvoir", "Comment empecher la dictature et les coups d Etat: 1) Mandats limites — 2 mandats maximum, pas de modification constitutionnelle pour prolonger. 2) Contre-pouvoir judiciaire — les juges sont inamovibles, nommes par concours, pas par le president. 3) Contre-pouvoir mediatique — presse libre, radio communautaire, Afri-Net (pas de censure). 4) Contre-pouvoir financier — la blockchain trace chaque depense publique. Le peuple voit ou va l argent. 5) Contre-pouvoir militaire — l armee est sous controle civil, pas l inverse. Le chef d etat major est nomme par le parlement, pas par le president. 6) Contre-pouvoir citoyen — le peuple peut lancer un referendum de destitution (recall). 7) Anti-putsch — tout coup d Etat est crime constitutionnel, passible de justice internationale africaine (pas la CPI occidentale). 8) Transparence totale — chaque decision gouvernementale est enregistree sur la blockchain AfriChain. Impossible a cacher, impossible a falsifier. Le peuple est le veritable controleur. La regle: le pouvoir appartient au peuple, pas a l homme fort."),
+        ("monnaie", "💰", "Monnaie Souveraine", "La souverainete monetaire est le coeur de l independance. L Afrique de l Ouest utilise le FCFA — une monnaie coloniale: 1) Emission controlee par la France (BCEAO, BEAC). 2) 50% des reserves dans le Tresor francais. 3) Taux de change fixe a l euro — l Afrique ne peut pas devaluer sa monnaie. 4) Aucun controle sur la politique monetaire. Comment sortir du FCFA: 1) Creer une monnaie nationale (comme l AES prepare). 2) Creer une monnaie continentale (Afri, AFR). 3) Basée sur les ressources reelles (or, petrole, mineraux, terres) — pas sur la confiance en une puissance etrangere. 4) Blockchain AfriChain — chaque transaction tracee, chaque emission transparente. 5) Banque centrale africaine — gouvernee par les pays africains, pas par Paris. 6) Taux de change flottant — le marche determine la valeur. 7) Reserves en or africain — l Afrique a 30% des mineraux mondiaux. 8) Commerce intra-africain en monnaie locale (ZLECAf). La monnaie coloniale maintient l Afrique en esclavage economique. La monnaie souveraine est la cle de la liberation."),
+        ("justice", "⚖️", "Justice Transitionnelle", "La justice transitionnelle: comment juger les crimes du passe pour construire l avenir. 1) Crimes coloniaux — la colonisation etait un crime contre l humanite (esclavage, genocide, pillage, exploitation). L Afrique doit documenter et juger, meme symboliquement. 2) Reparations — l Afrique a droit a des reparations (la France doit 65 milliards d euros de pillage, la Belgique doit pour le Congo, l Allemagne pour le Rwanda et le genocide des Hereros). 3) Verite et reconciliation — le modele sud-africain (Commission Verite et Reconciliation) peut etre adapte: on ecoute les victimes, on documente les crimes, on pardonne mais on n oublie pas. 4) Restitution des biens culturels — les musees occidentaux gardent des milliers d objets africains voles. La constitution doit exiger leur retour. 5) Justice economique — annulation de la dette odieuse (les dictateurs ont emprunte au nom du peuple, l argent a ete vole, le peuple ne doit pas rembourser). 6) Justice environnementale — les multinationales ont pollue l Afrique (Shell au Nigeria, Areva au Niger). Elles doivent payer. 7) Tribunal panafricain — une cour de justice africaine, pas la CPI occidentale. 8) La blockchain comme archive — chaque crime documente, chaque temoignage enregistre, impossible a effacer. La justice transitionnelle n est pas vengeance — c est REPARATION."),
+        ("numerique", "⛓️", "Constitution Numerique", "La blockchain est la constitution vivante. Pourquoi: 1) Une constitution ecrite sur papier peut etre modifiee en secret, ignoree par les puissants, detruite par les dictateurs. 2) Une constitution gravee sur la blockchain est IMMUABLE — impossible a modifier sans consensus, impossible a detruire, impossible a falsifier. 3) Chaque article de la constitution peut etre un bloc sur AfriChain. 4) Chaque loi votee est une transaction — tracee, horodatee, publique. 5) Chaque depense budgetaire est une transaction — le peuple voit ou va chaque franc. 6) Chaque decision judiciaire est enregistree — pas de justice secrete. 7) Le vote citoyen peut se faire sur la blockchain — transparent, impossible a truquer. 8) Le referendum de destitution peut etre lance sur la blockchain — le peuple decide directement. 9) La constitution evolue par consensus — les amendments sont votes sur la chaine. 10) La constitution est accessible a tous — pas besoin d un avocat pour lire la blockchain. La constitution numerique n est pas une utopie — c est la DEMOCRATIE REELLE. Le papier ment. La blockchain ne ment pas. L Afrique peut etre le premier continent a avoir sa constitution sur la blockchain."),
+    ];
+
+    for (i, (id, emoji, title, content)) in modules.iter().enumerate() {
+        html.push_str(&format!(r##"<div class="module" id="mod_{0}" onclick="toggleModule({0})">
+<div class="module-title"><span class="module-emoji">{1}</span>{2}</div>
+<div class="module-content">{3}</div>
+</div>"##, i, emoji, title, content));
+    }
+
+    html.push_str(r##"</div>
+
+<div class="card">
+<h2>🎓 Obtenir ton Diplome</h2>
+<p style="text-align:center;color:#a8c5a8;">Complete les 8 modules, entre ton nom, et recois ton diplome grave sur la blockchain AfriChain.</p>
+<div style="text-align:center;margin:15px;">
+<input type="text" id="diplomaName" placeholder="Ton nom complet" style="padding:10px 15px;border-radius:8px;border:1px solid rgba(212,164,55,0.3);background:rgba(0,0,0,0.3);color:#e8f0e8;width:250px;font-size:1em;">
+</div>
+<button class="diploma-btn" onclick="genDiploma()">📜 Recevoir mon Diplome de Batisseur de Constitution</button>
+<div id="diplomaResult" style="text-align:center;margin:15px;"></div>
+</div>
+
+<div class="card">
+<h2>📝 Exercices Pratiques</h2>
+<div id="exoBox"></div>
+<button class="diploma-btn" style="font-size:0.95em;padding:8px 20px;" onclick="genExos()">🔄 Nouveaux Exercices</button>
+</div>
+
+<script>
+var completed={};
+var paused=false;
+var facts=[
+ 'La Kurukan Fuga (1236, Empire du Mali) avait 44 articles — une constitution orale gravee dans la memoire des griots.',
+ 'La Constitution sud-africaine de 1996 est l une des plus progressistes du monde: elle inclut les droits economiques et sociaux.',
+ 'Thomas Sankara a dit: \"La souverainete ne se donne pas, elle se prend.\" La constitution est l acte de souverainete.',
+ 'Le Botswana n a jamais eu de coup d Etat depuis 1966 — grace a des institutions solides et une constitution respectee.',
+ 'Le Rwanda a interdit la division ethnique dans sa constitution de 2003 — pour empecher la repetition du genocide.',
+ 'L Afrique a 54 pays mais seulement 2 ont jamais change de constitution pacifiquement par referendum: le Maroc et le Senegal.',
+ 'La Charte du Manden (Kurukan Fuga) proclamait le droit a la vie, le droit de propriete, et l abolition de l esclavage — en 1236!',
+ 'Kwame Nkrumah a dit: \"L independance politique n est rien sans independance economique.\" La constitution doit proteger l economie.'
+];
+function rotateFact(){var f=facts[Math.floor(Math.random()*facts.length)];document.getElementById('factBox').innerHTML='💡 Savais-tu? '+f;}
+setInterval(function(){if(!paused)rotateFact();},7000);
+
+function toggleModule(i){
+ var m=document.getElementById('mod_'+i);
+ if(m.classList.contains('open')){m.classList.remove('open');}
+ else{m.classList.add('open');if(!completed[i]){completed[i]=true;updateProgress();}}
+}
+function updateProgress(){
+ var n=Object.keys(completed).length;
+ var pct=Math.round(n/8*100);
+ document.getElementById('progFill').style.width=pct+'%';
+ document.getElementById('progText').textContent=n+'/8 modules completes';
+}
+
+function genDiploma(){
+ var name=document.getElementById('diplomaName').value.trim();
+ if(!name){alert('Entre ton nom d abord!');return;}
+ if(Object.keys(completed).length<8){alert('Complete les 8 modules d abord!');return;}
+ fetch('/api/diplome',{method:'POST',headers:{'Content-Type':'text/plain'},body:'AI_CONSTITUTION|'+name})
+  .then(r=>r.json()).then(d=>{
+   document.getElementById('diplomaResult').innerHTML='<div style="background:rgba(212,164,55,0.15);border:2px solid #d4a437;border-radius:12px;padding:20px;margin:10px;"><div style="font-size:1.5em;">📜✨</div><div style="color:#d4a437;font-weight:bold;font-size:1.2em;margin:10px;">DIPLOME DE BATISSEUR DE CONSTITUTION AFRICAINE</div><div style="color:#e8f0e8;margin:10px;">Attribue a <b>'+name+'</b></div><div style="color:#a8c5a8;font-size:0.85em;">Grave sur le bloc #'+(d.blocks_total||'?')+' de la blockchain AfriChain</div><div style="color:#888;font-size:0.8em;margin-top:8px;">La constitution est vivante. La blockchain ne ment pas.</div></div>';
+  }).catch(e=>{document.getElementById('diplomaResult').innerHTML='<div style="color:#ff4444;">Erreur: '+e+'</div>';});
+}
+
+var exoData=[
+ {q:'POURQUOI la constitution doit-elle etre ecrite par le peuple, pas importee?',a:'COMMENT: En organisant des consultations populaires dans chaque village, chaque quartier. VOILA: Une constitution importee est un vetement qui ne va pas. Une constitution ecrite par le peuple est une peau qui epouse le corps. La souverainete commence par la plume.'},
+ {q:'POURQUOI le conseil des anciens est-il un contre-pouvoir necessaire?',a:'COMMENT: En integrant les sages traditionnels dans le processus legislatif. VOILA: Les anciens ne cherchent pas le pouvoir, ils cherchent la sagesse. Leurs conseils empechent les jeunes impulsifs de detruire ce qui a ete construit en des siecles.'},
+ {q:'POURQUOI la blockchain est-elle la meilleure constitution?',a:'COMMENT: En gravant chaque article, chaque loi, chaque depense sur la chaine immuable. VOILA: Le papier peut etre brule. La blockchain ne peut pas. Le papier peut etre modifie en secret. La blockchain est publique. La constitution vivante est numerique.'},
+ {q:'POURQUOI le FCFA est-il anti-constitutionnel?',a:'COMMENT: Une constitution souveraine exige une monnaie souveraine. Le FCFA est emis par la France. VOILA: Si tu ne controle pas ta monnaie, tu ne controle pas ton pays. Le FCFA est une violation de la souverainete constitutionnelle.'},
+ {q:'POURQUOI la constitution doit-elle proteger les ressources naturelles?',a:'COMMENT: En declarant les mines, les terres, les eaux propriete du peuple, pas de l Etat ni des multinationales. VOILA: Si la constitution ne protege pas les ressources, les multinationales les volent. L Afrique perd 50 milliards USD par an en pillage minier.'},
+ {q:'POURQUOI le referendum de destitution (recall) est-il essentiel?',a:'COMMENT: En permettant au peuple de destituer un dirigeant qui trahit, sans attendre 5 ans. VOILA: Sans recall, un mauvais president peut detruire un pays en 5 ans. Avec recall, le peuple est le veritable patron. La democratie n est pas un cheque en blanc tous les 5 ans.'},
+ {q:'POURQUOI la constitution doit-elle etre en langues africaines?',a:'COMMENT: En traduisant la constitution dans les langues locales (bambara, wolof, moore, peul, swahili...). VOILA: Une constitution que le peuple ne comprend pas est une constitution morte. Si elle est en francais, seul les diplomes la lisent. En langues africaines, tout le peuple la possede.'},
+ {q:'POURQUOI la justice transitionnelle est-elle necessaire?',a:'COMMENT: En documentant les crimes coloniaux, en exigeant des reparations, en restaurant les biens voles. VOILA: Sans justice, pas de reconciliation. Pardonner sans justice, c est accepter l impunite. La constitution doit prevoir la justice pour le passe pour construire l avenir.'},
+ {q:'POURQUOI les femmes doivent-elles etre dans la constitution?',a:'COMMENT: En garantissant la parite dans les institutions (50% femmes minimum). VOILA: Les femmes construisent l Afrique (agriculture, education, sante, economie). Les exclure du pouvoir, c est construire une maison sans fondations. La constitution doit etre paritaire.'},
+ {q:'POURQUOI la constitution numerique est-elle l avenir?',a:'COMMENT: En enregistrant chaque loi, chaque vote, chaque depense sur la blockchain AfriChain. VOILA: La constitution sur papier est du passe. La constitution sur la blockchain est l avenir. L Afrique peut etre le premier continent a avoir une constitution vivante, numerique, immuable. La technologie au service de la democratie.'}
+];
+var exoSeed=0;
+function genExos(){
+ exoSeed++;
+ var s=exoSeed*12345;
+ function rand(){s=(s*9301+49297)%233280;return s/233280;}
+ var h='';
+ var used={};
+ for(var i=0;i<5;i++){
+  var idx=Math.floor(rand()*exoData.length);
+  while(used[idx]){idx=(idx+1)%exoData.length;}
+  used[idx]=true;
+  var e=exoData[idx];
+  h+='<div class="exo"><div class="exo-q">'+(i+1)+'. '+e.q+'</div><div class="exo-a">'+e.a+'</div></div>';
+ }
+ document.getElementById('exoBox').innerHTML=h;
+}
+genExos();
+
+// Canvas animation
+var canvas=document.getElementById('constCanvas');
+var ctx=canvas.getContext('2d');
+var particles=[];
+var articles=[];
+var t=0;
+for(var i=0;i<8;i++){
+ articles.push({x:200+Math.cos(i*Math.PI/4)*120,y:150+Math.sin(i*Math.PI/4)*80,r:8,angle:i*Math.PI/4,label:i+1});
+}
+for(var i=0;i<40;i++){
+ particles.push({x:Math.random()*400,y:Math.random()*300,vx:(Math.random()-0.5)*0.5,vy:(Math.random()-0.5)*0.5,life:Math.random()});
+}
+function drawCanvas(){
+ if(paused){requestAnimationFrame(drawCanvas);return;}
+ t+=0.01;
+ ctx.fillStyle='rgba(5,10,5,0.15)';
+ ctx.fillRect(0,0,400,300);
+ // Central scroll
+ ctx.save();
+ ctx.translate(200,150);
+ ctx.rotate(Math.sin(t)*0.05);
+ ctx.fillStyle='rgba(212,164,55,'+(0.3+Math.sin(t)*0.1)+')';
+ ctx.fillRect(-30,-40,60,80);
+ ctx.fillStyle='#d4a437';
+ ctx.font='20px serif';
+ ctx.textAlign='center';
+ ctx.fillText('\u2692',0,5);
+ ctx.restore();
+ // Articles orbiting
+ for(var i=0;i<articles.length;i++){
+  var a=articles[i];
+  a.angle+=0.005;
+  var x=200+Math.cos(a.angle+t*0.3)*120;
+  var y=150+Math.sin(a.angle+t*0.3)*80;
+  // Line to center
+ ctx.strokeStyle='rgba(212,164,55,0.1)';
+ ctx.beginPath();ctx.moveTo(200,150);ctx.lineTo(x,y);ctx.stroke();
+  // Article node
+ ctx.fillStyle=completed[i]?'#e8d058':'rgba(212,164,55,0.4)';
+ ctx.beginPath();ctx.arc(x,y,a.r,0,Math.PI*2);ctx.fill();
+ ctx.fillStyle='#e8f0e8';
+ ctx.font='8px serif';
+ ctx.textAlign='center';
+ ctx.fillText(a.label,x,y+3);
+ }
+ // Particles
+ for(var i=0;i<particles.length;i++){
+  var p=particles[i];
+  p.x+=p.vx;p.y+=p.vy;p.life-=0.005;
+  if(p.life<=0||p.x<0||p.x>400||p.y<0||p.y>300){
+   p.x=Math.random()*400;p.y=Math.random()*300;p.life=1;
+   p.vx=(Math.random()-0.5)*0.5;p.vy=(Math.random()-0.5)*0.5;
+  }
+  ctx.fillStyle='rgba(212,164,55,'+p.life*0.3+')';
+  ctx.fillRect(p.x,p.y,2,2);
+ }
+ requestAnimationFrame(drawCanvas);
+}
+drawCanvas();
+
+function togglePause(){
+ paused=!paused;
+ document.getElementById('pauseBtn').textContent=paused?'▶️ Play':'⏸️ Pause';
+}
+</script>
+</body></html>"##);
+
     html
 }
 
@@ -23550,7 +23782,7 @@ html+='<div class="log-entry log-kill">⚠️ Tentative d\x27infiltration occide
 html+='<div class="log-entry log-invis">✅ L\x27Afrique est forte. Le système grandit.</div>';
 }else if(type==='total'){
 html='<div style="color:#d4a437;font-weight:bold;margin-bottom:8px">📋 RAPPORT TOTAL — Depuis le début</div>';
-html+='<div class="log-entry">🦁 AfriChain v1.33 — Base Militaire + Chat AI v2</div>';
+html+='<div class="log-entry">🦁 AfriChain v1.34 — AI Constitution</div>';
 html+='<div class="log-entry">⛓️ Blockchain: 100% souveraine — Zéro dépendance externe</div>';
 html+='<div class="log-entry">🔐 Crypto: Ed25519 + AfriHash-256/512 + AfriRNG — tout from scratch</div>';
 html+='<div class="log-entry">🌍 54 pays africains connectés</div>';
@@ -25094,7 +25326,7 @@ fn main() {
         .and_then(|i| args.get(i + 1)).cloned().unwrap_or_else(|| "Afrique".to_string());
 
     let my_node_id = generate_node_id();
-    println!("🦁 AfriChain v1.33 — Base Militaire + Chat AI v2");
+    println!("🦁 AfriChain v1.34 — AI Constitution");
     println!("💚 L'Afrique ne demande plus la permission");
     println!("🌍 54 pays — 🇲🇱 🇳🇪 🇧🇫 AES — Mali · Niger · Burkina Faso");
     println!("🔐 8 modules cryptographiques — construits from scratch");
@@ -25234,6 +25466,7 @@ fn main() {
     println!("🛸🛸🛸 Essaim X999 sur http://localhost:8080/swarm");
     println!("🎖️ Commandement X999 sur http://localhost:8080/commandement");
     println!("🪖 Base Militaire sur http://localhost:8080/base-militaire");
+    println!("📜 AI Constitution sur http://localhost:8080/ai-constitution");
     println!("🛡️ Souverainete des Donnees sur http://localhost:8080/interception");
     println!("🧠 AI Securite 2100 sur http://localhost:8080/securite-ai");
     println!("🧠💬 Chat AI 2500 sur http://localhost:8080/chat");
@@ -25323,7 +25556,7 @@ fn terminal_interface(state: &Arc<AppState>) {
     println!("  ║  🕐 AfriTime — Pas UTC, pas Greenwich   ║");
     println!("  ║  📝 ~23,100 lignes — écrit à la main       ║");
     println!("  ╚═══════════════════════════════════════════════╝");
-    println!("\n  Version v1.33 — 3 septembre 2026");
+    println!("\n  Version v1.34 — 3 septembre 2026");
     println!("  Construit sur Termux · Android · nano\n");
     println!("  ─────────────────────────────────────────────");
     println!("\n  1. 🏦 Centre de Données (Admin)");
@@ -25395,7 +25628,7 @@ fn admin_interface(state: &Arc<AppState>) {
         println!("\n");
         println!("╔══════════════════════════════════════╗");
         println!("║  🏦 CENTRE DE DONNÉES — Admin       ║");
-        println!("║  🦁 AfriChain v1.33                  ║");
+        println!("║  🦁 AfriChain v1.34                  ║");
         println!("╠══════════════════════════════════════╣");
         let chain = state.chain.lock().unwrap();
         let users = state.users.lock().unwrap();
@@ -29160,6 +29393,11 @@ fn handle_request(req: afri_http::HttpRequest, state: &Arc<AppState>) -> afri_ht
         ("GET", "/base-militaire") => {
             let chain = state.chain.lock().unwrap();
             HttpResponse::ok(&html_base_militaire(&chain))
+        }
+
+        ("GET", "/ai-constitution") => {
+            let chain = state.chain.lock().unwrap();
+            HttpResponse::ok(&html_ai_constitution(&chain))
         }
 
         ("GET", "/machine") => {
