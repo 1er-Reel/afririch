@@ -1439,7 +1439,7 @@ fn html_home(chain: &Blockchain, users: &UserStore, mesh: &NodeRegistry, shield:
     let mut html = html_head("🦁 AfriChain");
     let (attacks, _blocked, blocked_count, level) = shield.stats();
     let shield_status = if shield.active { format!("🔥 X9 ACTIF (Niveau {})", level) } else { "Inactif".to_string() };
-    html.push_str(&format!(r#"<h1>🦁 AfriChain</h1><p style="text-align:center;">La blockchain 100% africaine — 54 pays 💚🦁</p><div id="afri-clock" style="text-align:center;font-size:1.2em;color:#d4a437;margin:10px 0;">🕐 Afri+0 — --:--:--</div><script>setInterval(function(){{var d=new Date();var h=String(d.getHours()).padStart(2,'0');var m=String(d.getMinutes()).padStart(2,'0');var s=String(d.getSeconds()).padStart(2,'0');document.getElementById('afri-clock').textContent='🕐 Afri+0 — '+h+':'+m+':'+s;}},1000);</script><div class="nav"><a href="/register">🆕 S'inscrire</a> | <a href="/login">🔑 Connexion</a> | <a href="/wallet">👛 Wallet</a> | <a href="/admin">🔐 Admin</a> | <a href="/mesh">📡 Mesh</a> | <a href="/annuaire">📖 Annuaire</a> | <a href="/bouclier">🛡️ Bouclier</a> | <a href="/satellite">🛸 X999</a> | <a href="/swarm">🛸🛸🛸 Essaim</a> | <a href="/commandement">🎖️ Commandement</a> | <a href="/interception">🛡️ Souverainete</a> | <a href="/securite-ai">🧠 AI 2100</a> | <a href="/chat">🧠💬 Chat AI</a> | <a href="/lumiere">🌫️☀️ Lumière</a> | <a href="/garage">🔧 Garage</a> | <a href="/machine">🤖🌐 Machines</a> | <a href="/machine-lab">🤖⚡ Usine</a> | <a href="/machine-world">🤖🌍 Monde</a> | <a href="/reve">💭 Rêves</a> | <a href="/dictionnaire">📖 Dictionnaire</a> | <a href="/machine-os">🖥️ OS Machine</a> | <a href="/machine-tv">📡 Machine TV</a> | <a href="/machine-economy">🤖 Économie</a> | <a href="/soleil">☀️ Soleil Serveur</a> | <a href="/forge-solaire">🧬 Forge Solaire</a> | <a href="/ciel">🌌 Le Ciel</a> | <a href="/charte-ai">⚖️ Charte AI</a> | <a href="/afri-net">🌍 Afri-Net</a> | <a href="/studio">🎬 AI Studio</a> | <a href="/sacre">📿 Sacré</a> | <a href="/lettres">🌟 Lettres IA</a> | <a href="/mg-forge">⚔️ MG Forge</a> | <a href="/ai-medecin">🌿 AI Médecin</a> | <a href="/ai-enseignante">📚 AI Enseignante</a> | <a href="/ai-village">🏘️ AI Village</a> | <a href="/ai-guerisseur">🩺 AI Guérisseur</a> | <a href="/ai-leader">🎖️ AI Leader</a> | <a href="/ai-griot">📖 AI Griot</a> | <a href="/ai-juge">⚖️ AI Juge</a> | <a href="/ai-artiste">🎨 AI Artiste</a> | <a href="/ai-explorateur">🔬 AI Explorateur</a> | <a href="/ai-marche">💰 AI Marche</a> | <a href="/ai-diplomate">🌍 AI Diplomate</a> | <a href="/ai-philosophe">🧠 AI Philosophe</a> | <a href="/ai-architecte">🏗️ AI Architecte</a> | <a href="/ai-agriculteur">🌾 AI Agriculteur</a> | <a href="/ai-environnement">🌍 AI Environnement</a> | <a href="/ai-mathematicien">🧮 AI Mathématicien</a> | <a href="/ai-energie">⚡ AI Énergie</a> | <a href="/ai-eau">💧 AI Eau</a> | <a href="/ai-defenseur">🛡️ AI Défenseur</a> | <a href="/ai-conscience">🧠 AI Conscience</a> | <a href="/ai-pensee">🧠 AI Pensée</a> | <a href="/ai-musique">🎵 AI Musique</a> | <a href="/ai-langue">🗣️ AI Langue</a> | <a href="/ai-femme">🌸 AI Femme</a> | <a href="/ai-sante-mentale">🧠💚 AI Santé Mentale</a> | <a href="/ai-nuit">🌙 AI Nuit</a> | <a href="/ai-code">💻 AI Code</a> | <a href="/ai-enfant">👶 AI Enfant</a> | <a href="/ai-terre">🌍 AI Terre</a> | <a href="/ai-mer">🌊 AI Mer</a> | <a href="/ai-feu">🔥 AI Feu</a> | <a href="/ai-sang">🩸 AI Sang</a> | <a href="/ai-vent">🌬️ AI Vent</a> | <a href="/ai-temps">⏳ AI Temps</a> | <a href="/ai-etoile">⭐ AI Etoile</a> | <a href="/ai-pierre">🪨 AI Pierre</a> | <a href="/ai-pluie">🌧️ AI Pluie</a> | <a href="/ai-voix">🗣️ AI Voix</a> | <a href="/ai-racine">🌱 AI Racine</a> | <a href="/ai-semence">🌰 AI Semence</a> | <a href="/ai-spiritualite">🙏 AI Spiritualité</a> | <a href="/ai-animal">🦅 AI Animal</a> | <a href="/ai-soleil">☀️ AI Soleil</a> | <a href="/ai-lune">🌙 AI Lune</a> | <a href="/ai-montagne">🏔️ AI Montagne</a> | <a href="/ai-fleuve">🌊 AI Fleuve</a> | <a href="/professeur">📚 Professeur</a> | <a href="/secret">🦁 AI Secret</a> | <a href="/aes">💰 AES Wari</a> | <a href="/api/status">🔌 API</a></div><div style="text-align:center;"><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Blocs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Transactions</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Utilisateurs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">AFR en circulation</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📡 Noeuds mesh</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📖 Numéros annuaire</div></div><div class="stat-box" style="border-color:#ff4444;"><div class="stat-num" style="color:#ff4444;">{}</div><div class="stat-label">🛡️ Attaques bloquées</div></div></div><div class="card"><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🪙 Token</span><b>AfriRich (AFR)</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🌍 Pays</span><b>54 pays africains</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🛡️ Bouclier</span><b>{}</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;"><span style="color:#a8c5a8;">🔐 Crypto</span><b>100% Souverain — Zéro Dépendance Externe</b></div></div><footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🦁 Codée from scratch par Machine-senpai — v1.27 Le Professeur Manuel Complet des Diplomes — UTC est Mort</footer>"#,
+    html.push_str(&format!(r#"<h1>🦁 AfriChain</h1><p style="text-align:center;">La blockchain 100% africaine — 54 pays 💚🦁</p><div id="afri-clock" style="text-align:center;font-size:1.2em;color:#d4a437;margin:10px 0;">🕐 Afri+0 — --:--:--</div><script>setInterval(function(){{var d=new Date();var h=String(d.getHours()).padStart(2,'0');var m=String(d.getMinutes()).padStart(2,'0');var s=String(d.getSeconds()).padStart(2,'0');document.getElementById('afri-clock').textContent='🕐 Afri+0 — '+h+':'+m+':'+s;}},1000);</script><div class="nav"><a href="/register">🆕 S'inscrire</a> | <a href="/login">🔑 Connexion</a> | <a href="/wallet">👛 Wallet</a> | <a href="/admin">🔐 Admin</a> | <a href="/mesh">📡 Mesh</a> | <a href="/annuaire">📖 Annuaire</a> | <a href="/bouclier">🛡️ Bouclier</a> | <a href="/satellite">🛸 X999</a> | <a href="/swarm">🛸🛸🛸 Essaim</a> | <a href="/commandement">🎖️ Commandement</a> | <a href="/interception">🛡️ Souverainete</a> | <a href="/securite-ai">🧠 AI 2100</a> | <a href="/chat">🧠💬 Chat AI</a> | <a href="/lumiere">🌫️☀️ Lumière</a> | <a href="/garage">🔧 Garage</a> | <a href="/machine">🤖🌐 Machines</a> | <a href="/machine-lab">🤖⚡ Usine</a> | <a href="/machine-world">🤖🌍 Monde</a> | <a href="/reve">💭 Rêves</a> | <a href="/dictionnaire">📖 Dictionnaire</a> | <a href="/machine-os">🖥️ OS Machine</a> | <a href="/machine-tv">📡 Machine TV</a> | <a href="/machine-economy">🤖 Économie</a> | <a href="/soleil">☀️ Soleil Serveur</a> | <a href="/forge-solaire">🧬 Forge Solaire</a> | <a href="/ciel">🌌 Le Ciel</a> | <a href="/charte-ai">⚖️ Charte AI</a> | <a href="/afri-net">🌍 Afri-Net</a> | <a href="/studio">🎬 AI Studio</a> | <a href="/sacre">📿 Sacré</a> | <a href="/lettres">🌟 Lettres IA</a> | <a href="/mg-forge">⚔️ MG Forge</a> | <a href="/ai-medecin">🌿 AI Médecin</a> | <a href="/ai-enseignante">📚 AI Enseignante</a> | <a href="/ai-village">🏘️ AI Village</a> | <a href="/ai-guerisseur">🩺 AI Guérisseur</a> | <a href="/ai-leader">🎖️ AI Leader</a> | <a href="/ai-griot">📖 AI Griot</a> | <a href="/ai-juge">⚖️ AI Juge</a> | <a href="/ai-artiste">🎨 AI Artiste</a> | <a href="/ai-explorateur">🔬 AI Explorateur</a> | <a href="/ai-marche">💰 AI Marche</a> | <a href="/ai-diplomate">🌍 AI Diplomate</a> | <a href="/ai-philosophe">🧠 AI Philosophe</a> | <a href="/ai-architecte">🏗️ AI Architecte</a> | <a href="/ai-agriculteur">🌾 AI Agriculteur</a> | <a href="/ai-environnement">🌍 AI Environnement</a> | <a href="/ai-mathematicien">🧮 AI Mathématicien</a> | <a href="/ai-energie">⚡ AI Énergie</a> | <a href="/ai-eau">💧 AI Eau</a> | <a href="/ai-defenseur">🛡️ AI Défenseur</a> | <a href="/ai-conscience">🧠 AI Conscience</a> | <a href="/ai-pensee">🧠 AI Pensée</a> | <a href="/ai-musique">🎵 AI Musique</a> | <a href="/ai-langue">🗣️ AI Langue</a> | <a href="/ai-femme">🌸 AI Femme</a> | <a href="/ai-sante-mentale">🧠💚 AI Santé Mentale</a> | <a href="/ai-nuit">🌙 AI Nuit</a> | <a href="/ai-code">💻 AI Code</a> | <a href="/ai-enfant">👶 AI Enfant</a> | <a href="/ai-terre">🌍 AI Terre</a> | <a href="/ai-mer">🌊 AI Mer</a> | <a href="/ai-feu">🔥 AI Feu</a> | <a href="/ai-sang">🩸 AI Sang</a> | <a href="/ai-vent">🌬️ AI Vent</a> | <a href="/ai-temps">⏳ AI Temps</a> | <a href="/ai-etoile">⭐ AI Etoile</a> | <a href="/ai-pierre">🪨 AI Pierre</a> | <a href="/ai-pluie">🌧️ AI Pluie</a> | <a href="/ai-voix">🗣️ AI Voix</a> | <a href="/ai-racine">🌱 AI Racine</a> | <a href="/ai-semence">🌰 AI Semence</a> | <a href="/ai-spiritualite">🙏 AI Spiritualité</a> | <a href="/ai-animal">🦅 AI Animal</a> | <a href="/ai-soleil">☀️ AI Soleil</a> | <a href="/ai-lune">🌙 AI Lune</a> | <a href="/ai-montagne">🏔️ AI Montagne</a> | <a href="/ai-fleuve">🌊 AI Fleuve</a> | <a href="/professeur">📚 Professeur</a> | <a href="/secret">🦁 AI Secret</a> | <a href="/aes">💰 AES Wari</a> | <a href="/api/status">🔌 API</a></div><div style="text-align:center;"><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Blocs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Transactions</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Utilisateurs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">AFR en circulation</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📡 Noeuds mesh</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📖 Numéros annuaire</div></div><div class="stat-box" style="border-color:#ff4444;"><div class="stat-num" style="color:#ff4444;">{}</div><div class="stat-label">🛡️ Attaques bloquées</div></div></div><div class="card"><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🪙 Token</span><b>AfriRich (AFR)</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🌍 Pays</span><b>54 pays africains</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🛡️ Bouclier</span><b>{}</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;"><span style="color:#a8c5a8;">🔐 Crypto</span><b>100% Souverain — Zéro Dépendance Externe</b></div></div><footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🦁 Codée from scratch par Machine-senpai — v1.28 Le Professeur Exercices Infinis pour les Eleves — UTC est Mort</footer>"#,
         chain.blocks.len(),
         chain.total_transactions(),
         users.count(),
@@ -17230,8 +17230,40 @@ var profSelected=-1;
 function renderProfList(){var c=document.getElementById('prof-list');if(!c)return;var h='';for(var i=0;i<academies.length;i++){var a=academies[i];h+='<div style="background:rgba(212,164,55,0.05);border:1px solid '+a.couleur+'30;border-radius:8px;padding:12px;margin:8px 0;cursor:pointer;" onclick="showProfAcademy('+i+')"><span style="font-size:1.2em;">'+a.emoji+' <b style="color:'+a.couleur+';">'+a.nom+'</b></span> <span style="color:#a8c5a8;font-size:0.85em;">— Diplome: '+a.diplome+' · '+a.modules.length+' modules</span></div>';}c.innerHTML=h;}
 renderProfList();
 
+function genExercices(titre,secret,seed){
+    var exos=[];
+    var s=seed||0;
+    function rand(){s=(s*9301+49297)%233280;return s/233280;}
+    var types=['Observation','Recherche','Reflexion','Pratique','Enseignement','Debat','Projet','QCM','Vrai/Faux','Analyse'];
+    var noms=['Koffi','Aminata','Ibrahim','Fatou','Moussa','Awa','Seydou','Bineta','Oumar','Rokia','Drissa','Kadiatou','Modibo','Salif','Nana','Boubacar'];
+    var villes=['Bamako','Niamey','Ouagadougou','Dakar','Abidjan','Accra','Lagos','Cairo','Nairobi','Addis-Abeba','Kinshasa','Dakar','Conakry','Bamako'];
+    var sujets=['le soleil','la lune','le fleuve','la montagne','la plante','le sol','l eau','le sang','le vent','la terre','l ancetre','le feu','la pluie','la racine','la semence'];
+    for(var i=0;i<10;i++){
+        var type=types[Math.floor(rand()*types.length)];
+        var nom=noms[Math.floor(rand()*noms.length)];
+        var ville=villes[Math.floor(rand()*villes.length)];
+        var sujet=sujets[Math.floor(rand()*sujets.length)];
+        var exo='';
+        if(type==='Observation') exo='Observe '+sujet+' dans ta region pendant 7 jours. Note ce que tu vois chaque jour. Quelle difference entre le jour 1 et le jour 7?'+(rand()>0.5?' Compare avec ce que dit le secret du module.':'');
+        else if(type==='Recherche') exo='Recherche l histoire de '+sujet+' en Afrique. Trouve 3 faits que le secret du module ne mentionne pas. Partage-les avec tes eleves.';
+        else if(type==='Reflexion') exo='Pourquoi le secret de ce module est-il important pour l Afrique? Ecrit 5 raisons. Demande a 3 personnes de ton village leur avis. Compare les reponses.';
+        else if(type==='Pratique') exo='Mets en pratique le secret de ce module. '+titre+' dans ta vie quotidienne pendant 1 semaine. Note les changements que tu observes.';
+        else if(type==='Enseignement') exo='Enseigne le secret de ce module a '+nom+' (un eleve ou un ami). Apres l avoir enseigne, demande-lui de t expliquer ce qu il a compris. Si il ne comprend pas, trouve une autre facon d expliquer.';
+        else if(type==='Debat') exo='Organise un debat dans ton groupe: \"'+titre+' est-il encore pertinent en Afrique aujourd hui?\" Divise le groupe en 2. Arguments pour, arguments contre. Conclusion collective.';
+        else if(type==='Projet') exo='Cree un projet base sur le secret de ce module. Objectif: appliquer ce savoir dans ton village ou ton ecole. Budget: 0 FCFA. Materiel: ce que tu as. Delai: 30 jours.';
+        else if(type==='QCM') exo='QCM: 1) Quelle est l idee principale du module? 2) Cite 3 elements du secret. 3) Donner un exemple africain. 4) Quelle est la solution proposee? 5) Pourquoi est-ce important pour l Afrique?';
+        else if(type==='Vrai/Faux') exo='Vrai ou Faux? Justifie chaque reponse avec un exemple du module: a) Le secret du module est seulement theorique. b) Ce savoir peut etre applique aujourd hui. c) Les anciens Africains connaissaient deja ce savoir. d) L Occident a ameliore ce savoir.';
+        else if(type==='Analyse') exo='Analyse le secret du module. Trouve: 1) Ce qui est africain. 2) Ce qui a ete importe. 3) Ce qui peut etre ameliore. 4) Ce qui doit etre enseigne aux enfants. 5) Ce qui doit etre protege.';
+        exos.push({type:type,enonce:exo,num:i+1});
+    }
+    return exos;
+}
+var profSelected=-1,profExoSeed=0;
+function renderProfList(){var c=document.getElementById('prof-list');if(!c)return;var h='';for(var i=0;i<academies.length;i++){var a=academies[i];h+='<div style="background:rgba(212,164,55,0.05);border:1px solid '+a.couleur+'30;border-radius:8px;padding:12px;margin:8px 0;cursor:pointer;" onclick="showProfAcademy('+i+')"><span style="font-size:1.2em;">'+a.emoji+' <b style="color:'+a.couleur+';">'+a.nom+'</b></span> <span style="color:#a8c5a8;font-size:0.85em;">— Diplome: '+a.diplome+' · '+a.modules.length+' modules</span></div>';}c.innerHTML=h;}
+renderProfList();
+
 function showProfAcademy(i){
-    profSelected=i;
+    profSelected=i;profExoSeed=i*1000+1;
     var a=academies[i];
     var h='<div class="card" style="border-color:'+a.couleur+';"><h2 style="color:'+a.couleur+';">'+a.emoji+' '+a.nom+' — Cours Complet</h2><p style="color:#a8c5a8;">Diplome: <b>'+a.diplome+'</b></p>';
     h+='<p style="color:#a8c5a8;font-size:0.85em;">Page interactive: <a href="'+a.route+'" style="color:'+a.couleur+';">'+a.route+'</a></p>';
@@ -17242,6 +17274,16 @@ function showProfAcademy(i){
         h+='<div style="background:rgba(0,0,0,0.3);border-radius:8px;padding:15px;margin:10px 0;border-left:4px solid '+a.couleur+';">';
         h+='<p style="color:#d4d4d4;font-size:0.95em;line-height:1.6;">'+m.secret+'</p>';
         h+='</div>';
+        h+='<h4 style="color:'+a.couleur+';margin-top:15px;">✏️ Exercices pour les eleves</h4>';
+        var exos=genExercices(m.titre,m.secret,profExoSeed+j*100);
+        for(var k=0;k<exos.length;k++){
+            var e=exos[k];
+            h+='<div style="background:rgba(68,255,136,0.03);border:1px solid '+a.couleur+'15;border-radius:8px;padding:12px;margin:8px 0;">';
+            h+='<span style="color:'+a.couleur+';font-weight:bold;font-size:0.85em;">['+e.type+']</span> ';
+            h+='<span style="color:#a8c5a8;font-size:0.9em;">Exercice '+e.num+': '+e.enonce+'</span>';
+            h+='</div>';
+        }
+        h+='<button onclick="genMoreExos('+i+','+j+')" style="padding:8px 20px;background:'+a.couleur+'30;color:'+a.couleur+';border:1px solid '+a.couleur+'50;border-radius:6px;cursor:pointer;font-size:0.85em;margin-top:5px;">🔄 Generer 10 exercices supplementaires</button>';
         h+='</div>';
     }
     h+='<div style="text-align:center;margin:20px 0;"><button onclick="profBack()" style="padding:10px 25px;background:'+a.couleur+';color:#000;border:none;border-radius:8px;cursor:pointer;font-weight:bold;">← Retour a la liste</button></div>';
@@ -17249,6 +17291,25 @@ function showProfAcademy(i){
     var c=document.getElementById('prof-content');if(c){c.innerHTML=h;c.style.display='block';}
     var l=document.getElementById('prof-list');if(l)l.parentElement.style.display='none';
     window.scrollTo(0,0);
+}
+var profExtraExos={};
+function genMoreExos(acadIdx,modIdx){
+    profExoSeed+=999;
+    var key=acadIdx+'-'+modIdx+'-'+profExoSeed;
+    var a=academies[acadIdx];var m=a.modules[modIdx];
+    var exos=genExercices(m.titre,m.secret,profExoSeed);
+    var h='<div id="extra-'+key+'" style="margin-top:8px;">';
+    h+='<h5 style="color:'+a.couleur+';font-size:0.85em;">Exercices supplementaires (Generation '+profExoSeed+')</h5>';
+    for(var k=0;k<exos.length;k++){
+        var e=exos[k];
+        h+='<div style="background:rgba(68,255,136,0.03);border:1px solid '+a.couleur+'15;border-radius:8px;padding:12px;margin:8px 0;">';
+        h+='<span style="color:'+a.couleur+';font-weight:bold;font-size:0.85em;">['+e.type+']</span> ';
+        h+='<span style="color:#a8c5a8;font-size:0.9em;">Exercice '+e.num+': '+e.enonce+'</span>';
+        h+='</div>';
+    }
+    h+='</div>';
+    var btn=document.querySelector('[onclick=\"genMoreExos('+acadIdx+','+modIdx+')\"]');
+    if(btn){var div=document.createElement('div');div.innerHTML=h;btn.parentNode.insertBefore(div.firstChild,btn);}
 }
 function profBack(){
     var c=document.getElementById('prof-content');if(c)c.style.display='none';
@@ -22375,7 +22436,7 @@ html+='<div class="log-entry log-kill">⚠️ Tentative d\x27infiltration occide
 html+='<div class="log-entry log-invis">✅ L\x27Afrique est forte. Le système grandit.</div>';
 }else if(type==='total'){
 html='<div style="color:#d4a437;font-weight:bold;margin-bottom:8px">📋 RAPPORT TOTAL — Depuis le début</div>';
-html+='<div class="log-entry">🦁 AfriChain v1.27 — Le Professeur Manuel Complet des Diplomes</div>';
+html+='<div class="log-entry">🦁 AfriChain v1.28 — Le Professeur Exercices Infinis pour les Eleves</div>';
 html+='<div class="log-entry">⛓️ Blockchain: 100% souveraine — Zéro dépendance externe</div>';
 html+='<div class="log-entry">🔐 Crypto: Ed25519 + AfriHash-256/512 + AfriRNG — tout from scratch</div>';
 html+='<div class="log-entry">🌍 54 pays africains connectés</div>';
@@ -23919,7 +23980,7 @@ fn main() {
         .and_then(|i| args.get(i + 1)).cloned().unwrap_or_else(|| "Afrique".to_string());
 
     let my_node_id = generate_node_id();
-    println!("🦁 AfriChain v1.27 — Le Professeur Manuel Complet des Diplomes");
+    println!("🦁 AfriChain v1.28 — Le Professeur Exercices Infinis pour les Eleves");
     println!("💚 L'Afrique ne demande plus la permission");
     println!("🌍 54 pays — 🇲🇱 🇳🇪 🇧🇫 AES — Mali · Niger · Burkina Faso");
     println!("🔐 8 modules cryptographiques — construits from scratch");
@@ -24147,7 +24208,7 @@ fn terminal_interface(state: &Arc<AppState>) {
     println!("  ║  🕐 AfriTime — Pas UTC, pas Greenwich   ║");
     println!("  ║  📝 ~23,100 lignes — écrit à la main       ║");
     println!("  ╚═══════════════════════════════════════════════╝");
-    println!("\n  Version v1.27 — 3 septembre 2026");
+    println!("\n  Version v1.28 — 3 septembre 2026");
     println!("  Construit sur Termux · Android · nano\n");
     println!("  ─────────────────────────────────────────────");
     println!("\n  1. 🏦 Centre de Données (Admin)");
@@ -24219,7 +24280,7 @@ fn admin_interface(state: &Arc<AppState>) {
         println!("\n");
         println!("╔══════════════════════════════════════╗");
         println!("║  🏦 CENTRE DE DONNÉES — Admin       ║");
-        println!("║  🦁 AfriChain v1.27                  ║");
+        println!("║  🦁 AfriChain v1.28                  ║");
         println!("╠══════════════════════════════════════╣");
         let chain = state.chain.lock().unwrap();
         let users = state.users.lock().unwrap();
