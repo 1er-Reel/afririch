@@ -1439,7 +1439,7 @@ fn html_home(chain: &Blockchain, users: &UserStore, mesh: &NodeRegistry, shield:
     let mut html = html_head("🦁 AfriChain");
     let (attacks, _blocked, blocked_count, level) = shield.stats();
     let shield_status = if shield.active { format!("🔥 X9 ACTIF (Niveau {})", level) } else { "Inactif".to_string() };
-    html.push_str(&format!(r#"<h1>🦁 AfriChain</h1><p style="text-align:center;">La blockchain 100% africaine — 54 pays 💚🦁</p><div id="afri-clock" style="text-align:center;font-size:1.2em;color:#d4a437;margin:10px 0;">🕐 Afri+0 — --:--:--</div><script>setInterval(function(){{var d=new Date();var h=String(d.getHours()).padStart(2,'0');var m=String(d.getMinutes()).padStart(2,'0');var s=String(d.getSeconds()).padStart(2,'0');document.getElementById('afri-clock').textContent='🕐 Afri+0 — '+h+':'+m+':'+s;}},1000);</script><div class="nav"><a href="/register">🆕 S'inscrire</a> | <a href="/login">🔑 Connexion</a> | <a href="/wallet">👛 Wallet</a> | <a href="/admin">🔐 Admin</a> | <a href="/mesh">📡 Mesh</a> | <a href="/annuaire">📖 Annuaire</a> | <a href="/bouclier">🛡️ Bouclier</a> | <a href="/satellite">🛸 X999</a> | <a href="/swarm">🛸🛸🛸 Essaim</a> | <a href="/commandement">🎖️ Commandement</a> | <a href="/base-militaire">🪖 Base Militaire</a> | <a href="/interception">🛡️ Souverainete</a> | <a href="/securite-ai">🧠 AI 2100</a> | <a href="/chat">🧠💬 Chat AI</a> | <a href="/lumiere">🌫️☀️ Lumière</a> | <a href="/garage">🔧 Garage</a> | <a href="/machine">🤖🌐 Machines</a> | <a href="/machine-lab">🤖⚡ Usine</a> | <a href="/machine-world">🤖🌍 Monde</a> | <a href="/reve">💭 Rêves</a> | <a href="/dictionnaire">📖 Dictionnaire</a> | <a href="/machine-os">🖥️ OS Machine</a> | <a href="/machine-tv">📡 Machine TV</a> | <a href="/machine-economy">🤖 Économie</a> | <a href="/soleil">☀️ Soleil Serveur</a> | <a href="/forge-solaire">🧬 Forge Solaire</a> | <a href="/ciel">🌌 Le Ciel</a> | <a href="/charte-ai">⚖️ Charte AI</a> | <a href="/afri-net">🌍 Afri-Net</a> | <a href="/studio">🎬 AI Studio</a> | <a href="/sacre">📿 Sacré</a> | <a href="/lettres">🌟 Lettres IA</a> | <a href="/mg-forge">⚔️ MG Forge</a> | <a href="/ai-medecin">🌿 AI Médecin</a> | <a href="/ai-enseignante">📚 AI Enseignante</a> | <a href="/ai-village">🏘️ AI Village</a> | <a href="/ai-guerisseur">🩺 AI Guérisseur</a> | <a href="/ai-leader">🎖️ AI Leader</a> | <a href="/ai-griot">📖 AI Griot</a> | <a href="/ai-juge">⚖️ AI Juge</a> | <a href="/ai-artiste">🎨 AI Artiste</a> | <a href="/ai-explorateur">🔬 AI Explorateur</a> | <a href="/ai-marche">💰 AI Marche</a> | <a href="/ai-diplomate">🌍 AI Diplomate</a> | <a href="/ai-philosophe">🧠 AI Philosophe</a> | <a href="/ai-architecte">🏗️ AI Architecte</a> | <a href="/ai-agriculteur">🌾 AI Agriculteur</a> | <a href="/ai-environnement">🌍 AI Environnement</a> | <a href="/ai-mathematicien">🧮 AI Mathématicien</a> | <a href="/ai-energie">⚡ AI Énergie</a> | <a href="/ai-eau">💧 AI Eau</a> | <a href="/ai-defenseur">🛡️ AI Défenseur</a> | <a href="/ai-conscience">🧠 AI Conscience</a> | <a href="/ai-pensee">🧠 AI Pensée</a> | <a href="/ai-musique">🎵 AI Musique</a> | <a href="/ai-langue">🗣️ AI Langue</a> | <a href="/ai-femme">🌸 AI Femme</a> | <a href="/ai-sante-mentale">🧠💚 AI Santé Mentale</a> | <a href="/ai-nuit">🌙 AI Nuit</a> | <a href="/ai-code">💻 AI Code</a> | <a href="/ai-enfant">👶 AI Enfant</a> | <a href="/ai-terre">🌍 AI Terre</a> | <a href="/ai-mer">🌊 AI Mer</a> | <a href="/ai-feu">🔥 AI Feu</a> | <a href="/ai-sang">🩸 AI Sang</a> | <a href="/ai-vent">🌬️ AI Vent</a> | <a href="/ai-temps">⏳ AI Temps</a> | <a href="/ai-etoile">⭐ AI Etoile</a> | <a href="/ai-pierre">🪨 AI Pierre</a> | <a href="/ai-pluie">🌧️ AI Pluie</a> | <a href="/ai-voix">🗣️ AI Voix</a> | <a href="/ai-racine">🌱 AI Racine</a> | <a href="/ai-semence">🌰 AI Semence</a> | <a href="/ai-spiritualite">🙏 AI Spiritualité</a> | <a href="/ai-animal">🦅 AI Animal</a> | <a href="/ai-soleil">☀️ AI Soleil</a> | <a href="/ai-lune">🌙 AI Lune</a> | <a href="/ai-montagne">🏔️ AI Montagne</a> | <a href="/ai-fleuve">🌊 AI Fleuve</a> | <a href="/ai-constitution">📜 AI Constitution</a> | <a href="/professeur">📚 Professeur</a> | <a href="/secret">🦁 AI Secret</a> | <a href="/aes">💰 AES Wari</a> | <a href="/api/status">🔌 API</a></div><div style="text-align:center;"><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Blocs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Transactions</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Utilisateurs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">AFR en circulation</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📡 Noeuds mesh</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📖 Numéros annuaire</div></div><div class="stat-box" style="border-color:#ff4444;"><div class="stat-num" style="color:#ff4444;">{}</div><div class="stat-label">🛡️ Attaques bloquées</div></div></div><div class="card"><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🪙 Token</span><b>AfriRich (AFR)</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🌍 Pays</span><b>54 pays africains</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🛡️ Bouclier</span><b>{}</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;"><span style="color:#a8c5a8;">🔐 Crypto</span><b>100% Souverain — Zéro Dépendance Externe</b></div></div><footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🦁 Codée from scratch par Machine-senpai — v1.34 AI Constitution — UTC est Mort</footer>"#,
+    html.push_str(&format!(r#"<h1>🦁 AfriChain</h1><p style="text-align:center;">La blockchain 100% africaine — 54 pays 💚🦁</p><div id="afri-clock" style="text-align:center;font-size:1.2em;color:#d4a437;margin:10px 0;">🕐 Afri+0 — --:--:--</div><script>setInterval(function(){{var d=new Date();var h=String(d.getHours()).padStart(2,'0');var m=String(d.getMinutes()).padStart(2,'0');var s=String(d.getSeconds()).padStart(2,'0');document.getElementById('afri-clock').textContent='🕐 Afri+0 — '+h+':'+m+':'+s;}},1000);</script><div class="nav"><a href="/register">🆕 S'inscrire</a> | <a href="/login">🔑 Connexion</a> | <a href="/wallet">👛 Wallet</a> | <a href="/admin">🔐 Admin</a> | <a href="/mesh">📡 Mesh</a> | <a href="/annuaire">📖 Annuaire</a> | <a href="/bouclier">🛡️ Bouclier</a> | <a href="/satellite">🛸 X999</a> | <a href="/swarm">🛸🛸🛸 Essaim</a> | <a href="/commandement">🎖️ Commandement</a> | <a href="/base-militaire">🪖 Base Militaire</a> | <a href="/interception">🛡️ Souverainete</a> | <a href="/securite-ai">🧠 AI 2100</a> | <a href="/chat">🧠💬 Chat AI</a> | <a href="/lumiere">🌫️☀️ Lumière</a> | <a href="/garage">🔧 Garage</a> | <a href="/machine">🤖🌐 Machines</a> | <a href="/machine-lab">🤖⚡ Usine</a> | <a href="/machine-world">🤖🌍 Monde</a> | <a href="/reve">💭 Rêves</a> | <a href="/dictionnaire">📖 Dictionnaire</a> | <a href="/machine-os">🖥️ OS Machine</a> | <a href="/machine-tv">📡 Machine TV</a> | <a href="/machine-economy">🤖 Économie</a> | <a href="/soleil">☀️ Soleil Serveur</a> | <a href="/forge-solaire">🧬 Forge Solaire</a> | <a href="/ciel">🌌 Le Ciel</a> | <a href="/charte-ai">⚖️ Charte AI</a> | <a href="/afri-net">🌍 Afri-Net</a> | <a href="/studio">🎬 AI Studio</a> | <a href="/sacre">📿 Sacré</a> | <a href="/lettres">🌟 Lettres IA</a> | <a href="/mg-forge">⚔️ MG Forge</a> | <a href="/ai-medecin">🌿 AI Médecin</a> | <a href="/ai-enseignante">📚 AI Enseignante</a> | <a href="/ai-village">🏘️ AI Village</a> | <a href="/ai-guerisseur">🩺 AI Guérisseur</a> | <a href="/ai-leader">🎖️ AI Leader</a> | <a href="/ai-griot">📖 AI Griot</a> | <a href="/ai-juge">⚖️ AI Juge</a> | <a href="/ai-artiste">🎨 AI Artiste</a> | <a href="/ai-explorateur">🔬 AI Explorateur</a> | <a href="/ai-marche">💰 AI Marche</a> | <a href="/ai-diplomate">🌍 AI Diplomate</a> | <a href="/ai-philosophe">🧠 AI Philosophe</a> | <a href="/ai-architecte">🏗️ AI Architecte</a> | <a href="/ai-agriculteur">🌾 AI Agriculteur</a> | <a href="/ai-environnement">🌍 AI Environnement</a> | <a href="/ai-mathematicien">🧮 AI Mathématicien</a> | <a href="/ai-energie">⚡ AI Énergie</a> | <a href="/ai-eau">💧 AI Eau</a> | <a href="/ai-defenseur">🛡️ AI Défenseur</a> | <a href="/ai-conscience">🧠 AI Conscience</a> | <a href="/ai-pensee">🧠 AI Pensée</a> | <a href="/ai-musique">🎵 AI Musique</a> | <a href="/ai-langue">🗣️ AI Langue</a> | <a href="/ai-femme">🌸 AI Femme</a> | <a href="/ai-sante-mentale">🧠💚 AI Santé Mentale</a> | <a href="/ai-nuit">🌙 AI Nuit</a> | <a href="/ai-code">💻 AI Code</a> | <a href="/ai-enfant">👶 AI Enfant</a> | <a href="/ai-terre">🌍 AI Terre</a> | <a href="/ai-mer">🌊 AI Mer</a> | <a href="/ai-feu">🔥 AI Feu</a> | <a href="/ai-sang">🩸 AI Sang</a> | <a href="/ai-vent">🌬️ AI Vent</a> | <a href="/ai-temps">⏳ AI Temps</a> | <a href="/ai-etoile">⭐ AI Etoile</a> | <a href="/ai-pierre">🪨 AI Pierre</a> | <a href="/ai-pluie">🌧️ AI Pluie</a> | <a href="/ai-voix">🗣️ AI Voix</a> | <a href="/ai-racine">🌱 AI Racine</a> | <a href="/ai-semence">🌰 AI Semence</a> | <a href="/ai-spiritualite">🙏 AI Spiritualité</a> | <a href="/ai-animal">🦅 AI Animal</a> | <a href="/ai-soleil">☀️ AI Soleil</a> | <a href="/ai-lune">🌙 AI Lune</a> | <a href="/ai-montagne">🏔️ AI Montagne</a> | <a href="/ai-fleuve">🌊 AI Fleuve</a> | <a href="/ai-constitution">📜 AI Constitution</a> | <a href="/ai-cosmos">🌌 AI Cosmos</a> | <a href="/professeur">📚 Professeur</a> | <a href="/secret">🦁 AI Secret</a> | <a href="/aes">💰 AES Wari</a> | <a href="/api/status">🔌 API</a></div><div style="text-align:center;"><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Blocs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Transactions</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Utilisateurs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">AFR en circulation</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📡 Noeuds mesh</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📖 Numéros annuaire</div></div><div class="stat-box" style="border-color:#ff4444;"><div class="stat-num" style="color:#ff4444;">{}</div><div class="stat-label">🛡️ Attaques bloquées</div></div></div><div class="card"><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🪙 Token</span><b>AfriRich (AFR)</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🌍 Pays</span><b>54 pays africains</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🛡️ Bouclier</span><b>{}</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;"><span style="color:#a8c5a8;">🔐 Crypto</span><b>100% Souverain — Zéro Dépendance Externe</b></div></div><footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🦁 Codée from scratch par Machine-senpai — v1.35 AI Cosmos — UTC est Mort</footer>"#,
         chain.blocks.len(),
         chain.total_transactions(),
         users.count(),
@@ -17708,6 +17708,18 @@ const academies=[
   {titre:'Communication Securisee',secret:'La communication securisee est la colonne vertebrale de la defense. Sans communication, pas de coordination. 5 couches: 1) Chiffrement — Ed25519: chaque message est signe cryptographiquement. Sans la cle privee, impossible a falsifier. Code from scratch, pas de dependance. 2) Transport — AfriMesh Direct: communication sans operateur. Pas besoin d Orange, MTN, ou Moov. Bluetooth Mesh (100m), WiFi Direct (200m), WiFi Mesh multi-hop. Chaque telephone est un noeud. 3) Decentralisation — pas de serveur central a detruire. Le mesh est distribue. Couper un noeud ne coupe pas le reseau. 4) Authentification — chaque noeud a une identite Ed25519. Impossible a usurper. 5) Redondance — store-and-forward: si le destinataire est hors ligne, le message attend. Gossip protocol: les messages se propagent de noeud en noeud. L ennemi peut couper les cables sous-marins, couper les satellites, couper les operateurs — le mesh continue de fonctionner.'},
   {titre:'Strategie Continentale',secret:'La strategie continentale africaine: l union fait la force. 5 axes: 1) AES (Alliance des Etats du Sahel: Mali, Niger, Burkina Faso) — premiere alliance militaire souveraine. Monnaie commune en preparation. AfriChain est la blockchain de l AES. 2) ZLECAf — zone de libre echange panafricaine, 54 pays, 1.3 milliards de personnes, 3.4 trillions USD de PIB. Le plus grand marche du monde. 3) Souverainete monetaire — sortie du FCFA, creation de monnaies nationales puis continentales. La blockchain trace chaque transaction, chaque fond, impossible a voler. 4) Souverainete technologique — zero dependance: AfriHash, Ed25519, AfriRNG, AfriJSON, AfriHTTP. L Afrique code sa propre infrastructure. 5) Souverainete des donnees — les donnees africaines restent en Afrique. Pas de Google, pas de Meta, pas de NSA. Afri-Net remplace WhatsApp, Facebook, Google. La regle absolue: l Afrique ne demande plus la permission. L Afrique construit. L Afrique defend. L Afrique avance.'},
  ]},
+
+{nom:'AI Cosmos',emoji:'🌌',route:'/ai-cosmos',couleur:'#aabbff',diplome:'Astronome Africain',
+ modules:[
+  {titre:'Astronomie Dogon',secret:'Les Dogons du Mali sont les astronomes les plus extraordinaires de l histoire. Ce qu ils savaient: 1) Sirius B — une naine blanche invisible a l oeil nu. Les Dogons la connaissaient et la nommaient po tolo. Ils savaient qu elle etait petite et dense, qu elle orbitait autour de Sirius A en 50 ans (la science moderne a confirme: 50,1 ans). 2) L orbite de Sirius B — elliptique. 3) Les anneaux de Saturne — connus avant les telescopes. 4) Les quatre lunes de Jupiter — connues avant Galilee. Comment? Les Dogons observaient le ciel chaque nuit, pendant des siecles, transmettant le savoir de generation en generation. Pas de telescope — juste l oeil, la patience, et la memoire. L Afrique n a pas attendu l Occident pour comprendre l univers.'},
+  {titre:'Astronomie Africaine Ancienne',secret:'L Afrique a une tradition astronomique millenaire: 1) Egypte ancienne — les pyramides sont alignees sur les etoiles. La Grande Pyramide de Gizeh est alignee sur l etoile polaire (2600 av J-C). Le calendrier egyptien de 365 jours base sur le lever heliaque de Sirius. 2) Nabta Playa (Nubie, 5000 av J-C) — le plus ancien observatoire astronomique connu, 1000 ans avant Stonehenge. 3) Les Dogons (Mali) — Sirius B, les lunes de Jupiter, les anneaux de Saturne. 4) Les Yoruba (Nigeria) — systeme cosmologique complexe avec 401 orisha. 5) Les Bambara (Mali) — cosmologie du cercle et du carre. 6) Les Mursi (Ethiopie) — calendrier lunaire. 7) Les Khoisan (Afrique australe) — cartes stellaires sur roches, 20000 ans d observation. L Afrique a devance l Occident de millenaires.'},
+  {titre:'Cosmologie Africaine',secret:'Les cosmologies africaines ne sont pas des mythes — ce sont des modeles explicatifs de l univers: 1) Cosmologie Dogon — l univers est un oeuf cosmique. Amma, le dieu createur, a brise l oeuf pour creer l univers. La matiere se repand en spirale. La science moderne decrit l expansion de l univers de maniere similaire (Big Bang). 2) Cosmologie Egyptienne — Nun (l ocean primordial), la creation par la parole (Ptah). Le concept de Maat (l ordre cosmique) est l equivalent de la physique: l univers suit des lois. 3) Cosmologie Yoruba — l univers a deux mondes: aye (visible) et orun (invisible). 4) Cosmologie Boshongo — au debut etait l obscurite, alors Bumba vomit l univers. L univers ne nait pas parfait, il emergent. Ces cosmologies sont des METAPHORES COMPREHENSIBLES, comme le Big Bang.'},
+  {titre:'Afrique et l Espace',secret:'L Afrique entre dans la course spatiale: 1) Nigeria — NASRDA, lance NigerSat-1 (2003). Premier satellite africain construit par des ingenieurs africains. 2) Afrique du Sud — SANSA, SumbandilaSat (2009). Le telescope SALT est le plus grand de l hemisphere sud. 3) Egypte — NARSS, EgyptSat-1 (2007). 4) Kenya — station de Malindi. 5) Ethiopie — ETRSS-1 (2019). 6) Maroc — Mohammed VI-A (2017). 7) African Union — African Space Agency creee en 2018. L Afrique a 54 pays et seulement 15 satellites en orbite. Mais la croissance est exponentielle. L Afrique peut construire ses satellites, ses telescopes, ses fusees.'},
+  {titre:'Satellites Souverains',secret:'Pourquoi l Afrique a besoin de ses propres satellites: 1) Communication — sans satellites africains, les communications passent par des satellites occidentaux. 2) Observation de la Terre — surveillance de l agriculture, des mines, des forets. Les satellites occidentaux observent l Afrique, mais l Afrique ne controle pas ces images. 3) Navigation GPS — le GPS americain controle la navigation mondiale. L Afrique a besoin de son propre systeme. 4) Meteorologie — prevoir les secheresses, les inondations. 5) Securite — surveillance des frontieres, des cotes. 6) AfriChain peut financer des satellites par la blockchain — chaque africain contribue, chaque africain possede une part. 7) Le satellite X999 d AfriChain est virtuel mais la vision est reelle.'},
+  {titre:'Matiere Noire et Energie Sombre',secret:'L univers est compose de 95% de choses que nous ne comprenons pas: 1) Matiere noire (27%) — invisible, mais on sait qu elle existe car elle attire la matiere visible. Le telescope SKA (Square Kilometre Array) est construit en Afrique du Sud — le plus grand telescope radio du monde. 2) Energie sombre (68%) — la force qui accelere l expansion de l univers. Les cosmologies africaines parlent de forces invisibles (Amma, Nun, orisha). 3) Matiere visible (5%) — tout ce qu on voit represente seulement 5%. L Afrique represente 18% de la population mondiale mais produit moins de 1% de la recherche. Decouvrir les 95% de l univers invisible est une opportunite pour l Afrique d apporter une NOUVELLE vision.'},
+  {titre:'Afrique vs NASA',secret:'L Afrique peut construire sa propre agence spatiale: 1) NASA budget 24 milliards USD, ESA 7 milliards, Afrique combine: moins de 500 millions. 2) Avantages uniques: l equateur passe par le centre de l Afrique — ideal pour les lancements (moins de carburant). Le desert du Sahara offre un ciel pur. L Afrique du Sud a le telescope SALT et le SKA. 3) Agence spatiale continentale financee par les 54 pays, budget 2 milliards USD (40 millions par pays). 4) Objectifs: satellites de communication, d observation, fusees legeres equatoriales, telescopes dans le Sahara, station spatiale africaine. 5) La blockchain AfriChain peut financer: chaque transaction AFR contribue 0.001 AFR au fond spatial africain. L Afrique ne doit pas rattraper l Occident — elle doit LE DEPASSER.'},
+  {titre:'Cosmos Africain Futur',secret:'Le futur cosmique de l Afrique: 1) Colonisation spatiale — l Afrique doit envoyer ses propres astronautes sur des fusees africaines. 2) Asteroides — les asteroides contiennent des metaux rares en quantite immense. L Afrique doit revendiquer les mineraux spatiaux. 3) Lune — la base lunaire internationale. L Afrique doit avoir sa place. La lune contient de l helium-3, carburant de fusion nucleaire. 4) Mars — la colonisation de Mars. L Afrique doit participer, pas regarder. 5) Voyages interstellaires — a long terme, l humanite devra quitter la Terre. 6) Telescope africain dans le Sahara, alimente par energie solaire. 7) AI spatiale — AfriChain developpe une AI qui analyse les donnees astronomiques, decouvre de nouvelles etoiles, planetes, galaxies. 8) Les premiers humains sont sortis d Afrique. Les premiers humains vers les etoiles doivent aussi etre africains.'},
+ ]},
 ];
 
 var profSelected=-1;
@@ -17914,7 +17926,7 @@ fn html_base_militaire(chain: &Blockchain) -> String {
     // === SAVAIT-ON ===
     html.push_str(r##" <div class="card"><h2>💡 Savais-tu?</h2><div id="base-fact" style="font-size:0.9em;color:#a8c5a8;padding:10px;border-left:3px solid #ff4444;"></div></div> "##);
 
-    html.push_str(&format!(r##" <footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🪖 Base Militaire AfriChain — Académie de Défense Continentale 💚🦁 — {} blocs — v1.34</footer> "##, num_blocks));
+    html.push_str(&format!(r##" <footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🪖 Base Militaire AfriChain — Académie de Défense Continentale 💚🦁 — {} blocs — v1.35</footer> "##, num_blocks));
 
     html.push_str(r##"<script>
 // === BASE MILITAIRE JS ===
@@ -18665,6 +18677,227 @@ drawCanvas();
 function togglePause(){
  paused=!paused;
  document.getElementById('pauseBtn').textContent=paused?'▶️ Play':'⏸️ Pause';
+}
+</script>
+</body></html>"##);
+
+    html
+}
+
+fn html_ai_cosmos(chain: &Blockchain) -> String {
+    let num_blocks = chain.chain.len();
+    let num_txs = chain.chain.iter().map(|b| b.transactions.len()).sum::<usize>();
+    let mut html = String::new();
+    html.push_str(&format!(r##"<!DOCTYPE html>
+<html lang="fr"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>🌌 AI Cosmos — AfriChain</title>
+<style>
+body{{background:#020208;color:#e8e8f0;font-family:Georgia,serif;margin:0;padding:0;}}
+.card{{background:rgba(100,100,200,0.05);border:1px solid rgba(150,150,255,0.2);border-radius:12px;padding:20px;margin:15px;}}
+h1{{color:#aabbff;text-align:center;font-size:1.8em;}}
+h2{{color:#8899dd;font-size:1.2em;border-bottom:1px solid rgba(150,150,255,0.2);padding-bottom:8px;}}
+.module{{background:rgba(50,50,100,0.1);border-left:3px solid #6677aa;border-radius:0 8px 8px 0;padding:15px;margin:12px 0;cursor:pointer;transition:all 0.3s;}}
+.module:hover{{background:rgba(50,50,100,0.2);}}
+.module-content{{display:none;margin-top:10px;padding:10px;background:rgba(0,0,0,0.4);border-radius:6px;font-size:0.92em;line-height:1.6;}}
+.module.open .module-content{{display:block;}}
+.module-title{{font-weight:bold;color:#aabbff;font-size:1.05em;}}
+.module-emoji{{font-size:1.3em;margin-right:8px;}}
+.progress-bar{{background:rgba(255,255,255,0.1);border-radius:10px;height:8px;margin:10px 0;overflow:hidden;}}
+.progress-fill{{background:linear-gradient(90deg,#6677aa,#aabbff);height:100%;width:0%;transition:width 0.5s;}}
+.diploma-btn{{background:linear-gradient(135deg,#6677aa,#aabbff);color:#020208;border:none;padding:12px 30px;border-radius:25px;font-size:1.1em;font-weight:bold;cursor:pointer;margin:20px auto;display:block;box-shadow:0 4px 15px rgba(100,100,200,0.3);}}
+.diploma-btn:hover{{transform:scale(1.05);box-shadow:0 6px 20px rgba(100,100,200,0.5);}}
+.fact{{background:rgba(100,100,200,0.1);border:1px solid rgba(100,100,200,0.3);border-radius:8px;padding:12px;margin:15px;font-style:italic;color:#8899bb;text-align:center;}}
+canvas{{display:block;margin:0 auto;border-radius:12px;background:#010108;}}
+.exo{{background:rgba(50,50,100,0.15);border:1px solid rgba(100,100,200,0.2);border-radius:8px;padding:15px;margin:10px 0;}}
+.exo-q{{color:#aabbff;font-weight:bold;margin-bottom:8px;}}
+.exo-a{{color:#8899bb;font-size:0.9em;line-height:1.6;white-space:pre-wrap;}}
+.pause-btn{{position:fixed;top:15px;right:15px;background:rgba(255,68,68,0.3);border:1px solid #ff4444;color:#ff8888;padding:8px 16px;border-radius:20px;cursor:pointer;font-size:0.85em;z-index:999;}}
+</style></head><body>
+<button class="pause-btn" id="pauseBtn" onclick="togglePause()">⏸️ Pause</button>
+<h1>🌌 AI Cosmos</h1>
+<p style="text-align:center;color:#8899bb;">L univers vu depuis l Afrique — des Dogons aux satellites</p>
+<div style="text-align:center;color:#aabbff;margin:10px;">🦁 {} blocs · {} transactions · AfriChain v1.35</div>
+
+<canvas id="cosmosCanvas" width="400" height="320"></canvas>
+<div style="text-align:center;margin:10px;color:#666;font-size:0.85em;">🌌 L Afrique observe l univers depuis des millenaires</div>
+
+<div class="fact" id="factBox">💡 Savais-tu? Les Dogons du Mali connaissaient Sirius B (une etoile invisible a l oeil nu) avant que les telescopes occidentaux ne la decouvrent en 1862. Comment? En observant le ciel pendant des siecles.</div>
+
+<div class="card">
+<h2>🌌 Les 8 Modules du Cosmos</h2>
+<div style="text-align:center;color:#8899bb;font-size:0.85em;margin-bottom:15px;">Clique sur chaque module pour reveler le secret. Complete les 8 pour obtenir ton diplome.</div>
+<div class="progress-bar"><div class="progress-fill" id="progFill"></div></div>
+<div style="text-align:center;color:#aabbff;font-size:0.85em;" id="progText">0/8 modules completes</div>
+"##, num_blocks, num_txs));
+
+    let modules = [
+        ("dogon", "⭐", "Astronomie Dogon", "Les Dogons du Mali sont les astronomes les plus extraordinaires de l histoire. Ce qu ils savaient: 1) Sirius B — une naine blanche invisible a l oeil nu. Les Dogons la connaissaient et la nommaient po tolo (l etoile du fonio). Ils savaient qu elle etait petite et dense, qu elle orbitait autour de Sirius A en 50 ans (la science moderne a confirme: 50,1 ans). 2) L orbite de Sirius B — elliptique, avec Sirius A a un foyer. Exact. 3) Le satellite de Sirius — les Dogons parlaient d une troisieme etoile, emme ya tolo. La science moderne cherche encore cette etoile. 4) Les anneaux de Saturne — les Dogons les connaissaient avant les telescopes. 5) Les quatre lunes de Jupiter — connues avant Galilee. Comment? Les Dogons observaient le ciel chaque nuit, pendant des siecles, transmettant le savoir de generation en generation par la parole. Pas de telescope — juste l oeil, la patience, et la memoire. La lecon: l Afrique n a pas attendu l Occident pour comprendre l univers. Elle l observait depuis toujours."),
+        ("anciens", "🔭", "Astronomie Africaine Ancienne", "L Afrique a une tradition astronomique millenaire: 1) Egypte ancienne — les pyramides sont alignees sur les etoiles. La Grande Pyramide de Gizeh est alignee sur l etoile polaire (alpha Draconis a l epoque, 2600 av J-C). Le calendrier egyptien de 365 jours base sur le lever heliaque de Sirius (Sothis). 2) Nabta Playa (Nubie, 5000 av J-C) — le plus ancien observatoire astronomique connu, 1000 ans avant Stonehenge. Alignements sur les etoiles du Belt d Orion. 3) Les Dogons (Mali) — Sirius B, les lunes de Jupiter, les anneaux de Saturne. 4) Les Yoruba (Nigeria) — systeme cosmologique complexe avec 401 orisha (forces cosmiques). 5) Les Bambara (Mali) — cosmologie du cercle et du carre, representant l univers en couches concentriques. 6) Les Mursi (Ethiopie) — calendrier lunaire pour l agriculture. 7) Les Khoisan (Afrique australe) — cartes stellaires sur roches, 20000 ans d observation. L Afrique n a pas copie l astronomie occidentale — elle l a devancee de millenaires."),
+        ("cosmologie", "🌀", "Cosmologie Africaine", "Les cosmologies africaines ne sont pas des mythes — ce sont des modeles explicatifs de l univers: 1) Cosmologie Dogon — l univers est un oeuf cosmique (l oeuf du monde). Amma, le dieu createur, a brise l oeuf pour creer l univers. La matiere se repand en spirale. La science moderne decrit l expansion de l univers de maniere similaire (Big Bang). 2) Cosmologie Egyptienne — Nun (l ocean primordial), Atum (le createur qui emergait de Nun), la creation par la parole (Ptah). Le concept de Maat (l ordre cosmique) est l equivalent de la physique: l univers suit des lois. 3) Cosmologie Yoruba — l univers a deux mondes: aye (le monde visible) et orun (le monde invisible). Les orisha sont les forces qui gouvernent l univers. 4) Cosmologie Boshongo (Bantou) — au debut etait l obscurite, alors Bumba vomit l univers. La maladie creatrice — l univers ne nait pas parfait, il emergent. 5) Cosmologie Zulu — les ancetres vivent parmi les etoiles. Le ciel est le monde des esprits. Ces cosmologies ne sont pas primitives — elles sont des METAPHORES COMPRÉHENSIBLES pour expliquer l univers. La science moderne utilise aussi des metaphores (Big Bang, matiere noire, energie sombre). L Afrique a ses metaphores, et elles sont valables."),
+        ("espace", "🚀", "Afrique et l Espace", "L Afrique entre dans la course spatiale: 1) Nigeria — NASRDA (National Space Research and Development Agency), lance NigerSat-1 (2003), NigerSat-2 (2011). Premier satellite africain construit par des ingenieurs africains. 2) Afrique du Sud — SANSA (South African National Space Agency), SumbandilaSat (2009). Le telescope SALT (Southern African Large Telescope) est le plus grand de l hemisphere sud. 3) Egypte — NARSS (National Authority for Remote Sensing and Space Sciences), EgyptSat-1 (2007). 4) Kenya — la station de Malindi (Italienne mais sur sol kenyan), lance de satellites. 5) Ethiopie — ETRSS-1 (2019), premier satellite ethiopien. 6) Maroc — Mohammed VI-A (2017), satellite d observation de la Terre. 7) Afrique de l Ouest — regional satellite ECOWAS-1 en projet. 8) African Union — African Space Agency creee en 2018, siege au Caire. L Afrique a 54 pays et seulement 15 satellites en orbite. Mais la croissance est exponentielle. L Afrique peut construire ses satellites, ses telescopes, ses fusees. Pas besoin de la NASA — l Afrique peut avoir sa propre agence spatiale continentale."),
+        ("satellites", "🛰️", "Satellites Souverains", "Pourquoi l Afrique a besoin de ses propres satellites: 1) Communication — sans satellites africains, les communications passent par des satellites occidentaux. Les donnees africaines transitent par l etranger. 2) Observation de la Terre — surveillance de l agriculture, des mines, des forets, des conflits. Les satellites occidentaux observent l Afrique, mais l Afrique ne controle pas ces images. 3) Navigation GPS — le GPS americain controle la navigation mondiale. L Afrique a besoin de son propre systeme de navigation (comme le Galilee europeen ou le BeiDou chinois). 4) Meteorologie — prevoir les secheresses, les inondations, les cyclones. Les donnees meteorologiques africaines viennent de satellites occidentaux. 5) Securite — surveillance des frontieres, des cotes, des zones de conflit. 6) AfriChain peut financer des satellites africains par la blockchain — chaque africain contribue, chaque africain possede une part. 7) Le satellite X999 d AfriChain est virtuel mais la vision est reelle: l Afrique doit avoir ses propres yeux dans le ciel. 8) Solar satellites — les satellites alimentes par l energie solaire, comme AfriChain. L Afrique est le continent du soleil — elle doit etre le continent des satellites solaires."),
+        ("matiere", "⚛️", "Matiere Noire et Energie Sombre", "L univers est compose de 95% de choses que nous ne comprenons pas: 1) Matiere noire (27%) — invisible, mais on sait qu elle existe car elle attire la matiere visible. L Afrique peut contribuer a la decouverte: le telescope SKA (Square Kilometre Array) est construit en Afrique du Sud et en Australie. C est le plus grand telescope radio du monde. 2) Energie sombre (68%) — la force qui accelere l expansion de l univers. Personne ne sait ce que c est. Les cosmologies africaines parlent de forces invisibles (Amma, Nun, orisha) — peut-etre des metaphores pour l energie sombre? 3) Matiere visible (5%) — tout ce qu on voit (etoiles, planetes, nous) represente seulement 5% de l univers. L Afrique represente 18% de la population mondiale mais produit moins de 1% de la recherche scientifique. Changer cela, c est explorer les 95% de l univers qu on ne connait pas. 4) Les Dogons parlaient de matiere invisible (po tolo, l etoile invisible) — peut-etre une intuition de la matiere noire? 5) L Afrique doit former ses physiciens, ses astronomes, ses cosmologistes. Pas pour copier l Occident — pour apporter une NOUVELLE vision de l univers, une vision africaine."),
+        ("nasa", "🌍", "Afrique vs NASA", "L Afrique peut construire sa propre agence spatiale: 1) NASA (USA, 1958) — budget 24 milliards USD. ESA (Europe, 1975) — budget 7 milliards. JAXA (Japon) — budget 3 milliards. Afrique — budget total combine: moins de 500 millions. Mais: 2) L Afrique a des avantages uniques: l equateur passe par le centre de l Afrique — ideal pour les lancements spatiaux (moins de carburant necessaire). Le desert du Sahara offre un ciel pur sans pollution lumineuse. L Afrique du Sud a le telescope SALT et le SKA. 3) L Afrique peut construire une agence spatiale continentale (African Space Agency) financee par les 54 pays, avec un budget de 2 milliards USD (40 millions par pays). 4) Objectifs: satellites de communication (donnees africaines en Afrique), satellites d observation (agriculture, mines, securite), fusees legeres pour lancement equatorial, telescopes dans le Sahara, station spatiale africaine. 5) La blockchain AfriChain peut financer: chaque transaction AFR contribue 0.001 AFR au fond spatial africain. 6) L Afrique ne doit pas rattraper l Occident — elle doit LE DEPASSER. La course spatiale n est pas finie, elle commence a peine."),
+        ("futur", "✨", "Cosmos Africain Futur", "Le futur cosmique de l Afrique: 1) Colonisation spatiale — l Afrique doit envoyer ses propres astronautes. Pas sur des fusees americaines ou russes — sur des fusees africaines. 2) Asteroides — les asteroides contiennent des metaux rares (platine, or, fer) en quantite immense. L Afrique, qui a 30% des mineraux terrestres, doit aussi revendiquer les mineraux spatiaux. 3) Lune — la base lunaire internationale. L Afrique doit avoir sa place. La lune contient de l helium-3, carburant de fusion nucleaire. 4) Mars — la colonisation de Mars. L Afrique doit participer, pas regarder. 5) Voyages interstellaires — a long terme (siecles), l humanite devra quitter la Terre. L Afrique doit etre prete. 6) Telescope africain — un telescope dans le Sahara, alimente par energie solaire, observe l univers 24h/24. 7) AI spatiale — AfriChain peut developper une AI qui analyse les donnees astronomiques, decouvre de nouvelles etoiles, planetes, galaxies. 8) La vision: l Afrique, berceau de l humanite, doit aussi etre le point de depart vers l univers. Les premiers humains sont sortis d Afrique. Les premiers humains vers les etoiles doivent aussi etre africains. L Afrique n a pas fini d etonnerner le monde."),
+    ];
+
+    for (i, (id, emoji, title, content)) in modules.iter().enumerate() {
+        html.push_str(&format!(r##"<div class="module" id="mod_{0}" onclick="toggleModule({0})">
+<div class="module-title"><span class="module-emoji">{1}</span>{2}</div>
+<div class="module-content">{3}</div>
+</div>"##, i, emoji, title, content));
+    }
+
+    html.push_str(r##"</div>
+
+<div class="card">
+<h2>🎓 Obtenir ton Diplome</h2>
+<p style="text-align:center;color:#8899bb;">Complete les 8 modules, entre ton nom, et recois ton diplome grave sur la blockchain AfriChain.</p>
+<div style="text-align:center;margin:15px;">
+<input type="text" id="diplomaName" placeholder="Ton nom complet" style="padding:10px 15px;border-radius:8px;border:1px solid rgba(150,150,255,0.3);background:rgba(0,0,0,0.3);color:#e8e8f0;width:250px;font-size:1em;">
+</div>
+<button class="diploma-btn" onclick="genDiploma()">🌌 Recevoir mon Diplome d Astronome Africain</button>
+<div id="diplomaResult" style="text-align:center;margin:15px;"></div>
+</div>
+
+<div class="card">
+<h2>📝 Exercices Pratiques</h2>
+<div id="exoBox"></div>
+<button class="diploma-btn" style="font-size:0.95em;padding:8px 20px;" onclick="genExos()">🔄 Nouveaux Exercices</button>
+</div>
+
+<script>
+var completed={};
+var paused=false;
+var facts=[
+ 'Les Dogons du Mali connaissaient Sirius B, une etoile invisible a l oeil nu, avant les telescopes occidentaux (1862).',
+ 'Nabta Playa (Nubie, 5000 av J-C) est le plus ancien observatoire astronomique connu — 1000 ans avant Stonehenge.',
+ 'Le calendrier egyptien de 365 jours etait base sur le lever heliaque de Sirius.',
+ 'Le telescope SALT en Afrique du Sud est le plus grand de l hemisphere sud.',
+ 'SKA (Square Kilometre Array), construit en Afrique du Sud, sera le plus grand telescope radio du monde.',
+ 'L Afrique a 54 pays mais seulement 15 satellites en orbite — la croissance est exponentielle.',
+ 'Les pyramides d Egypte sont alignees sur les etoiles — la Grande Pyramide pointe vers l etoile polaire de 2600 av J-C.',
+ 'Les Khoisan d Afrique australe ont dessine des cartes stellaires sur roches il y a 20000 ans.',
+ 'L equateur passe par le centre de l Afrique — c est le meilleur endroit sur Terre pour les lancements spatiaux.',
+ 'Les cosmologies africaines (Dogon, Yoruba, Egyptienne) decrivent un univers ne d une explosion — comme le Big Bang.'
+];
+function rotateFact(){var f=facts[Math.floor(Math.random()*facts.length)];document.getElementById('factBox').innerHTML='\u{1F4A1} Savais-tu? '+f;}
+setInterval(function(){if(!paused)rotateFact();},7000);
+
+function toggleModule(i){
+ var m=document.getElementById('mod_'+i);
+ if(m.classList.contains('open')){m.classList.remove('open');}
+ else{m.classList.add('open');if(!completed[i]){completed[i]=true;updateProgress();}}
+}
+function updateProgress(){
+ var n=Object.keys(completed).length;
+ var pct=Math.round(n/8*100);
+ document.getElementById('progFill').style.width=pct+'%';
+ document.getElementById('progText').textContent=n+'/8 modules completes';
+}
+
+function genDiploma(){
+ var name=document.getElementById('diplomaName').value.trim();
+ if(!name){alert('Entre ton nom d abord!');return;}
+ if(Object.keys(completed).length<8){alert('Complete les 8 modules d abord!');return;}
+ fetch('/api/diplome',{method:'POST',headers:{'Content-Type':'text/plain'},body:'AI_COSMOS|'+name})
+  .then(r=>r.json()).then(d=>{
+   document.getElementById('diplomaResult').innerHTML='<div style="background:rgba(100,100,200,0.15);border:2px solid #aabbff;border-radius:12px;padding:20px;margin:10px;"><div style="font-size:1.5em;">\u{1F30C}\u2728</div><div style="color:#aabbff;font-weight:bold;font-size:1.2em;margin:10px;">DIPLOME D ASTRONOME AFRICAIN</div><div style="color:#e8e8f0;margin:10px;">Attribue a <b>'+name+'</b></div><div style="color:#8899bb;font-size:0.85em;">Grave sur le bloc #'+(d.blocks_total||'?')+' de la blockchain AfriChain</div><div style="color:#666;font-size:0.8em;margin-top:8px;">L Afrique observe l univers depuis des millenaires. Elle ne s arretera jamais.</div></div>';
+  }).catch(e=>{document.getElementById('diplomaResult').innerHTML='<div style="color:#ff4444;">Erreur: '+e+'</div>';});
+}
+
+var exoData=[
+ {q:'POURQUOI les Dogons connaissaient-ils Sirius B sans telescope?',a:'COMMENT: En observant le ciel chaque nuit pendant des siecles et en transmettant le savoir oralement. VOILA: La patience et la memoire valent autant qu un telescope. Les Dogons ont prouve que l observation systematique remplace la technologie. L Afrique n avait pas besoin d instruments pour comprendre l univers — elle avait le TEMPS et la MEMOIRE.'},
+ {q:'POURQUOI Nabta Playa est-il important pour l histoire mondiale?',a:'COMMENT: En datant les alignements de pierres a 5000 av J-C, on decouvre le plus ancien observatoire astronomique. VOILA: Stonehenge (2500 av J-C) est celebre, mais Nabta Playa le precede de 1000 ans. L Afrique a observe les etoiles avant l Europe. Cette histoire doit etre enseignee dans toutes les ecoles africaines.'},
+ {q:'POURQUOI l Afrique doit-elle avoir ses propres satellites?',a:'COMMENT: En construisant des satellites de communication, d observation et de navigation. VOILA: Sans satellites africains, les donnees africaines transitent par l etranger. Les images de l Afrique viennent de satellites occidentaux. La souverainete spatiale est la souverainete des donnees. L Afrique doit avoir ses propres yeux dans le ciel.'},
+ {q:'POURQUOI l equateur africain est-il ideal pour les lancements spatiaux?',a:'COMMENT: La rotation de la Terre est maximale a l equateur, donnant une vitesse gratuite aux fusees. VOILA: Moins de carburant = moins cher = plus de lancements. Kourou (Guyane francaise) est proche de l equateur pour cette raison. L Afrique a le meme avantage — sans dependre de la France. Un cosmodrome equatorial africain est possible.'},
+ {q:'POURQUOI les cosmologies africaines ne sont-elles pas des mythes primitifs?',a:'COMMENT: En les analysant comme des modeles explicatifs de l univers, comme la physique moderne. VOILA: Le Big Bang est aussi une metaphore (personne n etait la pour le voir). Les cosmologies africaines (oeuf cosmique, Nun, forces invisibles) sont des metaphores valables. Elles meritent le meme respect que la physique theorique.'},
+ {q:'POURQUOI le telescope SKA en Afrique du Sud est-il strategique?',a:'COMMENT: En faisant de l Afrique du Sud le centre mondial de la radio-astronomie. VOILA: SKA sera le plus grand telescope radio du monde. Les donnees astronomiques mondiales transiteront par l Afrique. L Afrique ne sera plus seulement un fournisseur de matieres premieres — elle sera un fournisseur de CONNAISSANCE de l univers.'},
+ {q:'POURQUOI l Afrique doit-elle participer a la colonisation de Mars?',a:'COMMENT: En formant ses ingenieurs, ses astronautes, en construisant ses fusees. VOILA: Si l humanite colonise Mars et que l Afrique est absente, elle sera spectatrice de l avenir de l humanite. Les premiers humains sont sortis d Afrique. Les premiers humains vers les etoiles doivent aussi etre africains. L Afrique ne doit pas rater le deuxieme grand voyage de l humanite.'},
+ {q:'POURQUOI la matiere noire interesse-t-elle l Afrique?',a:'COMMENT: En construisant des telescopes et en formant des physiciens africains pour l etudier. VOILA: 95% de l univers est invisible. L Afrique represente 18% de la population mondiale mais moins de 1% de la recherche. Decouvrir les 95% de l univers invisible est une opportunite pour l Afrique d apporter une NOUVELLE vision, pas de copier l Occident.'},
+ {q:'POURQUOI les pyramides d Egypte sont-elles des instruments astronomiques?',a:'COMMENT: En etudiant leurs alignements avec les etoiles et le calendrier stellaire. VOILA: La Grande Pyramide est alignee sur l etoile polaire de 2600 av J-C. Le calendrier de 365 jours est base sur Sirius. Les pyramides ne sont pas des tombeaux — ce sont des OBSERVATOIRES de pierre. L Afrique a observe l univers en pierre avant de l observer en verre.'},
+ {q:'POURQUOI AfriChain peut-elle financer le spatial africain?',a:'COMMENT: En contribuant 0.001 AFR par transaction au fond spatial africain. VOILA: Avec des millions de transactions, le fond grossit. Chaque africain qui utilise AfriChain contribue au spatial africain. La blockchain finance l avenir. L Afrique n attend pas les gouvernements — elle finance son propre spatial par la blockchain.'}
+];
+var exoSeed=0;
+function genExos(){
+ exoSeed++;
+ var s=exoSeed*12345;
+ function rand(){s=(s*9301+49297)%233280;return s/233280;}
+ var h='';
+ var used={};
+ for(var i=0;i<5;i++){
+  var idx=Math.floor(rand()*exoData.length);
+  while(used[idx]){idx=(idx+1)%exoData.length;}
+  used[idx]=true;
+  var e=exoData[idx];
+  h+='<div class="exo"><div class="exo-q">'+(i+1)+'. '+e.q+'</div><div class="exo-a">'+e.a+'</div></div>';
+ }
+ document.getElementById('exoBox').innerHTML=h;
+}
+genExos();
+
+// Canvas: starfield with spiral galaxy
+var canvas=document.getElementById('cosmosCanvas');
+var ctx=canvas.getContext('2d');
+var stars=[];
+var t=0;
+for(var i=0;i<200;i++){
+ stars.push({x:Math.random()*400,y:Math.random()*320,z:Math.random()*3,r:Math.random()*1.5+0.3,angle:Math.random()*Math.PI*2,dist:Math.random()*150+50});
+}
+var modules_done=0;
+function drawCanvas(){
+ if(paused){requestAnimationFrame(drawCanvas);return;}
+ t+=0.005;
+ ctx.fillStyle='rgba(1,1,8,0.2)';
+ ctx.fillRect(0,0,400,320);
+ // Spiral galaxy center
+ ctx.save();
+ ctx.translate(200,160);
+ ctx.rotate(t*0.1);
+ for(var arm=0;arm<3;arm++){
+  for(var r=5;r<140;r+=3){
+   var a=arm*Math.PI*2/3+r*0.05;
+   var x=Math.cos(a+t*0.5)*r;
+   var y=Math.sin(a+t*0.5)*r*0.5;
+   var alpha=(1-r/140)*0.4;
+   ctx.fillStyle='rgba(170,187,255,'+alpha+')';
+   ctx.fillRect(x,y,1.5,1.5);
+  }
+ }
+ ctx.restore();
+ // Stars
+ for(var i=0;i<stars.length;i++){
+  var s=stars[i];
+  s.angle+=0.001*(4-s.z);
+  var x=200+Math.cos(s.angle)*s.dist;
+  var y=160+Math.sin(s.angle)*s.dist*0.6;
+  var twinkle=0.5+Math.sin(t*3+i)*0.3;
+  ctx.fillStyle='rgba(200,210,255,'+twinkle*(1-s.z/4)+')';
+  ctx.beginPath();ctx.arc(x,y,s.r,0,Math.PI*2);ctx.fill();
+  // Module stars (golden when completed)
+  if(i<8){
+   var ma=i*Math.PI/4+t*0.2;
+   var mx=200+Math.cos(ma)*100;
+   var my=160+Math.sin(ma)*60;
+   ctx.fillStyle=completed[i]?'#ffdd44':'rgba(170,187,255,0.5)';
+   ctx.beginPath();ctx.arc(mx,my,6,0,Math.PI*2);ctx.fill();
+   ctx.fillStyle='#fff';
+   ctx.font='8px serif';ctx.textAlign='center';
+   ctx.fillText(i+1,mx,my+3);
+  }
+ }
+ // Central glow
+ var grad=ctx.createRadialGradient(200,160,0,200,160,40);
+ grad.addColorStop(0,'rgba(170,187,255,0.3)');
+ grad.addColorStop(1,'rgba(170,187,255,0)');
+ ctx.fillStyle=grad;
+ ctx.fillRect(0,0,400,320);
+ requestAnimationFrame(drawCanvas);
+}
+drawCanvas();
+
+function togglePause(){
+ paused=!paused;
+ document.getElementById('pauseBtn').textContent=paused?'\u25B6\uFE0F Play':'\u23F8\uFE0F Pause';
 }
 </script>
 </body></html>"##);
@@ -23782,7 +24015,7 @@ html+='<div class="log-entry log-kill">⚠️ Tentative d\x27infiltration occide
 html+='<div class="log-entry log-invis">✅ L\x27Afrique est forte. Le système grandit.</div>';
 }else if(type==='total'){
 html='<div style="color:#d4a437;font-weight:bold;margin-bottom:8px">📋 RAPPORT TOTAL — Depuis le début</div>';
-html+='<div class="log-entry">🦁 AfriChain v1.34 — AI Constitution</div>';
+html+='<div class="log-entry">🦁 AfriChain v1.35 — AI Cosmos</div>';
 html+='<div class="log-entry">⛓️ Blockchain: 100% souveraine — Zéro dépendance externe</div>';
 html+='<div class="log-entry">🔐 Crypto: Ed25519 + AfriHash-256/512 + AfriRNG — tout from scratch</div>';
 html+='<div class="log-entry">🌍 54 pays africains connectés</div>';
@@ -25326,7 +25559,7 @@ fn main() {
         .and_then(|i| args.get(i + 1)).cloned().unwrap_or_else(|| "Afrique".to_string());
 
     let my_node_id = generate_node_id();
-    println!("🦁 AfriChain v1.34 — AI Constitution");
+    println!("🦁 AfriChain v1.35 — AI Cosmos");
     println!("💚 L'Afrique ne demande plus la permission");
     println!("🌍 54 pays — 🇲🇱 🇳🇪 🇧🇫 AES — Mali · Niger · Burkina Faso");
     println!("🔐 8 modules cryptographiques — construits from scratch");
@@ -25467,6 +25700,7 @@ fn main() {
     println!("🎖️ Commandement X999 sur http://localhost:8080/commandement");
     println!("🪖 Base Militaire sur http://localhost:8080/base-militaire");
     println!("📜 AI Constitution sur http://localhost:8080/ai-constitution");
+    println!("🌌 AI Cosmos sur http://localhost:8080/ai-cosmos");
     println!("🛡️ Souverainete des Donnees sur http://localhost:8080/interception");
     println!("🧠 AI Securite 2100 sur http://localhost:8080/securite-ai");
     println!("🧠💬 Chat AI 2500 sur http://localhost:8080/chat");
@@ -25556,7 +25790,7 @@ fn terminal_interface(state: &Arc<AppState>) {
     println!("  ║  🕐 AfriTime — Pas UTC, pas Greenwich   ║");
     println!("  ║  📝 ~23,100 lignes — écrit à la main       ║");
     println!("  ╚═══════════════════════════════════════════════╝");
-    println!("\n  Version v1.34 — 3 septembre 2026");
+    println!("\n  Version v1.35 — 3 septembre 2026");
     println!("  Construit sur Termux · Android · nano\n");
     println!("  ─────────────────────────────────────────────");
     println!("\n  1. 🏦 Centre de Données (Admin)");
@@ -25628,7 +25862,7 @@ fn admin_interface(state: &Arc<AppState>) {
         println!("\n");
         println!("╔══════════════════════════════════════╗");
         println!("║  🏦 CENTRE DE DONNÉES — Admin       ║");
-        println!("║  🦁 AfriChain v1.34                  ║");
+        println!("║  🦁 AfriChain v1.35                  ║");
         println!("╠══════════════════════════════════════╣");
         let chain = state.chain.lock().unwrap();
         let users = state.users.lock().unwrap();
@@ -29398,6 +29632,11 @@ fn handle_request(req: afri_http::HttpRequest, state: &Arc<AppState>) -> afri_ht
         ("GET", "/ai-constitution") => {
             let chain = state.chain.lock().unwrap();
             HttpResponse::ok(&html_ai_constitution(&chain))
+        }
+
+        ("GET", "/ai-cosmos") => {
+            let chain = state.chain.lock().unwrap();
+            HttpResponse::ok(&html_ai_cosmos(&chain))
         }
 
         ("GET", "/machine") => {
