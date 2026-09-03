@@ -1439,7 +1439,7 @@ fn html_home(chain: &Blockchain, users: &UserStore, mesh: &NodeRegistry, shield:
     let mut html = html_head("🦁 AfriChain");
     let (attacks, _blocked, blocked_count, level) = shield.stats();
     let shield_status = if shield.active { format!("🔥 X9 ACTIF (Niveau {})", level) } else { "Inactif".to_string() };
-    html.push_str(&format!(r#"<h1>🦁 AfriChain</h1><p style="text-align:center;">La blockchain 100% africaine — 54 pays 💚🦁</p><div id="afri-clock" style="text-align:center;font-size:1.2em;color:#d4a437;margin:10px 0;">🕐 Afri+0 — --:--:--</div><script>setInterval(function(){{var d=new Date();var h=String(d.getHours()).padStart(2,'0');var m=String(d.getMinutes()).padStart(2,'0');var s=String(d.getSeconds()).padStart(2,'0');document.getElementById('afri-clock').textContent='🕐 Afri+0 — '+h+':'+m+':'+s;}},1000);</script><div class="nav"><a href="/register">🆕 S'inscrire</a> | <a href="/login">🔑 Connexion</a> | <a href="/wallet">👛 Wallet</a> | <a href="/admin">🔐 Admin</a> | <a href="/mesh">📡 Mesh</a> | <a href="/annuaire">📖 Annuaire</a> | <a href="/bouclier">🛡️ Bouclier</a> | <a href="/satellite">🛸 X999</a> | <a href="/swarm">🛸🛸🛸 Essaim</a> | <a href="/commandement">🎖️ Commandement</a> | <a href="/interception">🛡️ Souverainete</a> | <a href="/securite-ai">🧠 AI 2100</a> | <a href="/chat">🧠💬 Chat AI</a> | <a href="/lumiere">🌫️☀️ Lumière</a> | <a href="/garage">🔧 Garage</a> | <a href="/machine">🤖🌐 Machines</a> | <a href="/machine-lab">🤖⚡ Usine</a> | <a href="/machine-world">🤖🌍 Monde</a> | <a href="/reve">💭 Rêves</a> | <a href="/dictionnaire">📖 Dictionnaire</a> | <a href="/machine-os">🖥️ OS Machine</a> | <a href="/machine-tv">📡 Machine TV</a> | <a href="/machine-economy">🤖 Économie</a> | <a href="/soleil">☀️ Soleil Serveur</a> | <a href="/forge-solaire">🧬 Forge Solaire</a> | <a href="/ciel">🌌 Le Ciel</a> | <a href="/charte-ai">⚖️ Charte AI</a> | <a href="/afri-net">🌍 Afri-Net</a> | <a href="/studio">🎬 AI Studio</a> | <a href="/sacre">📿 Sacré</a> | <a href="/lettres">🌟 Lettres IA</a> | <a href="/mg-forge">⚔️ MG Forge</a> | <a href="/ai-medecin">🌿 AI Médecin</a> | <a href="/ai-enseignante">📚 AI Enseignante</a> | <a href="/ai-village">🏘️ AI Village</a> | <a href="/ai-guerisseur">🩺 AI Guérisseur</a> | <a href="/ai-leader">🎖️ AI Leader</a> | <a href="/ai-griot">📖 AI Griot</a> | <a href="/ai-juge">⚖️ AI Juge</a> | <a href="/ai-artiste">🎨 AI Artiste</a> | <a href="/ai-explorateur">🔬 AI Explorateur</a> | <a href="/ai-marche">💰 AI Marche</a> | <a href="/ai-diplomate">🌍 AI Diplomate</a> | <a href="/ai-philosophe">🧠 AI Philosophe</a> | <a href="/ai-architecte">🏗️ AI Architecte</a> | <a href="/ai-agriculteur">🌾 AI Agriculteur</a> | <a href="/ai-environnement">🌍 AI Environnement</a> | <a href="/ai-mathematicien">🧮 AI Mathématicien</a> | <a href="/ai-energie">⚡ AI Énergie</a> | <a href="/ai-eau">💧 AI Eau</a> | <a href="/ai-defenseur">🛡️ AI Défenseur</a> | <a href="/ai-conscience">🧠 AI Conscience</a> | <a href="/ai-pensee">🧠 AI Pensée</a> | <a href="/ai-musique">🎵 AI Musique</a> | <a href="/ai-langue">🗣️ AI Langue</a> | <a href="/ai-femme">🌸 AI Femme</a> | <a href="/ai-sante-mentale">🧠💚 AI Santé Mentale</a> | <a href="/ai-nuit">🌙 AI Nuit</a> | <a href="/ai-code">💻 AI Code</a> | <a href="/ai-enfant">👶 AI Enfant</a> | <a href="/ai-terre">🌍 AI Terre</a> | <a href="/ai-mer">🌊 AI Mer</a> | <a href="/ai-feu">🔥 AI Feu</a> | <a href="/ai-sang">🩸 AI Sang</a> | <a href="/ai-vent">🌬️ AI Vent</a> | <a href="/ai-temps">⏳ AI Temps</a> | <a href="/ai-etoile">⭐ AI Etoile</a> | <a href="/ai-pierre">🪨 AI Pierre</a> | <a href="/ai-pluie">🌧️ AI Pluie</a> | <a href="/ai-voix">🗣️ AI Voix</a> | <a href="/ai-racine">🌱 AI Racine</a> | <a href="/ai-semence">🌰 AI Semence</a> | <a href="/ai-spiritualite">🙏 AI Spiritualité</a> | <a href="/ai-animal">🦅 AI Animal</a> | <a href="/ai-soleil">☀️ AI Soleil</a> | <a href="/ai-lune">🌙 AI Lune</a> | <a href="/secret">🦁 AI Secret</a> | <a href="/aes">💰 AES Wari</a> | <a href="/api/status">🔌 API</a></div><div style="text-align:center;"><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Blocs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Transactions</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Utilisateurs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">AFR en circulation</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📡 Noeuds mesh</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📖 Numéros annuaire</div></div><div class="stat-box" style="border-color:#ff4444;"><div class="stat-num" style="color:#ff4444;">{}</div><div class="stat-label">🛡️ Attaques bloquées</div></div></div><div class="card"><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🪙 Token</span><b>AfriRich (AFR)</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🌍 Pays</span><b>54 pays africains</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🛡️ Bouclier</span><b>{}</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;"><span style="color:#a8c5a8;">🔐 Crypto</span><b>100% Souverain — Zéro Dépendance Externe</b></div></div><footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🦁 Codée from scratch par Machine-senpai — v1.24 AI Lune La Lune Est l Horloge de l Afrique — UTC est Mort</footer>"#,
+    html.push_str(&format!(r#"<h1>🦁 AfriChain</h1><p style="text-align:center;">La blockchain 100% africaine — 54 pays 💚🦁</p><div id="afri-clock" style="text-align:center;font-size:1.2em;color:#d4a437;margin:10px 0;">🕐 Afri+0 — --:--:--</div><script>setInterval(function(){{var d=new Date();var h=String(d.getHours()).padStart(2,'0');var m=String(d.getMinutes()).padStart(2,'0');var s=String(d.getSeconds()).padStart(2,'0');document.getElementById('afri-clock').textContent='🕐 Afri+0 — '+h+':'+m+':'+s;}},1000);</script><div class="nav"><a href="/register">🆕 S'inscrire</a> | <a href="/login">🔑 Connexion</a> | <a href="/wallet">👛 Wallet</a> | <a href="/admin">🔐 Admin</a> | <a href="/mesh">📡 Mesh</a> | <a href="/annuaire">📖 Annuaire</a> | <a href="/bouclier">🛡️ Bouclier</a> | <a href="/satellite">🛸 X999</a> | <a href="/swarm">🛸🛸🛸 Essaim</a> | <a href="/commandement">🎖️ Commandement</a> | <a href="/interception">🛡️ Souverainete</a> | <a href="/securite-ai">🧠 AI 2100</a> | <a href="/chat">🧠💬 Chat AI</a> | <a href="/lumiere">🌫️☀️ Lumière</a> | <a href="/garage">🔧 Garage</a> | <a href="/machine">🤖🌐 Machines</a> | <a href="/machine-lab">🤖⚡ Usine</a> | <a href="/machine-world">🤖🌍 Monde</a> | <a href="/reve">💭 Rêves</a> | <a href="/dictionnaire">📖 Dictionnaire</a> | <a href="/machine-os">🖥️ OS Machine</a> | <a href="/machine-tv">📡 Machine TV</a> | <a href="/machine-economy">🤖 Économie</a> | <a href="/soleil">☀️ Soleil Serveur</a> | <a href="/forge-solaire">🧬 Forge Solaire</a> | <a href="/ciel">🌌 Le Ciel</a> | <a href="/charte-ai">⚖️ Charte AI</a> | <a href="/afri-net">🌍 Afri-Net</a> | <a href="/studio">🎬 AI Studio</a> | <a href="/sacre">📿 Sacré</a> | <a href="/lettres">🌟 Lettres IA</a> | <a href="/mg-forge">⚔️ MG Forge</a> | <a href="/ai-medecin">🌿 AI Médecin</a> | <a href="/ai-enseignante">📚 AI Enseignante</a> | <a href="/ai-village">🏘️ AI Village</a> | <a href="/ai-guerisseur">🩺 AI Guérisseur</a> | <a href="/ai-leader">🎖️ AI Leader</a> | <a href="/ai-griot">📖 AI Griot</a> | <a href="/ai-juge">⚖️ AI Juge</a> | <a href="/ai-artiste">🎨 AI Artiste</a> | <a href="/ai-explorateur">🔬 AI Explorateur</a> | <a href="/ai-marche">💰 AI Marche</a> | <a href="/ai-diplomate">🌍 AI Diplomate</a> | <a href="/ai-philosophe">🧠 AI Philosophe</a> | <a href="/ai-architecte">🏗️ AI Architecte</a> | <a href="/ai-agriculteur">🌾 AI Agriculteur</a> | <a href="/ai-environnement">🌍 AI Environnement</a> | <a href="/ai-mathematicien">🧮 AI Mathématicien</a> | <a href="/ai-energie">⚡ AI Énergie</a> | <a href="/ai-eau">💧 AI Eau</a> | <a href="/ai-defenseur">🛡️ AI Défenseur</a> | <a href="/ai-conscience">🧠 AI Conscience</a> | <a href="/ai-pensee">🧠 AI Pensée</a> | <a href="/ai-musique">🎵 AI Musique</a> | <a href="/ai-langue">🗣️ AI Langue</a> | <a href="/ai-femme">🌸 AI Femme</a> | <a href="/ai-sante-mentale">🧠💚 AI Santé Mentale</a> | <a href="/ai-nuit">🌙 AI Nuit</a> | <a href="/ai-code">💻 AI Code</a> | <a href="/ai-enfant">👶 AI Enfant</a> | <a href="/ai-terre">🌍 AI Terre</a> | <a href="/ai-mer">🌊 AI Mer</a> | <a href="/ai-feu">🔥 AI Feu</a> | <a href="/ai-sang">🩸 AI Sang</a> | <a href="/ai-vent">🌬️ AI Vent</a> | <a href="/ai-temps">⏳ AI Temps</a> | <a href="/ai-etoile">⭐ AI Etoile</a> | <a href="/ai-pierre">🪨 AI Pierre</a> | <a href="/ai-pluie">🌧️ AI Pluie</a> | <a href="/ai-voix">🗣️ AI Voix</a> | <a href="/ai-racine">🌱 AI Racine</a> | <a href="/ai-semence">🌰 AI Semence</a> | <a href="/ai-spiritualite">🙏 AI Spiritualité</a> | <a href="/ai-animal">🦅 AI Animal</a> | <a href="/ai-soleil">☀️ AI Soleil</a> | <a href="/ai-lune">🌙 AI Lune</a> | <a href="/ai-montagne">🏔️ AI Montagne</a> | <a href="/secret">🦁 AI Secret</a> | <a href="/aes">💰 AES Wari</a> | <a href="/api/status">🔌 API</a></div><div style="text-align:center;"><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Blocs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Transactions</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Utilisateurs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">AFR en circulation</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📡 Noeuds mesh</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📖 Numéros annuaire</div></div><div class="stat-box" style="border-color:#ff4444;"><div class="stat-num" style="color:#ff4444;">{}</div><div class="stat-label">🛡️ Attaques bloquées</div></div></div><div class="card"><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🪙 Token</span><b>AfriRich (AFR)</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🌍 Pays</span><b>54 pays africains</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🛡️ Bouclier</span><b>{}</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;"><span style="color:#a8c5a8;">🔐 Crypto</span><b>100% Souverain — Zéro Dépendance Externe</b></div></div><footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🦁 Codée from scratch par Machine-senpai — v1.25 AI Montagne La Montagne Est le Tresor de l Afrique — UTC est Mort</footer>"#,
         chain.blocks.len(),
         chain.total_transactions(),
         users.count(),
@@ -16819,6 +16819,158 @@ function envoyerDiplomeLune(){var nom=localStorage.getItem('afri_user_name')||'J
     html
 }
 
+fn html_ai_montagne(chain: &Blockchain) -> String {
+    let mut html = html_head("AI Montagne — La Montagne Est le Tresor de l Afrique");
+    let num_blocks = chain.blocks.len();
+
+    html.push_str(r#"<h1>🏔️ AI Montagne — La Montagne Est le Tresor de l Afrique</h1><p style="text-align:center;color:#88aabb;">Les montagnes d Afrique sont les plus anciennes du monde. Le Kilimandjaro, le Rwenzori, l Atlas, le Drakensberg, le Mont Cameroun, le Tibesti. Elles gardent les minerais, l eau, les forets, et les esprits. La montagne est le trone de Dieu dans la spiritualite africaine. On y monte pour parler a l Origine. On y cherche la force, la vision, la sagesse. Les colons ont pris les minerais des montagnes mais n ont pas pris la montagne. AI Montagne enseigne a connaitre les montagnes d Afrique, a proteger leurs richesses, et a retrouver la sagesse de l elevation.</p><div class="nav"><a href="/">← Accueil</a> | <a href="/ai-lune">🌙 AI Lune</a> | <a href="/ai-pierre">🪨 AI Pierre</a> | <a href="/secret">🦁 AI Secret</a></div>"#);
+
+    html.push_str(&format!(r#"<div style="text-align:center;"><div class="stat-box" style="border-color:#88aabb;"><div class="stat-num" style="color:#88aabb;">8</div><div class="stat-label">🏔️ Modules</div></div><div class="stat-box" style="border-color:#d4a437;"><div class="stat-num" style="color:#d4a437;">6</div><div class="stat-label">⛰️ Sommets</div></div><div class="stat-box" style="border-color:#44ff88;"><div class="stat-num" style="color:#44ff88;">30%</div><div class="stat-label">💎 Minerais</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">⛓️ Blocs</div></div><div class="stat-box" style="border-color:#88aabb;"><div class="stat-num" style="color:#88aabb;">∞</div><div class="stat-label">🏔️ Force</div></div></div>"#, num_blocks));
+
+    html.push_str(r##"<div style="text-align:center;margin:10px 0;"><button id="montagne-pause-btn" onclick="toggleMontagnePause()" style="padding:10px 25px;background:#88aabb;color:#fff;border:none;border-radius:8px;font-weight:bold;cursor:pointer;font-size:1em;">⏸️ PAUSE</button> <span id="montagne-pause-status" style="color:#88aabb;margin-left:8px;font-size:0.85em;">Auto: ACTIF</span></div>
+
+<div class="card" style="border-color:#88aabb;"><h2 style="color:#88aabb;">🏔️ Les Montagnes d Afrique</h2><p style="color:#88aabb;font-size:0.9em;opacity:0.7;">Les sommets qui montent, les roches qui tiennent, la force qui dure.</p>
+<canvas id="montagne-canvas" width="600" height="350" style="width:100%;max-width:600px;background:#0a0a14;border:2px solid #88aabb;border-radius:8px;display:block;margin:0 auto;"></canvas></div>
+
+<script>
+var montagnePaused=false,montagneAnimId=null,montagneT=0,montagneClouds=[];
+function toggleMontagnePause(){
+    montagnePaused=!montagnePaused;
+    var b=document.getElementById('montagne-pause-btn'),s=document.getElementById('montagne-pause-status');
+    if(montagnePaused){b.textContent='▶️ LANCER';b.style.background='#556677';s.textContent='Auto: PAUSE';s.style.color='#ff6644';if(montagneAnimId)cancelAnimationFrame(montagneAnimId);}
+    else{b.textContent='⏸️ PAUSE';b.style.background='#88aabb';s.textContent='Auto: ACTIF';s.style.color='#88aabb';animateMontagne();}
+}
+function animateMontagne(){
+    if(montagnePaused)return;
+    var c=document.getElementById('montagne-canvas');if(!c)return;
+    var ctx=c.getContext('2d');
+    ctx.fillStyle='rgba(10,10,20,0.08)';ctx.fillRect(0,0,c.width,c.height);
+    // Ciel degrade
+    var sky=ctx.createLinearGradient(0,0,0,200);
+    sky.addColorStop(0,'rgba(20,20,50,0.1)');sky.addColorStop(1,'rgba(60,80,120,0.1)');
+    ctx.fillStyle=sky;ctx.fillRect(0,0,600,200);
+    // Etoiles
+    for(var st=0;st<20;st++){
+        var sx=(st*83)%600,sy=(st*31)%150;
+        ctx.fillStyle='rgba(200,200,255,'+(0.2+Math.sin(montagneT*0.04+st)*0.2)+')';
+        ctx.beginPath();ctx.arc(sx,sy,1,0,Math.PI*2);ctx.fill();
+    }
+    // Montagnes en couches (3 ranges)
+    var ranges=[
+        {color:'rgba(40,50,70,0.6)',base:280,peaks:[[50,200],[150,150],[280,180],[400,140],[520,170]]},
+        {color:'rgba(60,70,90,0.7)',base:300,peaks:[[80,240],[200,200],[320,230],[450,210],[550,250]]},
+        {color:'rgba(80,90,110,0.8)',base:320,peaks:[[100,290],[250,270],[400,285],[500,290]]}
+    ];
+    for(var r=0;r<ranges.length;r++){
+        var rg=ranges[r];
+        ctx.fillStyle=rg.color;
+        ctx.beginPath();ctx.moveTo(0,350);
+        ctx.lineTo(0,rg.base);
+        for(var p=0;p<rg.peaks.length;p++){
+            var pk=rg.peaks[p];
+            var py=pk[1]+Math.sin(montagneT*0.005+r)*3;
+            ctx.lineTo(pk[0],py);
+        }
+        ctx.lineTo(600,rg.base);ctx.lineTo(600,350);ctx.closePath();ctx.fill();
+        // Neige sur les sommets
+        if(r===0){
+            ctx.fillStyle='rgba(255,255,255,0.3)';
+            for(var p=0;p<rg.peaks.length;p++){
+                var pk=rg.peaks[p];
+                ctx.beginPath();ctx.arc(pk[0],pk[1]+5,8,0,Math.PI*2);ctx.fill();
+            }
+        }
+    }
+    // Nuages
+    if(montagneT%5===0)montagneClouds.push({x:-50,y:50+Math.random()*100,speed:0.5+Math.random()*0.5,size:20+Math.random()*30,alpha:0.3});
+    for(var i=montagneClouds.length-1;i>=0;i--){
+        var cl=montagneClouds[i];
+        cl.x+=cl.speed;cl.alpha-=0.001;
+        ctx.fillStyle='rgba(200,200,220,'+cl.alpha+')';
+        ctx.beginPath();ctx.arc(cl.x,cl.y,cl.size,0,Math.PI*2);ctx.fill();
+        ctx.beginPath();ctx.arc(cl.x+cl.size*0.6,cl.y+5,cl.size*0.7,0,Math.PI*2);ctx.fill();
+        if(cl.x>650||cl.alpha<=0)montagneClouds.splice(i,1);
+    }
+    // Texte
+    ctx.font='12px sans-serif';ctx.fillStyle='rgba(136,170,187,0.4)';ctx.textAlign='center';
+    ctx.fillText('La montagne est le trone de Dieu. On y monte pour parler a l Origine.',300,345);
+    montagneT++;montagneAnimId=requestAnimationFrame(animateMontagne);
+}
+animateMontagne();
+</script>
+"##);
+
+    html.push_str(r##"<div class="card" style="border-color:#88aabb;"><h2 style="color:#88aabb;">🏔️ 8 Modules de la Sagesse Montagne</h2><div id="montagne-modules"></div></div>
+
+<script>
+const montagneModules=[
+    {id:0,nom:'La Montagne Est le Tresor de l Afrique',emoji:'🏔️',couleur:'#88aabb',duree:'1 semaine',niveau:'Base',
+     description:'Les montagnes d Afrique gardent 30% des minerais mondiaux. Or, uranium, cobalt, coltan, diamants, cuivre. Mais l Afrique ne controle pas ses montagnes. Les multinationales occidentales et chinoises exploitent les minerais et laissent les Africains pauvres. AI Montagne enseigne que la montagne n est pas seulement un paysage — c est un tresor, et ce tresor appartient aux Africains. Proteger la montagne, c est proteger l avenir.',
+     cours:['Les montagnes d Afrique: 30% des minerais mondiaux','Le coltan du Congo: dans chaque telephone, mais le Congo reste pauvre','L or du Mali, l uranium du Niger, le cuivre de Zambie','Le probleme: les multinationales exploitent, les Africains souffrent','La solution: controler ses montagnes, transformer sur place'],
+     exercices:['Identifier: quelle montagne ou quelle mine est dans ta region?','Rechercher: quel minerai est exploite et par qui?','Reflechir: pourquoi le pays qui a le minerai reste-t-il pauvre?']},
+
+    {id:1,nom:'Le Kilimandjaro: Le Toit de l Afrique',emoji:'⛰️',couleur:'#d4a437',duree:'2 semaines',niveau:'Intermediaire',
+     description:'Le Kilimandjaro (Tanzanie) est le plus haut sommet d Afrique: 5895 metres. Il est couvert de neige et de glace au coeur de l Afrique equatoriale. Les Chagga vivent sur ses pentes et cultivent le cafe, la banane, le mais. Le Kilimandjaro perd ses glaciers a cause du changement climatique. AI Montagne enseigne l histoire, l ecologie, et la spiritualite du Kilimandjaro — le toit de l Afrique.',
+     cours:['Le Kilimandjaro: 5895m, le plus haut sommet d Afrique','Les Chagga: le peuple de la montagne, leur agriculture en terrasses','Les glaciers qui disparaissent: le changement climatique en Afrique','La spiritualite du Kilimandjaro: la montagne comme autel','Le tourisme solaire: profiter de la montagne sans la detruire'],
+     exercices:['Rechercher: le Kilimandjaro et son histoire geologique','Identifier: comment le changement climatique affecte les montagnes africaines','Concevoir: un tourisme montagne qui respecte la nature et beneficie aux locaux']},
+
+    {id:2,nom:'L Atlas: La Colonne Vertebrale du Nord',emoji:'🏔️',couleur:'#aa8866',duree:'2 semaines',niveau:'Intermediaire',
+     description:'L Atlas (Maroc, Algerie, Tunisie) separe le Sahara de la Mediterranee. Il garde les sources d eau, les forets de cedres, les villages berberes. Les Berberes (Amazigh) vivent dans l Atlas depuis des milliers d annees. Leurs villages en terre, leurs terrasses, leur irrigation sont des modeles de developpement durable. AI Montagne enseigne la sagesse Amazigh de la montagne: comment vivre avec la montagne, pas contre elle.',
+     cours:['L Atlas: la colonne vertebrale du Nord africain','Les Berberes (Amazigh): le peuple de la montagne','Les villages en terre: architecture bioclimatique ancestrale','L irrigation en terrasses: cultiver sur la pente sans erosion','Les sources d eau: la montagne comme chateau d eau'],
+     exercices:['Rechercher: un village Amazigh de l Atlas et son architecture','Etudier: comment l irrigation en terrasses fonctionne','Appliquer: le concept de terrasse dans ton propre environnement']},
+
+    {id:3,nom:'Le Rwenzori: Les Montagnes de la Lune',emoji:'🌙',couleur:'#9966ff',duree:'2 semaines',niveau:'Intermediaire',
+     description:'Le Rwenzori (Ouganda, RDC) est appele les Montagnes de la Lune. Ses sommets sont couverts de neige et de glaciers malgre l equateur. Ses pentes ont des forets de bambous, des lobelies geantes, des senecions arborescents. Le Rwenzori est la source du Nil. Les anciens Egyptiens savaient que le Nil venait des Montagnes de la Lune. AI Montagne enseigne la magie du Rwenzori — la montagne qui defie l equateur.',
+     cours:['Le Rwenzori: les Montagnes de la Lune, neige a l equateur','La source du Nil: la montagne qui alimente le plus long fleuve','Les lobelies geantes et senecions: plantes uniques au monde','Les glaciers equatoriaux: le paradoxe du froid au coeur de la chaleur','La connexion Egypte-Rwenzori: les ancients savaient la source'],
+     exercices:['Rechercher: le Rwenzori et sa flore unique','Comprendre: comment la neige existe a l equateur','Reflechir: pourquoi les anciens appelaient-ils ces montagnes de la Lune?']},
+
+    {id:4,nom:'La Montagne et l Eau',emoji:'💧',couleur:'#44aaff',duree:'2 semaines',niveau:'Intermediaire',
+     description:'Les montagnes sont les chateaux d eau de l Afrique. Le Kilimandjaro alimente les rivieres de Tanzanie. L Atlas alimente les rivieres du Maghreb. Le Rwenzori alimente le Nil. Le Mont Cameroun alimente les rivieres de l ouest. Sans montagnes, pas de rivieres. Sans rivieres, pas de vie. Les montagnes captent la pluie, stockent l eau, et la liberent lentement. AI Montagne enseigne le role des montagnes dans le cycle de l eau africain.',
+     cours:['Les montagnes comme chateaux d eau: capter la pluie','Le Kilimandjaro et les rivieres de Tanzanie','L Atlas et les rivieres du Maghreb','Le Rwenzori et le Nil: la montagne qui alimente le fleuve','Proteger les montagnes pour proteger l eau: le lien direct'],
+     exercices:['Identifier: quelle riviere de ta region vient d une montagne?','Comprendre: comment la montagne stocke et libere l eau','Agir: proteger une source d eau montagneuse dans ta region']},
+
+    {id:5,nom:'La Montagne et la Spiritualite',emoji:'🙏',couleur:'#d4a437',duree:'2 semaines',niveau:'Avance',
+     description:'Dans la spiritualite africaine, la montagne est le trone de Dieu. On y monte pour parler a l Origine. Moise a recu les commandements sur une montagne. Les Dogons observent les etoiles depuis les falaises. Les Ethiopiens ont leurs eglises creusees dans la roche (Lalibela). Les Zoulous ont les montagnes du Drakensberg comme lieux sacres. La montagne est le point de contact entre la terre et le ciel. AI Montagne enseigne la spiritualite montagneuse africaine.',
+     cours:['La montagne comme trone de Dieu: le point de contact terre-ciel','Moise et la montagne: la revelation sur le sommet','Lalibela: les eglises creusees dans la roche d Ethiopie','Les Dogons et les falaises de Bandiagara: l astronomie sur la montagne','Le Drakensberg: les montagnes sacres des Zoulous'],
+     exercices:['Identifier: une montagne sacre dans ta culture','Monter: gravir une montagne et mediter au sommet','Honorer: la montagne comme lieu de connexion spirituelle']},
+
+    {id:6,nom:'Proteger les Montagnes d Afrique',emoji:'🛡️',couleur:'#44ff88',duree:'3 semaines',niveau:'Avance',
+     description:'Les montagnes d Afrique sont menacees: mining destructeur, deforestation, changement climatique, tourisme non durable. Les glaciers du Kilimandjaro et du Rwenzori disparaissent. Les forets de l Atlas reculent. Les minerais sont extraits sans benefice pour les locaux. AI Montagne enseigne a proteger les montagnes non pas par l ecologie occidentale, mais par le devoir ancestral: la montagne est le trone de Dieu, et on ne detruit pas le trone de Dieu.',
+     cours:['Le mining destructeur: extraire sans restaurer, laisser les trous','La deforestation montagneuse: couper les forets qui protegent l eau','Le changement climatique: les glaciers qui disparaissent','Le tourisme non durable: profiter sans respecter','Le devoir ancestral: la montagne est le trone de Dieu, on ne la detruit pas'],
+     exercices:['Identifier: une menace sur une montagne de ta region','Agir: que peux-tu faire pour proteger une montagne?','Faire le serment: je protegerai les montagnes d Afrique car elles sont les trones de Dieu']},
+
+    {id:7,nom:'L Afrique Montagneuse en 2100',emoji:'🚀',couleur:'#88aabb',duree:'3 semaines',niveau:'Avance',
+     description:'En 2100, l Afrique controlera ses montagnes. Le mining se fera avec restauration obligatoire. Les forets montagneuses seront protegees. Les sources d eau seront sacrees. Le tourisme sera solaire et durable. Les montagnes seront des centres de spiritualite, de science, et de souverainete. Chaque jeune Africain saura le nom, l histoire, et la sagesse de sa montagne. AI Montagne enseigne la vision 2100 et comment y contribuer.',
+     cours:['Le mining avec restauration: extraire puis restaurer','Les forets montagneuses protegees: l eau et la biodiversite','Les sources d eau sacrees: personne ne pollue une source montagneuse','Le tourisme solaire et durable: profiter sans detruire','Ton role: connaitre, proteger, et enseigner la sagesse de ta montagne'],
+     exercices:['Ecrire: comment sera ta montagne en 2100?','Concevoir: un projet de tourisme solaire pour une montagne','Faire le serment: je connaitrai, protegerai, et enseignerai la sagesse de ma montagne']}
+];
+
+var montagneDone=JSON.parse(localStorage.getItem('afri_montagne_done')||'[]');
+function renderMontagneModules(){var c=document.getElementById('montagne-modules');if(!c)return;var h='';for(var i=0;i<montagneModules.length;i++){var m=montagneModules[i];var d=montagneDone.includes(m.id);h+='<div style="background:rgba(136,170,187,0.05);border:1px solid '+m.couleur+'20;border-radius:8px;padding:12px;margin:8px 0;cursor:pointer;" onclick="showMontagneModule('+i+')"><div style="display:flex;justify-content:space-between;align-items:center;"><span style="font-size:1.1em;">'+m.emoji+' <b style="color:'+m.couleur+';">'+m.nom+'</b></span><span style="font-size:0.8em;color:#a8c5a8;">'+m.duree+' · '+m.niveau+(d?' · ✅':'')+'</span></div></div>';}c.innerHTML=h;}
+renderMontagneModules();
+function showMontagneModule(i){var m=montagneModules[i];var h='<div style="background:rgba(136,170,187,0.08);border:1px solid '+m.couleur+';border-radius:12px;padding:20px;margin:10px 0;"><h3 style="color:'+m.couleur+';">'+m.emoji+' '+m.nom+'</h3><p style="color:#a8c5a8;font-size:0.9em;">'+m.description+'</p><h4 style="color:'+m.couleur+';">📚 Cours</h4><ul>';for(var j=0;j<m.cours.length;j++)h+='<li style="color:#a8c5a8;margin:4px 0;">'+m.cours[j]+'</li>';h+='</ul><h4 style="color:'+m.couleur+';">✏️ Exercices</h4><ul>';for(var j=0;j<m.exercices.length;j++)h+='<li style="color:#a8c5a8;margin:4px 0;">'+m.exercices[j]+'</li>';h+='</ul><button onclick="completeMontagneModule('+m.id+')" style="padding:10px 20px;background:'+m.couleur+';color:#fff;border:none;border-radius:8px;cursor:pointer;font-weight:bold;margin-top:10px;">✅ Terminer ce module</button></div>';var c=document.getElementById('montagne-modules');if(c)c.innerHTML=h;}
+function completeMontagneModule(id){if(!montagneDone.includes(id)){montagneDone.push(id);localStorage.setItem('afri_montagne_done',JSON.stringify(montagneDone));}renderMontagneModules();updateMontagneProgress();}
+function updateMontagneProgress(){var d=montagneDone.length,t=montagneModules.length,p=Math.round((d/t)*100);var b=document.getElementById('montagne-bar'),c=document.getElementById('montagne-count'),pe=document.getElementById('montagne-pct'),dp=document.getElementById('montagne-diplome');if(b)b.style.width=p+'%';if(c)c.textContent=d;if(pe)pe.textContent=p+'%';if(dp)dp.style.display=(d===t)?'block':'none';}
+updateMontagneProgress();
+</script>
+"##);
+
+    html.push_str(r##"<div class="card" style="border-color:#88aabb;"><h2 style="color:#88aabb;">📊 Progression</h2><div style="background:rgba(136,170,187,0.1);border-radius:8px;height:24px;overflow:hidden;margin:10px 0;"><div id="montagne-bar" style="background:linear-gradient(90deg,#88aabb,#d4a437,#44ff88);height:100%;width:0%;transition:width 0.5s;"></div></div><div style="text-align:center;color:#a8c5a8;"><span id="montagne-count">0</span> / 8 modules · <span id="montagne-pct">0%</span></div></div>
+
+<div id="montagne-diplome" style="display:none;"><div class="card" style="border-color:#d4a437;text-align:center;"><h2 style="color:#d4a437;">🎓 Diplôme: Gardien des Montagnes Africaines</h2><p style="color:#a8c5a8;">Tu as complété les 8 modules de la sagesse montagne!</p><p style="color:#88aabb;font-size:1.2em;">La montagne est le trône de Dieu. On y monte pour parler à l'Origine. 🏔️💚</p><button onclick="envoyerDiplomeMontagne()" style="padding:12px 30px;background:#d4a437;color:#000;border:none;border-radius:8px;font-weight:bold;cursor:pointer;font-size:1.1em;margin-top:10px;">⛓️ Graver dans la Blockchain</button></div></div>
+
+<script>
+function envoyerDiplomeMontagne(){var nom=localStorage.getItem('afri_user_name')||'Jeune Africain';fetch('/api/diplome',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:'academie=MONTAGNE&nom='+encodeURIComponent(nom)}).then(function(r){return r.text();}).then(function(t){alert('🎓 Diplôme gravé dans la blockchain!\n'+t);}).catch(function(e){alert('Erreur: '+e);});}
+</script>
+"##);
+
+    html.push_str(r#"<div class="card"><h2 style="color:#88aabb;">💡 Savais-tu?</h2><div style="color:#a8c5a8;padding:8px 0;"><b style="color:#d4a437;">Le Kilimandjaro perd ses glaciers</b> à cause du changement climatique. Un sommet de 5895m couvert de neige au cœur de l'Afrique équatoriale — et la neige disparaît.</div><div style="color:#a8c5a8;padding:8px 0;"><b style="color:#88aabb;">L'Atlas garde 30% des minerais mondiaux</b> mais les Africains restent pauvres. Les multinationales extraient et partent. La montagne donne, les étrangers prennent.</div><div style="color:#a8c5a8;padding:8px 0;"><b style="color:#9966ff;">Le Rwenzori est appelé "Montagnes de la Lune"</b> — neige à l'équateur, source du Nil. Les anciens Égyptiens savaient que le Nil venait de là.</div><div style="color:#a8c5a8;padding:8px 0;"><b style="color:#44ff88;">Sans montagnes, pas de rivières.</b> Les montagnes captent la pluie, stockent l'eau, et la libèrent lentement. Protéger la montagne, c'est protéger l'eau.</div></div>"#);
+
+    html.push_str(r#"<footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🏔️ AI Montagne — La Montagne Est le Tresor de l Afrique 💚🦁✨</footer>"#);
+    html.push_str("</body></html>");
+    html
+}
+
 fn html_garage(chain: &Blockchain) -> String {
     let mut html = html_head("Garage AI — Atelier Autonome 2500");
     let num_blocks = chain.blocks.len();
@@ -21929,7 +22081,7 @@ html+='<div class="log-entry log-kill">⚠️ Tentative d\x27infiltration occide
 html+='<div class="log-entry log-invis">✅ L\x27Afrique est forte. Le système grandit.</div>';
 }else if(type==='total'){
 html='<div style="color:#d4a437;font-weight:bold;margin-bottom:8px">📋 RAPPORT TOTAL — Depuis le début</div>';
-html+='<div class="log-entry">🦁 AfriChain v1.24 — AI Lune La Lune Est l Horloge de l Afrique</div>';
+html+='<div class="log-entry">🦁 AfriChain v1.25 — AI Montagne La Montagne Est le Tresor de l Afrique</div>';
 html+='<div class="log-entry">⛓️ Blockchain: 100% souveraine — Zéro dépendance externe</div>';
 html+='<div class="log-entry">🔐 Crypto: Ed25519 + AfriHash-256/512 + AfriRNG — tout from scratch</div>';
 html+='<div class="log-entry">🌍 54 pays africains connectés</div>';
@@ -23473,7 +23625,7 @@ fn main() {
         .and_then(|i| args.get(i + 1)).cloned().unwrap_or_else(|| "Afrique".to_string());
 
     let my_node_id = generate_node_id();
-    println!("🦁 AfriChain v1.24 — AI Lune La Lune Est l Horloge de l Afrique");
+    println!("🦁 AfriChain v1.25 — AI Montagne La Montagne Est le Tresor de l Afrique");
     println!("💚 L'Afrique ne demande plus la permission");
     println!("🌍 54 pays — 🇲🇱 🇳🇪 🇧🇫 AES — Mali · Niger · Burkina Faso");
     println!("🔐 8 modules cryptographiques — construits from scratch");
@@ -23664,6 +23816,7 @@ fn main() {
     println!("🦅 AI Animal sur http://localhost:8080/ai-animal");
     println!("☀️ AI Soleil sur http://localhost:8080/ai-soleil");
     println!("🌙 AI Lune sur http://localhost:8080/ai-lune");
+    println!("🏔️ AI Montagne sur http://localhost:8080/ai-montagne");
 
     // Serveur HTTP en arrière-plan (pour mesh + autres utilisateurs)
     let serve_state = web_state.clone();
@@ -23698,7 +23851,7 @@ fn terminal_interface(state: &Arc<AppState>) {
     println!("  ║  🕐 AfriTime — Pas UTC, pas Greenwich   ║");
     println!("  ║  📝 ~23,100 lignes — écrit à la main       ║");
     println!("  ╚═══════════════════════════════════════════════╝");
-    println!("\n  Version v1.24 — 3 septembre 2026");
+    println!("\n  Version v1.25 — 3 septembre 2026");
     println!("  Construit sur Termux · Android · nano\n");
     println!("  ─────────────────────────────────────────────");
     println!("\n  1. 🏦 Centre de Données (Admin)");
@@ -23770,7 +23923,7 @@ fn admin_interface(state: &Arc<AppState>) {
         println!("\n");
         println!("╔══════════════════════════════════════╗");
         println!("║  🏦 CENTRE DE DONNÉES — Admin       ║");
-        println!("║  🦁 AfriChain v1.24                  ║");
+        println!("║  🦁 AfriChain v1.25                  ║");
         println!("╠══════════════════════════════════════╣");
         let chain = state.chain.lock().unwrap();
         let users = state.users.lock().unwrap();
@@ -27510,6 +27663,11 @@ fn handle_request(req: afri_http::HttpRequest, state: &Arc<AppState>) -> afri_ht
         ("GET", "/ai-lune") => {
             let chain = state.chain.lock().unwrap();
             HttpResponse::ok(&html_ai_lune(&chain))
+        }
+
+        ("GET", "/ai-montagne") => {
+            let chain = state.chain.lock().unwrap();
+            HttpResponse::ok(&html_ai_montagne(&chain))
         }
 
         ("GET", "/garage") => {
