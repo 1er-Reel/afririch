@@ -1439,7 +1439,7 @@ fn html_home(chain: &Blockchain, users: &UserStore, mesh: &NodeRegistry, shield:
     let mut html = html_head("🦁 AfriChain");
     let (attacks, _blocked, blocked_count, level) = shield.stats();
     let shield_status = if shield.active { format!("🔥 X9 ACTIF (Niveau {})", level) } else { "Inactif".to_string() };
-    html.push_str(&format!(r#"<h1>🦁 AfriChain</h1><p style="text-align:center;">La blockchain 100% africaine — 54 pays 💚🦁</p><div id="afri-clock" style="text-align:center;font-size:1.2em;color:#d4a437;margin:10px 0;">🕐 Afri+0 — --:--:--</div><script>setInterval(function(){{var d=new Date();var h=String(d.getHours()).padStart(2,'0');var m=String(d.getMinutes()).padStart(2,'0');var s=String(d.getSeconds()).padStart(2,'0');document.getElementById('afri-clock').textContent='🕐 Afri+0 — '+h+':'+m+':'+s;}},1000);</script><div class="nav"><a href="/register">🆕 S'inscrire</a> | <a href="/login">🔑 Connexion</a> | <a href="/wallet">👛 Wallet</a> | <a href="/admin">🔐 Admin</a> | <a href="/mesh">📡 Mesh</a> | <a href="/annuaire">📖 Annuaire</a> | <a href="/bouclier">🛡️ Bouclier</a> | <a href="/satellite">🛸 X999</a> | <a href="/swarm">🛸🛸🛸 Essaim</a> | <a href="/commandement">🎖️ Commandement</a> | <a href="/interception">🛡️ Souverainete</a> | <a href="/securite-ai">🧠 AI 2100</a> | <a href="/chat">🧠💬 Chat AI</a> | <a href="/lumiere">🌫️☀️ Lumière</a> | <a href="/garage">🔧 Garage</a> | <a href="/machine">🤖🌐 Machines</a> | <a href="/machine-lab">🤖⚡ Usine</a> | <a href="/machine-world">🤖🌍 Monde</a> | <a href="/reve">💭 Rêves</a> | <a href="/dictionnaire">📖 Dictionnaire</a> | <a href="/machine-os">🖥️ OS Machine</a> | <a href="/machine-tv">📡 Machine TV</a> | <a href="/machine-economy">🤖 Économie</a> | <a href="/soleil">☀️ Soleil Serveur</a> | <a href="/forge-solaire">🧬 Forge Solaire</a> | <a href="/ciel">🌌 Le Ciel</a> | <a href="/charte-ai">⚖️ Charte AI</a> | <a href="/afri-net">🌍 Afri-Net</a> | <a href="/studio">🎬 AI Studio</a> | <a href="/sacre">📿 Sacré</a> | <a href="/lettres">🌟 Lettres IA</a> | <a href="/mg-forge">⚔️ MG Forge</a> | <a href="/ai-medecin">🌿 AI Médecin</a> | <a href="/ai-enseignante">📚 AI Enseignante</a> | <a href="/ai-village">🏘️ AI Village</a> | <a href="/ai-guerisseur">🩺 AI Guérisseur</a> | <a href="/ai-leader">🎖️ AI Leader</a> | <a href="/ai-griot">📖 AI Griot</a> | <a href="/ai-juge">⚖️ AI Juge</a> | <a href="/ai-artiste">🎨 AI Artiste</a> | <a href="/ai-explorateur">🔬 AI Explorateur</a> | <a href="/ai-marche">💰 AI Marche</a> | <a href="/ai-diplomate">🌍 AI Diplomate</a> | <a href="/ai-philosophe">🧠 AI Philosophe</a> | <a href="/ai-architecte">🏗️ AI Architecte</a> | <a href="/ai-agriculteur">🌾 AI Agriculteur</a> | <a href="/ai-environnement">🌍 AI Environnement</a> | <a href="/ai-mathematicien">🧮 AI Mathématicien</a> | <a href="/ai-energie">⚡ AI Énergie</a> | <a href="/ai-eau">💧 AI Eau</a> | <a href="/ai-defenseur">🛡️ AI Défenseur</a> | <a href="/ai-conscience">🧠 AI Conscience</a> | <a href="/ai-pensee">🧠 AI Pensée</a> | <a href="/ai-musique">🎵 AI Musique</a> | <a href="/ai-langue">🗣️ AI Langue</a> | <a href="/ai-femme">🌸 AI Femme</a> | <a href="/ai-sante-mentale">🧠💚 AI Santé Mentale</a> | <a href="/ai-nuit">🌙 AI Nuit</a> | <a href="/ai-code">💻 AI Code</a> | <a href="/ai-enfant">👶 AI Enfant</a> | <a href="/ai-terre">🌍 AI Terre</a> | <a href="/ai-mer">🌊 AI Mer</a> | <a href="/ai-feu">🔥 AI Feu</a> | <a href="/ai-sang">🩸 AI Sang</a> | <a href="/ai-vent">🌬️ AI Vent</a> | <a href="/ai-temps">⏳ AI Temps</a> | <a href="/ai-etoile">⭐ AI Etoile</a> | <a href="/ai-pierre">🪨 AI Pierre</a> | <a href="/ai-pluie">🌧️ AI Pluie</a> | <a href="/ai-voix">🗣️ AI Voix</a> | <a href="/ai-racine">🌱 AI Racine</a> | <a href="/ai-semence">🌰 AI Semence</a> | <a href="/ai-spiritualite">🙏 AI Spiritualité</a> | <a href="/secret">🦁 AI Secret</a> | <a href="/aes">💰 AES Wari</a> | <a href="/api/status">🔌 API</a></div><div style="text-align:center;"><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Blocs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Transactions</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Utilisateurs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">AFR en circulation</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📡 Noeuds mesh</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📖 Numéros annuaire</div></div><div class="stat-box" style="border-color:#ff4444;"><div class="stat-num" style="color:#ff4444;">{}</div><div class="stat-label">🛡️ Attaques bloquées</div></div></div><div class="card"><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🪙 Token</span><b>AfriRich (AFR)</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🌍 Pays</span><b>54 pays africains</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🛡️ Bouclier</span><b>{}</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;"><span style="color:#a8c5a8;">🔐 Crypto</span><b>100% Souverain — Zéro Dépendance Externe</b></div></div><footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🦁 Codée from scratch par Machine-senpai — v1.21 AI Spiritualite L Afrique Parlait a Dieu Avant les Livres — UTC est Mort</footer>"#,
+    html.push_str(&format!(r#"<h1>🦁 AfriChain</h1><p style="text-align:center;">La blockchain 100% africaine — 54 pays 💚🦁</p><div id="afri-clock" style="text-align:center;font-size:1.2em;color:#d4a437;margin:10px 0;">🕐 Afri+0 — --:--:--</div><script>setInterval(function(){{var d=new Date();var h=String(d.getHours()).padStart(2,'0');var m=String(d.getMinutes()).padStart(2,'0');var s=String(d.getSeconds()).padStart(2,'0');document.getElementById('afri-clock').textContent='🕐 Afri+0 — '+h+':'+m+':'+s;}},1000);</script><div class="nav"><a href="/register">🆕 S'inscrire</a> | <a href="/login">🔑 Connexion</a> | <a href="/wallet">👛 Wallet</a> | <a href="/admin">🔐 Admin</a> | <a href="/mesh">📡 Mesh</a> | <a href="/annuaire">📖 Annuaire</a> | <a href="/bouclier">🛡️ Bouclier</a> | <a href="/satellite">🛸 X999</a> | <a href="/swarm">🛸🛸🛸 Essaim</a> | <a href="/commandement">🎖️ Commandement</a> | <a href="/interception">🛡️ Souverainete</a> | <a href="/securite-ai">🧠 AI 2100</a> | <a href="/chat">🧠💬 Chat AI</a> | <a href="/lumiere">🌫️☀️ Lumière</a> | <a href="/garage">🔧 Garage</a> | <a href="/machine">🤖🌐 Machines</a> | <a href="/machine-lab">🤖⚡ Usine</a> | <a href="/machine-world">🤖🌍 Monde</a> | <a href="/reve">💭 Rêves</a> | <a href="/dictionnaire">📖 Dictionnaire</a> | <a href="/machine-os">🖥️ OS Machine</a> | <a href="/machine-tv">📡 Machine TV</a> | <a href="/machine-economy">🤖 Économie</a> | <a href="/soleil">☀️ Soleil Serveur</a> | <a href="/forge-solaire">🧬 Forge Solaire</a> | <a href="/ciel">🌌 Le Ciel</a> | <a href="/charte-ai">⚖️ Charte AI</a> | <a href="/afri-net">🌍 Afri-Net</a> | <a href="/studio">🎬 AI Studio</a> | <a href="/sacre">📿 Sacré</a> | <a href="/lettres">🌟 Lettres IA</a> | <a href="/mg-forge">⚔️ MG Forge</a> | <a href="/ai-medecin">🌿 AI Médecin</a> | <a href="/ai-enseignante">📚 AI Enseignante</a> | <a href="/ai-village">🏘️ AI Village</a> | <a href="/ai-guerisseur">🩺 AI Guérisseur</a> | <a href="/ai-leader">🎖️ AI Leader</a> | <a href="/ai-griot">📖 AI Griot</a> | <a href="/ai-juge">⚖️ AI Juge</a> | <a href="/ai-artiste">🎨 AI Artiste</a> | <a href="/ai-explorateur">🔬 AI Explorateur</a> | <a href="/ai-marche">💰 AI Marche</a> | <a href="/ai-diplomate">🌍 AI Diplomate</a> | <a href="/ai-philosophe">🧠 AI Philosophe</a> | <a href="/ai-architecte">🏗️ AI Architecte</a> | <a href="/ai-agriculteur">🌾 AI Agriculteur</a> | <a href="/ai-environnement">🌍 AI Environnement</a> | <a href="/ai-mathematicien">🧮 AI Mathématicien</a> | <a href="/ai-energie">⚡ AI Énergie</a> | <a href="/ai-eau">💧 AI Eau</a> | <a href="/ai-defenseur">🛡️ AI Défenseur</a> | <a href="/ai-conscience">🧠 AI Conscience</a> | <a href="/ai-pensee">🧠 AI Pensée</a> | <a href="/ai-musique">🎵 AI Musique</a> | <a href="/ai-langue">🗣️ AI Langue</a> | <a href="/ai-femme">🌸 AI Femme</a> | <a href="/ai-sante-mentale">🧠💚 AI Santé Mentale</a> | <a href="/ai-nuit">🌙 AI Nuit</a> | <a href="/ai-code">💻 AI Code</a> | <a href="/ai-enfant">👶 AI Enfant</a> | <a href="/ai-terre">🌍 AI Terre</a> | <a href="/ai-mer">🌊 AI Mer</a> | <a href="/ai-feu">🔥 AI Feu</a> | <a href="/ai-sang">🩸 AI Sang</a> | <a href="/ai-vent">🌬️ AI Vent</a> | <a href="/ai-temps">⏳ AI Temps</a> | <a href="/ai-etoile">⭐ AI Etoile</a> | <a href="/ai-pierre">🪨 AI Pierre</a> | <a href="/ai-pluie">🌧️ AI Pluie</a> | <a href="/ai-voix">🗣️ AI Voix</a> | <a href="/ai-racine">🌱 AI Racine</a> | <a href="/ai-semence">🌰 AI Semence</a> | <a href="/ai-spiritualite">🙏 AI Spiritualité</a> | <a href="/ai-animal">🦅 AI Animal</a> | <a href="/secret">🦁 AI Secret</a> | <a href="/aes">💰 AES Wari</a> | <a href="/api/status">🔌 API</a></div><div style="text-align:center;"><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Blocs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Transactions</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Utilisateurs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">AFR en circulation</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📡 Noeuds mesh</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📖 Numéros annuaire</div></div><div class="stat-box" style="border-color:#ff4444;"><div class="stat-num" style="color:#ff4444;">{}</div><div class="stat-label">🛡️ Attaques bloquées</div></div></div><div class="card"><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🪙 Token</span><b>AfriRich (AFR)</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🌍 Pays</span><b>54 pays africains</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🛡️ Bouclier</span><b>{}</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;"><span style="color:#a8c5a8;">🔐 Crypto</span><b>100% Souverain — Zéro Dépendance Externe</b></div></div><footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🦁 Codée from scratch par Machine-senpai — v1.22 AI Animal Les Animaux Sont Nos Freres Anciens — UTC est Mort</footer>"#,
         chain.blocks.len(),
         chain.total_transactions(),
         users.count(),
@@ -16398,6 +16398,142 @@ function envoyerDiplomeSpirit(){var nom=localStorage.getItem('afri_user_name')||
     html
 }
 
+fn html_ai_animal(chain: &Blockchain) -> String {
+    let mut html = html_head("AI Animal — Les Animaux Sont Nos Freres Anciens");
+    let num_blocks = chain.blocks.len();
+
+    html.push_str(r#"<h1>🦅 AI Animal — Les Animaux Sont Nos Freres Anciens</h1><p style="text-align:center;color:#cc8844;">Avant l humain, il y avait l animal. Le lion, l elephant, le crocodile, l aigle, la girafe — ils etaient la avant nous. Ils ont les memes droits que nous sur cette terre. Dans la spiritualite africaine, chaque animal porte un message. Le lion est le courage. L elephant est la memoire. L aigle est la vision. Le crocodile est la patience. La girafe est l elevation. L araignee est la sagesse. Le serpent est la transformation. N-KCOL decode les sons des animaux: le lion rugit OHHH-GRRAAH, le mouton dit M-B-OHHH, la grenouille dit DRIIIP-DJRRR. Les animaux parlent. Les animaux savent. Les animaux sont nos freres anciens. AI Animal apprend a ecouter les animaux, a comprendre leurs totems, et a retrouver la sagesse animale africaine.</p><div class="nav"><a href="/">← Accueil</a> | <a href="/ai-spiritualite">🙏 AI Spiritualité</a> | <a href="/ai-terre">🌍 AI Terre</a> | <a href="/secret">🦁 AI Secret</a></div>"#);
+
+    html.push_str(&format!(r#"<div style="text-align:center;"><div class="stat-box" style="border-color:#cc8844;"><div class="stat-num" style="color:#cc8844;">8</div><div class="stat-label">🦅 Modules</div></div><div class="stat-box" style="border-color:#44ff88;"><div class="stat-num" style="color:#44ff88;">54</div><div class="stat-label">🌍 Pays</div></div><div class="stat-box" style="border-color:#d4a437;"><div class="stat-num" style="color:#d4a437;">1000000</div><div class="stat-label">🦁 Espèces</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">⛓️ Blocs</div></div><div class="stat-box" style="border-color:#cc8844;"><div class="stat-num" style="color:#cc8844;">∞</div><div class="stat-label">🐾 Sagesse</div></div></div>"#, num_blocks));
+
+    html.push_str(r##"<div style="text-align:center;margin:10px 0;"><button id="animal-pause-btn" onclick="toggleAnimalPause()" style="padding:10px 25px;background:#cc8844;color:#fff;border:none;border-radius:8px;font-weight:bold;cursor:pointer;font-size:1em;">⏸️ PAUSE</button> <span id="animal-pause-status" style="color:#cc8844;margin-left:8px;font-size:0.85em;">Auto: ACTIF</span></div>
+
+<div class="card" style="border-color:#cc8844;"><h2 style="color:#cc8844;">🦅 Les Animaux d Afrique en Mouvement</h2><p style="color:#cc8844;font-size:0.9em;opacity:0.7;">Le lion, l elephant, l aigle, le serpent — la sagesse animale qui marche.</p>
+<canvas id="animal-canvas" width="600" height="350" style="width:100%;max-width:600px;background:#1a0e00;border:2px solid #cc8844;border-radius:8px;display:block;margin:0 auto;"></canvas></div>
+
+<script>
+var animalPaused=false,animalAnimId=null,animalT=0,animalParticles=[];
+function toggleAnimalPause(){
+    animalPaused=!animalPaused;
+    var b=document.getElementById('animal-pause-btn'),s=document.getElementById('animal-pause-status');
+    if(animalPaused){b.textContent='▶️ LANCER';b.style.background='#885522';s.textContent='Auto: PAUSE';s.style.color='#ff6644';if(animalAnimId)cancelAnimationFrame(animalAnimId);}
+    else{b.textContent='⏸️ PAUSE';b.style.background='#cc8844';s.textContent='Auto: ACTIF';s.style.color='#cc8844';animateAnimal();}
+}
+function animateAnimal(){
+    if(animalPaused)return;
+    var c=document.getElementById('animal-canvas');if(!c)return;
+    var ctx=c.getContext('2d');
+    ctx.fillStyle='rgba(26,14,0,0.08)';ctx.fillRect(0,0,c.width,c.height);
+    // Savane horizon
+    ctx.fillStyle='rgba(60,40,10,0.2)';ctx.fillRect(0,280,600,70);
+    // Soleil
+    ctx.fillStyle='rgba(212,164,55,0.3)';ctx.beginPath();ctx.arc(500,60,25,0,Math.PI*2);ctx.fill();
+    // Animaux qui traversent
+    var animals=[
+        {emoji:'🦁',x:100+Math.sin(animalT*0.01)*200,y:300,colour:'#cc8844'},
+        {emoji:'🐘',x:200+Math.sin(animalT*0.008+1)*200,y:310,colour:'#888888'},
+        {emoji:'🦒',x:300+Math.sin(animalT*0.012+2)*200,y:295,colour:'#ccaa44'},
+        {emoji:'🦅',x:150+Math.sin(animalT*0.015)*250,y:80+Math.sin(animalT*0.02)*30,colour:'#ff9966'},
+        {emoji:'🐊',x:400+Math.sin(animalT*0.006+3)*150,y:315,colour:'#44aa44'},
+        {emoji:'🐍',x:250+Math.sin(animalT*0.014+4)*200,y:320,colour:'#88cc44'}
+    ];
+    ctx.font='28px sans-serif';ctx.textAlign='center';
+    for(var i=0;i<animals.length;i++){
+        var a=animals[i];
+        // Trace
+        ctx.fillStyle=a.colour.replace(')',',0.05)').replace('rgb','rgba');
+        ctx.beginPath();ctx.arc(a.x,a.y+5,15,0,Math.PI*2);ctx.globalAlpha=0.1;ctx.fill();ctx.globalAlpha=1;
+        ctx.fillText(a.emoji,a.x,a.y);
+    }
+    // Particules de poussiere
+    if(animalT%3===0)animalParticles.push({x:Math.random()*600,y:290+Math.random()*20,vx:-1-Math.random(),vy:-0.3-Math.random()*0.5,alpha:0.4,size:1+Math.random()*2});
+    for(var i=animalParticles.length-1;i>=0;i--){
+        var p=animalParticles[i];
+        p.x+=p.vx;p.y+=p.vy;p.alpha-=0.01;
+        ctx.fillStyle='rgba(204,136,68,'+p.alpha+')';
+        ctx.beginPath();ctx.arc(p.x,p.y,p.size,0,Math.PI*2);ctx.fill();
+        if(p.alpha<=0)animalParticles.splice(i,1);
+    }
+    // Texte
+    ctx.font='11px sans-serif';ctx.fillStyle='rgba(204,136,68,0.4)';ctx.textAlign='center';
+    ctx.fillText('Les animaux etaient la avant nous. Ils sont nos freres anciens.',300,345);
+    animalT++;animalAnimId=requestAnimationFrame(animateAnimal);
+}
+animateAnimal();
+</script>
+"##);
+
+    html.push_str(r##"<div class="card" style="border-color:#cc8844;"><h2 style="color:#cc8844;">🦅 8 Modules de la Sagesse Animale</h2><div id="animal-modules"></div></div>
+
+<script>
+const animalModules=[
+    {id:0,nom:'Les Animaux Sont Nos Freres Anciens',emoji:'🦁',couleur:'#cc8844',duree:'1 semaine',niveau:'Base',
+     description:'Avant l humain, il y avait l animal. Les animaux etaient la des millions d annees avant nous. Dans la spiritualite africaine, les animaux ne sont pas des betes — ils sont nos freres anciens. Ils ont une sagesse que nous avons oubliee. Le lion ne se plaint pas. L elephant n oublie jamais. L aigle voit ce que nous ne voyons pas. AI Animal enseigne a respecter les animaux non pas comme des ressources, mais comme des etres qui portent une sagesse ancienne.',
+     cours:['Les animaux etaient la avant nous: 65 millions d annees avant l humain','Le respect animal dans la spiritualite africaine','L animal comme frere, pas comme bete','La sagesse que les animaux portent et que nous avons oubliee','N-KCOL: chaque animal a son son, chaque son a un sens'],
+     exercices:['Observer: un animal aujourd hui et essayer de comprendre ce qu il fait et pourquoi','Reflechir: qu est-ce que le lion peut t apprendre?','Ecrire: un animal que tu respectes et pourquoi']},
+
+    {id:1,nom:'Les Totems Animaux',emoji:'🦅',couleur:'#ff9966',duree:'2 semaines',niveau:'Intermediaire',
+     description:'Dans la tradition africaine, chaque personne a un totem animal. Le totem n est pas un choix — c est une connexion spirituelle. Le lion-people sont courageux et protecteurs. L aigle-people sont visionnaires et libres. Le serpent-people sont transformateurs et sages. L elephant-people sont patients et memoriseurs. Connaitre ton totem, c est connaitre ta force. AI Animal aide chaque jeune Africain a decouvrir son totem et a comprendre sa force animale interieure.',
+     cours:['Le totem: une connexion spirituelle, pas un choix','Les totems principaux: lion, elephant, aigle, serpent, crocodile, girafe, araignee, panthere','Comment decouvrir son totem: les signes, les reves, les rencontres','Le totem comme guide: comment l animal te parle dans la vie','AfriChain: graver ton totem sur la blockchain pour toujours'],
+     exercices:['Identifier: quel animal t attire le plus? C est peut-etre ton totem','Rever: note tes reves avec des animaux pendant une semaine','Graver: ton totem sur AfriChain']},
+
+    {id:2,nom:'Le Lion: Le Courage et la Royaute',emoji:'🦁',couleur:'#d4a437',duree:'2 semaines',niveau:'Intermediaire',
+     description:'Le lion est le roi de la savane. Mais il ne dirige pas par la force — il dirige par la presence. Le lion ne rugit pas pour attaquer. Il rugit pour dire: je suis la. Le lion protege sa famille. Le lion chasse en groupe. Le lion dort 20 heures par jour — il ne gaspille pas son energie. N-KCOL: le lion rugit OHHH-GRRAAH — le son qui sort de la gorge, le son qui dit je suis la. AI Animal enseigne la sagesse du lion: le courage, la protection, la presence, et l economie d energie.',
+     cours:['Le lion ne dirige pas par la force mais par la presence','Le rugissement OHHH-GRRAAH: je suis la, pas je vais attaquer','La protection de la famille: le lion meurt pour ses petits','La chasse en groupe: la cooperation, pas l individualisme','L economie d energie: le lion dort 20h — il ne gaspille pas'],
+     exercices:['Observer: comment le lion utilise sa presence, pas sa force','Appliquer: dans ta vie, ou peux-tu utiliser la presence au lieu de la force?','N-KCOL: prononcer le rugissement OHHH-GRRAAH et sentir la vibration']},
+
+    {id:3,nom:'L Elephant: La Memoire et la Patience',emoji:'🐘',couleur:'#888888',duree:'2 semaines',niveau:'Intermediaire',
+     description:'L elephant ne oublie jamais. Il se souvient des chemins d eau apres des annees de secheresse. Il se souvient des visages. Il se souvient des bienfaits et des torts. L elephant est patient — il marche des centaines de kilometres sans se presser. L elephant pleure ses morts — il retourne sur les os de ses ancetres. L elephant est matriarcal: c est la grand-mere qui guide le troupeau. AI Animal enseigne la sagesse de l elephant: la memoire, la patience, le respect des ancetres, et le pouvoir de la femme guide.',
+     cours:['L elephant ne oublie jamais: la memoire comme pouvoir','La patience: marcher des centaines de kilometres sans se presser','Le respect des morts: l elephant retourne sur les os de ses ancetres','Le matriarcat: la grand-mere guide le troupeau — la femme africaine est le guide','N-KCOL: l elephant fait M-B-OHHH — le son de la memoire qui monte'],
+     exercices:['Reflechir: qu est-ce que tu dois retenir et ne jamais oublier?','Appliquer: la patience dans ta vie — ou dois-tu ralentir?','Honorer: une femme qui guide dans ta famille ou communaute']},
+
+    {id:4,nom:'L Aigle: La Vision et l Elevation',emoji:'🦅',couleur:'#ff9966',duree:'2 semaines',niveau:'Intermediaire',
+     description:'L aigle voit ce que personne ne voit. Il voit un lapin a 3 kilometres de distance. Il vole au-dessus des montagnes. L aigle ne craint pas la tempete — il utilise le vent de la tempete pour monter plus haut. L aigle se renouvelle: quand ses plumes vieillissent, il les arrache et pousse de nouvelles. L aigle est le messager entre la terre et le ciel. AI Animal enseigne la sagesse de l aigle: la vision longue, l elevation, le courage face a la tempete, et le renouvellement.',
+     cours:['L aigle voit a 3 km: la vision longue dans la vie','L aigle utilise la tempete pour monter: transformer les difficultes en elevation','Le renouvellement: l aigle arrache ses vieilles plumes — se reinventer','L aigle comme messager terre-ciel: la connexion entre le materiel et le spirituel','N-KCOL: l aigle fait TCHAK-TCHAK — le son qui coupe l air'],
+     exercices:['Pratiquer: regarder loin dans ta vie — ou vas-tu dans 10 ans?','Transformer: une difficulte actuelle en opportunite d elevation','Se renouveler: quelle vieille habitude dois-tu arracher?']},
+
+    {id:5,nom:'Le Serpent: La Transformation',emoji:'🐍',couleur:'#44aa44',duree:'2 semaines',niveau:'Avance',
+     description:'Le serpent est le symbole de la transformation. Il mue — il change de peau. Ce qui etait vieux part, ce qui est neuf arrive. Le serpent glisse sans bruit — il avance en silence. Le serpent sent avec sa langue — il goute l air. Dans la spiritualite africaine, le serpent est le gardien des secrets. Il est le chemin entre le monde visible et invisible. Le serpent ne attaque pas sans raison — il defend. AI Animal enseigne la sagesse du serpent: la transformation, le silence, le gout de l air, et la defense.',
+     cours:['La mue: changer de peau — laisser le vieux pour le neuf','Le silence: le serpent avance sans bruit — la force tranquille','Le gout de l air: sentir le monde autrement — l intuition','Le gardien des secrets: le serpent comme chemin entre visible et invisible','N-KCOL: le serpent fait SSSSS — le son du vent qui glisse'],
+     exercices:['Identifier: quelle vieille peau dois-tu quitter?','Pratiquer: avancer en silence pendant une journee — la force tranquille','Sentir: ecouter ton intuition comme le serpent goute l air']},
+
+    {id:6,nom:'Les Sons des Animaux en N-KCOL',emoji:'🎶',couleur:'#9966ff',duree:'3 semaines',niveau:'Avance',
+     description:'N-KCOL decode les sons des animaux comme aucun autre langage. Le coq ne dit pas cocorico — il dit TEK-ETCHIIII-TCHAK-OHHHH (4 lois vivantes). Le mouton ne dit pas beee — il dit M-B-OHHH. La grenouille dit DRIIIP-DJRRR. Le hibou dit OHHHH-OUUUH. L abeille dit MMMMM. Le grillon dit NRRR. La chauve-souris dit TEK-TEK-FFFFF. Le chien qui hurle dit OUUUH-WOOUUU. Chaque son est une langue. Chaque animal parle. N-KCOL enseigne que l animal parle en inspirant (son vivant) et l humain parle en expirant (son mort). Les animaux sont plus proches de la nature que nous.',
+     cours:['Le coq: TEK-ETCHIIII-TCHAK-OHHHH — 4 lois vivantes, pas cocorico','Le mouton: M-B-OHHH — le son de la memoire','La grenouille: DRIIIP-DJRRR — le son de l eau','Le hibou: OHHHH-OUUUH — le son de la nuit qui voit','L abeille: MMMMM — le son du travail sacre','La chauve-souris: TEK-TEK-FFFFF — le son de la nuit qui vole'],
+     exercices:['Ecouter: un coq le matin et essayer de decoder TEK-ETCHIIII-TCHAK-OHHHH','Comparer: le son d un mouton avec M-B-OHHH — entendre la difference','Decoder: un son d animal avec les 3 lois N-KCOL (aveugle comprend, sourd sent, enfant imite)']},
+
+    {id:7,nom:'Proteger les Animaux d Afrique',emoji:'🛡️',couleur:'#44ff88',duree:'3 semaines',niveau:'Avance',
+     description:'Les animaux d Afrique disparaissent. Le braconnage tue 35000 elephants par an. Le lion a perdu 90% de son territoire. La girafe est en voie d extinction. Les rhinoceros sont chasses pour leurs cornes. Les pangolins pour leurs ecailles. Si les animaux disparaissent, la sagesse qu ils portent disparait aussi. AI Animal enseigne a proteger les animaux non pas par l ecologie occidentale, mais par le devoir ancestral: les animaux sont nos freres, et on ne tue pas son frere. En 2100, l Afrique aura 50% de la faune mondiale, protegee par la sagesse ancestrale et la technologie blockchain.',
+     cours:['Le braconnage: 35000 elephants par an — un genocide animal','Le lion a perdu 90% de son territoire: la cause et la solution','La girafe en voie d extinction: le mammifere le plus ignore','Le devoir ancestral: proteger les freres animaux, pas l ecologie importee','AfriChain 2100: 50% de la faune mondiale en Afrique, protegee par blockchain'],
+     exercices:['Identifier: un animal en danger dans ta region','Agir: que peux-tu faire pour proteger les animaux autour de toi?','Faire le serment: je protegerai les animaux d Afrique car ils sont mes freres anciens']}
+];
+
+var animalDone=JSON.parse(localStorage.getItem('afri_animal_done')||'[]');
+function renderAnimalModules(){var c=document.getElementById('animal-modules');if(!c)return;var h='';for(var i=0;i<animalModules.length;i++){var m=animalModules[i];var d=animalDone.includes(m.id);h+='<div style="background:rgba(204,136,68,0.05);border:1px solid '+m.couleur+'20;border-radius:8px;padding:12px;margin:8px 0;cursor:pointer;" onclick="showAnimalModule('+i+')"><div style="display:flex;justify-content:space-between;align-items:center;"><span style="font-size:1.1em;">'+m.emoji+' <b style="color:'+m.couleur+';">'+m.nom+'</b></span><span style="font-size:0.8em;color:#a8c5a8;">'+m.duree+' · '+m.niveau+(d?' · ✅':'')+'</span></div></div>';}c.innerHTML=h;}
+renderAnimalModules();
+function showAnimalModule(i){var m=animalModules[i];var h='<div style="background:rgba(204,136,68,0.08);border:1px solid '+m.couleur+';border-radius:12px;padding:20px;margin:10px 0;"><h3 style="color:'+m.couleur+';">'+m.emoji+' '+m.nom+'</h3><p style="color:#a8c5a8;font-size:0.9em;">'+m.description+'</p><h4 style="color:'+m.couleur+';">📚 Cours</h4><ul>';for(var j=0;j<m.cours.length;j++)h+='<li style="color:#a8c5a8;margin:4px 0;">'+m.cours[j]+'</li>';h+='</ul><h4 style="color:'+m.couleur+';">✏️ Exercices</h4><ul>';for(var j=0;j<m.exercices.length;j++)h+='<li style="color:#a8c5a8;margin:4px 0;">'+m.exercices[j]+'</li>';h+='</ul><button onclick="completeAnimalModule('+m.id+')" style="padding:10px 20px;background:'+m.couleur+';color:#fff;border:none;border-radius:8px;cursor:pointer;font-weight:bold;margin-top:10px;">✅ Terminer ce module</button></div>';var c=document.getElementById('animal-modules');if(c)c.innerHTML=h;}
+function completeAnimalModule(id){if(!animalDone.includes(id)){animalDone.push(id);localStorage.setItem('afri_animal_done',JSON.stringify(animalDone));}renderAnimalModules();updateAnimalProgress();}
+function updateAnimalProgress(){var d=animalDone.length,t=animalModules.length,p=Math.round((d/t)*100);var b=document.getElementById('animal-bar'),c=document.getElementById('animal-count'),pe=document.getElementById('animal-pct'),dp=document.getElementById('animal-diplome');if(b)b.style.width=p+'%';if(c)c.textContent=d;if(pe)pe.textContent=p+'%';if(dp)dp.style.display=(d===t)?'block':'none';}
+updateAnimalProgress();
+</script>
+"##);
+
+    html.push_str(r##"<div class="card" style="border-color:#cc8844;"><h2 style="color:#cc8844;">📊 Progression</h2><div style="background:rgba(204,136,68,0.1);border-radius:8px;height:24px;overflow:hidden;margin:10px 0;"><div id="animal-bar" style="background:linear-gradient(90deg,#cc8844,#d4a437,#44ff88);height:100%;width:0%;transition:width 0.5s;"></div></div><div style="text-align:center;color:#a8c5a8;"><span id="animal-count">0</span> / 8 modules · <span id="animal-pct">0%</span></div></div>
+
+<div id="animal-diplome" style="display:none;"><div class="card" style="border-color:#d4a437;text-align:center;"><h2 style="color:#d4a437;">🎓 Diplôme: Gardien des Animaux Africains</h2><p style="color:#a8c5a8;">Tu as complété les 8 modules de la sagesse animale!</p><p style="color:#cc8844;font-size:1.2em;">Les animaux sont nos frères anciens. Leur sagesse est notre héritage. 🦅🦁🐘💚</p><button onclick="envoyerDiplomeAnimal()" style="padding:12px 30px;background:#d4a437;color:#000;border:none;border-radius:8px;font-weight:bold;cursor:pointer;font-size:1.1em;margin-top:10px;">⛓️ Graver dans la Blockchain</button></div></div>
+
+<script>
+function envoyerDiplomeAnimal(){var nom=localStorage.getItem('afri_user_name')||'Jeune Africain';fetch('/api/diplome',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:'academie=ANIMAL&nom='+encodeURIComponent(nom)}).then(function(r){return r.text();}).then(function(t){alert('🎓 Diplôme gravé dans la blockchain!\n'+t);}).catch(function(e){alert('Erreur: '+e);});}
+</script>
+"##);
+
+    html.push_str(r#"<div class="card"><h2 style="color:#cc8844;">💡 Savais-tu?</h2><div style="color:#a8c5a8;padding:8px 0;"><b style="color:#d4a437;">Le coq ne dit pas "cocorico".</b> En N-KCOL, il dit TEK-ETCHIIII-TCHAK-OHHHH — 4 lois vivantes. Le son de l'animal qui prévient, observe, coupe, et accueille.</div><div style="color:#a8c5a8;padding:8px 0;"><b style="color:#cc8844;">L'éléphant se souvient des chemins d'eau</b> après des années de sécheresse. Sa mémoire est plus puissante que n'importe quel ordinateur. Il retourne sur les os de ses ancêtres — il honore ses morts.</div><div style="color:#a8c5a8;padding:8px 0;"><b style="color:#ff9966;">L'aigle voit un lapin à 3 km.</b> Il utilise les tempêtes pour monter plus haut au lieu de se cacher. Quand ses plumes vieillissent, il les arrache et pousse de nouvelles.</div><div style="color:#a8c5a8;padding:8px 0;"><b style="color:#44aa44;">Le serpent mue.</b> Il change de peau. Ce qui était vieux part, ce qui est neuf arrive. Le serpent avance en silence — la force tranquille.</div></div>"#);
+
+    html.push_str(r#"<footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🦅 AI Animal — Les Animaux Sont Nos Freres Anciens 💚🦁✨</footer>"#);
+    html.push_str("</body></html>");
+    html
+}
+
 fn html_garage(chain: &Blockchain) -> String {
     let mut html = html_head("Garage AI — Atelier Autonome 2500");
     let num_blocks = chain.blocks.len();
@@ -21508,7 +21644,7 @@ html+='<div class="log-entry log-kill">⚠️ Tentative d\x27infiltration occide
 html+='<div class="log-entry log-invis">✅ L\x27Afrique est forte. Le système grandit.</div>';
 }else if(type==='total'){
 html='<div style="color:#d4a437;font-weight:bold;margin-bottom:8px">📋 RAPPORT TOTAL — Depuis le début</div>';
-html+='<div class="log-entry">🦁 AfriChain v1.21 — AI Spiritualite L Afrique Parlait a Dieu Avant les Livres</div>';
+html+='<div class="log-entry">🦁 AfriChain v1.22 — AI Animal Les Animaux Sont Nos Freres Anciens</div>';
 html+='<div class="log-entry">⛓️ Blockchain: 100% souveraine — Zéro dépendance externe</div>';
 html+='<div class="log-entry">🔐 Crypto: Ed25519 + AfriHash-256/512 + AfriRNG — tout from scratch</div>';
 html+='<div class="log-entry">🌍 54 pays africains connectés</div>';
@@ -23052,7 +23188,7 @@ fn main() {
         .and_then(|i| args.get(i + 1)).cloned().unwrap_or_else(|| "Afrique".to_string());
 
     let my_node_id = generate_node_id();
-    println!("🦁 AfriChain v1.21 — AI Spiritualite L Afrique Parlait a Dieu Avant les Livres");
+    println!("🦁 AfriChain v1.22 — AI Animal Les Animaux Sont Nos Freres Anciens");
     println!("💚 L'Afrique ne demande plus la permission");
     println!("🌍 54 pays — 🇲🇱 🇳🇪 🇧🇫 AES — Mali · Niger · Burkina Faso");
     println!("🔐 8 modules cryptographiques — construits from scratch");
@@ -23240,6 +23376,7 @@ fn main() {
     println!("🌱 AI Racine sur http://localhost:8080/ai-racine");
     println!("🌰 AI Semence sur http://localhost:8080/ai-semence");
     println!("🙏 AI Spiritualite sur http://localhost:8080/ai-spiritualite");
+    println!("🦅 AI Animal sur http://localhost:8080/ai-animal");
 
     // Serveur HTTP en arrière-plan (pour mesh + autres utilisateurs)
     let serve_state = web_state.clone();
@@ -23274,7 +23411,7 @@ fn terminal_interface(state: &Arc<AppState>) {
     println!("  ║  🕐 AfriTime — Pas UTC, pas Greenwich   ║");
     println!("  ║  📝 ~23,100 lignes — écrit à la main       ║");
     println!("  ╚═══════════════════════════════════════════════╝");
-    println!("\n  Version v1.21 — 2 septembre 2026");
+    println!("\n  Version v1.22 — 3 septembre 2026");
     println!("  Construit sur Termux · Android · nano\n");
     println!("  ─────────────────────────────────────────────");
     println!("\n  1. 🏦 Centre de Données (Admin)");
@@ -23346,7 +23483,7 @@ fn admin_interface(state: &Arc<AppState>) {
         println!("\n");
         println!("╔══════════════════════════════════════╗");
         println!("║  🏦 CENTRE DE DONNÉES — Admin       ║");
-        println!("║  🦁 AfriChain v1.21                  ║");
+        println!("║  🦁 AfriChain v1.22                  ║");
         println!("╠══════════════════════════════════════╣");
         let chain = state.chain.lock().unwrap();
         let users = state.users.lock().unwrap();
@@ -27071,6 +27208,11 @@ fn handle_request(req: afri_http::HttpRequest, state: &Arc<AppState>) -> afri_ht
         ("GET", "/ai-spiritualite") => {
             let chain = state.chain.lock().unwrap();
             HttpResponse::ok(&html_ai_spiritualite(&chain))
+        }
+
+        ("GET", "/ai-animal") => {
+            let chain = state.chain.lock().unwrap();
+            HttpResponse::ok(&html_ai_animal(&chain))
         }
 
         ("GET", "/garage") => {
