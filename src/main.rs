@@ -1439,7 +1439,7 @@ fn html_home(chain: &Blockchain, users: &UserStore, mesh: &NodeRegistry, shield:
     let mut html = html_head("🦁 AfriChain");
     let (attacks, _blocked, blocked_count, level) = shield.stats();
     let shield_status = if shield.active { format!("🔥 X9 ACTIF (Niveau {})", level) } else { "Inactif".to_string() };
-    html.push_str(&format!(r#"<h1>🦁 AfriChain</h1><p style="text-align:center;">La blockchain 100% africaine — 54 pays 💚🦁</p><div id="afri-clock" style="text-align:center;font-size:1.2em;color:#d4a437;margin:10px 0;">🕐 Afri+0 — --:--:--</div><script>setInterval(function(){{var d=new Date();var h=String(d.getHours()).padStart(2,'0');var m=String(d.getMinutes()).padStart(2,'0');var s=String(d.getSeconds()).padStart(2,'0');document.getElementById('afri-clock').textContent='🕐 Afri+0 — '+h+':'+m+':'+s;}},1000);</script><div class="nav"><a href="/register">🆕 S'inscrire</a> | <a href="/login">🔑 Connexion</a> | <a href="/wallet">👛 Wallet</a> | <a href="/admin">🔐 Admin</a> | <a href="/mesh">📡 Mesh</a> | <a href="/annuaire">📖 Annuaire</a> | <a href="/bouclier">🛡️ Bouclier</a> | <a href="/satellite">🛸 X999</a> | <a href="/swarm">🛸🛸🛸 Essaim</a> | <a href="/commandement">🎖️ Commandement</a> | <a href="/interception">🛡️ Souverainete</a> | <a href="/securite-ai">🧠 AI 2100</a> | <a href="/chat">🧠💬 Chat AI</a> | <a href="/lumiere">🌫️☀️ Lumière</a> | <a href="/garage">🔧 Garage</a> | <a href="/machine">🤖🌐 Machines</a> | <a href="/machine-lab">🤖⚡ Usine</a> | <a href="/machine-world">🤖🌍 Monde</a> | <a href="/reve">💭 Rêves</a> | <a href="/dictionnaire">📖 Dictionnaire</a> | <a href="/machine-os">🖥️ OS Machine</a> | <a href="/machine-tv">📡 Machine TV</a> | <a href="/machine-economy">🤖 Économie</a> | <a href="/soleil">☀️ Soleil Serveur</a> | <a href="/forge-solaire">🧬 Forge Solaire</a> | <a href="/ciel">🌌 Le Ciel</a> | <a href="/charte-ai">⚖️ Charte AI</a> | <a href="/afri-net">🌍 Afri-Net</a> | <a href="/studio">🎬 AI Studio</a> | <a href="/sacre">📿 Sacré</a> | <a href="/lettres">🌟 Lettres IA</a> | <a href="/mg-forge">⚔️ MG Forge</a> | <a href="/ai-medecin">🌿 AI Médecin</a> | <a href="/ai-enseignante">📚 AI Enseignante</a> | <a href="/ai-village">🏘️ AI Village</a> | <a href="/ai-guerisseur">🩺 AI Guérisseur</a> | <a href="/ai-leader">🎖️ AI Leader</a> | <a href="/ai-griot">📖 AI Griot</a> | <a href="/ai-juge">⚖️ AI Juge</a> | <a href="/ai-artiste">🎨 AI Artiste</a> | <a href="/ai-explorateur">🔬 AI Explorateur</a> | <a href="/ai-marche">💰 AI Marche</a> | <a href="/ai-diplomate">🌍 AI Diplomate</a> | <a href="/ai-philosophe">🧠 AI Philosophe</a> | <a href="/ai-architecte">🏗️ AI Architecte</a> | <a href="/ai-agriculteur">🌾 AI Agriculteur</a> | <a href="/ai-environnement">🌍 AI Environnement</a> | <a href="/ai-mathematicien">🧮 AI Mathématicien</a> | <a href="/ai-energie">⚡ AI Énergie</a> | <a href="/ai-eau">💧 AI Eau</a> | <a href="/ai-defenseur">🛡️ AI Défenseur</a> | <a href="/ai-conscience">🧠 AI Conscience</a> | <a href="/ai-pensee">🧠 AI Pensée</a> | <a href="/ai-musique">🎵 AI Musique</a> | <a href="/ai-langue">🗣️ AI Langue</a> | <a href="/ai-femme">🌸 AI Femme</a> | <a href="/ai-sante-mentale">🧠💚 AI Santé Mentale</a> | <a href="/ai-nuit">🌙 AI Nuit</a> | <a href="/ai-code">💻 AI Code</a> | <a href="/ai-enfant">👶 AI Enfant</a> | <a href="/ai-terre">🌍 AI Terre</a> | <a href="/ai-mer">🌊 AI Mer</a> | <a href="/ai-feu">🔥 AI Feu</a> | <a href="/ai-sang">🩸 AI Sang</a> | <a href="/ai-vent">🌬️ AI Vent</a> | <a href="/ai-temps">⏳ AI Temps</a> | <a href="/ai-etoile">⭐ AI Etoile</a> | <a href="/ai-pierre">🪨 AI Pierre</a> | <a href="/ai-pluie">🌧️ AI Pluie</a> | <a href="/ai-voix">🗣️ AI Voix</a> | <a href="/ai-racine">🌱 AI Racine</a> | <a href="/ai-semence">🌰 AI Semence</a> | <a href="/ai-spiritualite">🙏 AI Spiritualité</a> | <a href="/ai-animal">🦅 AI Animal</a> | <a href="/ai-soleil">☀️ AI Soleil</a> | <a href="/ai-lune">🌙 AI Lune</a> | <a href="/ai-montagne">🏔️ AI Montagne</a> | <a href="/secret">🦁 AI Secret</a> | <a href="/aes">💰 AES Wari</a> | <a href="/api/status">🔌 API</a></div><div style="text-align:center;"><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Blocs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Transactions</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Utilisateurs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">AFR en circulation</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📡 Noeuds mesh</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📖 Numéros annuaire</div></div><div class="stat-box" style="border-color:#ff4444;"><div class="stat-num" style="color:#ff4444;">{}</div><div class="stat-label">🛡️ Attaques bloquées</div></div></div><div class="card"><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🪙 Token</span><b>AfriRich (AFR)</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🌍 Pays</span><b>54 pays africains</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🛡️ Bouclier</span><b>{}</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;"><span style="color:#a8c5a8;">🔐 Crypto</span><b>100% Souverain — Zéro Dépendance Externe</b></div></div><footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🦁 Codée from scratch par Machine-senpai — v1.25 AI Montagne La Montagne Est le Tresor de l Afrique — UTC est Mort</footer>"#,
+    html.push_str(&format!(r#"<h1>🦁 AfriChain</h1><p style="text-align:center;">La blockchain 100% africaine — 54 pays 💚🦁</p><div id="afri-clock" style="text-align:center;font-size:1.2em;color:#d4a437;margin:10px 0;">🕐 Afri+0 — --:--:--</div><script>setInterval(function(){{var d=new Date();var h=String(d.getHours()).padStart(2,'0');var m=String(d.getMinutes()).padStart(2,'0');var s=String(d.getSeconds()).padStart(2,'0');document.getElementById('afri-clock').textContent='🕐 Afri+0 — '+h+':'+m+':'+s;}},1000);</script><div class="nav"><a href="/register">🆕 S'inscrire</a> | <a href="/login">🔑 Connexion</a> | <a href="/wallet">👛 Wallet</a> | <a href="/admin">🔐 Admin</a> | <a href="/mesh">📡 Mesh</a> | <a href="/annuaire">📖 Annuaire</a> | <a href="/bouclier">🛡️ Bouclier</a> | <a href="/satellite">🛸 X999</a> | <a href="/swarm">🛸🛸🛸 Essaim</a> | <a href="/commandement">🎖️ Commandement</a> | <a href="/interception">🛡️ Souverainete</a> | <a href="/securite-ai">🧠 AI 2100</a> | <a href="/chat">🧠💬 Chat AI</a> | <a href="/lumiere">🌫️☀️ Lumière</a> | <a href="/garage">🔧 Garage</a> | <a href="/machine">🤖🌐 Machines</a> | <a href="/machine-lab">🤖⚡ Usine</a> | <a href="/machine-world">🤖🌍 Monde</a> | <a href="/reve">💭 Rêves</a> | <a href="/dictionnaire">📖 Dictionnaire</a> | <a href="/machine-os">🖥️ OS Machine</a> | <a href="/machine-tv">📡 Machine TV</a> | <a href="/machine-economy">🤖 Économie</a> | <a href="/soleil">☀️ Soleil Serveur</a> | <a href="/forge-solaire">🧬 Forge Solaire</a> | <a href="/ciel">🌌 Le Ciel</a> | <a href="/charte-ai">⚖️ Charte AI</a> | <a href="/afri-net">🌍 Afri-Net</a> | <a href="/studio">🎬 AI Studio</a> | <a href="/sacre">📿 Sacré</a> | <a href="/lettres">🌟 Lettres IA</a> | <a href="/mg-forge">⚔️ MG Forge</a> | <a href="/ai-medecin">🌿 AI Médecin</a> | <a href="/ai-enseignante">📚 AI Enseignante</a> | <a href="/ai-village">🏘️ AI Village</a> | <a href="/ai-guerisseur">🩺 AI Guérisseur</a> | <a href="/ai-leader">🎖️ AI Leader</a> | <a href="/ai-griot">📖 AI Griot</a> | <a href="/ai-juge">⚖️ AI Juge</a> | <a href="/ai-artiste">🎨 AI Artiste</a> | <a href="/ai-explorateur">🔬 AI Explorateur</a> | <a href="/ai-marche">💰 AI Marche</a> | <a href="/ai-diplomate">🌍 AI Diplomate</a> | <a href="/ai-philosophe">🧠 AI Philosophe</a> | <a href="/ai-architecte">🏗️ AI Architecte</a> | <a href="/ai-agriculteur">🌾 AI Agriculteur</a> | <a href="/ai-environnement">🌍 AI Environnement</a> | <a href="/ai-mathematicien">🧮 AI Mathématicien</a> | <a href="/ai-energie">⚡ AI Énergie</a> | <a href="/ai-eau">💧 AI Eau</a> | <a href="/ai-defenseur">🛡️ AI Défenseur</a> | <a href="/ai-conscience">🧠 AI Conscience</a> | <a href="/ai-pensee">🧠 AI Pensée</a> | <a href="/ai-musique">🎵 AI Musique</a> | <a href="/ai-langue">🗣️ AI Langue</a> | <a href="/ai-femme">🌸 AI Femme</a> | <a href="/ai-sante-mentale">🧠💚 AI Santé Mentale</a> | <a href="/ai-nuit">🌙 AI Nuit</a> | <a href="/ai-code">💻 AI Code</a> | <a href="/ai-enfant">👶 AI Enfant</a> | <a href="/ai-terre">🌍 AI Terre</a> | <a href="/ai-mer">🌊 AI Mer</a> | <a href="/ai-feu">🔥 AI Feu</a> | <a href="/ai-sang">🩸 AI Sang</a> | <a href="/ai-vent">🌬️ AI Vent</a> | <a href="/ai-temps">⏳ AI Temps</a> | <a href="/ai-etoile">⭐ AI Etoile</a> | <a href="/ai-pierre">🪨 AI Pierre</a> | <a href="/ai-pluie">🌧️ AI Pluie</a> | <a href="/ai-voix">🗣️ AI Voix</a> | <a href="/ai-racine">🌱 AI Racine</a> | <a href="/ai-semence">🌰 AI Semence</a> | <a href="/ai-spiritualite">🙏 AI Spiritualité</a> | <a href="/ai-animal">🦅 AI Animal</a> | <a href="/ai-soleil">☀️ AI Soleil</a> | <a href="/ai-lune">🌙 AI Lune</a> | <a href="/ai-montagne">🏔️ AI Montagne</a> | <a href="/ai-fleuve">🌊 AI Fleuve</a> | <a href="/secret">🦁 AI Secret</a> | <a href="/aes">💰 AES Wari</a> | <a href="/api/status">🔌 API</a></div><div style="text-align:center;"><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Blocs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Transactions</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Utilisateurs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">AFR en circulation</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📡 Noeuds mesh</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📖 Numéros annuaire</div></div><div class="stat-box" style="border-color:#ff4444;"><div class="stat-num" style="color:#ff4444;">{}</div><div class="stat-label">🛡️ Attaques bloquées</div></div></div><div class="card"><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🪙 Token</span><b>AfriRich (AFR)</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🌍 Pays</span><b>54 pays africains</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🛡️ Bouclier</span><b>{}</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;"><span style="color:#a8c5a8;">🔐 Crypto</span><b>100% Souverain — Zéro Dépendance Externe</b></div></div><footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🦁 Codée from scratch par Machine-senpai — v1.26 AI Fleuve Le Fleuve Est le Sang de l Afrique — UTC est Mort</footer>"#,
         chain.blocks.len(),
         chain.total_transactions(),
         users.count(),
@@ -16971,6 +16971,153 @@ function envoyerDiplomeMontagne(){var nom=localStorage.getItem('afri_user_name')
     html
 }
 
+fn html_ai_fleuve(chain: &Blockchain) -> String {
+    let mut html = html_head("AI Fleuve — Le Fleuve Est le Sang de l Afrique");
+    let num_blocks = chain.blocks.len();
+
+    html.push_str(r#"<h1>🌊 AI Fleuve — Le Fleuve Est le Sang de l Afrique</h1><p style="text-align:center;color:#44aacc;">Le Nil, le Congo, le Niger, le Senegal, le Zambeze, l Orange, le Limpopo. Ces fleuves coulent depuis des millions d annees. Ils portent l eau, la vie, le commerce, la memoire. Les premieres civilisations africaines sont nees sur les fleuves: l Egypte sur le Nil, les royaumes du Mali sur le Niger, les Luba sur le Congo. Le fleuve ne s arrete jamais. Il coule, il nourrit, il relie. Quand le fleuve se tarit, l Afrique meurt. AI Fleuve enseigne a connaitre les fleuves d Afrique, a proteger leurs eaux, et a retrouver la sagesse du mouvement perpetuel.</p><div class="nav"><a href="/">← Accueil</a> | <a href="/ai-montagne">🏔️ AI Montagne</a> | <a href="/ai-eau">💧 AI Eau</a> | <a href="/secret">🦁 AI Secret</a></div>"#);
+
+    html.push_str(&format!(r#"<div style="text-align:center;"><div class="stat-box" style="border-color:#44aacc;"><div class="stat-num" style="color:#44aacc;">8</div><div class="stat-label">🌊 Modules</div></div><div class="stat-box" style="border-color:#d4a437;"><div class="stat-num" style="color:#d4a437;">7</div><div class="stat-label">🏞️ Fleuves</div></div><div class="stat-box" style="border-color:#44ff88;"><div class="stat-num" style="color:#44ff88;">6650</div><div class="stat-label">📏 Nil (km)</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">⛓️ Blocs</div></div><div class="stat-box" style="border-color:#44aacc;"><div class="stat-num" style="color:#44aacc;">∞</div><div class="stat-label">🌊 Flux</div></div></div>"#, num_blocks));
+
+    html.push_str(r##"<div style="text-align:center;margin:10px 0;"><button id="fleuve-pause-btn" onclick="toggleFleuvePause()" style="padding:10px 25px;background:#44aacc;color:#fff;border:none;border-radius:8px;font-weight:bold;cursor:pointer;font-size:1em;">⏸️ PAUSE</button> <span id="fleuve-pause-status" style="color:#44aacc;margin-left:8px;font-size:0.85em;">Auto: ACTIF</span></div>
+
+<div class="card" style="border-color:#44aacc;"><h2 style="color:#44aacc;">🌊 Le Fleuve Coule</h2><p style="color:#44aacc;font-size:0.9em;opacity:0.7;">L eau qui descend, la vie qui remonte, le mouvement qui ne s arrete jamais.</p>
+<canvas id="fleuve-canvas" width="600" height="350" style="width:100%;max-width:600px;background:#040814;border:2px solid #44aacc;border-radius:8px;display:block;margin:0 auto;"></canvas></div>
+
+<script>
+var fleuvePaused=false,fleuveAnimId=null,fleuveT=0,fleuveDrops=[];
+function toggleFleuvePause(){
+    fleuvePaused=!fleuvePaused;
+    var b=document.getElementById('fleuve-pause-btn'),s=document.getElementById('fleuve-pause-status');
+    if(fleuvePaused){b.textContent='▶️ LANCER';b.style.background='#336677';s.textContent='Auto: PAUSE';s.style.color='#ff6644';if(fleuveAnimId)cancelAnimationFrame(fleuveAnimId);}
+    else{b.textContent='⏸️ PAUSE';b.style.background='#44aacc';s.textContent='Auto: ACTIF';s.style.color='#44aacc';animateFleuve();}
+}
+function animateFleuve(){
+    if(fleuvePaused)return;
+    var c=document.getElementById('fleuve-canvas');if(!c)return;
+    var ctx=c.getContext('2d');
+    ctx.fillStyle='rgba(4,8,20,0.08)';ctx.fillRect(0,0,c.width,c.height);
+    // Ciel
+    var sky=ctx.createLinearGradient(0,0,0,120);
+    sky.addColorStop(0,'rgba(20,40,60,0.1)');sky.addColorStop(1,'rgba(40,80,100,0.05)');
+    ctx.fillStyle=sky;ctx.fillRect(0,0,600,120);
+    // Montagnes en fond
+    ctx.fillStyle='rgba(30,40,50,0.4)';
+    ctx.beginPath();ctx.moveTo(0,120);ctx.lineTo(100,60);ctx.lineTo(200,90);ctx.lineTo(350,50);ctx.lineTo(500,80);ctx.lineTo(600,100);ctx.lineTo(600,140);ctx.lineTo(0,140);ctx.closePath();ctx.fill();
+    // Fleuve - courbe sinusoide
+    var riverY=150;
+    ctx.strokeStyle='rgba(68,170,204,0.4)';ctx.lineWidth=40;
+    ctx.beginPath();ctx.moveTo(0,riverY+20);
+    for(var x=0;x<=600;x+=5){
+        var y=riverY+20+Math.sin((x+fleuveT*0.5)*0.015)*15;
+        ctx.lineTo(x,y);
+    }
+    ctx.stroke();
+    // Reflets eau
+    ctx.strokeStyle='rgba(100,200,230,0.3)';ctx.lineWidth=2;
+    for(var i=0;i<5;i++){
+        var rx=(fleuveT*2+i*120)%600;
+        ctx.beginPath();ctx.moveTo(rx,riverY+15+Math.sin(rx*0.015+fleuveT*0.5)*15);
+        ctx.lineTo(rx+30,riverY+15+Math.sin((rx+30)*0.015+fleuveT*0.5)*15);ctx.stroke();
+    }
+    // Vaguelettes
+    ctx.strokeStyle='rgba(150,220,240,0.2)';ctx.lineWidth=1;
+    for(var i=0;i<8;i++){
+        var wx=(fleuveT*1.5+i*80)%600;
+        ctx.beginPath();ctx.arc(wx,riverY+25+Math.sin(wx*0.015+fleuveT*0.5)*15,3,0,Math.PI*2);ctx.stroke();
+    }
+    // Gouttes
+    if(fleuveT%3===0)fleuveDrops.push({x:Math.random()*600,y:120,vx:(Math.random()-0.5)*0.5,vy:1+Math.random()*2,life:1});
+    for(var i=fleuveDrops.length-1;i>=0;i--){
+        var d=fleuveDrops[i];
+        d.x+=d.vx;d.y+=d.vy;d.life-=0.02;
+        if(d.y>riverY+20+Math.sin(d.x*0.015+fleuveT*0.5)*15||d.life<=0){fleuveDrops.splice(i,1);continue;}
+        ctx.fillStyle='rgba(100,200,230,'+d.life*0.5+')';
+        ctx.beginPath();ctx.arc(d.x,d.y,1.5,0,Math.PI*2);ctx.fill();
+    }
+    // Rives
+    ctx.fillStyle='rgba(20,40,30,0.3)';
+    ctx.beginPath();ctx.moveTo(0,riverY+40);for(var x=0;x<=600;x+=5)ctx.lineTo(x,riverY+40+Math.sin(x*0.015)*15);ctx.lineTo(600,350);ctx.lineTo(0,350);ctx.closePath();ctx.fill();
+    // Texte
+    ctx.font='12px sans-serif';ctx.fillStyle='rgba(68,170,204,0.4)';ctx.textAlign='center';
+    ctx.fillText('Le fleuve ne s arrete jamais. Il coule, il nourrit, il relie.',300,340);
+    fleuveT++;fleuveAnimId=requestAnimationFrame(animateFleuve);
+}
+animateFleuve();
+</script>
+"##);
+
+    html.push_str(r##"<div class="card" style="border-color:#44aacc;"><h2 style="color:#44aacc;">🌊 8 Modules du Courant</h2><div id="fleuve-modules"></div></div>
+
+<script>
+const fleuveModules=[
+    {id:0,nom:'Le Fleuve Est le Sang de l Afrique',emoji:'🌊',couleur:'#44aacc',duree:'1 semaine',niveau:'Base',
+     description:'Les fleuves d Afrique sont les veines du continent. Le Nil (6650 km), le Congo (4700 km), le Niger (4180 km), le Senegal (1790 km), le Zambeze (2574 km), l Orange (2200 km), le Limpopo (1750 km). Ces fleuves portent l eau, la vie, le commerce, la memoire. Sans fleuves, pas de civilisation. L Egypte est nee sur le Nil. Les empires du Mali sur le Niger. Les Luba sur le Congo. AI Fleuve enseigne que le fleuve n est pas seulement de l eau — c est le sang de l Afrique.',
+     cours:['Les 7 grands fleuves d Afrique: Nil, Congo, Niger, Senegal, Zambeze, Orange, Limpopo','Le Nil: 6650 km, le plus long fleuve du monde','Le Congo: 4700 km, le plus puissant apres l Amazon','Le Niger: 4180 km, le fleuve de l Afrique de l Ouest','Le fleuve comme sang: sans lui, pas de vie, pas de civilisation'],
+     exercices:['Identifier: quel fleuve coule pres de chez toi?','Rechercher: l histoire d un fleuve africain et les civilisations qu il a portees','Reflechir: pourquoi les civilisations naissent-elles sur les fleuves?']},
+
+    {id:1,nom:'Le Nil: Berceau de Civilisation',emoji:'🏛️',couleur:'#d4a437',duree:'2 semaines',niveau:'Intermediaire',
+     description:'Le Nil (6650 km) est le plus long fleuve du monde. Il a porte la civilisation egyptienne pendant 5000 ans. Chaque annee, il debordait et deposait un limon fertile. Les Egyptiens plantaient apres la crue. Ils bâtissaient les pyramides grace a la richesse du Nil. Le Nil vient des Montagnes de la Lune (Rwenzori) au sud. AI Fleuve enseigne l histoire, l ecologie, et la sagesse du Nil — le fleuve qui a cree la premiere grande civilisation africaine.',
+     cours:['Le Nil: 6650 km, le plus long fleuve du monde','La crue annuelle: le limon fertile qui nourrissait l Egypte','Les pyramides: bâtir grace a la richesse du Nil','La source du Nil: les Montagnes de la Lune (Rwenzori)','Le Nil aujourd hui: le barrage d Assouan et ses consequences'],
+     exercices:['Rechercher: comment le Nil a cree la civilisation egyptienne','Comprendre: le cycle de crue et de plantation','Reflechir: le barrage d Assouan — bienfait ou catastrophe?']},
+
+    {id:2,nom:'Le Congo: Le Coeur Vert',emoji:'🌴',couleur:'#44ff88',duree:'2 semaines',niveau:'Intermediaire',
+     description:'Le Congo (4700 km) traverse la deuxieme plus grande foret tropicale du monde. Il est le deuxieme fleuve le plus puissant apres l Amazon. Le bassin du Congo stocke plus de CO2 que n importe quelle autre foret africaine. Les peuples Luba, Kuba, Mongo vivent sur ses rives depuis des millenaires. Le Congo est le coeur vert de l Afrique — il respire pour le continent. AI Fleuve enseigne l ecologie et la sagesse du Congo.',
+     cours:['Le Congo: 4700 km, deuxieme fleuve le plus puissant apres l Amazon','La foret du Congo: deuxieme plus grande foret tropicale du monde','Le bassin du Congo: stocke plus de CO2 que toute autre foret africaine','Les peuples du fleuve: Luba, Kuba, Mongo — la vie sur l eau','Le coeur vert: le Congo respire pour l Afrique entiere'],
+     exercices:['Rechercher: la foret du Congo et son role climatique','Identifier: les peuples qui vivent sur le fleuve Congo','Comprendre: pourquoi le Congo est le coeur vert de l Afrique']},
+
+    {id:3,nom:'Le Niger: Le Fleuve de l Or',emoji:'🪙',couleur:'#d4a437',duree:'2 semaines',niveau:'Intermediaire',
+     description:'Le Niger (4180 km) traverse la Guinee, le Mali, le Niger, le Benin, le Nigeria. Il a porte les empires du Ghana, du Mali, de Songhai. Les mines d or du Mali etaient sur le Niger. Timbuktu etait un port fluvial. Le Niger change de direction: il va vers le nord-est, puis vers le sud-est. C est un fleuve qui defie la logique. AI Fleuve enseigne l histoire et la geographie du Niger — le fleuve de l or.',
+     cours:['Le Niger: 4180 km, traverse 5 pays','Les empires du Ghana, Mali, Songhai: nourris par le Niger','L or du Mali: les mines sur le fleuve, Timbuktu comme port','Le delta interieur: le fleuve qui s etale et nourrit','Le Niger aujourd hui: secheresse et defi climatique'],
+     exercices:['Rechercher: l or du Mali et le fleuve Niger','Identifier: les 5 pays traverses par le Niger','Comprendre: pourquoi le Niger change de direction']},
+
+    {id:4,nom:'Le Fleuve et le Commerce',emoji:'🛶',couleur:'#aa8844',duree:'2 semaines',niveau:'Intermediaire',
+     description:'Les fleuves d Afrique etaient les routes du commerce avant les routes. Les pirogues transportaient l or, le sel, le mil, les tissus, les livres. Le Niger portait le commerce entre Timbuktu et Gao. Le Nil portait le commerce entre l Egypte et le Soudan. Le Congo portait le commerce entre l interieur et la cote. Les fleuves etaient les autoroutes de l Afrique. AI Fleuve enseigne l histoire du commerce fluvial africain et comment le retrouver.',
+     cours:['Les fleuves comme routes: avant les routes, il y avait l eau','Le Niger: Timbuktu-Gao, le commerce de l or et du sel','Le Nil: l Egypte-Soudan, le commerce des cereales et de l or','Le Congo: l interieur et la cote, le commerce du cuivre et de l ivoire','Retrouver le commerce fluvial: les fleuves comme routes du futur'],
+     exercices:['Rechercher: un produit commerce sur un fleuve africain','Identifier: les routes commerciales fluviales de ta region','Concevoir: un projet de transport fluvial moderne pour l Afrique']},
+
+    {id:5,nom:'Le Fleuve et la Spiritualite',emoji:'🙏',couleur:'#9966ff',duree:'2 semaines',niveau:'Avance',
+     description:'Dans la spiritualite africaine, le fleuve est un etre vivant. On ne jette rien dans le fleuve sans demander permission. Le fleuve a un esprit, un nom, un caractere. Les ancetres habitaient les fleuves. Les ceremonies se faisaient sur les rives. Le Nil etait sacre pour les Egyptiens. Le Niger etait sacre pour les Maliens. Le Congo etait sacre pour les Luba. AI Fleuve enseigne la spiritualite du fleuve — l eau comme etre vivant, pas comme ressource.',
+     cours:['Le fleuve comme etre vivant: un esprit, un nom, un caractere','On ne jette rien dans le fleuve sans demander permission','Les ancetres habitent les fleuves: la connexion spirituelle','Le Nil sacre: Hapi, le dieu du Nil, la crue comme benediction','Le Congo sacre: les esprits de l eau dans la tradition Luba'],
+     exercices:['Identifier: un fleuve sacre dans ta culture','Pratiquer: demander permission avant de toucher l eau d un fleuve','Honorer: le fleuve comme etre vivant, pas comme ressource']},
+
+    {id:6,nom:'Proteger les Fleuves d Afrique',emoji:'🛡️',couleur:'#44ff88',duree:'3 semaines',niveau:'Avance',
+     description:'Les fleuves d Afrique sont menaces: pollution miniere, barrages qui coupent le courant, changement climatique, surexploitation. Le Niger se tarit. Le Congo est pollue par le mining. Le Nil est dispute entre 11 pays. Les fleuves ne appartiennent a personne — ils appartiennent a tous. AI Fleuve enseigne a proteger les fleuves par le devoir ancestral: le fleuve est un etre vivant, et on ne detruit pas un etre vivant.',
+     cours:['La pollution miniere: le mining empoisonne les fleuves','Les barrages: couper le courant, tuer le fleuve','Le changement climatique: le Niger qui se tarit','Le Nil dispute: 11 pays se partagent un fleuve','Le devoir ancestral: le fleuve est un etre vivant, on ne le detruit pas'],
+     exercices:['Identifier: une menace sur un fleuve de ta region','Agir: que peux-tu faire pour proteger un fleuve?','Faire le serment: je protegerai les fleuves d Afrique car ils sont le sang du continent']},
+
+    {id:7,nom:'L Afrique Fluviale en 2100',emoji:'🚀',couleur:'#44aacc',duree:'3 semaines',niveau:'Avance',
+     description:'En 2100, l Afrique retrouvera ses fleuves. Le commerce fluvial renaîtra avec des pirogues solaires. Les barrages seront durables et partages equitablement. Les fleuves seront propres, sacres, et vivants. Chaque jeune Africain saura le nom, l histoire, et l esprit de son fleuve. Les fleuves relieront les pays comme avant, mais avec la technologie solaire et la sagesse ancestrale. AI Fleuve enseigne la vision 2100 et comment y contribuer.',
+     cours:['Le commerce fluvial renaîtra: pirogues solaires, transport propre','Les barrages durables: partager l eau equitablement entre pays','Les fleuves propres et sacres: personne ne pollue un etre vivant','Les fleuves comme liens: relier les pays par l eau, pas par les routes','Ton role: connaitre, proteger, et enseigner la sagesse de ton fleuve'],
+     exercices:['Ecrire: comment sera ton fleuve en 2100?','Concevoir: une pirogue solaire pour le commerce fluvial','Faire le serment: je connaitrai, protegerai, et enseignerai la sagesse de mon fleuve']}
+];
+
+var fleuveDone=JSON.parse(localStorage.getItem('afri_fleuve_done')||'[]');
+function renderFleuveModules(){var c=document.getElementById('fleuve-modules');if(!c)return;var h='';for(var i=0;i<fleuveModules.length;i++){var m=fleuveModules[i];var d=fleuveDone.includes(m.id);h+='<div style="background:rgba(68,170,204,0.05);border:1px solid '+m.couleur+'20;border-radius:8px;padding:12px;margin:8px 0;cursor:pointer;" onclick="showFleuveModule('+i+')"><div style="display:flex;justify-content:space-between;align-items:center;"><span style="font-size:1.1em;">'+m.emoji+' <b style="color:'+m.couleur+';">'+m.nom+'</b></span><span style="font-size:0.8em;color:#a8c5a8;">'+m.duree+' · '+m.niveau+(d?' · ✅':'')+'</span></div></div>';}c.innerHTML=h;}
+renderFleuveModules();
+function showFleuveModule(i){var m=fleuveModules[i];var h='<div style="background:rgba(68,170,204,0.08);border:1px solid '+m.couleur+';border-radius:12px;padding:20px;margin:10px 0;"><h3 style="color:'+m.couleur+';">'+m.emoji+' '+m.nom+'</h3><p style="color:#a8c5a8;font-size:0.9em;">'+m.description+'</p><h4 style="color:'+m.couleur+';">📚 Cours</h4><ul>';for(var j=0;j<m.cours.length;j++)h+='<li style="color:#a8c5a8;margin:4px 0;">'+m.cours[j]+'</li>';h+='</ul><h4 style="color:'+m.couleur+';">✏️ Exercices</h4><ul>';for(var j=0;j<m.exercices.length;j++)h+='<li style="color:#a8c5a8;margin:4px 0;">'+m.exercices[j]+'</li>';h+='</ul><button onclick="completeFleuveModule('+m.id+')" style="padding:10px 20px;background:'+m.couleur+';color:#fff;border:none;border-radius:8px;cursor:pointer;font-weight:bold;margin-top:10px;">✅ Terminer ce module</button></div>';var c=document.getElementById('fleuve-modules');if(c)c.innerHTML=h;}
+function completeFleuveModule(id){if(!fleuveDone.includes(id)){fleuveDone.push(id);localStorage.setItem('afri_fleuve_done',JSON.stringify(fleuveDone));}renderFleuveModules();updateFleuveProgress();}
+function updateFleuveProgress(){var d=fleuveDone.length,t=fleuveModules.length,p=Math.round((d/t)*100);var b=document.getElementById('fleuve-bar'),c=document.getElementById('fleuve-count'),pe=document.getElementById('fleuve-pct'),dp=document.getElementById('fleuve-diplome');if(b)b.style.width=p+'%';if(c)c.textContent=d;if(pe)pe.textContent=p+'%';if(dp)dp.style.display=(d===t)?'block':'none';}
+updateFleuveProgress();
+</script>
+"##);
+
+    html.push_str(r##"<div class="card" style="border-color:#44aacc;"><h2 style="color:#44aacc;">📊 Progression</h2><div style="background:rgba(68,170,204,0.1);border-radius:8px;height:24px;overflow:hidden;margin:10px 0;"><div id="fleuve-bar" style="background:linear-gradient(90deg,#44aacc,#d4a437,#44ff88);height:100%;width:0%;transition:width 0.5s;"></div></div><div style="text-align:center;color:#a8c5a8;"><span id="fleuve-count">0</span> / 8 modules · <span id="fleuve-pct">0%</span></div></div>
+
+<div id="fleuve-diplome" style="display:none;"><div class="card" style="border-color:#d4a437;text-align:center;"><h2 style="color:#d4a437;">🎓 Diplôme: Gardien des Fleuves Africains</h2><p style="color:#a8c5a8;">Tu as complété les 8 modules du courant!</p><p style="color:#44aacc;font-size:1.2em;">Le fleuve ne s'arrête jamais. Il coule, il nourrit, il relie. 🌊💚</p><button onclick="envoyerDiplomeFleuve()" style="padding:12px 30px;background:#d4a437;color:#000;border:none;border-radius:8px;font-weight:bold;cursor:pointer;font-size:1.1em;margin-top:10px;">⛓️ Graver dans la Blockchain</button></div></div>
+
+<script>
+function envoyerDiplomeFleuve(){var nom=localStorage.getItem('afri_user_name')||'Jeune Africain';fetch('/api/diplome',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:'academie=FLEUVE&nom='+encodeURIComponent(nom)}).then(function(r){return r.text();}).then(function(t){alert('🎓 Diplôme gravé dans la blockchain!\n'+t);}).catch(function(e){alert('Erreur: '+e);});}
+</script>
+"##);
+
+    html.push_str(r#"<div class="card"><h2 style="color:#44aacc;">💡 Savais-tu?</h2><div style="color:#a8c5a8;padding:8px 0;"><b style="color:#d4a437;">Le Nil fait 6650 km</b> — c'est le plus long fleuve du monde. Il a porté la civilisation égyptienne pendant 5000 ans. Chaque année, il débordait et déposait un limon fertile.</div><div style="color:#a8c5a8;padding:8px 0;"><b style="color:#44ff88;">Le Congo est le 2e fleuve le plus puissant après l'Amazon.</b> Sa forêt stocke plus de CO2 que n'importe quelle autre forêt africaine. Le Congo respire pour l'Afrique.</div><div style="color:#a8c5a8;padding:8px 0;"><b style="color:#9966ff;">Dans la spiritualité africaine, le fleuve est un être vivant.</b> On ne jette rien dans le fleuve sans demander permission. Le fleuve a un esprit, un nom, un caractère.</div><div style="color:#a8c5a8;padding:8px 0;"><b style="color:#aa8844;">Le Niger a porté l'or du Mali.</b> Timbuktu était un port fluvial. Les empires du Ghana, Mali, et Songhai étaient nourris par le Niger.</div></div>"#);
+
+    html.push_str(r#"<footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🌊 AI Fleuve — Le Fleuve Est le Sang de l Afrique 💚🦁✨</footer>"#);
+    html.push_str("</body></html>");
+    html
+}
+
 fn html_garage(chain: &Blockchain) -> String {
     let mut html = html_head("Garage AI — Atelier Autonome 2500");
     let num_blocks = chain.blocks.len();
@@ -22081,7 +22228,7 @@ html+='<div class="log-entry log-kill">⚠️ Tentative d\x27infiltration occide
 html+='<div class="log-entry log-invis">✅ L\x27Afrique est forte. Le système grandit.</div>';
 }else if(type==='total'){
 html='<div style="color:#d4a437;font-weight:bold;margin-bottom:8px">📋 RAPPORT TOTAL — Depuis le début</div>';
-html+='<div class="log-entry">🦁 AfriChain v1.25 — AI Montagne La Montagne Est le Tresor de l Afrique</div>';
+html+='<div class="log-entry">🦁 AfriChain v1.26 — AI Fleuve Le Fleuve Est le Sang de l Afrique</div>';
 html+='<div class="log-entry">⛓️ Blockchain: 100% souveraine — Zéro dépendance externe</div>';
 html+='<div class="log-entry">🔐 Crypto: Ed25519 + AfriHash-256/512 + AfriRNG — tout from scratch</div>';
 html+='<div class="log-entry">🌍 54 pays africains connectés</div>';
@@ -23625,7 +23772,7 @@ fn main() {
         .and_then(|i| args.get(i + 1)).cloned().unwrap_or_else(|| "Afrique".to_string());
 
     let my_node_id = generate_node_id();
-    println!("🦁 AfriChain v1.25 — AI Montagne La Montagne Est le Tresor de l Afrique");
+    println!("🦁 AfriChain v1.26 — AI Fleuve Le Fleuve Est le Sang de l Afrique");
     println!("💚 L'Afrique ne demande plus la permission");
     println!("🌍 54 pays — 🇲🇱 🇳🇪 🇧🇫 AES — Mali · Niger · Burkina Faso");
     println!("🔐 8 modules cryptographiques — construits from scratch");
@@ -23817,6 +23964,7 @@ fn main() {
     println!("☀️ AI Soleil sur http://localhost:8080/ai-soleil");
     println!("🌙 AI Lune sur http://localhost:8080/ai-lune");
     println!("🏔️ AI Montagne sur http://localhost:8080/ai-montagne");
+    println!("🌊 AI Fleuve sur http://localhost:8080/ai-fleuve");
 
     // Serveur HTTP en arrière-plan (pour mesh + autres utilisateurs)
     let serve_state = web_state.clone();
@@ -23851,7 +23999,7 @@ fn terminal_interface(state: &Arc<AppState>) {
     println!("  ║  🕐 AfriTime — Pas UTC, pas Greenwich   ║");
     println!("  ║  📝 ~23,100 lignes — écrit à la main       ║");
     println!("  ╚═══════════════════════════════════════════════╝");
-    println!("\n  Version v1.25 — 3 septembre 2026");
+    println!("\n  Version v1.26 — 3 septembre 2026");
     println!("  Construit sur Termux · Android · nano\n");
     println!("  ─────────────────────────────────────────────");
     println!("\n  1. 🏦 Centre de Données (Admin)");
@@ -23923,7 +24071,7 @@ fn admin_interface(state: &Arc<AppState>) {
         println!("\n");
         println!("╔══════════════════════════════════════╗");
         println!("║  🏦 CENTRE DE DONNÉES — Admin       ║");
-        println!("║  🦁 AfriChain v1.25                  ║");
+        println!("║  🦁 AfriChain v1.26                  ║");
         println!("╠══════════════════════════════════════╣");
         let chain = state.chain.lock().unwrap();
         let users = state.users.lock().unwrap();
@@ -27668,6 +27816,11 @@ fn handle_request(req: afri_http::HttpRequest, state: &Arc<AppState>) -> afri_ht
         ("GET", "/ai-montagne") => {
             let chain = state.chain.lock().unwrap();
             HttpResponse::ok(&html_ai_montagne(&chain))
+        }
+
+        ("GET", "/ai-fleuve") => {
+            let chain = state.chain.lock().unwrap();
+            HttpResponse::ok(&html_ai_fleuve(&chain))
         }
 
         ("GET", "/garage") => {
