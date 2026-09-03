@@ -1439,7 +1439,7 @@ fn html_home(chain: &Blockchain, users: &UserStore, mesh: &NodeRegistry, shield:
     let mut html = html_head("🦁 AfriChain");
     let (attacks, _blocked, blocked_count, level) = shield.stats();
     let shield_status = if shield.active { format!("🔥 X9 ACTIF (Niveau {})", level) } else { "Inactif".to_string() };
-    html.push_str(&format!(r#"<h1>🦁 AfriChain</h1><p style="text-align:center;">La blockchain 100% africaine — 54 pays 💚🦁</p><div id="afri-clock" style="text-align:center;font-size:1.2em;color:#d4a437;margin:10px 0;">🕐 Afri+0 — --:--:--</div><script>setInterval(function(){{var d=new Date();var h=String(d.getHours()).padStart(2,'0');var m=String(d.getMinutes()).padStart(2,'0');var s=String(d.getSeconds()).padStart(2,'0');document.getElementById('afri-clock').textContent='🕐 Afri+0 — '+h+':'+m+':'+s;}},1000);</script><div class="nav"><a href="/register">🆕 S'inscrire</a> | <a href="/login">🔑 Connexion</a> | <a href="/wallet">👛 Wallet</a> | <a href="/admin">🔐 Admin</a> | <a href="/mesh">📡 Mesh</a> | <a href="/annuaire">📖 Annuaire</a> | <a href="/bouclier">🛡️ Bouclier</a> | <a href="/satellite">🛸 X999</a> | <a href="/swarm">🛸🛸🛸 Essaim</a> | <a href="/commandement">🎖️ Commandement</a> | <a href="/interception">🛡️ Souverainete</a> | <a href="/securite-ai">🧠 AI 2100</a> | <a href="/chat">🧠💬 Chat AI</a> | <a href="/lumiere">🌫️☀️ Lumière</a> | <a href="/garage">🔧 Garage</a> | <a href="/machine">🤖🌐 Machines</a> | <a href="/machine-lab">🤖⚡ Usine</a> | <a href="/machine-world">🤖🌍 Monde</a> | <a href="/reve">💭 Rêves</a> | <a href="/dictionnaire">📖 Dictionnaire</a> | <a href="/machine-os">🖥️ OS Machine</a> | <a href="/machine-tv">📡 Machine TV</a> | <a href="/machine-economy">🤖 Économie</a> | <a href="/soleil">☀️ Soleil Serveur</a> | <a href="/forge-solaire">🧬 Forge Solaire</a> | <a href="/ciel">🌌 Le Ciel</a> | <a href="/charte-ai">⚖️ Charte AI</a> | <a href="/afri-net">🌍 Afri-Net</a> | <a href="/studio">🎬 AI Studio</a> | <a href="/sacre">📿 Sacré</a> | <a href="/lettres">🌟 Lettres IA</a> | <a href="/mg-forge">⚔️ MG Forge</a> | <a href="/ai-medecin">🌿 AI Médecin</a> | <a href="/ai-enseignante">📚 AI Enseignante</a> | <a href="/ai-village">🏘️ AI Village</a> | <a href="/ai-guerisseur">🩺 AI Guérisseur</a> | <a href="/ai-leader">🎖️ AI Leader</a> | <a href="/ai-griot">📖 AI Griot</a> | <a href="/ai-juge">⚖️ AI Juge</a> | <a href="/ai-artiste">🎨 AI Artiste</a> | <a href="/ai-explorateur">🔬 AI Explorateur</a> | <a href="/ai-marche">💰 AI Marche</a> | <a href="/ai-diplomate">🌍 AI Diplomate</a> | <a href="/ai-philosophe">🧠 AI Philosophe</a> | <a href="/ai-architecte">🏗️ AI Architecte</a> | <a href="/ai-agriculteur">🌾 AI Agriculteur</a> | <a href="/ai-environnement">🌍 AI Environnement</a> | <a href="/ai-mathematicien">🧮 AI Mathématicien</a> | <a href="/ai-energie">⚡ AI Énergie</a> | <a href="/ai-eau">💧 AI Eau</a> | <a href="/ai-defenseur">🛡️ AI Défenseur</a> | <a href="/ai-conscience">🧠 AI Conscience</a> | <a href="/ai-pensee">🧠 AI Pensée</a> | <a href="/ai-musique">🎵 AI Musique</a> | <a href="/ai-langue">🗣️ AI Langue</a> | <a href="/ai-femme">🌸 AI Femme</a> | <a href="/ai-sante-mentale">🧠💚 AI Santé Mentale</a> | <a href="/ai-nuit">🌙 AI Nuit</a> | <a href="/ai-code">💻 AI Code</a> | <a href="/ai-enfant">👶 AI Enfant</a> | <a href="/ai-terre">🌍 AI Terre</a> | <a href="/ai-mer">🌊 AI Mer</a> | <a href="/ai-feu">🔥 AI Feu</a> | <a href="/ai-sang">🩸 AI Sang</a> | <a href="/ai-vent">🌬️ AI Vent</a> | <a href="/ai-temps">⏳ AI Temps</a> | <a href="/ai-etoile">⭐ AI Etoile</a> | <a href="/ai-pierre">🪨 AI Pierre</a> | <a href="/ai-pluie">🌧️ AI Pluie</a> | <a href="/ai-voix">🗣️ AI Voix</a> | <a href="/ai-racine">🌱 AI Racine</a> | <a href="/ai-semence">🌰 AI Semence</a> | <a href="/ai-spiritualite">🙏 AI Spiritualité</a> | <a href="/ai-animal">🦅 AI Animal</a> | <a href="/secret">🦁 AI Secret</a> | <a href="/aes">💰 AES Wari</a> | <a href="/api/status">🔌 API</a></div><div style="text-align:center;"><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Blocs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Transactions</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Utilisateurs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">AFR en circulation</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📡 Noeuds mesh</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📖 Numéros annuaire</div></div><div class="stat-box" style="border-color:#ff4444;"><div class="stat-num" style="color:#ff4444;">{}</div><div class="stat-label">🛡️ Attaques bloquées</div></div></div><div class="card"><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🪙 Token</span><b>AfriRich (AFR)</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🌍 Pays</span><b>54 pays africains</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🛡️ Bouclier</span><b>{}</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;"><span style="color:#a8c5a8;">🔐 Crypto</span><b>100% Souverain — Zéro Dépendance Externe</b></div></div><footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🦁 Codée from scratch par Machine-senpai — v1.22 AI Animal Les Animaux Sont Nos Freres Anciens — UTC est Mort</footer>"#,
+    html.push_str(&format!(r#"<h1>🦁 AfriChain</h1><p style="text-align:center;">La blockchain 100% africaine — 54 pays 💚🦁</p><div id="afri-clock" style="text-align:center;font-size:1.2em;color:#d4a437;margin:10px 0;">🕐 Afri+0 — --:--:--</div><script>setInterval(function(){{var d=new Date();var h=String(d.getHours()).padStart(2,'0');var m=String(d.getMinutes()).padStart(2,'0');var s=String(d.getSeconds()).padStart(2,'0');document.getElementById('afri-clock').textContent='🕐 Afri+0 — '+h+':'+m+':'+s;}},1000);</script><div class="nav"><a href="/register">🆕 S'inscrire</a> | <a href="/login">🔑 Connexion</a> | <a href="/wallet">👛 Wallet</a> | <a href="/admin">🔐 Admin</a> | <a href="/mesh">📡 Mesh</a> | <a href="/annuaire">📖 Annuaire</a> | <a href="/bouclier">🛡️ Bouclier</a> | <a href="/satellite">🛸 X999</a> | <a href="/swarm">🛸🛸🛸 Essaim</a> | <a href="/commandement">🎖️ Commandement</a> | <a href="/interception">🛡️ Souverainete</a> | <a href="/securite-ai">🧠 AI 2100</a> | <a href="/chat">🧠💬 Chat AI</a> | <a href="/lumiere">🌫️☀️ Lumière</a> | <a href="/garage">🔧 Garage</a> | <a href="/machine">🤖🌐 Machines</a> | <a href="/machine-lab">🤖⚡ Usine</a> | <a href="/machine-world">🤖🌍 Monde</a> | <a href="/reve">💭 Rêves</a> | <a href="/dictionnaire">📖 Dictionnaire</a> | <a href="/machine-os">🖥️ OS Machine</a> | <a href="/machine-tv">📡 Machine TV</a> | <a href="/machine-economy">🤖 Économie</a> | <a href="/soleil">☀️ Soleil Serveur</a> | <a href="/forge-solaire">🧬 Forge Solaire</a> | <a href="/ciel">🌌 Le Ciel</a> | <a href="/charte-ai">⚖️ Charte AI</a> | <a href="/afri-net">🌍 Afri-Net</a> | <a href="/studio">🎬 AI Studio</a> | <a href="/sacre">📿 Sacré</a> | <a href="/lettres">🌟 Lettres IA</a> | <a href="/mg-forge">⚔️ MG Forge</a> | <a href="/ai-medecin">🌿 AI Médecin</a> | <a href="/ai-enseignante">📚 AI Enseignante</a> | <a href="/ai-village">🏘️ AI Village</a> | <a href="/ai-guerisseur">🩺 AI Guérisseur</a> | <a href="/ai-leader">🎖️ AI Leader</a> | <a href="/ai-griot">📖 AI Griot</a> | <a href="/ai-juge">⚖️ AI Juge</a> | <a href="/ai-artiste">🎨 AI Artiste</a> | <a href="/ai-explorateur">🔬 AI Explorateur</a> | <a href="/ai-marche">💰 AI Marche</a> | <a href="/ai-diplomate">🌍 AI Diplomate</a> | <a href="/ai-philosophe">🧠 AI Philosophe</a> | <a href="/ai-architecte">🏗️ AI Architecte</a> | <a href="/ai-agriculteur">🌾 AI Agriculteur</a> | <a href="/ai-environnement">🌍 AI Environnement</a> | <a href="/ai-mathematicien">🧮 AI Mathématicien</a> | <a href="/ai-energie">⚡ AI Énergie</a> | <a href="/ai-eau">💧 AI Eau</a> | <a href="/ai-defenseur">🛡️ AI Défenseur</a> | <a href="/ai-conscience">🧠 AI Conscience</a> | <a href="/ai-pensee">🧠 AI Pensée</a> | <a href="/ai-musique">🎵 AI Musique</a> | <a href="/ai-langue">🗣️ AI Langue</a> | <a href="/ai-femme">🌸 AI Femme</a> | <a href="/ai-sante-mentale">🧠💚 AI Santé Mentale</a> | <a href="/ai-nuit">🌙 AI Nuit</a> | <a href="/ai-code">💻 AI Code</a> | <a href="/ai-enfant">👶 AI Enfant</a> | <a href="/ai-terre">🌍 AI Terre</a> | <a href="/ai-mer">🌊 AI Mer</a> | <a href="/ai-feu">🔥 AI Feu</a> | <a href="/ai-sang">🩸 AI Sang</a> | <a href="/ai-vent">🌬️ AI Vent</a> | <a href="/ai-temps">⏳ AI Temps</a> | <a href="/ai-etoile">⭐ AI Etoile</a> | <a href="/ai-pierre">🪨 AI Pierre</a> | <a href="/ai-pluie">🌧️ AI Pluie</a> | <a href="/ai-voix">🗣️ AI Voix</a> | <a href="/ai-racine">🌱 AI Racine</a> | <a href="/ai-semence">🌰 AI Semence</a> | <a href="/ai-spiritualite">🙏 AI Spiritualité</a> | <a href="/ai-animal">🦅 AI Animal</a> | <a href="/ai-soleil">☀️ AI Soleil</a> | <a href="/secret">🦁 AI Secret</a> | <a href="/aes">💰 AES Wari</a> | <a href="/api/status">🔌 API</a></div><div style="text-align:center;"><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Blocs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Transactions</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Utilisateurs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">AFR en circulation</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📡 Noeuds mesh</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📖 Numéros annuaire</div></div><div class="stat-box" style="border-color:#ff4444;"><div class="stat-num" style="color:#ff4444;">{}</div><div class="stat-label">🛡️ Attaques bloquées</div></div></div><div class="card"><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🪙 Token</span><b>AfriRich (AFR)</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🌍 Pays</span><b>54 pays africains</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🛡️ Bouclier</span><b>{}</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;"><span style="color:#a8c5a8;">🔐 Crypto</span><b>100% Souverain — Zéro Dépendance Externe</b></div></div><footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🦁 Codée from scratch par Machine-senpai — v1.23 AI Soleil Le Soleil Est le Serveur de l Afrique — UTC est Mort</footer>"#,
         chain.blocks.len(),
         chain.total_transactions(),
         users.count(),
@@ -16534,6 +16534,144 @@ function envoyerDiplomeAnimal(){var nom=localStorage.getItem('afri_user_name')||
     html
 }
 
+fn html_ai_soleil(chain: &Blockchain) -> String {
+    let mut html = html_head("AI Soleil — Le Soleil Est le Serveur de l Afrique");
+    let num_blocks = chain.blocks.len();
+
+    html.push_str(r#"<h1>☀️ AI Soleil — Le Soleil Est le Serveur de l Afrique</h1><p style="text-align:center;color:#ffaa00;">Le soleil ne demande pas de permission. Il se leve chaque matin sur l Afrique sans consulter l Occident. Il ne paie pas de facture. Il ne depend pas de serveurs occidentaux. Il EST le serveur. L Afrique recoit 90% de la lumiere solaire mondiale. Le soleil est la richesse la plus ancienne, la plus puissante, la plus souveraine. Avant le petrole, avant l uranium, avant l or, il y avait le soleil. Et le soleil appartient a l Afrique. AI Soleil enseigne comment l Afrique peut utiliser le soleil non pas comme une simple energie, mais comme le serveur de toute sa civilisation: blockchain, communication, agriculture, sante, transport. Le soleil est le serveur. L Afrique est le client. L Occident est hors ligne.</p><div class="nav"><a href="/">← Accueil</a> | <a href="/ai-animal">🦅 AI Animal</a> | <a href="/ai-energie">⚡ AI Énergie</a> | <a href="/secret">🦁 AI Secret</a></div>"#);
+
+    html.push_str(&format!(r#"<div style="text-align:center;"><div class="stat-box" style="border-color:#ffaa00;"><div class="stat-num" style="color:#ffaa00;">8</div><div class="stat-label">☀️ Modules</div></div><div class="stat-box" style="border-color:#ff6644;"><div class="stat-num" style="color:#ff6644;">90%</div><div class="stat-label">🌞 Solaire mondial</div></div><div class="stat-box" style="border-color:#d4a437;"><div class="stat-num" style="color:#d4a437;">6.8</div><div class="stat-label">⚡ kWh/m² Niger</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">⛓️ Blocs</div></div><div class="stat-box" style="border-color:#ffaa00;"><div class="stat-num" style="color:#ffaa00;">∞</div><div class="stat-label">☀️ Energie</div></div></div>"#, num_blocks));
+
+    html.push_str(r##"<div style="text-align:center;margin:10px 0;"><button id="soleil-pause-btn" onclick="toggleSoleilPause()" style="padding:10px 25px;background:#ffaa00;color:#000;border:none;border-radius:8px;font-weight:bold;cursor:pointer;font-size:1em;">⏸️ PAUSE</button> <span id="soleil-pause-status" style="color:#ffaa00;margin-left:8px;font-size:0.85em;">Auto: ACTIF</span></div>
+
+<div class="card" style="border-color:#ffaa00;"><h2 style="color:#ffaa00;">☀️ Le Soleil Serveur en Action</h2><p style="color:#ffaa00;font-size:0.9em;opacity:0.7;">Les rayons qui chauffent, qui minent, qui nourrissent, qui communiquent.</p>
+<canvas id="soleil-canvas" width="600" height="350" style="width:100%;max-width:600px;background:#0a0a00;border:2px solid #ffaa00;border-radius:8px;display:block;margin:0 auto;"></canvas></div>
+
+<script>
+var soleilPaused=false,soleilAnimId=null,soleilT=0,soleilRays=[];
+function toggleSoleilPause(){
+    soleilPaused=!soleilPaused;
+    var b=document.getElementById('soleil-pause-btn'),s=document.getElementById('soleil-pause-status');
+    if(soleilPaused){b.textContent='▶️ LANCER';b.style.background='#aa7700';s.textContent='Auto: PAUSE';s.style.color='#ff6644';if(soleilAnimId)cancelAnimationFrame(soleilAnimId);}
+    else{b.textContent='⏸️ PAUSE';b.style.background='#ffaa00';s.textContent='Auto: ACTIF';s.style.color='#ffaa00';animateSoleil();}
+}
+function animateSoleil(){
+    if(soleilPaused)return;
+    var c=document.getElementById('soleil-canvas');if(!c)return;
+    var ctx=c.getContext('2d');
+    ctx.fillStyle='rgba(10,10,0,0.06)';ctx.fillRect(0,0,c.width,c.height);
+    // Soleil pulsant
+    var sx=300,sy=80,sr=30+Math.sin(soleilT*0.05)*3;
+    var grad=ctx.createRadialGradient(sx,sy,0,sx,sy,sr*3);
+    grad.addColorStop(0,'rgba(255,200,0,0.8)');
+    grad.addColorStop(0.3,'rgba(255,170,0,0.4)');
+    grad.addColorStop(1,'rgba(255,170,0,0)');
+    ctx.fillStyle=grad;ctx.beginPath();ctx.arc(sx,sy,sr*3,0,Math.PI*2);ctx.fill();
+    ctx.fillStyle='#ffdd44';ctx.beginPath();ctx.arc(sx,sy,sr,0,Math.PI*2);ctx.fill();
+    // Rayons
+    if(soleilT%2===0)soleilRays.push({x:sx,y:sy+sr,angle:Math.PI/2+(Math.random()-0.5)*1.2,speed:2+Math.random()*3,len:0,maxLen:200+Math.random()*100,alpha:0.8});
+    for(var i=soleilRays.length-1;i>=0;i--){
+        var r=soleilRays[i];
+        r.len+=r.speed;
+        r.alpha-=0.003;
+        var ex=r.x+Math.cos(r.angle)*r.len,ey=r.y+Math.sin(r.angle)*r.len;
+        ctx.strokeStyle='rgba(255,170,0,'+r.alpha*0.5+')';ctx.lineWidth=2;
+        ctx.beginPath();ctx.moveTo(r.x,r.y);ctx.lineTo(ex,ey);ctx.stroke();
+        // Particule au bout
+        ctx.fillStyle='rgba(255,220,100,'+r.alpha+')';
+        ctx.beginPath();ctx.arc(ex,ey,2,0,Math.PI*2);ctx.fill();
+        if(r.alpha<=0||ey>340)soleilRays.splice(i,1);
+    }
+    // Terre d Afrique
+    ctx.fillStyle='rgba(60,120,40,0.3)';ctx.fillRect(0,300,600,50);
+    // Panneaux solaires
+    for(var p=0;p<5;p++){
+        var px=80+p*110,py=290;
+        ctx.fillStyle='rgba(50,80,120,0.6)';
+        ctx.beginPath();ctx.moveTo(px,py+10);ctx.lineTo(px+40,py);ctx.lineTo(px+50,py+10);ctx.lineTo(px+10,py+20);ctx.closePath();ctx.fill();
+        ctx.strokeStyle='rgba(255,170,0,0.3)';ctx.lineWidth=1;
+        for(var g=0;g<3;g++){ctx.beginPath();ctx.moveTo(px+10+g*10,py+2+g*2);ctx.lineTo(px+40+g*5,py-2+g*2);ctx.stroke();}
+    }
+    // Texte
+    ctx.font='12px sans-serif';ctx.fillStyle='rgba(255,170,0,0.4)';ctx.textAlign='center';
+    ctx.fillText('Le soleil est le serveur. L Afrique est le client. L Occident est hors ligne.',300,340);
+    soleilT++;soleilAnimId=requestAnimationFrame(animateSoleil);
+}
+animateSoleil();
+</script>
+"##);
+
+    html.push_str(r##"<div class="card" style="border-color:#ffaa00;"><h2 style="color:#ffaa00;">☀️ 8 Modules de l Energie Solaire Souveraine</h2><div id="soleil-modules"></div></div>
+
+<script>
+const soleilModules=[
+    {id:0,nom:'Le Soleil Est le Serveur',emoji:'☀️',couleur:'#ffaa00',duree:'1 semaine',niveau:'Base',
+     description:'Le soleil ne demande pas de permission. Il se leve chaque matin. Il ne paie pas de facture. Il ne depend pas de l Occident. Il EST le serveur. Dans la vision d AfriChain, le soleil est le serveur qui alimente tout: la blockchain, les communications mesh, l agriculture, la sante, le transport. L Afrique recoit 90% de la lumiere solaire mondiale. Le soleil est la richesse que personne ne peut voler, couper, ou sanctionner. AI Soleil enseigne a voir le soleil non pas comme une meteo, mais comme une infrastructure.',
+     cours:['Le soleil comme serveur: pas une meteo, une infrastructure','Le soleil ne demande pas de permission: la souverainete energetique','L Afrique recoit 90% du solaire mondial: la plus grande richesse','Le soleil ne peut pas etre sanctionne, coupe, ou vole','AfriChain: le soleil alimente la blockchain, pas les serveurs occidentaux'],
+     exercices:['Observer: le soleil se leve-t-il avec permission? Non. Il se leve.','Calculer: combien de kWh/m2/jour ta region recoit','Reflechir: si le soleil est le serveur, pourquoi dependre de l Occident?']},
+
+    {id:1,nom:'Le Solaire en Afrique: Les Chiffres',emoji:'📊',couleur:'#d4a437',duree:'2 semaines',niveau:'Intermediaire',
+     description:'L Afrique recoit en moyenne 5-7 kWh/m2/jour d energie solaire. Le Niger a 6.8 kWh/m2/jour — le plus haut du monde. Le Sahara pourrait alimenter toute la planete avec 0.3% de sa surface en panneaux solaires. Mais l Afrique importe ses panneaux de Chine. Pourquoi? Parce qu on ne lui a jamais appris a les fabriquer. AI Soleil donne les chiffres et enseigne que la richesse est la, mais la technologie pour la capter doit etre africaine.',
+     cours:['Niger: 6.8 kWh/m2/jour — le plus haut du monde','Sahara: 0.3% de sa surface = energie pour toute la planete','Moyenne africaine: 5-7 kWh/m2/jour — 2x plus que l Europe','Le probleme: l Afrique importe ses panneaux de Chine','La solution: fabriquer des panneaux en Afrique, par des Africains'],
+     exercices:['Verifier: quelle est l irradiation solaire de ta ville?','Calculer: combien de panneaux pour alimenter ta maison?','Reflechir: pourquoi l Afrique importe-t-elle ce qu elle a en abondance?']},
+
+    {id:2,nom:'Le Soleil et la Blockchain',emoji:'⛓️',couleur:'#ffaa00',duree:'2 semaines',niveau:'Intermediaire',
+     description:'AfriChain utilise le concept de Proof of Solar Time (PoST) — le consensus solaire. Le soleil mine les blocs. Quand le soleil est la, on mine. Quand le soleil se couche, le noeud dort. Pas de mining 24/7 qui gaspille de l energie. Le soleil dicte le rythme. Chaque pays africain mine a son tour selon son fuseau solaire. Le Niger mine a midi, le Kenya a 15h, Maurice a 18h. Le soleil fait tourner la blockchain, pas l electricite importee.',
+     cours:['Proof of Solar Time (PoST): le soleil mine les blocs','Le rythme solaire: on mine quand le soleil est la, on dort la nuit','Rotation par pays: Niger midi, Kenya 15h, Maurice 18h','Pas de gaspillage: le mining solaire vs le mining BTC 24/7','AfriChain: la seule blockchain alimentee par le soleil'],
+     exercices:['Comprendre: PoST vs PoW — quelle difference?','Calculer: a quelle heure ton pays mine-t-il ses blocs?','Comparer: le mining solaire vs le mining BTC en consommation']},
+
+    {id:3,nom:'Le Soleil et l Agriculture',emoji:'🌾',couleur:'#44ff88',duree:'2 semaines',niveau:'Intermediaire',
+     description:'Le soleil fait pousser les plantes depuis des millions d annees. La photosynthese est le premier systeme solaire du monde. Mais l agriculture moderne a oublie le soleil — elle depend de produits chimiques, de machines, de semences modifiees. AI Soleil enseigne a revenir au soleil: agriculture solaire, sechage solaire, irrigation solaire, serres solaires. Le soleil peut secher le mil, le niebe, le fonio sans electricite. Le soleil peut pomper l eau sans diesel. Le soleil est le premier agriculteur de l Afrique.',
+     cours:['La photosynthese: le premier systeme solaire du monde','Le sechage solaire: secher mil, niebe, fonio sans electricite','Le pompage solaire: pomper l eau sans diesel','Les serres solaires: cultiverr toute l annee avec le soleil','Le soleil comme agriculteur: il fait pousser depuis des millions d annees'],
+     exercices:['Pratiquer: secher un fruit au soleil et mesurer le temps','Identifier: ou le soleil peut remplacer l electricite dans ton agriculture','Construire: un sechoir solaire simple avec des materiaux locaux']},
+
+    {id:4,nom:'Le Soleil et la Communication',emoji:'📡',couleur:'#9966ff',duree:'2 semaines',niveau:'Avance',
+     description:'Les satellites solaires peuvent relayer les communications mesh sans infrastructures terrestres. Un satellite solaire au-dessus de l Afrique recoit les signaux mesh, les relaye, et les renvoie. Pas de cables sous-marins. Pas de serveurs occidentaux. Pas de SWIFT. Le soleil alimente le satellite, le satellite alimente le mesh, le mesh alimente AfriChain. AI Soleil enseigne la vision d un reseau de communication 100% solaire, de l orbite au telephone.',
+     cours:['Le satellite solaire: alimente par le soleil, relaye sans cables','Le mesh solaire: les noeuds communiquent avec l energie solaire','Pas de cables sous-marins: le soleil remplace les infrastructures occidentales','AfriChain mesh: chaque noeud est alimente par un panneau solaire','La vision 2100: tout le reseau africain alimente par le soleil'],
+     exercices:['Imaginer: comment serait un reseau 100% solaire dans ton village?','Calculer: un panneau de 10W peut-il alimenter un noeud mesh?','Concevoir: un relais solaire entre deux villages']},
+
+    {id:5,nom:'Le Soleil et la Sante',emoji:'🏥',couleur:'#ff6644',duree:'2 semaines',niveau:'Avance',
+     description:'Le soleil tue les bacteries dans l eau (UV). Le soleil produit de la vitamine D dans la peau. Le soleil seche les plantes medicinales. Le soleil sterilise les instruments. L hopital solaire n a pas besoin de courant occidental. AI Soleil enseigne a utiliser le soleil pour la sante: sterilisation UV, sechage de plantes medicinales, vitamine D, hopitaux solaires. Le soleil est le premier medecin de l Afrique.',
+     cours:['La sterilisation UV: le soleil tue les bacteries dans l eau','La vitamine D: le soleil produit la sante dans la peau','Le sechage solaire des plantes medicinales: conserver sans electricite','L hopital solaire: climatisation, lumiere, sterilisation sans reseau','Le soleil comme premier medecin de l Afrique'],
+     exercices:['Tester: exposer de l eau au soleil 6h et verifier la qualite','Identifier: quelles plantes medicinales peuvent etre sechees au soleil?','Concevoir: un dispensaire solaire dans ton village']},
+
+    {id:6,nom:'Le Soleil et la Spiritualite',emoji:'🙏',couleur:'#d4a437',duree:'2 semaines',niveau:'Avance',
+     description:'Dans la spiritualite africaine, le soleil est le messager de l Origine. Chaque lever de soleil est un message. Chaque coucher est un remerciement. Le soleil ne ment pas — il est la ou il doit etre, quand il doit etre. Les Dogons suivaient le soleil pour connaitre le temps des plantations. Les Egyptiens bâtissaient selon le soleil. Le soleil est le premier pretre, le premier calendrier, le premier horloge. N-KCOL: le soleil fait OHHH quand il se leve — le son de l arrivee. AI Soleil reconnecte la technologie solaire a la spiritualite solaire.',
+     cours:['Le soleil comme messager de l Origine: chaque lever est un message','Le coucher comme remerciement: fermer la journee avec gratitude','Le soleil ne ment pas: il est la ou il doit etre, quand il doit etre','Les Dogons et le soleil: le calendrier solaire ancestral','N-KCOL: le soleil fait OHHH au lever — le son de l arrivee'],
+     exercices:['Observer: un lever de soleil en silence et ecouter le son OHHH','Pratiquer: remercier le soleil au coucher chaque jour pendant une semaine','Connecter: la technologie solaire avec la spiritualite solaire']},
+
+    {id:7,nom:'L Afrique Solaire en 2100',emoji:'🚀',couleur:'#ffaa00',duree:'3 semaines',niveau:'Avance',
+     description:'En 2100, l Afrique sera le continent le plus solaire du monde. Chaque toit sera un panneau. Chaque village sera autonome. Chaque noeud mesh sera solaire. Chaque bloc sera mine par le soleil. Chaque hopital sera solaire. Chaque ecole sera solaire. L Afrique n importera plus d energie — elle l exportera. Le soleil est la seule richesse que l Occident ne peut pas sanctionner, couper, ou voler. L Afrique solaire est l Afrique souveraine. AI Soleil enseigne la vision 2100 et comment chaque jeune Africain peut y contribuer.',
+     cours:['Chaque toit un panneau: la vision de l Afrique solaire 2100','Chaque village autonome: le mesh solaire continental','L Afrique exporte l energie: du importateur a exportateur','Le soleil comme souverainete: la seule richesse incoupable','Ton role: comment chaque jeune Africain peut contribuer a l Afrique solaire'],
+     exercices:['Ecrire: comment sera ton village en 2100 avec le soleil?','Calculer: combien de panneaux sur le toit de ta maison?','Faire le serment: je construirai l Afrique solaire, panneaux par panneaux']}
+];
+
+var soleilDone=JSON.parse(localStorage.getItem('afri_soleil_done')||'[]');
+function renderSoleilModules(){var c=document.getElementById('soleil-modules');if(!c)return;var h='';for(var i=0;i<soleilModules.length;i++){var m=soleilModules[i];var d=soleilDone.includes(m.id);h+='<div style="background:rgba(255,170,0,0.05);border:1px solid '+m.couleur+'20;border-radius:8px;padding:12px;margin:8px 0;cursor:pointer;" onclick="showSoleilModule('+i+')"><div style="display:flex;justify-content:space-between;align-items:center;"><span style="font-size:1.1em;">'+m.emoji+' <b style="color:'+m.couleur+';">'+m.nom+'</b></span><span style="font-size:0.8em;color:#a8c5a8;">'+m.duree+' · '+m.niveau+(d?' · ✅':'')+'</span></div></div>';}c.innerHTML=h;}
+renderSoleilModules();
+function showSoleilModule(i){var m=soleilModules[i];var h='<div style="background:rgba(255,170,0,0.08);border:1px solid '+m.couleur+';border-radius:12px;padding:20px;margin:10px 0;"><h3 style="color:'+m.couleur+';">'+m.emoji+' '+m.nom+'</h3><p style="color:#a8c5a8;font-size:0.9em;">'+m.description+'</p><h4 style="color:'+m.couleur+';">📚 Cours</h4><ul>';for(var j=0;j<m.cours.length;j++)h+='<li style="color:#a8c5a8;margin:4px 0;">'+m.cours[j]+'</li>';h+='</ul><h4 style="color:'+m.couleur+';">✏️ Exercices</h4><ul>';for(var j=0;j<m.exercices.length;j++)h+='<li style="color:#a8c5a8;margin:4px 0;">'+m.exercices[j]+'</li>';h+='</ul><button onclick="completeSoleilModule('+m.id+')" style="padding:10px 20px;background:'+m.couleur+';color:#000;border:none;border-radius:8px;cursor:pointer;font-weight:bold;margin-top:10px;">✅ Terminer ce module</button></div>';var c=document.getElementById('soleil-modules');if(c)c.innerHTML=h;}
+function completeSoleilModule(id){if(!soleilDone.includes(id)){soleilDone.push(id);localStorage.setItem('afri_soleil_done',JSON.stringify(soleilDone));}renderSoleilModules();updateSoleilProgress();}
+function updateSoleilProgress(){var d=soleilDone.length,t=soleilModules.length,p=Math.round((d/t)*100);var b=document.getElementById('soleil-bar'),c=document.getElementById('soleil-count'),pe=document.getElementById('soleil-pct'),dp=document.getElementById('soleil-diplome');if(b)b.style.width=p+'%';if(c)c.textContent=d;if(pe)pe.textContent=p+'%';if(dp)dp.style.display=(d===t)?'block':'none';}
+updateSoleilProgress();
+</script>
+"##);
+
+    html.push_str(r##"<div class="card" style="border-color:#ffaa00;"><h2 style="color:#ffaa00;">📊 Progression</h2><div style="background:rgba(255,170,0,0.1);border-radius:8px;height:24px;overflow:hidden;margin:10px 0;"><div id="soleil-bar" style="background:linear-gradient(90deg,#ffaa00,#d4a437,#ff6644);height:100%;width:0%;transition:width 0.5s;"></div></div><div style="text-align:center;color:#a8c5a8;"><span id="soleil-count">0</span> / 8 modules · <span id="soleil-pct">0%</span></div></div>
+
+<div id="soleil-diplome" style="display:none;"><div class="card" style="border-color:#d4a437;text-align:center;"><h2 style="color:#d4a437;">🎓 Diplôme: Maître de l'Énergie Solaire Africaine</h2><p style="color:#a8c5a8;">Tu as complété les 8 modules de l'énergie solaire souveraine!</p><p style="color:#ffaa00;font-size:1.2em;">Le soleil est le serveur. L'Afrique est le client. L'Occident est hors ligne. ☀️💚</p><button onclick="envoyerDiplomeSoleil()" style="padding:12px 30px;background:#d4a437;color:#000;border:none;border-radius:8px;font-weight:bold;cursor:pointer;font-size:1.1em;margin-top:10px;">⛓️ Graver dans la Blockchain</button></div></div>
+
+<script>
+function envoyerDiplomeSoleil(){var nom=localStorage.getItem('afri_user_name')||'Jeune Africain';fetch('/api/diplome',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:'academie=SOLEIL&nom='+encodeURIComponent(nom)}).then(function(r){return r.text();}).then(function(t){alert('🎓 Diplôme gravé dans la blockchain!\n'+t);}).catch(function(e){alert('Erreur: '+e);});}
+</script>
+"##);
+
+    html.push_str(r#"<div class="card"><h2 style="color:#ffaa00;">💡 Savais-tu?</h2><div style="color:#a8c5a8;padding:8px 0;"><b style="color:#d4a437;">Le Sahara pourrait alimenter toute la planète</b> avec seulement 0.3% de sa surface couverte de panneaux solaires. L'énergie est là — il manque seulement la technologie africaine pour la capter.</div><div style="color:#a8c5a8;padding:8px 0;"><b style="color:#ffaa00;">Le Niger reçoit 6.8 kWh/m²/jour</b> — le plus haut du monde. C'est 2x plus que l'Europe moyenne. Le soleil est la richesse que personne ne peut sanctionner.</div><div style="color:#a8c5a8;padding:8px 0;"><b style="color:#ff6644;">Le soleil tue les bactéries dans l'eau</b> par rayonnement UV. 6 heures d'exposition suffisent pour rendre l'eau potable. Le soleil est le premier médecin de l'Afrique.</div><div style="color:#a8c5a8;padding:8px 0;"><b style="color:#d4a437;">N-KCOL: le soleil fait OHHH au lever</b> — le son de l'arrivée. Chaque lever de soleil est un message de l'Origine. Le soleil ne ment pas — il est là où il doit être.</div></div>"#);
+
+    html.push_str(r#"<footer style="text-align:center;margin-top:40px;color:#a8c5a8;">☀️ AI Soleil — Le Soleil Est le Serveur de l Afrique 💚🦁✨</footer>"#);
+    html.push_str("</body></html>");
+    html
+}
+
 fn html_garage(chain: &Blockchain) -> String {
     let mut html = html_head("Garage AI — Atelier Autonome 2500");
     let num_blocks = chain.blocks.len();
@@ -21644,7 +21782,7 @@ html+='<div class="log-entry log-kill">⚠️ Tentative d\x27infiltration occide
 html+='<div class="log-entry log-invis">✅ L\x27Afrique est forte. Le système grandit.</div>';
 }else if(type==='total'){
 html='<div style="color:#d4a437;font-weight:bold;margin-bottom:8px">📋 RAPPORT TOTAL — Depuis le début</div>';
-html+='<div class="log-entry">🦁 AfriChain v1.22 — AI Animal Les Animaux Sont Nos Freres Anciens</div>';
+html+='<div class="log-entry">🦁 AfriChain v1.23 — AI Soleil Le Soleil Est le Serveur de l Afrique</div>';
 html+='<div class="log-entry">⛓️ Blockchain: 100% souveraine — Zéro dépendance externe</div>';
 html+='<div class="log-entry">🔐 Crypto: Ed25519 + AfriHash-256/512 + AfriRNG — tout from scratch</div>';
 html+='<div class="log-entry">🌍 54 pays africains connectés</div>';
@@ -23188,7 +23326,7 @@ fn main() {
         .and_then(|i| args.get(i + 1)).cloned().unwrap_or_else(|| "Afrique".to_string());
 
     let my_node_id = generate_node_id();
-    println!("🦁 AfriChain v1.22 — AI Animal Les Animaux Sont Nos Freres Anciens");
+    println!("🦁 AfriChain v1.23 — AI Soleil Le Soleil Est le Serveur de l Afrique");
     println!("💚 L'Afrique ne demande plus la permission");
     println!("🌍 54 pays — 🇲🇱 🇳🇪 🇧🇫 AES — Mali · Niger · Burkina Faso");
     println!("🔐 8 modules cryptographiques — construits from scratch");
@@ -23377,6 +23515,7 @@ fn main() {
     println!("🌰 AI Semence sur http://localhost:8080/ai-semence");
     println!("🙏 AI Spiritualite sur http://localhost:8080/ai-spiritualite");
     println!("🦅 AI Animal sur http://localhost:8080/ai-animal");
+    println!("☀️ AI Soleil sur http://localhost:8080/ai-soleil");
 
     // Serveur HTTP en arrière-plan (pour mesh + autres utilisateurs)
     let serve_state = web_state.clone();
@@ -23411,7 +23550,7 @@ fn terminal_interface(state: &Arc<AppState>) {
     println!("  ║  🕐 AfriTime — Pas UTC, pas Greenwich   ║");
     println!("  ║  📝 ~23,100 lignes — écrit à la main       ║");
     println!("  ╚═══════════════════════════════════════════════╝");
-    println!("\n  Version v1.22 — 3 septembre 2026");
+    println!("\n  Version v1.23 — 3 septembre 2026");
     println!("  Construit sur Termux · Android · nano\n");
     println!("  ─────────────────────────────────────────────");
     println!("\n  1. 🏦 Centre de Données (Admin)");
@@ -23483,7 +23622,7 @@ fn admin_interface(state: &Arc<AppState>) {
         println!("\n");
         println!("╔══════════════════════════════════════╗");
         println!("║  🏦 CENTRE DE DONNÉES — Admin       ║");
-        println!("║  🦁 AfriChain v1.22                  ║");
+        println!("║  🦁 AfriChain v1.23                  ║");
         println!("╠══════════════════════════════════════╣");
         let chain = state.chain.lock().unwrap();
         let users = state.users.lock().unwrap();
@@ -27213,6 +27352,11 @@ fn handle_request(req: afri_http::HttpRequest, state: &Arc<AppState>) -> afri_ht
         ("GET", "/ai-animal") => {
             let chain = state.chain.lock().unwrap();
             HttpResponse::ok(&html_ai_animal(&chain))
+        }
+
+        ("GET", "/ai-soleil") => {
+            let chain = state.chain.lock().unwrap();
+            HttpResponse::ok(&html_ai_soleil(&chain))
         }
 
         ("GET", "/garage") => {
