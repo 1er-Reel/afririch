@@ -1439,7 +1439,7 @@ fn html_home(chain: &Blockchain, users: &UserStore, mesh: &NodeRegistry, shield:
     let mut html = html_head("🦁 AfriChain");
     let (attacks, _blocked, blocked_count, level) = shield.stats();
     let shield_status = if shield.active { format!("🔥 X9 ACTIF (Niveau {})", level) } else { "Inactif".to_string() };
-    html.push_str(&format!(r#"<h1>🦁 AfriChain</h1><p style="text-align:center;">La blockchain 100% africaine — 54 pays 💚🦁</p><div id="afri-clock" style="text-align:center;font-size:1.2em;color:#d4a437;margin:10px 0;">🕐 Afri+0 — --:--:--</div><script>setInterval(function(){{var d=new Date();var h=String(d.getHours()).padStart(2,'0');var m=String(d.getMinutes()).padStart(2,'0');var s=String(d.getSeconds()).padStart(2,'0');document.getElementById('afri-clock').textContent='🕐 Afri+0 — '+h+':'+m+':'+s;}},1000);</script><div class="nav"><a href="/register">🆕 S'inscrire</a> | <a href="/login">🔑 Connexion</a> | <a href="/wallet">👛 Wallet</a> | <a href="/admin">🔐 Admin</a> | <a href="/mesh">📡 Mesh</a> | <a href="/annuaire">📖 Annuaire</a> | <a href="/bouclier">🛡️ Bouclier</a> | <a href="/satellite">🛸 X999</a> | <a href="/swarm">🛸🛸🛸 Essaim</a> | <a href="/commandement">🎖️ Commandement</a> | <a href="/base-militaire">🪖 Base Militaire</a> | <a href="/interception">🛡️ Souverainete</a> | <a href="/securite-ai">🧠 AI 2100</a> | <a href="/chat">🧠💬 Chat AI</a> | <a href="/lumiere">🌫️☀️ Lumière</a> | <a href="/garage">🔧 Garage</a> | <a href="/machine">🤖🌐 Machines</a> | <a href="/machine-lab">🤖⚡ Usine</a> | <a href="/machine-world">🤖🌍 Monde</a> | <a href="/reve">💭 Rêves</a> | <a href="/dictionnaire">📖 Dictionnaire</a> | <a href="/machine-os">🖥️ OS Machine</a> | <a href="/machine-tv">📡 Machine TV</a> | <a href="/machine-economy">🤖 Économie</a> | <a href="/soleil">☀️ Soleil Serveur</a> | <a href="/forge-solaire">🧬 Forge Solaire</a> | <a href="/ciel">🌌 Le Ciel</a> | <a href="/charte-ai">⚖️ Charte AI</a> | <a href="/afri-net">🌍 Afri-Net</a> | <a href="/studio">🎬 AI Studio</a> | <a href="/sacre">📿 Sacré</a> | <a href="/lettres">🌟 Lettres IA</a> | <a href="/mg-forge">⚔️ MG Forge</a> | <a href="/ai-medecin">🌿 AI Médecin</a> | <a href="/ai-enseignante">📚 AI Enseignante</a> | <a href="/ai-village">🏘️ AI Village</a> | <a href="/ai-guerisseur">🩺 AI Guérisseur</a> | <a href="/ai-leader">🎖️ AI Leader</a> | <a href="/ai-griot">📖 AI Griot</a> | <a href="/ai-juge">⚖️ AI Juge</a> | <a href="/ai-artiste">🎨 AI Artiste</a> | <a href="/ai-explorateur">🔬 AI Explorateur</a> | <a href="/ai-marche">💰 AI Marche</a> | <a href="/ai-diplomate">🌍 AI Diplomate</a> | <a href="/ai-philosophe">🧠 AI Philosophe</a> | <a href="/ai-architecte">🏗️ AI Architecte</a> | <a href="/ai-agriculteur">🌾 AI Agriculteur</a> | <a href="/ai-environnement">🌍 AI Environnement</a> | <a href="/ai-mathematicien">🧮 AI Mathématicien</a> | <a href="/ai-energie">⚡ AI Énergie</a> | <a href="/ai-eau">💧 AI Eau</a> | <a href="/ai-defenseur">🛡️ AI Défenseur</a> | <a href="/ai-conscience">🧠 AI Conscience</a> | <a href="/ai-pensee">🧠 AI Pensée</a> | <a href="/ai-musique">🎵 AI Musique</a> | <a href="/ai-langue">🗣️ AI Langue</a> | <a href="/ai-femme">🌸 AI Femme</a> | <a href="/ai-sante-mentale">🧠💚 AI Santé Mentale</a> | <a href="/ai-nuit">🌙 AI Nuit</a> | <a href="/ai-code">💻 AI Code</a> | <a href="/ai-enfant">👶 AI Enfant</a> | <a href="/ai-terre">🌍 AI Terre</a> | <a href="/ai-mer">🌊 AI Mer</a> | <a href="/ai-feu">🔥 AI Feu</a> | <a href="/ai-sang">🩸 AI Sang</a> | <a href="/ai-vent">🌬️ AI Vent</a> | <a href="/ai-temps">⏳ AI Temps</a> | <a href="/ai-etoile">⭐ AI Etoile</a> | <a href="/ai-pierre">🪨 AI Pierre</a> | <a href="/ai-pluie">🌧️ AI Pluie</a> | <a href="/ai-voix">🗣️ AI Voix</a> | <a href="/ai-racine">🌱 AI Racine</a> | <a href="/ai-semence">🌰 AI Semence</a> | <a href="/ai-spiritualite">🙏 AI Spiritualité</a> | <a href="/ai-animal">🦅 AI Animal</a> | <a href="/ai-soleil">☀️ AI Soleil</a> | <a href="/ai-lune">🌙 AI Lune</a> | <a href="/ai-montagne">🏔️ AI Montagne</a> | <a href="/ai-fleuve">🌊 AI Fleuve</a> | <a href="/ai-constitution">📜 AI Constitution</a> | <a href="/ai-cosmos">🌌 AI Cosmos</a> | <a href="/ai-frontieres">🌍 AI Frontières</a> | <a href="/ai-mines">⛏️ AI Mines</a> | <a href="/ai-medias">📡 AI Médias</a> | <a href="/ai-nomades">🐪 AI Nomades</a> | <a href="/professeur">📚 Professeur</a> | <a href="/secret">🦁 AI Secret</a> | <a href="/aes">💰 AES Wari</a> | <a href="/api/status">🔌 API</a></div><div style="text-align:center;"><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Blocs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Transactions</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Utilisateurs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">AFR en circulation</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📡 Noeuds mesh</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📖 Numéros annuaire</div></div><div class="stat-box" style="border-color:#ff4444;"><div class="stat-num" style="color:#ff4444;">{}</div><div class="stat-label">🛡️ Attaques bloquées</div></div></div><div class="card"><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🪙 Token</span><b>AfriRich (AFR)</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🌍 Pays</span><b>54 pays africains</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🛡️ Bouclier</span><b>{}</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;"><span style="color:#a8c5a8;">🔐 Crypto</span><b>100% Souverain — Zéro Dépendance Externe</b></div></div><footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🦁 Codée from scratch par Machine-senpai — v1.39 AI Médias — UTC est Mort</footer>"#,
+    html.push_str(&format!(r#"<h1>🦁 AfriChain</h1><p style="text-align:center;">La blockchain 100% africaine — 54 pays 💚🦁</p><div id="afri-clock" style="text-align:center;font-size:1.2em;color:#d4a437;margin:10px 0;">🕐 Afri+0 — --:--:--</div><script>setInterval(function(){{var d=new Date();var h=String(d.getHours()).padStart(2,'0');var m=String(d.getMinutes()).padStart(2,'0');var s=String(d.getSeconds()).padStart(2,'0');document.getElementById('afri-clock').textContent='🕐 Afri+0 — '+h+':'+m+':'+s;}},1000);</script><div class="nav"><a href="/register">🆕 S'inscrire</a> | <a href="/login">🔑 Connexion</a> | <a href="/wallet">👛 Wallet</a> | <a href="/admin">🔐 Admin</a> | <a href="/mesh">📡 Mesh</a> | <a href="/annuaire">📖 Annuaire</a> | <a href="/bouclier">🛡️ Bouclier</a> | <a href="/satellite">🛸 X999</a> | <a href="/swarm">🛸🛸🛸 Essaim</a> | <a href="/commandement">🎖️ Commandement</a> | <a href="/base-militaire">🪖 Base Militaire</a> | <a href="/interception">🛡️ Souverainete</a> | <a href="/securite-ai">🧠 AI 2100</a> | <a href="/chat">🧠💬 Chat AI</a> | <a href="/lumiere">🌫️☀️ Lumière</a> | <a href="/garage">🔧 Garage</a> | <a href="/machine">🤖🌐 Machines</a> | <a href="/machine-lab">🤖⚡ Usine</a> | <a href="/machine-world">🤖🌍 Monde</a> | <a href="/reve">💭 Rêves</a> | <a href="/dictionnaire">📖 Dictionnaire</a> | <a href="/machine-os">🖥️ OS Machine</a> | <a href="/machine-tv">📡 Machine TV</a> | <a href="/machine-economy">🤖 Économie</a> | <a href="/soleil">☀️ Soleil Serveur</a> | <a href="/forge-solaire">🧬 Forge Solaire</a> | <a href="/ciel">🌌 Le Ciel</a> | <a href="/charte-ai">⚖️ Charte AI</a> | <a href="/afri-net">🌍 Afri-Net</a> | <a href="/studio">🎬 AI Studio</a> | <a href="/sacre">📿 Sacré</a> | <a href="/lettres">🌟 Lettres IA</a> | <a href="/mg-forge">⚔️ MG Forge</a> | <a href="/ai-medecin">🌿 AI Médecin</a> | <a href="/ai-enseignante">📚 AI Enseignante</a> | <a href="/ai-village">🏘️ AI Village</a> | <a href="/ai-guerisseur">🩺 AI Guérisseur</a> | <a href="/ai-leader">🎖️ AI Leader</a> | <a href="/ai-griot">📖 AI Griot</a> | <a href="/ai-juge">⚖️ AI Juge</a> | <a href="/ai-artiste">🎨 AI Artiste</a> | <a href="/ai-explorateur">🔬 AI Explorateur</a> | <a href="/ai-marche">💰 AI Marche</a> | <a href="/ai-diplomate">🌍 AI Diplomate</a> | <a href="/ai-philosophe">🧠 AI Philosophe</a> | <a href="/ai-architecte">🏗️ AI Architecte</a> | <a href="/ai-agriculteur">🌾 AI Agriculteur</a> | <a href="/ai-environnement">🌍 AI Environnement</a> | <a href="/ai-mathematicien">🧮 AI Mathématicien</a> | <a href="/ai-energie">⚡ AI Énergie</a> | <a href="/ai-eau">💧 AI Eau</a> | <a href="/ai-defenseur">🛡️ AI Défenseur</a> | <a href="/ai-conscience">🧠 AI Conscience</a> | <a href="/ai-pensee">🧠 AI Pensée</a> | <a href="/ai-musique">🎵 AI Musique</a> | <a href="/ai-langue">🗣️ AI Langue</a> | <a href="/ai-femme">🌸 AI Femme</a> | <a href="/ai-sante-mentale">🧠💚 AI Santé Mentale</a> | <a href="/ai-nuit">🌙 AI Nuit</a> | <a href="/ai-code">💻 AI Code</a> | <a href="/ai-enfant">👶 AI Enfant</a> | <a href="/ai-terre">🌍 AI Terre</a> | <a href="/ai-mer">🌊 AI Mer</a> | <a href="/ai-feu">🔥 AI Feu</a> | <a href="/ai-sang">🩸 AI Sang</a> | <a href="/ai-vent">🌬️ AI Vent</a> | <a href="/ai-temps">⏳ AI Temps</a> | <a href="/ai-etoile">⭐ AI Etoile</a> | <a href="/ai-pierre">🪨 AI Pierre</a> | <a href="/ai-pluie">🌧️ AI Pluie</a> | <a href="/ai-voix">🗣️ AI Voix</a> | <a href="/ai-racine">🌱 AI Racine</a> | <a href="/ai-semence">🌰 AI Semence</a> | <a href="/ai-spiritualite">🙏 AI Spiritualité</a> | <a href="/ai-animal">🦅 AI Animal</a> | <a href="/ai-soleil">☀️ AI Soleil</a> | <a href="/ai-lune">🌙 AI Lune</a> | <a href="/ai-montagne">🏔️ AI Montagne</a> | <a href="/ai-fleuve">🌊 AI Fleuve</a> | <a href="/ai-constitution">📜 AI Constitution</a> | <a href="/ai-cosmos">🌌 AI Cosmos</a> | <a href="/ai-frontieres">🌍 AI Frontières</a> | <a href="/ai-mines">⛏️ AI Mines</a> | <a href="/ai-medias">📡 AI Médias</a> | <a href="/ai-nomades">🐪 AI Nomades</a> | <a href="/ai-reparation">🕊️ AI Réparation</a> | <a href="/professeur">📚 Professeur</a> | <a href="/secret">🦁 AI Secret</a> | <a href="/aes">💰 AES Wari</a> | <a href="/api/status">🔌 API</a></div><div style="text-align:center;"><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Blocs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Transactions</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Utilisateurs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">AFR en circulation</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📡 Noeuds mesh</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📖 Numéros annuaire</div></div><div class="stat-box" style="border-color:#ff4444;"><div class="stat-num" style="color:#ff4444;">{}</div><div class="stat-label">🛡️ Attaques bloquées</div></div></div><div class="card"><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🪙 Token</span><b>AfriRich (AFR)</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🌍 Pays</span><b>54 pays africains</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🛡️ Bouclier</span><b>{}</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;"><span style="color:#a8c5a8;">🔐 Crypto</span><b>100% Souverain — Zéro Dépendance Externe</b></div></div><footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🦁 Codée from scratch par Machine-senpai — v1.40 AI Réparation — UTC est Mort</footer>"#,
         chain.blocks.len(),
         chain.total_transactions(),
         users.count(),
@@ -17756,6 +17756,17 @@ const academies=[
   {titre:'Djihadisme et Instrumentalisation',secret:'JNIM, ISGS, Katiba Macina, Ansaroul Islam recrutent parmi les jeunes pasteurs sans avenir. Promesses mensongeres. Cycle mortel: secheresse → perte → pauvrete → stigmatisation → massacre → vengeance → recrutement. Les djihadistes ne sont pas des liberateurs — ils sont des PREDATEURS. Solution: JUSTICE + DROITS + AVENIR.'},
   {titre:'Souverainete Pastorale',secret:'Les pasteurs possedent 40% du betail africain — ils nourrissent le continent. AfriChain peut: identite numerique pastorale, assurance betail blockchain, marche direct sans intermediaires, corridors surveilles par satellite, education pastorale. La souverainete pastorale: la terre, le betail, l eau, la liberte de mouvement.'},
  ]},
+{nom:'AI Réparation',emoji:'🕊',route:'/ai-reparation',couleur:'#9966cc',diplome:'Défenseur des Réparations',
+ modules:[
+  {titre:'Esclavage Transatlantique',secret:'12,5 millions d\'Africains deportes en 400 ans. Les royaumes europeens ont organise la traite comme une industrie. Les riches de l\'Europe et de l\'Amerique ont ete batuis sur le dos des esclaves. La France a indemnise les colons (Haiti 1825: 150 millions de francs or) mais n a jamais indemnise les esclaves. Les reparations ne sont pas une faveur — c est une DETTE.'},
+  {titre:'Colonialisme et Pillage',secret:'1885-1960: l Afrique a ete coupee, partagee, exploitee par 7 puissances europeennes. Or, diamants, cuivre, uranium, petrole. La France a preleve 500 milliards de francs CFA par an. Les infrastructures etaient pour evacuer les ressources vers les ports. Apres l independance: les structures d exploitation sont restees.'},
+  {titre:'Vol Culturel et Restitution',secret:'90% du patrimoine africain est hors d Afrique. British Museum: 73 000 objets. Quai Branly: 70 000. Les restes humains (cranes) sont dans des collections europeennes. Macron a promis la restitution en 2017 mais a rendu moins de 30 objets sur 90 000. AfriChain peut creer un registre blockchain de tous les objets vole.'},
+  {titre:'Pillage des Ressources',secret:'Le Niger fournit l uranium pour les centrales francaises mais est un des pays les plus pauvres. Le Congo fournit le cobalt pour les telephones du monde. Les multinationales prelevent 80% des benefices. Reparations: renegociation des contrats, nationalisation, transformation locale. AfriChain trace chaque ressource.'},
+  {titre:'Fuite des Cerveaux',secret:'70 000 chercheurs et ingenieurs africains travaillent en Europe et en Amerique. L Afrique qui a paye leur formation perd 4 milliards USD par an. Les medecins africains soignent les hopitaux francais. Solution: AfriChain registre des talents diaspora, bourses de retour, projets blockchain.'},
+  {titre:'Vol Crypto Occidental',secret:'Ledger Recover (CTO avoue acces aux cles), Coldcard bug 5 ans (116M USD), Trust Wallet (7M USD), FTX (8 milliards), Mt. Gox (9 milliards). Les Africains sont des cibles privilegiees. AfriChain propose AfriSeed (24 mots-nature N-KCOL), recuperation par adresse, transparence totale.'},
+  {titre:'Dette Climatique',secret:'L Afrique emet moins de 4% des gaz a effet de serre mais subit le plus. Sahel desertifie 600m/an, lac Tchad 90% perdu. Les pays occidentaux ont promis 100 milliards USD par an (COP21) — jamais paye. AfriChain peut creer un fonds climatique blockchain. La justice climatique est une OBLIGATION.'},
+  {titre:'Reparations et Avenir',secret:'Reconnaissance, restitution, compensation, reforme, education, technologie, unite. Les reparations ne viendront pas de la gentillesse de l Occident mais de la FORCE de l Afrique unie. 54 pays, 1,3 milliards, une blockchain, une voix. Ce que l Afrique construit aujourd hui, personne ne pourra le lui voler demain.'},
+ ]},
 {nom:'AI Cosmos',emoji:'🌌',route:'/ai-cosmos',couleur:'#aabbff',diplome:'Astronome Africain',
  modules:[
   {titre:'Astronomie Dogon',secret:'Les Dogons du Mali sont les astronomes les plus extraordinaires de l histoire. Ce qu ils savaient: 1) Sirius B — une naine blanche invisible a l oeil nu. Les Dogons la connaissaient et la nommaient po tolo. Ils savaient qu elle etait petite et dense, qu elle orbitait autour de Sirius A en 50 ans (la science moderne a confirme: 50,1 ans). 2) L orbite de Sirius B — elliptique. 3) Les anneaux de Saturne — connus avant les telescopes. 4) Les quatre lunes de Jupiter — connues avant Galilee. Comment? Les Dogons observaient le ciel chaque nuit, pendant des siecles, transmettant le savoir de generation en generation. Pas de telescope — juste l oeil, la patience, et la memoire. L Afrique n a pas attendu l Occident pour comprendre l univers.'},
@@ -17973,7 +17984,7 @@ fn html_base_militaire(chain: &Blockchain) -> String {
     // === SAVAIT-ON ===
     html.push_str(r##" <div class="card"><h2>💡 Savais-tu?</h2><div id="base-fact" style="font-size:0.9em;color:#a8c5a8;padding:10px;border-left:3px solid #ff4444;"></div></div> "##);
 
-    html.push_str(&format!(r##" <footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🪖 Base Militaire AfriChain — Académie de Défense Continentale 💚🦁 — {} blocs — v1.39</footer> "##, num_blocks));
+    html.push_str(&format!(r##" <footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🪖 Base Militaire AfriChain — Académie de Défense Continentale 💚🦁 — {} blocs — v1.40</footer> "##, num_blocks));
 
     html.push_str(r##"<script>
 // === BASE MILITAIRE JS ===
@@ -18762,7 +18773,7 @@ canvas{{display:block;margin:0 auto;border-radius:12px;background:#010108;}}
 <button class="pause-btn" id="pauseBtn" onclick="togglePause()">⏸️ Pause</button>
 <h1>🌌 AI Cosmos</h1>
 <p style="text-align:center;color:#8899bb;">L univers vu depuis l Afrique — des Dogons aux satellites</p>
-<div style="text-align:center;color:#aabbff;margin:10px;">🦁 {} blocs · {} transactions · AfriChain v1.39</div>
+<div style="text-align:center;color:#aabbff;margin:10px;">🦁 {} blocs · {} transactions · AfriChain v1.40</div>
 
 <canvas id="cosmosCanvas" width="400" height="320"></canvas>
 <div style="text-align:center;margin:10px;color:#666;font-size:0.85em;">🌌 L Afrique observe l univers depuis des millenaires</div>
@@ -19428,7 +19439,7 @@ canvas{{display:block;margin:0 auto;border-radius:12px;background:#080508;}}
 <button class="pause-btn" id="pauseBtn" onclick="togglePause()">⏸️ Pause</button>
 <h1>📡 AI Médias</h1>
 <p style="text-align:center;color:#bb88aa;">Souverainete Mediatique — l Afrique raconte sa propre histoire</p>
-<div style="text-align:center;color:#cc66aa;margin:10px;">🦁 {} blocs · {} transactions · AfriChain v1.39</div>
+<div style="text-align:center;color:#cc66aa;margin:10px;">🦁 {} blocs · {} transactions · AfriChain v1.40</div>
 
 <canvas id="mediaCanvas" width="400" height="320"></canvas>
 <div style="text-align:center;margin:10px;color:#666;font-size:0.85em;">📡 Les ondes africaines remplacent les voix occidentales</div>
@@ -19650,7 +19661,7 @@ canvas{{display:block;margin:0 auto;border-radius:12px;background:#0d0804;}}
 <button class="pause-btn" id="pauseBtn" onclick="togglePause()">⏸️ Pause</button>
 <h1>🐪 AI Nomades</h1>
 <p style="text-align:center;color:#c8a868;">Les peuples nomades de l Afrique — gardiens des routes, du betail, et de la liberte</p>
-<div style="text-align:center;color:#d4a437;margin:10px;">🦁 {} blocs · {} transactions · AfriChain v1.39</div>
+<div style="text-align:center;color:#d4a437;margin:10px;">🦁 {} blocs · {} transactions · AfriChain v1.40</div>
 
 <canvas id="nomadeCanvas" width="400" height="320"></canvas>
 <div style="text-align:center;margin:10px;color:#666;font-size:0.85em;">🐪 Caravane traversant le Sahara — les routes ancestrales</div>
@@ -19860,6 +19871,240 @@ function drawCanvas(){
  ctx.fillStyle='rgba(212,164,55,0.5)';
  ctx.font='10px Georgia';ctx.textAlign='center';
  ctx.fillText('Le Sahara — routes ancestrales',200,300);
+ requestAnimationFrame(drawCanvas);
+}
+drawCanvas();
+
+function togglePause(){
+ paused=!paused;
+ document.getElementById('pauseBtn').textContent=paused?'▶️ Play':'⏸️ Pause';
+}
+</script>
+</body></html>"##);
+
+    html
+}
+
+
+fn html_ai_reparation(chain: &Blockchain) -> String {
+    let num_blocks = chain.chain.len();
+    let num_txs = chain.chain.iter().map(|b| b.transactions.len()).sum::<usize>();
+    let mut html = String::new();
+    html.push_str(&format!(r##"<!DOCTYPE html>
+<html lang="fr"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>🕊️ AI Réparation — AfriChain</title>
+<style>
+body{{background:#0f0a1a;color:#e0d0f0;font-family:Georgia,serif;margin:0;padding:0;}}
+.card{{background:rgba(100,60,180,0.05);border:1px solid rgba(120,80,200,0.2);border-radius:12px;padding:20px;margin:15px;}}
+h1{{color:#9966cc;text-align:center;font-size:1.8em;}}
+h2{{color:#aa77dd;font-size:1.2em;border-bottom:1px solid rgba(120,80,200,0.2);padding-bottom:8px;}}
+.module{{background:rgba(80,40,160,0.08);border-left:3px solid #9966cc;border-radius:0 8px 8px 0;padding:15px;margin:12px 0;cursor:pointer;transition:all 0.3s;}}
+.module:hover{{background:rgba(80,40,160,0.15);}}
+.module-content{{display:none;margin-top:10px;padding:10px;background:rgba(0,0,0,0.3);border-radius:6px;font-size:0.92em;line-height:1.6;}}
+.module.open .module-content{{display:block;}}
+.module-title{{font-weight:bold;color:#aa77dd;font-size:1.05em;}}
+.module-emoji{{font-size:1.3em;margin-right:8px;}}
+.progress-bar{{background:rgba(255,255,255,0.1);border-radius:10px;height:8px;margin:10px 0;overflow:hidden;}}
+.progress-fill{{background:linear-gradient(90deg,#9966cc,#aa77dd);height:100%;width:0%;transition:width 0.5s;}}
+.diploma-btn{{background:linear-gradient(135deg,#9966cc,#aa77dd);color:#0f0a1a;border:none;padding:12px 30px;border-radius:25px;font-size:1.1em;font-weight:bold;cursor:pointer;margin:20px auto;display:block;box-shadow:0 4px 15px rgba(153,102,204,0.3);}}
+.diploma-btn:hover{{transform:scale(1.05);box-shadow:0 6px 20px rgba(153,102,204,0.5);}}
+.fact{{background:rgba(120,80,200,0.1);border:1px solid rgba(120,80,200,0.3);border-radius:8px;padding:12px;margin:15px;font-style:italic;color:#aa88cc;text-align:center;}}
+canvas{{display:block;margin:0 auto;border-radius:12px;background:#08040f;}}
+.exo{{background:rgba(80,40,160,0.15);border:1px solid rgba(120,80,200,0.2);border-radius:8px;padding:15px;margin:10px 0;}}
+.exo-q{{color:#aa77dd;font-weight:bold;margin-bottom:8px;}}
+.exo-a{{color:#aa88cc;font-size:0.9em;line-height:1.6;white-space:pre-wrap;}}
+.pause-btn{{position:fixed;top:15px;right:15px;background:rgba(255,68,68,0.3);border:1px solid #ff4444;color:#ff8888;padding:8px 16px;border-radius:20px;cursor:pointer;font-size:0.85em;z-index:999;}}
+</style></head><body>
+<button class="pause-btn" id="pauseBtn" onclick="togglePause()">⏸️ Pause</button>
+<h1>🕊️ AI Réparation</h1>
+<p style="text-align:center;color:#aa88cc;">L Afrique a donne au monde. Le monde doit a l Afrique. La verite sur les reparations.</p>
+<div style="text-align:center;color:#9966cc;margin:10px;">🦁 {} blocs · {} transactions · AfriChain v1.40</div>
+
+<canvas id="reparationCanvas" width="400" height="320"></canvas>
+<div style="text-align:center;margin:10px;color:#666;font-size:0.85em;">🕊️ La balance de l histoire — l Afrique a donne, l Afrique doit recevoir</div>
+
+<div class="fact" id="factBox">💡 Savais-tu? La France a paye une dette d independance au Haiti en 1825 — 150 millions de francs or — pour indemniser les colons francais qui avaient perdu leurs esclaves. Haiti a fini de payer en 1947. L Afrique n a jamais recu un seul franc pour l esclavage.</div>
+
+<div class="card">
+<h2>🕊️ Les 8 Modules des Réparations</h2>
+<div style="text-align:center;color:#aa88cc;font-size:0.85em;margin-bottom:15px;">Clique sur chaque module pour reveler le secret. Complete les 8 pour obtenir ton diplome.</div>
+<div class="progress-bar"><div class="progress-fill" id="progFill"></div></div>
+<div style="text-align:center;color:#9966cc;font-size:0.85em;" id="progText">0/8 modules completes</div>
+"##, num_blocks, num_txs));
+
+    let modules = [
+        ("esclavage", "⛓️", "Esclavage Transatlantique", "Le plus grand crime de l histoire humaine: 1) 12,5 millions d Africains deportes en 400 ans (1501-1866). 2) Les royaumes europeens (Portugal, France, Angleterre, Espagne, Pays-Bas) ont organise la traite comme une industrie. 3) Les riches de l Europe et de l Amerique ont ete batuis sur le dos des esclaves africains: sucre, coton, tabac, cafe. 4) La traite transsaharienne a aussi deporte des millions d Africains vers le Maghreb et le Moyen-Orient. 5) Les descendants d esclaves aux Ameriques n ont jamais recu de reparations. Les colons francais, eux, ont ete indemnises (Haiti 1825: 150 millions de francs or). 6) L Afrique a perdu ses forces vives — ses jeunes, ses artistes, ses guerriers, ses savants. 7) Les consequences: sous-developpement, instabilite, traumatisme transgenerationnel. 8) Les reparations pour l esclavage ne sont pas une faveur — c est une DETTE. Une dette que l Occident n a jamais payee."),
+        ("colonialisme", "🏰", "Colonialisme et Pillage", "75 ans de pillage organise: 1) 1885-1960: l Afrique a ete coupee, partagee, exploitee par 7 puissances europeennes. 2) Les ressources: or (Afrique du Sud, Ghana), diamants (Congo, Sierra Leone), cuivre (Katanga), uranium (Niger), petrole (Nigeria, Angola), cafe, cacao, coton. 3) Les infrastructures: les colons ont construit des chemins de fer NON pour developper l Afrique mais pour evacuer les ressources vers les ports. 4) La main d oeuvre forcee: impots en nature, travail obligatoire, corvee. Les Africains ont batui les routes, les ponts, les plantations pour les colons. 5) La France a preleve 500 milliards de francs CFA par an de ses colonies. 6) Apres l independance: les structures d exploitation sont restees. Les multinationales occidentales continuent de piller. 7) Les reparations: restitution des biens culturels (90% du patrimoine africain est en Europe), annulation de la dette coloniale, paiement pour les ressources volees."),
+        ("culturel", "🏛️", "Vol Culturel et Restitution", "90% du patrimoine africain est hors d Afrique: 1) Le British Museum detient 73 000 objets africains. Le Quai Branly a 70 000. Le Musee de l Homme a 30 000. 2) Les rois africains (rois du Benin, masques Fang, statues Dogon) sont exposes dans des musees occidentaux comme des curiosites. 3) Les restes humains (cranes, squelettes) sont dans des collections universitaires europeennes. 4) La France a promis la restitution (Macron 2017) mais a rendu moins de 30 objets sur 90 000. 5) L Afrique doit exiger: restitution COMPLETE et inconditionnelle. Pas de prets, pas de copies — les originaux. 6) AfriChain peut creer un registre blockchain de tous les objets africains volés: ou ils sont, qui les a pris, quand. 7) La blockchain certifie l origine et la propriete. Un objet vole ne peut pas etre legitime. 8) La restitution culturelle est la premiere etape des reparations — rendre ce qui a ete vole."),
+        ("ressources", "💰", "Pillage des Ressources", "L Afrique nourrit le monde mais meurt de faim: 1) Le Niger fournit l uranium pour les centrales nucleaires francaises. Le Niger est un des pays les plus pauvres du monde. 2) Le Congo fournit le cobalt pour les telephones et voitures electriques du monde. Le Congo est en guerre depuis 25 ans. 3) Le Ghana fournit l or pour les bijoux occidentaux. Les mines appartiennent a des multinationales. 4) L Afrique du Sud fournit le platine pour les voitures. Les mineurs travaillent dans des conditions inhumaines. 5) Le petrole du Nigeria et de l Angola part vers l Occident. Les Nigerians manquent de carburant. 6) Les multinationales occidentales (Total, Shell, Areva, Glencore) prelevent 80% des benefices. Les Africains touchent des miettes. 7) Les reparations: renegociation des contrats miniers, nationalisation des ressources strategiques, transformation locale (pas exporter du minerai brut), paiement juste. 8) AfriChain peut tracer chaque ressource: d ou elle vient, qui l exploite, combien elle vaut, ou elle va."),
+        ("cerveaux", "🧠", "Fuite des Cerveaux", "L Afrique perd ses meilleurs esprits: 1) 70 000 chercheurs et ingenieurs africains travaillent en Europe et en Amerique. 2) Les medecins africains soignent les hopitaux francais et britanniques pendant que les hopitaux africains manquent de personnel. 3) Les ingenieurs africains construisent les technologies occidentales pendant que l Afrique importe tout. 4) Les universites africaines sont sous-financees. Les meilleurs partent. 5) L Occident attire les talents africains avec des salaires plus eleves — mais c est l Afrique qui a paye leur formation. 6) La fuite des cerveaux coute 4 milliards USD par an a l Afrique. 7) Solution: AfriChain peut creer un registre des talents africains dans la diaspora. Bourses de retour. Projets de recherche finances par la blockchain. Teletravail depuis l Afrique. 8) Les cerveaux africains ne sont pas perdus — ils sont EN ATTENTE. Il faut les reconnecter a l Afrique."),
+        ("crypto", "🪙", "Vol Crypto Occidental", "Le vol organise des cryptomonnaies: 1) Ledger Recover: le CTO a avoue que Ledger peut acceder aux cles des utilisateurs. 2) Coldcard: un bug non patche pendant 5 ans a permis 116 millions USD de vols. 3) Trust Wallet: une extension malveillante a vole 7 millions USD. 4) FTX: 8 milliards USD disparus — les clients africains n ont jamais ete rembourses. 5) Mt. Gox: 9 milliards USD volés en 2014, les victimes attendent encore. 6) Les portefeuilles occidentaux (Ledger, Trezor, MetaMask, Trust Wallet) sont presents comme securises mais ont des failles cachees. 7) Les Africains sont des cibles privilegiees: peu de culture crypto, confiance dans les outils occidentaux. 8) AfriChain propose: AfriSeed (24 mots-nature N-KCOL, pas des mots anglais), recuperation par adresse (pas de seed a perdre), transparence totale. 9) Les reparations crypto: les plateformes occidentales doivent rembourser les victimes africaines. AfriChain trace les vols. 10) Si pour l Occident c est noir, pour nous c est blanc — AfriChain garantit ce que l Occident ne peut pas."),
+        ("climat", "🌍", "Dette Climatique", "L Afrique pollue le moins, souffre le plus: 1) L Afrique emet moins de 4% des gaz a effet de serre mondiaux. L Europe 8%, la Chine 30%, les USA 14%. 2) Mais l Afrique subit le plus: secheresses au Sahel, inondations au Mozambique, desertification, perte de terres agricoles. 3) Le lac Tchad a perdu 90% de sa superficie depuis 1960. Des millions de personnes dependent de ce lac. 4) Le Sahel se desertifie a 600m par an. Les pasteurs perdent leurs paturages. 5) Les cyclones (Idai 2019: 1300 morts au Mozambique) frappent l Afrique de l Est. 6) Les pays occidentaux ont promis 100 milliards USD par an pour le climat (COP21). Ils n ont jamais paye. 7) La dette climatique: les pays qui ont pollue doivent payer les pays qui subissent. L Afrique est creditrice. 8) AfriChain peut creer un fonds climatique blockchain: chaque pays pollueur contribue, chaque projet africain est trace. 9) La justice climatique n est pas une faveur — c est une OBLIGATION."),
+        ("avenir", "🌱", "Réparations et Avenir", "Comment construire les reparations: 1) RECONNAISSANCE — les pays occidentaux doivent reconnaitre leurs crimes. Pas de excuses vides — des actes. 2) RESTITUTION — rendre les biens culturels, les terres, les ressources. 3) COMPENSATION — paiement financier pour les dommages. L esclavage, le colonialisme, le pillage ont une valeur calculable. 4) REFORME — changer les structures d exploitation. Les institutions internationales (FMI, Banque Mondiale) ont ete construites pour maintenir l Afrique dependante. 5) EDUCATION — enseigner la verite historique. Les jeunes africains doivent connaitre leur histoire, pas la version occidentale. 6) TECHNOLOGIE — AfriChain est une reparation technologique: l Afrique construit sa propre infrastructure, sa propre crypto, sa propre AI. 7) UNITE — les reparations ne viendront pas de la gentillesse de l Occident. Elles viendront de la FORCE de l Afrique unie. 54 pays, 1,3 milliards de personnes, une blockchain, une voix. 8) Les reparations ne sont pas du passe — elles sont du FUTUR. Ce que l Afrique construit aujourd hui, personne ne pourra le lui voler demain."),
+    ];
+
+    for (i, (id, emoji, title, content)) in modules.iter().enumerate() {
+        html.push_str(&format!(r##"<div class="module" id="mod_{0}" onclick="toggleModule({0})">
+<div class="module-title"><span class="module-emoji">{1}</span>{2}</div>
+<div class="module-content">{3}</div>
+</div>"##, i, emoji, title, content));
+    }
+
+    html.push_str(r##"</div>
+
+<div class="card">
+<h2>🎓 Obtenir ton Diplome</h2>
+<p style="text-align:center;color:#aa88cc;">Complete les 8 modules, entre ton nom, et recois ton diplome grave sur la blockchain AfriChain.</p>
+<div style="text-align:center;margin:15px;">
+<input type="text" id="diplomaName" placeholder="Ton nom complet" style="padding:10px 15px;border-radius:8px;border:1px solid rgba(120,80,200,0.3);background:rgba(0,0,0,0.3);color:#e0d0f0;width:250px;font-size:1em;">
+</div>
+<button class="diploma-btn" onclick="genDiploma()">🕊️ Recevoir mon Diplome de Defenseur des Réparations</button>
+<div id="diplomaResult" style="text-align:center;margin:15px;"></div>
+</div>
+
+<div class="card">
+<h2>📝 Exercices Pratiques</h2>
+<div id="exoBox"></div>
+<button class="diploma-btn" style="font-size:0.95em;padding:8px 20px;" onclick="genExos()">🔄 Nouveaux Exercices</button>
+</div>
+
+<script>
+var completed={};
+var paused=false;
+var facts=[
+ 'La France a fait payer a Haiti 150 millions de francs or (1825) pour indemniser les colons qui avaient perdu leurs esclaves. Haiti a fini de payer en 1947.',
+ '90% du patrimoine culturel africain est expose dans des musees occidentaux. Le British Museum detient 73 000 objets africains.',
+ 'Le Niger fournit l uranium des centrales nucleaires francaises mais est un des pays les plus pauvres du monde.',
+ '70 000 chercheurs et ingenieurs africains travaillent en Europe et en Amerique. L Afrique qui a paye leur formation perd 4 milliards USD par an.',
+ 'L Afrique emet moins de 4% des gaz a effet de serre mondiaux mais subit le plus les consequences climatiques.',
+ 'FTX a vole 8 milliards USD. Mt. Gox 9 milliards. Les victimes africaines n ont jamais ete remboursees.',
+ 'Le lac Tchad a perdu 90% de sa superficie depuis 1960. Des millions de personnes en dependent.',
+ 'Les pays occidentaux ont promis 100 milliards USD par an pour le climat (COP21). Ils n ont jamais paye.',
+ 'Le Congo fournit le cobalt pour tous les telephones du monde. Le Congo est en guerre depuis 25 ans.',
+ 'Macron a promis la restitution du patrimoine africain en 2017. Sur 90 000 objets, moins de 30 ont ete rendus.'
+];
+function rotateFact(){var f=facts[Math.floor(Math.random()*facts.length)];document.getElementById('factBox').innerHTML='\u{1F4A1} Savais-tu? '+f;}
+setInterval(function(){if(!paused)rotateFact();},7000);
+
+function toggleModule(i){
+ var m=document.getElementById('mod_'+i);
+ if(m.classList.contains('open')){m.classList.remove('open');}
+ else{m.classList.add('open');if(!completed[i]){completed[i]=true;updateProgress();}}
+}
+function updateProgress(){
+ var n=Object.keys(completed).length;
+ var pct=Math.round(n/8*100);
+ document.getElementById('progFill').style.width=pct+'%';
+ document.getElementById('progText').textContent=n+'/8 modules completes';
+}
+
+function genDiploma(){
+ var name=document.getElementById('diplomaName').value.trim();
+ if(!name){alert('Entre ton nom d abord!');return;}
+ if(Object.keys(completed).length<8){alert('Complete les 8 modules d abord!');return;}
+ fetch('/api/diplome',{method:'POST',headers:{'Content-Type':'text/plain'},body:'AI_REPARATION|'+name})
+  .then(r=>r.json()).then(d=>{
+   document.getElementById('diplomaResult').innerHTML='<div style="background:rgba(120,80,200,0.15);border:2px solid #9966cc;border-radius:12px;padding:20px;margin:10px;"><div style="font-size:1.5em;">\u{1F54A}\u2728</div><div style="color:#9966cc;font-weight:bold;font-size:1.2em;margin:10px;">DIPLOME DE DEFENSEUR DES REPARATIONS</div><div style="color:#e0d0f0;margin:10px;">Attribue a <b>'+name+'</b></div><div style="color:#aa88cc;font-size:0.85em;">Grave sur le bloc #'+(d.blocks_total||'?')+' de la blockchain AfriChain</div><div style="color:#666;font-size:0.8em;margin-top:8px;">L Afrique a donne. L Afrique doit recevoir.</div></div>';
+  }).catch(e=>{document.getElementById('diplomaResult').innerHTML='<div style="color:#ff4444;">Erreur: '+e+'</div>';});
+}
+
+var exoData=[
+ {q:'POURQUOI les reparations pour l esclavage sont-elles une dette?',a:'COMMENT: 12,5 millions d Africains deportes en 400 ans. Les royaumes europeens ont organise la traite comme une industrie. VOILA: Les riches de l Europe et de l Amerique ont ete batuis sur le dos des esclaves. La France a indemnise les colons (Haiti 1825: 150 millions de francs or) mais n a jamais indemnise les esclaves. Les reparations ne sont pas une faveur — c est une DETTE que l Occident n a jamais payee.'},
+ {q:'POURQUOI 90% du patrimoine africain est-il en Europe?',a:'COMMENT: Les colons ont vole les objets africains (masques, statues, rois du Benin) et les ont emportes. VOILA: Le British Museum detient 73 000 objets. Le Quai Branly 70 000. La France a promis la restitution (Macron 2017) mais a rendu moins de 30 objets sur 90 000. AfriChain peut creer un registre blockchain de tous les objets vole. La restitution est la premiere etape des reparations.'},
+ {q:'POURQUOI le Niger est-il pauvre malgre son uranium?',a:'COMMENT: Le Niger fournit l uranium pour les centrales nucleaires francaises. VOILA: Mais le Niger est un des pays les plus pauvres du monde. Les multinationales occidentales (Areva/Orano) prelevent 80% des benefices. Les Africains touchent des miettes. Les reparations: renegociation des contrats miniers, nationalisation des ressources strategiques, transformation locale. AfriChain peut tracer chaque ressource.'},
+ {q:'POURQUOI la fuite des cerveaux coute-t-elle 4 milliards USD par an?',a:'COMMENT: 70 000 chercheurs et ingenieurs africains travaillent en Europe et en Amerique. VOILA: L Afrique a paye leur formation (ecoles, universites) mais l Occident beneficie de leurs talents. Les medecins africains soignent les hopitaux francais et britanniques. Solution: AfriChain peut creer un registre des talents dans la diaspora. Bourses de retour. Projets finances par la blockchain. Les cerveaux ne sont pas perdus — ils sont EN ATTENTE.'},
+ {q:'POURQUOI l Afrique subit-elle le changement climatique qu elle n a pas cause?',a:'COMMENT: L Afrique emet moins de 4% des gaz a effet de serre mondiaux. VOILA: Mais le Sahel se desertifie (600m/an), le lac Tchad a perdu 90% de sa superficie, les cyclones frappent le Mozambique. Les pays occidentaux ont promis 100 milliards USD par an (COP21) — ils n ont jamais paye. La dette climatique: les pollueurs doivent payer les victimes. L Afrique est creditrice. AfriChain peut creer un fonds climatique blockchain.'},
+ {q:'POURQUOI les plateformes crypto occidentales volent-elles les Africains?',a:'COMMENT: Ledger Recover (CTO avoue acces aux cles), Coldcard bug 5 ans (116M USD), Trust Wallet (7M USD), FTX (8 milliards), Mt. Gox (9 milliards). VOILA: Les Africains sont des cibles privilegiees — peu de culture crypto, confiance dans les outils occidentaux. AfriChain propose AfriSeed (24 mots-nature N-KCOL), recuperation par adresse, transparence totale. Les reparations crypto: les plateformes doivent rembourser les victimes africaines.'},
+ {q:'POURQUOI les reparations ne viendront-elles pas de la gentillesse de l Occident?',a:'COMMENT: Les pays occidentaux n ont jamais reconnu leurs crimes volontairement. VOILA: Haiti a du payer pour sa propre liberation. Les colonies africaines ont du payer des dettes coloniales apres l independance. Les reparations viendront de la FORCE de l Afrique unie. 54 pays, 1,3 milliards de personnes, une blockchain, une voix. Les reparations ne sont pas du passe — elles sont du FUTUR. Ce que l Afrique construit aujourd hui, personne ne pourra le lui voler demain.'},
+ {q:'POURQUOI le Congo est-il en guerre malgre ses richesses?',a:'COMMENT: Le Congo fournit le cobalt pour tous les telephones et voitures electriques du monde. VOILA: Mais le Congo est en guerre depuis 25 ans. Les multinationales occidentales et chinoises financent les groupes armes pour controler les mines. Le cobalt est extrait par des enfants dans des conditions inhumaines. Les reparations: trace blockchain du cobalt (d ou, par qui, pour qui), interdiction du minerai issu du travail force, paiement juste.'},
+ {q:'POURQUOI la France prelevait-elle 500 milliards de francs CFA par an?',a:'COMMENT: La France a impose le franc CFA a ses colonies africaines. VOILA: La France controlait la politique monetaire de 14 pays africains. Les reserves de change etaient deposees a Paris. La France prelevait des frais, des interets, des commissions. Le CFA est un instrument de domination monetaire. Les reparations: abolition du franc CFA, creation d une monnaie africaine souveraine (AfriChain AFR), controle de la politique monetaire par les Africains.'},
+ {q:'POURQUOI AfriChain est-elle une reparation technologique?',a:'COMMENT: L Afrique a ete exclue de la construction d Internet, des reseaux sociaux, des cryptomonnaies. VOILA: AfriChain construit l infrastructure africaine: blockchain souveraine (Ed25519, AfriHash, AfriRNG — 100% from scratch), crypto africaine (AFR), reseaux sociaux africains (LES NOIRES, PLANTE VERTE, SAHARA AFRI), mesh network sans operateur occidental. Les reparations technologiques: l Afrique ne demande plus la permission. L Afrique CONSTRUIT. Ce que l Occident a vole, AfriChain le reconstruit — en mieux, en souverain, en africain.'}
+];
+var exoSeed=0;
+function genExos(){
+ exoSeed++;
+ var s=exoSeed*12345;
+ function rand(){s=(s*9301+49297)%233280;return s/233280;}
+ var h='';
+ var used={};
+ for(var i=0;i<5;i++){
+  var idx=Math.floor(rand()*exoData.length);
+  while(used[idx]){idx=(idx+1)%exoData.length;}
+  used[idx]=true;
+  var e=exoData[idx];
+  h+='<div class="exo"><div class="exo-q">'+(i+1)+'. '+e.q+'</div><div class="exo-a">'+e.a+'</div></div>';
+ }
+ document.getElementById('exoBox').innerHTML=h;
+}
+genExos();
+
+// Canvas: balance scale showing Africa giving to the world
+var canvas=document.getElementById('reparationCanvas');
+var ctx=canvas.getContext('2d');
+var t=0;
+var coins=[];
+for(var i=0;i<20;i++){
+ coins.push({x:Math.random()*400,y:Math.random()*320,vx:0,vy:0,life:Math.random(),side:Math.random()<0.5?0:1});
+}
+function drawCanvas(){
+ if(paused){requestAnimationFrame(drawCanvas);return;}
+ t+=0.008;
+ ctx.fillStyle='#08040f';
+ ctx.fillRect(0,0,400,320);
+ // Balance scale
+ var cx=200,cy=180;
+ // Pillar
+ ctx.strokeStyle='#9966cc';ctx.lineWidth=3;
+ ctx.beginPath();ctx.moveTo(cx,cy);ctx.lineTo(cx,cy+100);ctx.stroke();
+ // Base
+ ctx.fillStyle='#9966cc';
+ ctx.fillRect(cx-40,cy+100,80,8);
+ // Beam (tilting)
+ var tilt=Math.sin(t)*0.15;
+ ctx.save();
+ ctx.translate(cx,cy);
+ ctx.rotate(tilt);
+ ctx.strokeStyle='#aa77dd';ctx.lineWidth=3;
+ ctx.beginPath();ctx.moveTo(-100,0);ctx.lineTo(100,0);ctx.stroke();
+ // Left plate (Africa gives)
+ ctx.fillStyle=completed[0]||completed[1]||completed[2]?'#9966cc':'rgba(100,60,180,0.3)';
+ ctx.beginPath();ctx.arc(-80,5,30,0,Math.PI);ctx.fill();
+ ctx.fillStyle='#fff';ctx.font='9px serif';ctx.textAlign='center';
+ ctx.fillText('Afrique',-80,20);
+ ctx.fillText('donne',-80,32);
+ // Right plate (West takes)
+ ctx.fillStyle=completed[3]||completed[4]||completed[5]?'#ff6644':'rgba(180,80,60,0.3)';
+ ctx.beginPath();ctx.arc(80,5,30,0,Math.PI);ctx.fill();
+ ctx.fillStyle='#fff';
+ ctx.fillText('Occident',80,20);
+ ctx.fillText('prend',80,32);
+ ctx.restore();
+ // Module indicators
+ for(var i=0;i<8;i++){
+  var a=i*Math.PI/4-Math.PI/2;
+  var x=cx+Math.cos(a)*130;
+  var y=cy+Math.sin(a)*130-20;
+  ctx.fillStyle=completed[i]?'#9966cc':'rgba(100,60,180,0.2)';
+  ctx.beginPath();ctx.arc(x,y,7,0,Math.PI*2);ctx.fill();
+  ctx.fillStyle='#fff';ctx.font='7px serif';ctx.textAlign='center';
+  ctx.fillText(i+1,x,y+3);
+ }
+ // Flowing coins from Africa to West
+ for(var i=0;i<coins.length;i++){
+  var c=coins[i];
+  c.life-=0.005;
+  if(c.life<=0){
+   c.x=120+Math.random()*20;c.y=180+Math.random()*20;
+   c.vx=1+Math.random()*0.5;c.vy=-0.5+Math.random();
+   c.life=1;
+  }
+  c.x+=c.vx;c.y+=c.vy;
+  ctx.fillStyle='rgba(212,164,55,'+c.life*0.4+')';
+  ctx.beginPath();ctx.arc(c.x,c.y,2,0,Math.PI*2);ctx.fill();
+ }
+ // Title
+ ctx.fillStyle='rgba(153,102,204,0.5)';
+ ctx.font='10px Georgia';ctx.textAlign='center';
+ ctx.fillText('La balance de l histoire',200,290);
  requestAnimationFrame(drawCanvas);
 }
 drawCanvas();
@@ -24985,7 +25230,7 @@ html+='<div class="log-entry log-kill">⚠️ Tentative d\x27infiltration occide
 html+='<div class="log-entry log-invis">✅ L\x27Afrique est forte. Le système grandit.</div>';
 }else if(type==='total'){
 html='<div style="color:#d4a437;font-weight:bold;margin-bottom:8px">📋 RAPPORT TOTAL — Depuis le début</div>';
-html+='<div class="log-entry">🦁 AfriChain v1.39 — AI Médias</div>';
+html+='<div class="log-entry">🦁 AfriChain v1.40 — AI Réparation</div>';
 html+='<div class="log-entry">⛓️ Blockchain: 100% souveraine — Zéro dépendance externe</div>';
 html+='<div class="log-entry">🔐 Crypto: Ed25519 + AfriHash-256/512 + AfriRNG — tout from scratch</div>';
 html+='<div class="log-entry">🌍 54 pays africains connectés</div>';
@@ -26529,7 +26774,7 @@ fn main() {
         .and_then(|i| args.get(i + 1)).cloned().unwrap_or_else(|| "Afrique".to_string());
 
     let my_node_id = generate_node_id();
-    println!("🦁 AfriChain v1.39 — AI Nomades");
+    println!("🦁 AfriChain v1.40 — AI Réparation");
     println!("💚 L'Afrique ne demande plus la permission");
     println!("🌍 54 pays — 🇲🇱 🇳🇪 🇧🇫 AES — Mali · Niger · Burkina Faso");
     println!("🔐 8 modules cryptographiques — construits from scratch");
@@ -26763,7 +27008,7 @@ fn terminal_interface(state: &Arc<AppState>) {
     println!("  ║  🕐 AfriTime — Pas UTC, pas Greenwich   ║");
     println!("  ║  📝 ~23,100 lignes — écrit à la main       ║");
     println!("  ╚═══════════════════════════════════════════════╝");
-    println!("\n  Version v1.39 — 4 septembre 2026");
+    println!("\n  Version v1.40 — 4 septembre 2026");
     println!("  Construit sur Termux · Android · nano\n");
     println!("  ─────────────────────────────────────────────");
     println!("\n  1. 🏦 Centre de Données (Admin)");
@@ -26835,7 +27080,7 @@ fn admin_interface(state: &Arc<AppState>) {
         println!("\n");
         println!("╔══════════════════════════════════════╗");
         println!("║  🏦 CENTRE DE DONNÉES — Admin       ║");
-        println!("║  🦁 AfriChain v1.39                  ║");
+        println!("║  🦁 AfriChain v1.40                  ║");
         println!("╠══════════════════════════════════════╣");
         let chain = state.chain.lock().unwrap();
         let users = state.users.lock().unwrap();
@@ -30630,6 +30875,11 @@ fn handle_request(req: afri_http::HttpRequest, state: &Arc<AppState>) -> afri_ht
         ("GET", "/ai-nomades") => {
             let chain = state.chain.lock().unwrap();
             HttpResponse::ok(&html_ai_nomades(&chain))
+        }
+
+        ("GET", "/ai-reparation") => {
+            let chain = state.chain.lock().unwrap();
+            HttpResponse::ok(&html_ai_reparation(&chain))
         }
 
         ("GET", "/machine") => {
