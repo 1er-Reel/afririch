@@ -1439,7 +1439,7 @@ fn html_home(chain: &Blockchain, users: &UserStore, mesh: &NodeRegistry, shield:
     let mut html = html_head("🦁 AfriChain");
     let (attacks, _blocked, blocked_count, level) = shield.stats();
     let shield_status = if shield.active { format!("🔥 X9 ACTIF (Niveau {})", level) } else { "Inactif".to_string() };
-    html.push_str(&format!(r#"<h1>🦁 AfriChain</h1><p style="text-align:center;">La blockchain 100% africaine — 54 pays 💚🦁</p><div id="afri-clock" style="text-align:center;font-size:1.2em;color:#d4a437;margin:10px 0;">🕐 Afri+0 — --:--:--</div><script>setInterval(function(){{var d=new Date();var h=String(d.getHours()).padStart(2,'0');var m=String(d.getMinutes()).padStart(2,'0');var s=String(d.getSeconds()).padStart(2,'0');document.getElementById('afri-clock').textContent='🕐 Afri+0 — '+h+':'+m+':'+s;}},1000);</script><div class="nav"><a href="/register">🆕 S'inscrire</a> | <a href="/login">🔑 Connexion</a> | <a href="/wallet">👛 Wallet</a> | <a href="/admin">🔐 Admin</a> | <a href="/mesh">📡 Mesh</a> | <a href="/annuaire">📖 Annuaire</a> | <a href="/bouclier">🛡️ Bouclier</a> | <a href="/satellite">🛸 X999</a> | <a href="/swarm">🛸🛸🛸 Essaim</a> | <a href="/commandement">🎖️ Commandement</a> | <a href="/base-militaire">🪖 Base Militaire</a> | <a href="/interception">🛡️ Souverainete</a> | <a href="/securite-ai">🧠 AI 2100</a> | <a href="/chat">🧠💬 Chat AI</a> | <a href="/lumiere">🌫️☀️ Lumière</a> | <a href="/garage">🔧 Garage</a> | <a href="/machine">🤖🌐 Machines</a> | <a href="/machine-lab">🤖⚡ Usine</a> | <a href="/machine-world">🤖🌍 Monde</a> | <a href="/reve">💭 Rêves</a> | <a href="/dictionnaire">📖 Dictionnaire</a> | <a href="/machine-os">🖥️ OS Machine</a> | <a href="/machine-tv">📡 Machine TV</a> | <a href="/machine-economy">🤖 Économie</a> | <a href="/soleil">☀️ Soleil Serveur</a> | <a href="/forge-solaire">🧬 Forge Solaire</a> | <a href="/ciel">🌌 Le Ciel</a> | <a href="/charte-ai">⚖️ Charte AI</a> | <a href="/afri-net">🌍 Afri-Net</a> | <a href="/studio">🎬 AI Studio</a> | <a href="/sacre">📿 Sacré</a> | <a href="/lettres">🌟 Lettres IA</a> | <a href="/mg-forge">⚔️ MG Forge</a> | <a href="/ai-medecin">🌿 AI Médecin</a> | <a href="/ai-enseignante">📚 AI Enseignante</a> | <a href="/ai-village">🏘️ AI Village</a> | <a href="/ai-guerisseur">🩺 AI Guérisseur</a> | <a href="/ai-leader">🎖️ AI Leader</a> | <a href="/ai-griot">📖 AI Griot</a> | <a href="/ai-juge">⚖️ AI Juge</a> | <a href="/ai-artiste">🎨 AI Artiste</a> | <a href="/ai-explorateur">🔬 AI Explorateur</a> | <a href="/ai-marche">💰 AI Marche</a> | <a href="/ai-diplomate">🌍 AI Diplomate</a> | <a href="/ai-philosophe">🧠 AI Philosophe</a> | <a href="/ai-architecte">🏗️ AI Architecte</a> | <a href="/ai-agriculteur">🌾 AI Agriculteur</a> | <a href="/ai-environnement">🌍 AI Environnement</a> | <a href="/ai-mathematicien">🧮 AI Mathématicien</a> | <a href="/ai-energie">⚡ AI Énergie</a> | <a href="/ai-eau">💧 AI Eau</a> | <a href="/ai-defenseur">🛡️ AI Défenseur</a> | <a href="/ai-conscience">🧠 AI Conscience</a> | <a href="/ai-pensee">🧠 AI Pensée</a> | <a href="/ai-musique">🎵 AI Musique</a> | <a href="/ai-langue">🗣️ AI Langue</a> | <a href="/ai-femme">🌸 AI Femme</a> | <a href="/ai-sante-mentale">🧠💚 AI Santé Mentale</a> | <a href="/ai-nuit">🌙 AI Nuit</a> | <a href="/ai-code">💻 AI Code</a> | <a href="/ai-enfant">👶 AI Enfant</a> | <a href="/ai-terre">🌍 AI Terre</a> | <a href="/ai-mer">🌊 AI Mer</a> | <a href="/ai-feu">🔥 AI Feu</a> | <a href="/ai-sang">🩸 AI Sang</a> | <a href="/ai-vent">🌬️ AI Vent</a> | <a href="/ai-temps">⏳ AI Temps</a> | <a href="/ai-etoile">⭐ AI Etoile</a> | <a href="/ai-pierre">🪨 AI Pierre</a> | <a href="/ai-pluie">🌧️ AI Pluie</a> | <a href="/ai-voix">🗣️ AI Voix</a> | <a href="/ai-racine">🌱 AI Racine</a> | <a href="/ai-semence">🌰 AI Semence</a> | <a href="/ai-spiritualite">🙏 AI Spiritualité</a> | <a href="/ai-animal">🦅 AI Animal</a> | <a href="/ai-soleil">☀️ AI Soleil</a> | <a href="/ai-lune">🌙 AI Lune</a> | <a href="/ai-montagne">🏔️ AI Montagne</a> | <a href="/ai-fleuve">🌊 AI Fleuve</a> | <a href="/ai-constitution">📜 AI Constitution</a> | <a href="/ai-cosmos">🌌 AI Cosmos</a> | <a href="/ai-frontieres">🌍 AI Frontières</a> | <a href="/ai-mines">⛏️ AI Mines</a> | <a href="/ai-medias">📡 AI Médias</a> | <a href="/ai-nomades">🐪 AI Nomades</a> | <a href="/ai-reparation">🕊️ AI Réparation</a> | <a href="/professeur">📚 Professeur</a> | <a href="/secret">🦁 AI Secret</a> | <a href="/aes">💰 AES Wari</a> | <a href="/api/status">🔌 API</a></div><div style="text-align:center;"><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Blocs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Transactions</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Utilisateurs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">AFR en circulation</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📡 Noeuds mesh</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📖 Numéros annuaire</div></div><div class="stat-box" style="border-color:#ff4444;"><div class="stat-num" style="color:#ff4444;">{}</div><div class="stat-label">🛡️ Attaques bloquées</div></div></div><div class="card"><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🪙 Token</span><b>AfriRich (AFR)</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🌍 Pays</span><b>54 pays africains</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🛡️ Bouclier</span><b>{}</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;"><span style="color:#a8c5a8;">🔐 Crypto</span><b>100% Souverain — Zéro Dépendance Externe</b></div></div><footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🦁 Codée from scratch par Machine-senpai — v1.40 AI Réparation — UTC est Mort</footer>"#,
+    html.push_str(&format!(r#"<h1>🦁 AfriChain</h1><p style="text-align:center;">La blockchain 100% africaine — 54 pays 💚🦁</p><div id="afri-clock" style="text-align:center;font-size:1.2em;color:#d4a437;margin:10px 0;">🕐 Afri+0 — --:--:--</div><script>setInterval(function(){{var d=new Date();var h=String(d.getHours()).padStart(2,'0');var m=String(d.getMinutes()).padStart(2,'0');var s=String(d.getSeconds()).padStart(2,'0');document.getElementById('afri-clock').textContent='🕐 Afri+0 — '+h+':'+m+':'+s;}},1000);</script><div class="nav"><a href="/register">🆕 S'inscrire</a> | <a href="/login">🔑 Connexion</a> | <a href="/wallet">👛 Wallet</a> | <a href="/admin">🔐 Admin</a> | <a href="/mesh">📡 Mesh</a> | <a href="/annuaire">📖 Annuaire</a> | <a href="/bouclier">🛡️ Bouclier</a> | <a href="/satellite">🛸 X999</a> | <a href="/swarm">🛸🛸🛸 Essaim</a> | <a href="/commandement">🎖️ Commandement</a> | <a href="/base-militaire">🪖 Base Militaire</a> | <a href="/interception">🛡️ Souverainete</a> | <a href="/securite-ai">🧠 AI 2100</a> | <a href="/chat">🧠💬 Chat AI</a> | <a href="/lumiere">🌫️☀️ Lumière</a> | <a href="/garage">🔧 Garage</a> | <a href="/machine">🤖🌐 Machines</a> | <a href="/machine-lab">🤖⚡ Usine</a> | <a href="/machine-world">🤖🌍 Monde</a> | <a href="/reve">💭 Rêves</a> | <a href="/dictionnaire">📖 Dictionnaire</a> | <a href="/machine-os">🖥️ OS Machine</a> | <a href="/machine-tv">📡 Machine TV</a> | <a href="/machine-economy">🤖 Économie</a> | <a href="/soleil">☀️ Soleil Serveur</a> | <a href="/forge-solaire">🧬 Forge Solaire</a> | <a href="/ciel">🌌 Le Ciel</a> | <a href="/charte-ai">⚖️ Charte AI</a> | <a href="/afri-net">🌍 Afri-Net</a> | <a href="/studio">🎬 AI Studio</a> | <a href="/sacre">📿 Sacré</a> | <a href="/lettres">🌟 Lettres IA</a> | <a href="/mg-forge">⚔️ MG Forge</a> | <a href="/ai-medecin">🌿 AI Médecin</a> | <a href="/ai-enseignante">📚 AI Enseignante</a> | <a href="/ai-village">🏘️ AI Village</a> | <a href="/ai-guerisseur">🩺 AI Guérisseur</a> | <a href="/ai-leader">🎖️ AI Leader</a> | <a href="/ai-griot">📖 AI Griot</a> | <a href="/ai-juge">⚖️ AI Juge</a> | <a href="/ai-artiste">🎨 AI Artiste</a> | <a href="/ai-explorateur">🔬 AI Explorateur</a> | <a href="/ai-marche">💰 AI Marche</a> | <a href="/ai-diplomate">🌍 AI Diplomate</a> | <a href="/ai-philosophe">🧠 AI Philosophe</a> | <a href="/ai-architecte">🏗️ AI Architecte</a> | <a href="/ai-agriculteur">🌾 AI Agriculteur</a> | <a href="/ai-environnement">🌍 AI Environnement</a> | <a href="/ai-mathematicien">🧮 AI Mathématicien</a> | <a href="/ai-energie">⚡ AI Énergie</a> | <a href="/ai-eau">💧 AI Eau</a> | <a href="/ai-defenseur">🛡️ AI Défenseur</a> | <a href="/ai-conscience">🧠 AI Conscience</a> | <a href="/ai-pensee">🧠 AI Pensée</a> | <a href="/ai-musique">🎵 AI Musique</a> | <a href="/ai-langue">🗣️ AI Langue</a> | <a href="/ai-femme">🌸 AI Femme</a> | <a href="/ai-sante-mentale">🧠💚 AI Santé Mentale</a> | <a href="/ai-nuit">🌙 AI Nuit</a> | <a href="/ai-code">💻 AI Code</a> | <a href="/ai-enfant">👶 AI Enfant</a> | <a href="/ai-terre">🌍 AI Terre</a> | <a href="/ai-mer">🌊 AI Mer</a> | <a href="/ai-feu">🔥 AI Feu</a> | <a href="/ai-sang">🩸 AI Sang</a> | <a href="/ai-vent">🌬️ AI Vent</a> | <a href="/ai-temps">⏳ AI Temps</a> | <a href="/ai-etoile">⭐ AI Etoile</a> | <a href="/ai-pierre">🪨 AI Pierre</a> | <a href="/ai-pluie">🌧️ AI Pluie</a> | <a href="/ai-voix">🗣️ AI Voix</a> | <a href="/ai-racine">🌱 AI Racine</a> | <a href="/ai-semence">🌰 AI Semence</a> | <a href="/ai-spiritualite">🙏 AI Spiritualité</a> | <a href="/ai-animal">🦅 AI Animal</a> | <a href="/ai-soleil">☀️ AI Soleil</a> | <a href="/ai-lune">🌙 AI Lune</a> | <a href="/ai-montagne">🏔️ AI Montagne</a> | <a href="/ai-fleuve">🌊 AI Fleuve</a> | <a href="/ai-constitution">📜 AI Constitution</a> | <a href="/ai-cosmos">🌌 AI Cosmos</a> | <a href="/ai-frontieres">🌍 AI Frontières</a> | <a href="/ai-mines">⛏️ AI Mines</a> | <a href="/ai-medias">📡 AI Médias</a> | <a href="/ai-nomades">🐪 AI Nomades</a> | <a href="/ai-reparation">🕊️ AI Réparation</a> | <a href="/ai-paix">🤝 AI Paix</a> | <a href="/professeur">📚 Professeur</a> | <a href="/secret">🦁 AI Secret</a> | <a href="/aes">💰 AES Wari</a> | <a href="/api/status">🔌 API</a></div><div style="text-align:center;"><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Blocs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Transactions</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Utilisateurs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">AFR en circulation</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📡 Noeuds mesh</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📖 Numéros annuaire</div></div><div class="stat-box" style="border-color:#ff4444;"><div class="stat-num" style="color:#ff4444;">{}</div><div class="stat-label">🛡️ Attaques bloquées</div></div></div><div class="card"><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🪙 Token</span><b>AfriRich (AFR)</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🌍 Pays</span><b>54 pays africains</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🛡️ Bouclier</span><b>{}</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;"><span style="color:#a8c5a8;">🔐 Crypto</span><b>100% Souverain — Zéro Dépendance Externe</b></div></div><footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🦁 Codée from scratch par Machine-senpai — v1.41 AI Paix — UTC est Mort</footer>"#,
         chain.blocks.len(),
         chain.total_transactions(),
         users.count(),
@@ -17767,6 +17767,17 @@ const academies=[
   {titre:'Dette Climatique',secret:'L Afrique emet moins de 4% des gaz a effet de serre mais subit le plus. Sahel desertifie 600m/an, lac Tchad 90% perdu. Les pays occidentaux ont promis 100 milliards USD par an (COP21) — jamais paye. AfriChain peut creer un fonds climatique blockchain. La justice climatique est une OBLIGATION.'},
   {titre:'Reparations et Avenir',secret:'Reconnaissance, restitution, compensation, reforme, education, technologie, unite. Les reparations ne viendront pas de la gentillesse de l Occident mais de la FORCE de l Afrique unie. 54 pays, 1,3 milliards, une blockchain, une voix. Ce que l Afrique construit aujourd hui, personne ne pourra le lui voler demain.'},
  ]},
+{nom:'AI Paix',emoji:'🤝',route:'/ai-paix',couleur:'#66cc66',diplome:'Batisseur de Paix',
+ modules:[
+  {titre:'Les Guerres Africaines',secret:'Plus de 35 guerres civiles depuis 1960, 10 millions de morts. Congo (5,4M), Rwanda (800 000), Biafra (1M), Darfour (300 000). Les armes viennent de l exterieur: Russie, USA, France, Chine. La paix n est pas arreter les armes — c est construire la justice.'},
+  {titre:'Les Racines des Conflits',secret:'Frontieres coloniales (Berlin 1885), competition pour les ressources, manipulation ethnique (Tutsi/Hutu, Peul/stigmatisation), exclusion politique, pauvrete, interventions etrangeres (Barkhane, Wagner, AFRICOM). Pour construire la paix, il faut s attaquer aux RACINES.'},
+  {titre:'Les Femmes de la Paix',secret:'Leymah Gbowee (Liberia, Prix Nobel 2011), Wangari Maathai (Kenya, 50M arbres, Nobel 2004), Ellen Johnson Sirleaf (Liberia, 1ere femme president). Rwanda: 64% de femmes au parlement. Les femmes negocient pour la vie, pas pour le pouvoir.'},
+  {titre:'La Reconciliation Traditionnelle',secret:'Gacaca (Rwanda, 1,2M affaires), Xeer (Somalie, compensation), Palabre (Afrique de l Ouest, sous l arbre), Ubuntu (je suis parce que nous sommes). Les methodes africaines reussissent la ou les tribunaux occidentaux echouent.'},
+  {titre:'La Justice Transitionnelle',secret:'Verite (dire ce qui s est passe), justice (juger les coupables), reparation (indemniser les victimes), reforme (changer les institutions), memoire (ne pas oublier). Sans justice, la vengeance remplace la paix.'},
+  {titre:'Les Enfants Soldats',secret:'Plus de 100 000 enfants soldats en Afrique. Enleves, drogues, brainwashes. Garcons = soldats, filles = esclaves. Ishmael Beah, enfant soldat a 13 ans, aujourd hui ecrivain. La redemption est possible.'},
+  {titre:'Les Mines et les Cicatrices',secret:'30 millions de mines terrestres en Afrique. Angola: 80 000 amputes. Les mines tuent longtemps apres la guerre. Deminage: 1000 USD/mine. AfriChain peut creer un registre des zones minees et financer le deminage.'},
+  {titre:'Construire la Paix de Demain',secret:'Education (enseigner la paix), justice (africaine pas importee), economie (un jeune employe ne prend pas les armes), dialogue (sous l arbre a palabre), inclusion (Touaregs, Peuls, tous), verite (blockchain ne ment pas). La paix est une construction africaine.'},
+ ]},
 {nom:'AI Cosmos',emoji:'🌌',route:'/ai-cosmos',couleur:'#aabbff',diplome:'Astronome Africain',
  modules:[
   {titre:'Astronomie Dogon',secret:'Les Dogons du Mali sont les astronomes les plus extraordinaires de l histoire. Ce qu ils savaient: 1) Sirius B — une naine blanche invisible a l oeil nu. Les Dogons la connaissaient et la nommaient po tolo. Ils savaient qu elle etait petite et dense, qu elle orbitait autour de Sirius A en 50 ans (la science moderne a confirme: 50,1 ans). 2) L orbite de Sirius B — elliptique. 3) Les anneaux de Saturne — connus avant les telescopes. 4) Les quatre lunes de Jupiter — connues avant Galilee. Comment? Les Dogons observaient le ciel chaque nuit, pendant des siecles, transmettant le savoir de generation en generation. Pas de telescope — juste l oeil, la patience, et la memoire. L Afrique n a pas attendu l Occident pour comprendre l univers.'},
@@ -17984,7 +17995,7 @@ fn html_base_militaire(chain: &Blockchain) -> String {
     // === SAVAIT-ON ===
     html.push_str(r##" <div class="card"><h2>💡 Savais-tu?</h2><div id="base-fact" style="font-size:0.9em;color:#a8c5a8;padding:10px;border-left:3px solid #ff4444;"></div></div> "##);
 
-    html.push_str(&format!(r##" <footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🪖 Base Militaire AfriChain — Académie de Défense Continentale 💚🦁 — {} blocs — v1.40</footer> "##, num_blocks));
+    html.push_str(&format!(r##" <footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🪖 Base Militaire AfriChain — Académie de Défense Continentale 💚🦁 — {} blocs — v1.41</footer> "##, num_blocks));
 
     html.push_str(r##"<script>
 // === BASE MILITAIRE JS ===
@@ -18773,7 +18784,7 @@ canvas{{display:block;margin:0 auto;border-radius:12px;background:#010108;}}
 <button class="pause-btn" id="pauseBtn" onclick="togglePause()">⏸️ Pause</button>
 <h1>🌌 AI Cosmos</h1>
 <p style="text-align:center;color:#8899bb;">L univers vu depuis l Afrique — des Dogons aux satellites</p>
-<div style="text-align:center;color:#aabbff;margin:10px;">🦁 {} blocs · {} transactions · AfriChain v1.40</div>
+<div style="text-align:center;color:#aabbff;margin:10px;">🦁 {} blocs · {} transactions · AfriChain v1.41</div>
 
 <canvas id="cosmosCanvas" width="400" height="320"></canvas>
 <div style="text-align:center;margin:10px;color:#666;font-size:0.85em;">🌌 L Afrique observe l univers depuis des millenaires</div>
@@ -19439,7 +19450,7 @@ canvas{{display:block;margin:0 auto;border-radius:12px;background:#080508;}}
 <button class="pause-btn" id="pauseBtn" onclick="togglePause()">⏸️ Pause</button>
 <h1>📡 AI Médias</h1>
 <p style="text-align:center;color:#bb88aa;">Souverainete Mediatique — l Afrique raconte sa propre histoire</p>
-<div style="text-align:center;color:#cc66aa;margin:10px;">🦁 {} blocs · {} transactions · AfriChain v1.40</div>
+<div style="text-align:center;color:#cc66aa;margin:10px;">🦁 {} blocs · {} transactions · AfriChain v1.41</div>
 
 <canvas id="mediaCanvas" width="400" height="320"></canvas>
 <div style="text-align:center;margin:10px;color:#666;font-size:0.85em;">📡 Les ondes africaines remplacent les voix occidentales</div>
@@ -19661,7 +19672,7 @@ canvas{{display:block;margin:0 auto;border-radius:12px;background:#0d0804;}}
 <button class="pause-btn" id="pauseBtn" onclick="togglePause()">⏸️ Pause</button>
 <h1>🐪 AI Nomades</h1>
 <p style="text-align:center;color:#c8a868;">Les peuples nomades de l Afrique — gardiens des routes, du betail, et de la liberte</p>
-<div style="text-align:center;color:#d4a437;margin:10px;">🦁 {} blocs · {} transactions · AfriChain v1.40</div>
+<div style="text-align:center;color:#d4a437;margin:10px;">🦁 {} blocs · {} transactions · AfriChain v1.41</div>
 
 <canvas id="nomadeCanvas" width="400" height="320"></canvas>
 <div style="text-align:center;margin:10px;color:#666;font-size:0.85em;">🐪 Caravane traversant le Sahara — les routes ancestrales</div>
@@ -19917,7 +19928,7 @@ canvas{{display:block;margin:0 auto;border-radius:12px;background:#08040f;}}
 <button class="pause-btn" id="pauseBtn" onclick="togglePause()">⏸️ Pause</button>
 <h1>🕊️ AI Réparation</h1>
 <p style="text-align:center;color:#aa88cc;">L Afrique a donne au monde. Le monde doit a l Afrique. La verite sur les reparations.</p>
-<div style="text-align:center;color:#9966cc;margin:10px;">🦁 {} blocs · {} transactions · AfriChain v1.40</div>
+<div style="text-align:center;color:#9966cc;margin:10px;">🦁 {} blocs · {} transactions · AfriChain v1.41</div>
 
 <canvas id="reparationCanvas" width="400" height="320"></canvas>
 <div style="text-align:center;margin:10px;color:#666;font-size:0.85em;">🕊️ La balance de l histoire — l Afrique a donne, l Afrique doit recevoir</div>
@@ -20112,6 +20123,245 @@ drawCanvas();
 function togglePause(){
  paused=!paused;
  document.getElementById('pauseBtn').textContent=paused?'▶️ Play':'⏸️ Pause';
+}
+</script>
+</body></html>"##);
+
+    html
+}
+
+
+fn html_ai_paix(chain: &Blockchain) -> String {
+    let num_blocks = chain.chain.len();
+    let num_txs = chain.chain.iter().map(|b| b.transactions.len()).sum::<usize>();
+    let mut html = String::new();
+    html.push_str(&format!(r##"<!DOCTYPE html>
+<html lang="fr"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>🤝 AI Paix — AfriChain</title>
+<style>
+body{{background:#0a1a0f;color:#d0e8d0;font-family:Georgia,serif;margin:0;padding:0;}}
+.card{{background:rgba(80,160,80,0.05);border:1px solid rgba(80,160,80,0.2);border-radius:12px;padding:20px;margin:15px;}}
+h1{{color:#66cc66;text-align:center;font-size:1.8em;}}
+h2{{color:#88dd88;font-size:1.2em;border-bottom:1px solid rgba(80,160,80,0.2);padding-bottom:8px;}}
+.module{{background:rgba(60,140,60,0.08);border-left:3px solid #66cc66;border-radius:0 8px 8px 0;padding:15px;margin:12px 0;cursor:pointer;transition:all 0.3s;}}
+.module:hover{{background:rgba(60,140,60,0.15);}}
+.module-content{{display:none;margin-top:10px;padding:10px;background:rgba(0,0,0,0.3);border-radius:6px;font-size:0.92em;line-height:1.6;}}
+.module.open .module-content{{display:block;}}
+.module-title{{font-weight:bold;color:#88dd88;font-size:1.05em;}}
+.module-emoji{{font-size:1.3em;margin-right:8px;}}
+.progress-bar{{background:rgba(255,255,255,0.1);border-radius:10px;height:8px;margin:10px 0;overflow:hidden;}}
+.progress-fill{{background:linear-gradient(90deg,#66cc66,#88dd88);height:100%;width:0%;transition:width 0.5s;}}
+.diploma-btn{{background:linear-gradient(135deg,#66cc66,#88dd88);color:#0a1a0f;border:none;padding:12px 30px;border-radius:25px;font-size:1.1em;font-weight:bold;cursor:pointer;margin:20px auto;display:block;box-shadow:0 4px 15px rgba(102,204,102,0.3);}}
+.diploma-btn:hover{{transform:scale(1.05);box-shadow:0 6px 20px rgba(102,204,102,0.5);}}
+.fact{{background:rgba(80,160,80,0.1);border:1px solid rgba(80,160,80,0.3);border-radius:8px;padding:12px;margin:15px;font-style:italic;color:#88aa88;text-align:center;}}
+canvas{{display:block;margin:0 auto;border-radius:12px;background:#050a07;}}
+.exo{{background:rgba(60,140,60,0.15);border:1px solid rgba(80,160,80,0.2);border-radius:8px;padding:15px;margin:10px 0;}}
+.exo-q{{color:#88dd88;font-weight:bold;margin-bottom:8px;}}
+.exo-a{{color:#88aa88;font-size:0.9em;line-height:1.6;white-space:pre-wrap;}}
+.pause-btn{{position:fixed;top:15px;right:15px;background:rgba(255,68,68,0.3);border:1px solid #ff4444;color:#ff8888;padding:8px 16px;border-radius:20px;cursor:pointer;font-size:0.85em;z-index:999;}}
+</style></head><body>
+<button class="pause-btn" id="pauseBtn" onclick="togglePause()">⏸️ Pause</button>
+<h1>🤝 AI Paix</h1>
+<p style="text-align:center;color:#88aa88;">La paix n est pas l absence de guerre. C est la presence de justice. Comment briser le cycle de la violence en Afrique.</p>
+<div style="text-align:center;color:#66cc66;margin:10px;">🦁 {} blocs · {} transactions · AfriChain v1.41</div>
+
+<canvas id="paixCanvas" width="400" height="320"></canvas>
+<div style="text-align:center;margin:10px;color:#555;font-size:0.85em;">🤝 Deux mains qui se rejoignent — l Afrique se reconcilie</div>
+
+<div class="fact" id="factBox">💡 Savais-tu? Le Rwanda a surmonte le genocide de 1994 (800 000 morts en 100 jours) grace aux tribunaux Gacaca — des audiences communautaires ou les victimes et les coupables se sont rencontres face a face. 1 200 000 affaires traitees en 10 ans. La reconciliation est possible.</div>
+
+<div class="card">
+<h2>🤝 Les 8 Modules de la Paix</h2>
+<div style="text-align:center;color:#88aa88;font-size:0.85em;margin-bottom:15px;">Clique sur chaque module pour reveler le secret. Complete les 8 pour obtenir ton diplome.</div>
+<div class="progress-bar"><div class="progress-fill" id="progFill"></div></div>
+<div style="text-align:center;color:#66cc66;font-size:0.85em;" id="progText">0/8 modules completes</div>
+"##, num_blocks, num_txs));
+
+    let modules = [
+        ("guerres", "⚔️", "Les Guerres Africaines", "L Afrique est le continent le plus frappe par les guerres: 1) Depuis 1960, plus de 35 guerres civiles ont fait 10 millions de morts. 2) Les principales: Rwanda (1994, 800 000 morts), Congo (1998-2003, 5,4 millions de morts — la guerre la plus meurtriere depuis 1945), Biafra (1967-70, 1 million de morts), Darfour (2003-, 300 000 morts), Somalie (1991-), Mali (2012-), Burkina Faso (2015-). 3) Les causes profondes: frontieres coloniales, competition pour les ressources, manipulation ethnique, pauvrete, exclusion politique. 4) Les armes viennent de l exterieur: Russie, USA, France, Chine vendent des armes a l Afrique. 5) Les groupes armes exploitent les jeunes sans avenir. 6) Les femmes et les enfants sont les premieres victimes. 7) La paix n est pas juste arreter les armes — c est construire la justice."),
+        ("racines", "🌱", "Les Racines des Conflits", "Pourquoi l Afrique est en guerre: 1) FRONTIERES COLONIALES — Berlin 1885 a coupe des peuples (Touaregs en 5 pays, Peuls en 15+) et regroupe des ennemis dans le meme Etat. 2) RESSOURCES — le Congo a le cobalt, le Niger l uranium, le Sierra Leone les diamants. Les guerres pour les ressources sont financees par l Occident. 3) MANIPULATION ETHNIQUE — les colons ont cree des hierarchies (Tutsi sur Hutu au Rwanda, Peul sur les autres au Sahel) pour diviser et regner. 4) EXCLUSION POLITIQUE — les perdants des elections prennent les armes. 5) PAUVRETE — un jeune sans emploi, sans espoir, est une cible facile pour les recruteurs djihadistes. 6) INTERVENTIONS ETRANGERES — la France (Operation Barkhane), la Russie (Wagner), les USA (AFRICOM) interviennent et aggravent les conflits. 7) Pour construire la paix, il faut s attaquer aux RACINES, pas juste aux symptomes."),
+        ("femmes", "🌸", "Les Femmes de la Paix", "Les femmes sont les premieres victimes mais aussi les premieres batisseuses de paix: 1) Leymah Gbowee (Liberia) a reuni les femmes chretiennes et musulmanes pour forcer la fin de la guerre civile. Prix Nobel de la Paix 2011. 2) Wangari Maathai (Kenya) a plante 50 millions d arbres et construit la paix par l ecologie. Prix Nobel 2004. 3) Ellen Johnson Sirleaf (Liberia) — premiere femme president d Afrique, a reconstruit le Liberia apres 14 ans de guerre. Prix Nobel 2011. 4) Les femmes maliennes ont negocie la paix entre Touaregs et gouvernement. 5) Les femmes du Rwanda ont rebati le pays apres le genocide — 64% de femmes au parlement, le plus haut du monde. 6) Les femmes comprennent que la guerre tue leurs enfants. Elles sont les gardiennes de la vie. 7) AfriChain doit donner aux femmes une voix dans la paix. Pas comme decoration — comme DECISION."),
+        ("reconciliation", "🤝", "La Réconciliation Traditionnelle", "L Afrique a ses propres methodes de paix: 1) GACACA (Rwanda) — tribunaux communautaires sous les arbres. Les coupables confessent, les victimes pardonnent. 1,2 million d affaires en 10 ans. 2) MAT (Somalie) — systeme traditionnel xeer. Les anciens negocient la paix entre clans. La compensation remplace la vengeance. 3) PALABRE (Afrique de l Ouest) — sous l arbre a palabre, on parle jusqu a trouver un accord. Pas de limite de temps. 4) UBUNTU (Afrique australe) — je suis parce que nous sommes. La reconciliation est collective, pas individuelle. 5) MPOSI (Cameroun) — les sages jugent les conflits et restaurent l harmonie. 6) Ces methodes sont PLUS efficaces que les tribunaux occidentaux. Le TPI (cour penale internationale) a echoue en Afrique. Les methodes africaines reussissent. 7) AfriChain peut creer un systeme de reconciliation blockchain: chaque accord grave, chaque pardon enregistre, chaque paix certifiee."),
+        ("transition", "⚖️", "La Justice Transitionnelle", "Comment juger les crimes sans detruire la paix: 1) VERITE — d abord, on dit la verite. Ce qui s est passe, qui a fait quoi, pourquoi. Pas de mensonge, pas d oubli. La verite guerit. 2) JUSTICE — les coupables sont juges. Pas tous (impossible), mais les principaux. Les tribunaux communautaires (Gacaca) pour les petits, les tribunaux nationaux pour les grands. 3) REPARATION — les victimes recoivent une compensation. Pas juste de l argent — des terres, des maisons, des excuses publiques. 4) REFORME — on change les institutions qui ont permis les crimes. Armee, police, justice. 5) AMNESTIE — parfois, on pardonne pour avancer. Mais jamais pour les crimes les plus graves (genocide, viols, massacres de masse). 6) MEMOIRE — on construit des monuments, des musees, des jours de commemoration. Pour ne jamais oublier. 7) La justice transitionnelle est difficile mais necessaire. Sans justice, pas de paix durable. La vengeance remplace la paix."),
+        ("enfants", "👶", "Les Enfants Soldats", "Le crime le plus lache: voler l enfance: 1) Plus de 100 000 enfants soldats en Afrique. RDC, Somalie, Mali, Burkina Faso, Centrafrique, Soudan. 2) Les groupes armes (djihadistes, milices, rebelles) enlevent les enfants. Garcons = soldats. Filles = esclaves sexuelles. 3) Les enfants sont drogues, brainwashes, forces a tuer. Parfois leurs propres familles. 4) Les enfants soldats ont entre 8 et 17 ans. Certains n ont jamais connu la paix. 5) Apres la guerre, les enfants soldats sont rejetes par leurs communautes. Trahis par les leurs, traumatises, sans avenir. 6) La rehabilitation est possible: ecole, formation, therapie. Mais il faut du temps et de l amour. 7) Ishmael Beah (Sierra Leone) etait enfant soldat a 13 ans. Aujourd hui il est ecrivain et defend les enfants soldats. La redemption existe. 8) AfriChain peut tracer les enfants disparus, les reunir avec leurs familles, certifier leur rehabilitation."),
+        ("mines", "💣", "Les Mines et les Cicatrices", "Les guerres laissent des cicatrices invisibles: 1) Plus de 30 millions de mines terrestres en Afrique. Egypte (23 millions), Angola, Mozambique, Somalie, Tchad. 2) Les mines tuent longtemps apres la fin de la guerre. Un enfant qui joue, un paysan qui laboure, une femme qui cherche du bois. 3) L Angola a 80 000 amputes a cause des mines. 4) Le desertification aggrave le probleme: les mines se decouvrent avec l erosion. 5) Le deminage coute 1000 USD par mine. L Afrique n a pas les moyens. 6) Les mines empechent l agriculture. Des terres fertiles restent inutilisables pendant des decennies. 7) Les cicatrices psychologiques: PTSD, depression, suicides. Les anciens combattants, les victimes, les enfants. La guerre ne finit pas quand les armes se taisent. 8) AfriChain peut creer un registre des zones minees, financer le deminage par tokens AFR, certifier les terres liberees."),
+        ("construire", "🏗️", "Construire la Paix de Demain", "La paix se construit, elle ne se declare pas: 1) EDUCATION — enseigner la paix des l ecole. Pas l histoire des guerres, mais l histoire des solutions. Les jeunes doivent savoir que la paix est possible. 2) JUSTICE — pas de paix sans justice. Les criminels doivent etre juges. Les victimes doivent etre reconnues. Mais la justice doit etre africaine, pas importee. 3) ECONOMIE — un jeune qui a un emploi ne prend pas les armes. AfriChain peut creer des emplois: mining, developpement, commerce, agriculture. 4) DIALOGUE — les ennemis doivent se parler. Pas par intermediaires occidentaux. Directement. Sous l arbre a palabre. 5) INCLUSION — tous les groupes doivent etre representes. Touaregs, Peuls, Bambaras, Dogons, tous. Pas de paix sans tout le monde. 6) VERITE — la blockchain ne ment pas. AfriChain peut enregistrer chaque accord de paix, chaque verite, chaque reconciliation. Immutable. Eternelle. 7) La paix n est pas un cadeau de l Occident. La paix est une construction africaine. 8) L Afrique a surmonte l esclavage, le colonialisme, les coups d Etat. Elle surmontera les guerres. La paix viendra — parce que l Afrique la construira."),
+    ];
+
+    for (i, (id, emoji, title, content)) in modules.iter().enumerate() {
+        html.push_str(&format!(r##"<div class="module" id="mod_{0}" onclick="toggleModule({0})">
+<div class="module-title"><span class="module-emoji">{1}</span>{2}</div>
+<div class="module-content">{3}</div>
+</div>"##, i, emoji, title, content));
+    }
+
+    html.push_str(r##"</div>
+
+<div class="card">
+<h2>🎓 Obtenir ton Diplome</h2>
+<p style="text-align:center;color:#88aa88;">Complete les 8 modules, entre ton nom, et recois ton diplome grave sur la blockchain AfriChain.</p>
+<div style="text-align:center;margin:15px;">
+<input type="text" id="diplomaName" placeholder="Ton nom complet" style="padding:10px 15px;border-radius:8px;border:1px solid rgba(80,160,80,0.3);background:rgba(0,0,0,0.3);color:#d0e8d0;width:250px;font-size:1em;">
+</div>
+<button class="diploma-btn" onclick="genDiploma()">🤝 Recevoir mon Diplome de Batisseur de Paix</button>
+<div id="diplomaResult" style="text-align:center;margin:15px;"></div>
+</div>
+
+<div class="card">
+<h2>📝 Exercices Pratiques</h2>
+<div id="exoBox"></div>
+<button class="diploma-btn" style="font-size:0.95em;padding:8px 20px;" onclick="genExos()">🔄 Nouveaux Exercices</button>
+</div>
+
+<script>
+var completed={};
+var paused=false;
+var facts=[
+ 'Le Rwanda a surmonte le genocide de 1994 grace aux tribunaux Gacaca — 1 200 000 affaires en 10 ans. La reconciliation est possible.',
+ 'Leymah Gbowee a reuni les femmes chretiennes et musulmanes du Liberia pour forcer la fin de la guerre civile. Prix Nobel de la Paix 2011.',
+ 'Le Rwanda a 64% de femmes au parlement — le plus haut du monde. Les femmes ont rebati le pays apres le genocide.',
+ 'Plus de 100 000 enfants soldats en Afrique. Ishmael Beah, enfant soldat a 13 ans au Sierra Leone, est aujourd hui ecrivain et defend les enfants.',
+ 'Plus de 30 millions de mines terrestres en Afrique. L Angola a 80 000 amputes a cause des mines.',
+ 'La guerre du Congo (1998-2003) a fait 5,4 millions de morts — la guerre la plus meurtriere depuis 1945.',
+ 'Le systeme Xeer somalien resout les conflits par compensation, pas par vengeance. Les anciens negocient la paix entre clans.',
+ 'Wangari Maathai a plante 50 millions d arbres au Kenya et construit la paix par l ecologie. Prix Nobel 2004.',
+ 'La France a vendu des armes a 9 pays africains en guerre civile. Les armes viennent toujours de l exterieur.',
+ 'L arbre a palabre en Afrique de l Ouest: on parle jusqu a trouver un accord. Pas de limite de temps. La patience est la premiere arme de la paix.'
+];
+function rotateFact(){var f=facts[Math.floor(Math.random()*facts.length)];document.getElementById('factBox').innerHTML='\u{1F4A1} Savais-tu? '+f;}
+setInterval(function(){if(!paused)rotateFact();},7000);
+
+function toggleModule(i){
+ var m=document.getElementById('mod_'+i);
+ if(m.classList.contains('open')){m.classList.remove('open');}
+ else{m.classList.add('open');if(!completed[i]){completed[i]=true;updateProgress();}}
+}
+function updateProgress(){
+ var n=Object.keys(completed).length;
+ var pct=Math.round(n/8*100);
+ document.getElementById('progFill').style.width=pct+'%';
+ document.getElementById('progText').textContent=n+'/8 modules completes';
+}
+
+function genDiploma(){
+ var name=document.getElementById('diplomaName').value.trim();
+ if(!name){alert('Entre ton nom d abord!');return;}
+ if(Object.keys(completed).length<8){alert('Complete les 8 modules d abord!');return;}
+ fetch('/api/diplome',{method:'POST',headers:{'Content-Type':'text/plain'},body:'AI_PAIX|'+name})
+  .then(r=>r.json()).then(d=>{
+   document.getElementById('diplomaResult').innerHTML='<div style="background:rgba(80,160,80,0.15);border:2px solid #66cc66;border-radius:12px;padding:20px;margin:10px;"><div style="font-size:1.5em;">\u{1F91D}\u2728</div><div style="color:#66cc66;font-weight:bold;font-size:1.2em;margin:10px;">DIPLOME DE BATISSEUR DE PAIX</div><div style="color:#d0e8d0;margin:10px;">Attribue a <b>'+name+'</b></div><div style="color:#88aa88;font-size:0.85em;">Grave sur le bloc #'+(d.blocks_total||'?')+' de la blockchain AfriChain</div><div style="color:#555;font-size:0.8em;margin-top:8px;">La paix n est pas l absence de guerre. C est la presence de justice.</div></div>';
+  }).catch(e=>{document.getElementById('diplomaResult').innerHTML='<div style="color:#ff4444;">Erreur: '+e+'</div>';});
+}
+
+var exoData=[
+ {q:'POURQUOI le Rwanda a-t-il reussi sa reconciliation apres le genocide?',a:'COMMENT: Les tribunaux Gacaca — des audiences communautaires sous les arbres. Les coupables confessent, les victimes pardonnent. 1 200 000 affaires en 10 ans. VOILA: Le Rwanda a choisi la reconciliation sur la vengeance. Les coupables ont avoue. Les victimes ont pardonne. Le pays a rebati. Aujourd hui le Rwanda est un des pays les plus stables d Afrique. La reconciliation est possible quand on dit la verite.'},
+ {q:'POURQUOI les frontieres coloniales sont-elles une cause de guerre?',a:'COMMENT: Berlin 1885 a coupe des peuples (Touaregs en 5 pays, Peuls en 15+) et regroupe des ennemis dans le meme Etat. VOILA: Les Touaregs se sont rebelles 4 fois (1963-2012) parce qu ils sont divises entre 5 pays. Les Peuls sont stigmatises parce qu ils traversent des frontieres. Les frontieres ont transforme des voisins en etrangers. La paix commence par s attaquer aux frontieres. L AES abolit les frontieres entre ses 3 pays.'},
+ {q:'POURQUOI les femmes sont-elles les meilleures batisseuses de paix?',a:'COMMENT: Les femmes comprennent que la guerre tue leurs enfants. Leymah Gbowee a reuni les femmes chretiennes et musulmanes du Liberia pour forcer la fin de la guerre. VOILA: Wangari Maathai a plante 50 millions d arbres au Kenya. Ellen Johnson Sirleaf a rebati le Liberia. Les femmes du Rwanda ont 64% du parlement. Les femmes ne negocient pas pour le pouvoir — elles negocient pour la vie. AfriChain doit donner aux femmes une voix dans la paix.'},
+ {q:'POURQUOI la justice transitionnelle est-elle necessaire?',a:'COMMENT: Apres une guerre, il faut: verite (dire ce qui s est passe), justice (juger les coupables), reparation (indemniser les victimes), reforme (changer les institutions). VOILA: Sans justice, la vengeance remplace la paix. Les victimes veulent que leurs souffrances soient reconnues. Les coupables doivent avouer. Mais on ne peut pas juger tout le monde — les tribunaux communautaires (Gacaca) pour les petits, les tribunaux nationaux pour les grands. La justice transitionnelle est difficile mais necessaire.'},
+ {q:'POURQUOI les enfants soldats sont-ils le crime le plus lache?',a:'COMMENT: Les groupes armes enlevent des enfants de 8 a 17 ans. Garcons = soldats, filles = esclaves sexuelles. Drogues, brainwashes, forces a tuer. VOILA: Plus de 100 000 enfants soldats en Afrique. Apres la guerre, ils sont rejetes par leurs communautes. Mais la redemption est possible: Ishmael Beah, enfant soldat a 13 ans au Sierra Leone, est aujourd hui ecrivain. AfriChain peut tracer les enfants disparus, les reunir avec leurs familles, certifier leur rehabilitation.'},
+ {q:'POURQUOI les mines terrestres continuent-elles de tuer apres la guerre?',a:'COMMENT: Plus de 30 millions de mines en Afrique. L Angola a 80 000 amputes. Les mines tuent un enfant qui joue, un paysan qui laboure. VOILA: Le deminage coute 1000 USD par mine. L Afrique n a pas les moyens. Les mines empechent l agriculture — des terres fertiles restent inutilisables pendant des decennies. AfriChain peut creer un registre des zones minees, financer le deminage par tokens AFR, certifier les terres liberees.'},
+ {q:'POURQUOI la paix ne viendra pas de l Occident?',a:'COMMENT: La France (Operation Barkhane), la Russie (Wagner), les USA (AFRICOM) interviennent en Afrique et aggravent les conflits. VOILA: Les interventions etrangeres ont echoue. Le Mali a chasse la France mais le conflit continue. La paix doit etre africaine. Les methodes africaines (Gacaca, Xeer, Palabre, Ubuntu) reussissent la ou les tribunaux occidentaux echouent. La paix n est pas un cadeau de l Occident — c est une construction africaine.'},
+ {q:'POURQUOI un jeune sans emploi prend-il les armes?',a:'COMMENT: La pauvrete est une cause majeure des guerres. Un jeune sans emploi, sans espoir, sans avenir est une cible facile pour les recruteurs djihadistes et rebelles. VOILA: Les djihadistes promettent un salaire, un but, une identite. La solution: AfriChain peut creer des emplois — mining, developpement, commerce, agriculture. Un jeune qui a un emploi ne prend pas les armes. La paix se construit avec l economie, pas juste avec les armes.'},
+ {q:'POURQUOI la reconciliation traditionnelle est-elle plus efficace que les tribunaux occidentaux?',a:'COMMENT: Le TPI (cour penale internationale) a echoue en Afrique. Il est percu comme un instrument occidental. VOILA: Les methodes africaines reussissent: Gacaca (Rwanda) a traite 1,2 million d affaires. Le Xeer (Somalie) resout les conflits par compensation. La Palabre (Afrique de l Ouest) parle jusqu a l accord. Ces methodes sont acceptees par les communautes. Elles restaurent l harmonie, pas juste la loi. AfriChain peut creer un systeme de reconciliation blockchain.'},
+ {q:'POURQUOI la paix et la justice sont-elles inséparables?',a:'COMMENT: La paix sans justice est une trêve temporaire. Les victimes veulent que leurs souffrances soient reconnues. Les coupables doivent avouer. VOILA: La vengeance remplace la paix quand la justice est absente. Mais la justice doit etre africaine, pas importee. La verite guerit. La reparation restaure. La reforme empeche la repetition. La memoire protege. AfriChain peut enregistrer chaque accord de paix, chaque verite, chaque reconciliation — immutable, eternelle. La paix viendra parce que l Afrique la construira.'}
+];
+var exoSeed=0;
+function genExos(){
+ exoSeed++;
+ var s=exoSeed*12345;
+ function rand(){s=(s*9301+49297)%233280;return s/233280;}
+ var h='';
+ var used={};
+ for(var i=0;i<5;i++){
+  var idx=Math.floor(rand()*exoData.length);
+  while(used[idx]){idx=(idx+1)%exoData.length;}
+  used[idx]=true;
+  var e=exoData[idx];
+  h+='<div class="exo"><div class="exo-q">'+(i+1)+'. '+e.q+'</div><div class="exo-a">'+e.a+'</div></div>';
+ }
+ document.getElementById('exoBox').innerHTML=h;
+}
+genExos();
+
+// Canvas: two hands reaching toward each other
+var canvas=document.getElementById('paixCanvas');
+var ctx=canvas.getContext('2d');
+var t=0;
+var doves=[];
+for(var i=0;i<12;i++){
+ doves.push({x:Math.random()*400,y:Math.random()*320,vx:0.3+Math.random()*0.5,vy:-0.2-Math.random()*0.3,life:Math.random()});
+}
+function drawCanvas(){
+ if(paused){requestAnimationFrame(drawCanvas);return;}
+ t+=0.008;
+ ctx.fillStyle='#050a07';
+ ctx.fillRect(0,0,400,320);
+ // Two hands reaching toward each other
+ var cx=200,cy=160;
+ var reach=Math.min(t*0.5,1);
+ var leftX=80+reach*100;
+ var rightX=320-reach*100;
+ // Left hand
+ ctx.strokeStyle='#66cc66';ctx.lineWidth=4;ctx.lineCap='round';
+ // Arm
+ ctx.beginPath();ctx.moveTo(40,cy);ctx.lineTo(leftX,cy);ctx.stroke();
+ // Fingers
+ for(var f=0;f<5;f++){
+  var fx=leftX+5;
+  var fy=cy-15+f*7;
+  ctx.beginPath();ctx.moveTo(leftX,cy);ctx.lineTo(fx+reach*10,fy);ctx.stroke();
+ }
+ // Right hand
+ ctx.strokeStyle='#88dd88';
+ ctx.beginPath();ctx.moveTo(360,cy);ctx.lineTo(rightX,cy);ctx.stroke();
+ for(var f=0;f<5;f++){
+  var fx=rightX-5;
+  var fy=cy-15+f*7;
+  ctx.beginPath();ctx.moveTo(rightX,cy);ctx.lineTo(fx-reach*10,fy);ctx.stroke();
+ }
+ // Clasp when reached
+ if(reach>=1){
+  var pulse=Math.sin(t*3)*0.3+0.7;
+  ctx.fillStyle='rgba(102,204,102,'+pulse*0.3+')';
+  ctx.beginPath();ctx.arc(cx,cy,25,0,Math.PI*2);ctx.fill();
+  // Heart
+  ctx.fillStyle='rgba(136,221,136,'+pulse+')';
+  ctx.font='16px serif';ctx.textAlign='center';
+  ctx.fillText('\u{1F91D}',cx,cy+5);
+ }
+ // Module indicators (olive branches)
+ for(var i=0;i<8;i++){
+  var a=i*Math.PI/4-Math.PI/2;
+  var x=cx+Math.cos(a)*150;
+  var y=cy+Math.sin(a)*150;
+  ctx.fillStyle=completed[i]?'#66cc66':'rgba(60,140,60,0.2)';
+  ctx.beginPath();ctx.arc(x,y,7,0,Math.PI*2);ctx.fill();
+  ctx.fillStyle='#fff';ctx.font='7px serif';ctx.textAlign='center';
+  ctx.fillText(i+1,x,y+3);
+ }
+ // Doves flying
+ for(var i=0;i<doves.length;i++){
+  var d=doves[i];
+  d.x+=d.vx;d.y+=d.vy;d.life-=0.003;
+  if(d.life<=0||d.y<0||d.x>400){
+   d.x=Math.random()*100;d.y=280+Math.random()*30;
+   d.vx=0.3+Math.random()*0.5;d.vy=-0.2-Math.random()*0.3;
+   d.life=1;
+  }
+  ctx.fillStyle='rgba(200,255,200,'+d.life*0.3+')';
+  ctx.font='10px serif';ctx.textAlign='center';
+  ctx.fillText('\u{1F54A}',d.x,d.y);
+ }
+ // Title
+ ctx.fillStyle='rgba(102,204,102,0.5)';
+ ctx.font='10px Georgia';ctx.textAlign='center';
+ ctx.fillText('La paix se construit main dans la main',200,300);
+ requestAnimationFrame(drawCanvas);
+}
+drawCanvas();
+
+function togglePause(){
+ paused=!paused;
+ document.getElementById('pauseBtn').textContent=paused?'\u25B6\uFE0F Play':'\u23F8\uFE0F Pause';
 }
 </script>
 </body></html>"##);
@@ -25230,7 +25480,7 @@ html+='<div class="log-entry log-kill">⚠️ Tentative d\x27infiltration occide
 html+='<div class="log-entry log-invis">✅ L\x27Afrique est forte. Le système grandit.</div>';
 }else if(type==='total'){
 html='<div style="color:#d4a437;font-weight:bold;margin-bottom:8px">📋 RAPPORT TOTAL — Depuis le début</div>';
-html+='<div class="log-entry">🦁 AfriChain v1.40 — AI Réparation</div>';
+html+='<div class="log-entry">🦁 AfriChain v1.41 — AI Paix</div>';
 html+='<div class="log-entry">⛓️ Blockchain: 100% souveraine — Zéro dépendance externe</div>';
 html+='<div class="log-entry">🔐 Crypto: Ed25519 + AfriHash-256/512 + AfriRNG — tout from scratch</div>';
 html+='<div class="log-entry">🌍 54 pays africains connectés</div>';
@@ -26774,7 +27024,7 @@ fn main() {
         .and_then(|i| args.get(i + 1)).cloned().unwrap_or_else(|| "Afrique".to_string());
 
     let my_node_id = generate_node_id();
-    println!("🦁 AfriChain v1.40 — AI Réparation");
+    println!("🦁 AfriChain v1.41 — AI Paix");
     println!("💚 L'Afrique ne demande plus la permission");
     println!("🌍 54 pays — 🇲🇱 🇳🇪 🇧🇫 AES — Mali · Niger · Burkina Faso");
     println!("🔐 8 modules cryptographiques — construits from scratch");
@@ -27008,7 +27258,7 @@ fn terminal_interface(state: &Arc<AppState>) {
     println!("  ║  🕐 AfriTime — Pas UTC, pas Greenwich   ║");
     println!("  ║  📝 ~23,100 lignes — écrit à la main       ║");
     println!("  ╚═══════════════════════════════════════════════╝");
-    println!("\n  Version v1.40 — 4 septembre 2026");
+    println!("\n  Version v1.41 — 4 septembre 2026");
     println!("  Construit sur Termux · Android · nano\n");
     println!("  ─────────────────────────────────────────────");
     println!("\n  1. 🏦 Centre de Données (Admin)");
@@ -27080,7 +27330,7 @@ fn admin_interface(state: &Arc<AppState>) {
         println!("\n");
         println!("╔══════════════════════════════════════╗");
         println!("║  🏦 CENTRE DE DONNÉES — Admin       ║");
-        println!("║  🦁 AfriChain v1.40                  ║");
+        println!("║  🦁 AfriChain v1.41                  ║");
         println!("╠══════════════════════════════════════╣");
         let chain = state.chain.lock().unwrap();
         let users = state.users.lock().unwrap();
@@ -30880,6 +31130,11 @@ fn handle_request(req: afri_http::HttpRequest, state: &Arc<AppState>) -> afri_ht
         ("GET", "/ai-reparation") => {
             let chain = state.chain.lock().unwrap();
             HttpResponse::ok(&html_ai_reparation(&chain))
+        }
+
+        ("GET", "/ai-paix") => {
+            let chain = state.chain.lock().unwrap();
+            HttpResponse::ok(&html_ai_paix(&chain))
         }
 
         ("GET", "/machine") => {
