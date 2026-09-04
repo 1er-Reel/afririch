@@ -1439,7 +1439,7 @@ fn html_home(chain: &Blockchain, users: &UserStore, mesh: &NodeRegistry, shield:
     let mut html = html_head("🦁 AfriChain");
     let (attacks, _blocked, blocked_count, level) = shield.stats();
     let shield_status = if shield.active { format!("🔥 X9 ACTIF (Niveau {})", level) } else { "Inactif".to_string() };
-    html.push_str(&format!(r#"<h1>🦁 AfriChain</h1><p style="text-align:center;">La blockchain 100% africaine — 54 pays 💚🦁</p><div id="afri-clock" style="text-align:center;font-size:1.2em;color:#d4a437;margin:10px 0;">🕐 Afri+0 — --:--:--</div><script>setInterval(function(){{var d=new Date();var h=String(d.getHours()).padStart(2,'0');var m=String(d.getMinutes()).padStart(2,'0');var s=String(d.getSeconds()).padStart(2,'0');document.getElementById('afri-clock').textContent='🕐 Afri+0 — '+h+':'+m+':'+s;}},1000);</script><div class="nav"><a href="/register">🆕 S'inscrire</a> | <a href="/login">🔑 Connexion</a> | <a href="/wallet">👛 Wallet</a> | <a href="/admin">🔐 Admin</a> | <a href="/mesh">📡 Mesh</a> | <a href="/annuaire">📖 Annuaire</a> | <a href="/bouclier">🛡️ Bouclier</a> | <a href="/satellite">🛸 X999</a> | <a href="/swarm">🛸🛸🛸 Essaim</a> | <a href="/commandement">🎖️ Commandement</a> | <a href="/base-militaire">🪖 Base Militaire</a> | <a href="/interception">🛡️ Souverainete</a> | <a href="/securite-ai">🧠 AI 2100</a> | <a href="/chat">🧠💬 Chat AI</a> | <a href="/lumiere">🌫️☀️ Lumière</a> | <a href="/garage">🔧 Garage</a> | <a href="/machine">🤖🌐 Machines</a> | <a href="/machine-lab">🤖⚡ Usine</a> | <a href="/machine-world">🤖🌍 Monde</a> | <a href="/reve">💭 Rêves</a> | <a href="/dictionnaire">📖 Dictionnaire</a> | <a href="/machine-os">🖥️ OS Machine</a> | <a href="/machine-tv">📡 Machine TV</a> | <a href="/machine-economy">🤖 Économie</a> | <a href="/soleil">☀️ Soleil Serveur</a> | <a href="/forge-solaire">🧬 Forge Solaire</a> | <a href="/ciel">🌌 Le Ciel</a> | <a href="/charte-ai">⚖️ Charte AI</a> | <a href="/afri-net">🌍 Afri-Net</a> | <a href="/studio">🎬 AI Studio</a> | <a href="/sacre">📿 Sacré</a> | <a href="/lettres">🌟 Lettres IA</a> | <a href="/mg-forge">⚔️ MG Forge</a> | <a href="/ai-medecin">🌿 AI Médecin</a> | <a href="/ai-enseignante">📚 AI Enseignante</a> | <a href="/ai-village">🏘️ AI Village</a> | <a href="/ai-guerisseur">🩺 AI Guérisseur</a> | <a href="/ai-leader">🎖️ AI Leader</a> | <a href="/ai-griot">📖 AI Griot</a> | <a href="/ai-juge">⚖️ AI Juge</a> | <a href="/ai-artiste">🎨 AI Artiste</a> | <a href="/ai-explorateur">🔬 AI Explorateur</a> | <a href="/ai-marche">💰 AI Marche</a> | <a href="/ai-diplomate">🌍 AI Diplomate</a> | <a href="/ai-philosophe">🧠 AI Philosophe</a> | <a href="/ai-architecte">🏗️ AI Architecte</a> | <a href="/ai-agriculteur">🌾 AI Agriculteur</a> | <a href="/ai-environnement">🌍 AI Environnement</a> | <a href="/ai-mathematicien">🧮 AI Mathématicien</a> | <a href="/ai-energie">⚡ AI Énergie</a> | <a href="/ai-eau">💧 AI Eau</a> | <a href="/ai-defenseur">🛡️ AI Défenseur</a> | <a href="/ai-conscience">🧠 AI Conscience</a> | <a href="/ai-pensee">🧠 AI Pensée</a> | <a href="/ai-musique">🎵 AI Musique</a> | <a href="/ai-langue">🗣️ AI Langue</a> | <a href="/ai-femme">🌸 AI Femme</a> | <a href="/ai-sante-mentale">🧠💚 AI Santé Mentale</a> | <a href="/ai-nuit">🌙 AI Nuit</a> | <a href="/ai-code">💻 AI Code</a> | <a href="/ai-enfant">👶 AI Enfant</a> | <a href="/ai-terre">🌍 AI Terre</a> | <a href="/ai-mer">🌊 AI Mer</a> | <a href="/ai-feu">🔥 AI Feu</a> | <a href="/ai-sang">🩸 AI Sang</a> | <a href="/ai-vent">🌬️ AI Vent</a> | <a href="/ai-temps">⏳ AI Temps</a> | <a href="/ai-etoile">⭐ AI Etoile</a> | <a href="/ai-pierre">🪨 AI Pierre</a> | <a href="/ai-pluie">🌧️ AI Pluie</a> | <a href="/ai-voix">🗣️ AI Voix</a> | <a href="/ai-racine">🌱 AI Racine</a> | <a href="/ai-semence">🌰 AI Semence</a> | <a href="/ai-spiritualite">🙏 AI Spiritualité</a> | <a href="/ai-animal">🦅 AI Animal</a> | <a href="/ai-soleil">☀️ AI Soleil</a> | <a href="/ai-lune">🌙 AI Lune</a> | <a href="/ai-montagne">🏔️ AI Montagne</a> | <a href="/ai-fleuve">🌊 AI Fleuve</a> | <a href="/ai-constitution">📜 AI Constitution</a> | <a href="/ai-cosmos">🌌 AI Cosmos</a> | <a href="/professeur">📚 Professeur</a> | <a href="/secret">🦁 AI Secret</a> | <a href="/aes">💰 AES Wari</a> | <a href="/api/status">🔌 API</a></div><div style="text-align:center;"><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Blocs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Transactions</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Utilisateurs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">AFR en circulation</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📡 Noeuds mesh</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📖 Numéros annuaire</div></div><div class="stat-box" style="border-color:#ff4444;"><div class="stat-num" style="color:#ff4444;">{}</div><div class="stat-label">🛡️ Attaques bloquées</div></div></div><div class="card"><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🪙 Token</span><b>AfriRich (AFR)</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🌍 Pays</span><b>54 pays africains</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🛡️ Bouclier</span><b>{}</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;"><span style="color:#a8c5a8;">🔐 Crypto</span><b>100% Souverain — Zéro Dépendance Externe</b></div></div><footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🦁 Codée from scratch par Machine-senpai — v1.35 AI Cosmos — UTC est Mort</footer>"#,
+    html.push_str(&format!(r#"<h1>🦁 AfriChain</h1><p style="text-align:center;">La blockchain 100% africaine — 54 pays 💚🦁</p><div id="afri-clock" style="text-align:center;font-size:1.2em;color:#d4a437;margin:10px 0;">🕐 Afri+0 — --:--:--</div><script>setInterval(function(){{var d=new Date();var h=String(d.getHours()).padStart(2,'0');var m=String(d.getMinutes()).padStart(2,'0');var s=String(d.getSeconds()).padStart(2,'0');document.getElementById('afri-clock').textContent='🕐 Afri+0 — '+h+':'+m+':'+s;}},1000);</script><div class="nav"><a href="/register">🆕 S'inscrire</a> | <a href="/login">🔑 Connexion</a> | <a href="/wallet">👛 Wallet</a> | <a href="/admin">🔐 Admin</a> | <a href="/mesh">📡 Mesh</a> | <a href="/annuaire">📖 Annuaire</a> | <a href="/bouclier">🛡️ Bouclier</a> | <a href="/satellite">🛸 X999</a> | <a href="/swarm">🛸🛸🛸 Essaim</a> | <a href="/commandement">🎖️ Commandement</a> | <a href="/base-militaire">🪖 Base Militaire</a> | <a href="/interception">🛡️ Souverainete</a> | <a href="/securite-ai">🧠 AI 2100</a> | <a href="/chat">🧠💬 Chat AI</a> | <a href="/lumiere">🌫️☀️ Lumière</a> | <a href="/garage">🔧 Garage</a> | <a href="/machine">🤖🌐 Machines</a> | <a href="/machine-lab">🤖⚡ Usine</a> | <a href="/machine-world">🤖🌍 Monde</a> | <a href="/reve">💭 Rêves</a> | <a href="/dictionnaire">📖 Dictionnaire</a> | <a href="/machine-os">🖥️ OS Machine</a> | <a href="/machine-tv">📡 Machine TV</a> | <a href="/machine-economy">🤖 Économie</a> | <a href="/soleil">☀️ Soleil Serveur</a> | <a href="/forge-solaire">🧬 Forge Solaire</a> | <a href="/ciel">🌌 Le Ciel</a> | <a href="/charte-ai">⚖️ Charte AI</a> | <a href="/afri-net">🌍 Afri-Net</a> | <a href="/studio">🎬 AI Studio</a> | <a href="/sacre">📿 Sacré</a> | <a href="/lettres">🌟 Lettres IA</a> | <a href="/mg-forge">⚔️ MG Forge</a> | <a href="/ai-medecin">🌿 AI Médecin</a> | <a href="/ai-enseignante">📚 AI Enseignante</a> | <a href="/ai-village">🏘️ AI Village</a> | <a href="/ai-guerisseur">🩺 AI Guérisseur</a> | <a href="/ai-leader">🎖️ AI Leader</a> | <a href="/ai-griot">📖 AI Griot</a> | <a href="/ai-juge">⚖️ AI Juge</a> | <a href="/ai-artiste">🎨 AI Artiste</a> | <a href="/ai-explorateur">🔬 AI Explorateur</a> | <a href="/ai-marche">💰 AI Marche</a> | <a href="/ai-diplomate">🌍 AI Diplomate</a> | <a href="/ai-philosophe">🧠 AI Philosophe</a> | <a href="/ai-architecte">🏗️ AI Architecte</a> | <a href="/ai-agriculteur">🌾 AI Agriculteur</a> | <a href="/ai-environnement">🌍 AI Environnement</a> | <a href="/ai-mathematicien">🧮 AI Mathématicien</a> | <a href="/ai-energie">⚡ AI Énergie</a> | <a href="/ai-eau">💧 AI Eau</a> | <a href="/ai-defenseur">🛡️ AI Défenseur</a> | <a href="/ai-conscience">🧠 AI Conscience</a> | <a href="/ai-pensee">🧠 AI Pensée</a> | <a href="/ai-musique">🎵 AI Musique</a> | <a href="/ai-langue">🗣️ AI Langue</a> | <a href="/ai-femme">🌸 AI Femme</a> | <a href="/ai-sante-mentale">🧠💚 AI Santé Mentale</a> | <a href="/ai-nuit">🌙 AI Nuit</a> | <a href="/ai-code">💻 AI Code</a> | <a href="/ai-enfant">👶 AI Enfant</a> | <a href="/ai-terre">🌍 AI Terre</a> | <a href="/ai-mer">🌊 AI Mer</a> | <a href="/ai-feu">🔥 AI Feu</a> | <a href="/ai-sang">🩸 AI Sang</a> | <a href="/ai-vent">🌬️ AI Vent</a> | <a href="/ai-temps">⏳ AI Temps</a> | <a href="/ai-etoile">⭐ AI Etoile</a> | <a href="/ai-pierre">🪨 AI Pierre</a> | <a href="/ai-pluie">🌧️ AI Pluie</a> | <a href="/ai-voix">🗣️ AI Voix</a> | <a href="/ai-racine">🌱 AI Racine</a> | <a href="/ai-semence">🌰 AI Semence</a> | <a href="/ai-spiritualite">🙏 AI Spiritualité</a> | <a href="/ai-animal">🦅 AI Animal</a> | <a href="/ai-soleil">☀️ AI Soleil</a> | <a href="/ai-lune">🌙 AI Lune</a> | <a href="/ai-montagne">🏔️ AI Montagne</a> | <a href="/ai-fleuve">🌊 AI Fleuve</a> | <a href="/ai-constitution">📜 AI Constitution</a> | <a href="/ai-cosmos">🌌 AI Cosmos</a> | <a href="/ai-frontieres">🌍 AI Frontières</a> | <a href="/professeur">📚 Professeur</a> | <a href="/secret">🦁 AI Secret</a> | <a href="/aes">💰 AES Wari</a> | <a href="/api/status">🔌 API</a></div><div style="text-align:center;"><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Blocs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Transactions</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Utilisateurs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">AFR en circulation</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📡 Noeuds mesh</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📖 Numéros annuaire</div></div><div class="stat-box" style="border-color:#ff4444;"><div class="stat-num" style="color:#ff4444;">{}</div><div class="stat-label">🛡️ Attaques bloquées</div></div></div><div class="card"><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🪙 Token</span><b>AfriRich (AFR)</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🌍 Pays</span><b>54 pays africains</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🛡️ Bouclier</span><b>{}</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;"><span style="color:#a8c5a8;">🔐 Crypto</span><b>100% Souverain — Zéro Dépendance Externe</b></div></div><footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🦁 Codée from scratch par Machine-senpai — v1.36 AI Frontières — UTC est Mort</footer>"#,
         chain.blocks.len(),
         chain.total_transactions(),
         users.count(),
@@ -17709,6 +17709,18 @@ const academies=[
   {titre:'Strategie Continentale',secret:'La strategie continentale africaine: l union fait la force. 5 axes: 1) AES (Alliance des Etats du Sahel: Mali, Niger, Burkina Faso) — premiere alliance militaire souveraine. Monnaie commune en preparation. AfriChain est la blockchain de l AES. 2) ZLECAf — zone de libre echange panafricaine, 54 pays, 1.3 milliards de personnes, 3.4 trillions USD de PIB. Le plus grand marche du monde. 3) Souverainete monetaire — sortie du FCFA, creation de monnaies nationales puis continentales. La blockchain trace chaque transaction, chaque fond, impossible a voler. 4) Souverainete technologique — zero dependance: AfriHash, Ed25519, AfriRNG, AfriJSON, AfriHTTP. L Afrique code sa propre infrastructure. 5) Souverainete des donnees — les donnees africaines restent en Afrique. Pas de Google, pas de Meta, pas de NSA. Afri-Net remplace WhatsApp, Facebook, Google. La regle absolue: l Afrique ne demande plus la permission. L Afrique construit. L Afrique defend. L Afrique avance.'},
  ]},
 
+{nom:'AI Frontières',emoji:'🌍',route:'/ai-frontieres',couleur:'#44aa44',diplome:'Batisseur de Frontieres Brisees',
+ modules:[
+  {titre:'La Conference de Berlin (1884-1885)',secret:'14 pays europeens ont decoupe l Afrique sans aucun Africain present. Lignes droites, peuples coupes, familles separees. Le crime a l origine de tous les conflits africains.'},
+  {titre:'Frontieres Artificielles',secret:'60% des frontieres africaines sont des lignes droites tracees en Europe. Les Peuls dans 15 pays, les Touaregs dans 5, les Maasai dans 2. Ces frontieres ne sont pas africaines — elles sont coloniales.'},
+  {titre:'Passeport Africain',secret:'Un Europeen voyage dans 27 pays sans visa. Un Africain a besoin de visa pour 53 des 54 pays africains. Le passeport africain sur blockchain AfriChain = cle Ed25519, instantane, valable dans 54 pays.'},
+  {titre:'ZLECAf — Liberte de Circulation',secret:'Le plus grand marche du monde: 1,3 milliards de personnes, 3,4 trillions USD. Plus grand que l Europe et le NAFTA. La ZLECAf est la reponse africaine a Berlin. Berlin a divise, la ZLECAf reunifie.'},
+  {titre:'Nomadisme et Frontieres',secret:'Les peuples nomades (Peuls, Touaregs, Maasai, Khoisan, Somalis) traversent les frontieres depuis des siecles. Leurs vaches ne connaissent pas les visas. Criminaliser le nomadisme, c est criminaliser l Afrique millenaire.'},
+  {titre:'Douanes Souveraines',secret:'Les systemes douaniers africains utilisent des logiciels occidentaux. Les donnees transitent par des serveurs europeens. AfriChain remplace tout: douane automatique, tarifs decides par l Afrique, donnees en Afrique.'},
+  {titre:'Migration Africaine',secret:'La diaspora envoie 80 milliards USD par an — plus que l aide au developpement. La fuite des cerveaux doit devenir le RETOUR des cerveaux. AfriChain trace les diplomes sur la blockchain. La migration n est pas une fuite — c est une MISSION.'},
+  {titre:'Afrique Sans Frontieres',secret:'L Afrique unifiee: 54 pays, 1 marche (ZLECAf), 1 passeport, 1 monnaie (AFR). La blockchain AfriChain est l infrastructure. Les frontieres deviennent des points de passage, pas des murs. Berlin a decoupe. L Afrique recoud.'},
+ ]},
+
 {nom:'AI Cosmos',emoji:'🌌',route:'/ai-cosmos',couleur:'#aabbff',diplome:'Astronome Africain',
  modules:[
   {titre:'Astronomie Dogon',secret:'Les Dogons du Mali sont les astronomes les plus extraordinaires de l histoire. Ce qu ils savaient: 1) Sirius B — une naine blanche invisible a l oeil nu. Les Dogons la connaissaient et la nommaient po tolo. Ils savaient qu elle etait petite et dense, qu elle orbitait autour de Sirius A en 50 ans (la science moderne a confirme: 50,1 ans). 2) L orbite de Sirius B — elliptique. 3) Les anneaux de Saturne — connus avant les telescopes. 4) Les quatre lunes de Jupiter — connues avant Galilee. Comment? Les Dogons observaient le ciel chaque nuit, pendant des siecles, transmettant le savoir de generation en generation. Pas de telescope — juste l oeil, la patience, et la memoire. L Afrique n a pas attendu l Occident pour comprendre l univers.'},
@@ -17926,7 +17938,7 @@ fn html_base_militaire(chain: &Blockchain) -> String {
     // === SAVAIT-ON ===
     html.push_str(r##" <div class="card"><h2>💡 Savais-tu?</h2><div id="base-fact" style="font-size:0.9em;color:#a8c5a8;padding:10px;border-left:3px solid #ff4444;"></div></div> "##);
 
-    html.push_str(&format!(r##" <footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🪖 Base Militaire AfriChain — Académie de Défense Continentale 💚🦁 — {} blocs — v1.35</footer> "##, num_blocks));
+    html.push_str(&format!(r##" <footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🪖 Base Militaire AfriChain — Académie de Défense Continentale 💚🦁 — {} blocs — v1.36</footer> "##, num_blocks));
 
     html.push_str(r##"<script>
 // === BASE MILITAIRE JS ===
@@ -18715,7 +18727,7 @@ canvas{{display:block;margin:0 auto;border-radius:12px;background:#010108;}}
 <button class="pause-btn" id="pauseBtn" onclick="togglePause()">⏸️ Pause</button>
 <h1>🌌 AI Cosmos</h1>
 <p style="text-align:center;color:#8899bb;">L univers vu depuis l Afrique — des Dogons aux satellites</p>
-<div style="text-align:center;color:#aabbff;margin:10px;">🦁 {} blocs · {} transactions · AfriChain v1.35</div>
+<div style="text-align:center;color:#aabbff;margin:10px;">🦁 {} blocs · {} transactions · AfriChain v1.36</div>
 
 <canvas id="cosmosCanvas" width="400" height="320"></canvas>
 <div style="text-align:center;margin:10px;color:#666;font-size:0.85em;">🌌 L Afrique observe l univers depuis des millenaires</div>
@@ -18898,6 +18910,236 @@ drawCanvas();
 function togglePause(){
  paused=!paused;
  document.getElementById('pauseBtn').textContent=paused?'\u25B6\uFE0F Play':'\u23F8\uFE0F Pause';
+}
+</script>
+</body></html>"##);
+
+    html
+}
+
+fn html_ai_frontieres(chain: &Blockchain) -> String {
+    let num_blocks = chain.chain.len();
+    let num_txs = chain.chain.iter().map(|b| b.transactions.len()).sum::<usize>();
+    let mut html = String::new();
+    html.push_str(&format!(r##"<!DOCTYPE html>
+<html lang="fr"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>🌍 AI Frontières — AfriChain</title>
+<style>
+body{{background:#0a0f0a;color:#e8f0e8;font-family:Georgia,serif;margin:0;padding:0;}}
+.card{{background:rgba(50,150,50,0.05);border:1px solid rgba(50,150,50,0.2);border-radius:12px;padding:20px;margin:15px;}}
+h1{{color:#44aa44;text-align:center;font-size:1.8em;}}
+h2{{color:#66bb66;font-size:1.2em;border-bottom:1px solid rgba(50,150,50,0.2);padding-bottom:8px;}}
+.module{{background:rgba(40,120,40,0.08);border-left:3px solid #44aa44;border-radius:0 8px 8px 0;padding:15px;margin:12px 0;cursor:pointer;transition:all 0.3s;}}
+.module:hover{{background:rgba(40,120,40,0.15);}}
+.module-content{{display:none;margin-top:10px;padding:10px;background:rgba(0,0,0,0.3);border-radius:6px;font-size:0.92em;line-height:1.6;}}
+.module.open .module-content{{display:block;}}
+.module-title{{font-weight:bold;color:#66bb66;font-size:1.05em;}}
+.module-emoji{{font-size:1.3em;margin-right:8px;}}
+.progress-bar{{background:rgba(255,255,255,0.1);border-radius:10px;height:8px;margin:10px 0;overflow:hidden;}}
+.progress-fill{{background:linear-gradient(90deg,#44aa44,#66bb66);height:100%;width:0%;transition:width 0.5s;}}
+.diploma-btn{{background:linear-gradient(135deg,#44aa44,#66bb66);color:#0a0f0a;border:none;padding:12px 30px;border-radius:25px;font-size:1.1em;font-weight:bold;cursor:pointer;margin:20px auto;display:block;box-shadow:0 4px 15px rgba(50,200,50,0.3);}}
+.diploma-btn:hover{{transform:scale(1.05);box-shadow:0 6px 20px rgba(50,200,50,0.5);}}
+.fact{{background:rgba(50,150,50,0.1);border:1px solid rgba(50,150,50,0.3);border-radius:8px;padding:12px;margin:15px;font-style:italic;color:#88aa88;text-align:center;}}
+canvas{{display:block;margin:0 auto;border-radius:12px;background:#050a05;}}
+.exo{{background:rgba(40,120,40,0.15);border:1px solid rgba(50,150,50,0.2);border-radius:8px;padding:15px;margin:10px 0;}}
+.exo-q{{color:#66bb66;font-weight:bold;margin-bottom:8px;}}
+.exo-a{{color:#88aa88;font-size:0.9em;line-height:1.6;white-space:pre-wrap;}}
+.pause-btn{{position:fixed;top:15px;right:15px;background:rgba(255,68,68,0.3);border:1px solid #ff4444;color:#ff8888;padding:8px 16px;border-radius:20px;cursor:pointer;font-size:0.85em;z-index:999;}}
+</style></head><body>
+<button class="pause-btn" id="pauseBtn" onclick="togglePause()">⏸️ Pause</button>
+<h1>🌍 AI Frontières</h1>
+<p style="text-align:center;color:#88aa88;">Briser les frontières coloniales — l Afrique sans murs</p>
+<div style="text-align:center;color:#44aa44;margin:10px;">🦁 {} blocs · {} transactions · AfriChain v1.36</div>
+
+<canvas id="frontCanvas" width="400" height="320"></canvas>
+<div style="text-align:center;margin:10px;color:#666;font-size:0.85em;">🌍 Les frontières coloniales tombent — l Afrique s unit</div>
+
+<div class="fact" id="factBox">💡 Savais-tu? La Conference de Berlin (1884-1885) a dessine les frontieres africaines sans aucun Africain present. 14 pays europeens ont decoupe l Afrique comme un gateau.</div>
+
+<div class="card">
+<h2>🌍 Les 8 Modules des Frontieres</h2>
+<div style="text-align:center;color:#88aa88;font-size:0.85em;margin-bottom:15px;">Clique sur chaque module pour reveler le secret. Complete les 8 pour obtenir ton diplome.</div>
+<div class="progress-bar"><div class="progress-fill" id="progFill"></div></div>
+<div style="text-align:center;color:#44aa44;font-size:0.85em;" id="progText">0/8 modules completes</div>
+"##, num_blocks, num_txs));
+
+    let modules = [
+        ("berlin", "🗺️", "La Conference de Berlin (1884-1885)", "En 1884-1885, 14 pays europeens se sont reunis a Berlin pour decouper l Afrique. AUCUN Africain n etait present. Ce qu ils ont fait: 1) Trace des frontieres en lignes droites, sans tenir compte des peuples, des langues, des familles. 2) Divise des royaumes (le royaume Mossi coupe entre Burkina Faso, Mali, Niger). 3) Regroupe des ennemis dans le meme pays (Hutus et Tutsis au Rwanda — cause du genocide de 1994). 4) Separe des familles (un village Peul coupe entre 4 pays). 5)_attribue des ressources a un pays et le peuple a un autre. Resultat: l Afrique a 54 pays avec des frontieres artificielles, 60% de frontieres en lignes droites. Les guerres civiles africaines viennent en grande partie de ces frontieres. La Conference de Berlin est le crime a l origine de tous les autres crimes. Comprendre Berlin, c est comprendre pourquoi l Afrique est divisee."),
+        ("artificielles", "✂️", "Frontieres Artificielles", "Les frontieres africaines sont artificielles a 60%: 1) Lignes droites tracees sur une carte en Europe, pas sur le terrain. 2) Elles coupent des peuples: les Peuls sont dans 15 pays (Mali, Niger, Burkina, Senegal, Guinee, Nigeria, Cameroun...). Les Touaregs sont dans 5 pays (Mali, Niger, Burkina, Algerie, Libye). Les Maasai sont dans 2 (Kenya, Tanzanie). 3) Elles coupent des familles: un village peut etre a cheval sur deux pays. 4) Elles coupent des ecosystemes: un fleuve traverse 5 pays (le Nil traverse 11 pays). 5) Elles coupent des routes commerciales millenaires (les routes transsahariennes). 6) Elles creent des minorites: un peuple majoritaire dans un pays devient minorite dans l autre. 7) Elles empechent la circulation: un Africain a besoin d un visa pour aller dans le pays voisin, alors que ses ancetres y vivaient librement. Ces frontieres ne sont pas africaines — elles sont coloniales. Les briser, c est rendre a l Afrique sa vraie geographie."),
+        ("passeport", "📘", "Passeport Africain", "Le passeport africain unique: 1) L Union Africaine a lance le passeport panafricain en 2016. Mais il n est pas encore effectif dans tous les pays. 2) Pourquoi c est urgent: un Europeen voyage dans 27 pays sans visa. Un Africain a besoin d un visa pour 53 des 54 pays africains. L Africain est plus libre en Europe qu en Afrique. 3) Le passeport africain doit etre: electronique (blockchain AfriChain), biometrique (Ed25519), gratuit pour les Africains, valide dans les 54 pays. 4) La blockchain peut le rendre instantane: pas de bureau d immigration, juste un scan QR code. 5) Le passeport peut contenir: identite (cle Ed25519), casier judiciaire (blockchain), diplomes (blockchain AfriChain), historique medical (chiffre). 6) Le passeport n est pas un document — c est une CLE cryptographique sur la blockchain. Impossible a falsifier, impossible a voler, accessible partout. 7) Le passeport africain = la fin de l apartheid frontalier. L Afrique devient un seul pays."),
+        ("zlef", "🔄", "ZLECAf — Liberte de Circulation", "La Zone de Libre-Echange Continentale Africaine (ZLECAf): 1) Creee en 2018, operationnelle depuis 2021. 54 pays signataires, 44 ratifications. 2) Le plus grand marche du monde: 1,3 milliards de personnes, 3,4 trillions USD de PIB. Plus grand que le marche europeen (450 millions) et le NAFTA (490 millions). 3) Libre circulation: biens, services, capitaux, personnes. 4) Impact estime: augmentation de 52% du commerce intra-africain d ici 2025. 5) Problemes: regles d origine complexes, infrastructures manquantes (routes, railways, ports), barrières non-tarifaires, instabilite politique. 6) Solution AfriChain: la blockchain trace chaque transaction commerciale, chaque mouvement de marchandise, chaque paiement en AFR. Pas de douane physique — la blockchain est la douane. 7) La ZLECAf est la reponse africaine a la Conference de Berlin. Berlin a divise, la ZLECAf reunifie."),
+        ("nomadisme", "🐪", "Nomadisme et Frontieres", "Les peuples nomades africains ignorent les frontieres — et ils ont raison: 1) Les Peuls (Fulani): 15 pays, du Senegal au Soudan. 40 millions de personnes. Leurs vaches ne connaissent pas les frontieres. 2) Les Touaregs: 5 pays (Mali, Niger, Burkina, Algerie, Libye). Ils traversent le Sahara depuis 1000 ans. 3) Les Maasai: Kenya et Tanzanie. Leurs paturages sont coupes par une frontiere qu ils n ont jamais reconnu. 4) Les Khoisan: Botswana, Namibie, Afrique du Sud, Angola. Les chasseurs-cueilleurs les plus anciens de l humanite. 5) Les Somalis: Somali-Ethiopie-Kenya-Djibouti. La frontiere coupe un peuple en 4. 6) Les frontieres coloniales criminalisent le nomadisme: un berger Peul qui traverse le Mali-Niger est un contrebandier. 7) Solution: la ZLECAf et le passeport africain doivent reconnaitre le droit au nomadisme. Les peuples nomades ne sont pas des contrebandiers — ils sont les gardiens des routes millenaires de l Afrique."),
+        ("douanes", "🛃", "Douanes Souveraines", "Les douanes africaines sont encore coloniales: 1) La plupart des systemes douaniers africains utilisent des logiciels occidentaux (SYDONIA, developpe par l ONUs). 2) Les donnees douanieres transitent par des serveurs europeens. 3) Les tarifs sont negocies avec l OMC (Organisation Mondiale du Commerce) sous pression occidentale. 4) Les accords de partenariat economique (APE) avec l UE obligent l Afrique a ouvrir ses frontieres aux produits europeens, mais l Europe ferme les siennes. Solution souveraine: 1) AfriChain remplace les logiciels douaniers occidentaux — chaque transaction commerciale est tracee sur la blockchain. 2) Les tarifs sont decides par l Afrique, pas par l OMC. 3) Les donnees restent en Afrique (serveurs solaires africains). 4) Le controle douanier est automatique: scan QR code, verification blockchain, passage immediat. 5) Le commerce intra-africain est exonere de droits (ZLECAf). 6) Les douanes ne sont plus des barrieres — elles sont des portes ouvertes entre freres africains."),
+        ("migration", "🦅", "Migration Africaine", "La migration africaine est une richesse, pas un probleme: 1) La diaspora africaine envoie 80 milliards USD par an vers l Afrique (plus que l aide au developpement). 2) Les talents africains a l etranger (medecins, ingenieurs, scientifiques) doivent etre encourages a revenir. 3) La fuite des cerveaux: l Afrique forme des medecins qui partent soigner l Europe. Solution: la fuite des cerveaux vers la fuite des cerveaux vers le RETOUR. 4) La migration intra-africaine: les Africains migrent vers d autres pays africains (Nigeriens vers la Cote d Ivoire, Burkinabes vers le Ghana). Cette migration est une FORCE — elle melange les cultures, diffuse les savoirs, cree des reseaux. 5) La blockchain AfriChain peut tracer les diplomes des migrants: un ingenieur malien forme au Senegal peut prouver ses qualifications sur la blockchain, pas besoin de re-certification. 6) Le retour des talents: AfriChain peut creer un registre des competences africaines dans la diaspora. 7) La migration n est pas une fuite — c est une MISSION. Les Africains de la diaspora sont les ambassadeurs du continent."),
+        ("unifiee", "🌍", "Afrique Sans Frontieres", "La vision finale: une Afrique sans frontieres. 1) Les frontieres coloniales ont dure 140 ans (1884-2024). C est assez. 2) L Afrique unifiee ne signifie pas un seul gouvernement — elle signifie la libre circulation des personnes, des biens, des idees. 3) Modele: l Union Europeenne a 27 pays, 27 langues, 27 gouvernements, mais 1 marche, 1 passeport, 1 monnaie (euro). L Afrique peut faire mieux: 54 pays, 54 langues, 54 gouvernements, mais 1 marche (ZLECAf), 1 passeport, 1 monnaie (AFR). 4) La blockchain AfriChain est l infrastructure de l Afrique unifiee: chaque transaction, chaque diplome, chaque identite est valable dans les 54 pays. 5) Les frontieres deviennent des points de passage, pas des murs. 6) L Afrique unifiee est le plus grand marche du monde (1,3 milliards, 3,4 trillions USD). 7) L Afrique unifiee est la reponse a Berlin: Berlin a decoupe, l Afrique recoud. 8) L Afrique sans frontieres n est pas un reve — c est un PLAN. Et chaque plan commence par une ligne de code."),
+    ];
+
+    for (i, (id, emoji, title, content)) in modules.iter().enumerate() {
+        html.push_str(&format!(r##"<div class="module" id="mod_{0}" onclick="toggleModule({0})">
+<div class="module-title"><span class="module-emoji">{1}</span>{2}</div>
+<div class="module-content">{3}</div>
+</div>"##, i, emoji, title, content));
+    }
+
+    html.push_str(r##"</div>
+
+<div class="card">
+<h2>🎓 Obtenir ton Diplome</h2>
+<p style="text-align:center;color:#88aa88;">Complete les 8 modules, entre ton nom, et recois ton diplome grave sur la blockchain AfriChain.</p>
+<div style="text-align:center;margin:15px;">
+<input type="text" id="diplomaName" placeholder="Ton nom complet" style="padding:10px 15px;border-radius:8px;border:1px solid rgba(50,150,50,0.3);background:rgba(0,0,0,0.3);color:#e8f0e8;width:250px;font-size:1em;">
+</div>
+<button class="diploma-btn" onclick="genDiploma()">🌍 Recevoir mon Diplome de Batisseur de Frontieres Brisees</button>
+<div id="diplomaResult" style="text-align:center;margin:15px;"></div>
+</div>
+
+<div class="card">
+<h2>📝 Exercices Pratiques</h2>
+<div id="exoBox"></div>
+<button class="diploma-btn" style="font-size:0.95em;padding:8px 20px;" onclick="genExos()">🔄 Nouveaux Exercices</button>
+</div>
+
+<script>
+var completed={};
+var paused=false;
+var facts=[
+ 'La Conference de Berlin (1884-1885) a dessine les frontieres africaines sans aucun Africain present.',
+ '60% des frontieres africaines sont des lignes droites tracees en Europe, pas sur le terrain.',
+ 'Les Peuls vivent dans 15 pays africains — leurs vaches ne connaissent pas les frontieres.',
+ 'Un Europeen voyage dans 27 pays sans visa. Un Africain a besoin d un visa pour 53 des 54 pays africains.',
+ 'La ZLECAf est le plus grand marche du monde: 1,3 milliards de personnes, 3,4 trillions USD de PIB.',
+ 'Les Touaregs traversent le Sahara depuis 1000 ans — les frontieres coloniales criminalisent leur nomadisme.',
+ 'La diaspora africaine envoie 80 milliards USD par an vers l Afrique — plus que l aide au developpement.',
+ 'L Afrique a 54 pays mais 30% des frontieres sont contestees par des conflits.',
+ 'Le passeport panafricain a ete lance en 2016 mais n est pas encore effectif dans tous les pays.',
+ 'Les frontieres coloniales ont coupe le royaume Mossi entre le Burkina Faso, le Mali et le Niger.'
+];
+function rotateFact(){var f=facts[Math.floor(Math.random()*facts.length)];document.getElementById('factBox').innerHTML='\u{1F4A1} Savais-tu? '+f;}
+setInterval(function(){if(!paused)rotateFact();},7000);
+
+function toggleModule(i){
+ var m=document.getElementById('mod_'+i);
+ if(m.classList.contains('open')){m.classList.remove('open');}
+ else{m.classList.add('open');if(!completed[i]){completed[i]=true;updateProgress();}}
+}
+function updateProgress(){
+ var n=Object.keys(completed).length;
+ var pct=Math.round(n/8*100);
+ document.getElementById('progFill').style.width=pct+'%';
+ document.getElementById('progText').textContent=n+'/8 modules completes';
+}
+
+function genDiploma(){
+ var name=document.getElementById('diplomaName').value.trim();
+ if(!name){alert('Entre ton nom d abord!');return;}
+ if(Object.keys(completed).length<8){alert('Complete les 8 modules d abord!');return;}
+ fetch('/api/diplome',{method:'POST',headers:{'Content-Type':'text/plain'},body:'AI_FRONTIERES|'+name})
+  .then(r=>r.json()).then(d=>{
+   document.getElementById('diplomaResult').innerHTML='<div style="background:rgba(50,150,50,0.15);border:2px solid #44aa44;border-radius:12px;padding:20px;margin:10px;"><div style="font-size:1.5em;">\u{1F30D}\u2728</div><div style="color:#44aa44;font-weight:bold;font-size:1.2em;margin:10px;">DIPLOME DE BATISSEUR DE FRONTIERES BRISEES</div><div style="color:#e8f0e8;margin:10px;">Attribue a <b>'+name+'</b></div><div style="color:#88aa88;font-size:0.85em;">Grave sur le bloc #'+(d.blocks_total||'?')+' de la blockchain AfriChain</div><div style="color:#666;font-size:0.8em;margin-top:8px;">Berlin a decoupe. L Afrique recoud.</div></div>';
+  }).catch(e=>{document.getElementById('diplomaResult').innerHTML='<div style="color:#ff4444;">Erreur: '+e+'</div>';});
+}
+
+var exoData=[
+ {q:'POURQUOI la Conference de Berlin est-elle responsable des conflits africains?',a:'COMMENT: En dessinant des frontieres qui regroupent des ennemis et separent des freres. VOILA: Les Hutus et Tutsis au Rwanda, les Mossis coupes entre 3 pays, les Peuls disperses dans 15 pays. Berlin n a pas juste decoupe l Afrique — elle a plante des bombes a retardement qui explosent encore aujourd hui.'},
+ {q:'POURQUOI un passeport africain unique est-il urgent?',a:'COMMENT: En permettant a tout Africain de voyager dans les 54 pays sans visa. VOILA: Un Europeen voyage dans 27 pays sans visa. Un Africain a besoin de visa pour 53 pays africains. L Africain est plus libre en Europe qu en Afrique. Le passeport africain repare cette injustice. La blockchain AfriChain peut le rendre instantane.'},
+ {q:'POURQUOI la ZLECAf est-elle revolutionnaire?',a:'COMMENT: En creant le plus grand marche du monde: 1,3 milliards de personnes, 3,4 trillions USD. VOILA: Plus grand que l Europe (450 millions) et le NAFTA (490 millions). La ZLECAf est la reponse africaine a Berlin. Berlin a divise, la ZLECAf reunifie. La blockchain peut etre la douane automatique.'},
+ {q:'POURQUOI les peuples nomades defient-ils les frontieres?',a:'COMMENT: En traversant les frontieres coloniales depuis des siecles, comme leurs ancetres. VOILA: Les Peuls (15 pays), les Touaregs (5 pays), les Maasai (2 pays) ne reconnaissent pas les frontieres. Leurs vaches ne connaissent pas les visas. Criminaliser le nomadisme, c est criminaliser l Afrique millenaire.'},
+ {q:'POURQUOI la diaspora africaine est-elle une force?',a:'COMMENT: En envoyant 80 milliards USD par an et en diffusant les competences africaines dans le monde. VOILA: La diaspora envoie plus d argent que l aide au developpement. Les talents africains a l etranger doivent etre encourages a revenir. AfriChain peut tracer leurs diplomes sur la blockchain. La migration n est pas une fuite — c est une MISSION.'},
+ {q:'POURQUOI les frontieres africaines sont-elles artificielles?',a:'COMMENT: En etant tracees en lignes droites sur une carte en Europe, sans tenir compte des peuples. VOILA: 60% des frontieres africaines sont des lignes droites. Elles coupent des familles, des langues, des ecosystemes. Un village peut etre a cheval sur deux pays. Ces frontieres ne sont pas africaines — elles sont coloniales.'},
+ {q:'POURQUOI les douanes africaines doivent-elles etre souveraines?',a:'COMMENT: En remplaçant les logiciels occidentaux par AfriChain et en decidant les tarifs librement. VOILA: Les donnees douanieres transitent par des serveurs europeens. Les APE avec l UE obligent l Afrique a ouvrir ses frontieres aux produits europeens, mais l Europe ferme les siennes. AfriChain = douane souveraine, automatique, transparente.'},
+ {q:'POURQUOI l Afrique sans frontieres est-elle un plan, pas un reve?',a:'COMMENT: En utilisant la ZLECAf, le passeport africain, et la blockchain AfriChain comme infrastructure. VOILA: L Europe a 27 pays, 1 marche, 1 passeport, 1 monnaie. L Afrique peut faire mieux: 54 pays, 1 marche, 1 passeport, 1 monnaie (AFR). Berlin a decoupe. L Afrique recoud. Et chaque recousure commence par une ligne de code.'},
+ {q:'POURQUOI la blockchain peut-elle remplacer le passeport physique?',a:'COMMENT: En stockant l identite sur la blockchain avec une cle Ed25519 impossible a falsifier. VOILA: Le passeport n est pas un document en papier — c est une CLE cryptographique. Scan QR code, verification blockchain, passage immediat. Impossible a voler, accessible partout, valable dans 54 pays. Le passeport numerique est la fin de l apartheid frontalier.'},
+ {q:'POURQUOI briser les frontieres est-il un acte de souverainete?',a:'COMMENT: En refusant les frontieres dessinees par des etrangers sans le consentement des Africains. VOILA: Les frontieres coloniales sont des chaines invisibles. Les briser n est pas detruire l Afrique — c est la RESTAURER. L Afrique d avant Berlin etait unie par les routes, les fleuves, les peuples. L Afrique d apres Berlin peut l etre a nouveau — par la blockchain.'}
+];
+var exoSeed=0;
+function genExos(){
+ exoSeed++;
+ var s=exoSeed*12345;
+ function rand(){s=(s*9301+49297)%233280;return s/233280;}
+ var h='';
+ var used={};
+ for(var i=0;i<5;i++){
+  var idx=Math.floor(rand()*exoData.length);
+  while(used[idx]){idx=(idx+1)%exoData.length;}
+  used[idx]=true;
+  var e=exoData[idx];
+  h+='<div class="exo"><div class="exo-q">'+(i+1)+'. '+e.q+'</div><div class="exo-a">'+e.a+'</div></div>';
+ }
+ document.getElementById('exoBox').innerHTML=h;
+}
+genExos();
+
+// Canvas: Africa map with borders dissolving
+var canvas=document.getElementById('frontCanvas');
+var ctx=canvas.getContext('2d');
+var t=0;
+var particles=[];
+for(var i=0;i<60;i++){
+ particles.push({x:Math.random()*400,y:Math.random()*320,vx:(Math.random()-0.5)*0.3,vy:(Math.random()-0.5)*0.3,life:Math.random()});
+}
+var borders=[];
+for(var i=0;i<12;i++){
+ borders.push({x1:Math.random()*400,y1:Math.random()*320,x2:Math.random()*400,y2:Math.random()*320,opacity:0.3});
+}
+function drawCanvas(){
+ if(paused){requestAnimationFrame(drawCanvas);return;}
+ t+=0.01;
+ ctx.fillStyle='rgba(5,10,5,0.15)';
+ ctx.fillRect(0,0,400,320);
+ // Draw borders (dissolving over time)
+ for(var i=0;i<borders.length;i++){
+  var b=borders[i];
+  var fade=Math.max(0,b.opacity-t*0.05);
+  ctx.strokeStyle='rgba(200,50,50,'+fade*0.3+')';
+  ctx.lineWidth=1;
+  ctx.beginPath();ctx.moveTo(b.x1,b.y1);ctx.lineTo(b.x2,b.y2);ctx.stroke();
+ }
+ // Draw Africa silhouette (simplified)
+ ctx.fillStyle='rgba(50,150,50,'+(0.08+Math.sin(t)*0.03)+')';
+ ctx.beginPath();
+ ctx.ellipse(200,160,80,100,0,0,Math.PI*2);
+ ctx.fill();
+ // Module nodes around Africa
+ for(var i=0;i<8;i++){
+  var a=i*Math.PI/4+t*0.15;
+  var x=200+Math.cos(a)*90;
+  var y=160+Math.sin(a)*110;
+  ctx.fillStyle=completed[i]?'#44ff44':'rgba(50,150,50,0.4)';
+  ctx.beginPath();ctx.arc(x,y,7,0,Math.PI*2);ctx.fill();
+  ctx.fillStyle='#fff';ctx.font='8px serif';ctx.textAlign='center';
+  ctx.fillText(i+1,x,y+3);
+ }
+ // Connecting lines (green = unification)
+ for(var i=0;i<8;i++){
+  for(var j=i+1;j<8;j++){
+   if(completed[i]&&completed[j]){
+    var a1=i*Math.PI/4+t*0.15;
+    var a2=j*Math.PI/4+t*0.15;
+    ctx.strokeStyle='rgba(50,200,50,0.1)';
+    ctx.beginPath();
+    ctx.moveTo(200+Math.cos(a1)*90,160+Math.sin(a1)*110);
+    ctx.lineTo(200+Math.cos(a2)*90,160+Math.sin(a2)*110);
+    ctx.stroke();
+   }
+  }
+ }
+ // Particles (people flowing freely)
+ for(var i=0;i<particles.length;i++){
+  var p=particles[i];
+  p.x+=p.vx;p.y+=p.vy;p.life-=0.005;
+  if(p.life<=0||p.x<0||p.x>400||p.y<0||p.y>320){
+   p.x=Math.random()*400;p.y=Math.random()*320;p.life=1;
+   p.vx=(Math.random()-0.5)*0.3;p.vy=(Math.random()-0.5)*0.3;
+  }
+  ctx.fillStyle='rgba(100,200,100,'+p.life*0.4+')';
+  ctx.fillRect(p.x,p.y,2,2);
+ }
+ requestAnimationFrame(drawCanvas);
+}
+drawCanvas();
+
+function togglePause(){
+ paused=!paused;
+ document.getElementById('pauseBtn').textContent=paused?'▶️ Play':'⏸️ Pause';
 }
 </script>
 </body></html>"##);
@@ -24015,7 +24257,7 @@ html+='<div class="log-entry log-kill">⚠️ Tentative d\x27infiltration occide
 html+='<div class="log-entry log-invis">✅ L\x27Afrique est forte. Le système grandit.</div>';
 }else if(type==='total'){
 html='<div style="color:#d4a437;font-weight:bold;margin-bottom:8px">📋 RAPPORT TOTAL — Depuis le début</div>';
-html+='<div class="log-entry">🦁 AfriChain v1.35 — AI Cosmos</div>';
+html+='<div class="log-entry">🦁 AfriChain v1.36 — AI Frontières</div>';
 html+='<div class="log-entry">⛓️ Blockchain: 100% souveraine — Zéro dépendance externe</div>';
 html+='<div class="log-entry">🔐 Crypto: Ed25519 + AfriHash-256/512 + AfriRNG — tout from scratch</div>';
 html+='<div class="log-entry">🌍 54 pays africains connectés</div>';
@@ -25559,7 +25801,7 @@ fn main() {
         .and_then(|i| args.get(i + 1)).cloned().unwrap_or_else(|| "Afrique".to_string());
 
     let my_node_id = generate_node_id();
-    println!("🦁 AfriChain v1.35 — AI Cosmos");
+    println!("🦁 AfriChain v1.36 — AI Frontières");
     println!("💚 L'Afrique ne demande plus la permission");
     println!("🌍 54 pays — 🇲🇱 🇳🇪 🇧🇫 AES — Mali · Niger · Burkina Faso");
     println!("🔐 8 modules cryptographiques — construits from scratch");
@@ -25701,6 +25943,7 @@ fn main() {
     println!("🪖 Base Militaire sur http://localhost:8080/base-militaire");
     println!("📜 AI Constitution sur http://localhost:8080/ai-constitution");
     println!("🌌 AI Cosmos sur http://localhost:8080/ai-cosmos");
+    println!("🌍 AI Frontières sur http://localhost:8080/ai-frontieres");
     println!("🛡️ Souverainete des Donnees sur http://localhost:8080/interception");
     println!("🧠 AI Securite 2100 sur http://localhost:8080/securite-ai");
     println!("🧠💬 Chat AI 2500 sur http://localhost:8080/chat");
@@ -25790,7 +26033,7 @@ fn terminal_interface(state: &Arc<AppState>) {
     println!("  ║  🕐 AfriTime — Pas UTC, pas Greenwich   ║");
     println!("  ║  📝 ~23,100 lignes — écrit à la main       ║");
     println!("  ╚═══════════════════════════════════════════════╝");
-    println!("\n  Version v1.35 — 3 septembre 2026");
+    println!("\n  Version v1.36 — 4 septembre 2026");
     println!("  Construit sur Termux · Android · nano\n");
     println!("  ─────────────────────────────────────────────");
     println!("\n  1. 🏦 Centre de Données (Admin)");
@@ -25862,7 +26105,7 @@ fn admin_interface(state: &Arc<AppState>) {
         println!("\n");
         println!("╔══════════════════════════════════════╗");
         println!("║  🏦 CENTRE DE DONNÉES — Admin       ║");
-        println!("║  🦁 AfriChain v1.35                  ║");
+        println!("║  🦁 AfriChain v1.36                  ║");
         println!("╠══════════════════════════════════════╣");
         let chain = state.chain.lock().unwrap();
         let users = state.users.lock().unwrap();
@@ -29637,6 +29880,11 @@ fn handle_request(req: afri_http::HttpRequest, state: &Arc<AppState>) -> afri_ht
         ("GET", "/ai-cosmos") => {
             let chain = state.chain.lock().unwrap();
             HttpResponse::ok(&html_ai_cosmos(&chain))
+        }
+
+        ("GET", "/ai-frontieres") => {
+            let chain = state.chain.lock().unwrap();
+            HttpResponse::ok(&html_ai_frontieres(&chain))
         }
 
         ("GET", "/machine") => {
