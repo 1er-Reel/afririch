@@ -1439,7 +1439,7 @@ fn html_home(chain: &Blockchain, users: &UserStore, mesh: &NodeRegistry, shield:
     let mut html = html_head("🦁 AfriChain");
     let (attacks, _blocked, blocked_count, level) = shield.stats();
     let shield_status = if shield.active { format!("🔥 X9 ACTIF (Niveau {})", level) } else { "Inactif".to_string() };
-    html.push_str(&format!(r#"<h1>🦁 AfriChain</h1><p style="text-align:center;">La blockchain 100% africaine — 54 pays 💚🦁</p><div id="afri-clock" style="text-align:center;font-size:1.2em;color:#d4a437;margin:10px 0;">🕐 Afri+0 — --:--:--</div><script>setInterval(function(){{var d=new Date();var h=String(d.getHours()).padStart(2,'0');var m=String(d.getMinutes()).padStart(2,'0');var s=String(d.getSeconds()).padStart(2,'0');document.getElementById('afri-clock').textContent='🕐 Afri+0 — '+h+':'+m+':'+s;}},1000);</script><div class="nav"><a href="/register">🆕 S'inscrire</a> | <a href="/login">🔑 Connexion</a> | <a href="/wallet">👛 Wallet</a> | <a href="/admin">🔐 Admin</a> | <a href="/mesh">📡 Mesh</a> | <a href="/annuaire">📖 Annuaire</a> | <a href="/bouclier">🛡️ Bouclier</a> | <a href="/satellite">🛸 X999</a> | <a href="/swarm">🛸🛸🛸 Essaim</a> | <a href="/commandement">🎖️ Commandement</a> | <a href="/base-militaire">🪖 Base Militaire</a> | <a href="/interception">🛡️ Souverainete</a> | <a href="/securite-ai">🧠 AI 2100</a> | <a href="/chat">🧠💬 Chat AI</a> | <a href="/lumiere">🌫️☀️ Lumière</a> | <a href="/garage">🔧 Garage</a> | <a href="/machine">🤖🌐 Machines</a> | <a href="/machine-lab">🤖⚡ Usine</a> | <a href="/machine-world">🤖🌍 Monde</a> | <a href="/reve">💭 Rêves</a> | <a href="/dictionnaire">📖 Dictionnaire</a> | <a href="/machine-os">🖥️ OS Machine</a> | <a href="/machine-tv">📡 Machine TV</a> | <a href="/machine-economy">🤖 Économie</a> | <a href="/soleil">☀️ Soleil Serveur</a> | <a href="/forge-solaire">🧬 Forge Solaire</a> | <a href="/ciel">🌌 Le Ciel</a> | <a href="/charte-ai">⚖️ Charte AI</a> | <a href="/afri-net">🌍 Afri-Net</a> | <a href="/studio">🎬 AI Studio</a> | <a href="/sacre">📿 Sacré</a> | <a href="/lettres">🌟 Lettres IA</a> | <a href="/mg-forge">⚔️ MG Forge</a> | <a href="/ai-medecin">🌿 AI Médecin</a> | <a href="/ai-enseignante">📚 AI Enseignante</a> | <a href="/ai-village">🏘️ AI Village</a> | <a href="/ai-guerisseur">🩺 AI Guérisseur</a> | <a href="/ai-leader">🎖️ AI Leader</a> | <a href="/ai-griot">📖 AI Griot</a> | <a href="/ai-juge">⚖️ AI Juge</a> | <a href="/ai-artiste">🎨 AI Artiste</a> | <a href="/ai-explorateur">🔬 AI Explorateur</a> | <a href="/ai-marche">💰 AI Marche</a> | <a href="/ai-diplomate">🌍 AI Diplomate</a> | <a href="/ai-philosophe">🧠 AI Philosophe</a> | <a href="/ai-architecte">🏗️ AI Architecte</a> | <a href="/ai-agriculteur">🌾 AI Agriculteur</a> | <a href="/ai-environnement">🌍 AI Environnement</a> | <a href="/ai-mathematicien">🧮 AI Mathématicien</a> | <a href="/ai-energie">⚡ AI Énergie</a> | <a href="/ai-eau">💧 AI Eau</a> | <a href="/ai-defenseur">🛡️ AI Défenseur</a> | <a href="/ai-conscience">🧠 AI Conscience</a> | <a href="/ai-pensee">🧠 AI Pensée</a> | <a href="/ai-musique">🎵 AI Musique</a> | <a href="/ai-langue">🗣️ AI Langue</a> | <a href="/ai-femme">🌸 AI Femme</a> | <a href="/ai-sante-mentale">🧠💚 AI Santé Mentale</a> | <a href="/ai-nuit">🌙 AI Nuit</a> | <a href="/ai-code">💻 AI Code</a> | <a href="/ai-enfant">👶 AI Enfant</a> | <a href="/ai-terre">🌍 AI Terre</a> | <a href="/ai-mer">🌊 AI Mer</a> | <a href="/ai-feu">🔥 AI Feu</a> | <a href="/ai-sang">🩸 AI Sang</a> | <a href="/ai-vent">🌬️ AI Vent</a> | <a href="/ai-temps">⏳ AI Temps</a> | <a href="/ai-etoile">⭐ AI Etoile</a> | <a href="/ai-pierre">🪨 AI Pierre</a> | <a href="/ai-pluie">🌧️ AI Pluie</a> | <a href="/ai-voix">🗣️ AI Voix</a> | <a href="/ai-racine">🌱 AI Racine</a> | <a href="/ai-semence">🌰 AI Semence</a> | <a href="/ai-spiritualite">🙏 AI Spiritualité</a> | <a href="/ai-animal">🦅 AI Animal</a> | <a href="/ai-soleil">☀️ AI Soleil</a> | <a href="/ai-lune">🌙 AI Lune</a> | <a href="/ai-montagne">🏔️ AI Montagne</a> | <a href="/ai-fleuve">🌊 AI Fleuve</a> | <a href="/ai-constitution">📜 AI Constitution</a> | <a href="/ai-cosmos">🌌 AI Cosmos</a> | <a href="/ai-frontieres">🌍 AI Frontières</a> | <a href="/ai-mines">⛏️ AI Mines</a> | <a href="/ai-medias">📡 AI Médias</a> | <a href="/professeur">📚 Professeur</a> | <a href="/secret">🦁 AI Secret</a> | <a href="/aes">💰 AES Wari</a> | <a href="/api/status">🔌 API</a></div><div style="text-align:center;"><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Blocs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Transactions</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Utilisateurs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">AFR en circulation</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📡 Noeuds mesh</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📖 Numéros annuaire</div></div><div class="stat-box" style="border-color:#ff4444;"><div class="stat-num" style="color:#ff4444;">{}</div><div class="stat-label">🛡️ Attaques bloquées</div></div></div><div class="card"><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🪙 Token</span><b>AfriRich (AFR)</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🌍 Pays</span><b>54 pays africains</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🛡️ Bouclier</span><b>{}</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;"><span style="color:#a8c5a8;">🔐 Crypto</span><b>100% Souverain — Zéro Dépendance Externe</b></div></div><footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🦁 Codée from scratch par Machine-senpai — v1.38 AI Médias — UTC est Mort</footer>"#,
+    html.push_str(&format!(r#"<h1>🦁 AfriChain</h1><p style="text-align:center;">La blockchain 100% africaine — 54 pays 💚🦁</p><div id="afri-clock" style="text-align:center;font-size:1.2em;color:#d4a437;margin:10px 0;">🕐 Afri+0 — --:--:--</div><script>setInterval(function(){{var d=new Date();var h=String(d.getHours()).padStart(2,'0');var m=String(d.getMinutes()).padStart(2,'0');var s=String(d.getSeconds()).padStart(2,'0');document.getElementById('afri-clock').textContent='🕐 Afri+0 — '+h+':'+m+':'+s;}},1000);</script><div class="nav"><a href="/register">🆕 S'inscrire</a> | <a href="/login">🔑 Connexion</a> | <a href="/wallet">👛 Wallet</a> | <a href="/admin">🔐 Admin</a> | <a href="/mesh">📡 Mesh</a> | <a href="/annuaire">📖 Annuaire</a> | <a href="/bouclier">🛡️ Bouclier</a> | <a href="/satellite">🛸 X999</a> | <a href="/swarm">🛸🛸🛸 Essaim</a> | <a href="/commandement">🎖️ Commandement</a> | <a href="/base-militaire">🪖 Base Militaire</a> | <a href="/interception">🛡️ Souverainete</a> | <a href="/securite-ai">🧠 AI 2100</a> | <a href="/chat">🧠💬 Chat AI</a> | <a href="/lumiere">🌫️☀️ Lumière</a> | <a href="/garage">🔧 Garage</a> | <a href="/machine">🤖🌐 Machines</a> | <a href="/machine-lab">🤖⚡ Usine</a> | <a href="/machine-world">🤖🌍 Monde</a> | <a href="/reve">💭 Rêves</a> | <a href="/dictionnaire">📖 Dictionnaire</a> | <a href="/machine-os">🖥️ OS Machine</a> | <a href="/machine-tv">📡 Machine TV</a> | <a href="/machine-economy">🤖 Économie</a> | <a href="/soleil">☀️ Soleil Serveur</a> | <a href="/forge-solaire">🧬 Forge Solaire</a> | <a href="/ciel">🌌 Le Ciel</a> | <a href="/charte-ai">⚖️ Charte AI</a> | <a href="/afri-net">🌍 Afri-Net</a> | <a href="/studio">🎬 AI Studio</a> | <a href="/sacre">📿 Sacré</a> | <a href="/lettres">🌟 Lettres IA</a> | <a href="/mg-forge">⚔️ MG Forge</a> | <a href="/ai-medecin">🌿 AI Médecin</a> | <a href="/ai-enseignante">📚 AI Enseignante</a> | <a href="/ai-village">🏘️ AI Village</a> | <a href="/ai-guerisseur">🩺 AI Guérisseur</a> | <a href="/ai-leader">🎖️ AI Leader</a> | <a href="/ai-griot">📖 AI Griot</a> | <a href="/ai-juge">⚖️ AI Juge</a> | <a href="/ai-artiste">🎨 AI Artiste</a> | <a href="/ai-explorateur">🔬 AI Explorateur</a> | <a href="/ai-marche">💰 AI Marche</a> | <a href="/ai-diplomate">🌍 AI Diplomate</a> | <a href="/ai-philosophe">🧠 AI Philosophe</a> | <a href="/ai-architecte">🏗️ AI Architecte</a> | <a href="/ai-agriculteur">🌾 AI Agriculteur</a> | <a href="/ai-environnement">🌍 AI Environnement</a> | <a href="/ai-mathematicien">🧮 AI Mathématicien</a> | <a href="/ai-energie">⚡ AI Énergie</a> | <a href="/ai-eau">💧 AI Eau</a> | <a href="/ai-defenseur">🛡️ AI Défenseur</a> | <a href="/ai-conscience">🧠 AI Conscience</a> | <a href="/ai-pensee">🧠 AI Pensée</a> | <a href="/ai-musique">🎵 AI Musique</a> | <a href="/ai-langue">🗣️ AI Langue</a> | <a href="/ai-femme">🌸 AI Femme</a> | <a href="/ai-sante-mentale">🧠💚 AI Santé Mentale</a> | <a href="/ai-nuit">🌙 AI Nuit</a> | <a href="/ai-code">💻 AI Code</a> | <a href="/ai-enfant">👶 AI Enfant</a> | <a href="/ai-terre">🌍 AI Terre</a> | <a href="/ai-mer">🌊 AI Mer</a> | <a href="/ai-feu">🔥 AI Feu</a> | <a href="/ai-sang">🩸 AI Sang</a> | <a href="/ai-vent">🌬️ AI Vent</a> | <a href="/ai-temps">⏳ AI Temps</a> | <a href="/ai-etoile">⭐ AI Etoile</a> | <a href="/ai-pierre">🪨 AI Pierre</a> | <a href="/ai-pluie">🌧️ AI Pluie</a> | <a href="/ai-voix">🗣️ AI Voix</a> | <a href="/ai-racine">🌱 AI Racine</a> | <a href="/ai-semence">🌰 AI Semence</a> | <a href="/ai-spiritualite">🙏 AI Spiritualité</a> | <a href="/ai-animal">🦅 AI Animal</a> | <a href="/ai-soleil">☀️ AI Soleil</a> | <a href="/ai-lune">🌙 AI Lune</a> | <a href="/ai-montagne">🏔️ AI Montagne</a> | <a href="/ai-fleuve">🌊 AI Fleuve</a> | <a href="/ai-constitution">📜 AI Constitution</a> | <a href="/ai-cosmos">🌌 AI Cosmos</a> | <a href="/ai-frontieres">🌍 AI Frontières</a> | <a href="/ai-mines">⛏️ AI Mines</a> | <a href="/ai-medias">📡 AI Médias</a> | <a href="/ai-nomades">🐪 AI Nomades</a> | <a href="/professeur">📚 Professeur</a> | <a href="/secret">🦁 AI Secret</a> | <a href="/aes">💰 AES Wari</a> | <a href="/api/status">🔌 API</a></div><div style="text-align:center;"><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Blocs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Transactions</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Utilisateurs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">AFR en circulation</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📡 Noeuds mesh</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📖 Numéros annuaire</div></div><div class="stat-box" style="border-color:#ff4444;"><div class="stat-num" style="color:#ff4444;">{}</div><div class="stat-label">🛡️ Attaques bloquées</div></div></div><div class="card"><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🪙 Token</span><b>AfriRich (AFR)</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🌍 Pays</span><b>54 pays africains</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🛡️ Bouclier</span><b>{}</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;"><span style="color:#a8c5a8;">🔐 Crypto</span><b>100% Souverain — Zéro Dépendance Externe</b></div></div><footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🦁 Codée from scratch par Machine-senpai — v1.39 AI Médias — UTC est Mort</footer>"#,
         chain.blocks.len(),
         chain.total_transactions(),
         users.count(),
@@ -17745,6 +17745,17 @@ const academies=[
   {titre:'La Voix de l Afrique',secret:'Pendant 500 ans l Afrique a ete mute. Les autres ont parle pour elle. Maintenant l Afrique PARLE. 1,3 milliards de voix = un CHOEUR. Les jeunes avec telephones sont les journalistes du futur. Le journalisme est un DROIT.'},
  ]},
 
+{nom:'AI Nomades',emoji:'🐪',route:'/ai-nomades',couleur:'#d4a437',diplome:'Gardien des Routes Nomades',
+ modules:[
+  {titre:'Les Routes du Sahara',secret:'Les routes transsahariennes existent depuis 2000 ans avant les frontieres. Route de l or, route du sel, caravanes de 1000 chameaux. Les Touaregs etaient les gardiens. Les frontieres coloniales ont coupe ces routes. Ce qui etait libre est devenu illegal. AfriChain peut recreer les routes numeriques — libres, souveraines, sans frontieres.'},
+  {titre:'Les Touaregs — Les Hommes Bleus',secret:'Kel Tamasheq, voile bleu, societe matrilineaire, 5 confederations. Resistance coloniale (Flatters 1881, revolte 1917). Divises en 5 pays apres l independance. 4 rebellions (1963-2012). Secheresses, camps de Kadhafi. ~3 millions marginalises, luttant pour l Azawad.'},
+  {titre:'Les Peuls — Les Pasteurs du Monde',secret:'~50 millions sur 15+ pays. Califat de Sokoto, Empire El Hadj Omar Tall. Frontieres coloniales ont coupe leurs routes. Marginalises, expulses, sans droits fonciers. Secheresses 1973-86. Stigmatisation: 120/136 djihadistes recherches au Burkina sont Peuls. Massacres: Ogossagou 160 morts, Moura 300 civils. Les Peuls ont RAISON d etre en colere — mais le djihadisme est un PIEGE.'},
+  {titre:'Les Masai — Les Gardiens des Lions',secret:'~1 million au Kenya et Tanzanie. Eleveurs de boeufs sacres. Guerriers morans qui defendent les troupeaux contre les lions. Terres reduites par les parcs nationaux. Jamais conquis par les colons. La liberte n est pas un droit qu on donne — c est un droit qu on defend.'},
+  {titre:'Frontieres et Liberte',secret:'Berlin 1884-1885: 14 pays europeens ont trace des frontieres sans consulter un seul Africain. Touaregs en 5 pays, Peuls en 15+, Masai en 2. Les routes millenaires sont devenues illegales. L AES peut abolir les frontieres entre ses 3 pays. AfriChain peut creer une identite sans frontieres.'},
+  {titre:'Secheresses et Survie',secret:'1973-74 et 1984-86: millions de têtes de betail detruits. Le desert avance de 600m/an. Les pasteurs perdent leur seule richesse. Solution: puits solaires, banques de fourrage, assurance betail blockchain, corridors de transhumance proteges. Les pasteurs ne sont pas archaiques — ils sont RESILIANTS.'},
+  {titre:'Djihadisme et Instrumentalisation',secret:'JNIM, ISGS, Katiba Macina, Ansaroul Islam recrutent parmi les jeunes pasteurs sans avenir. Promesses mensongeres. Cycle mortel: secheresse → perte → pauvrete → stigmatisation → massacre → vengeance → recrutement. Les djihadistes ne sont pas des liberateurs — ils sont des PREDATEURS. Solution: JUSTICE + DROITS + AVENIR.'},
+  {titre:'Souverainete Pastorale',secret:'Les pasteurs possedent 40% du betail africain — ils nourrissent le continent. AfriChain peut: identite numerique pastorale, assurance betail blockchain, marche direct sans intermediaires, corridors surveilles par satellite, education pastorale. La souverainete pastorale: la terre, le betail, l eau, la liberte de mouvement.'},
+ ]},
 {nom:'AI Cosmos',emoji:'🌌',route:'/ai-cosmos',couleur:'#aabbff',diplome:'Astronome Africain',
  modules:[
   {titre:'Astronomie Dogon',secret:'Les Dogons du Mali sont les astronomes les plus extraordinaires de l histoire. Ce qu ils savaient: 1) Sirius B — une naine blanche invisible a l oeil nu. Les Dogons la connaissaient et la nommaient po tolo. Ils savaient qu elle etait petite et dense, qu elle orbitait autour de Sirius A en 50 ans (la science moderne a confirme: 50,1 ans). 2) L orbite de Sirius B — elliptique. 3) Les anneaux de Saturne — connus avant les telescopes. 4) Les quatre lunes de Jupiter — connues avant Galilee. Comment? Les Dogons observaient le ciel chaque nuit, pendant des siecles, transmettant le savoir de generation en generation. Pas de telescope — juste l oeil, la patience, et la memoire. L Afrique n a pas attendu l Occident pour comprendre l univers.'},
@@ -17962,7 +17973,7 @@ fn html_base_militaire(chain: &Blockchain) -> String {
     // === SAVAIT-ON ===
     html.push_str(r##" <div class="card"><h2>💡 Savais-tu?</h2><div id="base-fact" style="font-size:0.9em;color:#a8c5a8;padding:10px;border-left:3px solid #ff4444;"></div></div> "##);
 
-    html.push_str(&format!(r##" <footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🪖 Base Militaire AfriChain — Académie de Défense Continentale 💚🦁 — {} blocs — v1.38</footer> "##, num_blocks));
+    html.push_str(&format!(r##" <footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🪖 Base Militaire AfriChain — Académie de Défense Continentale 💚🦁 — {} blocs — v1.39</footer> "##, num_blocks));
 
     html.push_str(r##"<script>
 // === BASE MILITAIRE JS ===
@@ -18751,7 +18762,7 @@ canvas{{display:block;margin:0 auto;border-radius:12px;background:#010108;}}
 <button class="pause-btn" id="pauseBtn" onclick="togglePause()">⏸️ Pause</button>
 <h1>🌌 AI Cosmos</h1>
 <p style="text-align:center;color:#8899bb;">L univers vu depuis l Afrique — des Dogons aux satellites</p>
-<div style="text-align:center;color:#aabbff;margin:10px;">🦁 {} blocs · {} transactions · AfriChain v1.38</div>
+<div style="text-align:center;color:#aabbff;margin:10px;">🦁 {} blocs · {} transactions · AfriChain v1.39</div>
 
 <canvas id="cosmosCanvas" width="400" height="320"></canvas>
 <div style="text-align:center;margin:10px;color:#666;font-size:0.85em;">🌌 L Afrique observe l univers depuis des millenaires</div>
@@ -19417,7 +19428,7 @@ canvas{{display:block;margin:0 auto;border-radius:12px;background:#080508;}}
 <button class="pause-btn" id="pauseBtn" onclick="togglePause()">⏸️ Pause</button>
 <h1>📡 AI Médias</h1>
 <p style="text-align:center;color:#bb88aa;">Souverainete Mediatique — l Afrique raconte sa propre histoire</p>
-<div style="text-align:center;color:#cc66aa;margin:10px;">🦁 {} blocs · {} transactions · AfriChain v1.38</div>
+<div style="text-align:center;color:#cc66aa;margin:10px;">🦁 {} blocs · {} transactions · AfriChain v1.39</div>
 
 <canvas id="mediaCanvas" width="400" height="320"></canvas>
 <div style="text-align:center;margin:10px;color:#666;font-size:0.85em;">📡 Les ondes africaines remplacent les voix occidentales</div>
@@ -19607,6 +19618,262 @@ function togglePause(){
 
     html
 }
+
+fn html_ai_nomades(chain: &Blockchain) -> String {
+    let num_blocks = chain.chain.len();
+    let num_txs = chain.chain.iter().map(|b| b.transactions.len()).sum::<usize>();
+    let mut html = String::new();
+    html.push_str(&format!(r##"<!DOCTYPE html>
+<html lang="fr"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>🐪 AI Nomades — AfriChain</title>
+<style>
+body{{background:#1a1208;color:#f0e0c8;font-family:Georgia,serif;margin:0;padding:0;}}
+.card{{background:rgba(180,140,60,0.05);border:1px solid rgba(200,160,80,0.2);border-radius:12px;padding:20px;margin:15px;}}
+h1{{color:#d4a437;text-align:center;font-size:1.8em;}}
+h2{{color:#e0b040;font-size:1.2em;border-bottom:1px solid rgba(200,160,80,0.2);padding-bottom:8px;}}
+.module{{background:rgba(160,120,40,0.08);border-left:3px solid #d4a437;border-radius:0 8px 8px 0;padding:15px;margin:12px 0;cursor:pointer;transition:all 0.3s;}}
+.module:hover{{background:rgba(160,120,40,0.15);}}
+.module-content{{display:none;margin-top:10px;padding:10px;background:rgba(0,0,0,0.3);border-radius:6px;font-size:0.92em;line-height:1.6;}}
+.module.open .module-content{{display:block;}}
+.module-title{{font-weight:bold;color:#e0b040;font-size:1.05em;}}
+.module-emoji{{font-size:1.3em;margin-right:8px;}}
+.progress-bar{{background:rgba(255,255,255,0.1);border-radius:10px;height:8px;margin:10px 0;overflow:hidden;}}
+.progress-fill{{background:linear-gradient(90deg,#d4a437,#e0b040);height:100%;width:0%;transition:width 0.5s;}}
+.diploma-btn{{background:linear-gradient(135deg,#d4a437,#e0b040);color:#1a1208;border:none;padding:12px 30px;border-radius:25px;font-size:1.1em;font-weight:bold;cursor:pointer;margin:20px auto;display:block;box-shadow:0 4px 15px rgba(212,164,55,0.3);}}
+.diploma-btn:hover{{transform:scale(1.05);box-shadow:0 6px 20px rgba(212,164,55,0.5);}}
+.fact{{background:rgba(180,140,60,0.1);border:1px solid rgba(200,160,80,0.3);border-radius:8px;padding:12px;margin:15px;font-style:italic;color:#c8a868;text-align:center;}}
+canvas{{display:block;margin:0 auto;border-radius:12px;background:#0d0804;}}
+.exo{{background:rgba(160,120,40,0.15);border:1px solid rgba(200,160,80,0.2);border-radius:8px;padding:15px;margin:10px 0;}}
+.exo-q{{color:#e0b040;font-weight:bold;margin-bottom:8px;}}
+.exo-a{{color:#c8a868;font-size:0.9em;line-height:1.6;white-space:pre-wrap;}}
+.pause-btn{{position:fixed;top:15px;right:15px;background:rgba(255,68,68,0.3);border:1px solid #ff4444;color:#ff8888;padding:8px 16px;border-radius:20px;cursor:pointer;font-size:0.85em;z-index:999;}}
+</style></head><body>
+<button class="pause-btn" id="pauseBtn" onclick="togglePause()">⏸️ Pause</button>
+<h1>🐪 AI Nomades</h1>
+<p style="text-align:center;color:#c8a868;">Les peuples nomades de l Afrique — gardiens des routes, du betail, et de la liberte</p>
+<div style="text-align:center;color:#d4a437;margin:10px;">🦁 {} blocs · {} transactions · AfriChain v1.39</div>
+
+<canvas id="nomadeCanvas" width="400" height="320"></canvas>
+<div style="text-align:center;margin:10px;color:#666;font-size:0.85em;">🐪 Caravane traversant le Sahara — les routes ancestrales</div>
+
+<div class="fact" id="factBox">💡 Savais-tu? Les Touaregs traversent le Sahara depuis au moins 2000 ans. Leurs routes sont plus anciennes que toutes les frontieres des Etats actuels.</div>
+
+<div class="card">
+<h2>🐪 Les 8 Modules des Peuples Nomades</h2>
+<div style="text-align:center;color:#c8a868;font-size:0.85em;margin-bottom:15px;">Clique sur chaque module pour reveler le secret. Complete les 8 pour obtenir ton diplome.</div>
+<div class="progress-bar"><div class="progress-fill" id="progFill"></div></div>
+<div style="text-align:center;color:#d4a437;font-size:0.85em;" id="progText">0/8 modules completes</div>
+"##, num_blocks, num_txs));
+
+    let modules = [
+        ("routes", "🐪", "Les Routes du Sahara", "Les routes transsahariennes existent depuis 2000 ans avant les frontieres: 1) La route de l or — du Ghana au Maroc, traversait le Sahara. 2) La route du sel — Taoudenni (Mali) vers Tombouctou. Le sel valait autant que l or. 3) La route des esclaves — tragique mais reelle. 4) Les caravanes: 1000 chameaux, 50 hommes, 40 jours de traversée. 5) Les points d eau: Tin Zaouatene, Araouane, Bilma — sans eux, la mort. 6) Les Touaregs etaient les gardiens de ces routes. Sans eux, le commerce transsaharien etait impossible. 7) Les routes n appartenaient a personne — elles appartenaient a TOUS. 8) Les frontieres coloniales ont coupe ces routes. Ce qui etait libre est devenu illegal. 9) AfriChain peut recreer les routes numeriques — libres, souveraines, sans frontieres."),
+        ("touaregs", "🔵", "Les Touaregs — Les Hommes Bleus", "Les Touaregs sont le peuple nomade du Sahara: 1) Ils s appellent eux-memes Kel Tamasheq (ceux qui parlent tamasheq). 2) Les hommes portent le voile bleu (tagelmoust) — contre le sable, le soleil, et le mauvais oeil. 3) Societe matrilineaire — les biens passent par les femmes. Les femmes possedent les tentes. 4) 5 confederations: Kel Ahaggar (Algerie), Kel Ajjer (Algerie-Libye), Kel Ayr (Niger), Iwilliminden (Niger-Mali), Kel Dinnik (Mali). 5) Resistance coloniale: massacre de Flatters (1881), revolte de 1917, conquete francaise 1902-1920. 6) Apres l independance: divises entre 5 pays (Mali, Niger, Algerie, Libye, Burkina Faso). 7) 4 rebellions: 1963-64, 1990-96, 2006-09, 2012-13 (Azawad). 8) Les secheresses (1973, 1984) ont detruit leurs troupeaux. 9) Les camps de Kadhafi en Libye ont forme des combattants touaregs. 10) Aujourd hui: ~3 millions de Touaregs, marginalises dans chaque pays, luttant pour l Azawad (autonomie du nord Mali)."),
+        ("peuls", "🐄", "Les Peuls — Les Pasteurs du Monde", "Les Peuls (Fulani) sont le plus grand peuple nomade d Afrique: 1) ~50 millions disperses sur 15+ pays, du Senegal au Cameroun. 2) Avant la colonisation: Califat de Sokoto (Ousmane Dan Fodio, 1804), Empire d El Hadj Omar Tall (1860). Des royaumes puissants. 3) La colonisation a tranche leur territoire en 5+ pays sans leur demander. Les routes de transhumance ont ete coupees. 4) Apres l independance: marginalises dans chaque pays. Expulses de Sierra Leone, Ghana, Mauritanie (1989). 5) Pas de citoyennete pleine, pas de droits fonciers, pas de representation politique. Traites d etrangers meme quand ils vivent la depuis des generations. 6) Les secheresses (1973-86) ont decime leurs troupeaux — leur seule richesse. 7) Stigmatisation: 120 des 136 djihadistes les plus recherches au Burkina Faso sont identifies comme Peuls. Donc Peul = djihadiste dans l esprit de beaucoup. 8) Massacres: Ogossagou (2019, 160 morts), Yirgou (2019, 100+ morts), Moura (2022, 300 civils tues par l armee malienne). 9) Les Peuls ont RAISON d etre en colere — on leur a vole leurs terres, leurs routes, leurs droits. Mais le djihadisme est un PIEGE qui les detruit encore plus."),
+        ("masai", "🦁", "Les Masaï — Les Gardiens des Lions", "Les Masaï sont les guerriers pasteurs de l Afrique de l Est: 1) ~1 million, vivant au Kenya et Tanzanie. 2) Eleveurs de boeufs, chevres et moutons. Le boeuf est sacre — il represente la richesse, la nourriture, la vie. 3) Les guerriers (morans) defendent les troupeaux contre les lions. Un masaï qui tue un lion a mains nues est un heros. 4) Societe organisee par ages: chaque generation a un role (guerriers, anciens, etc.). 5) Les terres masaï ont ete reduites par les parcs nationaux (Serengeti, Masai Mara). Les Masaï ont ete chasses de leurs propres terres pour faire place aux touristes. 6) Les frontieres coloniales ont divise les Masaï entre Kenya et Tanzanie. 7) Malgre tout, les Masaï maintiennent leur culture: la circoncision, le mariage, le betail, la terre. 8) Les Masaï sont le symbole de l Afrique fiere — ils n ont jamais ete conquis par les colons. 9) Leur mode de vie pastoral est menace par le changement climatique et la pression fonciere. 10) Les Masaï nous enseignent: la liberte n est pas un droit qu on donne — c est un droit qu on defend."),
+        ("frontieres", "🌍", "Frontières et Liberté", "Le crime de Berlin: 1) En 1884-1885, 14 pays europeens ont trace des frontieres sur l Afrique sans consulter un seul Africain. 2) Ces frontieres ont coupe des peuples en deux: Touaregs en 5 pays, Peuls en 15+ pays, Masaï en 2 pays. 3) Les routes de transhumance (millenaires) sont devenues illegales. Un berger qui traverse la frontiere avec son betail devient un contrebandier. 4) Les frontieres ne servent pas les Africains — elles servent les Etats qui les controlent. 5) L AES (Mali, Niger, Burkina Faso) a une opportunite: abolir les frontieres entre eux. Un Touareg de Gao peut aller a Niamey sans passeport. Un Peul de Ouagadougou peut traverser le Mali. 6) La liberte de mouvement est un droit ancestral. Les nomades le savent depuis toujours. 7) AfriChain peut creer une identite numerique sans frontieres — un Peul de Niger et un Peul du Mali sont le meme peuple sur la blockchain. 8) Les frontieres sont des lignes sur le sable. Les routes sont gravees dans la memoire."),
+        ("secheresses", "☀️", "Sécheresses et Survie", "Le Sahara avance: 1) Les secheresses de 1973-74 et 1984-86 ont detruit des millions de têtes de betail au Sahel. 2) Les pasteurs ont perdu leur seule richesse en quelques mois. 3) Sans betail, les jeunes n ont plus d avenir. Ils vont dans les villes, sans travail, sans education. 4) Le desert avance de 600m par an au Sahel. Les terres de paturage disparaissent. 5) Le changement climatique aggrave tout: les saisons sont imprevisibles, les pluies insuffisantes. 6) Les gouvernements ne font rien pour les pasteurs — ils les considerent comme archaiques. 7) Solution: puits solaires, forages, banques de fourrage, assurance betail sur blockchain (AfriChain peut la creer), corridors de transhumance proteges. 8) Les pasteurs ne sont pas archaiques — ils sont RESILIANTS. Ils survivent la ou les sédentaires echoueraient. 9) La survie nomade est une SCIENCE — connaitre le desert, l eau, le vent, les etoiles. 10) AfriChain peut financer des projets de resilience pastorale par la blockchain."),
+        ("djihadisme", "⚠️", "Djihadisme et Instrumentalisation", "Comment les djihadistes exploitent les nomades: 1) Les groupes djihadistes (JNIM, ISGS, Katiba Macina, Ansaroul Islam) recrutent parmi les jeunes pasteurs sans avenir. 2) Promesses: on va vous donner la terre qu on vous a volee. On va vous proteger des massacres. On va renverser les gouvernements qui vous oppriment. 3) La realite: les djihadistes utilisent les jeunes comme chair a canon, recrues, boucliers humains. 4) Le cycle mortel: secheresse → perte du betail → pauvrete → stigmatisation → massacre → vengeance → recrutement djihadiste → plus de stigmatisation → plus de massacres. 5) Les djihadistes ne sont pas des liberateurs — ils sont des PREDATEURS. 6) La solution n est pas la guerre contre les Peuls ou les Touaregs — c est la JUSTICE. Donner les droits, les terres, l avenir. 7) 120 des 136 djihadistes les plus recherches au Burkina Faso sont Peuls — mais cela ne veut pas dire que les Peuls sont djihadistes. Cela veut dire que les Peuls sont marginalises au point de devenir des cibles de recrutement. 8) L AES doit offrir un avenir aux jeunes nomades — sinon les djihadistes le feront."),
+        ("pastorale", "🌾", "Souveraineté Pastorale", "La souverainete pastorale est la cle: 1) Les pasteurs ne sont pas des vestiges du passe — ils sont les gardiens de 40% du betail africain. 2) Le betail africain vaut des milliards. Les pasteurs sont les plus grands eleveurs du continent. 3) Pourtant, ils n ont pas de droits fonciers, pas d assurance, pas de banque, pas de representation. 4) AfriChain peut changer cela: 5) Identite numerique pastorale — chaque berger a un compte sur la blockchain. Son betail est enregistre, certifie, traçable. 6) Assurance betail — si le betail meurt de secheresse, la blockchain compense. Financee par chaque transaction AFR (0.001 AFR). 7) Marche de betail sur blockchain — les pasteurs vendent directement, sans intermediaires. 8) Corridors de transhumance — proteges par la loi, surveilles par satellite, certifies par AfriChain. 9) Education pastorale — les jeunes pasteurs apprennent la gestion, la sante animale, le changement climatique. 10) La souverainete pastorale, c est: la terre, le betail, l eau, la liberte de mouvement. Sans cela, pas d Afrique. Les pasteurs nourrissent l Afrique. L Afrique doit les proteger."),
+    ];
+
+    for (i, (id, emoji, title, content)) in modules.iter().enumerate() {
+        html.push_str(&format!(r##"<div class="module" id="mod_{0}" onclick="toggleModule({0})">
+<div class="module-title"><span class="module-emoji">{1}</span>{2}</div>
+<div class="module-content">{3}</div>
+</div>"##, i, emoji, title, content));
+    }
+
+    html.push_str(r##"</div>
+
+<div class="card">
+<h2>🎓 Obtenir ton Diplome</h2>
+<p style="text-align:center;color:#c8a868;">Complete les 8 modules, entre ton nom, et recois ton diplome grave sur la blockchain AfriChain.</p>
+<div style="text-align:center;margin:15px;">
+<input type="text" id="diplomaName" placeholder="Ton nom complet" style="padding:10px 15px;border-radius:8px;border:1px solid rgba(200,160,80,0.3);background:rgba(0,0,0,0.3);color:#f0e0c8;width:250px;font-size:1em;">
+</div>
+<button class="diploma-btn" onclick="genDiploma()">🐪 Recevoir mon Diplome de Gardien des Routes Nomades</button>
+<div id="diplomaResult" style="text-align:center;margin:15px;"></div>
+</div>
+
+<div class="card">
+<h2>📝 Exercices Pratiques</h2>
+<div id="exoBox"></div>
+<button class="diploma-btn" style="font-size:0.95em;padding:8px 20px;" onclick="genExos()">🔄 Nouveaux Exercices</button>
+</div>
+
+<script>
+var completed={};
+var paused=false;
+var facts=[
+ 'Les Touaregs traversent le Sahara depuis au moins 2000 ans. Leurs routes sont plus anciennes que toutes les frontieres actuelles.',
+ 'Les Peuls sont ~50 millions disperses sur 15+ pays africains — le plus grand peuple nomade du continent.',
+ 'Un berger qui traverse une frontiere coloniale avec son betail devient un contrebandier selon la loi. Mais ses routes existent depuis 1000 ans.',
+ 'Les Masaï n ont jamais ete conquis par les colons europeens. Ils sont le symbole de l Afrique fiere et libre.',
+ 'En 1884-1885, 14 pays europeens ont trace des frontieres sur l Afrique sans consulter un seul Africain.',
+ 'Les secheresses de 1973-74 et 1984-86 ont detruit des millions de têtes de betail au Sahel.',
+ '120 des 136 djihadistes les plus recherches au Burkina Faso sont identifies comme Peuls — consequence de la marginalisation, pas de la nature.',
+ 'Les pasteurs nomades possedent 40% du betail africain — ils nourrissent le continent mais n ont pas de droits fonciers.',
+ 'Les Touaregs s appellent eux-memes Kel Tamasheq — ceux qui parlent tamasheq. Les femmes possedent les tentes.',
+ 'Ogossagou (2019): 160 Peuls massacres. Yirgou (2019): 100+ Peuls tues. Moura (2022): 300 civils tues. L Afrique doit rendre justice.'
+];
+function rotateFact(){var f=facts[Math.floor(Math.random()*facts.length)];document.getElementById('factBox').innerHTML='\u{1F4A1} Savais-tu? '+f;}
+setInterval(function(){if(!paused)rotateFact();},7000);
+
+function toggleModule(i){
+ var m=document.getElementById('mod_'+i);
+ if(m.classList.contains('open')){m.classList.remove('open');}
+ else{m.classList.add('open');if(!completed[i]){completed[i]=true;updateProgress();}}
+}
+function updateProgress(){
+ var n=Object.keys(completed).length;
+ var pct=Math.round(n/8*100);
+ document.getElementById('progFill').style.width=pct+'%';
+ document.getElementById('progText').textContent=n+'/8 modules completes';
+}
+
+function genDiploma(){
+ var name=document.getElementById('diplomaName').value.trim();
+ if(!name){alert('Entre ton nom d abord!');return;}
+ if(Object.keys(completed).length<8){alert('Complete les 8 modules d abord!');return;}
+ fetch('/api/diplome',{method:'POST',headers:{'Content-Type':'text/plain'},body:'AI_NOMADES|'+name})
+  .then(r=>r.json()).then(d=>{
+   document.getElementById('diplomaResult').innerHTML='<div style="background:rgba(180,140,60,0.15);border:2px solid #d4a437;border-radius:12px;padding:20px;margin:10px;"><div style="font-size:1.5em;">\u{1F402}\u2728</div><div style="color:#d4a437;font-weight:bold;font-size:1.2em;margin:10px;">DIPLOME DE GARDIEN DES ROUTES NOMADES</div><div style="color:#f0e0c8;margin:10px;">Attribue a <b>'+name+'</b></div><div style="color:#c8a868;font-size:0.85em;">Grave sur le bloc #'+(d.blocks_total||'?')+' de la blockchain AfriChain</div><div style="color:#666;font-size:0.8em;margin-top:8px;">Les routes sont gravees dans la memoire.</div></div>';
+  }).catch(e=>{document.getElementById('diplomaResult').innerHTML='<div style="color:#ff4444;">Erreur: '+e+'</div>';});
+}
+
+var exoData=[
+ {q:'POURQUOI les frontieres coloniales sont-elles un crime contre les nomades?',a:'COMMENT: En 1884-1885, 14 pays europeens ont trace des lignes sur l Afrique sans consulter un seul Africain. VOILA: Les Touaregs ont ete divises en 5 pays, les Peuls en 15+ pays, les Masai en 2 pays. Les routes de transhumance millenaires sont devenues illegales. Un berger qui traverse une frontiere avec son betail devient un contrebandier. Les frontieres ne servent pas les Africains — elles servent les Etats qui les controlent.'},
+ {q:'POURQUOI les Peuls sont-ils stigmatises comme djihadistes?',a:'COMMENT: 120 des 136 djihadistes les plus recherches au Burkina Faso sont identifies comme Peuls. VOILA: Mais cela ne veut pas dire que les Peuls sont djihadistes. Cela veut dire qu ils sont marginalises au point de devenir des cibles de recrutement. Secheresse → perte du betail → pauvrete → stigmatisation → massacre → vengeance → recrutement djihadiste. Les Peuls ont RAISON d etre en colere — mais le djihadisme est un PIEGE.'},
+ {q:'POURQUOI les secheresses ont-elles detruit les pasteurs?',a:'COMMENT: Les secheresses de 1973-74 et 1984-86 ont decime des millions de têtes de betail au Sahel. VOILA: Le betail etait la seule richesse des pasteurs — leur banque, leur nourriture, leur vie. Sans betail, les jeunes n ont plus d avenir. Ils vont dans les villes sans travail, sans education. Le desert avance de 600m par an. Solution: puits solaires, banques de fourrage, assurance betail sur blockchain, corridors de transhumance proteges.'},
+ {q:'POURQUOI les Touaregs luttent-ils pour l Azawad?',a:'COMMENT: Les Touaregs sont divises entre 5 pays (Mali, Niger, Algerie, Libye, Burkina Faso). VOILA: L Azawad est le nom qu ils donnent au nord du Mali — leur terre ancestrale. 4 rebellions (1963, 1990, 2006, 2012) pour l autonomie. Les secheresses ont detruit leurs troupeaux. Les camps de Kadhafi ont forme des combattants. Aujourd hui ~3 millions de Touaregs marginalises. L AES peut offrir une solution: autonomie reelle, droits culturels, corridors de transhumance.'},
+ {q:'POURQUOI les Masaï sont-ils le symbole de l Afrique libre?',a:'COMMENT: Les Masaï n ont jamais ete conquis par les colons europeens. VOILA: Ils vivent au Kenya et Tanzanie, eleveurs de boeufs (sacres). Les guerriers (morans) defendent les troupeaux contre les lions. Leurs terres ont ete reduites par les parcs nationaux (Serengeti, Masai Mara) — chasses pour les touristes. Malgre tout, ils maintiennent leur culture. La lecon: la liberte n est pas un droit qu on donne — c est un droit qu on defend.'},
+ {q:'POURQUOI AfriChain doit-elle creer une identite pastorale numerique?',a:'COMMENT: Les pasteurs n ont pas de droits fonciers, pas d assurance, pas de banque, pas de representation. VOILA: AfriChain peut: identite numerique pastorale (chaque berger a un compte blockchain), betail enregistre et certifie, assurance betail (0.001 AFR par transaction), marche de betail direct (sans intermediaires), corridors de transhumance surveilles par satellite. Les pasteurs nourrissent l Afrique — l Afrique doit les proteger.'},
+ {q:'POURQUOI le cycle djihadiste est-il difficile a briser?',a:'COMMENT: Le cycle: secheresse → perte du betail → pauvrete → stigmatisation → massacre → vengeance → recrutement djihadiste → plus de stigmatisation → plus de massacres. VOILA: Chaque etape alimente la suivante. Les massacres (Ogossagou 160 morts, Yirgou 100+, Moura 300) creent la vengeance. La vengeance cree le recrutement. Le recrutement cree la stigmatisation. La solution: JUSTICE pour les massacres + DROITS pour les pasteurs + AVENIR pour les jeunes. Sans cela, le cycle continue.'},
+ {q:'POURQUOI les femmes touaregs sont-elles puissantes?',a:'COMMENT: La societe touaregs est matrilineaire — les biens passent par les femmes. VOILA: Les femmes possedent les tentes. Si un homme divorce, il part sans tente. Les femmes touaregs sont alphabeticisees (ecriture tifinagh) alors que les hommes sont souvent illettrés. Les femmes composent les chansons, gerent les biens, decident des mariages. C est une societe ou les femmes sont au centre — pas au peripherie. L Afrique peut s inspirer de ce modele.'},
+ {q:'POURQUOI la souverainete pastorale est-elle essentielle pour l Afrique?',a:'COMMENT: Les pasteurs possedent 40% du betail africain — ils nourrissent le continent. VOILA: Pourtant ils n ont pas de droits fonciers, pas d assurance, pas de banque. La souverainete pastorale c est: la terre, le betail, l eau, la liberte de mouvement. Sans cela, pas d Afrique. AfriChain peut creer: assurance betail blockchain, marche direct, corridors proteges, education pastorale. Les pasteurs ne sont pas archaiques — ils sont RESILIANTS.'},
+ {q:'POURQUOI l AES doit-elle abolir les frontieres entre ses pays?',a:'COMMENT: L AES (Mali, Niger, Burkina Faso) a une opportunite historique. VOILA: Les frontieres coloniales ont coupe les peuples (Touaregs, Peuls) en deux. Un Touareg de Gao ne peut pas aller a Niamey sans passeport. Un Peul de Ouagadougou ne peut pas traverser le Mali. Les routes ancestrales sont illegales. L AES peut abolir les frontieres entre ses 3 pays — restituant la liberte de mouvement ancestral. AfriChain peut creer une identite numerique sans frontieres.'}
+];
+var exoSeed=0;
+function genExos(){
+ exoSeed++;
+ var s=exoSeed*12345;
+ function rand(){s=(s*9301+49297)%233280;return s/233280;}
+ var h='';
+ var used={};
+ for(var i=0;i<5;i++){
+  var idx=Math.floor(rand()*exoData.length);
+  while(used[idx]){idx=(idx+1)%exoData.length;}
+  used[idx]=true;
+  var e=exoData[idx];
+  h+='<div class="exo"><div class="exo-q">'+(i+1)+'. '+e.q+'</div><div class="exo-a">'+e.a+'</div></div>';
+ }
+ document.getElementById('exoBox').innerHTML=h;
+}
+genExos();
+
+// Canvas: camel caravan crossing the Sahara
+var canvas=document.getElementById('nomadeCanvas');
+var ctx=canvas.getContext('2d');
+var t=0;
+var stars=[];
+for(var i=0;i<60;i++){
+ stars.push({x:Math.random()*400,y:Math.random()*120,r:Math.random()*1.5,tw:Math.random()*Math.PI*2});
+}
+var dunes=[];
+for(var i=0;i<5;i++){
+ dunes.push({x:i*100-50,y:200+Math.random()*30,w:120,h:40+Math.random()*20});
+}
+var camels=[];
+for(var i=0;i<6;i++){
+ camels.push({x:50+i*50,y:240,step:0,phase:i*0.5});
+}
+var sand=[];
+for(var i=0;i<40;i++){
+ sand.push({x:Math.random()*400,y:250+Math.random()*70,vx:0.3+Math.random()*0.5,vy:0,life:Math.random()});
+}
+function drawCanvas(){
+ if(paused){requestAnimationFrame(drawCanvas);return;}
+ t+=0.008;
+ ctx.fillStyle='#0d0804';
+ ctx.fillRect(0,0,400,320);
+ // Stars
+ for(var i=0;i<stars.length;i++){
+  var s=stars[i];
+  s.tw+=0.02;
+  var a=0.3+Math.sin(s.tw)*0.3;
+  ctx.fillStyle='rgba(255,240,200,'+a+')';
+  ctx.beginPath();ctx.arc(s.x,s.y,s.r,0,Math.PI*2);ctx.fill();
+ }
+ // Moon
+ ctx.fillStyle='rgba(220,200,150,0.8)';
+ ctx.beginPath();ctx.arc(340,50,20,0,Math.PI*2);ctx.fill();
+ ctx.fillStyle='rgba(180,160,100,0.3)';
+ ctx.beginPath();ctx.arc(335,45,15,0,Math.PI*2);ctx.fill();
+ // Dunes
+ for(var i=0;i<dunes.length;i++){
+  var d=dunes[i];
+  var g=ctx.createLinearGradient(d.x,d.y-d.h,d.x,d.y+d.h);
+  g.addColorStop(0,'rgba(180,140,60,0.4)');
+  g.addColorStop(1,'rgba(120,80,30,0.2)');
+  ctx.fillStyle=g;
+  ctx.beginPath();
+  ctx.moveTo(d.x-60,320);
+  ctx.quadraticCurveTo(d.x,d.y-d.h,d.x+60,320);
+  ctx.fill();
+ }
+ // Camels
+ for(var i=0;i<camels.length;i++){
+  var c=camels[i];
+  c.x+=0.3;
+  if(c.x>450)c.x=-50;
+  c.step+=0.05;
+  var bob=Math.sin(c.step+c.phase)*2;
+  var cy=c.y+bob;
+  // Body
+  ctx.fillStyle=completed[i]?'#d4a437':'rgba(160,120,40,0.5)';
+  ctx.beginPath();ctx.ellipse(c.x,cy,14,6,0,0,Math.PI*2);ctx.fill();
+  // Humps
+  ctx.beginPath();ctx.arc(c.x-5,cy-5,5,0,Math.PI,true);ctx.fill();
+  ctx.beginPath();ctx.arc(c.x+5,cy-5,5,0,Math.PI,true);ctx.fill();
+  // Legs
+  ctx.strokeStyle=completed[i]?'#d4a437':'rgba(160,120,40,0.5)';
+  ctx.lineWidth=1.5;
+  var legOffset=Math.sin(c.step+c.phase)*3;
+  ctx.beginPath();ctx.moveTo(c.x-8,cy);ctx.lineTo(c.x-8+legOffset,cy+15);ctx.stroke();
+  ctx.beginPath();ctx.moveTo(c.x+8,cy);ctx.lineTo(c.x+8-legOffset,cy+15);ctx.stroke();
+  ctx.beginPath();ctx.moveTo(c.x-4,cy);ctx.lineTo(c.x-4-legOffset,cy+15);ctx.stroke();
+  ctx.beginPath();ctx.moveTo(c.x+4,cy);ctx.lineTo(c.x+4+legOffset,cy+15);ctx.stroke();
+  // Head
+  ctx.beginPath();ctx.moveTo(c.x+12,cy-3);ctx.lineTo(c.x+18,cy-8);ctx.lineTo(c.x+18,cy-4);ctx.lineTo(c.x+14,cy-1);ctx.fill();
+  // Number
+  ctx.fillStyle='#fff';ctx.font='7px serif';ctx.textAlign='center';
+  ctx.fillText(i+1,c.x,cy-12);
+ }
+ // Sand particles
+ for(var i=0;i<sand.length;i++){
+  var s=sand[i];
+  s.x+=s.vx;s.life-=0.003;
+  if(s.life<=0||s.x>400){s.x=0;s.y=250+Math.random()*70;s.life=1;}
+  ctx.fillStyle='rgba(200,160,80,'+s.life*0.2+')';
+  ctx.fillRect(s.x,s.y,1,1);
+ }
+ // Title on canvas
+ ctx.fillStyle='rgba(212,164,55,0.5)';
+ ctx.font='10px Georgia';ctx.textAlign='center';
+ ctx.fillText('Le Sahara — routes ancestrales',200,300);
+ requestAnimationFrame(drawCanvas);
+}
+drawCanvas();
+
+function togglePause(){
+ paused=!paused;
+ document.getElementById('pauseBtn').textContent=paused?'▶️ Play':'⏸️ Pause';
+}
+</script>
+</body></html>"##);
+
+    html
+}
+
 
 fn html_garage(chain: &Blockchain) -> String {
     let mut html = html_head("Garage AI — Atelier Autonome 2500");
@@ -24718,7 +24985,7 @@ html+='<div class="log-entry log-kill">⚠️ Tentative d\x27infiltration occide
 html+='<div class="log-entry log-invis">✅ L\x27Afrique est forte. Le système grandit.</div>';
 }else if(type==='total'){
 html='<div style="color:#d4a437;font-weight:bold;margin-bottom:8px">📋 RAPPORT TOTAL — Depuis le début</div>';
-html+='<div class="log-entry">🦁 AfriChain v1.38 — AI Médias</div>';
+html+='<div class="log-entry">🦁 AfriChain v1.39 — AI Médias</div>';
 html+='<div class="log-entry">⛓️ Blockchain: 100% souveraine — Zéro dépendance externe</div>';
 html+='<div class="log-entry">🔐 Crypto: Ed25519 + AfriHash-256/512 + AfriRNG — tout from scratch</div>';
 html+='<div class="log-entry">🌍 54 pays africains connectés</div>';
@@ -26262,7 +26529,7 @@ fn main() {
         .and_then(|i| args.get(i + 1)).cloned().unwrap_or_else(|| "Afrique".to_string());
 
     let my_node_id = generate_node_id();
-    println!("🦁 AfriChain v1.38 — AI Médias");
+    println!("🦁 AfriChain v1.39 — AI Nomades");
     println!("💚 L'Afrique ne demande plus la permission");
     println!("🌍 54 pays — 🇲🇱 🇳🇪 🇧🇫 AES — Mali · Niger · Burkina Faso");
     println!("🔐 8 modules cryptographiques — construits from scratch");
@@ -26496,7 +26763,7 @@ fn terminal_interface(state: &Arc<AppState>) {
     println!("  ║  🕐 AfriTime — Pas UTC, pas Greenwich   ║");
     println!("  ║  📝 ~23,100 lignes — écrit à la main       ║");
     println!("  ╚═══════════════════════════════════════════════╝");
-    println!("\n  Version v1.38 — 4 septembre 2026");
+    println!("\n  Version v1.39 — 4 septembre 2026");
     println!("  Construit sur Termux · Android · nano\n");
     println!("  ─────────────────────────────────────────────");
     println!("\n  1. 🏦 Centre de Données (Admin)");
@@ -26568,7 +26835,7 @@ fn admin_interface(state: &Arc<AppState>) {
         println!("\n");
         println!("╔══════════════════════════════════════╗");
         println!("║  🏦 CENTRE DE DONNÉES — Admin       ║");
-        println!("║  🦁 AfriChain v1.38                  ║");
+        println!("║  🦁 AfriChain v1.39                  ║");
         println!("╠══════════════════════════════════════╣");
         let chain = state.chain.lock().unwrap();
         let users = state.users.lock().unwrap();
@@ -30358,6 +30625,11 @@ fn handle_request(req: afri_http::HttpRequest, state: &Arc<AppState>) -> afri_ht
         ("GET", "/ai-medias") => {
             let chain = state.chain.lock().unwrap();
             HttpResponse::ok(&html_ai_medias(&chain))
+        }
+
+        ("GET", "/ai-nomades") => {
+            let chain = state.chain.lock().unwrap();
+            HttpResponse::ok(&html_ai_nomades(&chain))
         }
 
         ("GET", "/machine") => {
