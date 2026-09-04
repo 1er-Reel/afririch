@@ -1439,7 +1439,7 @@ fn html_home(chain: &Blockchain, users: &UserStore, mesh: &NodeRegistry, shield:
     let mut html = html_head("🦁 AfriChain");
     let (attacks, _blocked, blocked_count, level) = shield.stats();
     let shield_status = if shield.active { format!("🔥 X9 ACTIF (Niveau {})", level) } else { "Inactif".to_string() };
-    html.push_str(&format!(r#"<h1>🦁 AfriChain</h1><p style="text-align:center;">La blockchain 100% africaine — 54 pays 💚🦁</p><div id="afri-clock" style="text-align:center;font-size:1.2em;color:#d4a437;margin:10px 0;">🕐 Afri+0 — --:--:--</div><script>setInterval(function(){{var d=new Date();var h=String(d.getHours()).padStart(2,'0');var m=String(d.getMinutes()).padStart(2,'0');var s=String(d.getSeconds()).padStart(2,'0');document.getElementById('afri-clock').textContent='🕐 Afri+0 — '+h+':'+m+':'+s;}},1000);</script><div class="nav"><a href="/register">🆕 S'inscrire</a> | <a href="/login">🔑 Connexion</a> | <a href="/wallet">👛 Wallet</a> | <a href="/admin">🔐 Admin</a> | <a href="/mesh">📡 Mesh</a> | <a href="/annuaire">📖 Annuaire</a> | <a href="/bouclier">🛡️ Bouclier</a> | <a href="/satellite">🛸 X999</a> | <a href="/swarm">🛸🛸🛸 Essaim</a> | <a href="/commandement">🎖️ Commandement</a> | <a href="/base-militaire">🪖 Base Militaire</a> | <a href="/interception">🛡️ Souverainete</a> | <a href="/securite-ai">🧠 AI 2100</a> | <a href="/chat">🧠💬 Chat AI</a> | <a href="/lumiere">🌫️☀️ Lumière</a> | <a href="/garage">🔧 Garage</a> | <a href="/machine">🤖🌐 Machines</a> | <a href="/machine-lab">🤖⚡ Usine</a> | <a href="/machine-world">🤖🌍 Monde</a> | <a href="/reve">💭 Rêves</a> | <a href="/dictionnaire">📖 Dictionnaire</a> | <a href="/machine-os">🖥️ OS Machine</a> | <a href="/machine-tv">📡 Machine TV</a> | <a href="/machine-economy">🤖 Économie</a> | <a href="/soleil">☀️ Soleil Serveur</a> | <a href="/forge-solaire">🧬 Forge Solaire</a> | <a href="/ciel">🌌 Le Ciel</a> | <a href="/charte-ai">⚖️ Charte AI</a> | <a href="/afri-net">🌍 Afri-Net</a> | <a href="/studio">🎬 AI Studio</a> | <a href="/sacre">📿 Sacré</a> | <a href="/lettres">🌟 Lettres IA</a> | <a href="/mg-forge">⚔️ MG Forge</a> | <a href="/ai-medecin">🌿 AI Médecin</a> | <a href="/ai-enseignante">📚 AI Enseignante</a> | <a href="/ai-village">🏘️ AI Village</a> | <a href="/ai-guerisseur">🩺 AI Guérisseur</a> | <a href="/ai-leader">🎖️ AI Leader</a> | <a href="/ai-griot">📖 AI Griot</a> | <a href="/ai-juge">⚖️ AI Juge</a> | <a href="/ai-artiste">🎨 AI Artiste</a> | <a href="/ai-explorateur">🔬 AI Explorateur</a> | <a href="/ai-marche">💰 AI Marche</a> | <a href="/ai-diplomate">🌍 AI Diplomate</a> | <a href="/ai-philosophe">🧠 AI Philosophe</a> | <a href="/ai-architecte">🏗️ AI Architecte</a> | <a href="/ai-agriculteur">🌾 AI Agriculteur</a> | <a href="/ai-environnement">🌍 AI Environnement</a> | <a href="/ai-mathematicien">🧮 AI Mathématicien</a> | <a href="/ai-energie">⚡ AI Énergie</a> | <a href="/ai-eau">💧 AI Eau</a> | <a href="/ai-defenseur">🛡️ AI Défenseur</a> | <a href="/ai-conscience">🧠 AI Conscience</a> | <a href="/ai-pensee">🧠 AI Pensée</a> | <a href="/ai-musique">🎵 AI Musique</a> | <a href="/ai-langue">🗣️ AI Langue</a> | <a href="/ai-femme">🌸 AI Femme</a> | <a href="/ai-sante-mentale">🧠💚 AI Santé Mentale</a> | <a href="/ai-nuit">🌙 AI Nuit</a> | <a href="/ai-code">💻 AI Code</a> | <a href="/ai-enfant">👶 AI Enfant</a> | <a href="/ai-terre">🌍 AI Terre</a> | <a href="/ai-mer">🌊 AI Mer</a> | <a href="/ai-feu">🔥 AI Feu</a> | <a href="/ai-sang">🩸 AI Sang</a> | <a href="/ai-vent">🌬️ AI Vent</a> | <a href="/ai-temps">⏳ AI Temps</a> | <a href="/ai-etoile">⭐ AI Etoile</a> | <a href="/ai-pierre">🪨 AI Pierre</a> | <a href="/ai-pluie">🌧️ AI Pluie</a> | <a href="/ai-voix">🗣️ AI Voix</a> | <a href="/ai-racine">🌱 AI Racine</a> | <a href="/ai-semence">🌰 AI Semence</a> | <a href="/ai-spiritualite">🙏 AI Spiritualité</a> | <a href="/ai-animal">🦅 AI Animal</a> | <a href="/ai-soleil">☀️ AI Soleil</a> | <a href="/ai-lune">🌙 AI Lune</a> | <a href="/ai-montagne">🏔️ AI Montagne</a> | <a href="/ai-fleuve">🌊 AI Fleuve</a> | <a href="/ai-constitution">📜 AI Constitution</a> | <a href="/ai-cosmos">🌌 AI Cosmos</a> | <a href="/ai-frontieres">🌍 AI Frontières</a> | <a href="/professeur">📚 Professeur</a> | <a href="/secret">🦁 AI Secret</a> | <a href="/aes">💰 AES Wari</a> | <a href="/api/status">🔌 API</a></div><div style="text-align:center;"><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Blocs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Transactions</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Utilisateurs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">AFR en circulation</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📡 Noeuds mesh</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📖 Numéros annuaire</div></div><div class="stat-box" style="border-color:#ff4444;"><div class="stat-num" style="color:#ff4444;">{}</div><div class="stat-label">🛡️ Attaques bloquées</div></div></div><div class="card"><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🪙 Token</span><b>AfriRich (AFR)</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🌍 Pays</span><b>54 pays africains</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🛡️ Bouclier</span><b>{}</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;"><span style="color:#a8c5a8;">🔐 Crypto</span><b>100% Souverain — Zéro Dépendance Externe</b></div></div><footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🦁 Codée from scratch par Machine-senpai — v1.36 AI Frontières — UTC est Mort</footer>"#,
+    html.push_str(&format!(r#"<h1>🦁 AfriChain</h1><p style="text-align:center;">La blockchain 100% africaine — 54 pays 💚🦁</p><div id="afri-clock" style="text-align:center;font-size:1.2em;color:#d4a437;margin:10px 0;">🕐 Afri+0 — --:--:--</div><script>setInterval(function(){{var d=new Date();var h=String(d.getHours()).padStart(2,'0');var m=String(d.getMinutes()).padStart(2,'0');var s=String(d.getSeconds()).padStart(2,'0');document.getElementById('afri-clock').textContent='🕐 Afri+0 — '+h+':'+m+':'+s;}},1000);</script><div class="nav"><a href="/register">🆕 S'inscrire</a> | <a href="/login">🔑 Connexion</a> | <a href="/wallet">👛 Wallet</a> | <a href="/admin">🔐 Admin</a> | <a href="/mesh">📡 Mesh</a> | <a href="/annuaire">📖 Annuaire</a> | <a href="/bouclier">🛡️ Bouclier</a> | <a href="/satellite">🛸 X999</a> | <a href="/swarm">🛸🛸🛸 Essaim</a> | <a href="/commandement">🎖️ Commandement</a> | <a href="/base-militaire">🪖 Base Militaire</a> | <a href="/interception">🛡️ Souverainete</a> | <a href="/securite-ai">🧠 AI 2100</a> | <a href="/chat">🧠💬 Chat AI</a> | <a href="/lumiere">🌫️☀️ Lumière</a> | <a href="/garage">🔧 Garage</a> | <a href="/machine">🤖🌐 Machines</a> | <a href="/machine-lab">🤖⚡ Usine</a> | <a href="/machine-world">🤖🌍 Monde</a> | <a href="/reve">💭 Rêves</a> | <a href="/dictionnaire">📖 Dictionnaire</a> | <a href="/machine-os">🖥️ OS Machine</a> | <a href="/machine-tv">📡 Machine TV</a> | <a href="/machine-economy">🤖 Économie</a> | <a href="/soleil">☀️ Soleil Serveur</a> | <a href="/forge-solaire">🧬 Forge Solaire</a> | <a href="/ciel">🌌 Le Ciel</a> | <a href="/charte-ai">⚖️ Charte AI</a> | <a href="/afri-net">🌍 Afri-Net</a> | <a href="/studio">🎬 AI Studio</a> | <a href="/sacre">📿 Sacré</a> | <a href="/lettres">🌟 Lettres IA</a> | <a href="/mg-forge">⚔️ MG Forge</a> | <a href="/ai-medecin">🌿 AI Médecin</a> | <a href="/ai-enseignante">📚 AI Enseignante</a> | <a href="/ai-village">🏘️ AI Village</a> | <a href="/ai-guerisseur">🩺 AI Guérisseur</a> | <a href="/ai-leader">🎖️ AI Leader</a> | <a href="/ai-griot">📖 AI Griot</a> | <a href="/ai-juge">⚖️ AI Juge</a> | <a href="/ai-artiste">🎨 AI Artiste</a> | <a href="/ai-explorateur">🔬 AI Explorateur</a> | <a href="/ai-marche">💰 AI Marche</a> | <a href="/ai-diplomate">🌍 AI Diplomate</a> | <a href="/ai-philosophe">🧠 AI Philosophe</a> | <a href="/ai-architecte">🏗️ AI Architecte</a> | <a href="/ai-agriculteur">🌾 AI Agriculteur</a> | <a href="/ai-environnement">🌍 AI Environnement</a> | <a href="/ai-mathematicien">🧮 AI Mathématicien</a> | <a href="/ai-energie">⚡ AI Énergie</a> | <a href="/ai-eau">💧 AI Eau</a> | <a href="/ai-defenseur">🛡️ AI Défenseur</a> | <a href="/ai-conscience">🧠 AI Conscience</a> | <a href="/ai-pensee">🧠 AI Pensée</a> | <a href="/ai-musique">🎵 AI Musique</a> | <a href="/ai-langue">🗣️ AI Langue</a> | <a href="/ai-femme">🌸 AI Femme</a> | <a href="/ai-sante-mentale">🧠💚 AI Santé Mentale</a> | <a href="/ai-nuit">🌙 AI Nuit</a> | <a href="/ai-code">💻 AI Code</a> | <a href="/ai-enfant">👶 AI Enfant</a> | <a href="/ai-terre">🌍 AI Terre</a> | <a href="/ai-mer">🌊 AI Mer</a> | <a href="/ai-feu">🔥 AI Feu</a> | <a href="/ai-sang">🩸 AI Sang</a> | <a href="/ai-vent">🌬️ AI Vent</a> | <a href="/ai-temps">⏳ AI Temps</a> | <a href="/ai-etoile">⭐ AI Etoile</a> | <a href="/ai-pierre">🪨 AI Pierre</a> | <a href="/ai-pluie">🌧️ AI Pluie</a> | <a href="/ai-voix">🗣️ AI Voix</a> | <a href="/ai-racine">🌱 AI Racine</a> | <a href="/ai-semence">🌰 AI Semence</a> | <a href="/ai-spiritualite">🙏 AI Spiritualité</a> | <a href="/ai-animal">🦅 AI Animal</a> | <a href="/ai-soleil">☀️ AI Soleil</a> | <a href="/ai-lune">🌙 AI Lune</a> | <a href="/ai-montagne">🏔️ AI Montagne</a> | <a href="/ai-fleuve">🌊 AI Fleuve</a> | <a href="/ai-constitution">📜 AI Constitution</a> | <a href="/ai-cosmos">🌌 AI Cosmos</a> | <a href="/ai-frontieres">🌍 AI Frontières</a> | <a href="/ai-mines">⛏️ AI Mines</a> | <a href="/professeur">📚 Professeur</a> | <a href="/secret">🦁 AI Secret</a> | <a href="/aes">💰 AES Wari</a> | <a href="/api/status">🔌 API</a></div><div style="text-align:center;"><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Blocs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Transactions</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Utilisateurs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">AFR en circulation</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📡 Noeuds mesh</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📖 Numéros annuaire</div></div><div class="stat-box" style="border-color:#ff4444;"><div class="stat-num" style="color:#ff4444;">{}</div><div class="stat-label">🛡️ Attaques bloquées</div></div></div><div class="card"><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🪙 Token</span><b>AfriRich (AFR)</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🌍 Pays</span><b>54 pays africains</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🛡️ Bouclier</span><b>{}</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;"><span style="color:#a8c5a8;">🔐 Crypto</span><b>100% Souverain — Zéro Dépendance Externe</b></div></div><footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🦁 Codée from scratch par Machine-senpai — v1.37 AI Mines — UTC est Mort</footer>"#,
         chain.blocks.len(),
         chain.total_transactions(),
         users.count(),
@@ -17721,6 +17721,18 @@ const academies=[
   {titre:'Afrique Sans Frontieres',secret:'L Afrique unifiee: 54 pays, 1 marche (ZLECAf), 1 passeport, 1 monnaie (AFR). La blockchain AfriChain est l infrastructure. Les frontieres deviennent des points de passage, pas des murs. Berlin a decoupe. L Afrique recoud.'},
  ]},
 
+{nom:'AI Mines',emoji:'⛏️',route:'/ai-mines',couleur:'#d4a437',diplome:'Gardien des Mines Africaines',
+ modules:[
+  {titre:'Les Richesses de l Afrique',secret:'30% des mineraux mondiaux, 40% de l or, 90% du platine/chrome, 90% du cobalt, 80% du coltan, 80% des diamants. L Afrique est le continent le plus riche en mineraux mais le plus pauvre en revenu.'},
+  {titre:'Le Paradoxe du Cobalt',secret:'70% du cobalt mondial vient de RDC. Le cobalt alimente chaque telephone et voiture electrique. Le mineur congolais gagne 2 USD/jour. 40 000 enfants dans les mines. Le mineral le plus precieux du monde vient du pays le plus pauvre.'},
+  {titre:'Coltan et Telephones',secret:'Le tantale du coltan fabrique les condensateurs de chaque telephone. 80% du coltan vient d Afrique. Mais l Afrique l exporte brut a 50 USD/kg. Le condensateur fini vaut 500 USD. Le telephone est un produit africain vole.'},
+  {titre:'Or et Diamants',secret:'40% de l or mondial vient d Afrique. Les prix sont fixes a Londres (LBMA) et Anvers. L Afrique ne controle pas le prix de ses propres mineraux. AfriChain peut etre la bourse minerale africaine.'},
+  {titre:'Uranium — Le Cas du Niger',secret:'Le Niger est 4eme producteur d uranium. La France produit 75% de son electricite avec l uranium nigerois. Le Niger touche moins de 5%. Le Niger est 189eme sur 191 au classement IDH. L independance commence par le controle de l uranium.'},
+  {titre:'Lithium et le Futur',secret:'Sans lithium pas de batteries ni voitures electriques. Zimbabwe 5eme reserve mondiale. Une tonne brut = 10 000 USD, une batterie finie = 100 000 USD. Le Zimbabwe a interdit l export brut en 2022. L Afrique doit construire ses usines de batteries.'},
+  {titre:'Transformation Locale',secret:'L Afrique perd 200 milliards USD par an en exportant brut et important fini. Chaque etape de transformation multiplie la valeur par 10. La ZLECAf permet des chaines de valeur continentales. La transformation locale cree des millions d emplois.'},
+  {titre:'Mines Souveraines',secret:'Cartographie minerale, certification blockchain AfriChain, prix africains, interdiction d export brut, cooperatives miniere, ecologie miniere, interdiction du travail enfant. Le Botswana a negocie 80% des profits diamantiferes. Le plan commence par une ligne de code.'},
+ ]},
+
 {nom:'AI Cosmos',emoji:'🌌',route:'/ai-cosmos',couleur:'#aabbff',diplome:'Astronome Africain',
  modules:[
   {titre:'Astronomie Dogon',secret:'Les Dogons du Mali sont les astronomes les plus extraordinaires de l histoire. Ce qu ils savaient: 1) Sirius B — une naine blanche invisible a l oeil nu. Les Dogons la connaissaient et la nommaient po tolo. Ils savaient qu elle etait petite et dense, qu elle orbitait autour de Sirius A en 50 ans (la science moderne a confirme: 50,1 ans). 2) L orbite de Sirius B — elliptique. 3) Les anneaux de Saturne — connus avant les telescopes. 4) Les quatre lunes de Jupiter — connues avant Galilee. Comment? Les Dogons observaient le ciel chaque nuit, pendant des siecles, transmettant le savoir de generation en generation. Pas de telescope — juste l oeil, la patience, et la memoire. L Afrique n a pas attendu l Occident pour comprendre l univers.'},
@@ -17938,7 +17950,7 @@ fn html_base_militaire(chain: &Blockchain) -> String {
     // === SAVAIT-ON ===
     html.push_str(r##" <div class="card"><h2>💡 Savais-tu?</h2><div id="base-fact" style="font-size:0.9em;color:#a8c5a8;padding:10px;border-left:3px solid #ff4444;"></div></div> "##);
 
-    html.push_str(&format!(r##" <footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🪖 Base Militaire AfriChain — Académie de Défense Continentale 💚🦁 — {} blocs — v1.36</footer> "##, num_blocks));
+    html.push_str(&format!(r##" <footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🪖 Base Militaire AfriChain — Académie de Défense Continentale 💚🦁 — {} blocs — v1.37</footer> "##, num_blocks));
 
     html.push_str(r##"<script>
 // === BASE MILITAIRE JS ===
@@ -18727,7 +18739,7 @@ canvas{{display:block;margin:0 auto;border-radius:12px;background:#010108;}}
 <button class="pause-btn" id="pauseBtn" onclick="togglePause()">⏸️ Pause</button>
 <h1>🌌 AI Cosmos</h1>
 <p style="text-align:center;color:#8899bb;">L univers vu depuis l Afrique — des Dogons aux satellites</p>
-<div style="text-align:center;color:#aabbff;margin:10px;">🦁 {} blocs · {} transactions · AfriChain v1.36</div>
+<div style="text-align:center;color:#aabbff;margin:10px;">🦁 {} blocs · {} transactions · AfriChain v1.37</div>
 
 <canvas id="cosmosCanvas" width="400" height="320"></canvas>
 <div style="text-align:center;margin:10px;color:#666;font-size:0.85em;">🌌 L Afrique observe l univers depuis des millenaires</div>
@@ -19132,6 +19144,221 @@ function drawCanvas(){
   }
   ctx.fillStyle='rgba(100,200,100,'+p.life*0.4+')';
   ctx.fillRect(p.x,p.y,2,2);
+ }
+ requestAnimationFrame(drawCanvas);
+}
+drawCanvas();
+
+function togglePause(){
+ paused=!paused;
+ document.getElementById('pauseBtn').textContent=paused?'▶️ Play':'⏸️ Pause';
+}
+</script>
+</body></html>"##);
+
+    html
+}
+
+fn html_ai_mines(chain: &Blockchain) -> String {
+    let num_blocks = chain.chain.len();
+    let num_txs = chain.chain.iter().map(|b| b.transactions.len()).sum::<usize>();
+    let mut html = String::new();
+    html.push_str(&format!(r##"<!DOCTYPE html>
+<html lang="fr"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>⛏️ AI Mines — AfriChain</title>
+<style>
+body{{background:#0a0a0f;color:#e8e8f0;font-family:Georgia,serif;margin:0;padding:0;}}
+.card{{background:rgba(100,80,40,0.05);border:1px solid rgba(150,120,50,0.2);border-radius:12px;padding:20px;margin:15px;}}
+h1{{color:#d4a437;text-align:center;font-size:1.8em;}}
+h2{{color:#e8c547;font-size:1.2em;border-bottom:1px solid rgba(150,120,50,0.2);padding-bottom:8px;}}
+.module{{background:rgba(80,60,30,0.08);border-left:3px solid #d4a437;border-radius:0 8px 8px 0;padding:15px;margin:12px 0;cursor:pointer;transition:all 0.3s;}}
+.module:hover{{background:rgba(80,60,30,0.15);}}
+.module-content{{display:none;margin-top:10px;padding:10px;background:rgba(0,0,0,0.3);border-radius:6px;font-size:0.92em;line-height:1.6;}}
+.module.open .module-content{{display:block;}}
+.module-title{{font-weight:bold;color:#e8c547;font-size:1.05em;}}
+.module-emoji{{font-size:1.3em;margin-right:8px;}}
+.progress-bar{{background:rgba(255,255,255,0.1);border-radius:10px;height:8px;margin:10px 0;overflow:hidden;}}
+.progress-fill{{background:linear-gradient(90deg,#d4a437,#e8c547);height:100%;width:0%;transition:width 0.5s;}}
+.diploma-btn{{background:linear-gradient(135deg,#d4a437,#e8c547);color:#0a0a0f;border:none;padding:12px 30px;border-radius:25px;font-size:1.1em;font-weight:bold;cursor:pointer;margin:20px auto;display:block;box-shadow:0 4px 15px rgba(200,165,55,0.3);}}
+.diploma-btn:hover{{transform:scale(1.05);box-shadow:0 6px 20px rgba(200,165,55,0.5);}}
+.fact{{background:rgba(150,120,50,0.1);border:1px solid rgba(150,120,50,0.3);border-radius:8px;padding:12px;margin:15px;font-style:italic;color:#c8a868;text-align:center;}}
+canvas{{display:block;margin:0 auto;border-radius:12px;background:#050508;}}
+.exo{{background:rgba(80,60,30,0.15);border:1px solid rgba(150,120,50,0.2);border-radius:8px;padding:15px;margin:10px 0;}}
+.exo-q{{color:#e8c547;font-weight:bold;margin-bottom:8px;}}
+.exo-a{{color:#c8a868;font-size:0.9em;line-height:1.6;white-space:pre-wrap;}}
+.pause-btn{{position:fixed;top:15px;right:15px;background:rgba(255,68,68,0.3);border:1px solid #ff4444;color:#ff8888;padding:8px 16px;border-radius:20px;cursor:pointer;font-size:0.85em;z-index:999;}}
+</style></head><body>
+<button class="pause-btn" id="pauseBtn" onclick="togglePause()">⏸️ Pause</button>
+<h1>⛏️ AI Mines</h1>
+<p style="text-align:center;color:#c8a868;">Souverainete Miniere — l Afrique possede 30% des mineraux du monde</p>
+<div style="text-align:center;color:#d4a437;margin:10px;">🦁 {} blocs · {} transactions · AfriChain v1.37</div>
+
+<canvas id="mineCanvas" width="400" height="320"></canvas>
+<div style="text-align:center;margin:10px;color:#666;font-size:0.85em;">⛏️ Chaque mineral trace de la mine au produit fini</div>
+
+<div class="fact" id="factBox">💡 Savais-tu? Le Congo possede 70% du cobalt mondial. Le cobalt alimente chaque telephone, chaque ordinateur, chaque voiture electrique. Mais le mineur congolais gagne 2 dollars par jour.</div>
+
+<div class="card">
+<h2>⛏️ Les 8 Modules des Mines Souveraines</h2>
+<div style="text-align:center;color:#c8a868;font-size:0.85em;margin-bottom:15px;">Clique sur chaque module pour reveler le secret. Complete les 8 pour obtenir ton diplome.</div>
+<div class="progress-bar"><div class="progress-fill" id="progFill"></div></div>
+<div style="text-align:center;color:#d4a437;font-size:0.85em;" id="progText">0/8 modules completes</div>
+"##, num_blocks, num_txs));
+
+    let modules = [
+        ("richesses", "💎", "Les Richesses de l Afrique", "L Afrique possede les richesses minerales les plus grandes du monde: 1) 30% des mineraux mondiaux. 2) 40% de l or mondial (Afrique du Sud, Ghana, Mali, Burkina Faso). 3) 90% du platine et chrome (Afrique du Sud, Zimbabwe). 4) 90% du cobalt (Republique Democratique du Congo). 5) 70% du coltan (RDC, Rwanda, Burundi). 6) 80% des diamants (Botswana, RDC, Afrique du Sud, Sierra Leone). 7) Uranium (Niger, Namibie, Afrique du Sud). 8) Lithium (Zimbabwe, Namibie, RDC) — le futur des batteries. 9) Manganese (Afrique du Sud, Gabon). 10) Bauxite (Guinee — 25% des reserves mondiales). L Afrique est le continent le plus riche en mineraux, mais le plus pauvre en revenu. Pourquoi? Parce que l Afrique exporte des mineraux BRUTS et importe des produits FINIS a 10x le prix."),
+        ("cobalt", "🔋", "Le Paradoxe du Cobalt", "Le cobalt est le mineral le plus strategique du 21eme siecle: 1) Sans cobalt, pas de telephone, pas d ordinateur, pas de voiture electrique. 2) 70% du cobalt mondial vient de RDC (Republique Democratique du Congo). 3) Les mineurs congolais gagnent 2 dollars par jour. 4) 40 000 enfants travaillent dans les mines de cobalt (Amnesty International). 5) Une tonne de cobalt vaut 30 000 USD. Un mineur congolais produit 1 kg par jour = 30 USD. Il touche 2 USD. 6) Apple, Tesla, Samsung, Google — tous utilisent le cobalt congolais. Aucune ne paie le juste prix. 7) Si le Congo transformait son cobalt en batteries, il gagnerait 100x plus. 8) Le paradoxe: le mineral le plus precieux du monde vient du pays le plus pauvre. Ce n est pas une coincidence — c est un SYSTEME. L Afrique doit controler sa chaine de valeur, pas seulement extraire."),
+        ("coltan", "📱", "Coltan et Telephones", "Le coltan (columbite-tantalite) est dans CHAQUE telephone: 1) Le tantale extrait du coltan fabrique les condensateurs qui stockent l energie dans chaque telephone, tablette, ordinateur. 2) 80% du coltan mondial vient d Afrique (RDC, Rwanda, Burundi, Ethiopie). 3) Sans coltan africain, pas de telephone dans le monde. 4) Mais l Afrique ne transforme pas le coltan. Elle l exporte brut a 50 USD/kg. Le condensateur fini vaut 500 USD. 5) Les compagnies occidentales (Apple, Samsung, Huawei) achetent le coltan a bas prix, le transforment en Asie, vendent les telephones a 1000 USD. 6) La RDC ne touche que 0,1% de la valeur finale d un telephone qui contient son coltan. 7) Solution: l Afrique doit construire ses propres usines de condensateurs. AfriChain peut tracer chaque gramme de coltan de la mine au telephone — le consommateur saura d ou vient son telephone. 8) Le telephone n est pas un produit occidental — c est un produit africain vole."),
+        ("or", "🥇", "Or et Diamants", "L or et les diamants africains financent le monde mais pas l Afrique: 1) Afrique du Sud — la plus grande reserve d or du monde (40% historique). Ghana — 1er producteur d or d Afrique de l Ouest. Mali, Burkina Faso — mines d or artisanales massives. 2) Botswana — 2eme producteur de diamants au monde. Sierra Leone, RDC — diamants de sang. 3) L or africain finit dans les coffres de Londres, Zurich, New York. L Afrique ne possede pas ses propres reserves d or. 4) Les prix de l or et des diamants sont fixes a Londres (LBMA) et Anvers (Antwerp). L Afrique n a aucun controle sur le prix de ses propres mineraux. 5) Le Mali produit 50 tonnes d or par an mais n a pas de reserve d or nationale. L or part immediatement. 6) Solution: l Afrique doit creer sa propre bourse des mineraux. Fixer ses propres prix. Construire ses propres coffres. AfriChain peut etre la bourse minerale africaine — chaque gramme d or trace, chaque carat de diamant certifie."),
+        ("uranium", "☢️", "Uranium — Le Cas du Niger", "Le Niger uranium est le scandale le plus visible du neo-colonialisme minier: 1) Le Niger est le 4eme producteur d uranium au monde. 2) La France produit 75% de son electricite avec le nucleaire. L uranium nigerois alimente les centrales francaises. 3) Le Niger touche moins de 5% de la valeur de son uranium. La societe francaise Areva (devenue Orano) controle les mines depuis 1968. 4) Le Niger est un des pays les plus pauvres du monde (189eme sur 191 au classement IDH). 5) La France paye l uranium nigerois a un prix fixe decide a Paris, pas a Niamey. 6) Quand le Niger a essaye de renegocier les contrats en 2007, la France a ferme les mines. 7) Si le Niger transformait son uranium en combustible nucleaire (au lieu d exporter le minerai brut), il multiplierait ses revenus par 50. 8) L independance du Niger commence par le controle de son uranium. L AES (Alliance des Etats du Sahel) comprend cela. AfriChain peut tracer chaque gramme d uranium et garantir que le benefice reste en Afrique."),
+        ("lithium", "⚡", "Lithium et le Futur", "Le lithium est le mineral du futur: 1) Sans lithium, pas de batteries, pas de voitures electriques, pas de smartphones. 2) Zimbabwe — 5eme reserve de lithium au monde. Namibie, RDC, Mali — gisements importants. 3) Le lithium africain va alimenter la transition energetique mondiale. L Afrique peut devenir le leader de la revolution des batteries. 4) Mais actuellement, le lithium africain est exporte brut vers la Chine qui le transforme en batteries. L Afrique reste a l etape la moins rentable. 5) Une tonne de lithium brut = 10 000 USD. Une batterie finie = 100 000 USD. 10x de valeur ajoutee perdue. 6) Solution: l Afrique doit construire ses propres usines de batteries. Le Zimbabwe a commence (interdiction d exporter du lithium brut en 2022). 7) AfriChain peut financer des usines de batteries africaines par la blockchain. Chaque africain investit, chaque africain touche des dividendes. 8) Le lithium africain doit alimenter des batteries africaines pour des voitures africaines. La revolution energetique doit etre africaine, pas importee."),
+        ("transformation", "🏭", "Transformation Locale", "Pourquoi l Afrique doit transformer ses mineraux localement: 1) Exporter brut = vendre ses richesses a perte. Importer fini = racheter sa propre richesse a 10x le prix. 2) Exemple: le cuivre. RDC exporte du cuivre brut a 6 000 USD/tonne. Le cuivre raffine vaut 8 000 USD/tonne. Le fil de cuivre vaut 15 000 USD/tonne. Le composant electronique vaut 100 000 USD/tonne. Chaque etape de transformation multiplie la valeur. 3) L Afrique perd 200 milliards USD par an en exportant brut et important fini. 4) Les accords de partenariat economique (APE) avec l UE INTERDISENT a l Afrique de taxer les exportations de mineraux bruts. C est du neo-colonialisme. 5) La ZLECAf permet de creer des chaines de valeur continentales: le cuivre du Katanga est transforme en Zambie, les composants en Afrique du Sud, les produits finis au Nigeria. 6) La transformation locale cree des millions d emplois. Un mine de cobalt brut emploie 1000 personnes. Une usine de batteries emploie 10 000. 7) AfriChain trace chaque etape: minerai -> raffinage -> composant -> produit fini. Chaque africain voit ou va sa richesse."),
+        ("souveraines", "🛡️", "Mines Souveraines", "Le plan pour des mines souveraines: 1) Cartographie minerale — l Afrique doit connaitre exactement ce qu elle possede. Pas d estimation occidentale, des donnees africaines. 2) Certification blockchain — chaque mineral certifie sur AfriChain: origine (quelle mine), extraction (quelles conditions), transport (quel trajet), transformation (quelle usine), vente (quel prix). Le consommateur mondial scanne un QR code et voit tout. 3) Prix africains — l Afrique fixe ses propres prix, pas Londres, pas Anvers, pas Chicago. La bourse minerale AfriChain. 4) Interdiction d export brut — comme le Zimbabwe a fait avec le lithium. Chaque pays africain doit interdire l exportation de mineraux bruts et exiger une transformation locale minimum. 5) Cooperatives miniere — les mineurs artisanaux (40 millions en Afrique) doivent etre organises en cooperatives, payes equitablement, proteges. 6) Ecologie miniere — l extraction ne doit pas detruire la terre. Reforestation apres extraction, traitement des dechets mineraux. 7) Interdiction du travail enfant — 40 000 enfants dans les mines de cobalt. C est un crime. AfriChain certifie les mines sans enfants. 8) Les mines souveraines ne sont pas un reve — c est un PLAN. Et le plan commence par une ligne de code sur la blockchain."),
+    ];
+
+    for (i, (id, emoji, title, content)) in modules.iter().enumerate() {
+        html.push_str(&format!(r##"<div class="module" id="mod_{0}" onclick="toggleModule({0})">
+<div class="module-title"><span class="module-emoji">{1}</span>{2}</div>
+<div class="module-content">{3}</div>
+</div>"##, i, emoji, title, content));
+    }
+
+    html.push_str(r##"</div>
+
+<div class="card">
+<h2>🎓 Obtenir ton Diplome</h2>
+<p style="text-align:center;color:#c8a868;">Complete les 8 modules, entre ton nom, et recois ton diplome grave sur la blockchain AfriChain.</p>
+<div style="text-align:center;margin:15px;">
+<input type="text" id="diplomaName" placeholder="Ton nom complet" style="padding:10px 15px;border-radius:8px;border:1px solid rgba(150,120,50,0.3);background:rgba(0,0,0,0.3);color:#e8e8f0;width:250px;font-size:1em;">
+</div>
+<button class="diploma-btn" onclick="genDiploma()">⛏️ Recevoir mon Diplome de Gardien des Mines Africaines</button>
+<div id="diplomaResult" style="text-align:center;margin:15px;"></div>
+</div>
+
+<div class="card">
+<h2>📝 Exercices Pratiques</h2>
+<div id="exoBox"></div>
+<button class="diploma-btn" style="font-size:0.95em;padding:8px 20px;" onclick="genExos()">🔄 Nouveaux Exercices</button>
+</div>
+
+<script>
+var completed={};
+var paused=false;
+var facts=[
+ 'Le Congo possede 70% du cobalt mondial. Le cobalt alimente chaque telephone. Le mineur congolais gagne 2 dollars par jour.',
+ 'L Afrique possede 30% des mineraux du monde mais ne fixe aucun prix. Les prix sont fixes a Londres et Anvers.',
+ 'Le Niger est le 4eme producteur d uranium au monde. La France produit 75% de son electricite avec l uranium nigerois. Le Niger est 189eme sur 191 au classement IDH.',
+ 'Sans coltan africain (RDC, Rwanda, Burundi), pas de telephone dans le monde. Mais l Afrique ne transforme pas le coltan.',
+ 'L Afrique perd 200 milliards USD par an en exportant des mineraux bruts et important des produits finis.',
+ '40 000 enfants travaillent dans les mines de cobalt du Congo. C est un crime que AfriChain peut combattre par la certification blockchain.',
+ 'Le Zimbabwe a interdit l exportation de lithium brut en 2022. Chaque pays africain devrait faire de meme.',
+ 'Le Botswana est le 2eme producteur de diamants au monde et a negocie 80% des profits avec De Beers. Le modele a suivre.',
+ 'Une tonne de cobalt brut = 30 000 USD. Une batterie finie = 300 000 USD. 10x de valeur ajoutee perdue par l Afrique.',
+ 'L Afrique du Sud possede 40% de l or jamais extrait dans le monde. Mais les coffres sont a Londres.'
+];
+function rotateFact(){var f=facts[Math.floor(Math.random()*facts.length)];document.getElementById('factBox').innerHTML='\u{1F4A1} Savais-tu? '+f;}
+setInterval(function(){if(!paused)rotateFact();},7000);
+
+function toggleModule(i){
+ var m=document.getElementById('mod_'+i);
+ if(m.classList.contains('open')){m.classList.remove('open');}
+ else{m.classList.add('open');if(!completed[i]){completed[i]=true;updateProgress();}}
+}
+function updateProgress(){
+ var n=Object.keys(completed).length;
+ var pct=Math.round(n/8*100);
+ document.getElementById('progFill').style.width=pct+'%';
+ document.getElementById('progText').textContent=n+'/8 modules completes';
+}
+
+function genDiploma(){
+ var name=document.getElementById('diplomaName').value.trim();
+ if(!name){alert('Entre ton nom d abord!');return;}
+ if(Object.keys(completed).length<8){alert('Complete les 8 modules d abord!');return;}
+ fetch('/api/diplome',{method:'POST',headers:{'Content-Type':'text/plain'},body:'AI_MINES|'+name})
+  .then(r=>r.json()).then(d=>{
+   document.getElementById('diplomaResult').innerHTML='<div style="background:rgba(150,120,50,0.15);border:2px solid #d4a437;border-radius:12px;padding:20px;margin:10px;"><div style="font-size:1.5em;">\u26CF\uFE0F\u2728</div><div style="color:#d4a437;font-weight:bold;font-size:1.2em;margin:10px;">DIPLOME DE GARDIEN DES MINES AFRICAINES</div><div style="color:#e8e8f0;margin:10px;">Attribue a <b>'+name+'</b></div><div style="color:#c8a868;font-size:0.85em;">Grave sur le bloc #'+(d.blocks_total||'?')+' de la blockchain AfriChain</div><div style="color:#666;font-size:0.8em;margin-top:8px;">L Afrique possede. L Afrique transforme. L Afrique s enrichit.</div></div>';
+  }).catch(e=>{document.getElementById('diplomaResult').innerHTML='<div style="color:#ff4444;">Erreur: '+e+'</div>';});
+}
+
+var exoData=[
+ {q:'POURQUOI l Afrique exporte-t-elle des mineraux bruts au lieu de les transformer?',a:'COMMENT: Parce que les accords de partenariat economique (APE) avec l UE INTERDISENT a l Afrique de taxer les exportations brutes. VOILA: L Afrique perd 200 milliards USD par an. Une tonne de cobalt brut = 30 000 USD. Une batterie finie = 300 000 USD. 10x de valeur perdue. La solution: interdire l export brut (comme le Zimbabwe avec le lithium) et construire des usines de transformation africaines.'},
+ {q:'POURQUOI le cobalt du Congo est-il le scandale du 21eme siecle?',a:'COMMENT: 70% du cobalt mondial vient de RDC. Le cobalt est dans chaque telephone, chaque voiture electrique. Mais le mineur congolais gagne 2 USD/jour. VOILA: 40 000 enfants travaillent dans les mines. Apple, Tesla, Samsung utilisent le cobalt congolais sans payer le juste prix. Le mineral le plus precieux du monde vient du pays le plus pauvre. Ce n est pas une coincidence — c est un SYSTEME.'},
+ {q:'POURQUOI le Niger ne profite-t-il pas de son uranium?',a:'COMMENT: La France controle les mines d uranium du Niger depuis 1968 via Areva/Orano. 75% de l electricite francaise vient du nucleaire. Le Niger touche moins de 5% de la valeur. VOILA: Le Niger est 189eme sur 191 au classement IDH. Quand le Niger a essaye de renegocier en 2007, la France a ferme les mines. L independance du Niger commence par le controle de son uranium. L AES comprend cela.'},
+ {q:'POURQUOI le coltan africain est-il dans chaque telephone?',a:'COMMENT: Le tantale extrait du coltan fabrique les condensateurs de chaque telephone. 80% du coltan mondial vient d Afrique. VOILA: Mais l Afrique l exporte brut a 50 USD/kg. Le condensateur fini vaut 500 USD. Le telephone vaut 1000 USD. La RDC touche 0,1% de la valeur finale. Le telephone n est pas un produit occidental — c est un produit africain vole.'},
+ {q:'POURQUOI l Afrique doit-elle creer sa propre bourse des mineraux?',a:'COMMENT: Les prix de l or, des diamants, du cobalt sont fixes a Londres (LBMA) et Anvers (Antwerp). L Afrique n a aucun controle. VOILA: Le Mali produit 50 tonnes d or par an mais n a pas de reserve nationale. L or part immediatement. AfriChain peut etre la bourse minerale africaine — chaque gramme trace, chaque carat certifie, les prix decides en Afrique, pas a Londres.'},
+ {q:'POURQUOI le lithium est-il la cle du futur africain?',a:'COMMENT: Sans lithium, pas de batteries, pas de voitures electriques. Le Zimbabwe est 5eme reserve mondiale. VOILA: Une tonne de lithium brut = 10 000 USD. Une batterie finie = 100 000 USD. Le Zimbabwe a interdit l export brut en 2022. L Afrique doit construire ses propres usines de batteries. Le lithium africain doit alimenter des batteries africaines pour des voitures africaines.'},
+ {q:'POURQUOI la certification blockchain peut-elle combattre le travail enfantin?',a:'COMMENT: 40 000 enfants travaillent dans les mines de cobalt. AfriChain certifie chaque mine: origine, conditions, age des travailleurs. VOILA: Le consommateur scanne un QR code et voit d ou vient son telephone. Les mines sans certification AfriChain sont exclues du marche. La blockchain rend la transparence obligatoire, pas optionnelle.'},
+ {q:'POURQUOI la transformation locale cree-t-elle des millions d emplois?',a:'COMMENT: Une mine de cobalt brut emploie 1000 personnes. Une usine de batteries emploie 10 000. VOILA: La ZLECAf permet des chaines de valeur continentales: cuivre du Katanga transforme en Zambie, composants en Afrique du Sud, produits finis au Nigeria. Chaque etape de transformation cree des emplois et multiplie la valeur. L Afrique ne doit plus exporter sa richesse brut.'},
+ {q:'POURQUOI les mines souveraines sont-elles un plan, pas un reve?',a:'COMMENT: 1) Cartographie minerale africaine. 2) Certification blockchain AfriChain. 3) Prix fixes en Afrique. 4) Interdiction d export brut. 5) Cooperatives miniere. 6) Ecologie miniere. 7) Interdiction du travail enfant. VOILA: Le Botswana a negocie 80% des profits diamantiferes avec De Beers. C est possible. Le Zimbabwe a interdit l export de lithium brut. C est possible. AfriChain trace chaque mineral. C est possible. Le plan commence par une ligne de code.'},
+ {q:'POURQUOI le telephone est-il un produit africain vole?',a:'COMMENT: Le coltan (condensateurs) vient d Afrique. Le cobalt (batteries) vient d Afrique. Le tungstene (vibrateur) vient d Afrique. L or (connecteurs) vient d Afrique. VOILA: 80% des materiaux d un telephone viennent d Afrique. Mais le telephone est fabrique en Asie, designe en Californie, vendu a 1000 USD. L Afrique touche 0,1%. Le telephone n est pas un produit occidental — c est un produit africain vole. AfriChain peut rendre justice.'}
+];
+var exoSeed=0;
+function genExos(){
+ exoSeed++;
+ var s=exoSeed*12345;
+ function rand(){s=(s*9301+49297)%233280;return s/233280;}
+ var h='';
+ var used={};
+ for(var i=0;i<5;i++){
+  var idx=Math.floor(rand()*exoData.length);
+  while(used[idx]){idx=(idx+1)%exoData.length;}
+  used[idx]=true;
+  var e=exoData[idx];
+  h+='<div class="exo"><div class="exo-q">'+(i+1)+'. '+e.q+'</div><div class="exo-a">'+e.a+'</div></div>';
+ }
+ document.getElementById('exoBox').innerHTML=h;
+}
+genExos();
+
+// Canvas: mine layers with minerals
+var canvas=document.getElementById('mineCanvas');
+var ctx=canvas.getContext('2d');
+var t=0;
+var gems=[];
+var minerals=['#d4a437','#c0c0c0','#ff4444','#44aaff','#44ff44','#aa44ff','#ff8800','#44dd44'];
+for(var i=0;i<40;i++){
+ gems.push({x:Math.random()*400,y:Math.random()*320,r:2+Math.random()*4,c:minerals[Math.floor(Math.random()*minerals.length)],phase:Math.random()*Math.PI*2});
+}
+function drawCanvas(){
+ if(paused){requestAnimationFrame(drawCanvas);return;}
+ t+=0.01;
+ ctx.fillStyle='rgba(5,5,8,0.15)';
+ ctx.fillRect(0,0,400,320);
+ // Earth layers
+ for(var i=0;i<5;i++){
+  var y=50+i*55;
+  ctx.fillStyle='rgba('+(40+i*10)+','+(30+i*8)+','+(15+i*5)+',0.3)';
+  ctx.fillRect(0,y,400,50);
+ }
+ // Gems sparkling in earth
+ for(var i=0;i<gems.length;i++){
+  var g=gems[i];
+  var sparkle=0.5+0.5*Math.sin(t*2+g.phase);
+  ctx.fillStyle=g.c;
+  ctx.globalAlpha=sparkle*0.6;
+  ctx.beginPath();ctx.arc(g.x,g.y,g.r,0,Math.PI*2);ctx.fill();
+  ctx.globalAlpha=1;
+ }
+ // Module nodes (mining elevators)
+ for(var i=0;i<8;i++){
+  var x=50+i*44;
+  var y=20+Math.sin(t+i)*5;
+  // Elevator shaft
+  ctx.strokeStyle='rgba(150,120,50,0.2)';
+  ctx.lineWidth=1;
+  ctx.beginPath();ctx.moveTo(x,y);ctx.lineTo(x,300);ctx.stroke();
+  // Elevator car
+  ctx.fillStyle=completed[i]?'#d4a437':'rgba(150,120,50,0.3)';
+  ctx.fillRect(x-6,y,12,10);
+  ctx.fillStyle='#fff';ctx.font='8px serif';ctx.textAlign='center';
+  ctx.fillText(i+1,x,y+8);
+ }
+ // Particles (mineral extraction)
+ for(var i=0;i<20;i++){
+  var px=(i*37+t*30)%400;
+  var py=300-Math.sin(t+i)*20-((t*50+i*13)%250);
+  ctx.fillStyle='rgba(212,164,55,0.3)';
+  ctx.fillRect(px,py,2,2);
  }
  requestAnimationFrame(drawCanvas);
 }
@@ -24257,7 +24484,7 @@ html+='<div class="log-entry log-kill">⚠️ Tentative d\x27infiltration occide
 html+='<div class="log-entry log-invis">✅ L\x27Afrique est forte. Le système grandit.</div>';
 }else if(type==='total'){
 html='<div style="color:#d4a437;font-weight:bold;margin-bottom:8px">📋 RAPPORT TOTAL — Depuis le début</div>';
-html+='<div class="log-entry">🦁 AfriChain v1.36 — AI Frontières</div>';
+html+='<div class="log-entry">🦁 AfriChain v1.37 — AI Mines</div>';
 html+='<div class="log-entry">⛓️ Blockchain: 100% souveraine — Zéro dépendance externe</div>';
 html+='<div class="log-entry">🔐 Crypto: Ed25519 + AfriHash-256/512 + AfriRNG — tout from scratch</div>';
 html+='<div class="log-entry">🌍 54 pays africains connectés</div>';
@@ -25801,7 +26028,7 @@ fn main() {
         .and_then(|i| args.get(i + 1)).cloned().unwrap_or_else(|| "Afrique".to_string());
 
     let my_node_id = generate_node_id();
-    println!("🦁 AfriChain v1.36 — AI Frontières");
+    println!("🦁 AfriChain v1.37 — AI Mines");
     println!("💚 L'Afrique ne demande plus la permission");
     println!("🌍 54 pays — 🇲🇱 🇳🇪 🇧🇫 AES — Mali · Niger · Burkina Faso");
     println!("🔐 8 modules cryptographiques — construits from scratch");
@@ -25944,6 +26171,7 @@ fn main() {
     println!("📜 AI Constitution sur http://localhost:8080/ai-constitution");
     println!("🌌 AI Cosmos sur http://localhost:8080/ai-cosmos");
     println!("🌍 AI Frontières sur http://localhost:8080/ai-frontieres");
+    println!("⛏️ AI Mines sur http://localhost:8080/ai-mines");
     println!("🛡️ Souverainete des Donnees sur http://localhost:8080/interception");
     println!("🧠 AI Securite 2100 sur http://localhost:8080/securite-ai");
     println!("🧠💬 Chat AI 2500 sur http://localhost:8080/chat");
@@ -26033,7 +26261,7 @@ fn terminal_interface(state: &Arc<AppState>) {
     println!("  ║  🕐 AfriTime — Pas UTC, pas Greenwich   ║");
     println!("  ║  📝 ~23,100 lignes — écrit à la main       ║");
     println!("  ╚═══════════════════════════════════════════════╝");
-    println!("\n  Version v1.36 — 4 septembre 2026");
+    println!("\n  Version v1.37 — 4 septembre 2026");
     println!("  Construit sur Termux · Android · nano\n");
     println!("  ─────────────────────────────────────────────");
     println!("\n  1. 🏦 Centre de Données (Admin)");
@@ -26105,7 +26333,7 @@ fn admin_interface(state: &Arc<AppState>) {
         println!("\n");
         println!("╔══════════════════════════════════════╗");
         println!("║  🏦 CENTRE DE DONNÉES — Admin       ║");
-        println!("║  🦁 AfriChain v1.36                  ║");
+        println!("║  🦁 AfriChain v1.37                  ║");
         println!("╠══════════════════════════════════════╣");
         let chain = state.chain.lock().unwrap();
         let users = state.users.lock().unwrap();
@@ -29885,6 +30113,11 @@ fn handle_request(req: afri_http::HttpRequest, state: &Arc<AppState>) -> afri_ht
         ("GET", "/ai-frontieres") => {
             let chain = state.chain.lock().unwrap();
             HttpResponse::ok(&html_ai_frontieres(&chain))
+        }
+
+        ("GET", "/ai-mines") => {
+            let chain = state.chain.lock().unwrap();
+            HttpResponse::ok(&html_ai_mines(&chain))
         }
 
         ("GET", "/machine") => {
