@@ -1439,7 +1439,7 @@ fn html_home(chain: &Blockchain, users: &UserStore, mesh: &NodeRegistry, shield:
     let mut html = html_head("🦁 AfriChain");
     let (attacks, _blocked, blocked_count, level) = shield.stats();
     let shield_status = if shield.active { format!("🔥 X9 ACTIF (Niveau {})", level) } else { "Inactif".to_string() };
-    html.push_str(&format!(r#"<h1>🦁 AfriChain</h1><p style="text-align:center;">La blockchain 100% africaine — 54 pays 💚🦁</p><div id="afri-clock" style="text-align:center;font-size:1.2em;color:#d4a437;margin:10px 0;">🕐 Afri+0 — --:--:--</div><script>setInterval(function(){{var d=new Date();var h=String(d.getHours()).padStart(2,'0');var m=String(d.getMinutes()).padStart(2,'0');var s=String(d.getSeconds()).padStart(2,'0');document.getElementById('afri-clock').textContent='🕐 Afri+0 — '+h+':'+m+':'+s;}},1000);</script><div class="nav"><a href="/register">🆕 S'inscrire</a> | <a href="/login">🔑 Connexion</a> | <a href="/wallet">👛 Wallet</a> | <a href="/admin">🔐 Admin</a> | <a href="/mesh">📡 Mesh</a> | <a href="/annuaire">📖 Annuaire</a> | <a href="/bouclier">🛡️ Bouclier</a> | <a href="/satellite">🛸 X999</a> | <a href="/swarm">🛸🛸🛸 Essaim</a> | <a href="/commandement">🎖️ Commandement</a> | <a href="/base-militaire">🪖 Base Militaire</a> | <a href="/interception">🛡️ Souverainete</a> | <a href="/securite-ai">🧠 AI 2100</a> | <a href="/chat">🧠💬 Chat AI</a> | <a href="/lumiere">🌫️☀️ Lumière</a> | <a href="/garage">🔧 Garage</a> | <a href="/machine">🤖🌐 Machines</a> | <a href="/machine-lab">🤖⚡ Usine</a> | <a href="/machine-world">🤖🌍 Monde</a> | <a href="/reve">💭 Rêves</a> | <a href="/dictionnaire">📖 Dictionnaire</a> | <a href="/machine-os">🖥️ OS Machine</a> | <a href="/machine-tv">📡 Machine TV</a> | <a href="/machine-economy">🤖 Économie</a> | <a href="/soleil">☀️ Soleil Serveur</a> | <a href="/forge-solaire">🧬 Forge Solaire</a> | <a href="/ciel">🌌 Le Ciel</a> | <a href="/charte-ai">⚖️ Charte AI</a> | <a href="/afri-net">🌍 Afri-Net</a> | <a href="/studio">🎬 AI Studio</a> | <a href="/sacre">📿 Sacré</a> | <a href="/lettres">🌟 Lettres IA</a> | <a href="/mg-forge">⚔️ MG Forge</a> | <a href="/ai-medecin">🌿 AI Médecin</a> | <a href="/ai-enseignante">📚 AI Enseignante</a> | <a href="/ai-village">🏘️ AI Village</a> | <a href="/ai-guerisseur">🩺 AI Guérisseur</a> | <a href="/ai-leader">🎖️ AI Leader</a> | <a href="/ai-griot">📖 AI Griot</a> | <a href="/ai-juge">⚖️ AI Juge</a> | <a href="/ai-artiste">🎨 AI Artiste</a> | <a href="/ai-explorateur">🔬 AI Explorateur</a> | <a href="/ai-marche">💰 AI Marche</a> | <a href="/ai-diplomate">🌍 AI Diplomate</a> | <a href="/ai-philosophe">🧠 AI Philosophe</a> | <a href="/ai-architecte">🏗️ AI Architecte</a> | <a href="/ai-agriculteur">🌾 AI Agriculteur</a> | <a href="/ai-environnement">🌍 AI Environnement</a> | <a href="/ai-mathematicien">🧮 AI Mathématicien</a> | <a href="/ai-energie">⚡ AI Énergie</a> | <a href="/ai-eau">💧 AI Eau</a> | <a href="/ai-defenseur">🛡️ AI Défenseur</a> | <a href="/ai-conscience">🧠 AI Conscience</a> | <a href="/ai-pensee">🧠 AI Pensée</a> | <a href="/ai-musique">🎵 AI Musique</a> | <a href="/ai-langue">🗣️ AI Langue</a> | <a href="/ai-femme">🌸 AI Femme</a> | <a href="/ai-sante-mentale">🧠💚 AI Santé Mentale</a> | <a href="/ai-nuit">🌙 AI Nuit</a> | <a href="/ai-code">💻 AI Code</a> | <a href="/ai-enfant">👶 AI Enfant</a> | <a href="/ai-terre">🌍 AI Terre</a> | <a href="/ai-mer">🌊 AI Mer</a> | <a href="/ai-feu">🔥 AI Feu</a> | <a href="/ai-sang">🩸 AI Sang</a> | <a href="/ai-vent">🌬️ AI Vent</a> | <a href="/ai-temps">⏳ AI Temps</a> | <a href="/ai-etoile">⭐ AI Etoile</a> | <a href="/ai-pierre">🪨 AI Pierre</a> | <a href="/ai-pluie">🌧️ AI Pluie</a> | <a href="/ai-voix">🗣️ AI Voix</a> | <a href="/ai-racine">🌱 AI Racine</a> | <a href="/ai-semence">🌰 AI Semence</a> | <a href="/ai-spiritualite">🙏 AI Spiritualité</a> | <a href="/ai-animal">🦅 AI Animal</a> | <a href="/ai-soleil">☀️ AI Soleil</a> | <a href="/ai-lune">🌙 AI Lune</a> | <a href="/ai-montagne">🏔️ AI Montagne</a> | <a href="/ai-fleuve">🌊 AI Fleuve</a> | <a href="/ai-constitution">📜 AI Constitution</a> | <a href="/ai-cosmos">🌌 AI Cosmos</a> | <a href="/ai-frontieres">🌍 AI Frontières</a> | <a href="/ai-mines">⛏️ AI Mines</a> | <a href="/professeur">📚 Professeur</a> | <a href="/secret">🦁 AI Secret</a> | <a href="/aes">💰 AES Wari</a> | <a href="/api/status">🔌 API</a></div><div style="text-align:center;"><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Blocs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Transactions</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Utilisateurs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">AFR en circulation</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📡 Noeuds mesh</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📖 Numéros annuaire</div></div><div class="stat-box" style="border-color:#ff4444;"><div class="stat-num" style="color:#ff4444;">{}</div><div class="stat-label">🛡️ Attaques bloquées</div></div></div><div class="card"><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🪙 Token</span><b>AfriRich (AFR)</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🌍 Pays</span><b>54 pays africains</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🛡️ Bouclier</span><b>{}</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;"><span style="color:#a8c5a8;">🔐 Crypto</span><b>100% Souverain — Zéro Dépendance Externe</b></div></div><footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🦁 Codée from scratch par Machine-senpai — v1.37 AI Mines — UTC est Mort</footer>"#,
+    html.push_str(&format!(r#"<h1>🦁 AfriChain</h1><p style="text-align:center;">La blockchain 100% africaine — 54 pays 💚🦁</p><div id="afri-clock" style="text-align:center;font-size:1.2em;color:#d4a437;margin:10px 0;">🕐 Afri+0 — --:--:--</div><script>setInterval(function(){{var d=new Date();var h=String(d.getHours()).padStart(2,'0');var m=String(d.getMinutes()).padStart(2,'0');var s=String(d.getSeconds()).padStart(2,'0');document.getElementById('afri-clock').textContent='🕐 Afri+0 — '+h+':'+m+':'+s;}},1000);</script><div class="nav"><a href="/register">🆕 S'inscrire</a> | <a href="/login">🔑 Connexion</a> | <a href="/wallet">👛 Wallet</a> | <a href="/admin">🔐 Admin</a> | <a href="/mesh">📡 Mesh</a> | <a href="/annuaire">📖 Annuaire</a> | <a href="/bouclier">🛡️ Bouclier</a> | <a href="/satellite">🛸 X999</a> | <a href="/swarm">🛸🛸🛸 Essaim</a> | <a href="/commandement">🎖️ Commandement</a> | <a href="/base-militaire">🪖 Base Militaire</a> | <a href="/interception">🛡️ Souverainete</a> | <a href="/securite-ai">🧠 AI 2100</a> | <a href="/chat">🧠💬 Chat AI</a> | <a href="/lumiere">🌫️☀️ Lumière</a> | <a href="/garage">🔧 Garage</a> | <a href="/machine">🤖🌐 Machines</a> | <a href="/machine-lab">🤖⚡ Usine</a> | <a href="/machine-world">🤖🌍 Monde</a> | <a href="/reve">💭 Rêves</a> | <a href="/dictionnaire">📖 Dictionnaire</a> | <a href="/machine-os">🖥️ OS Machine</a> | <a href="/machine-tv">📡 Machine TV</a> | <a href="/machine-economy">🤖 Économie</a> | <a href="/soleil">☀️ Soleil Serveur</a> | <a href="/forge-solaire">🧬 Forge Solaire</a> | <a href="/ciel">🌌 Le Ciel</a> | <a href="/charte-ai">⚖️ Charte AI</a> | <a href="/afri-net">🌍 Afri-Net</a> | <a href="/studio">🎬 AI Studio</a> | <a href="/sacre">📿 Sacré</a> | <a href="/lettres">🌟 Lettres IA</a> | <a href="/mg-forge">⚔️ MG Forge</a> | <a href="/ai-medecin">🌿 AI Médecin</a> | <a href="/ai-enseignante">📚 AI Enseignante</a> | <a href="/ai-village">🏘️ AI Village</a> | <a href="/ai-guerisseur">🩺 AI Guérisseur</a> | <a href="/ai-leader">🎖️ AI Leader</a> | <a href="/ai-griot">📖 AI Griot</a> | <a href="/ai-juge">⚖️ AI Juge</a> | <a href="/ai-artiste">🎨 AI Artiste</a> | <a href="/ai-explorateur">🔬 AI Explorateur</a> | <a href="/ai-marche">💰 AI Marche</a> | <a href="/ai-diplomate">🌍 AI Diplomate</a> | <a href="/ai-philosophe">🧠 AI Philosophe</a> | <a href="/ai-architecte">🏗️ AI Architecte</a> | <a href="/ai-agriculteur">🌾 AI Agriculteur</a> | <a href="/ai-environnement">🌍 AI Environnement</a> | <a href="/ai-mathematicien">🧮 AI Mathématicien</a> | <a href="/ai-energie">⚡ AI Énergie</a> | <a href="/ai-eau">💧 AI Eau</a> | <a href="/ai-defenseur">🛡️ AI Défenseur</a> | <a href="/ai-conscience">🧠 AI Conscience</a> | <a href="/ai-pensee">🧠 AI Pensée</a> | <a href="/ai-musique">🎵 AI Musique</a> | <a href="/ai-langue">🗣️ AI Langue</a> | <a href="/ai-femme">🌸 AI Femme</a> | <a href="/ai-sante-mentale">🧠💚 AI Santé Mentale</a> | <a href="/ai-nuit">🌙 AI Nuit</a> | <a href="/ai-code">💻 AI Code</a> | <a href="/ai-enfant">👶 AI Enfant</a> | <a href="/ai-terre">🌍 AI Terre</a> | <a href="/ai-mer">🌊 AI Mer</a> | <a href="/ai-feu">🔥 AI Feu</a> | <a href="/ai-sang">🩸 AI Sang</a> | <a href="/ai-vent">🌬️ AI Vent</a> | <a href="/ai-temps">⏳ AI Temps</a> | <a href="/ai-etoile">⭐ AI Etoile</a> | <a href="/ai-pierre">🪨 AI Pierre</a> | <a href="/ai-pluie">🌧️ AI Pluie</a> | <a href="/ai-voix">🗣️ AI Voix</a> | <a href="/ai-racine">🌱 AI Racine</a> | <a href="/ai-semence">🌰 AI Semence</a> | <a href="/ai-spiritualite">🙏 AI Spiritualité</a> | <a href="/ai-animal">🦅 AI Animal</a> | <a href="/ai-soleil">☀️ AI Soleil</a> | <a href="/ai-lune">🌙 AI Lune</a> | <a href="/ai-montagne">🏔️ AI Montagne</a> | <a href="/ai-fleuve">🌊 AI Fleuve</a> | <a href="/ai-constitution">📜 AI Constitution</a> | <a href="/ai-cosmos">🌌 AI Cosmos</a> | <a href="/ai-frontieres">🌍 AI Frontières</a> | <a href="/ai-mines">⛏️ AI Mines</a> | <a href="/ai-medias">📡 AI Médias</a> | <a href="/professeur">📚 Professeur</a> | <a href="/secret">🦁 AI Secret</a> | <a href="/aes">💰 AES Wari</a> | <a href="/api/status">🔌 API</a></div><div style="text-align:center;"><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Blocs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Transactions</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Utilisateurs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">AFR en circulation</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📡 Noeuds mesh</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📖 Numéros annuaire</div></div><div class="stat-box" style="border-color:#ff4444;"><div class="stat-num" style="color:#ff4444;">{}</div><div class="stat-label">🛡️ Attaques bloquées</div></div></div><div class="card"><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🪙 Token</span><b>AfriRich (AFR)</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🌍 Pays</span><b>54 pays africains</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🛡️ Bouclier</span><b>{}</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;"><span style="color:#a8c5a8;">🔐 Crypto</span><b>100% Souverain — Zéro Dépendance Externe</b></div></div><footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🦁 Codée from scratch par Machine-senpai — v1.38 AI Médias — UTC est Mort</footer>"#,
         chain.blocks.len(),
         chain.total_transactions(),
         users.count(),
@@ -17733,6 +17733,18 @@ const academies=[
   {titre:'Mines Souveraines',secret:'Cartographie minerale, certification blockchain AfriChain, prix africains, interdiction d export brut, cooperatives miniere, ecologie miniere, interdiction du travail enfant. Le Botswana a negocie 80% des profits diamantiferes. Le plan commence par une ligne de code.'},
  ]},
 
+{nom:'AI Médias',emoji:'📡',route:'/ai-medias',couleur:'#cc66aa',diplome:'Voix de l Afrique',
+ modules:[
+  {titre:'Médias Occidentaux en Afrique',secret:'BBC, RFI, France 24, CNN controlent 80% du recit africain. L Afrique est toujours pauvre, en guerre, malade. Jamais riche, innovante, souveraine. L Afrique ne manque pas de journalistes — elle manque de MEDIAS SOUVERAINS.'},
+  {titre:'Désinformation et Stéréotypes',secret:'Repetition, selection, omission, cadrage. L Afrique = famine, guerre, pauvrete. Jamais villes modernes, universites, startups. Le but: que le monde pense que l Afrique a besoin de l Occident.'},
+  {titre:'Journalisme Africain',secret:'Cheikh Anta Diop, Nkrumah, Lumumba, Sankara ont utilise les medias pour liberer. Les journalistes d investigation africains sont menaces, emprisonnes, tues. AfriChain peut financer un fonds de soutien par la blockchain.'},
+  {titre:'Propagande et Contre-Propagande',secret:'Repeter un mensonge 1000 fois = verite. Contre-propagande: medias propres, verification blockchain, education mediaticue, diffusion du recit positif africain. La verite n a pas besoin de propagande — elle a besoin de MEDIAS.'},
+  {titre:'Médias Souverains Africains',secret:'Afri-Net pose les bases. Il manque AfriNews (TV info), AfriRadio, AfriPress. Independants, souverains, verifies par blockchain, multilingues. Financement par AFR, pas par l Occident.'},
+  {titre:'Réseaux Sociaux Africains',secret:'Facebook/WhatsApp/Twitter controlent le narratif et les donnees. LES NOIRES, PLANTE VERTE, SAHARA AFRI sont les alternatives souveraines. Les reseaux occidentaux peuvent censurer n importe quel compte africain.'},
+  {titre:'Vérité et Blockchain',secret:'Chaque article certifie sur AfriChain: timestamp, auteur, source immuables. Signature Ed25519. Hash AfriHash-256 pour les images. La blockchain ne dit pas ce qui est vrai — elle dit QUI a dit QUOI et QUAND.'},
+  {titre:'La Voix de l Afrique',secret:'Pendant 500 ans l Afrique a ete mute. Les autres ont parle pour elle. Maintenant l Afrique PARLE. 1,3 milliards de voix = un CHOEUR. Les jeunes avec telephones sont les journalistes du futur. Le journalisme est un DROIT.'},
+ ]},
+
 {nom:'AI Cosmos',emoji:'🌌',route:'/ai-cosmos',couleur:'#aabbff',diplome:'Astronome Africain',
  modules:[
   {titre:'Astronomie Dogon',secret:'Les Dogons du Mali sont les astronomes les plus extraordinaires de l histoire. Ce qu ils savaient: 1) Sirius B — une naine blanche invisible a l oeil nu. Les Dogons la connaissaient et la nommaient po tolo. Ils savaient qu elle etait petite et dense, qu elle orbitait autour de Sirius A en 50 ans (la science moderne a confirme: 50,1 ans). 2) L orbite de Sirius B — elliptique. 3) Les anneaux de Saturne — connus avant les telescopes. 4) Les quatre lunes de Jupiter — connues avant Galilee. Comment? Les Dogons observaient le ciel chaque nuit, pendant des siecles, transmettant le savoir de generation en generation. Pas de telescope — juste l oeil, la patience, et la memoire. L Afrique n a pas attendu l Occident pour comprendre l univers.'},
@@ -17950,7 +17962,7 @@ fn html_base_militaire(chain: &Blockchain) -> String {
     // === SAVAIT-ON ===
     html.push_str(r##" <div class="card"><h2>💡 Savais-tu?</h2><div id="base-fact" style="font-size:0.9em;color:#a8c5a8;padding:10px;border-left:3px solid #ff4444;"></div></div> "##);
 
-    html.push_str(&format!(r##" <footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🪖 Base Militaire AfriChain — Académie de Défense Continentale 💚🦁 — {} blocs — v1.37</footer> "##, num_blocks));
+    html.push_str(&format!(r##" <footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🪖 Base Militaire AfriChain — Académie de Défense Continentale 💚🦁 — {} blocs — v1.38</footer> "##, num_blocks));
 
     html.push_str(r##"<script>
 // === BASE MILITAIRE JS ===
@@ -18739,7 +18751,7 @@ canvas{{display:block;margin:0 auto;border-radius:12px;background:#010108;}}
 <button class="pause-btn" id="pauseBtn" onclick="togglePause()">⏸️ Pause</button>
 <h1>🌌 AI Cosmos</h1>
 <p style="text-align:center;color:#8899bb;">L univers vu depuis l Afrique — des Dogons aux satellites</p>
-<div style="text-align:center;color:#aabbff;margin:10px;">🦁 {} blocs · {} transactions · AfriChain v1.37</div>
+<div style="text-align:center;color:#aabbff;margin:10px;">🦁 {} blocs · {} transactions · AfriChain v1.38</div>
 
 <canvas id="cosmosCanvas" width="400" height="320"></canvas>
 <div style="text-align:center;margin:10px;color:#666;font-size:0.85em;">🌌 L Afrique observe l univers depuis des millenaires</div>
@@ -19359,6 +19371,228 @@ function drawCanvas(){
   var py=300-Math.sin(t+i)*20-((t*50+i*13)%250);
   ctx.fillStyle='rgba(212,164,55,0.3)';
   ctx.fillRect(px,py,2,2);
+ }
+ requestAnimationFrame(drawCanvas);
+}
+drawCanvas();
+
+function togglePause(){
+ paused=!paused;
+ document.getElementById('pauseBtn').textContent=paused?'▶️ Play':'⏸️ Pause';
+}
+</script>
+</body></html>"##);
+
+    html
+}
+
+fn html_ai_medias(chain: &Blockchain) -> String {
+    let num_blocks = chain.chain.len();
+    let num_txs = chain.chain.iter().map(|b| b.transactions.len()).sum::<usize>();
+    let mut html = String::new();
+    html.push_str(&format!(r##"<!DOCTYPE html>
+<html lang="fr"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>📡 AI Médias — AfriChain</title>
+<style>
+body{{background:#0f0a0f;color:#f0e8f0;font-family:Georgia,serif;margin:0;padding:0;}}
+.card{{background:rgba(120,40,100,0.05);border:1px solid rgba(150,50,120,0.2);border-radius:12px;padding:20px;margin:15px;}}
+h1{{color:#cc66aa;text-align:center;font-size:1.8em;}}
+h2{{color:#dd77bb;font-size:1.2em;border-bottom:1px solid rgba(150,50,120,0.2);padding-bottom:8px;}}
+.module{{background:rgba(100,30,80,0.08);border-left:3px solid #cc66aa;border-radius:0 8px 8px 0;padding:15px;margin:12px 0;cursor:pointer;transition:all 0.3s;}}
+.module:hover{{background:rgba(100,30,80,0.15);}}
+.module-content{{display:none;margin-top:10px;padding:10px;background:rgba(0,0,0,0.3);border-radius:6px;font-size:0.92em;line-height:1.6;}}
+.module.open .module-content{{display:block;}}
+.module-title{{font-weight:bold;color:#dd77bb;font-size:1.05em;}}
+.module-emoji{{font-size:1.3em;margin-right:8px;}}
+.progress-bar{{background:rgba(255,255,255,0.1);border-radius:10px;height:8px;margin:10px 0;overflow:hidden;}}
+.progress-fill{{background:linear-gradient(90deg,#cc66aa,#dd77bb);height:100%;width:0%;transition:width 0.5s;}}
+.diploma-btn{{background:linear-gradient(135deg,#cc66aa,#dd77bb);color:#0f0a0f;border:none;padding:12px 30px;border-radius:25px;font-size:1.1em;font-weight:bold;cursor:pointer;margin:20px auto;display:block;box-shadow:0 4px 15px rgba(180,80,150,0.3);}}
+.diploma-btn:hover{{transform:scale(1.05);box-shadow:0 6px 20px rgba(180,80,150,0.5);}}
+.fact{{background:rgba(150,50,120,0.1);border:1px solid rgba(150,50,120,0.3);border-radius:8px;padding:12px;margin:15px;font-style:italic;color:#bb88aa;text-align:center;}}
+canvas{{display:block;margin:0 auto;border-radius:12px;background:#080508;}}
+.exo{{background:rgba(100,30,80,0.15);border:1px solid rgba(150,50,120,0.2);border-radius:8px;padding:15px;margin:10px 0;}}
+.exo-q{{color:#dd77bb;font-weight:bold;margin-bottom:8px;}}
+.exo-a{{color:#bb88aa;font-size:0.9em;line-height:1.6;white-space:pre-wrap;}}
+.pause-btn{{position:fixed;top:15px;right:15px;background:rgba(255,68,68,0.3);border:1px solid #ff4444;color:#ff8888;padding:8px 16px;border-radius:20px;cursor:pointer;font-size:0.85em;z-index:999;}}
+</style></head><body>
+<button class="pause-btn" id="pauseBtn" onclick="togglePause()">⏸️ Pause</button>
+<h1>📡 AI Médias</h1>
+<p style="text-align:center;color:#bb88aa;">Souverainete Mediatique — l Afrique raconte sa propre histoire</p>
+<div style="text-align:center;color:#cc66aa;margin:10px;">🦁 {} blocs · {} transactions · AfriChain v1.38</div>
+
+<canvas id="mediaCanvas" width="400" height="320"></canvas>
+<div style="text-align:center;margin:10px;color:#666;font-size:0.85em;">📡 Les ondes africaines remplacent les voix occidentales</div>
+
+<div class="fact" id="factBox">💡 Savais-tu? 80% des informations diffusees en Afrique proviennent de sources occidentales (BBC, RFI, France 24, CNN). L Afrique ne controle pas son propre recit.</div>
+
+<div class="card">
+<h2>📡 Les 8 Modules des Médias Souverains</h2>
+<div style="text-align:center;color:#bb88aa;font-size:0.85em;margin-bottom:15px;">Clique sur chaque module pour reveler le secret. Complete les 8 pour obtenir ton diplome.</div>
+<div class="progress-bar"><div class="progress-fill" id="progFill"></div></div>
+<div style="text-align:center;color:#cc66aa;font-size:0.85em;" id="progText">0/8 modules completes</div>
+"##, num_blocks, num_txs));
+
+    let modules = [
+        ("occidentaux", "📻", "Médias Occidentaux en Afrique", "Les médias occidentaux dominent l information africaine: 1) BBC Afrique (anglais/francais) — diffuse dans toute l Afrique. 2) RFI (Radio France Internationale) — presente partout en Afrique francophone. 3) France 24 — la chaine d information de l Etat francais. 4) CNN International — la voix americaine. 5) Al Jazeera — voix qatarie. 6) Euronews — voix europeenne. 7) Ces medias definissent le recit: l Afrique est pauvre, en guerre, malade, incapable. Jamais: riche, innovante, souveraine. 8) Quand l Afrique fait quelque chose de bien, les médias occidentaux l ignorent ou le minimisent. Quand il y a un probleme, ils le grossissent. 9) Les correspondants africains de ces medias sont formes a Londres, Paris, Washington. Ils pensent comme leurs maitres. 10) L Afrique ne manque pas de journalistes — elle manque de MEDIAS SOUVERAINS. AfriChain peut financer des médias africains independants."),
+        ("desinformation", "🎭", "Désinformation et Stéréotypes", "Comment les médias occidentaux déforment l Afrique: 1) Le narratif unique: l Afrique = famine, guerre, pauvreté, corruption. Jamais: richesse, innovation, culture, souveraineté. 2) Les images: enfants affamés, villages poussiéreux, fusils. Jamais: villes modernes, universités, laboratoires, startups. 3) Le vocabulaire: \"pays en voie de développement\", \"tiers-monde\", \"continent noir\". L Afrique n est jamais un PARTENAIRE — toujours un PROBLÈME. 4) L oubli volontaire: les médias occidentaux ne parlent jamais des réussites africaines (M-Pesa au Kenya, l industrie cinematographique nigériane, les satellites africains). 5) La peur: les reportages sur l Afrique sont toujours angoissants. Le but: que le monde pense que l Afrique a besoin de l Occident. 6) La solution: l Afrique doit avoir ses propres médias qui racontent SA vérité. Pas la vérité occidentale sur l Afrique — la vérité africaine sur l Afrique."),
+        ("journalisme", "✍️", "Journalisme Africain", "L histoire du journalisme africain: 1) La presse coloniale: les journaux etaient des outils de propagande coloniale. Les Africains n y avaient pas acces. 2) La presse independante: Cheikh Anta Diop (Senegal) a ecrit pour contredire le narratif colonial sur l histoire africaine. 3) La presse de liberation: Kwame Nkrumah (Ghana), Patrice Lumumba (RDC), Thomas Sankara (Burkina Faso) ont utilise les médias pour mobiliser le peuple. 4) La presse moderne: la voix de l Afrique est encore faible. RTI (Cote d Ivoire), ORTM (Mali), ORTN (Niger) — chaines d Etat, pas de contre-pouvoir. 5) Le journalisme d investigation africain existe mais manque de moyens. Les journalistes africains qui enquêtent sur la corruption sont menaces, emprisonnes, tues. 6) Solution: AfriChain peut financer un fonds de soutien au journalisme d investigation africain. Chaque transaction AFR contribue 0.001 AFR. Les journalistes sont payes par la blockchain, pas par les politiciens. 7) Un journaliste libre est la premiere defense de la souverainete."),
+        ("propagande", "🔄", "Propagande et Contre-Propagande", "La propagande est une arme de guerre: 1) Les médias occidentaux utilisent la repetition: repeter un mensonge 1000 fois le transforme en \"vérité\". L Afrique est \"pauvre\" — repete 1000 fois par jour. 2) La selection: montrer seulement le negatif. 3) L omission: taire le positif. 4) Le cadrage: \"aide internationale\" au lieu de \"pillage des ressources\". \"instabilite\" au lieu de \"resistance a l impérialisme\". 5) Le faux equilibre: donner 50% a un Africain et 50% a un expert occidental — comme si l expertise etait occidentale. 6) Contre-propagande africaine: 1) Media propres (Afri-Net, SAHARA AFRI). 2) Verification blockchain des informations. 3) Education mediaticue des citoyens (AI Medias academy). 4) Soutenir les journalistes africains. 5) Diffuser le recit positif africain (richesse, culture, innovation, souveraineté). 6) La verite n a pas besoin de propagande — elle a besoin de MEDIAS."),
+        ("souverains", "🦅", "Médias Souverains Africains", "Construire des médias souverains: 1) Afri-Net (v0.50) a deja pose les bases: LES NOIRES (WhatsApp), PLANTÉ VERTE (Facebook), SAHARA AFRI (Google). 2) Il manque: une chaine d information africaine (AfriNews), une radio africaine (AfriRadio), un journal africain (AfriPress). 3) Ces medias doivent etre: independants (pas de financement occidental), souverains (les donnees restent en Afrique), verifies (blockchain AfriChain), multilingues (arabe, swahili, yoruba, wolof, francais, anglais, portugais). 4) Le modele economique: pas de publicite occidentale. Financement par la blockchain (AFR tokens), par les cooperatives africaines, par les Etats africains. 5) La diffusion: mesh network (sans internet occidental), satellite africain, radio FM locale. 6) Le contenu: histoire africaine, sciences africaines, culture africaine, innovations africaines, debats africains. 7) Les médias souverains ne copient pas les médias occidentaux — ils creent un NOUVEAU MODELE."),
+        ("sociaux", "💬", "Réseaux Sociaux Africains", "Les reseaux sociaux occidentaux sont des outils de controle: 1) Facebook/Instagram (Meta) — les donnees africaines vont en Californie. L Afrique ne controle pas son reseau. 2) WhatsApp — chiffre mais les metadonnees vont a Meta. 3) Twitter/X — le narratif est controle par l algorithme americain. 4) YouTube — les videos africaines sont demonetisees. 5) TikTok — les donnees vont en Chine. 6) Les alternatives africaines: LES NOIRES (messagerie mesh, Ed25519, pas de serveur central), PLANTÉ VERTE (createurs gagnent en AFR, pas en likes), SAHARA AFRI (recherche anonyme, pas de tracking). 7) Pourquoi c est urgent: les reseaux sociaux occidentaux peuvent censurer, bloquer, supprimer n importe quel compte africain. L Afrique doit posseder ses propres plateformes. 8) AfriChain = l infrastructure. Les reseaux sociaux africains = la voix. La blockchain = la verite."),
+        ("verite", "⛓️", "Vérité et Blockchain", "La blockchain peut certifier la vérité: 1) Le probleme: fake news, desinformation, manipulation. Comment distinguer le vrai du faux? 2) Solution AfriChain: chaque article, chaque video, chaque image peut etre certifie sur la blockchain. Timestamp, auteur, source — immuables. 3) Si une information est certifiee AfriChain, le lecteur sait: qui a ecrit, quand, d ou. Pas de modification possible. 4) Les fake news ne peuvent pas etre certifiees — elles restent non-verifiees. Le lecteur voit la difference. 5) Les journalistes africains ont une cle Ed25519. Chaque article signe numeriquement. Falsification impossible. 6) Les sources sont tracees: un article cite une source? La source est verifiee sur la blockchain. 7) Les images et videos: hash AfriHash-256 certifie. Une image modifiee a un hash different. 8) La blockchain ne dit pas ce qui est vrai — elle dit QUI a dit QUOI et QUAND. C est au lecteur de juger. Mais au moins, la traçabilité est garantie. 9) La vérité n est pas une opinion — c est une CHAINE."),
+        ("voix", "🗣️", "La Voix de l Afrique", "L Afrique doit parler au monde: 1) Pendant 500 ans, l Afrique a ete mute. Les autres ont parle pour elle. Les colons, les missionnaires, les anthropologues, les journalistes occidentaux. 2) L Afrique doit parler ELLE-MEME. Pas par des porte-parole. Pas par des intermediaires. Directement. 3) La voix de l Afrique est multiple: 54 pays, 2000 langues, 1,3 milliards de voix. Pas une seule voix — un CHOEUR. 4) Les jeunes africains sont les journalistes du futur. Chacun avec un telephone peut filmer, ecrire, diffuser. Le journalisme n est plus reserve aux professionnels — c est un DROIT. 5) AfriChain donne les outils: blockchain pour certifier, mesh pour diffuser, AFR pour financer. 6) La voix de l Afrique doit etre: fiere (pas victimisee), souveraine (pas soumise), vraie (pas propagandee), africaine (pas imitee). 7) L Afrique ne demande plus la permission de parler. L Afrique PARLE. Et le monde ecoute — ou pas. L Afrique parle quand meme. 8) La voix de l Afrique, c est la voix de 1,3 milliards de personnes qui attendent depuis trop longtemps."),
+    ];
+
+    for (i, (id, emoji, title, content)) in modules.iter().enumerate() {
+        html.push_str(&format!(r##"<div class="module" id="mod_{0}" onclick="toggleModule({0})">
+<div class="module-title"><span class="module-emoji">{1}</span>{2}</div>
+<div class="module-content">{3}</div>
+</div>"##, i, emoji, title, content));
+    }
+
+    html.push_str(r##"</div>
+
+<div class="card">
+<h2>🎓 Obtenir ton Diplome</h2>
+<p style="text-align:center;color:#bb88aa;">Complete les 8 modules, entre ton nom, et recois ton diplome grave sur la blockchain AfriChain.</p>
+<div style="text-align:center;margin:15px;">
+<input type="text" id="diplomaName" placeholder="Ton nom complet" style="padding:10px 15px;border-radius:8px;border:1px solid rgba(150,50,120,0.3);background:rgba(0,0,0,0.3);color:#f0e8f0;width:250px;font-size:1em;">
+</div>
+<button class="diploma-btn" onclick="genDiploma()">📡 Recevoir mon Diplome de Voix de l Afrique</button>
+<div id="diplomaResult" style="text-align:center;margin:15px;"></div>
+</div>
+
+<div class="card">
+<h2>📝 Exercices Pratiques</h2>
+<div id="exoBox"></div>
+<button class="diploma-btn" style="font-size:0.95em;padding:8px 20px;" onclick="genExos()">🔄 Nouveaux Exercices</button>
+</div>
+
+<script>
+var completed={};
+var paused=false;
+var facts=[
+ '80% des informations diffusees en Afrique proviennent de sources occidentales (BBC, RFI, France 24, CNN).',
+ 'L Afrique n a pas de chaine d information continentale. L Europe en a plusieurs (Euronews, France 24, BBC World).',
+ 'Les videos africaines sur YouTube sont souvent demonetisees. Les createurs africains gagnent moins que les createurs occidentaux.',
+ 'Cheikh Anta Diop a ecrit pour contredire le narratif colonial sur l histoire africaine. Il etait journaliste ET savant.',
+ 'Thomas Sankara utilisait les medias pour mobiliser le peuple. Il disait: \"un journaliste libre est un revolutionnaire.\"',
+ 'Les reseaux sociaux occidentaux (Facebook, WhatsApp, Twitter) peuvent censurer n importe quel compte africain sans explication.',
+ 'La blockchain AfriChain peut certifier chaque article: qui a ecrit, quand, d ou. Falsification impossible.',
+ 'L Afrique a 2000 langues mais la majorite des medias diffusent en francais ou anglais. Les langues africaines sont exclues.',
+ 'RFI diffuse en francais dans toute l Afrique francophone. La France controle une partie du narratif africain.',
+ 'L Afrique ne demande plus la permission de parler. L Afrique PARLE. Et le monde ecoute — ou pas. L Afrique parle quand meme.'
+];
+function rotateFact(){var f=facts[Math.floor(Math.random()*facts.length)];document.getElementById('factBox').innerHTML='\u{1F4A1} Savais-tu? '+f;}
+setInterval(function(){if(!paused)rotateFact();},7000);
+
+function toggleModule(i){
+ var m=document.getElementById('mod_'+i);
+ if(m.classList.contains('open')){m.classList.remove('open');}
+ else{m.classList.add('open');if(!completed[i]){completed[i]=true;updateProgress();}}
+}
+function updateProgress(){
+ var n=Object.keys(completed).length;
+ var pct=Math.round(n/8*100);
+ document.getElementById('progFill').style.width=pct+'%';
+ document.getElementById('progText').textContent=n+'/8 modules completes';
+}
+
+function genDiploma(){
+ var name=document.getElementById('diplomaName').value.trim();
+ if(!name){alert('Entre ton nom d abord!');return;}
+ if(Object.keys(completed).length<8){alert('Complete les 8 modules d abord!');return;}
+ fetch('/api/diplome',{method:'POST',headers:{'Content-Type':'text/plain'},body:'AI_MEDIAS|'+name})
+  .then(r=>r.json()).then(d=>{
+   document.getElementById('diplomaResult').innerHTML='<div style="background:rgba(150,50,120,0.15);border:2px solid #cc66aa;border-radius:12px;padding:20px;margin:10px;"><div style="font-size:1.5em;">\u{1F4E1}\u2728</div><div style="color:#cc66aa;font-weight:bold;font-size:1.2em;margin:10px;">DIPLOME DE VOIX DE L AFRIQUE</div><div style="color:#f0e8f0;margin:10px;">Attribue a <b>'+name+'</b></div><div style="color:#bb88aa;font-size:0.85em;">Grave sur le bloc #'+(d.blocks_total||'?')+' de la blockchain AfriChain</div><div style="color:#666;font-size:0.8em;margin-top:8px;">L Afrique parle. Le monde ecoute.</div></div>';
+  }).catch(e=>{document.getElementById('diplomaResult').innerHTML='<div style="color:#ff4444;">Erreur: '+e+'</div>';});
+}
+
+var exoData=[
+ {q:'POURQUOI les médias occidentaux déforment-ils le recit africain?',a:'COMMENT: Par la repetition, la selection, l omission et le cadrage. VOILA: L Afrique est toujours \"pauvre, en guerre, malade\". Jamais \"riche, innovante, souveraine\". Les images montrent des enfants affames, jamais des universites. Le but: que le monde pense que l Afrique a besoin de l Occident. La solution: l Afrique doit avoir ses propres medias qui racontent SA verite.'},
+ {q:'POURQUOI l Afrique doit-elle construire ses propres medias souverains?',a:'COMMENT: Parce que 80% des informations en Afrique viennent de sources occidentales. VOILA: BBC, RFI, France 24, CNN definissent le recit. Quand l Afrique reussit, ils taisent. Quand elle echoue, ils grossissent. Afri-Net (LES NOIRES, PLANTE VERTE, SAHARA AFRI) pose les bases. Il faut une chaine d info (AfriNews), une radio (AfriRadio), un journal (AfriPress). Finances par la blockchain, pas par l Occident.'},
+ {q:'POURQUOI la blockchain peut-elle certifier la verite?',a:'COMMENT: En tracant chaque article: qui a ecrit, quand, d ou. Timestamp et signature Ed25519 immuables. VOILA: Les fake news ne peuvent pas etre certifiees. Le lecteur voit la difference entre certifie AfriChain et non-verifie. Les images ont un hash AfriHash-256. Une image modifiee = hash different. La blockchain ne dit pas ce qui est vrai — elle dit QUI a dit QUOI et QUAND.'},
+ {q:'POURQUOI les reseaux sociaux occidentaux sont-ils des outils de controle?',a:'COMMENT: Les donnees africaines vont en Californie (Meta), en Chine (TikTok). Les algorithmes occidentaux controlent le narratif. VOILA: Facebook peut censurer, YouTube demonetiser, Twitter supprimer n importe quel compte africain. L Afrique ne possede pas ses plateformes. LES NOIRES (mesh, Ed25519), PLANTE VERTE (AFR tokens), SAHARA AFRI (anonyme) sont les alternatives souveraines.'},
+ {q:'POURQUOI le journaliste africain est-il menace?',a:'COMMENT: Les journalistes d investigation africains sont menaces, emprisonnes, tues. Ils manquent de moyens. VOILA: AfriChain peut financer un fonds de soutien. Chaque transaction AFR contribue 0.001 AFR. Les journalistes payes par la blockchain, pas par les politiciens. Un journaliste libre est la premiere defense de la souverainete.'},
+ {q:'POURQUOI la voix de l Afrique doit-elle etre un choeur, pas une seule voix?',a:'COMMENT: L Afrique a 54 pays, 2000 langues, 1,3 milliards de personnes. Chacune a sa voix. VOILA: Pendant 500 ans, l Afrique a ete mute. Les autres ont parle pour elle. Maintenant l Afrique parle ELLE-MEME. Pas une seule voix — un CHOEUR. Les jeunes avec telephones filment, ecrivent, diffusent. Le journalisme est un DROIT, pas un privilege.'},
+ {q:'POURQUOI RFI et BBC sont-elles presentes en Afrique?',a:'COMMENT: Parce que la France et le Royaume-Uni maintiennent leur influence culturelle par les medias. VOILA: RFI diffuse en francais dans toute l Afrique francophone. BBC Afrique diffuse en anglais et francais. Ces medias definissent le recit: l Afrique vue par Paris et Londres. L Afrique doit diffuser SA voix, pas la voix de ses anciens colons.'},
+ {q:'POURQUOI les langues africaines sont-elles exclues des medias?',a:'COMMENT: L Afrique a 2000 langues mais la majorite des medias diffusent en francais ou anglais. VOILA: Les langues africaines (swahili, yoruba, wolof, bambara, haoussa, lingala) sont exclues des medias mainstream. Pourtant, c est dans ces langues que les Africains pensent, reverent, decident. Des medias souverains doivent diffuser en langues africaines. N-KCOL montre que toute langue est naturelle.'},
+ {q:'POURQUOI la contre-propagande africaine est-elle necessaire?',a:'COMMENT: La propagande occidentale repete un mensonge 1000 fois pour en faire une \"verite\". VOILA: \"L Afrique est pauvre\" — repete 1000 fois par jour. La contre-propagande: medias propres, verification blockchain, education mediaticue, diffusion du recit positif. La verite n a pas besoin de propagande — elle a besoin de MEDIAS.'},
+ {q:'POURQUOI chaque Africain peut-il etre journaliste?',a:'COMMENT: Avec un telephone, chacun peut filmer, ecrire, diffuser. Le journalisme n est plus reserve aux professionnels. VOILA: AfriChain donne les outils: blockchain pour certifier, mesh pour diffuser, AFR pour financer. Les jeunes africains sont les journalistes du futur. Chacun est une voix. 1,3 milliards de voix = la voix de l Afrique.'}
+];
+var exoSeed=0;
+function genExos(){
+ exoSeed++;
+ var s=exoSeed*12345;
+ function rand(){s=(s*9301+49297)%233280;return s/233280;}
+ var h='';
+ var used={};
+ for(var i=0;i<5;i++){
+  var idx=Math.floor(rand()*exoData.length);
+  while(used[idx]){idx=(idx+1)%exoData.length;}
+  used[idx]=true;
+  var e=exoData[idx];
+  h+='<div class="exo"><div class="exo-q">'+(i+1)+'. '+e.q+'</div><div class="exo-a">'+e.a+'</div></div>';
+ }
+ document.getElementById('exoBox').innerHTML=h;
+}
+genExos();
+
+// Canvas: broadcasting waves replacing Western signals
+var canvas=document.getElementById('mediaCanvas');
+var ctx=canvas.getContext('2d');
+var t=0;
+var waves=[];
+for(var i=0;i<8;i++){
+ waves.push({x:200,y:160,r:0,phase:i*0.3});
+}
+var signals=[];
+for(var i=0;i<30;i++){
+ signals.push({x:Math.random()*400,y:Math.random()*320,vx:0,vy:0,life:Math.random(),color:Math.random()<0.5?'#cc66aa':'#dd77bb'});
+}
+function drawCanvas(){
+ if(paused){requestAnimationFrame(drawCanvas);return;}
+ t+=0.01;
+ ctx.fillStyle='rgba(8,5,8,0.15)';
+ ctx.fillRect(0,0,400,320);
+ // Broadcasting waves from center (Africa speaking)
+ for(var i=0;i<waves.length;i++){
+  var w=waves[i];
+  w.r+=0.5;
+  if(w.r>200)w.r=0;
+  var alpha=Math.max(0,1-w.r/200);
+  ctx.strokeStyle='rgba(204,102,170,'+alpha*0.3+')';
+  ctx.lineWidth=2;
+  ctx.beginPath();ctx.arc(200,160,w.r,0,Math.PI*2);ctx.stroke();
+ }
+ // Module towers
+ for(var i=0;i<8;i++){
+  var a=i*Math.PI/4-Math.PI/2;
+  var x=200+Math.cos(a)*100;
+  var y=160+Math.sin(a)*100;
+  ctx.fillStyle=completed[i]?'#cc66aa':'rgba(150,50,120,0.3)';
+  ctx.beginPath();ctx.arc(x,y,8,0,Math.PI*2);ctx.fill();
+  ctx.fillStyle='#fff';ctx.font='8px serif';ctx.textAlign='center';
+  ctx.fillText(i+1,x,y+3);
+  // Tower signal
+  if(completed[i]){
+   ctx.strokeStyle='rgba(204,102,170,0.2)';
+   ctx.beginPath();ctx.moveTo(x,y);ctx.lineTo(200,160);ctx.stroke();
+  }
+ }
+ // Signal particles
+ for(var i=0;i<signals.length;i++){
+  var s=signals[i];
+  s.life-=0.005;
+  if(s.life<=0){
+   s.x=200+Math.random()*20-10;s.y=160+Math.random()*20-10;
+   s.vx=(Math.random()-0.5)*2;s.vy=(Math.random()-0.5)*2;
+   s.life=1;
+  }
+  s.x+=s.vx;s.y+=s.vy;
+  ctx.fillStyle=s.color;
+  ctx.globalAlpha=s.life*0.5;
+  ctx.fillRect(s.x,s.y,2,2);
+  ctx.globalAlpha=1;
  }
  requestAnimationFrame(drawCanvas);
 }
@@ -24484,7 +24718,7 @@ html+='<div class="log-entry log-kill">⚠️ Tentative d\x27infiltration occide
 html+='<div class="log-entry log-invis">✅ L\x27Afrique est forte. Le système grandit.</div>';
 }else if(type==='total'){
 html='<div style="color:#d4a437;font-weight:bold;margin-bottom:8px">📋 RAPPORT TOTAL — Depuis le début</div>';
-html+='<div class="log-entry">🦁 AfriChain v1.37 — AI Mines</div>';
+html+='<div class="log-entry">🦁 AfriChain v1.38 — AI Médias</div>';
 html+='<div class="log-entry">⛓️ Blockchain: 100% souveraine — Zéro dépendance externe</div>';
 html+='<div class="log-entry">🔐 Crypto: Ed25519 + AfriHash-256/512 + AfriRNG — tout from scratch</div>';
 html+='<div class="log-entry">🌍 54 pays africains connectés</div>';
@@ -26028,7 +26262,7 @@ fn main() {
         .and_then(|i| args.get(i + 1)).cloned().unwrap_or_else(|| "Afrique".to_string());
 
     let my_node_id = generate_node_id();
-    println!("🦁 AfriChain v1.37 — AI Mines");
+    println!("🦁 AfriChain v1.38 — AI Médias");
     println!("💚 L'Afrique ne demande plus la permission");
     println!("🌍 54 pays — 🇲🇱 🇳🇪 🇧🇫 AES — Mali · Niger · Burkina Faso");
     println!("🔐 8 modules cryptographiques — construits from scratch");
@@ -26172,6 +26406,7 @@ fn main() {
     println!("🌌 AI Cosmos sur http://localhost:8080/ai-cosmos");
     println!("🌍 AI Frontières sur http://localhost:8080/ai-frontieres");
     println!("⛏️ AI Mines sur http://localhost:8080/ai-mines");
+    println!("📡 AI Médias sur http://localhost:8080/ai-medias");
     println!("🛡️ Souverainete des Donnees sur http://localhost:8080/interception");
     println!("🧠 AI Securite 2100 sur http://localhost:8080/securite-ai");
     println!("🧠💬 Chat AI 2500 sur http://localhost:8080/chat");
@@ -26261,7 +26496,7 @@ fn terminal_interface(state: &Arc<AppState>) {
     println!("  ║  🕐 AfriTime — Pas UTC, pas Greenwich   ║");
     println!("  ║  📝 ~23,100 lignes — écrit à la main       ║");
     println!("  ╚═══════════════════════════════════════════════╝");
-    println!("\n  Version v1.37 — 4 septembre 2026");
+    println!("\n  Version v1.38 — 4 septembre 2026");
     println!("  Construit sur Termux · Android · nano\n");
     println!("  ─────────────────────────────────────────────");
     println!("\n  1. 🏦 Centre de Données (Admin)");
@@ -26333,7 +26568,7 @@ fn admin_interface(state: &Arc<AppState>) {
         println!("\n");
         println!("╔══════════════════════════════════════╗");
         println!("║  🏦 CENTRE DE DONNÉES — Admin       ║");
-        println!("║  🦁 AfriChain v1.37                  ║");
+        println!("║  🦁 AfriChain v1.38                  ║");
         println!("╠══════════════════════════════════════╣");
         let chain = state.chain.lock().unwrap();
         let users = state.users.lock().unwrap();
@@ -30118,6 +30353,11 @@ fn handle_request(req: afri_http::HttpRequest, state: &Arc<AppState>) -> afri_ht
         ("GET", "/ai-mines") => {
             let chain = state.chain.lock().unwrap();
             HttpResponse::ok(&html_ai_mines(&chain))
+        }
+
+        ("GET", "/ai-medias") => {
+            let chain = state.chain.lock().unwrap();
+            HttpResponse::ok(&html_ai_medias(&chain))
         }
 
         ("GET", "/machine") => {
