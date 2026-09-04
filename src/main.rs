@@ -18556,8 +18556,8 @@ addThreatLog('\u{1F392} Academie Militaire AI: 8 modules de formation profession
 }
 
 fn html_ai_constitution(chain: &Blockchain) -> String {
-    let num_blocks = chain.chain.len();
-    let num_txs = chain.chain.iter().map(|b| b.transactions.len()).sum::<usize>();
+    let num_blocks = chain.blocks.len();
+    let num_txs = chain.blocks.iter().map(|b| b.transactions.len()).sum::<usize>();
     let mut html = String::new();
     html.push_str(&format!(r##"<!DOCTYPE html>
 <html lang="fr"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>📜 AI Constitution — AfriChain</title>
@@ -18776,8 +18776,8 @@ function togglePause(){
 }
 
 fn html_ai_cosmos(chain: &Blockchain) -> String {
-    let num_blocks = chain.chain.len();
-    let num_txs = chain.chain.iter().map(|b| b.transactions.len()).sum::<usize>();
+    let num_blocks = chain.blocks.len();
+    let num_txs = chain.blocks.iter().map(|b| b.transactions.len()).sum::<usize>();
     let mut html = String::new();
     html.push_str(&format!(r##"<!DOCTYPE html>
 <html lang="fr"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>🌌 AI Cosmos — AfriChain</title>
@@ -18997,8 +18997,8 @@ function togglePause(){
 }
 
 fn html_ai_frontieres(chain: &Blockchain) -> String {
-    let num_blocks = chain.chain.len();
-    let num_txs = chain.chain.iter().map(|b| b.transactions.len()).sum::<usize>();
+    let num_blocks = chain.blocks.len();
+    let num_txs = chain.blocks.iter().map(|b| b.transactions.len()).sum::<usize>();
     let mut html = String::new();
     html.push_str(&format!(r##"<!DOCTYPE html>
 <html lang="fr"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>🌍 AI Frontières — AfriChain</title>
@@ -19227,8 +19227,8 @@ function togglePause(){
 }
 
 fn html_ai_mines(chain: &Blockchain) -> String {
-    let num_blocks = chain.chain.len();
-    let num_txs = chain.chain.iter().map(|b| b.transactions.len()).sum::<usize>();
+    let num_blocks = chain.blocks.len();
+    let num_txs = chain.blocks.iter().map(|b| b.transactions.len()).sum::<usize>();
     let mut html = String::new();
     html.push_str(&format!(r##"<!DOCTYPE html>
 <html lang="fr"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>⛏️ AI Mines — AfriChain</title>
@@ -19442,8 +19442,8 @@ function togglePause(){
 }
 
 fn html_ai_medias(chain: &Blockchain) -> String {
-    let num_blocks = chain.chain.len();
-    let num_txs = chain.chain.iter().map(|b| b.transactions.len()).sum::<usize>();
+    let num_blocks = chain.blocks.len();
+    let num_txs = chain.blocks.iter().map(|b| b.transactions.len()).sum::<usize>();
     let mut html = String::new();
     html.push_str(&format!(r##"<!DOCTYPE html>
 <html lang="fr"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>📡 AI Médias — AfriChain</title>
@@ -19664,8 +19664,8 @@ function togglePause(){
 }
 
 fn html_ai_nomades(chain: &Blockchain) -> String {
-    let num_blocks = chain.chain.len();
-    let num_txs = chain.chain.iter().map(|b| b.transactions.len()).sum::<usize>();
+    let num_blocks = chain.blocks.len();
+    let num_txs = chain.blocks.iter().map(|b| b.transactions.len()).sum::<usize>();
     let mut html = String::new();
     html.push_str(&format!(r##"<!DOCTYPE html>
 <html lang="fr"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>🐪 AI Nomades — AfriChain</title>
@@ -19920,8 +19920,8 @@ function togglePause(){
 
 
 fn html_ai_reparation(chain: &Blockchain) -> String {
-    let num_blocks = chain.chain.len();
-    let num_txs = chain.chain.iter().map(|b| b.transactions.len()).sum::<usize>();
+    let num_blocks = chain.blocks.len();
+    let num_txs = chain.blocks.iter().map(|b| b.transactions.len()).sum::<usize>();
     let mut html = String::new();
     html.push_str(&format!(r##"<!DOCTYPE html>
 <html lang="fr"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>🕊️ AI Réparation — AfriChain</title>
@@ -20154,8 +20154,8 @@ function togglePause(){
 
 
 fn html_ai_paix(chain: &Blockchain) -> String {
-    let num_blocks = chain.chain.len();
-    let num_txs = chain.chain.iter().map(|b| b.transactions.len()).sum::<usize>();
+    let num_blocks = chain.blocks.len();
+    let num_txs = chain.blocks.iter().map(|b| b.transactions.len()).sum::<usize>();
     let mut html = String::new();
     html.push_str(&format!(r##"<!DOCTYPE html>
 <html lang="fr"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>🤝 AI Paix — AfriChain</title>
@@ -20393,8 +20393,8 @@ function togglePause(){
 
 
 fn html_ai_unite(chain: &Blockchain) -> String {
-    let num_blocks = chain.chain.len();
-    let num_txs = chain.chain.iter().map(|b| b.transactions.len()).sum::<usize>();
+    let num_blocks = chain.blocks.len();
+    let num_txs = chain.blocks.iter().map(|b| b.transactions.len()).sum::<usize>();
     let mut html = String::new();
     html.push_str(&format!(r##"<!DOCTYPE html>
 <html lang="fr"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>🌍 AI Unite — AfriChain</title>
@@ -20633,8 +20633,8 @@ function togglePause(){
 
 
 fn html_ai_reconciliation(chain: &Blockchain) -> String {
-    let num_blocks = chain.chain.len();
-    let num_txs = chain.chain.iter().map(|b| b.transactions.len()).sum::<usize>();
+    let num_blocks = chain.blocks.len();
+    let num_txs = chain.blocks.iter().map(|b| b.transactions.len()).sum::<usize>();
     let mut html = String::new();
     html.push_str(&format!(r##"<!DOCTYPE html>
 <html lang="fr"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>🤝 AI Réconciliation — AfriChain</title>
