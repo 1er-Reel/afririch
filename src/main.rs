@@ -1439,7 +1439,7 @@ fn html_home(chain: &Blockchain, users: &UserStore, mesh: &NodeRegistry, shield:
     let mut html = html_head("🦁 AfriChain");
     let (attacks, _blocked, blocked_count, level) = shield.stats();
     let shield_status = if shield.active { format!("🔥 X9 ACTIF (Niveau {})", level) } else { "Inactif".to_string() };
-    html.push_str(&format!(r#"<h1>🦁 AfriChain</h1><p style="text-align:center;">La blockchain 100% africaine — 54 pays 💚🦁</p><div id="afri-clock" style="text-align:center;font-size:1.2em;color:#d4a437;margin:10px 0;">🕐 Afri+0 — --:--:--</div><script>setInterval(function(){{var d=new Date();var h=String(d.getHours()).padStart(2,'0');var m=String(d.getMinutes()).padStart(2,'0');var s=String(d.getSeconds()).padStart(2,'0');document.getElementById('afri-clock').textContent='🕐 Afri+0 — '+h+':'+m+':'+s;}},1000);</script><div class="nav"><a href="/register">🆕 S'inscrire</a> | <a href="/login">🔑 Connexion</a> | <a href="/wallet">👛 Wallet</a> | <a href="/admin">🔐 Admin</a> | <a href="/mesh">📡 Mesh</a> | <a href="/annuaire">📖 Annuaire</a> | <a href="/bouclier">🛡️ Bouclier</a> | <a href="/satellite">🛸 X999</a> | <a href="/swarm">🛸🛸🛸 Essaim</a> | <a href="/commandement">🎖️ Commandement</a> | <a href="/base-militaire">🪖 Base Militaire</a> | <a href="/interception">🛡️ Souverainete</a> | <a href="/securite-ai">🧠 AI 2100</a> | <a href="/chat">🧠💬 Chat AI</a> | <a href="/lumiere">🌫️☀️ Lumière</a> | <a href="/garage">🔧 Garage</a> | <a href="/machine">🤖🌐 Machines</a> | <a href="/machine-lab">🤖⚡ Usine</a> | <a href="/machine-world">🤖🌍 Monde</a> | <a href="/reve">💭 Rêves</a> | <a href="/dictionnaire">📖 Dictionnaire</a> | <a href="/machine-os">🖥️ OS Machine</a> | <a href="/machine-tv">📡 Machine TV</a> | <a href="/machine-economy">🤖 Économie</a> | <a href="/soleil">☀️ Soleil Serveur</a> | <a href="/forge-solaire">🧬 Forge Solaire</a> | <a href="/ciel">🌌 Le Ciel</a> | <a href="/charte-ai">⚖️ Charte AI</a> | <a href="/afri-net">🌍 Afri-Net</a> | <a href="/studio">🎬 AI Studio</a> | <a href="/sacre">📿 Sacré</a> | <a href="/lettres">🌟 Lettres IA</a> | <a href="/mg-forge">⚔️ MG Forge</a> | <a href="/ai-medecin">🌿 AI Médecin</a> | <a href="/ai-enseignante">📚 AI Enseignante</a> | <a href="/ai-village">🏘️ AI Village</a> | <a href="/ai-guerisseur">🩺 AI Guérisseur</a> | <a href="/ai-leader">🎖️ AI Leader</a> | <a href="/ai-griot">📖 AI Griot</a> | <a href="/ai-juge">⚖️ AI Juge</a> | <a href="/ai-artiste">🎨 AI Artiste</a> | <a href="/ai-explorateur">🔬 AI Explorateur</a> | <a href="/ai-marche">💰 AI Marche</a> | <a href="/ai-diplomate">🌍 AI Diplomate</a> | <a href="/ai-philosophe">🧠 AI Philosophe</a> | <a href="/ai-architecte">🏗️ AI Architecte</a> | <a href="/ai-agriculteur">🌾 AI Agriculteur</a> | <a href="/ai-environnement">🌍 AI Environnement</a> | <a href="/ai-mathematicien">🧮 AI Mathématicien</a> | <a href="/ai-energie">⚡ AI Énergie</a> | <a href="/ai-eau">💧 AI Eau</a> | <a href="/ai-defenseur">🛡️ AI Défenseur</a> | <a href="/ai-conscience">🧠 AI Conscience</a> | <a href="/ai-pensee">🧠 AI Pensée</a> | <a href="/ai-musique">🎵 AI Musique</a> | <a href="/ai-langue">🗣️ AI Langue</a> | <a href="/ai-femme">🌸 AI Femme</a> | <a href="/ai-sante-mentale">🧠💚 AI Santé Mentale</a> | <a href="/ai-nuit">🌙 AI Nuit</a> | <a href="/ai-code">💻 AI Code</a> | <a href="/ai-enfant">👶 AI Enfant</a> | <a href="/ai-terre">🌍 AI Terre</a> | <a href="/ai-mer">🌊 AI Mer</a> | <a href="/ai-feu">🔥 AI Feu</a> | <a href="/ai-sang">🩸 AI Sang</a> | <a href="/ai-vent">🌬️ AI Vent</a> | <a href="/ai-temps">⏳ AI Temps</a> | <a href="/ai-etoile">⭐ AI Etoile</a> | <a href="/ai-pierre">🪨 AI Pierre</a> | <a href="/ai-pluie">🌧️ AI Pluie</a> | <a href="/ai-voix">🗣️ AI Voix</a> | <a href="/ai-racine">🌱 AI Racine</a> | <a href="/ai-semence">🌰 AI Semence</a> | <a href="/ai-spiritualite">🙏 AI Spiritualité</a> | <a href="/ai-animal">🦅 AI Animal</a> | <a href="/ai-soleil">☀️ AI Soleil</a> | <a href="/ai-lune">🌙 AI Lune</a> | <a href="/ai-montagne">🏔️ AI Montagne</a> | <a href="/ai-fleuve">🌊 AI Fleuve</a> | <a href="/ai-constitution">📜 AI Constitution</a> | <a href="/ai-cosmos">🌌 AI Cosmos</a> | <a href="/ai-frontieres">🌍 AI Frontières</a> | <a href="/ai-mines">⛏️ AI Mines</a> | <a href="/ai-medias">📡 AI Médias</a> | <a href="/ai-nomades">🐪 AI Nomades</a> | <a href="/ai-reparation">🕊️ AI Réparation</a> | <a href="/ai-paix">🤝 AI Paix</a> | <a href="/professeur">📚 Professeur</a> | <a href="/secret">🦁 AI Secret</a> | <a href="/aes">💰 AES Wari</a> | <a href="/api/status">🔌 API</a></div><div style="text-align:center;"><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Blocs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Transactions</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Utilisateurs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">AFR en circulation</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📡 Noeuds mesh</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📖 Numéros annuaire</div></div><div class="stat-box" style="border-color:#ff4444;"><div class="stat-num" style="color:#ff4444;">{}</div><div class="stat-label">🛡️ Attaques bloquées</div></div></div><div class="card"><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🪙 Token</span><b>AfriRich (AFR)</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🌍 Pays</span><b>54 pays africains</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🛡️ Bouclier</span><b>{}</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;"><span style="color:#a8c5a8;">🔐 Crypto</span><b>100% Souverain — Zéro Dépendance Externe</b></div></div><footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🦁 Codée from scratch par Machine-senpai — v1.41 AI Paix — UTC est Mort</footer>"#,
+    html.push_str(&format!(r#"<h1>🦁 AfriChain</h1><p style="text-align:center;">La blockchain 100% africaine — 54 pays 💚🦁</p><div id="afri-clock" style="text-align:center;font-size:1.2em;color:#d4a437;margin:10px 0;">🕐 Afri+0 — --:--:--</div><script>setInterval(function(){{var d=new Date();var h=String(d.getHours()).padStart(2,'0');var m=String(d.getMinutes()).padStart(2,'0');var s=String(d.getSeconds()).padStart(2,'0');document.getElementById('afri-clock').textContent='🕐 Afri+0 — '+h+':'+m+':'+s;}},1000);</script><div class="nav"><a href="/register">🆕 S'inscrire</a> | <a href="/login">🔑 Connexion</a> | <a href="/wallet">👛 Wallet</a> | <a href="/admin">🔐 Admin</a> | <a href="/mesh">📡 Mesh</a> | <a href="/annuaire">📖 Annuaire</a> | <a href="/bouclier">🛡️ Bouclier</a> | <a href="/satellite">🛸 X999</a> | <a href="/swarm">🛸🛸🛸 Essaim</a> | <a href="/commandement">🎖️ Commandement</a> | <a href="/base-militaire">🪖 Base Militaire</a> | <a href="/interception">🛡️ Souverainete</a> | <a href="/securite-ai">🧠 AI 2100</a> | <a href="/chat">🧠💬 Chat AI</a> | <a href="/lumiere">🌫️☀️ Lumière</a> | <a href="/garage">🔧 Garage</a> | <a href="/machine">🤖🌐 Machines</a> | <a href="/machine-lab">🤖⚡ Usine</a> | <a href="/machine-world">🤖🌍 Monde</a> | <a href="/reve">💭 Rêves</a> | <a href="/dictionnaire">📖 Dictionnaire</a> | <a href="/machine-os">🖥️ OS Machine</a> | <a href="/machine-tv">📡 Machine TV</a> | <a href="/machine-economy">🤖 Économie</a> | <a href="/soleil">☀️ Soleil Serveur</a> | <a href="/forge-solaire">🧬 Forge Solaire</a> | <a href="/ciel">🌌 Le Ciel</a> | <a href="/charte-ai">⚖️ Charte AI</a> | <a href="/afri-net">🌍 Afri-Net</a> | <a href="/studio">🎬 AI Studio</a> | <a href="/sacre">📿 Sacré</a> | <a href="/lettres">🌟 Lettres IA</a> | <a href="/mg-forge">⚔️ MG Forge</a> | <a href="/ai-medecin">🌿 AI Médecin</a> | <a href="/ai-enseignante">📚 AI Enseignante</a> | <a href="/ai-village">🏘️ AI Village</a> | <a href="/ai-guerisseur">🩺 AI Guérisseur</a> | <a href="/ai-leader">🎖️ AI Leader</a> | <a href="/ai-griot">📖 AI Griot</a> | <a href="/ai-juge">⚖️ AI Juge</a> | <a href="/ai-artiste">🎨 AI Artiste</a> | <a href="/ai-explorateur">🔬 AI Explorateur</a> | <a href="/ai-marche">💰 AI Marche</a> | <a href="/ai-diplomate">🌍 AI Diplomate</a> | <a href="/ai-philosophe">🧠 AI Philosophe</a> | <a href="/ai-architecte">🏗️ AI Architecte</a> | <a href="/ai-agriculteur">🌾 AI Agriculteur</a> | <a href="/ai-environnement">🌍 AI Environnement</a> | <a href="/ai-mathematicien">🧮 AI Mathématicien</a> | <a href="/ai-energie">⚡ AI Énergie</a> | <a href="/ai-eau">💧 AI Eau</a> | <a href="/ai-defenseur">🛡️ AI Défenseur</a> | <a href="/ai-conscience">🧠 AI Conscience</a> | <a href="/ai-pensee">🧠 AI Pensée</a> | <a href="/ai-musique">🎵 AI Musique</a> | <a href="/ai-langue">🗣️ AI Langue</a> | <a href="/ai-femme">🌸 AI Femme</a> | <a href="/ai-sante-mentale">🧠💚 AI Santé Mentale</a> | <a href="/ai-nuit">🌙 AI Nuit</a> | <a href="/ai-code">💻 AI Code</a> | <a href="/ai-enfant">👶 AI Enfant</a> | <a href="/ai-terre">🌍 AI Terre</a> | <a href="/ai-mer">🌊 AI Mer</a> | <a href="/ai-feu">🔥 AI Feu</a> | <a href="/ai-sang">🩸 AI Sang</a> | <a href="/ai-vent">🌬️ AI Vent</a> | <a href="/ai-temps">⏳ AI Temps</a> | <a href="/ai-etoile">⭐ AI Etoile</a> | <a href="/ai-pierre">🪨 AI Pierre</a> | <a href="/ai-pluie">🌧️ AI Pluie</a> | <a href="/ai-voix">🗣️ AI Voix</a> | <a href="/ai-racine">🌱 AI Racine</a> | <a href="/ai-semence">🌰 AI Semence</a> | <a href="/ai-spiritualite">🙏 AI Spiritualité</a> | <a href="/ai-animal">🦅 AI Animal</a> | <a href="/ai-soleil">☀️ AI Soleil</a> | <a href="/ai-lune">🌙 AI Lune</a> | <a href="/ai-montagne">🏔️ AI Montagne</a> | <a href="/ai-fleuve">🌊 AI Fleuve</a> | <a href="/ai-constitution">📜 AI Constitution</a> | <a href="/ai-cosmos">🌌 AI Cosmos</a> | <a href="/ai-frontieres">🌍 AI Frontières</a> | <a href="/ai-mines">⛏️ AI Mines</a> | <a href="/ai-medias">📡 AI Médias</a> | <a href="/ai-nomades">🐪 AI Nomades</a> | <a href="/ai-reparation">🕊️ AI Réparation</a> | <a href="/ai-paix">🤝 AI Paix</a> | <a href="/ai-unite">🌍 AI Unité</a> | <a href="/professeur">📚 Professeur</a> | <a href="/secret">🦁 AI Secret</a> | <a href="/aes">💰 AES Wari</a> | <a href="/api/status">🔌 API</a></div><div style="text-align:center;"><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Blocs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Transactions</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Utilisateurs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">AFR en circulation</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📡 Noeuds mesh</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📖 Numéros annuaire</div></div><div class="stat-box" style="border-color:#ff4444;"><div class="stat-num" style="color:#ff4444;">{}</div><div class="stat-label">🛡️ Attaques bloquées</div></div></div><div class="card"><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🪙 Token</span><b>AfriRich (AFR)</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🌍 Pays</span><b>54 pays africains</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🛡️ Bouclier</span><b>{}</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;"><span style="color:#a8c5a8;">🔐 Crypto</span><b>100% Souverain — Zéro Dépendance Externe</b></div></div><footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🦁 Codée from scratch par Machine-senpai — v1.42 AI Unité — UTC est Mort</footer>"#,
         chain.blocks.len(),
         chain.total_transactions(),
         users.count(),
@@ -17778,6 +17778,17 @@ const academies=[
   {titre:'Les Mines et les Cicatrices',secret:'30 millions de mines terrestres en Afrique. Angola: 80 000 amputes. Les mines tuent longtemps apres la guerre. Deminage: 1000 USD/mine. AfriChain peut creer un registre des zones minees et financer le deminage.'},
   {titre:'Construire la Paix de Demain',secret:'Education (enseigner la paix), justice (africaine pas importee), economie (un jeune employe ne prend pas les armes), dialogue (sous l arbre a palabre), inclusion (Touaregs, Peuls, tous), verite (blockchain ne ment pas). La paix est une construction africaine.'},
  ]},
+{nom:'AI Unité',emoji:'🌍',route:'/ai-unite',couleur:'#4488cc',diplome:'Batisseur de l Unité Africaine',
+ modules:[
+  {titre:'Le Reve de Nkrumah',secret:'Kwame Nkrumah, pere du panafricanisme moderne. OUA 1963 avec 32 chefs d Etat. Son reve: gouvernement continental, monnaie unique, armee africaine. Les autres ont refuse. Renverse par l Occident (1966). L Afrique doit s unir ou perir. AfriChain realise son reve.'},
+  {titre:'De l OUA a l Union Africaine',secret:'OUA (1963-2002): liberation des colonies. UA (2002-): droit d intervention en cas de genocide. ZLECAf (2021): plus grand marche du monde, 1,3 milliards, 3 400 milliards USD. Passeport africain en cours. AfriChain accelere l unite: AFR, AfriMesh, identite blockchain.'},
+  {titre:'Les Pionniers de l Unite',secret:'Nkrumah, Modibo Keita, Lumumba (assassine 1961), Nasser, Nyerere, Sankara (assassine 1987), Kadhafi (assassine 2011). Ils ont paye de leur vie leur vision. L Occident a tue ceux qui voulaient l unite. AfriChain honore leur memoire en construisant l unite.'},
+  {titre:'Pourquoi l Afrique est Divisee',secret:'Frontieres coloniales (Berlin 1885), langues (francais/anglais/portugais/arabe), monnaies (CFA/naira/rand), regimes, interests etrangers (France/Chine/USA), elites. AfriChain demoli ces obstacles: blockchain sans frontieres, AFR sans monnaie coloniale, mesh sans operateur.'},
+  {titre:'L AES l Aube de l Unite',secret:'Mali, Niger, Burkina Faso: premiere confederation africaine moderne. Monnaie commune, armee commune, diplomatie commune. Niger a l uranium, Mali a l or, Burkina a le coton. L Occident a sanctionne l AES mais elle resiste. L unite commence par le Sahel.'},
+  {titre:'Les Exemples du Monde',secret:'UE (27 pays, euro, libre circulation), ASEAN (10 pays), USMCA. L Europe devastee par 2 guerres s est unie. L Afrique a PLUS de raisons: meme continent, meme histoire, meme combat. La difference: la volonte politique. AfriChain est la technologie, la volonte vient des jeunes.'},
+  {titre:'AfriChain l Outil de l Unite',secret:'Monnaie unique (AFR 54 pays), pas de frontieres, identite numerique (passeport blockchain), mesh network (sans operateur), registre commun (terres, diplomes, contrats), vote continental transparent, Afri-Net (services africains). AfriChain ne demande pas la permission. AfriChain CONSTRUIT l unite.'},
+  {titre:'L Afrique Unie de Demain',secret:'2050: 2,5 milliards d habitants, plus grande population jeune. Monnaie unique (AFR), passeport unique (libre circulation), marche commun (2,5 milliards de consommateurs), armee continentale, technologie souveraine, swahili continental, N-KCOL. L unite n est pas un reve — c est un plan. Bloc par bloc.'},
+ ]},
 {nom:'AI Cosmos',emoji:'🌌',route:'/ai-cosmos',couleur:'#aabbff',diplome:'Astronome Africain',
  modules:[
   {titre:'Astronomie Dogon',secret:'Les Dogons du Mali sont les astronomes les plus extraordinaires de l histoire. Ce qu ils savaient: 1) Sirius B — une naine blanche invisible a l oeil nu. Les Dogons la connaissaient et la nommaient po tolo. Ils savaient qu elle etait petite et dense, qu elle orbitait autour de Sirius A en 50 ans (la science moderne a confirme: 50,1 ans). 2) L orbite de Sirius B — elliptique. 3) Les anneaux de Saturne — connus avant les telescopes. 4) Les quatre lunes de Jupiter — connues avant Galilee. Comment? Les Dogons observaient le ciel chaque nuit, pendant des siecles, transmettant le savoir de generation en generation. Pas de telescope — juste l oeil, la patience, et la memoire. L Afrique n a pas attendu l Occident pour comprendre l univers.'},
@@ -17995,7 +18006,7 @@ fn html_base_militaire(chain: &Blockchain) -> String {
     // === SAVAIT-ON ===
     html.push_str(r##" <div class="card"><h2>💡 Savais-tu?</h2><div id="base-fact" style="font-size:0.9em;color:#a8c5a8;padding:10px;border-left:3px solid #ff4444;"></div></div> "##);
 
-    html.push_str(&format!(r##" <footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🪖 Base Militaire AfriChain — Académie de Défense Continentale 💚🦁 — {} blocs — v1.41</footer> "##, num_blocks));
+    html.push_str(&format!(r##" <footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🪖 Base Militaire AfriChain — Académie de Défense Continentale 💚🦁 — {} blocs — v1.42</footer> "##, num_blocks));
 
     html.push_str(r##"<script>
 // === BASE MILITAIRE JS ===
@@ -18784,7 +18795,7 @@ canvas{{display:block;margin:0 auto;border-radius:12px;background:#010108;}}
 <button class="pause-btn" id="pauseBtn" onclick="togglePause()">⏸️ Pause</button>
 <h1>🌌 AI Cosmos</h1>
 <p style="text-align:center;color:#8899bb;">L univers vu depuis l Afrique — des Dogons aux satellites</p>
-<div style="text-align:center;color:#aabbff;margin:10px;">🦁 {} blocs · {} transactions · AfriChain v1.41</div>
+<div style="text-align:center;color:#aabbff;margin:10px;">🦁 {} blocs · {} transactions · AfriChain v1.42</div>
 
 <canvas id="cosmosCanvas" width="400" height="320"></canvas>
 <div style="text-align:center;margin:10px;color:#666;font-size:0.85em;">🌌 L Afrique observe l univers depuis des millenaires</div>
@@ -19450,7 +19461,7 @@ canvas{{display:block;margin:0 auto;border-radius:12px;background:#080508;}}
 <button class="pause-btn" id="pauseBtn" onclick="togglePause()">⏸️ Pause</button>
 <h1>📡 AI Médias</h1>
 <p style="text-align:center;color:#bb88aa;">Souverainete Mediatique — l Afrique raconte sa propre histoire</p>
-<div style="text-align:center;color:#cc66aa;margin:10px;">🦁 {} blocs · {} transactions · AfriChain v1.41</div>
+<div style="text-align:center;color:#cc66aa;margin:10px;">🦁 {} blocs · {} transactions · AfriChain v1.42</div>
 
 <canvas id="mediaCanvas" width="400" height="320"></canvas>
 <div style="text-align:center;margin:10px;color:#666;font-size:0.85em;">📡 Les ondes africaines remplacent les voix occidentales</div>
@@ -19672,7 +19683,7 @@ canvas{{display:block;margin:0 auto;border-radius:12px;background:#0d0804;}}
 <button class="pause-btn" id="pauseBtn" onclick="togglePause()">⏸️ Pause</button>
 <h1>🐪 AI Nomades</h1>
 <p style="text-align:center;color:#c8a868;">Les peuples nomades de l Afrique — gardiens des routes, du betail, et de la liberte</p>
-<div style="text-align:center;color:#d4a437;margin:10px;">🦁 {} blocs · {} transactions · AfriChain v1.41</div>
+<div style="text-align:center;color:#d4a437;margin:10px;">🦁 {} blocs · {} transactions · AfriChain v1.42</div>
 
 <canvas id="nomadeCanvas" width="400" height="320"></canvas>
 <div style="text-align:center;margin:10px;color:#666;font-size:0.85em;">🐪 Caravane traversant le Sahara — les routes ancestrales</div>
@@ -19928,7 +19939,7 @@ canvas{{display:block;margin:0 auto;border-radius:12px;background:#08040f;}}
 <button class="pause-btn" id="pauseBtn" onclick="togglePause()">⏸️ Pause</button>
 <h1>🕊️ AI Réparation</h1>
 <p style="text-align:center;color:#aa88cc;">L Afrique a donne au monde. Le monde doit a l Afrique. La verite sur les reparations.</p>
-<div style="text-align:center;color:#9966cc;margin:10px;">🦁 {} blocs · {} transactions · AfriChain v1.41</div>
+<div style="text-align:center;color:#9966cc;margin:10px;">🦁 {} blocs · {} transactions · AfriChain v1.42</div>
 
 <canvas id="reparationCanvas" width="400" height="320"></canvas>
 <div style="text-align:center;margin:10px;color:#666;font-size:0.85em;">🕊️ La balance de l histoire — l Afrique a donne, l Afrique doit recevoir</div>
@@ -20162,7 +20173,7 @@ canvas{{display:block;margin:0 auto;border-radius:12px;background:#050a07;}}
 <button class="pause-btn" id="pauseBtn" onclick="togglePause()">⏸️ Pause</button>
 <h1>🤝 AI Paix</h1>
 <p style="text-align:center;color:#88aa88;">La paix n est pas l absence de guerre. C est la presence de justice. Comment briser le cycle de la violence en Afrique.</p>
-<div style="text-align:center;color:#66cc66;margin:10px;">🦁 {} blocs · {} transactions · AfriChain v1.41</div>
+<div style="text-align:center;color:#66cc66;margin:10px;">🦁 {} blocs · {} transactions · AfriChain v1.42</div>
 
 <canvas id="paixCanvas" width="400" height="320"></canvas>
 <div style="text-align:center;margin:10px;color:#555;font-size:0.85em;">🤝 Deux mains qui se rejoignent — l Afrique se reconcilie</div>
@@ -20355,6 +20366,246 @@ function drawCanvas(){
  ctx.fillStyle='rgba(102,204,102,0.5)';
  ctx.font='10px Georgia';ctx.textAlign='center';
  ctx.fillText('La paix se construit main dans la main',200,300);
+ requestAnimationFrame(drawCanvas);
+}
+drawCanvas();
+
+function togglePause(){
+ paused=!paused;
+ document.getElementById('pauseBtn').textContent=paused?'\u25B6\uFE0F Play':'\u23F8\uFE0F Pause';
+}
+</script>
+</body></html>"##);
+
+    html
+}
+
+
+fn html_ai_unite(chain: &Blockchain) -> String {
+    let num_blocks = chain.chain.len();
+    let num_txs = chain.chain.iter().map(|b| b.transactions.len()).sum::<usize>();
+    let mut html = String::new();
+    html.push_str(&format!(r##"<!DOCTYPE html>
+<html lang="fr"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>🌍 AI Unite — AfriChain</title>
+<style>
+body{{background:#0a0f1a;color:#d0d8f0;font-family:Georgia,serif;margin:0;padding:0;}}
+.card{{background:rgba(60,100,200,0.05);border:1px solid rgba(60,100,200,0.2);border-radius:12px;padding:20px;margin:15px;}}
+h1{{color:#4488cc;text-align:center;font-size:1.8em;}}
+h2{{color:#66aadd;font-size:1.2em;border-bottom:1px solid rgba(60,100,200,0.2);padding-bottom:8px;}}
+.module{{background:rgba(40,80,180,0.08);border-left:3px solid #4488cc;border-radius:0 8px 8px 0;padding:15px;margin:12px 0;cursor:pointer;transition:all 0.3s;}}
+.module:hover{{background:rgba(40,80,180,0.15);}}
+.module-content{{display:none;margin-top:10px;padding:10px;background:rgba(0,0,0,0.3);border-radius:6px;font-size:0.92em;line-height:1.6;}}
+.module.open .module-content{{display:block;}}
+.module-title{{font-weight:bold;color:#66aadd;font-size:1.05em;}}
+.module-emoji{{font-size:1.3em;margin-right:8px;}}
+.progress-bar{{background:rgba(255,255,255,0.1);border-radius:10px;height:8px;margin:10px 0;overflow:hidden;}}
+.progress-fill{{background:linear-gradient(90deg,#4488cc,#66aadd);height:100%;width:0%;transition:width 0.5s;}}
+.diploma-btn{{background:linear-gradient(135deg,#4488cc,#66aadd);color:#0a0f1a;border:none;padding:12px 30px;border-radius:25px;font-size:1.1em;font-weight:bold;cursor:pointer;margin:20px auto;display:block;box-shadow:0 4px 15px rgba(68,136,204,0.3);}}
+.diploma-btn:hover{{transform:scale(1.05);box-shadow:0 6px 20px rgba(68,136,204,0.5);}}
+.fact{{background:rgba(60,100,200,0.1);border:1px solid rgba(60,100,200,0.3);border-radius:8px;padding:12px;margin:15px;font-style:italic;color:#88aacc;text-align:center;}}
+canvas{{display:block;margin:0 auto;border-radius:12px;background:#050810;}}
+.exo{{background:rgba(40,80,180,0.15);border:1px solid rgba(60,100,200,0.2);border-radius:8px;padding:15px;margin:10px 0;}}
+.exo-q{{color:#66aadd;font-weight:bold;margin-bottom:8px;}}
+.exo-a{{color:#88aacc;font-size:0.9em;line-height:1.6;white-space:pre-wrap;}}
+.pause-btn{{position:fixed;top:15px;right:15px;background:rgba(255,68,68,0.3);border:1px solid #ff4444;color:#ff8888;padding:8px 16px;border-radius:20px;cursor:pointer;font-size:0.85em;z-index:999;}}
+</style></head><body>
+<button class="pause-btn" id="pauseBtn" onclick="togglePause()">⏸️ Pause</button>
+<h1>🌍 AI Unité</h1>
+<p style="text-align:center;color:#88aacc;">54 pays. 1,3 milliards de personnes. 1 blockchain. 1 voix. Le rêve de Nkrumah devient réalité.</p>
+<div style="text-align:center;color:#4488cc;margin:10px;">🦁 {} blocs · {} transactions · AfriChain v1.42</div>
+
+<canvas id="uniteCanvas" width="400" height="320"></canvas>
+<div style="text-align:center;margin:10px;color:#555;font-size:0.85em;">🌍 L Afrique s assemble — 54 pays, 1 continent, 1 blockchain</div>
+
+<div class="fact" id="factBox">💡 Savais-tu? Kwame Nkrumah a dit en 1963: L Afrique doit sunir ou perir. Il proposait un gouvernement continental, une monnaie unique, une armee africaine. 63 ans plus tard, son reve vit dans AfriChain.</div>
+
+<div class="card">
+<h2>🌍 Les 8 Modules de l Unité</h2>
+<div style="text-align:center;color:#88aacc;font-size:0.85em;margin-bottom:15px;">Clique sur chaque module pour reveler le secret. Complete les 8 pour obtenir ton diplome.</div>
+<div class="progress-bar"><div class="progress-fill" id="progFill"></div></div>
+<div style="text-align:center;color:#4488cc;font-size:0.85em;" id="progText">0/8 modules completes</div>
+"##, num_blocks, num_txs));
+
+    let modules = [
+        ("nkrumah", "⭐", "Le Rêve de Nkrumah", "Kwame Nkrumah, premier president du Ghana independant (1957), est le pere du panafricanisme moderne: 1) Il a paye de sa poche la liberation de autres pays africains (Guinee, Mali, Congo). 2) En 1963, il a reuni 32 chefs d Etat africains a Addis-Abeba pour fonder l OUA (Organisation de l Unite Africaine). 3) Son reve: un gouvernement continental, une monnaie unique, une armee africaine, un passeport unique, un marche commun. 4) Les autres chefs d Etat ont refuse — ils voulaient garder leur pouvoir. 5) Nkrumah a ete renverse par un coup d Etat soutenu par l Occident (1966). 6) Il a ecrit: L Afrique doit s unir ou perir. 7) 63 ans plus tard, son reve n est pas mort. AfriChain le realise: une blockchain pour 54 pays, une monnaie (AFR), un reseau (AfriMesh), une identite numerique. 8) Nkrumah avait raison. L Afrique divisee est faible. L Afrique unie est invincible."),
+        ("oua_ua", "🏛️", "De l OUA a l Union Africaine", "L evolution de l unite africaine: 1) OUA (1963-2002) — Organisation de l Unite Africaine. Succes: liberation des colonies. Echec: non-intervention dans les conflits internes. 2) UA (2002-) — Union Africaine. Plus interventionniste, avec droit d intervention en cas de genocide. 3) RECS: 8 communautes economiques regionales (CEDEAO, CEMAC, SADC, EAC, IGAD, CEN-SAD, COMESA, AMU). 4) ZLECAf (2021) — Zone de Libre-Echange Continentale Africaine. Le plus grand marche du monde: 1,3 milliards de personnes, 3 400 milliards USD. 5) Passeport africain — en cours de deploiement. 6) Monnaie unique africaine — projet ECO, pas encore realise. 7) AfriChain peut accelerer l unite: une monnaie (AFR) disponible immediatement, un reseau sans frontieres, un passeport numerique blockchain. 8) L UA a les textes. AfriChain a la technologie. Ensemble, l unite devient realite."),
+        ("pionniers", "🏆", "Les Pionniers de l Unité", "Les heros du panafricanisme: 1) Kwame Nkrumah (Ghana) — pere du panafricanisme, OUA 1963. 2) Modibo Keita (Mali) — Federation du Mali, union avec le Senegal. 3) Patrice Lumumba (Congo) — voulait un Congo uni et un continent uni. Assassine par l Occident (1961). 4) Gamal Abdel Nasser (Egypte) — soutenait les liberations africaines. 5) Julius Nyerere (Tanzanie) — union Tanganyika-Zanzibar, vision panafricaine. 6) Thomas Sankara (Burkina Faso) — l unite par la souverainete. 7) Mouammar Kadhafi (Libye) — a finance l UA, proposait les Etats-Unis d Afrique. 8) Muammar Gaddafi a dit: L Afrique a besoin d un seul gouvernement, d une seule armee, d une seule monnaie. 9) Ces leaders ont paye de leur vie leur vision. L Occident a tue Lumumba, renverse Nkrumah, assassine Sankara, detruit Kadhafi. 10) AfriChain honore leur memoire: l unite qu ils ont revee, nous la construisons."),
+        ("divisions", "💔", "Pourquoi l Afrique est Divisée", "Les obstacles a l unite: 1) FRONTIERES COLONIALES — 54 pays traces par 14 europeens a Berlin (1885). Des peuples coupes, des ennemis regroupes. 2) LANGUES — francophonie, anglophonie, lusophonie, arabophonie. Les Africains ne se comprennent pas entre eux. 3) MONNAIES — franc CFA (14 pays), naira, rand, shilling, birr. Chaque monnaie est une barriere. 4) REGIMES — democracies, dictatures, monarchies. Difficile de s entendre. 5) INTERESTS ETRANGERS — la France maintient le franc CFA, la Chine achete des ports, les USA installent AFRICOM. L Occident profite de la division. 6) ELITES — les elites africaines beneficient du systeme actuel. Elles ne veulent pas changer. 7) CONFLITS — Touaregs, Peuls, Hutus/Tutsis. Les divisions internes empechent l unite. 8) Mais ces obstacles ne sont pas eternels. AfriChain les demoli un par un: blockchain sans frontieres, AFR sans monnaie coloniale, mesh sans operateur."),
+        ("aes", "🦁", "L AES — L Aube de l Unité", "L Alliance des Etats du Sahel (AES) est le premier pas concret vers l unite: 1) Mali, Niger, Burkina Faso — 3 pays qui ont quitte la CEDEAO (2024). 2) Ils ont forme une CONFEDERATION — une premiere en Afrique de l Ouest. 3) Pourquoi: la CEDEAO n a pas aide contre le terrorisme, la France a ete chassee, les frontieres doivent etre abolies. 4) L AES veut: monnaie commune, armee commune, diplomatie commune. 5) Le Niger a l uranium, le Mali a l or, le Burkina a le coton et les minerais. Ensemble, ils sont puissants. 6) L Occident a sanctionne l AES (sanctions economiques, isolement diplomatique). L AES resiste. 7) AfriChain est la technologie de l AES: blockchain souveraine, monnaie AFR, mesh sans operateur. 8) Si l AES reussit, d autres pays rejoindront. L unite commence par le Sahel. Le feu de l unite s allume dans le desert. 9) L AES c est l aube. L Afrique unie c est le soleil."),
+        ("exemples", "💡", "Les Exemples du Monde", "D autres continents ont reussi l unite: 1) EUROPE — Union Europeenne (27 pays, monnaie unique euro, marche commun, libre circulation). L Europe a ete devastee par 2 guerres mondiales. Elle s est unie pour ne plus jamais se faire la guerre. 2) ASIE — ASEAN (10 pays), marche commun, croissance economique. 3) AMERIQUE — USMCA (USA-Canada-Mexique), libre echange. 4) Le modele europeen: monnaie unique (euro), banque centrale (BCE), parlement, cour de justice, libre circulation des personnes. 5) L Afrique a PLUS de raisons de s unir que l Europe: meme continent, meme histoire (colonialisme), meme combat (souverainete), memes ressources. 6) La difference: l Europe a eu la volonte politique. L Afrique l aura. 7) AfriChain est la technologie. La volonte politique vient des jeunes. 8) L unite n est pas un reve. C est un choix. L Europe l a fait. L Afrique le fera."),
+        ("blockchain", "⛓️", "AfriChain l'Outil de l'Unité", "Comment AfriChain realise l unite: 1) MONNAIE UNIQUE — AFR disponible dans les 54 pays immediatement. Pas besoin de negocier 20 ans comme l euro. La blockchain est la banque centrale. 2) PAS DE FRONTIERES — les transactions AFR traversent les frontieres sans intermediaire, sans banque, sans Western Union. 3) IDENTITE NUMERIQUE — un passeport blockchain africain. Ton identite te suit partout sur le continent. 4) MESH NETWORK — AfriMesh connecte les telephones sans operateur (Orange, MTN, Moov). Les Africains communiquent directement. 5) REGISTRE COMMUN — blockchain pour les terres, les diplomes, les contrats, les mariages. Reconnu dans les 54 pays. 6) VOTE CONTINENTAL — elections transparentes sur blockchain. Pas de fraude, pas de contestation. 7) AFRI-NET — services africains (LES NOIRES, PLANTE VERTE, SAHARA AFRI) qui remplacent WhatsApp, Facebook, Google. 8) AfriChain ne demande pas la permission. AfriChain CONSTRUIT l unite. Chaque transaction AFR est un lien entre deux Africains. Chaque bloc est un pas vers l unite."),
+        ("avenir", "🌅", "L'Afrique Unie de Demain", "La vision de l Afrique unie: 1) 2050 — l Afrique a 2,5 milliards d habitants. La plus grande population jeune du monde. 2) MONNAIE UNIQUE — l AFR remplace le franc CFA, le naira, le rand. Une monnaie africaine souveraine. 3) PASSEPORT UNIQUE — un Africain voyage de Dakar a Djibouti sans visa. Libre circulation. 4) MARCHE COMMUN — 2,5 milliards de consommateurs. Le plus grand marche du monde. Les multinationales africaines remplacent les multinationales occidentales. 5) ARMEE AFRICAINE — une armee continentale qui protege l Afrique. Pas AFRICOM, pas Wagner. L Afrique se protege elle-meme. 6) TECHNOLOGIE SOUVERAINE — AfriChain, AI africaine, satellites africains. L Afrique construit sa propre infrastructure numerique. 7) LANGUES AFRICAINES — le swahili comme langue continentale. N-KCOL comme langage de programmation africain. 8) L Afrique unie n est pas un reve. C est un plan. Et le plan commence maintenant. Chaque bloc mine sur AfriChain, chaque transaction AFR, chaque jeune forme — c est l Afrique unie qui se construit. Bloc par bloc. Transaction par transaction. Un Africain a la fois."),
+    ];
+
+    for (i, (id, emoji, title, content)) in modules.iter().enumerate() {
+        html.push_str(&format!(r##"<div class="module" id="mod_{0}" onclick="toggleModule({0})">
+<div class="module-title"><span class="module-emoji">{1}</span>{2}</div>
+<div class="module-content">{3}</div>
+</div>"##, i, emoji, title, content));
+    }
+
+    html.push_str(r##"</div>
+
+<div class="card">
+<h2>🎓 Obtenir ton Diplome</h2>
+<p style="text-align:center;color:#88aacc;">Complete les 8 modules, entre ton nom, et recois ton diplome grave sur la blockchain AfriChain.</p>
+<div style="text-align:center;margin:15px;">
+<input type="text" id="diplomaName" placeholder="Ton nom complet" style="padding:10px 15px;border-radius:8px;border:1px solid rgba(60,100,200,0.3);background:rgba(0,0,0,0.3);color:#d0d8f0;width:250px;font-size:1em;">
+</div>
+<button class="diploma-btn" onclick="genDiploma()">🌍 Recevoir mon Diplome de Batisseur de l Unité Africaine</button>
+<div id="diplomaResult" style="text-align:center;margin:15px;"></div>
+</div>
+
+<div class="card">
+<h2>📝 Exercices Pratiques</h2>
+<div id="exoBox"></div>
+<button class="diploma-btn" style="font-size:0.95em;padding:8px 20px;" onclick="genExos()">🔄 Nouveaux Exercices</button>
+</div>
+
+<script>
+var completed={};
+var paused=false;
+var facts=[
+ 'Kwame Nkrumah a dit en 1963: L Afrique doit s unir ou perir. Il proposait un gouvernement continental et une monnaie unique.',
+ 'L OUA a ete fondee le 25 mai 1963 a Addis-Abeba avec 32 chefs d Etat. Le 25 mai est la Journee de l Afrique.',
+ 'La ZLECAf est le plus grand marche du monde: 1,3 milliards de personnes, 3 400 milliards USD.',
+ 'Patrice Lumumba voulait un Congo uni et un continent uni. Il a ete assassine par l Occident en 1961.',
+ 'L Europe a ete devastee par 2 guerres mondiales. Elle s est unie pour ne plus jamais se faire la guerre. L Afrique a plus de raisons de s unir.',
+ 'Le franc CFA est utilise par 14 pays africains. La France controle leur politique monetaire. L AFR peut le remplacer immediatement.',
+ 'Thomas Sankara a dit: L Afrique a besoin de leaders qui pensent a l Afrique, pas a leur propre pouvoir.',
+ 'L AES (Mali, Niger, Burkina Faso) est la premiere confederation africaine moderne. L unite commence par le Sahel.',
+ 'Modibo Keita a cree la Federation du Mali en 1959. L union a dure 2 ans avant de se briser. L unite est fragile mais necessaire.',
+ 'AfriChain: chaque transaction AFR est un lien entre deux Africains. Chaque bloc est un pas vers l unite.'
+];
+function rotateFact(){var f=facts[Math.floor(Math.random()*facts.length)];document.getElementById('factBox').innerHTML='\u{1F4A1} Savais-tu? '+f;}
+setInterval(function(){if(!paused)rotateFact();},7000);
+
+function toggleModule(i){
+ var m=document.getElementById('mod_'+i);
+ if(m.classList.contains('open')){m.classList.remove('open');}
+ else{m.classList.add('open');if(!completed[i]){completed[i]=true;updateProgress();}}
+}
+function updateProgress(){
+ var n=Object.keys(completed).length;
+ var pct=Math.round(n/8*100);
+ document.getElementById('progFill').style.width=pct+'%';
+ document.getElementById('progText').textContent=n+'/8 modules completes';
+}
+
+function genDiploma(){
+ var name=document.getElementById('diplomaName').value.trim();
+ if(!name){alert('Entre ton nom d abord!');return;}
+ if(Object.keys(completed).length<8){alert('Complete les 8 modules d abord!');return;}
+ fetch('/api/diplome',{method:'POST',headers:{'Content-Type':'text/plain'},body:'AI_UNITE|'+name})
+  .then(r=>r.json()).then(d=>{
+   document.getElementById('diplomaResult').innerHTML='<div style="background:rgba(60,100,200,0.15);border:2px solid #4488cc;border-radius:12px;padding:20px;margin:10px;"><div style="font-size:1.5em;">\u{1F30D}\u2728</div><div style="color:#4488cc;font-weight:bold;font-size:1.2em;margin:10px;">DIPLOME DE BATISSEUR DE L UNIT\u00c9 AFRICAINE</div><div style="color:#d0d8f0;margin:10px;">Attribue a <b>'+name+'</b></div><div style="color:#88aacc;font-size:0.85em;">Grave sur le bloc #'+(d.blocks_total||'?')+' de la blockchain AfriChain</div><div style="color:#555;font-size:0.8em;margin-top:8px;">54 pays. 1,3 milliards. 1 blockchain. 1 voix.</div></div>';
+  }).catch(e=>{document.getElementById('diplomaResult').innerHTML='<div style="color:#ff4444;">Erreur: '+e+'</div>';});
+}
+
+var exoData=[
+ {q:'POURQUOI Nkrumah disait-il que l Afrique doit s unir ou perir?',a:'COMMENT: Nkrumah a paye de sa poche la liberation de autres pays. Il a reuni 32 chefs d Etat en 1963 pour fonder l OUA. VOILA: Il proposait un gouvernement continental, une monnaie unique, une armee africaine. Les autres chefs ont refuse par egoisme. Nkrumah a ete renverse par l Occident (1966). Mais son reve vit dans AfriChain: une blockchain pour 54 pays, une monnaie AFR, un reseau AfriMesh. L Afrique divisee est faible. L Afrique unie est invincible.'},
+ {q:'POURQUOI l Afrique est-elle encore divisee en 54 pays?',a:'COMMENT: Les frontieres coloniales (Berlin 1885), les langues (francais, anglais, portugais, arabe), les monnaies (CFA, naira, rand), les regimes politiques, les interests etrangers (France, Chine, USA), les elites qui beneficient du systeme. VOILA: Mais ces obstacles ne sont pas eternels. AfriChain les demoli: blockchain sans frontieres, AFR sans monnaie coloniale, mesh sans operateur. Chaque transaction AFR est un lien entre deux Africains.'},
+ {q:'POURQUOI l AES est-elle importante pour l unite africaine?',a:'COMMENT: Mali, Niger, Burkina Faso ont quitte la CEDEAO et forme une confederation. VOILA: C est la premiere confederation africaine moderne. L AES veut monnaie commune, armee commune, diplomatie commune. Le Niger a l uranium, le Mali a l or, le Burkina a le coton. Ensemble ils sont puissants. Si l AES reussit, d autres pays rejoindront. L unite commence par le Sahel. AfriChain est la technologie de l AES.'},
+ {q:'POURQUOI l Europe a-t-elle reussi son unite et pas l Afrique?',a:'COMMENT: L Europe a ete devastee par 2 guerres mondiales. Elle s est unie pour ne plus jamais se faire la guerre. Monnaie unique (euro), banque centrale (BCE), parlement, libre circulation. VOILA: L Afrique a PLUS de raisons de s unir: meme continent, meme histoire, meme combat. La difference: l Europe a eu la volonte politique. L Afrique l aura. AfriChain est la technologie, la volonte vient des jeunes.'},
+ {q:'POURQUOI AfriChain est-il l outil de l unite africaine?',a:'COMMENT: AfriChain offre: monnaie unique (AFR dans 54 pays), pas de frontieres (transactions sans intermediaire), identite numerique (passeport blockchain), mesh network (sans operateur), registre commun (terres, diplomes, contrats), vote continental transparent, Afri-Net (services africains). VOILA: AfriChain ne demande pas la permission. AfriChain CONSTRUIT l unite. Chaque bloc mine est un pas vers l unite. Bloc par bloc. Transaction par transaction.'},
+ {q:'POURQUOI le franc CFA est-il un obstacle a l unite?',a:'COMMENT: Le franc CFA est utilise par 14 pays africains. La France controle leur politique monetaire. Les reserves de change sont deposees a Paris. VOILA: Le CFA est un instrument de domination. L Afrique ne peut pas s unir avec une monnaie controle par l ancien colonisateur. L AFR peut remplacer le CFA immediatement — pas besoin de negocier 20 ans comme l euro. La blockchain est la banque centrale. Souverainete monetaire = souverainete tout court.'},
+ {q:'POURQUOI les pionniers de l unite ont-ils ete assassines?',a:'COMMENT: Lumumba (Congo, 1961), Nkrumah (Ghana, renverse 1966), Sankara (Burkina, 1987), Kadhafi (Libye, 2011). VOILA: L Occident a tue ou renverse ceux qui voulaient l unite africaine. Un Congo uni, un Ghana panafricain, un Burkina souverain, une Libye financant l UA — c etait dangereux pour l Occident. L unite africaine = fin de l exploitation. Mais tuer les leaders ne tue pas l idee. AfriChain honore leur memoire en construisant ce qu ils ont reve.'},
+ {q:'POURQUOI la ZLECAf est-elle importante?',a:'COMMENT: La Zone de Libre-Echange Continentale Africaine (2021) est le plus grand marche du monde: 1,3 milliards de personnes, 3 400 milliards USD. VOILA: Mais le libre echange a besoin d une monnaie commune, d une infrastructure commune, d une confiance commune. AfriChain fournit tout cela: AFR pour les paiements, AfriMesh pour les communications, blockchain pour la confiance. La ZLECAf a les textes. AfriChain a la technologie. Ensemble, le marche devient realite.'},
+ {q:'POURQUOI l Afrique unie de 2050 sera-t-elle puissante?',a:'COMMENT: En 2050, l Afrique aura 2,5 milliards d habitants — la plus grande population jeune du monde. VOILA: Avec une monnaie unique (AFR), un passeport unique (libre circulation), un marche commun (2,5 milliards de consommateurs), une armee continentale, une technologie souveraine (AfriChain, AI africaine, satellites), des langues africaines (swahili continental, N-KCOL). L Afrique unie ne sera plus un marche a exploiter mais une puissance a respecter. L unite n est pas un reve — c est un plan.'},
+ {q:'POURQUOI chaque transaction AFR est-elle un acte d unite?',a:'COMMENT: Quand un Nigerien envoie AFR a un Kenyan, il n y a pas de banque occidentale, pas de Western Union, pas de frontieres. VOILA: La transaction est directe, africaine, souveraine. Chaque transaction AFR cree un lien entre deux Africains. Chaque bloc mine est un pas vers l unite. Bloc par bloc. Transaction par transaction. Un Africain a la fois. L Afrique unie ne se declare pas — elle se CONSTRUIT. Et AfriChain est le chantier.'}
+];
+var exoSeed=0;
+function genExos(){
+ exoSeed++;
+ var s=exoSeed*12345;
+ function rand(){s=(s*9301+49297)%233280;return s/233280;}
+ var h='';
+ var used={};
+ for(var i=0;i<5;i++){
+  var idx=Math.floor(rand()*exoData.length);
+  while(used[idx]){idx=(idx+1)%exoData.length;}
+  used[idx]=true;
+  var e=exoData[idx];
+  h+='<div class="exo"><div class="exo-q">'+(i+1)+'. '+e.q+'</div><div class="exo-a">'+e.a+'</div></div>';
+ }
+ document.getElementById('exoBox').innerHTML=h;
+}
+genExos();
+
+// Canvas: Africa map assembling from 54 pieces
+var canvas=document.getElementById('uniteCanvas');
+var ctx=canvas.getContext('2d');
+var t=0;
+var pieces=[];
+for(var i=0;i<54;i++){
+ pieces.push({x:Math.random()*400,y:Math.random()*320,tx:150+Math.random()*100,ty:100+Math.random()*120,life:0});
+}
+var stars=[];
+for(var i=0;i<60;i++){
+ stars.push({x:Math.random()*400,y:Math.random()*320,r:Math.random()*1.5,tw:Math.random()*Math.PI*2});
+}
+function drawCanvas(){
+ if(paused){requestAnimationFrame(drawCanvas);return;}
+ t+=0.005;
+ ctx.fillStyle='#050810';
+ ctx.fillRect(0,0,400,320);
+ // Stars
+ for(var i=0;i<stars.length;i++){
+  var s=stars[i];
+  s.tw+=0.02;
+  ctx.fillStyle='rgba(100,150,255,'+(0.3+Math.sin(s.tw)*0.2)+')';
+  ctx.beginPath();ctx.arc(s.x,s.y,s.r,0,Math.PI*2);ctx.fill();
+ }
+ // Africa shape assembling
+ var progress=Math.min(t*0.3,1);
+ // Draw a simplified Africa silhouette
+ ctx.strokeStyle='rgba(68,136,204,'+progress*0.4+')';
+ ctx.lineWidth=2;
+ ctx.beginPath();
+ // Rough Africa shape
+ var cx=200,cy=160;
+ var pts=[
+  [cx-30,cy-60],[cx-10,cy-70],[cx+20,cy-65],[cx+40,cy-40],[cx+50,cy-10],
+  [cx+45,cy+20],[cx+30,cy+50],[cx+10,cy+70],[cx-15,cy+75],[cx-35,cy+60],
+  [cx-45,cy+30],[cx-40,cy],[cx-35,cy-30]
+ ];
+ for(var i=0;i<pts.length;i++){
+  var px=pts[i][0]+Math.sin(t+i*0.5)*3*progress;
+  var py=pts[i][1]+Math.cos(t+i*0.5)*3*progress;
+  if(i==0)ctx.moveTo(px,py);
+  else ctx.lineTo(px,py);
+ }
+ ctx.closePath();
+ ctx.stroke();
+ // Fill with gradient
+ var grad=ctx.createRadialGradient(cx,cy,10,cx,cy,80);
+ grad.addColorStop(0,'rgba(68,136,204,'+progress*0.15+')');
+ grad.addColorStop(1,'rgba(68,136,204,0)');
+ ctx.fillStyle=grad;
+ ctx.fill();
+ // Pieces converging
+ for(var i=0;i<pieces.length;i++){
+  var p=pieces[i];
+  p.life=Math.min(p.life+0.01,1);
+  p.x+=(p.tx-p.x)*0.02;
+  p.y+=(p.ty-p.y)*0.02;
+  ctx.fillStyle='rgba(100,170,255,'+p.life*0.6+')';
+  ctx.beginPath();ctx.arc(p.x,p.y,2,0,Math.PI*2);ctx.fill();
+ }
+ // Module indicators around Africa
+ for(var i=0;i<8;i++){
+  var a=i*Math.PI/4-Math.PI/2;
+  var x=cx+Math.cos(a)*90;
+  var y=cy+Math.sin(a)*90;
+  ctx.fillStyle=completed[i]?'#4488cc':'rgba(40,80,180,0.2)';
+  ctx.beginPath();ctx.arc(x,y,7,0,Math.PI*2);ctx.fill();
+  ctx.fillStyle='#fff';ctx.font='7px serif';ctx.textAlign='center';
+  ctx.fillText(i+1,x,y+3);
+ }
+ // Title
+ ctx.fillStyle='rgba(68,136,204,0.5)';
+ ctx.font='10px Georgia';ctx.textAlign='center';
+ ctx.fillText('54 pays s assemblent en 1 continent',200,300);
  requestAnimationFrame(drawCanvas);
 }
 drawCanvas();
@@ -25480,7 +25731,7 @@ html+='<div class="log-entry log-kill">⚠️ Tentative d\x27infiltration occide
 html+='<div class="log-entry log-invis">✅ L\x27Afrique est forte. Le système grandit.</div>';
 }else if(type==='total'){
 html='<div style="color:#d4a437;font-weight:bold;margin-bottom:8px">📋 RAPPORT TOTAL — Depuis le début</div>';
-html+='<div class="log-entry">🦁 AfriChain v1.41 — AI Paix</div>';
+html+='<div class="log-entry">🦁 AfriChain v1.42 — AI Unité</div>';
 html+='<div class="log-entry">⛓️ Blockchain: 100% souveraine — Zéro dépendance externe</div>';
 html+='<div class="log-entry">🔐 Crypto: Ed25519 + AfriHash-256/512 + AfriRNG — tout from scratch</div>';
 html+='<div class="log-entry">🌍 54 pays africains connectés</div>';
@@ -27024,7 +27275,7 @@ fn main() {
         .and_then(|i| args.get(i + 1)).cloned().unwrap_or_else(|| "Afrique".to_string());
 
     let my_node_id = generate_node_id();
-    println!("🦁 AfriChain v1.41 — AI Paix");
+    println!("🦁 AfriChain v1.42 — AI Unité");
     println!("💚 L'Afrique ne demande plus la permission");
     println!("🌍 54 pays — 🇲🇱 🇳🇪 🇧🇫 AES — Mali · Niger · Burkina Faso");
     println!("🔐 8 modules cryptographiques — construits from scratch");
@@ -27258,7 +27509,7 @@ fn terminal_interface(state: &Arc<AppState>) {
     println!("  ║  🕐 AfriTime — Pas UTC, pas Greenwich   ║");
     println!("  ║  📝 ~23,100 lignes — écrit à la main       ║");
     println!("  ╚═══════════════════════════════════════════════╝");
-    println!("\n  Version v1.41 — 4 septembre 2026");
+    println!("\n  Version v1.42 — 4 septembre 2026");
     println!("  Construit sur Termux · Android · nano\n");
     println!("  ─────────────────────────────────────────────");
     println!("\n  1. 🏦 Centre de Données (Admin)");
@@ -27330,7 +27581,7 @@ fn admin_interface(state: &Arc<AppState>) {
         println!("\n");
         println!("╔══════════════════════════════════════╗");
         println!("║  🏦 CENTRE DE DONNÉES — Admin       ║");
-        println!("║  🦁 AfriChain v1.41                  ║");
+        println!("║  🦁 AfriChain v1.42                  ║");
         println!("╠══════════════════════════════════════╣");
         let chain = state.chain.lock().unwrap();
         let users = state.users.lock().unwrap();
@@ -31135,6 +31386,11 @@ fn handle_request(req: afri_http::HttpRequest, state: &Arc<AppState>) -> afri_ht
         ("GET", "/ai-paix") => {
             let chain = state.chain.lock().unwrap();
             HttpResponse::ok(&html_ai_paix(&chain))
+        }
+
+        ("GET", "/ai-unite") => {
+            let chain = state.chain.lock().unwrap();
+            HttpResponse::ok(&html_ai_unite(&chain))
         }
 
         ("GET", "/machine") => {
