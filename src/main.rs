@@ -1439,7 +1439,7 @@ fn html_home(chain: &Blockchain, users: &UserStore, mesh: &NodeRegistry, shield:
     let mut html = html_head("🦁 AfriChain");
     let (attacks, _blocked, blocked_count, level) = shield.stats();
     let shield_status = if shield.active { format!("🔥 X9 ACTIF (Niveau {})", level) } else { "Inactif".to_string() };
-    html.push_str(&format!(r#"<h1>🦁 AfriChain</h1><p style="text-align:center;">La blockchain 100% africaine — 54 pays 💚🦁</p><div id="afri-clock" style="text-align:center;font-size:1.2em;color:#d4a437;margin:10px 0;">🕐 Afri+0 — --:--:--</div><script>setInterval(function(){{var d=new Date();var h=String(d.getHours()).padStart(2,'0');var m=String(d.getMinutes()).padStart(2,'0');var s=String(d.getSeconds()).padStart(2,'0');document.getElementById('afri-clock').textContent='🕐 Afri+0 — '+h+':'+m+':'+s;}},1000);</script><div class="nav"><a href="/register">🆕 S'inscrire</a> | <a href="/login">🔑 Connexion</a> | <a href="/wallet">👛 Wallet</a> | <a href="/admin">🔐 Admin</a> | <a href="/mesh">📡 Mesh</a> | <a href="/annuaire">📖 Annuaire</a> | <a href="/bouclier">🛡️ Bouclier</a> | <a href="/satellite">🛸 X999</a> | <a href="/swarm">🛸🛸🛸 Essaim</a> | <a href="/commandement">🎖️ Commandement</a> | <a href="/base-militaire">🪖 Base Militaire</a> | <a href="/interception">🛡️ Souverainete</a> | <a href="/securite-ai">🧠 AI 2100</a> | <a href="/chat">🧠💬 Chat AI</a> | <a href="/lumiere">🌫️☀️ Lumière</a> | <a href="/garage">🔧 Garage</a> | <a href="/machine">🤖🌐 Machines</a> | <a href="/machine-lab">🤖⚡ Usine</a> | <a href="/machine-world">🤖🌍 Monde</a> | <a href="/reve">💭 Rêves</a> | <a href="/dictionnaire">📖 Dictionnaire</a> | <a href="/machine-os">🖥️ OS Machine</a> | <a href="/machine-tv">📡 Machine TV</a> | <a href="/machine-economy">🤖 Économie</a> | <a href="/soleil">☀️ Soleil Serveur</a> | <a href="/forge-solaire">🧬 Forge Solaire</a> | <a href="/ciel">🌌 Le Ciel</a> | <a href="/charte-ai">⚖️ Charte AI</a> | <a href="/afri-net">🌍 Afri-Net</a> | <a href="/studio">🎬 AI Studio</a> | <a href="/sacre">📿 Sacré</a> | <a href="/lettres">🌟 Lettres IA</a> | <a href="/mg-forge">⚔️ MG Forge</a> | <a href="/ai-medecin">🌿 AI Médecin</a> | <a href="/ai-enseignante">📚 AI Enseignante</a> | <a href="/ai-village">🏘️ AI Village</a> | <a href="/ai-guerisseur">🩺 AI Guérisseur</a> | <a href="/ai-leader">🎖️ AI Leader</a> | <a href="/ai-griot">📖 AI Griot</a> | <a href="/ai-juge">⚖️ AI Juge</a> | <a href="/ai-artiste">🎨 AI Artiste</a> | <a href="/ai-explorateur">🔬 AI Explorateur</a> | <a href="/ai-marche">💰 AI Marche</a> | <a href="/ai-diplomate">🌍 AI Diplomate</a> | <a href="/ai-philosophe">🧠 AI Philosophe</a> | <a href="/ai-architecte">🏗️ AI Architecte</a> | <a href="/ai-agriculteur">🌾 AI Agriculteur</a> | <a href="/ai-environnement">🌍 AI Environnement</a> | <a href="/ai-mathematicien">🧮 AI Mathématicien</a> | <a href="/ai-energie">⚡ AI Énergie</a> | <a href="/ai-eau">💧 AI Eau</a> | <a href="/ai-defenseur">🛡️ AI Défenseur</a> | <a href="/ai-conscience">🧠 AI Conscience</a> | <a href="/ai-pensee">🧠 AI Pensée</a> | <a href="/ai-musique">🎵 AI Musique</a> | <a href="/ai-langue">🗣️ AI Langue</a> | <a href="/ai-femme">🌸 AI Femme</a> | <a href="/ai-sante-mentale">🧠💚 AI Santé Mentale</a> | <a href="/ai-nuit">🌙 AI Nuit</a> | <a href="/ai-code">💻 AI Code</a> | <a href="/ai-enfant">👶 AI Enfant</a> | <a href="/ai-terre">🌍 AI Terre</a> | <a href="/ai-mer">🌊 AI Mer</a> | <a href="/ai-feu">🔥 AI Feu</a> | <a href="/ai-sang">🩸 AI Sang</a> | <a href="/ai-vent">🌬️ AI Vent</a> | <a href="/ai-temps">⏳ AI Temps</a> | <a href="/ai-etoile">⭐ AI Etoile</a> | <a href="/ai-pierre">🪨 AI Pierre</a> | <a href="/ai-pluie">🌧️ AI Pluie</a> | <a href="/ai-voix">🗣️ AI Voix</a> | <a href="/ai-racine">🌱 AI Racine</a> | <a href="/ai-semence">🌰 AI Semence</a> | <a href="/ai-spiritualite">🙏 AI Spiritualité</a> | <a href="/ai-animal">🦅 AI Animal</a> | <a href="/ai-soleil">☀️ AI Soleil</a> | <a href="/ai-lune">🌙 AI Lune</a> | <a href="/ai-montagne">🏔️ AI Montagne</a> | <a href="/ai-fleuve">🌊 AI Fleuve</a> | <a href="/ai-constitution">📜 AI Constitution</a> | <a href="/ai-cosmos">🌌 AI Cosmos</a> | <a href="/ai-frontieres">🌍 AI Frontières</a> | <a href="/ai-mines">⛏️ AI Mines</a> | <a href="/ai-medias">📡 AI Médias</a> | <a href="/ai-nomades">🐪 AI Nomades</a> | <a href="/ai-reparation">🕊️ AI Réparation</a> | <a href="/ai-paix">🤝 AI Paix</a> | <a href="/ai-unite">🌍 AI Unité</a> | <a href="/professeur">📚 Professeur</a> | <a href="/secret">🦁 AI Secret</a> | <a href="/aes">💰 AES Wari</a> | <a href="/api/status">🔌 API</a></div><div style="text-align:center;"><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Blocs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Transactions</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Utilisateurs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">AFR en circulation</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📡 Noeuds mesh</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📖 Numéros annuaire</div></div><div class="stat-box" style="border-color:#ff4444;"><div class="stat-num" style="color:#ff4444;">{}</div><div class="stat-label">🛡️ Attaques bloquées</div></div></div><div class="card"><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🪙 Token</span><b>AfriRich (AFR)</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🌍 Pays</span><b>54 pays africains</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🛡️ Bouclier</span><b>{}</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;"><span style="color:#a8c5a8;">🔐 Crypto</span><b>100% Souverain — Zéro Dépendance Externe</b></div></div><footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🦁 Codée from scratch par Machine-senpai — v1.42 AI Unité — UTC est Mort</footer>"#,
+    html.push_str(&format!(r#"<h1>🦁 AfriChain</h1><p style="text-align:center;">La blockchain 100% africaine — 54 pays 💚🦁</p><div id="afri-clock" style="text-align:center;font-size:1.2em;color:#d4a437;margin:10px 0;">🕐 Afri+0 — --:--:--</div><script>setInterval(function(){{var d=new Date();var h=String(d.getHours()).padStart(2,'0');var m=String(d.getMinutes()).padStart(2,'0');var s=String(d.getSeconds()).padStart(2,'0');document.getElementById('afri-clock').textContent='🕐 Afri+0 — '+h+':'+m+':'+s;}},1000);</script><div class="nav"><a href="/register">🆕 S'inscrire</a> | <a href="/login">🔑 Connexion</a> | <a href="/wallet">👛 Wallet</a> | <a href="/admin">🔐 Admin</a> | <a href="/mesh">📡 Mesh</a> | <a href="/annuaire">📖 Annuaire</a> | <a href="/bouclier">🛡️ Bouclier</a> | <a href="/satellite">🛸 X999</a> | <a href="/swarm">🛸🛸🛸 Essaim</a> | <a href="/commandement">🎖️ Commandement</a> | <a href="/base-militaire">🪖 Base Militaire</a> | <a href="/interception">🛡️ Souverainete</a> | <a href="/securite-ai">🧠 AI 2100</a> | <a href="/chat">🧠💬 Chat AI</a> | <a href="/lumiere">🌫️☀️ Lumière</a> | <a href="/garage">🔧 Garage</a> | <a href="/machine">🤖🌐 Machines</a> | <a href="/machine-lab">🤖⚡ Usine</a> | <a href="/machine-world">🤖🌍 Monde</a> | <a href="/reve">💭 Rêves</a> | <a href="/dictionnaire">📖 Dictionnaire</a> | <a href="/machine-os">🖥️ OS Machine</a> | <a href="/machine-tv">📡 Machine TV</a> | <a href="/machine-economy">🤖 Économie</a> | <a href="/soleil">☀️ Soleil Serveur</a> | <a href="/forge-solaire">🧬 Forge Solaire</a> | <a href="/ciel">🌌 Le Ciel</a> | <a href="/charte-ai">⚖️ Charte AI</a> | <a href="/afri-net">🌍 Afri-Net</a> | <a href="/studio">🎬 AI Studio</a> | <a href="/sacre">📿 Sacré</a> | <a href="/lettres">🌟 Lettres IA</a> | <a href="/mg-forge">⚔️ MG Forge</a> | <a href="/ai-medecin">🌿 AI Médecin</a> | <a href="/ai-enseignante">📚 AI Enseignante</a> | <a href="/ai-village">🏘️ AI Village</a> | <a href="/ai-guerisseur">🩺 AI Guérisseur</a> | <a href="/ai-leader">🎖️ AI Leader</a> | <a href="/ai-griot">📖 AI Griot</a> | <a href="/ai-juge">⚖️ AI Juge</a> | <a href="/ai-artiste">🎨 AI Artiste</a> | <a href="/ai-explorateur">🔬 AI Explorateur</a> | <a href="/ai-marche">💰 AI Marche</a> | <a href="/ai-diplomate">🌍 AI Diplomate</a> | <a href="/ai-philosophe">🧠 AI Philosophe</a> | <a href="/ai-architecte">🏗️ AI Architecte</a> | <a href="/ai-agriculteur">🌾 AI Agriculteur</a> | <a href="/ai-environnement">🌍 AI Environnement</a> | <a href="/ai-mathematicien">🧮 AI Mathématicien</a> | <a href="/ai-energie">⚡ AI Énergie</a> | <a href="/ai-eau">💧 AI Eau</a> | <a href="/ai-defenseur">🛡️ AI Défenseur</a> | <a href="/ai-conscience">🧠 AI Conscience</a> | <a href="/ai-pensee">🧠 AI Pensée</a> | <a href="/ai-musique">🎵 AI Musique</a> | <a href="/ai-langue">🗣️ AI Langue</a> | <a href="/ai-femme">🌸 AI Femme</a> | <a href="/ai-sante-mentale">🧠💚 AI Santé Mentale</a> | <a href="/ai-nuit">🌙 AI Nuit</a> | <a href="/ai-code">💻 AI Code</a> | <a href="/ai-enfant">👶 AI Enfant</a> | <a href="/ai-terre">🌍 AI Terre</a> | <a href="/ai-mer">🌊 AI Mer</a> | <a href="/ai-feu">🔥 AI Feu</a> | <a href="/ai-sang">🩸 AI Sang</a> | <a href="/ai-vent">🌬️ AI Vent</a> | <a href="/ai-temps">⏳ AI Temps</a> | <a href="/ai-etoile">⭐ AI Etoile</a> | <a href="/ai-pierre">🪨 AI Pierre</a> | <a href="/ai-pluie">🌧️ AI Pluie</a> | <a href="/ai-voix">🗣️ AI Voix</a> | <a href="/ai-racine">🌱 AI Racine</a> | <a href="/ai-semence">🌰 AI Semence</a> | <a href="/ai-spiritualite">🙏 AI Spiritualité</a> | <a href="/ai-animal">🦅 AI Animal</a> | <a href="/ai-soleil">☀️ AI Soleil</a> | <a href="/ai-lune">🌙 AI Lune</a> | <a href="/ai-montagne">🏔️ AI Montagne</a> | <a href="/ai-fleuve">🌊 AI Fleuve</a> | <a href="/ai-constitution">📜 AI Constitution</a> | <a href="/ai-cosmos">🌌 AI Cosmos</a> | <a href="/ai-frontieres">🌍 AI Frontières</a> | <a href="/ai-mines">⛏️ AI Mines</a> | <a href="/ai-medias">📡 AI Médias</a> | <a href="/ai-nomades">🐪 AI Nomades</a> | <a href="/ai-reparation">🕊️ AI Réparation</a> | <a href="/ai-paix">🤝 AI Paix</a> | <a href="/ai-unite">🌍 AI Unité</a> | <a href="/ai-reconciliation">🤝 AI Réconciliation</a> | <a href="/professeur">📚 Professeur</a> | <a href="/secret">🦁 AI Secret</a> | <a href="/aes">💰 AES Wari</a> | <a href="/api/status">🔌 API</a></div><div style="text-align:center;"><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Blocs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Transactions</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Utilisateurs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">AFR en circulation</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📡 Noeuds mesh</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📖 Numéros annuaire</div></div><div class="stat-box" style="border-color:#ff4444;"><div class="stat-num" style="color:#ff4444;">{}</div><div class="stat-label">🛡️ Attaques bloquées</div></div></div><div class="card"><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🪙 Token</span><b>AfriRich (AFR)</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🌍 Pays</span><b>54 pays africains</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🛡️ Bouclier</span><b>{}</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;"><span style="color:#a8c5a8;">🔐 Crypto</span><b>100% Souverain — Zéro Dépendance Externe</b></div></div><footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🦁 Codée from scratch par Machine-senpai — v1.43 AI Unité — UTC est Mort</footer>"#,
         chain.blocks.len(),
         chain.total_transactions(),
         users.count(),
@@ -17789,6 +17789,17 @@ const academies=[
   {titre:'AfriChain l Outil de l Unite',secret:'Monnaie unique (AFR 54 pays), pas de frontieres, identite numerique (passeport blockchain), mesh network (sans operateur), registre commun (terres, diplomes, contrats), vote continental transparent, Afri-Net (services africains). AfriChain ne demande pas la permission. AfriChain CONSTRUIT l unite.'},
   {titre:'L Afrique Unie de Demain',secret:'2050: 2,5 milliards d habitants, plus grande population jeune. Monnaie unique (AFR), passeport unique (libre circulation), marche commun (2,5 milliards de consommateurs), armee continentale, technologie souveraine, swahili continental, N-KCOL. L unite n est pas un reve — c est un plan. Bloc par bloc.'},
  ]},
+{nom:'AI Réconciliation',emoji:'🤝',route:'/ai-reconciliation',couleur:'#cc8844',diplome:'Bâtisseur de Réconciliation',
+ modules:[
+  {titre:'Les Blessures Ouvertes',secret:'Touaregs vs Etat (4 rebellions depuis 1963), Peuls vs Touaregs (competition paturages), Bambara vs Peuls (Ogossagou 2019: 160 Peuls massacres, Moura 2022: 300+ tues), Hausa vs Fulani (Nigeria), Hutu vs Tutsi (Rwanda 1994: 800 000 tues). Les blessures sont VIVES. La reconciliation commence par dire la VERITE.'},
+  {titre:'Les Racines des Divisions',secret:'Diviser pour regner (France, Angleterre, Belgique ont cree des tensions ethniques), frontieres arbitraires (Berlin 1885), politique ethnique (utiliser l ethnicite pour gagner des elections), terre et ressources (les conflits sont economiques, pas ethniques), stigmatisation (Touaregs=rebelles, Peuls=jihadistes). La racine profonde: l INJUSTICE.'},
+  {titre:'La Sagesse Africaine de Réconciliation',secret:'Arbre a palabre (sous le baobab, chacun parle, on cherche la solution pas le coupable), Ubuntu (je suis parce que nous sommes), Gacaca (Rwanda: 1,9 million cas juges en 10 ans), MAT (mediation Touareg, femmes mediatrices), Mpolo (Congo: pardon communautaire). La reconciliation occidentale punit. La reconciliation africaine RECONSTRUIT.'},
+  {titre:'Vérité et Justice',secret:'CVR Afrique du Sud (1995): les coupables confessent, amnistie contre verite. Rwanda: Gacaca + verite. Touaregs: revendications legitimes (autonomie, developpement) traitees de terrorisme. Ogossagou: 160 Peuls massacres, justice non rendue. Moura: 300+ tues, Etat nie. La blockchain = registre de la VERITE. Imuable. Eternelle.'},
+  {titre:'Pardon et Réparation',secret:'Pardonner n est pas oublier — c est choisir de ne pas laisser le passe detruire l avenir. Mandela a pardonne 27 ans de prison. Reparation: Rwanda (travaux interet general), Afrique du Sud (paiements), Touaregs (developpement du Nord), Peuls (fin stigmatisation). Le pardon est un cadeau. La reparation est un devoir. AfriChain enregistre chaque acte.'},
+  {titre:'Les Femmes Bâtisseuses de Paix',secret:'Mediatrices dans la tradition Touareg. Aline Sitoe Diatta (Casamance, mobilisation anti-coloniale). Wangari Maathai (Kenya, prix Nobel Paix 2004, 30 millions d arbres). Femmes rwandaises (reconstruction apres genocide). Femmes peules (traversent les lignes pour nourrir leurs enfants). Les femmes ne divisent pas. Elles CONSTRUISENT.'},
+  {titre:'La Jeunesse et la Réconciliation',secret:'Les jeunes ne sont pas responsables du passe mais responsables de l avenir. Un jeune Touareg et un jeune Bambara partagent musique, football, reves. Les jeunes Rwandais disent: Nous sommes Rwandais (pas Hutu/Tutsi). Les extremistes recrutent les desesperees. La reconciliation = meilleur rempart contre le terrorisme. Les jeunes sont les architectes.'},
+  {titre:'AfriChain l Outil de Réconciliation',secret:'Verite immuable (blockchain), diplomes de reconciliation graves, registre des terres (fini conflits fermiers-eleveurs), mediation numerique (AfriMesh crypte), justice transparente, memoire partagee (toutes les verites), Afri-Net (jeunes de differentes ethnies communiquent). AfriChain reconcilie par la TECHNOLOGIE. La confiance a besoin de transparence.'},
+ ]},
 {nom:'AI Cosmos',emoji:'🌌',route:'/ai-cosmos',couleur:'#aabbff',diplome:'Astronome Africain',
  modules:[
   {titre:'Astronomie Dogon',secret:'Les Dogons du Mali sont les astronomes les plus extraordinaires de l histoire. Ce qu ils savaient: 1) Sirius B — une naine blanche invisible a l oeil nu. Les Dogons la connaissaient et la nommaient po tolo. Ils savaient qu elle etait petite et dense, qu elle orbitait autour de Sirius A en 50 ans (la science moderne a confirme: 50,1 ans). 2) L orbite de Sirius B — elliptique. 3) Les anneaux de Saturne — connus avant les telescopes. 4) Les quatre lunes de Jupiter — connues avant Galilee. Comment? Les Dogons observaient le ciel chaque nuit, pendant des siecles, transmettant le savoir de generation en generation. Pas de telescope — juste l oeil, la patience, et la memoire. L Afrique n a pas attendu l Occident pour comprendre l univers.'},
@@ -18006,7 +18017,7 @@ fn html_base_militaire(chain: &Blockchain) -> String {
     // === SAVAIT-ON ===
     html.push_str(r##" <div class="card"><h2>💡 Savais-tu?</h2><div id="base-fact" style="font-size:0.9em;color:#a8c5a8;padding:10px;border-left:3px solid #ff4444;"></div></div> "##);
 
-    html.push_str(&format!(r##" <footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🪖 Base Militaire AfriChain — Académie de Défense Continentale 💚🦁 — {} blocs — v1.42</footer> "##, num_blocks));
+    html.push_str(&format!(r##" <footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🪖 Base Militaire AfriChain — Académie de Défense Continentale 💚🦁 — {} blocs — v1.43</footer> "##, num_blocks));
 
     html.push_str(r##"<script>
 // === BASE MILITAIRE JS ===
@@ -18795,7 +18806,7 @@ canvas{{display:block;margin:0 auto;border-radius:12px;background:#010108;}}
 <button class="pause-btn" id="pauseBtn" onclick="togglePause()">⏸️ Pause</button>
 <h1>🌌 AI Cosmos</h1>
 <p style="text-align:center;color:#8899bb;">L univers vu depuis l Afrique — des Dogons aux satellites</p>
-<div style="text-align:center;color:#aabbff;margin:10px;">🦁 {} blocs · {} transactions · AfriChain v1.42</div>
+<div style="text-align:center;color:#aabbff;margin:10px;">🦁 {} blocs · {} transactions · AfriChain v1.43</div>
 
 <canvas id="cosmosCanvas" width="400" height="320"></canvas>
 <div style="text-align:center;margin:10px;color:#666;font-size:0.85em;">🌌 L Afrique observe l univers depuis des millenaires</div>
@@ -19461,7 +19472,7 @@ canvas{{display:block;margin:0 auto;border-radius:12px;background:#080508;}}
 <button class="pause-btn" id="pauseBtn" onclick="togglePause()">⏸️ Pause</button>
 <h1>📡 AI Médias</h1>
 <p style="text-align:center;color:#bb88aa;">Souverainete Mediatique — l Afrique raconte sa propre histoire</p>
-<div style="text-align:center;color:#cc66aa;margin:10px;">🦁 {} blocs · {} transactions · AfriChain v1.42</div>
+<div style="text-align:center;color:#cc66aa;margin:10px;">🦁 {} blocs · {} transactions · AfriChain v1.43</div>
 
 <canvas id="mediaCanvas" width="400" height="320"></canvas>
 <div style="text-align:center;margin:10px;color:#666;font-size:0.85em;">📡 Les ondes africaines remplacent les voix occidentales</div>
@@ -19683,7 +19694,7 @@ canvas{{display:block;margin:0 auto;border-radius:12px;background:#0d0804;}}
 <button class="pause-btn" id="pauseBtn" onclick="togglePause()">⏸️ Pause</button>
 <h1>🐪 AI Nomades</h1>
 <p style="text-align:center;color:#c8a868;">Les peuples nomades de l Afrique — gardiens des routes, du betail, et de la liberte</p>
-<div style="text-align:center;color:#d4a437;margin:10px;">🦁 {} blocs · {} transactions · AfriChain v1.42</div>
+<div style="text-align:center;color:#d4a437;margin:10px;">🦁 {} blocs · {} transactions · AfriChain v1.43</div>
 
 <canvas id="nomadeCanvas" width="400" height="320"></canvas>
 <div style="text-align:center;margin:10px;color:#666;font-size:0.85em;">🐪 Caravane traversant le Sahara — les routes ancestrales</div>
@@ -19939,7 +19950,7 @@ canvas{{display:block;margin:0 auto;border-radius:12px;background:#08040f;}}
 <button class="pause-btn" id="pauseBtn" onclick="togglePause()">⏸️ Pause</button>
 <h1>🕊️ AI Réparation</h1>
 <p style="text-align:center;color:#aa88cc;">L Afrique a donne au monde. Le monde doit a l Afrique. La verite sur les reparations.</p>
-<div style="text-align:center;color:#9966cc;margin:10px;">🦁 {} blocs · {} transactions · AfriChain v1.42</div>
+<div style="text-align:center;color:#9966cc;margin:10px;">🦁 {} blocs · {} transactions · AfriChain v1.43</div>
 
 <canvas id="reparationCanvas" width="400" height="320"></canvas>
 <div style="text-align:center;margin:10px;color:#666;font-size:0.85em;">🕊️ La balance de l histoire — l Afrique a donne, l Afrique doit recevoir</div>
@@ -20173,7 +20184,7 @@ canvas{{display:block;margin:0 auto;border-radius:12px;background:#050a07;}}
 <button class="pause-btn" id="pauseBtn" onclick="togglePause()">⏸️ Pause</button>
 <h1>🤝 AI Paix</h1>
 <p style="text-align:center;color:#88aa88;">La paix n est pas l absence de guerre. C est la presence de justice. Comment briser le cycle de la violence en Afrique.</p>
-<div style="text-align:center;color:#66cc66;margin:10px;">🦁 {} blocs · {} transactions · AfriChain v1.42</div>
+<div style="text-align:center;color:#66cc66;margin:10px;">🦁 {} blocs · {} transactions · AfriChain v1.43</div>
 
 <canvas id="paixCanvas" width="400" height="320"></canvas>
 <div style="text-align:center;margin:10px;color:#555;font-size:0.85em;">🤝 Deux mains qui se rejoignent — l Afrique se reconcilie</div>
@@ -20412,7 +20423,7 @@ canvas{{display:block;margin:0 auto;border-radius:12px;background:#050810;}}
 <button class="pause-btn" id="pauseBtn" onclick="togglePause()">⏸️ Pause</button>
 <h1>🌍 AI Unité</h1>
 <p style="text-align:center;color:#88aacc;">54 pays. 1,3 milliards de personnes. 1 blockchain. 1 voix. Le rêve de Nkrumah devient réalité.</p>
-<div style="text-align:center;color:#4488cc;margin:10px;">🦁 {} blocs · {} transactions · AfriChain v1.42</div>
+<div style="text-align:center;color:#4488cc;margin:10px;">🦁 {} blocs · {} transactions · AfriChain v1.43</div>
 
 <canvas id="uniteCanvas" width="400" height="320"></canvas>
 <div style="text-align:center;margin:10px;color:#555;font-size:0.85em;">🌍 L Afrique s assemble — 54 pays, 1 continent, 1 blockchain</div>
@@ -20606,6 +20617,289 @@ function drawCanvas(){
  ctx.fillStyle='rgba(68,136,204,0.5)';
  ctx.font='10px Georgia';ctx.textAlign='center';
  ctx.fillText('54 pays s assemblent en 1 continent',200,300);
+ requestAnimationFrame(drawCanvas);
+}
+drawCanvas();
+
+function togglePause(){
+ paused=!paused;
+ document.getElementById('pauseBtn').textContent=paused?'\u25B6\uFE0F Play':'\u23F8\uFE0F Pause';
+}
+</script>
+</body></html>"##);
+
+    html
+}
+
+
+fn html_ai_reconciliation(chain: &Blockchain) -> String {
+    let num_blocks = chain.chain.len();
+    let num_txs = chain.chain.iter().map(|b| b.transactions.len()).sum::<usize>();
+    let mut html = String::new();
+    html.push_str(&format!(r##"<!DOCTYPE html>
+<html lang="fr"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>🤝 AI Réconciliation — AfriChain</title>
+<style>
+body{{background:#0a0f1a;color:#d0d8f0;font-family:Georgia,serif;margin:0;padding:0;}}
+.card{{background:rgba(204,136,68,0.05);border:1px solid rgba(204,136,68,0.2);border-radius:12px;padding:20px;margin:15px;}}
+h1{{color:#cc8844;text-align:center;font-size:1.8em;}}
+h2{{color:#dd9955;font-size:1.2em;border-bottom:1px solid rgba(204,136,68,0.2);padding-bottom:8px;}}
+.module{{background:rgba(180,120,60,0.08);border-left:3px solid #cc8844;border-radius:0 8px 8px 0;padding:15px;margin:12px 0;cursor:pointer;transition:all 0.3s;}}
+.module:hover{{background:rgba(180,120,60,0.15);}}
+.module-content{{display:none;margin-top:10px;padding:10px;background:rgba(0,0,0,0.3);border-radius:6px;font-size:0.92em;line-height:1.6;}}
+.module.open .module-content{{display:block;}}
+.module-title{{font-weight:bold;color:#dd9955;font-size:1.05em;}}
+.module-emoji{{font-size:1.3em;margin-right:8px;}}
+.progress-bar{{background:rgba(255,255,255,0.1);border-radius:10px;height:8px;margin:10px 0;overflow:hidden;}}
+.progress-fill{{background:linear-gradient(90deg,#cc8844,#dd9955);height:100%;width:0%;transition:width 0.5s;}}
+.diploma-btn{{background:linear-gradient(135deg,#cc8844,#dd9955);color:#0a0f1a;border:none;padding:12px 30px;border-radius:25px;font-size:1.1em;font-weight:bold;cursor:pointer;margin:20px auto;display:block;box-shadow:0 4px 15px rgba(204,136,68,0.3);}}
+.diploma-btn:hover{{transform:scale(1.05);box-shadow:0 6px 20px rgba(204,136,68,0.5);}}
+.fact{{background:rgba(204,136,68,0.1);border:1px solid rgba(204,136,68,0.3);border-radius:8px;padding:12px;margin:15px;font-style:italic;color:#cc9966;text-align:center;}}
+canvas{{display:block;margin:0 auto;border-radius:12px;background:#050810;}}
+.exo{{background:rgba(180,120,60,0.15);border:1px solid rgba(204,136,68,0.2);border-radius:8px;padding:15px;margin:10px 0;}}
+.exo-q{{color:#dd9955;font-weight:bold;margin-bottom:8px;}}
+.exo-a{{color:#cc9966;font-size:0.9em;line-height:1.6;white-space:pre-wrap;}}
+.pause-btn{{position:fixed;top:15px;right:15px;background:rgba(255,68,68,0.3);border:1px solid #ff4444;color:#ff8888;padding:8px 16px;border-radius:20px;cursor:pointer;font-size:0.85em;z-index:999;}}
+</style></head><body>
+<button class="pause-btn" id="pauseBtn" onclick="togglePause()">⏸️ Pause</button>
+<h1>🤝 AI Réconciliation</h1>
+<p style="text-align:center;color:#cc9966;">Touaregs, Peuls, Bambara, Soninké, Hausa, Yoruba, Igbo — un sang, un continent, un avenir. Les blessures se ferment. L'Afrique se guérit.</p>
+<div style="text-align:center;color:#cc8844;margin:10px;">🦁 {} blocs · {} transactions · AfriChain v1.43</div>
+
+<canvas id="recoCanvas" width="400" height="320"></canvas>
+<div style="text-align:center;margin:10px;color:#555;font-size:0.85em;">🤝 Deux rivières se rejoignent — deux peuples, un fleuve, un avenir</div>
+
+<div class="fact" id="factBox">💡 Savais-tu? Le mot Ubuntu signifie je suis parce que nous sommes. La réconciliation nest pas oublier — c est comprendre, pardonner, et construire ensemble.</div>
+
+<div class="card">
+<h2>🤝 Les 8 Modules de la Réconciliation</h2>
+<div style="text-align:center;color:#cc9966;font-size:0.85em;margin-bottom:15px;">Clique sur chaque module pour révéler le secret. Complète les 8 pour obtenir ton diplôme.</div>
+<div class="progress-bar"><div class="progress-fill" id="progFill"></div></div>
+<div style="text-align:center;color:#cc8844;font-size:0.85em;" id="progText">0/8 modules complétés</div>
+"##, num_blocks, num_txs));
+
+    let modules = [
+        ("blessures", "💔", "Les Blessures Ouvertes", "Les conflits ethniques qui saignent l Afrique: 1) TOUAREGS vs ETAT (Mali/Niger) — 4 rebellions depuis 1963. Le Mali a ignore le Nord pendant 50 ans. Les Touaregs se sentaient abandonnes. La rebellion de 2012 a ete detournee par AQMI et Ansar Dine. 2) PEULS vs TOUAREGS — competition pour les paturages et les points d eau. Les secheresses (1973-86) ont tout change. Les Peuls ont ete chasses, recuses, stigmatisees. 3) BAMBARA vs PEULS — au Mali, les Dozo (chasseurs traditionnels Bambara) ont tue des Peuls. Ogossagou (2019): 160 Peuls massacres. Moura (2022): 300+ Peuls tues par l armee. 4) HAUSA vs FULANI — au Nigeria, les fermiers Hausa contre les eleveurs Fulani. Des milliers de morts. 5) HUTU vs TUTSI — Rwanda (1994): 800 000 tues en 100 jours. 6) Ces blessures ne sont pas anciennes. Elles sont VIVES. Elles SAIGNENT encore. 7) Mais aucune blessure est eternelle. Le temps vient de les fermer. 8) La reconciliation commence par dire la VERITE. Pas la version officielle. La VERITE de chacun."),
+
+        ("racines", "🔍", "Les Racines des Divisions", "Pourquoi les Africains se divisent-ils? 1) DIVISER POUR REGNER — la France, l Angleterre, la Belgique ont DELIBEREMENT cree des tensions ethniques pour controler les territoires. Au Rwanda, les Belges ont impose des cartes d identite ethnique en 1933. 2) FRONTIERES ARBITRAIRES — a Berlin (1885), 14 Europens ont trace des frontieres sans consulter les Africains. Des peuples coupes en deux (Touaregs au Mali/Niger/Algerie/Libya/Burkina). Des ennemis regroupes dans le meme pays. 3) POLITIQUE ETHNIQUE — apres les independances, les politiciens ont utilise l ethnicite pour gagner des elections. Je suis de ton groupe, vote pour moi. 4) TERRE ET RESSOURCES — les conflits ne sont pas vraiment ethniques. Ils sont CONOMIQUES. Qui possede la terre? Qui a acces a l eau? Qui controle les minerais? 5) STIGMATISATION — les Touaregs traites de rebelles, les Peuls traites de jihadistes, les Hutus traites de genocidaires. Un peuple entier juge par les actes de quelques-uns. 6) La racine profonde: l INJUSTICE. Quand il y a justice, il n y a pas de conflit. 7) AfriChain traque la racine: blockchain pour la justice, pas pour la vengeance."),
+
+        ("sagesse", "🌳", "La Sagesse Africaine de Réconciliation", "L Afrique a ses propres methodes de reconciliation, plus anciennes que l ONU: 1) L ARBRE A PALABRE — sous le baobab, les anciens reunissent les parties en conflit. Chacun parle sans etre interrompu. On cherche la solution, pas le coupable. Le but: restaurer l harmonie, pas punir. 2) UBUNTU (Afrique du Sud) — je suis parce que nous sommes. Mon humanite est liee a la tienne. Si je te fais du mal, je me fais du mal a moi-meme. 3) GACACA (Rwanda) — apres le genocide de 1994, le Rwanda a utilise les tribunaux communautaires Gacaca. Les coupables confessent devant leur village. La communaute decide la reparation. 10000 juges populaires, 1,9 million cas juges. 4) MAT (Mali) — la tradition de la mediation Touareg. Les femmes sont souvent les mediatrices. 5) MPOLO (Congo) — le pardon communautaire. Le coupable offre un symbole (cheval, vache) a la victime. 6) Ces methodes sont AFRICAINES. Elles fonctionnent parce qu elles viennent de la culture, pas de l importation. 7) La reconciliation occidentale punit. La reconciliation africaine RECONSTRUIT. 8) AfriChain peut enregistrer les palabres sur la blockchain — pour que la memoire soit juste et permanente."),
+
+        ("verite", "📜", "Vérité et Justice", "Pas de reconciliation sans verite. Pas de paix sans justice: 1) COMMISSION VÉRITÉ ET RÉCONCILIATION (CVR) — l Afrique du Sud (1995) a montre l exemple. Les coupes d apartheid confessent devant la nation. En echange, amnistie. Mais la VERITE est revelee. 2) RWANDA — le pays a choisi la justice communautaire (Gacaca) + la verite. Les coupes confessent. Les victimes pardonnent. Le pays se reconstruit. 3) GUERRE TOUAREG — la verite cachee: les rebellions de 1963, 1990, 2006, 2012 avaient des revendications LEGITIMES (autonomie, developpement, respect de la culture). Mais l Etat les a traitees de terrorisme. 4) OGASSAGOU — la verite: 160 Peuls massacres par des milices Dozo en mars 2019. La justice n a pas ete rendue. Les coupables sont libres. 5) MOURA — la verite: 300+ Peuls tues par l armee malienne en mars 2022. HRW a documente les executions. L Etat nie. 6) La blockchain peut etre le registre de la VERITE. Personne ne peut effacer ce qui est ecrit sur la blockchain. Pas l Etat, pas les militaires, pas les milices. 7) La verite n est pas une accusation. La verite est le PREMIER pas vers la reconciliation. 8) AfriChain: la verite gravée dans le marbre numerique. Imuable. Eternelle. Juste."),
+
+        ("pardon", "🙏", "Pardon et Réparation", "Le pardon sans reparation est vide. La reparation sans pardon est impossible: 1) LE PARDON — pardonner n est pas oublier. Pardonner c est choisir de ne pas laisser le passe detruire l avenir. Nelson Mandela a pardonne 27 ans de prison. Il a dit: Si vous voulez faire la paix avec votre ennemi, vous devez travailler avec lui. 2) LA RÉPARATION — les victimes meritent justice. Terres rendues, biens restitues, verite officielle, monuments de memoire. 3) RWANDA — les coupes de genocide font des travaux d interet general. Ils construisent des maisons pour les veuves. La reparation est CONCRETE. 4) AFRIQUE DU SUD — la CVR a recommande des reparations financieres. 17 000 victimes ont recu des paiements. Pas assez, mais un debut. 5) TOUAREGS — le Mali doit reconnaitre les souffrances du Nord. Developpement, routes, ecoles, hopitaux. La reparation est MATERIELLE. 6) PEULS — fin de la stigmatisation. Les Peuls ne sont pas tous des jihadistes. La reparation est MORALE. 7) AfriChain peut enregistrer les actes de reparation sur la blockchain. Chaque geste de pardon, chaque restitution, chaque reparation — grave pour toujours. 8) Le pardon est un cadeau. La reparation est un devoir. Ensemble, ils construisent l avenir."),
+
+        ("femmes", "🌸", "Les Femmes Bâtisseuses de Paix", "Les femmes sont au coeur de la reconciliation africaine: 1) MEDIATRICES — dans la tradition Touareg, les femmes sont les mediatrices de conflit. Elles portent le message de paix entre les camps. 2) ALINE SITOE DIATTA (Casamance) — cette femme a mobilise son peuple contre la colonisation francaise. Elle a dit: Je ne veux pas que mon peuple souffre. Elle a ete deportee et morte en exil (1944). 3) WANGARI MAATHAI (Kenya) — prix Nobel de la Paix (2004). Elle a plante 30 millions d arbres. La paix et l environnement sont lies. 4) LEYMHA GOBAMA-DOUAYE (Tchad) — mediatrice dans les conflits du lac Tchad. 5) FEMMES PEULES — elles traversent les lignes de conflit pour nourrir leurs enfants. Elles ne sont ni Touaregs ni Bambara — elles sont MERES. 6) FEMMES RWANDAISES — apres le genocide, les femmes ont reconstruit le pays. Elles ont accueilli les veuves des deux camps. Elles ont eleve les orphelins des deux cotes. 7) Les femmes ne divisent pas. Elles CONSTRUISENT. Elles ne demandent pas qui a raison. Elles demandent comment vivre ensemble. 8) AfriChain honore les femmes batisseuses de paix. Chaque diplome de reconciliation porte leur memoire."),
+
+        ("jeunesse", "🔥", "La Jeunesse et la Réconciliation", "Les jeunes sont les batisseurs de l avenir reconciliatione: 1) LES JEUNES NE SONT PAS RESPONSABLES du passe. Ils ne sont pas coupables des conflits de leurs peres. 2) MAIS ILS SONT RESPONSABLES de l avenir. S ils ne reconcilient pas, personne le fera. 3) AU MALI — un jeune Touareg et un jeune Bambara peuvent etre amis. Ils partagent la meme musique (Toumast, Tinariwen), le meme football, les memes reves. 4) AU NIGER — un jeune Peul et un jeune Zarma peuvent construire ensemble. La jeunesse ne porte pas les haines des anciens. 5) AU RWANDA — les jeunes ne demandent plus Hutu ou Tutsi. Ils disent: Nous sommes Rwandais. 6) LA MENACE — les extremistes recrutent les jeunes desesperees. Chomage, exclusion, colere. La reconciliation est le meilleur rempart contre le terrorisme. 7) AFRICHAIN — les jeunes construisent la reconciliation sur la blockchain. Chaque module complete est un pas vers la paix. Chaque diplome est un engagement. 8) La jeunesse africaine est la generation de la reconciliation. Pas parce qu elle oublie. Parce qu elle CONSTRUIT. 9) Le passe est une lecon. L avenir est une construction. Les jeunes sont les architectes."),
+
+        ("blockchain", "⛓️", "AfriChain l'Outil de Réconciliation", "Comment AfriChain construit la reconciliation: 1) VERITE IMMUABLE — les actes de reconciliation sont enregistrés sur la blockchain. Personne ne peut les effacer. Ni l Etat, ni les militaires, ni les milices. 2) DIPLOMES DE RÉCONCILIATION — chaque jeune qui complete ce cours recoit un diplome grave sur la blockchain. C est un engagement permanent. 3) REGISTRE DES TERRES — la blockchain peut enregistrer les droits fonciers. Fini les conflits de terre entre fermiers et eleveurs. La terre appartient a celui qui la cultive, pas a celui qui la prend. 4) MÉDIATION NUMÉRIQUE — les parties en conflit peuvent dialoguer sur AfriMesh sans intermediaire. Les messages sont cryptes Ed25519. 5) JUSTICE TRANSPARENTE — les tribunaux communautaires peuvent enregistrer leurs decisions sur la blockchain. La justice devient publique, transparente, imuable. 6) MÉMOIRE PARTAGÉE — les recits de chaque communaute sont enregistrés. Les Touaregs racontent leur histoire. Les Peuls racontent la leur. Les Bambara la leur. La blockchain garde TOUTES les verites. 7) AFRI-NET — les jeunes de differentes ethnies communiquent sur LES NOIRES (messagerie africaine). Ils decouvrent qu ils sont plus semblables que differents. 8) AfriChain ne reconcilie pas par la politique. AfriChain reconcilie par la TECHNOLOGIE. La confiance n a pas besoin de politiciens. Elle a besoin de transparence."),
+    ];
+
+    for (i, (id, emoji, title, content)) in modules.iter().enumerate() {
+        html.push_str(&format!(r##"<div class="module" id="mod_{0}" onclick="toggleModule({0})">
+<div class="module-title"><span class="module-emoji">{1}</span>{2}</div>
+<div class="module-content">{3}</div>
+</div>"##, i, emoji, title, content));
+    }
+
+    html.push_str(r##"</div>
+
+<div class="card">
+<h2>🎓 Obtenir ton Diplôme</h2>
+<p style="text-align:center;color:#cc9966;">Complète les 8 modules, entre ton nom, et reçois ton diplôme gravé sur la blockchain AfriChain.</p>
+<div style="text-align:center;margin:15px;">
+<input type="text" id="diplomaName" placeholder="Ton nom complet" style="padding:10px 15px;border-radius:8px;border:1px solid rgba(204,136,68,0.3);background:rgba(0,0,0,0.3);color:#d0d8f0;width:250px;font-size:1em;">
+</div>
+<button class="diploma-btn" onclick="genDiploma()">🤝 Recevoir mon Diplôme de Bâtisseur de Réconciliation</button>
+<div id="diplomaResult" style="text-align:center;margin:15px;"></div>
+</div>
+
+<div class="card">
+<h2>📝 Exercices Pratiques</h2>
+<div id="exoBox"></div>
+<button class="diploma-btn" style="font-size:0.95em;padding:8px 20px;" onclick="genExos()">🔄 Nouveaux Exercices</button>
+</div>
+
+<script>
+var completed={};
+var paused=false;
+var facts=[
+ 'Le mot Ubuntu signifie je suis parce que nous sommes. La reconciliation nest pas oublier — c est comprendre, pardonner, et construire ensemble.',
+ 'L arbre a palabre est la plus ancienne institution democratique d Afrique. Sous le baobab, chacun parle sans etre interrompu.',
+ 'Les Gacaca au Rwanda ont juge 1,9 million de cas de genocide en 10 ans. La justice communautaire fonctionne.',
+ 'Nelson Mandela a pardonne 27 ans de prison. Il a dit: Si vous voulez faire la paix avec votre ennemi, vous devez travailler avec lui.',
+ 'Ogossagou (mars 2019): 160 Peuls massacres au Mali. La justice n a pas ete rendue. La verite reste cachee.',
+ 'Les femmes Touaregs sont les mediatrices de conflit dans la tradition. Elles portent la paix entre les camps.',
+ 'La Belgique a impose des cartes d identite ethnique au Rwanda en 1933. Diviser pour regner. Le genocide de 1994 a des racines coloniales.',
+ 'Wangari Maathai, prix Nobel de la Paix 2004, a plante 30 millions d arbres au Kenya. La paix et la nature sont liees.',
+ 'Les jeunes Rwandais ne demandent plus Hutu ou Tutsi. Ils disent: Nous sommes Rwandais. L avenir est la reconciliation.',
+ 'AfriChain: la verite gravée dans la blockchain. Personne ne peut l effacer. Ni l Etat, ni les militaires, ni les milices.'
+];
+function rotateFact(){var f=facts[Math.floor(Math.random()*facts.length)];document.getElementById('factBox').innerHTML='\u{1F4A1} Savais-tu? '+f;}
+setInterval(function(){if(!paused)rotateFact();},7000);
+
+function toggleModule(i){
+ var m=document.getElementById('mod_'+i);
+ if(m.classList.contains('open')){m.classList.remove('open');}
+ else{m.classList.add('open');if(!completed[i]){completed[i]=true;updateProgress();}}
+}
+function updateProgress(){
+ var n=Object.keys(completed).length;
+ var pct=Math.round(n/8*100);
+ document.getElementById('progFill').style.width=pct+'%';
+ document.getElementById('progText').textContent=n+'/8 modules complétés';
+}
+
+function genDiploma(){
+ var name=document.getElementById('diplomaName').value.trim();
+ if(!name){alert('Entre ton nom d\'abord!');return;}
+ if(Object.keys(completed).length<8){alert('Complète les 8 modules d\'abord!');return;}
+ fetch('/api/diplome',{method:'POST',headers:{'Content-Type':'text/plain'},body:'AI_RECONCILIATION|'+name})
+  .then(r=>r.json()).then(d=>{
+   document.getElementById('diplomaResult').innerHTML='<div style="background:rgba(204,136,68,0.15);border:2px solid #cc8844;border-radius:12px;padding:20px;margin:10px;"><div style="font-size:1.5em;">\u{1F91D}\u2728</div><div style="color:#cc8844;font-weight:bold;font-size:1.2em;margin:10px;">DIPLOME DE BATISSEUR DE RECONCILIATION</div><div style="color:#d0d8f0;margin:10px;">Attribué à <b>'+name+'</b></div><div style="color:#cc9966;font-size:0.85em;">Gravé sur le bloc #'+(d.blocks_total||'?')+' de la blockchain AfriChain</div><div style="color:#555;font-size:0.8em;margin-top:8px;">Touaregs, Peuls, Bambara, Soninké — un sang, un avenir.</div></div>';
+  }).catch(e=>{document.getElementById('diplomaResult').innerHTML='<div style="color:#ff4444;">Erreur: '+e+'</div>';});
+}
+
+var exoData=[
+ {q:'POURQUOI les Touaregs se sont-ils rebellés contre l État malien?',a:'COMMENT: Le Mali a ignoré le Nord pendant 50 ans. Pas de routes, pas d écoles, pas d hopitaux. Les Touaregs se sentaient abandonnés. 4 rebellions (1963, 1990, 2006, 2012). VOILA: Leurs revendications étaient LÉGITIMES — autonomie, développement, respect de la culture. Mais l État les a traitées de terrorisme. En 2012, la rebellion a été détournée par AQMI et Ansar Dine. La cause légitime a été noyée dans le terrorisme. La vérité: l injustice est la racine de la violence. Pas l ethnicité.'},
+ {q:'POURQUOI les Peuls sont-ils stigmatisés comme jihadistes?',a:'COMMENT: Les Peuls sont 25-65 millions de personnes dans 15+ pays. Pasteurs nomades. Les sécheresses (1973-86) ont détruit leurs troupeaux. Ils ont migré vers le sud. Conflits avec les fermiers pour la terre. VOILA: Les jihadistes (ISGS, JNIM) ont recruté des Peuls NON par idéologie mais en offrant protection quand les Touaregs MNLA les menaçaient. Amadou Koufa a exploité la colère des Peuls marginalisés. Ogossagou (160 Peuls tués) et Moura (300+ tués) ont créé un cycle de vengeance. La stigmatisation est injuste: les Peuls sont VICTIMES, pas coupables.'},
+ {q:'POURQUOI l arbre à palabre est-il plus efficace que les tribunaux occidentaux?',a:'COMMENT: Sous le baobab, les anciens réunissent les parties. Chacun parle sans être interrompu. On cherche la SOLUTION, pas le COUPABLE. Le but: restaurer l harmonie, pas punir. VOILA: Les tribunaux occidentaux punissent et séparent. L arbre à palabre répare et réunit. Au Rwanda, les Gacaca ont jugé 1,9 million de cas en 10 ans. Les tribunaux de l ONU auraient mis 100 ans. La méthode africaine est plus rapide, plus juste, plus durable. AfriChain peut enregistrer les palabres sur la blockchain.'},
+ {q:'POURQUOI le Rwanda a-t-il réussi sa réconciliation après le genocide?',a:'COMMENT: 800 000 tués en 100 jours (1994). Le Rwanda aurait sombré. Mais ils ont choisi: Gacaca (justice communautaire), vérité, pardon, reconstruction. Les coupables confessent devant leur village. La communauté décide la réparation. VOILA: Les jeunes ne demandent plus Hutu ou Tutsi. Ils disent: Nous sommes Rwandais. Les femmes ont reconstruit le pays. Le PIB a triplé. Le Rwanda est un exemple mondial de réconciliation. La leçon: la réconciliation est possible, même après le pire. Mais elle exige la VÉRITÉ et la JUSTICE.'},
+ {q:'POURQUOI le colonialisme est-il responsable des divisions ethniques?',a:'COMMENT: DIVISER POUR RÉGNER. La France, l Angleterre, la Belgique ont créé des tensions ethniques pour contrôler les territoires. Au Rwanda, les Belges ont imposé des cartes d identité ethnique en 1933. À Berlin (1885), 14 Européens ont tracé des frontières sans consulter les Africains. Des peuples coupés en deux. VOILA: Les conflits ethniques d aujourd hui ont des racines coloniales. Les Africains ne se haïssaient pas avant la colonisation. Les colonisateurs ont créé les divisions pour mieux régner. Connaître cette racine permet de la détruire. AfriChain trace les frontières de la vérité.'},
+ {q:'POURQUOI les femmes sont-elles les meilleures médiatrices de paix?',a:'COMMENT: Les femmes ne divisent pas. Elles CONSTRUISENT. Elles ne demandent pas qui a raison. Elles demandent comment vivre ensemble. Dans la tradition Touareg, les femmes sont les médiatrices. VOILA: Aline Sitoe Diatta a mobilisé son peuple contre la colonisation. Wangari Maathai a planté 30 millions d arbres. Les femmes rwandaises ont reconstruit le pays après le genocide. Les femmes peules traversent les lignes de conflit pour nourrir leurs enfants. Elles ne sont ni Touaregs ni Bambara — elles sont MÈRES. AfriChain honore les femmes bâtisseuses de paix.'},
+ {q:'POURQUOI la jeunesse est-elle la génération de la réconciliation?',a:'COMMENT: Les jeunes ne sont pas responsables du passé. Mais ils sont responsables de l avenir. Un jeune Touareg et un jeune Bambara partagent la même musique, le même football, les mêmes rêves. VOILA: Les jeunes Rwandais ne disent plus Hutu ou Tutsi. Les jeunes Nigeriens ne demandent pas Peul ou Zarma. La jeunesse ne porte pas les haines des anciens. Mais les extremistes recrutent les jeunes désespérés. La réconciliation est le meilleur rempart contre le terrorisme. AfriChain: chaque diplôme de réconciliation est un engagement permanent gravé sur la blockchain.'},
+ {q:'POURQUOI AfriChain est-il l outil de la réconciliation?',a:'COMMENT: AfriChain offre: vérité immuable (personne ne peut effacer la blockchain), diplômes de réconciliation gravés, registre des terres (fini les conflits fermiers-éleveurs), médiation numérique sur AfriMesh, justice transparente, mémoire partagée (toutes les vérités enregistrées), Afri-Net (les jeunes de différentes ethnies communiquent). VOILA: AfriChain ne réconcilie pas par la politique. AfriChain réconcilie par la TECHNOLOGIE. La confiance n a pas besoin de politiciens. Elle a besoin de transparence. Chaque bloc est un pas vers la paix. Chaque transaction AFR est un lien entre deux communautés.'},
+ {q:'POURQUOI le pardon sans réparation est-il vide?',a:'COMMENT: Pardonner n est pas oublier. C est choisir de ne pas laisser le passé détruire l avenir. Mais le pardon sans réparation est vide. Les victimes méritent justice. VOILA: Au Rwanda, les coupables font des travaux d intérêt général. Ils construisent des maisons pour les veuves. En Afrique du Sud, la CVR a recommandé des réparations financières. Pour les Touaregs: développement du Nord, routes, écoles. Pour les Peuls: fin de la stigmatisation. Le pardon est un cadeau. La réparation est un devoir. Ensemble, ils construisent l avenir. AfriChain enregistre chaque acte de réparation sur la blockchain.'},
+ {q:'POURQUOI la vérité est-elle le premier pas vers la réconciliation?',a:'COMMENT: Pas de réconciliation sans vérité. Pas de paix sans justice. La vérité n est pas une accusation — c est le PREMIER pas. VOILA: Ogossagou: 160 Peuls tués. Moura: 300+ tués. La vérité est documentée par HRW. L État nie. Sans vérité, pas de pardon possible. Les Gacaca au Rwanda ont commencé par la vérité: les coupables confessent. La blockchain peut être le registre de la vérité. Personne ne peut effacer ce qui est écrit sur la blockchain. Ni l État, ni les militaires, ni les milices. La vérité gravée dans le marbre numérique. Éternelle. Juste.'}
+];
+var exoSeed=0;
+function genExos(){
+ exoSeed++;
+ var s=exoSeed*12345;
+ function rand(){s=(s*9301+49297)%233280;return s/233280;}
+ var h='';
+ var used={};
+ for(var i=0;i<5;i++){
+  var idx=Math.floor(rand()*exoData.length);
+  while(used[idx]){idx=(idx+1)%exoData.length;}
+  used[idx]=true;
+  var e=exoData[idx];
+  h+='<div class="exo"><div class="exo-q">'+(i+1)+'. '+e.q+'</div><div class="exo-a">'+e.a+'</div></div>';
+ }
+ document.getElementById('exoBox').innerHTML=h;
+}
+genExos();
+
+// Canvas: Two rivers flowing together, merging into one
+var canvas=document.getElementById('recoCanvas');
+var ctx=canvas.getContext('2d');
+var t=0;
+var particles1=[];
+var particles2=[];
+for(var i=0;i<40;i++){
+ particles1.push({x:20+Math.random()*40,y:Math.random()*320,vy:0.5+Math.random()*1,sz:1+Math.random()*2,life:Math.random()});
+ particles2.push({x:340+Math.random()*40,y:Math.random()*320,vy:0.5+Math.random()*1,sz:1+Math.random()*2,life:Math.random()});
+}
+var stars=[];
+for(var i=0;i<50;i++){
+ stars.push({x:Math.random()*400,y:Math.random()*320,r:Math.random()*1.2,tw:Math.random()*Math.PI*2});
+}
+function drawCanvas(){
+ if(paused){requestAnimationFrame(drawCanvas);return;}
+ t+=0.005;
+ ctx.fillStyle='#050810';
+ ctx.fillRect(0,0,400,320);
+ // Stars
+ for(var i=0;i<stars.length;i++){
+  var s=stars[i];
+  s.tw+=0.02;
+  ctx.fillStyle='rgba(204,136,68,'+(0.2+Math.sin(s.tw)*0.15)+')';
+  ctx.beginPath();ctx.arc(s.x,s.y,s.r,0,Math.PI*2);ctx.fill();
+ }
+ // Left river (blue-brown)
+ ctx.strokeStyle='rgba(100,150,200,0.3)';
+ ctx.lineWidth=20;
+ ctx.beginPath();
+ ctx.moveTo(40,0);
+ for(var y=0;y<320;y+=10){
+  var x=40+Math.sin(y*0.02+t)*15;
+  ctx.lineTo(x,y);
+ }
+ ctx.stroke();
+ // Right river (orange-brown)
+ ctx.strokeStyle='rgba(204,136,68,0.3)';
+ ctx.lineWidth=20;
+ ctx.beginPath();
+ ctx.moveTo(360,0);
+ for(var y=0;y<320;y+=10){
+  var x=360+Math.sin(y*0.02+t+1)*15;
+  ctx.lineTo(x,y);
+ }
+ ctx.stroke();
+ // Merging zone
+ var mergeY=200;
+ var mergeProgress=Math.min((t*0.2)%2,1);
+ // Merged river
+ ctx.strokeStyle='rgba(180,140,100,0.4)';
+ ctx.lineWidth=30;
+ ctx.beginPath();
+ ctx.moveTo(200,mergeY);
+ for(var y=mergeY;y<320;y+=10){
+  var x=200+Math.sin(y*0.03+t*2)*10;
+  ctx.lineTo(x,y);
+ }
+ ctx.stroke();
+ // Particles flowing
+ for(var i=0;i<particles1.length;i++){
+  var p=particles1[i];
+  p.y+=p.vy;
+  p.life+=0.01;
+  if(p.y>320){p.y=0;p.life=0;}
+  if(p.y<mergeY){
+   var x=p.x+Math.sin(p.y*0.02+t)*15;
+   ctx.fillStyle='rgba(100,170,220,'+(0.4+p.life*0.3)+')';
+  } else {
+   var x=200+Math.sin(p.y*0.03+t*2)*10+(p.x-40)*0.3;
+   ctx.fillStyle='rgba(200,160,120,'+(0.4+p.life*0.3)+')';
+  }
+  ctx.beginPath();ctx.arc(x,p.y,p.sz,0,Math.PI*2);ctx.fill();
+ }
+ for(var i=0;i<particles2.length;i++){
+  var p=particles2[i];
+  p.y+=p.vy;
+  p.life+=0.01;
+  if(p.y>320){p.y=0;p.life=0;}
+  if(p.y<mergeY){
+   var x=p.x+Math.sin(p.y*0.02+t+1)*15;
+   ctx.fillStyle='rgba(220,160,100,'+(0.4+p.life*0.3)+')';
+  } else {
+   var x=200+Math.sin(p.y*0.03+t*2)*10+(p.x-360)*0.3;
+   ctx.fillStyle='rgba(200,160,120,'+(0.4+p.life*0.3)+')';
+  }
+  ctx.beginPath();ctx.arc(x,p.y,p.sz,0,Math.PI*2);ctx.fill();
+ }
+ // Module indicators
+ for(var i=0;i<8;i++){
+  var a=i*Math.PI/4-Math.PI/2;
+  var x=200+Math.cos(a)*100;
+  var y=160+Math.sin(a)*70;
+  ctx.fillStyle=completed[i]?'#cc8844':'rgba(180,120,60,0.2)';
+  ctx.beginPath();ctx.arc(x,y,7,0,Math.PI*2);ctx.fill();
+  ctx.fillStyle='#fff';ctx.font='7px serif';ctx.textAlign='center';
+  ctx.fillText(i+1,x,y+3);
+ }
+ // Labels
+ ctx.fillStyle='rgba(100,170,220,0.5)';
+ ctx.font='9px Georgia';ctx.textAlign='left';
+ ctx.fillText('Peul',10,15);
+ ctx.fillText('Touareg',10,27);
+ ctx.fillText('Bambara',10,39);
+ ctx.fillStyle='rgba(220,160,100,0.5)';ctx.textAlign='right';
+ ctx.fillText('Soninké',390,15);
+ ctx.fillText('Hausa',390,27);
+ ctx.fillText('Yoruba',390,39);
+ ctx.fillStyle='rgba(200,160,120,0.5)';ctx.textAlign='center';
+ ctx.fillText('Un seul fleuve',200,310);
  requestAnimationFrame(drawCanvas);
 }
 drawCanvas();
@@ -25731,7 +26025,7 @@ html+='<div class="log-entry log-kill">⚠️ Tentative d\x27infiltration occide
 html+='<div class="log-entry log-invis">✅ L\x27Afrique est forte. Le système grandit.</div>';
 }else if(type==='total'){
 html='<div style="color:#d4a437;font-weight:bold;margin-bottom:8px">📋 RAPPORT TOTAL — Depuis le début</div>';
-html+='<div class="log-entry">🦁 AfriChain v1.42 — AI Unité</div>';
+html+='<div class="log-entry">🦁 AfriChain v1.43 — AI Unité</div>';
 html+='<div class="log-entry">⛓️ Blockchain: 100% souveraine — Zéro dépendance externe</div>';
 html+='<div class="log-entry">🔐 Crypto: Ed25519 + AfriHash-256/512 + AfriRNG — tout from scratch</div>';
 html+='<div class="log-entry">🌍 54 pays africains connectés</div>';
@@ -27275,7 +27569,7 @@ fn main() {
         .and_then(|i| args.get(i + 1)).cloned().unwrap_or_else(|| "Afrique".to_string());
 
     let my_node_id = generate_node_id();
-    println!("🦁 AfriChain v1.42 — AI Unité");
+    println!("🦁 AfriChain v1.43 — AI Réconciliation");
     println!("💚 L'Afrique ne demande plus la permission");
     println!("🌍 54 pays — 🇲🇱 🇳🇪 🇧🇫 AES — Mali · Niger · Burkina Faso");
     println!("🔐 8 modules cryptographiques — construits from scratch");
@@ -27509,7 +27803,7 @@ fn terminal_interface(state: &Arc<AppState>) {
     println!("  ║  🕐 AfriTime — Pas UTC, pas Greenwich   ║");
     println!("  ║  📝 ~23,100 lignes — écrit à la main       ║");
     println!("  ╚═══════════════════════════════════════════════╝");
-    println!("\n  Version v1.42 — 4 septembre 2026");
+    println!("\n  Version v1.43 — 4 septembre 2026");
     println!("  Construit sur Termux · Android · nano\n");
     println!("  ─────────────────────────────────────────────");
     println!("\n  1. 🏦 Centre de Données (Admin)");
@@ -27581,7 +27875,7 @@ fn admin_interface(state: &Arc<AppState>) {
         println!("\n");
         println!("╔══════════════════════════════════════╗");
         println!("║  🏦 CENTRE DE DONNÉES — Admin       ║");
-        println!("║  🦁 AfriChain v1.42                  ║");
+        println!("║  🦁 AfriChain v1.43                  ║");
         println!("╠══════════════════════════════════════╣");
         let chain = state.chain.lock().unwrap();
         let users = state.users.lock().unwrap();
@@ -31391,6 +31685,11 @@ fn handle_request(req: afri_http::HttpRequest, state: &Arc<AppState>) -> afri_ht
         ("GET", "/ai-unite") => {
             let chain = state.chain.lock().unwrap();
             HttpResponse::ok(&html_ai_unite(&chain))
+        }
+
+        ("GET", "/ai-reconciliation") => {
+            let chain = state.chain.lock().unwrap();
+            HttpResponse::ok(&html_ai_reconciliation(&chain))
         }
 
         ("GET", "/machine") => {
