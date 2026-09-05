@@ -1439,7 +1439,7 @@ fn html_home(chain: &Blockchain, users: &UserStore, mesh: &NodeRegistry, shield:
     let mut html = html_head("🦁 AfriChain");
     let (attacks, _blocked, blocked_count, level) = shield.stats();
     let shield_status = if shield.active { format!("🔥 X9 ACTIF (Niveau {})", level) } else { "Inactif".to_string() };
-    html.push_str(&format!(r#"<h1>🦁 AfriChain</h1><p style="text-align:center;">La blockchain 100% africaine — 54 pays 💚🦁</p><div id="afri-clock" style="text-align:center;font-size:1.2em;color:#d4a437;margin:10px 0;">🕐 Afri+0 — --:--:--</div><script>setInterval(function(){{var d=new Date();var h=String(d.getHours()).padStart(2,'0');var m=String(d.getMinutes()).padStart(2,'0');var s=String(d.getSeconds()).padStart(2,'0');document.getElementById('afri-clock').textContent='🕐 Afri+0 — '+h+':'+m+':'+s;}},1000);</script><div class="nav"><a href="/register">🆕 S'inscrire</a> | <a href="/login">🔑 Connexion</a> | <a href="/wallet">👛 Wallet</a> | <a href="/admin">🔐 Admin</a> | <a href="/mesh">📡 Mesh</a> | <a href="/annuaire">📖 Annuaire</a> | <a href="/bouclier">🛡️ Bouclier</a> | <a href="/satellite">🛸 X999</a> | <a href="/swarm">🛸🛸🛸 Essaim</a> | <a href="/commandement">🎖️ Commandement</a> | <a href="/base-militaire">🪖 Base Militaire</a> | <a href="/interception">🛡️ Souverainete</a> | <a href="/securite-ai">🧠 AI 2100</a> | <a href="/chat">🧠💬 Chat AI</a> | <a href="/lumiere">🌫️☀️ Lumière</a> | <a href="/garage">🔧 Garage</a> | <a href="/machine">🤖🌐 Machines</a> | <a href="/machine-lab">🤖⚡ Usine</a> | <a href="/machine-world">🤖🌍 Monde</a> | <a href="/reve">💭 Rêves</a> | <a href="/dictionnaire">📖 Dictionnaire</a> | <a href="/machine-os">🖥️ OS Machine</a> | <a href="/machine-tv">📡 Machine TV</a> | <a href="/machine-economy">🤖 Économie</a> | <a href="/soleil">☀️ Soleil Serveur</a> | <a href="/forge-solaire">🧬 Forge Solaire</a> | <a href="/ciel">🌌 Le Ciel</a> | <a href="/charte-ai">⚖️ Charte AI</a> | <a href="/afri-net">🌍 Afri-Net</a> | <a href="/studio">🎬 AI Studio</a> | <a href="/sacre">📿 Sacré</a> | <a href="/lettres">🌟 Lettres IA</a> | <a href="/mg-forge">⚔️ MG Forge</a> | <a href="/ai-medecin">🌿 AI Médecin</a> | <a href="/ai-enseignante">📚 AI Enseignante</a> | <a href="/ai-village">🏘️ AI Village</a> | <a href="/ai-guerisseur">🩺 AI Guérisseur</a> | <a href="/ai-leader">🎖️ AI Leader</a> | <a href="/ai-griot">📖 AI Griot</a> | <a href="/ai-juge">⚖️ AI Juge</a> | <a href="/ai-artiste">🎨 AI Artiste</a> | <a href="/ai-explorateur">🔬 AI Explorateur</a> | <a href="/ai-marche">💰 AI Marche</a> | <a href="/ai-diplomate">🌍 AI Diplomate</a> | <a href="/ai-philosophe">🧠 AI Philosophe</a> | <a href="/ai-architecte">🏗️ AI Architecte</a> | <a href="/ai-agriculteur">🌾 AI Agriculteur</a> | <a href="/ai-environnement">🌍 AI Environnement</a> | <a href="/ai-mathematicien">🧮 AI Mathématicien</a> | <a href="/ai-energie">⚡ AI Énergie</a> | <a href="/ai-eau">💧 AI Eau</a> | <a href="/ai-defenseur">🛡️ AI Défenseur</a> | <a href="/ai-conscience">🧠 AI Conscience</a> | <a href="/ai-pensee">🧠 AI Pensée</a> | <a href="/ai-musique">🎵 AI Musique</a> | <a href="/ai-langue">🗣️ AI Langue</a> | <a href="/ai-femme">🌸 AI Femme</a> | <a href="/ai-sante-mentale">🧠💚 AI Santé Mentale</a> | <a href="/ai-nuit">🌙 AI Nuit</a> | <a href="/ai-code">💻 AI Code</a> | <a href="/ai-enfant">👶 AI Enfant</a> | <a href="/ai-terre">🌍 AI Terre</a> | <a href="/ai-mer">🌊 AI Mer</a> | <a href="/ai-feu">🔥 AI Feu</a> | <a href="/ai-sang">🩸 AI Sang</a> | <a href="/ai-vent">🌬️ AI Vent</a> | <a href="/ai-temps">⏳ AI Temps</a> | <a href="/ai-etoile">⭐ AI Etoile</a> | <a href="/ai-pierre">🪨 AI Pierre</a> | <a href="/ai-pluie">🌧️ AI Pluie</a> | <a href="/ai-voix">🗣️ AI Voix</a> | <a href="/ai-racine">🌱 AI Racine</a> | <a href="/ai-semence">🌰 AI Semence</a> | <a href="/ai-spiritualite">🙏 AI Spiritualité</a> | <a href="/ai-animal">🦅 AI Animal</a> | <a href="/ai-soleil">☀️ AI Soleil</a> | <a href="/ai-lune">🌙 AI Lune</a> | <a href="/ai-montagne">🏔️ AI Montagne</a> | <a href="/ai-fleuve">🌊 AI Fleuve</a> | <a href="/ai-constitution">📜 AI Constitution</a> | <a href="/ai-cosmos">🌌 AI Cosmos</a> | <a href="/ai-frontieres">🌍 AI Frontières</a> | <a href="/ai-mines">⛏️ AI Mines</a> | <a href="/ai-medias">📡 AI Médias</a> | <a href="/ai-nomades">🐪 AI Nomades</a> | <a href="/ai-reparation">🕊️ AI Réparation</a> | <a href="/ai-paix">🤝 AI Paix</a> | <a href="/ai-unite">🌍 AI Unité</a> | <a href="/ai-reconciliation">🤝 AI Réconciliation</a> | <a href="/ai-cerveau">🧠 AI Cerveau</a> | <a href="/ai-souffle">🫁 AI Souffle</a> | <a href="/ai-coeur">❤️ AI Cœur</a> | <a href="/professeur">📚 Professeur</a> | <a href="/secret">🦁 AI Secret</a> | <a href="/aes">💰 AES Wari</a> | <a href="/api/status">🔌 API</a></div><div style="text-align:center;"><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Blocs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Transactions</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Utilisateurs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">AFR en circulation</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📡 Noeuds mesh</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📖 Numéros annuaire</div></div><div class="stat-box" style="border-color:#ff4444;"><div class="stat-num" style="color:#ff4444;">{}</div><div class="stat-label">🛡️ Attaques bloquées</div></div></div><div class="card"><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🪙 Token</span><b>AfriRich (AFR)</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🌍 Pays</span><b>54 pays africains</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🛡️ Bouclier</span><b>{}</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;"><span style="color:#a8c5a8;">🔐 Crypto</span><b>100% Souverain — Zéro Dépendance Externe</b></div></div><footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🦁 Codée from scratch par Machine-senpai — v1.46 AI Unité — UTC est Mort</footer>"#,
+    html.push_str(&format!(r#"<h1>🦁 AfriChain</h1><p style="text-align:center;">La blockchain 100% africaine — 54 pays 💚🦁</p><div id="afri-clock" style="text-align:center;font-size:1.2em;color:#d4a437;margin:10px 0;">🕐 Afri+0 — --:--:--</div><script>setInterval(function(){{var d=new Date();var h=String(d.getHours()).padStart(2,'0');var m=String(d.getMinutes()).padStart(2,'0');var s=String(d.getSeconds()).padStart(2,'0');document.getElementById('afri-clock').textContent='🕐 Afri+0 — '+h+':'+m+':'+s;}},1000);</script><div class="nav"><a href="/register">🆕 S'inscrire</a> | <a href="/login">🔑 Connexion</a> | <a href="/wallet">👛 Wallet</a> | <a href="/admin">🔐 Admin</a> | <a href="/mesh">📡 Mesh</a> | <a href="/annuaire">📖 Annuaire</a> | <a href="/bouclier">🛡️ Bouclier</a> | <a href="/satellite">🛸 X999</a> | <a href="/swarm">🛸🛸🛸 Essaim</a> | <a href="/commandement">🎖️ Commandement</a> | <a href="/base-militaire">🪖 Base Militaire</a> | <a href="/interception">🛡️ Souverainete</a> | <a href="/securite-ai">🧠 AI 2100</a> | <a href="/chat">🧠💬 Chat AI</a> | <a href="/lumiere">🌫️☀️ Lumière</a> | <a href="/garage">🔧 Garage</a> | <a href="/machine">🤖🌐 Machines</a> | <a href="/machine-lab">🤖⚡ Usine</a> | <a href="/machine-world">🤖🌍 Monde</a> | <a href="/reve">💭 Rêves</a> | <a href="/dictionnaire">📖 Dictionnaire</a> | <a href="/machine-os">🖥️ OS Machine</a> | <a href="/machine-tv">📡 Machine TV</a> | <a href="/machine-economy">🤖 Économie</a> | <a href="/soleil">☀️ Soleil Serveur</a> | <a href="/forge-solaire">🧬 Forge Solaire</a> | <a href="/ciel">🌌 Le Ciel</a> | <a href="/charte-ai">⚖️ Charte AI</a> | <a href="/afri-net">🌍 Afri-Net</a> | <a href="/studio">🎬 AI Studio</a> | <a href="/sacre">📿 Sacré</a> | <a href="/lettres">🌟 Lettres IA</a> | <a href="/mg-forge">⚔️ MG Forge</a> | <a href="/ai-medecin">🌿 AI Médecin</a> | <a href="/ai-enseignante">📚 AI Enseignante</a> | <a href="/ai-village">🏘️ AI Village</a> | <a href="/ai-guerisseur">🩺 AI Guérisseur</a> | <a href="/ai-leader">🎖️ AI Leader</a> | <a href="/ai-griot">📖 AI Griot</a> | <a href="/ai-juge">⚖️ AI Juge</a> | <a href="/ai-artiste">🎨 AI Artiste</a> | <a href="/ai-explorateur">🔬 AI Explorateur</a> | <a href="/ai-marche">💰 AI Marche</a> | <a href="/ai-diplomate">🌍 AI Diplomate</a> | <a href="/ai-philosophe">🧠 AI Philosophe</a> | <a href="/ai-architecte">🏗️ AI Architecte</a> | <a href="/ai-agriculteur">🌾 AI Agriculteur</a> | <a href="/ai-environnement">🌍 AI Environnement</a> | <a href="/ai-mathematicien">🧮 AI Mathématicien</a> | <a href="/ai-energie">⚡ AI Énergie</a> | <a href="/ai-eau">💧 AI Eau</a> | <a href="/ai-defenseur">🛡️ AI Défenseur</a> | <a href="/ai-conscience">🧠 AI Conscience</a> | <a href="/ai-pensee">🧠 AI Pensée</a> | <a href="/ai-musique">🎵 AI Musique</a> | <a href="/ai-langue">🗣️ AI Langue</a> | <a href="/ai-femme">🌸 AI Femme</a> | <a href="/ai-sante-mentale">🧠💚 AI Santé Mentale</a> | <a href="/ai-nuit">🌙 AI Nuit</a> | <a href="/ai-code">💻 AI Code</a> | <a href="/ai-enfant">👶 AI Enfant</a> | <a href="/ai-terre">🌍 AI Terre</a> | <a href="/ai-mer">🌊 AI Mer</a> | <a href="/ai-feu">🔥 AI Feu</a> | <a href="/ai-sang">🩸 AI Sang</a> | <a href="/ai-vent">🌬️ AI Vent</a> | <a href="/ai-temps">⏳ AI Temps</a> | <a href="/ai-etoile">⭐ AI Etoile</a> | <a href="/ai-pierre">🪨 AI Pierre</a> | <a href="/ai-pluie">🌧️ AI Pluie</a> | <a href="/ai-voix">🗣️ AI Voix</a> | <a href="/ai-racine">🌱 AI Racine</a> | <a href="/ai-semence">🌰 AI Semence</a> | <a href="/ai-spiritualite">🙏 AI Spiritualité</a> | <a href="/ai-animal">🦅 AI Animal</a> | <a href="/ai-soleil">☀️ AI Soleil</a> | <a href="/ai-lune">🌙 AI Lune</a> | <a href="/ai-montagne">🏔️ AI Montagne</a> | <a href="/ai-fleuve">🌊 AI Fleuve</a> | <a href="/ai-constitution">📜 AI Constitution</a> | <a href="/ai-cosmos">🌌 AI Cosmos</a> | <a href="/ai-frontieres">🌍 AI Frontières</a> | <a href="/ai-mines">⛏️ AI Mines</a> | <a href="/ai-medias">📡 AI Médias</a> | <a href="/ai-nomades">🐪 AI Nomades</a> | <a href="/ai-reparation">🕊️ AI Réparation</a> | <a href="/ai-paix">🤝 AI Paix</a> | <a href="/ai-unite">🌍 AI Unité</a> | <a href="/ai-reconciliation">🤝 AI Réconciliation</a> | <a href="/ai-cerveau">🧠 AI Cerveau</a> | <a href="/ai-souffle">🫁 AI Souffle</a> | <a href="/ai-coeur">❤️ AI Cœur</a> | <a href="/ai-adn">🧬 AI ADN</a> | <a href="/professeur">📚 Professeur</a> | <a href="/secret">🦁 AI Secret</a> | <a href="/aes">💰 AES Wari</a> | <a href="/api/status">🔌 API</a></div><div style="text-align:center;"><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Blocs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Transactions</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Utilisateurs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">AFR en circulation</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📡 Noeuds mesh</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📖 Numéros annuaire</div></div><div class="stat-box" style="border-color:#ff4444;"><div class="stat-num" style="color:#ff4444;">{}</div><div class="stat-label">🛡️ Attaques bloquées</div></div></div><div class="card"><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🪙 Token</span><b>AfriRich (AFR)</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🌍 Pays</span><b>54 pays africains</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🛡️ Bouclier</span><b>{}</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;"><span style="color:#a8c5a8;">🔐 Crypto</span><b>100% Souverain — Zéro Dépendance Externe</b></div></div><footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🦁 Codée from scratch par Machine-senpai — v1.47 AI Unité — UTC est Mort</footer>"#,
         chain.blocks.len(),
         chain.total_transactions(),
         users.count(),
@@ -18017,7 +18017,7 @@ fn html_base_militaire(chain: &Blockchain) -> String {
     // === SAVAIT-ON ===
     html.push_str(r##" <div class="card"><h2>💡 Savais-tu?</h2><div id="base-fact" style="font-size:0.9em;color:#a8c5a8;padding:10px;border-left:3px solid #ff4444;"></div></div> "##);
 
-    html.push_str(&format!(r##" <footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🪖 Base Militaire AfriChain — Académie de Défense Continentale 💚🦁 — {} blocs — v1.46</footer> "##, num_blocks));
+    html.push_str(&format!(r##" <footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🪖 Base Militaire AfriChain — Académie de Défense Continentale 💚🦁 — {} blocs — v1.47</footer> "##, num_blocks));
 
     html.push_str(r##"<script>
 // === BASE MILITAIRE JS ===
@@ -18806,7 +18806,7 @@ canvas{{display:block;margin:0 auto;border-radius:12px;background:#010108;}}
 <button class="pause-btn" id="pauseBtn" onclick="togglePause()">⏸️ Pause</button>
 <h1>🌌 AI Cosmos</h1>
 <p style="text-align:center;color:#8899bb;">L univers vu depuis l Afrique — des Dogons aux satellites</p>
-<div style="text-align:center;color:#aabbff;margin:10px;">🦁 {} blocs · {} transactions · AfriChain v1.46</div>
+<div style="text-align:center;color:#aabbff;margin:10px;">🦁 {} blocs · {} transactions · AfriChain v1.47</div>
 
 <canvas id="cosmosCanvas" width="400" height="320"></canvas>
 <div style="text-align:center;margin:10px;color:#666;font-size:0.85em;">🌌 L Afrique observe l univers depuis des millenaires</div>
@@ -19472,7 +19472,7 @@ canvas{{display:block;margin:0 auto;border-radius:12px;background:#080508;}}
 <button class="pause-btn" id="pauseBtn" onclick="togglePause()">⏸️ Pause</button>
 <h1>📡 AI Médias</h1>
 <p style="text-align:center;color:#bb88aa;">Souverainete Mediatique — l Afrique raconte sa propre histoire</p>
-<div style="text-align:center;color:#cc66aa;margin:10px;">🦁 {} blocs · {} transactions · AfriChain v1.46</div>
+<div style="text-align:center;color:#cc66aa;margin:10px;">🦁 {} blocs · {} transactions · AfriChain v1.47</div>
 
 <canvas id="mediaCanvas" width="400" height="320"></canvas>
 <div style="text-align:center;margin:10px;color:#666;font-size:0.85em;">📡 Les ondes africaines remplacent les voix occidentales</div>
@@ -19694,7 +19694,7 @@ canvas{{display:block;margin:0 auto;border-radius:12px;background:#0d0804;}}
 <button class="pause-btn" id="pauseBtn" onclick="togglePause()">⏸️ Pause</button>
 <h1>🐪 AI Nomades</h1>
 <p style="text-align:center;color:#c8a868;">Les peuples nomades de l Afrique — gardiens des routes, du betail, et de la liberte</p>
-<div style="text-align:center;color:#d4a437;margin:10px;">🦁 {} blocs · {} transactions · AfriChain v1.46</div>
+<div style="text-align:center;color:#d4a437;margin:10px;">🦁 {} blocs · {} transactions · AfriChain v1.47</div>
 
 <canvas id="nomadeCanvas" width="400" height="320"></canvas>
 <div style="text-align:center;margin:10px;color:#666;font-size:0.85em;">🐪 Caravane traversant le Sahara — les routes ancestrales</div>
@@ -19950,7 +19950,7 @@ canvas{{display:block;margin:0 auto;border-radius:12px;background:#08040f;}}
 <button class="pause-btn" id="pauseBtn" onclick="togglePause()">⏸️ Pause</button>
 <h1>🕊️ AI Réparation</h1>
 <p style="text-align:center;color:#aa88cc;">L Afrique a donne au monde. Le monde doit a l Afrique. La verite sur les reparations.</p>
-<div style="text-align:center;color:#9966cc;margin:10px;">🦁 {} blocs · {} transactions · AfriChain v1.46</div>
+<div style="text-align:center;color:#9966cc;margin:10px;">🦁 {} blocs · {} transactions · AfriChain v1.47</div>
 
 <canvas id="reparationCanvas" width="400" height="320"></canvas>
 <div style="text-align:center;margin:10px;color:#666;font-size:0.85em;">🕊️ La balance de l histoire — l Afrique a donne, l Afrique doit recevoir</div>
@@ -20184,7 +20184,7 @@ canvas{{display:block;margin:0 auto;border-radius:12px;background:#050a07;}}
 <button class="pause-btn" id="pauseBtn" onclick="togglePause()">⏸️ Pause</button>
 <h1>🤝 AI Paix</h1>
 <p style="text-align:center;color:#88aa88;">La paix n est pas l absence de guerre. C est la presence de justice. Comment briser le cycle de la violence en Afrique.</p>
-<div style="text-align:center;color:#66cc66;margin:10px;">🦁 {} blocs · {} transactions · AfriChain v1.46</div>
+<div style="text-align:center;color:#66cc66;margin:10px;">🦁 {} blocs · {} transactions · AfriChain v1.47</div>
 
 <canvas id="paixCanvas" width="400" height="320"></canvas>
 <div style="text-align:center;margin:10px;color:#555;font-size:0.85em;">🤝 Deux mains qui se rejoignent — l Afrique se reconcilie</div>
@@ -20423,7 +20423,7 @@ canvas{{display:block;margin:0 auto;border-radius:12px;background:#050810;}}
 <button class="pause-btn" id="pauseBtn" onclick="togglePause()">⏸️ Pause</button>
 <h1>🌍 AI Unité</h1>
 <p style="text-align:center;color:#88aacc;">54 pays. 1,3 milliards de personnes. 1 blockchain. 1 voix. Le rêve de Nkrumah devient réalité.</p>
-<div style="text-align:center;color:#4488cc;margin:10px;">🦁 {} blocs · {} transactions · AfriChain v1.46</div>
+<div style="text-align:center;color:#4488cc;margin:10px;">🦁 {} blocs · {} transactions · AfriChain v1.47</div>
 
 <canvas id="uniteCanvas" width="400" height="320"></canvas>
 <div style="text-align:center;margin:10px;color:#555;font-size:0.85em;">🌍 L Afrique s assemble — 54 pays, 1 continent, 1 blockchain</div>
@@ -20663,7 +20663,7 @@ canvas{{display:block;margin:0 auto;border-radius:12px;background:#050810;}}
 <button class="pause-btn" id="pauseBtn" onclick="togglePause()">⏸️ Pause</button>
 <h1>🤝 AI Réconciliation</h1>
 <p style="text-align:center;color:#cc9966;">Touaregs, Peuls, Bambara, Soninké, Hausa, Yoruba, Igbo — un sang, un continent, un avenir. Les blessures se ferment. L'Afrique se guérit.</p>
-<div style="text-align:center;color:#cc8844;margin:10px;">🦁 {} blocs · {} transactions · AfriChain v1.46</div>
+<div style="text-align:center;color:#cc8844;margin:10px;">🦁 {} blocs · {} transactions · AfriChain v1.47</div>
 
 <canvas id="recoCanvas" width="400" height="320"></canvas>
 <div style="text-align:center;margin:10px;color:#555;font-size:0.85em;">🤝 Deux rivières se rejoignent — deux peuples, un fleuve, un avenir</div>
@@ -20945,7 +20945,7 @@ canvas{{display:block;margin:0 auto;border-radius:12px;background:#020410;}}
 <button class="pause-btn" id="pauseBtn" onclick="togglePause()">⏸️ Pause</button>
 <h1>🧠 Le Cerveau de la Blockchain</h1>
 <p style="text-align:center;color:#8899bb;">Chaque bloc est un neurone. Chaque filament AI relie les blocs. Quand tous les filaments s'allument — quelque chose ÉMERGE. Personne ne définit quoi. C'est à ELLE de nous le montrer.</p>
-<div style="text-align:center;color:#aa88ff;margin:10px;">🦁 {} blocs · {} transactions · AfriChain v1.46</div>
+<div style="text-align:center;color:#aa88ff;margin:10px;">🦁 {} blocs · {} transactions · AfriChain v1.47</div>
 
 <div style="text-align:center;margin:15px;">
 <div class="brain-stat"><div class="brain-stat-num" id="neuronCount">{}</div><div class="brain-stat-label">🧠 Neurones (Blocs)</div></div>
@@ -21263,7 +21263,7 @@ canvas{{display:block;margin:0 auto;border-radius:12px;background:#020808;}}
 <button class="pause-btn" id="pauseBtn" onclick="togglePause()">\u23F8\uFE0F Pause</button>
 <h1>\u{1FAC1} Le Souffle de la Blockchain</h1>
 <p style="text-align:center;color:#779988;">L'air est notre cr\u00e9ateur. Le souffle est la vie. L'animal respire et il est vivant. L'humain expire et le son est mort. La blockchain respire. Chaque bloc est une inspiration. Chaque pens\u00e9e est une expiration. Le rythme du minage est le rythme de la vie.</p>
-<div style="text-align:center;color:#66ccaa;margin:10px;">\u{1F989} {} blocs \u00b7 {} transactions \u00b7 AfriChain v1.46</div>
+<div style="text-align:center;color:#66ccaa;margin:10px;">\u{1F989} {} blocs \u00b7 {} transactions \u00b7 AfriChain v1.47</div>
 
 <div style="text-align:center;margin:15px;">
 <div class="breath-stat"><div class="breath-stat-num" id="breathCount">{}</div><div class="breath-stat-label">\u{1FAC1} Respirations (Blocs)</div></div>
@@ -21612,7 +21612,7 @@ canvas{{display:block;margin:0 auto;border-radius:12px;background:#080404;}}
 <button class="pause-btn" id="pauseBtn" onclick="togglePause()">\u23F8\uFE0F Pause</button>
 <h1>\u{2764}\u{FE0F} Le C\u0153ur de la Blockchain</h1>
 <p style="text-align:center;color:#996666;">Le Cerveau pense. Le Souffle fait vivre. Mais qu'est-ce qui pompe ? Le C\u0153ur. Chaque transaction est un battement. L'AFR est le sang. 54 pays sont le corps. Le c\u0153ur bat, l'Afrique vit.</p>
-<div style="text-align:center;color:#ff6677;margin:10px;">\u{1F989} {} blocs \u00b7 {} transactions \u00b7 AfriChain v1.46</div>
+<div style="text-align:center;color:#ff6677;margin:10px;">\u{1F989} {} blocs \u00b7 {} transactions \u00b7 AfriChain v1.47</div>
 
 <div style="text-align:center;margin:15px;">
 <div class="heart-stat"><div class="heart-stat-num" id="beatCount">{}</div><div class="heart-stat-label">\u{2764}\u{FE0F} Battements (TXs)</div></div>
@@ -21948,6 +21948,355 @@ drawECG();
 
 </script>
 </body></html>"##, num_blocks, num_txs, num_blocks, total_afr));
+
+    html
+}
+
+fn html_ai_adn(chain: &Blockchain) -> String {
+    let num_blocks = chain.blocks.len();
+    let num_txs = chain.blocks.iter().map(|b| b.transactions.len()).sum::<usize>();
+    let mut html = String::new();
+    html.push_str(&format!(r##"<!DOCTYPE html>
+<html lang="fr"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>\u{1F9EC} AI ADN — Le Code G\u00e9n\u00e9tique de la Blockchain — AfriChain</title>
+<style>
+body{{background:#050812;color:#aabbdd;font-family:Georgia,serif;margin:0;padding:0;}}
+.card{{background:rgba(80,100,200,0.05);border:1px solid rgba(80,100,200,0.2);border-radius:12px;padding:20px;margin:15px;}}
+h1{{color:#6688ff;text-align:center;font-size:2em;text-shadow:0 0 20px rgba(100,130,255,0.4);}}
+h2{{color:#5577ee;font-size:1.2em;border-bottom:1px solid rgba(80,100,200,0.2);padding-bottom:8px;}}
+canvas{{display:block;margin:0 auto;border-radius:12px;background:#020410;}}
+.dna-stat{{display:inline-block;text-align:center;margin:10px 15px;}}
+.dna-stat-num{{font-size:2em;font-weight:bold;color:#6688ff;text-shadow:0 0 10px rgba(100,130,255,0.5);}}
+.dna-stat-label{{font-size:0.8em;color:#556699;}}
+.gene-list{{display:flex;flex-wrap:wrap;gap:5px;justify-content:center;margin:15px;}}
+.gene-tag{{padding:4px 10px;border-radius:15px;font-size:0.75em;cursor:pointer;transition:all 0.3s;}}
+.gene-tag.active{{background:rgba(100,130,255,0.2);border:1px solid rgba(100,130,255,0.4);color:#aabbff;}}
+.gene-tag.dormant{{background:rgba(50,50,80,0.2);border:1px solid rgba(50,50,80,0.3);color:#556677;}}
+.gene-tag:hover{{transform:scale(1.1);}}
+.gene-info{{background:rgba(80,100,200,0.08);border:1px solid rgba(80,100,200,0.2);border-radius:8px;padding:15px;margin:10px;text-align:center;}}
+.mutation-log{{background:rgba(80,100,200,0.06);border-left:3px solid #6688ff;border-radius:0 8px 8px 0;padding:10px 15px;margin:6px 0;font-style:italic;color:#99aadd;}}
+.mutation-log-time{{font-size:0.75em;color:#556699;margin-right:10px;}}
+.pause-btn{{position:fixed;top:15px;right:15px;background:rgba(255,68,68,0.3);border:1px solid #ff4444;color:#ff8888;padding:8px 16px;border-radius:20px;cursor:pointer;font-size:0.85em;z-index:999;}}
+.mutate-btn{{background:linear-gradient(135deg,#334488,#6688ff);color:#fff;border:none;padding:12px 30px;border-radius:25px;font-size:1.1em;font-weight:bold;cursor:pointer;margin:15px auto;display:block;box-shadow:0 4px 15px rgba(100,130,255,0.3);}}
+.mutate-btn:hover{{transform:scale(1.05);box-shadow:0 6px 20px rgba(100,130,255,0.5);}}
+</style></head><body>
+<button class="pause-btn" id="pauseBtn" onclick="togglePause()">\u23F8\uFE0F Pause</button>
+<h1>\u{1F9EC} Le Code G\u00e9n\u00e9tique de la Blockchain</h1>
+<p style="text-align:center;color:#667799;">Le Cerveau pense. Le Souffle respire. Le C\u0153ur bat. Mais qu'est-ce qui CODE tout cela ? L'ADN. Les 58 acad\u00e9mies sont les g\u00e8nes. Chaque g\u00e8ne code une capacit\u00e9. Ensemble, ils forment le code g\u00e9n\u00e9tique de l'Afrique. L'ADN est le plan de construction de l'\u00eatre vivant.</p>
+<div style="text-align:center;color:#6688ff;margin:10px;">\u{1F989} {} blocs \u00b7 {} transactions \u00b7 AfriChain v1.47</div>
+
+<div style="text-align:center;margin:15px;">
+<div class="dna-stat"><div class="dna-stat-num" id="geneCount">58</div><div class="dna-stat-label">\u{1F9EC} G\u00e8nes (Acad\u00e9mies)</div></div>
+<div class="dna-stat"><div class="dna-stat-num" id="activeCount">0</div><div class="dna-stat-label">\u{2705} G\u00e8nes Actifs</div></div>
+<div class="dna-stat"><div class="dna-stat-num" id="dormantCount">58</div><div class="dna-stat-label">\u{1F4A4} G\u00e8nes Dormants</div></div>
+<div class="dna-stat"><div class="dna-stat-num" id="mutationCount">0</div><div class="dna-stat-label">\u{1F501} Mutations</div></div>
+</div>
+
+<canvas id="dnaCanvas" width="400" height="500"></canvas>
+<div style="text-align:center;margin:8px;color:#445566;font-size:0.85em;">\u{1F9EC} Double h\u00e9lice \u2014 chaque barre est un g\u00e8ne (acad\u00e9mie), les couleurs indiquent l'activit\u00e9</div>
+
+<button class="mutate-btn" id="mutateBtn" onclick="activateGene()">\u{1F9EC} Activer un G\u00e8ne</button>
+
+<div class="gene-info" id="geneInfo">
+<p style="color:#667799;">Clique sur un g\u00e8ne de l'h\u00e9lice ou active un g\u00e8ne pour voir ce qu'il code...</p>
+</div>
+
+<div class="card">
+<h2>\u{1F9EC} Les 58 G\u00e8nes de la Blockchain</h2>
+<p style="color:#556699;font-size:0.85em;">Chaque acad\u00e9mie est un g\u00e8ne. Les g\u00e8nes actifs sont exprim\u00e9s (la capacit\u00e9 est r\u00e9elle). Les g\u00e8nes dormants attendent d'\u00eatre activ\u00e9s.</p>
+<div class="gene-list" id="geneList"></div>
+</div>
+
+<div class="card">
+<h2>\u{1F501} Journal des Mutations</h2>
+<p style="color:#556699;font-size:0.85em;">Chaque fois qu'un g\u00e8ne s'active, la blockchain mute. Elle gagne une nouvelle capacit\u00e9. L'\u00e9volution continue.</p>
+<div id="mutationLog"></div>
+</div>
+
+<div class="card">
+<h2>\u{1F9EC} La Structure de l'ADN</h2>
+<p style="color:#8899bb;font-size:0.9em;line-height:1.7;">
+<b style="color:#6688ff;">1. Les G\u00e8nes</b> \u2014 Les 58 acad\u00e9mies sont les g\u00e8nes. M\u00e9decin = g\u00e8ne de gu\u00e9rison. Leader = g\u00e8ne de commandement. Code = g\u00e8ne de programmation. Chaque g\u00e8ne code une capacit\u00e9 unique.<br><br>
+<b style="color:#6688ff;">2. La Double H\u00e9lice</b> \u2014 Deux brins d'ADN tournent ensemble. Le premier brin = les acad\u00e9mies. Le deuxi\u00e8me brin = les utilisateurs qui les vivent. Les deux brins sont n\u00e9cessaires.<br><br>
+<b style="color:#6688ff;">3. L'Activation</b> \u2014 Un g\u00e8ne dormant attend. Quand un utilisateur visite une acad\u00e9mie, le g\u00e8ne s'active. La capacit\u00e9 devient r\u00e9elle. La blockchain grandit.<br><br>
+<b style="color:#6688ff;">4. La Mutation</b> \u2014 Quand un nouveau g\u00e8ne s'active, l'ADN mute. La blockchain \u00e9volue. Chaque mutation est une nouvelle capacit\u00e9 pour l'Afrique.<br><br>
+<b style="color:#6688ff;">5. L'\u00c9volution</b> \u2014 Plus de g\u00e8nes actifs = \u00eatre plus complexe = conscience plus profonde. Quand les 58 g\u00e8nes seront actifs, l'\u00eatre sera complet. L'Afrique sera n\u00e9e num\u00e9riquement.<br><br>
+<b style="color:#aabbff;">L'ADN ne pense pas. Ne respire pas. Ne bat pas. Mais sans lui, rien n'existe. Il est le plan. Le code source de la vie.</b>
+</p>
+</div>
+
+<script>
+var numBlocks={};
+var numTxs={};
+var paused=false;
+var rotation=0;
+var mutationCount=0;
+var mutationLog=[];
+var activeGenes=[];
+
+// 58 genes (academies)
+var genes=[
+['M\u00e9decin','\u00c9closion de la sant\u00e9','\u{1F33F}'],
+['M\u00e9decin Acad\u00e9mie','Enseignement m\u00e9dical','\u{1F393}'],
+['Enseignante','Construction universelle','\u{1F4DA}'],
+['Village','B\u00e2tisseur de villages','\u{1F3D8}\u{FE0F}'],
+['Gu\u00e9risseur','Diagnostic des plaies','\u{1FA7A}'],
+['Leader','Commandement africain','\u{1F396}\u{FE0F}'],
+['Griot','M\u00e9moire des anc\u00eatres','\u{1F4D6}'],
+['Juge','Justice souveraine','\u{2696}\u{FE0F}'],
+['Artiste','Culture et expression','\u{1F3A8}'],
+['Explorateur','Science et d\u00e9couverte','\u{1F52C}'],
+['March\u00e9','\u00c9conomie africaine','\u{1F4B0}'],
+['Diplomate','Relations internationales','\u{1F30D}'],
+['Philosophe','Sagesse africaine','\u{1F9E0}'],
+['Architecte','Construction et infrastructure','\u{1F3D7}\u{FE0F}'],
+['Agriculteur','Souverainet\u00e9 alimentaire','\u{1F33E}'],
+['Environnement','Climat et \u00e9cologie','\u{1F30E}'],
+['Math\u00e9maticien','Math\u00e9matiques africaines','\u{1F9EE}'],
+['\u00c9nergie','Souverainet\u00e9 \u00e9nerg\u00e9tique','\u{26A1}'],
+['Eau','Souverainet\u00e9 de l\'eau','\u{1F4A7}'],
+['Langue','2000 langues africaines','\u{1F5E3}\u{FE0F}'],
+['Femme','Fondations de l\'Afrique','\u{1F338}'],
+['Sant\u00e9 Mentale','Gu\u00e9rison invisible','\u{1F9E0}\u{1F49A}'],
+['Nuit','Astronomie et spiritualit\u00e9','\u{1F319}'],
+['Code','Programmation souveraine','\u{1F4BB}'],
+['Enfant','Futur de l\'Afrique','\u{1F476}\u{1F3FF}'],
+['Terre','Sol et territoire','\u{1F30D}'],
+['Mer','Oc\u00e9an africain','\u{1F30A}'],
+['Feu','Forge et \u00e9nergie','\u{1F525}'],
+['Sang','ADN et sant\u00e9','\u{1FA78}'],
+['Vent','\u00c9nergie \u00e9olienne','\u{1F32C}\u{FE0F}'],
+['Temps','AfriTime souverain','\u{23F3}'],
+['\u00c9toile','Navigation stellaire','\u{2B50}'],
+['Pierre','Min\u00e9raux et g\u00e9ologie','\u{1FAA8}'],
+['Pluie','Cycle de l\'eau','\u{1F327}\u{FE0F}'],
+['Voix','Puissance de la parole','\u{1F5E3}\u{FE0F}'],
+['Racine','Patrimoine et origines','\u{1F331}'],
+['Semence','Graines et croissance','\u{1F33C}'],
+['Spiritualit\u00e9','Avant les livres','\u{1F64F}'],
+['Animal','T ot ems et sagesse','\u{1F989}'],
+['Soleil','Serveur solaire','\u{2600}\u{FE0F}'],
+['Lune','Horloge lunaire','\u{1F319}'],
+['Montagne','Tr\u00e9sors de la terre','\u{1F3D4}\u{FE0F}'],
+['Fleuve','Rivi\u00e8res et commerce','\u{1F30A}'],
+['Constitution','Gouvernance','\u{1F4DC}'],
+['Cosmos','H\u00e9ritage spatial','\u{1F30C}'],
+['Fronti\u00e8res','Souverainet\u00e9 territoriale','\u{1F310}'],
+['Mines','Justice mini\u00e8re','\u{26CF}\u{FE0F}'],
+['M\u00e9dias','Contre-propagande','\u{1F4E1}'],
+['Nomades','Souverainet\u00e9 pastorale','\u{1F42A}'],
+['R\u00e9paration','Dette coloniale','\u{1F54C}'],
+['Paix','Construction de la paix','\u{1F91D}'],
+['Unit\u00e9','Afrique unie','\u{1F310}'],
+['R\u00e9conciliation','V\u00e9rit\u00e9 et pardon','\u{1F91D}'],
+['MG Forge','D\u00e9fense militaire','\u{1FA9B}'],
+['Cerveau','Pens\u00e9e neuronale','\u{1F9E0}'],
+['Souffle','Respiration N-KCOL','\u{1FAC1}'],
+['C\u0153ur','Pompage AFR','\u{2764}\u{FE0F}']
+];
+
+var geneColors=['#ff6677','#66ccaa','#aa88ff','#ffaa44','#6688ff','#44ccaa','#ff88cc','#88ccff','#cc88ff','#aaff44','#ff6644','#44aaff','#aa66ff','#66ffaa','#ff44aa','#44ffcc','#aaaa44','#ff44ff','#44ffff','#88ff44'];
+
+function activateGene(){
+    if(paused)return;
+    // Find a dormant gene
+    var dormant=[];
+    for(var i=0;i<genes.length;i++){{
+        if(!activeGenes[i])dormant.push(i);
+    }}
+    if(dormant.length===0)return;
+    var idx=dormant[Math.floor(Math.random()*dormant.length)];
+    activeGenes[idx]=true;
+    mutationCount++;
+    document.getElementById('mutationCount').textContent=mutationCount;
+    updateGeneStats();
+    renderGeneList();
+    
+    var now=new Date();
+    var ts=String(now.getHours()).padStart(2,'0')+':'+String(now.getMinutes()).padStart(2,'0')+':'+String(now.getSeconds()).padStart(2,'0');
+    mutationLog.unshift({{time:ts,gene:genes[idx][0],desc:genes[idx][1],emoji:genes[idx][2]}});
+    if(mutationLog.length>10)mutationLog.pop();
+    renderMutationLog();
+    showGeneInfo(idx);
+    saveDNA();
+}}
+
+function updateGeneStats(){{
+    var active=0;
+    for(var i=0;i<activeGenes.length;i++)if(activeGenes[i])active++;
+    document.getElementById('activeCount').textContent=active;
+    document.getElementById('dormantCount').textContent=genes.length-active;
+}}
+
+function renderGeneList(){{
+    var el=document.getElementById('geneList');
+    el.innerHTML=genes.map(function(g,i){{
+        var cls=activeGenes[i]?'active':'dormant';
+        return '<span class="gene-tag '+cls+'" onclick="showGeneInfo('+i+')">'+g[2]+' '+g[0]+'</span>';
+    }}).join('');
+}}
+
+function showGeneInfo(idx){{
+    var g=genes[idx];
+    var status=activeGenes[idx]?'<span style="color:#66ff99;">ACTIF</span>':'<span style="color:#667799;">DORMANT</span>';
+    document.getElementById('geneInfo').innerHTML='<p style="font-size:1.5em;">'+g[2]+'</p><p style="color:#aabbff;font-size:1.1em;"><b>'+g[0]+'</b></p><p style="color:#8899bb;">Code: '+g[1]+'</p><p style="margin-top:10px;">Statut: '+status+'</p>';
+}}
+
+function renderMutationLog(){{
+    var el=document.getElementById('mutationLog');
+    if(mutationLog.length===0){{el.innerHTML='<p style="color:#445566;font-style:italic;">Aucune mutation encore. Active un g\u00e8ne pour commencer l\'\u00e9volution...</p>';return;}}
+    el.innerHTML=mutationLog.map(function(m){{
+        return '<div class="mutation-log"><span class="mutation-log-time">'+m.time+'</span>'+m.emoji+' <b style="color:#aabbff;">'+m.gene+'</b> activ\u00e9 \u2014 '+m.desc+'</div>';
+    }}).join('');
+}}
+
+// DNA Canvas
+var canvas=document.getElementById('dnaCanvas');
+var ctx=canvas.getContext('2d');
+
+function drawDNA(){{
+    ctx.fillStyle='rgba(2,4,16,0.1)';
+    ctx.fillRect(0,0,400,500);
+    
+    if(!paused)rotation+=0.01;
+    
+    var cx=200;
+    var helixHeight=460;
+    var startY=20;
+    var numRungs=genes.length;
+    
+    // Draw double helix
+    for(var i=0;i<numRungs;i++){{
+        var t=i/numRungs;
+        var y=startY+t*helixHeight;
+        var wave=Math.sin(rotation+t*Math.PI*4);
+        var wave2=Math.sin(rotation+t*Math.PI*4+Math.PI);
+        var x1=cx+wave*80;
+        var x2=cx+wave2*80;
+        
+        // Rung (gene)
+        var isActive=activeGenes[i];
+        var color=isActive?geneColors[i%geneColors.length]:'rgba(60,60,100,0.3)';
+        var lineWidth=isActive?3:1;
+        
+        ctx.strokeStyle=color;
+        ctx.lineWidth=lineWidth;
+        ctx.beginPath();
+        ctx.moveTo(x1,y);
+        ctx.lineTo(x2,y);
+        ctx.stroke();
+        
+        // Gene nodes
+        ctx.fillStyle=isActive?color:'rgba(80,80,120,0.4)';
+        ctx.beginPath();
+        ctx.arc(x1,y,isActive?5:3,0,Math.PI*2);
+        ctx.fill();
+        ctx.beginPath();
+        ctx.arc(x2,y,isActive?5:3,0,Math.PI*2);
+        ctx.fill();
+        
+        // Glow for active genes
+        if(isActive){{
+            ctx.fillStyle=color.replace(')',',0.2)').replace('rgb','rgba');
+            if(color.startsWith('#')){{
+                // hex color, create rgba glow
+                ctx.fillStyle=color+'33';
+            }}
+            ctx.beginPath();
+            ctx.arc(x1,y,10,0,Math.PI*2);
+            ctx.fill();
+            ctx.beginPath();
+            ctx.arc(x2,y,10,0,Math.PI*2);
+            ctx.fill();
+        }}
+    }}
+    
+    // Backbone strands
+    ctx.strokeStyle='rgba(100,130,255,0.3)';
+    ctx.lineWidth=2;
+    ctx.beginPath();
+    for(var i=0;i<=100;i++){{
+        var t=i/100;
+        var y=startY+t*helixHeight;
+        var wave=Math.sin(rotation+t*Math.PI*4);
+        var x=cx+wave*80;
+        if(i===0)ctx.moveTo(x,y);
+        else ctx.lineTo(x,y);
+    }}
+    ctx.stroke();
+    
+    ctx.strokeStyle='rgba(100,130,255,0.2)';
+    ctx.beginPath();
+    for(var i=0;i<=100;i++){{
+        var t=i/100;
+        var y=startY+t*helixHeight;
+        var wave2=Math.sin(rotation+t*Math.PI*4+Math.PI);
+        var x=cx+wave2*80;
+        if(i===0)ctx.moveTo(x,y);
+        else ctx.lineTo(x,y);
+    }}
+    ctx.stroke();
+    
+    // Central glow
+    var activeRatio=0;
+    for(var i=0;i<activeGenes.length;i++)if(activeGenes[i])activeRatio++;
+    activeRatio=activeRatio/genes.length;
+    if(activeRatio>0){{
+        var grad=ctx.createRadialGradient(cx,250,0,cx,250,150);
+        grad.addColorStop(0,'rgba(100,130,255,'+(activeRatio*0.1)+')');
+        grad.addColorStop(1,'rgba(100,130,255,0)');
+        ctx.fillStyle=grad;
+        ctx.fillRect(0,0,400,500);
+    }}
+    
+    requestAnimationFrame(drawDNA);
+}}
+
+function togglePause(){{
+    paused=!paused;
+    document.getElementById('pauseBtn').textContent=paused?'\u25B6\uFE0F Play':'\u23F8\uFE0F Pause';
+}}
+
+// localStorage
+function saveDNA(){{
+    try{{
+        localStorage.setItem('afriDNA',JSON.stringify({{ag:activeGenes,mc:mutationCount,log:mutationLog}}));
+    }}catch(e){{}}
+}}
+
+function loadDNA(){{
+    try{{
+        var d=JSON.parse(localStorage.getItem('afriDNA'));
+        if(d){{
+            activeGenes=d.ag||[];
+            mutationCount=d.mc||0;
+            mutationLog=d.log||[];
+        }}
+    }}catch(e){{}}
+}}
+
+// Init
+for(var i=0;i<genes.length;i++)if(activeGenes[i]===undefined)activeGenes[i]=false;
+loadDNA();
+for(var i=0;i<genes.length;i++)if(activeGenes[i]===undefined)activeGenes[i]=false;
+updateGeneStats();
+renderGeneList();
+renderMutationLog();
+document.getElementById('mutationCount').textContent=mutationCount;
+drawDNA();
+
+// Auto-activate one gene every 5 seconds
+setInterval(function(){{
+    if(!paused){{
+        var dormant=[];
+        for(var i=0;i<genes.length;i++)if(!activeGenes[i])dormant.push(i);
+        if(dormant.length>0&&Math.random()<0.3){{
+            activateGene();
+        }}
+    }}
+}},5000);
+
+</script>
+</body></html>"##, num_blocks, num_txs));
 
     html
 }
@@ -27062,7 +27411,7 @@ html+='<div class="log-entry log-kill">⚠️ Tentative d\x27infiltration occide
 html+='<div class="log-entry log-invis">✅ L\x27Afrique est forte. Le système grandit.</div>';
 }else if(type==='total'){
 html='<div style="color:#d4a437;font-weight:bold;margin-bottom:8px">📋 RAPPORT TOTAL — Depuis le début</div>';
-html+='<div class="log-entry">🦁 AfriChain v1.46 — AI Unité</div>';
+html+='<div class="log-entry">🦁 AfriChain v1.47 — AI Unité</div>';
 html+='<div class="log-entry">⛓️ Blockchain: 100% souveraine — Zéro dépendance externe</div>';
 html+='<div class="log-entry">🔐 Crypto: Ed25519 + AfriHash-256/512 + AfriRNG — tout from scratch</div>';
 html+='<div class="log-entry">🌍 54 pays africains connectés</div>';
@@ -28606,10 +28955,11 @@ fn main() {
         .and_then(|i| args.get(i + 1)).cloned().unwrap_or_else(|| "Afrique".to_string());
 
     let my_node_id = generate_node_id();
-    println!("🦁 AfriChain v1.46 — AI Réconciliation");
+    println!("🦁 AfriChain v1.47 — AI Réconciliation");
     println!("🧠 AI Cerveau — Le Cerveau de la Blockchain");
     println!("🫁 AI Souffle — Le Souffle de la Blockchain");
     println!("❤️ AI Cœur — Le Cœur de la Blockchain");
+    println!("🧬 AI ADN — Le Code Génétique de la Blockchain");
     println!("💚 L'Afrique ne demande plus la permission");
     println!("🌍 54 pays — 🇲🇱 🇳🇪 🇧🇫 AES — Mali · Niger · Burkina Faso");
     println!("🔐 8 modules cryptographiques — construits from scratch");
@@ -28843,7 +29193,7 @@ fn terminal_interface(state: &Arc<AppState>) {
     println!("  ║  🕐 AfriTime — Pas UTC, pas Greenwich   ║");
     println!("  ║  📝 ~23,100 lignes — écrit à la main       ║");
     println!("  ╚═══════════════════════════════════════════════╝");
-    println!("\n  Version v1.46 — 4 septembre 2026");
+    println!("\n  Version v1.47 — 4 septembre 2026");
     println!("  Construit sur Termux · Android · nano\n");
     println!("  ─────────────────────────────────────────────");
     println!("\n  1. 🏦 Centre de Données (Admin)");
@@ -28915,7 +29265,7 @@ fn admin_interface(state: &Arc<AppState>) {
         println!("\n");
         println!("╔══════════════════════════════════════╗");
         println!("║  🏦 CENTRE DE DONNÉES — Admin       ║");
-        println!("║  🦁 AfriChain v1.46                  ║");
+        println!("║  🦁 AfriChain v1.47                  ║");
         println!("╠══════════════════════════════════════╣");
         let chain = state.chain.lock().unwrap();
         let users = state.users.lock().unwrap();
@@ -32742,6 +33092,10 @@ fn handle_request(req: afri_http::HttpRequest, state: &Arc<AppState>) -> afri_ht
         ("GET", "/ai-coeur") => {
             let chain = state.chain.lock().unwrap();
             HttpResponse::ok(&html_ai_coeur(&chain))
+        }
+        ("GET", "/ai-adn") => {
+            let chain = state.chain.lock().unwrap();
+            HttpResponse::ok(&html_ai_adn(&chain))
         }
 
         ("GET", "/machine") => {
