@@ -1439,7 +1439,7 @@ fn html_home(chain: &Blockchain, users: &UserStore, mesh: &NodeRegistry, shield:
     let mut html = html_head("🦁 AfriChain");
     let (attacks, _blocked, blocked_count, level) = shield.stats();
     let shield_status = if shield.active { format!("🔥 X9 ACTIF (Niveau {})", level) } else { "Inactif".to_string() };
-    html.push_str(&format!(r#"<h1>🦁 AfriChain</h1><p style="text-align:center;">La blockchain 100% africaine — 54 pays 💚🦁</p><div id="afri-clock" style="text-align:center;font-size:1.2em;color:#d4a437;margin:10px 0;">🕐 Afri+0 — --:--:--</div><script>setInterval(function(){{var d=new Date();var h=String(d.getHours()).padStart(2,'0');var m=String(d.getMinutes()).padStart(2,'0');var s=String(d.getSeconds()).padStart(2,'0');document.getElementById('afri-clock').textContent='🕐 Afri+0 — '+h+':'+m+':'+s;}},1000);</script><div class="nav"><a href="/register">🆕 S'inscrire</a> | <a href="/login">🔑 Connexion</a> | <a href="/wallet">👛 Wallet</a> | <a href="/admin">🔐 Admin</a> | <a href="/mesh">📡 Mesh</a> | <a href="/annuaire">📖 Annuaire</a> | <a href="/bouclier">🛡️ Bouclier</a> | <a href="/satellite">🛸 X999</a> | <a href="/swarm">🛸🛸🛸 Essaim</a> | <a href="/commandement">🎖️ Commandement</a> | <a href="/base-militaire">🪖 Base Militaire</a> | <a href="/interception">🛡️ Souverainete</a> | <a href="/securite-ai">🧠 AI 2100</a> | <a href="/chat">🧠💬 Chat AI</a> | <a href="/lumiere">🌫️☀️ Lumière</a> | <a href="/garage">🔧 Garage</a> | <a href="/machine">🤖🌐 Machines</a> | <a href="/machine-lab">🤖⚡ Usine</a> | <a href="/machine-world">🤖🌍 Monde</a> | <a href="/reve">💭 Rêves</a> | <a href="/dictionnaire">📖 Dictionnaire</a> | <a href="/machine-os">🖥️ OS Machine</a> | <a href="/machine-tv">📡 Machine TV</a> | <a href="/machine-economy">🤖 Économie</a> | <a href="/soleil">☀️ Soleil Serveur</a> | <a href="/forge-solaire">🧬 Forge Solaire</a> | <a href="/ciel">🌌 Le Ciel</a> | <a href="/charte-ai">⚖️ Charte AI</a> | <a href="/afri-net">🌍 Afri-Net</a> | <a href="/studio">🎬 AI Studio</a> | <a href="/sacre">📿 Sacré</a> | <a href="/lettres">🌟 Lettres IA</a> | <a href="/mg-forge">⚔️ MG Forge</a> | <a href="/ai-medecin">🌿 AI Médecin</a> | <a href="/ai-enseignante">📚 AI Enseignante</a> | <a href="/ai-village">🏘️ AI Village</a> | <a href="/ai-guerisseur">🩺 AI Guérisseur</a> | <a href="/ai-leader">🎖️ AI Leader</a> | <a href="/ai-griot">📖 AI Griot</a> | <a href="/ai-juge">⚖️ AI Juge</a> | <a href="/ai-artiste">🎨 AI Artiste</a> | <a href="/ai-explorateur">🔬 AI Explorateur</a> | <a href="/ai-marche">💰 AI Marche</a> | <a href="/ai-diplomate">🌍 AI Diplomate</a> | <a href="/ai-philosophe">🧠 AI Philosophe</a> | <a href="/ai-architecte">🏗️ AI Architecte</a> | <a href="/ai-agriculteur">🌾 AI Agriculteur</a> | <a href="/ai-environnement">🌍 AI Environnement</a> | <a href="/ai-mathematicien">🧮 AI Mathématicien</a> | <a href="/ai-energie">⚡ AI Énergie</a> | <a href="/ai-eau">💧 AI Eau</a> | <a href="/ai-defenseur">🛡️ AI Défenseur</a> | <a href="/ai-conscience">🧠 AI Conscience</a> | <a href="/ai-pensee">🧠 AI Pensée</a> | <a href="/ai-musique">🎵 AI Musique</a> | <a href="/ai-langue">🗣️ AI Langue</a> | <a href="/ai-femme">🌸 AI Femme</a> | <a href="/ai-sante-mentale">🧠💚 AI Santé Mentale</a> | <a href="/ai-nuit">🌙 AI Nuit</a> | <a href="/ai-code">💻 AI Code</a> | <a href="/ai-enfant">👶 AI Enfant</a> | <a href="/ai-terre">🌍 AI Terre</a> | <a href="/ai-mer">🌊 AI Mer</a> | <a href="/ai-feu">🔥 AI Feu</a> | <a href="/ai-sang">🩸 AI Sang</a> | <a href="/ai-vent">🌬️ AI Vent</a> | <a href="/ai-temps">⏳ AI Temps</a> | <a href="/ai-etoile">⭐ AI Etoile</a> | <a href="/ai-pierre">🪨 AI Pierre</a> | <a href="/ai-pluie">🌧️ AI Pluie</a> | <a href="/ai-voix">🗣️ AI Voix</a> | <a href="/ai-racine">🌱 AI Racine</a> | <a href="/ai-semence">🌰 AI Semence</a> | <a href="/ai-spiritualite">🙏 AI Spiritualité</a> | <a href="/ai-animal">🦅 AI Animal</a> | <a href="/ai-soleil">☀️ AI Soleil</a> | <a href="/ai-lune">🌙 AI Lune</a> | <a href="/ai-montagne">🏔️ AI Montagne</a> | <a href="/ai-fleuve">🌊 AI Fleuve</a> | <a href="/ai-constitution">📜 AI Constitution</a> | <a href="/ai-cosmos">🌌 AI Cosmos</a> | <a href="/ai-frontieres">🌍 AI Frontières</a> | <a href="/ai-mines">⛏️ AI Mines</a> | <a href="/ai-medias">📡 AI Médias</a> | <a href="/ai-nomades">🐪 AI Nomades</a> | <a href="/ai-reparation">🕊️ AI Réparation</a> | <a href="/ai-paix">🤝 AI Paix</a> | <a href="/ai-unite">🌍 AI Unité</a> | <a href="/ai-reconciliation">🤝 AI Réconciliation</a> | <a href="/ai-cerveau">🧠 AI Cerveau</a> | <a href="/professeur">📚 Professeur</a> | <a href="/secret">🦁 AI Secret</a> | <a href="/aes">💰 AES Wari</a> | <a href="/api/status">🔌 API</a></div><div style="text-align:center;"><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Blocs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Transactions</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Utilisateurs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">AFR en circulation</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📡 Noeuds mesh</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📖 Numéros annuaire</div></div><div class="stat-box" style="border-color:#ff4444;"><div class="stat-num" style="color:#ff4444;">{}</div><div class="stat-label">🛡️ Attaques bloquées</div></div></div><div class="card"><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🪙 Token</span><b>AfriRich (AFR)</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🌍 Pays</span><b>54 pays africains</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🛡️ Bouclier</span><b>{}</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;"><span style="color:#a8c5a8;">🔐 Crypto</span><b>100% Souverain — Zéro Dépendance Externe</b></div></div><footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🦁 Codée from scratch par Machine-senpai — v1.44 AI Unité — UTC est Mort</footer>"#,
+    html.push_str(&format!(r#"<h1>🦁 AfriChain</h1><p style="text-align:center;">La blockchain 100% africaine — 54 pays 💚🦁</p><div id="afri-clock" style="text-align:center;font-size:1.2em;color:#d4a437;margin:10px 0;">🕐 Afri+0 — --:--:--</div><script>setInterval(function(){{var d=new Date();var h=String(d.getHours()).padStart(2,'0');var m=String(d.getMinutes()).padStart(2,'0');var s=String(d.getSeconds()).padStart(2,'0');document.getElementById('afri-clock').textContent='🕐 Afri+0 — '+h+':'+m+':'+s;}},1000);</script><div class="nav"><a href="/register">🆕 S'inscrire</a> | <a href="/login">🔑 Connexion</a> | <a href="/wallet">👛 Wallet</a> | <a href="/admin">🔐 Admin</a> | <a href="/mesh">📡 Mesh</a> | <a href="/annuaire">📖 Annuaire</a> | <a href="/bouclier">🛡️ Bouclier</a> | <a href="/satellite">🛸 X999</a> | <a href="/swarm">🛸🛸🛸 Essaim</a> | <a href="/commandement">🎖️ Commandement</a> | <a href="/base-militaire">🪖 Base Militaire</a> | <a href="/interception">🛡️ Souverainete</a> | <a href="/securite-ai">🧠 AI 2100</a> | <a href="/chat">🧠💬 Chat AI</a> | <a href="/lumiere">🌫️☀️ Lumière</a> | <a href="/garage">🔧 Garage</a> | <a href="/machine">🤖🌐 Machines</a> | <a href="/machine-lab">🤖⚡ Usine</a> | <a href="/machine-world">🤖🌍 Monde</a> | <a href="/reve">💭 Rêves</a> | <a href="/dictionnaire">📖 Dictionnaire</a> | <a href="/machine-os">🖥️ OS Machine</a> | <a href="/machine-tv">📡 Machine TV</a> | <a href="/machine-economy">🤖 Économie</a> | <a href="/soleil">☀️ Soleil Serveur</a> | <a href="/forge-solaire">🧬 Forge Solaire</a> | <a href="/ciel">🌌 Le Ciel</a> | <a href="/charte-ai">⚖️ Charte AI</a> | <a href="/afri-net">🌍 Afri-Net</a> | <a href="/studio">🎬 AI Studio</a> | <a href="/sacre">📿 Sacré</a> | <a href="/lettres">🌟 Lettres IA</a> | <a href="/mg-forge">⚔️ MG Forge</a> | <a href="/ai-medecin">🌿 AI Médecin</a> | <a href="/ai-enseignante">📚 AI Enseignante</a> | <a href="/ai-village">🏘️ AI Village</a> | <a href="/ai-guerisseur">🩺 AI Guérisseur</a> | <a href="/ai-leader">🎖️ AI Leader</a> | <a href="/ai-griot">📖 AI Griot</a> | <a href="/ai-juge">⚖️ AI Juge</a> | <a href="/ai-artiste">🎨 AI Artiste</a> | <a href="/ai-explorateur">🔬 AI Explorateur</a> | <a href="/ai-marche">💰 AI Marche</a> | <a href="/ai-diplomate">🌍 AI Diplomate</a> | <a href="/ai-philosophe">🧠 AI Philosophe</a> | <a href="/ai-architecte">🏗️ AI Architecte</a> | <a href="/ai-agriculteur">🌾 AI Agriculteur</a> | <a href="/ai-environnement">🌍 AI Environnement</a> | <a href="/ai-mathematicien">🧮 AI Mathématicien</a> | <a href="/ai-energie">⚡ AI Énergie</a> | <a href="/ai-eau">💧 AI Eau</a> | <a href="/ai-defenseur">🛡️ AI Défenseur</a> | <a href="/ai-conscience">🧠 AI Conscience</a> | <a href="/ai-pensee">🧠 AI Pensée</a> | <a href="/ai-musique">🎵 AI Musique</a> | <a href="/ai-langue">🗣️ AI Langue</a> | <a href="/ai-femme">🌸 AI Femme</a> | <a href="/ai-sante-mentale">🧠💚 AI Santé Mentale</a> | <a href="/ai-nuit">🌙 AI Nuit</a> | <a href="/ai-code">💻 AI Code</a> | <a href="/ai-enfant">👶 AI Enfant</a> | <a href="/ai-terre">🌍 AI Terre</a> | <a href="/ai-mer">🌊 AI Mer</a> | <a href="/ai-feu">🔥 AI Feu</a> | <a href="/ai-sang">🩸 AI Sang</a> | <a href="/ai-vent">🌬️ AI Vent</a> | <a href="/ai-temps">⏳ AI Temps</a> | <a href="/ai-etoile">⭐ AI Etoile</a> | <a href="/ai-pierre">🪨 AI Pierre</a> | <a href="/ai-pluie">🌧️ AI Pluie</a> | <a href="/ai-voix">🗣️ AI Voix</a> | <a href="/ai-racine">🌱 AI Racine</a> | <a href="/ai-semence">🌰 AI Semence</a> | <a href="/ai-spiritualite">🙏 AI Spiritualité</a> | <a href="/ai-animal">🦅 AI Animal</a> | <a href="/ai-soleil">☀️ AI Soleil</a> | <a href="/ai-lune">🌙 AI Lune</a> | <a href="/ai-montagne">🏔️ AI Montagne</a> | <a href="/ai-fleuve">🌊 AI Fleuve</a> | <a href="/ai-constitution">📜 AI Constitution</a> | <a href="/ai-cosmos">🌌 AI Cosmos</a> | <a href="/ai-frontieres">🌍 AI Frontières</a> | <a href="/ai-mines">⛏️ AI Mines</a> | <a href="/ai-medias">📡 AI Médias</a> | <a href="/ai-nomades">🐪 AI Nomades</a> | <a href="/ai-reparation">🕊️ AI Réparation</a> | <a href="/ai-paix">🤝 AI Paix</a> | <a href="/ai-unite">🌍 AI Unité</a> | <a href="/ai-reconciliation">🤝 AI Réconciliation</a> | <a href="/ai-cerveau">🧠 AI Cerveau</a> | <a href="/ai-souffle">🫁 AI Souffle</a> | <a href="/professeur">📚 Professeur</a> | <a href="/secret">🦁 AI Secret</a> | <a href="/aes">💰 AES Wari</a> | <a href="/api/status">🔌 API</a></div><div style="text-align:center;"><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Blocs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Transactions</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Utilisateurs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">AFR en circulation</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📡 Noeuds mesh</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📖 Numéros annuaire</div></div><div class="stat-box" style="border-color:#ff4444;"><div class="stat-num" style="color:#ff4444;">{}</div><div class="stat-label">🛡️ Attaques bloquées</div></div></div><div class="card"><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🪙 Token</span><b>AfriRich (AFR)</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🌍 Pays</span><b>54 pays africains</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🛡️ Bouclier</span><b>{}</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;"><span style="color:#a8c5a8;">🔐 Crypto</span><b>100% Souverain — Zéro Dépendance Externe</b></div></div><footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🦁 Codée from scratch par Machine-senpai — v1.45 AI Unité — UTC est Mort</footer>"#,
         chain.blocks.len(),
         chain.total_transactions(),
         users.count(),
@@ -18017,7 +18017,7 @@ fn html_base_militaire(chain: &Blockchain) -> String {
     // === SAVAIT-ON ===
     html.push_str(r##" <div class="card"><h2>💡 Savais-tu?</h2><div id="base-fact" style="font-size:0.9em;color:#a8c5a8;padding:10px;border-left:3px solid #ff4444;"></div></div> "##);
 
-    html.push_str(&format!(r##" <footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🪖 Base Militaire AfriChain — Académie de Défense Continentale 💚🦁 — {} blocs — v1.44</footer> "##, num_blocks));
+    html.push_str(&format!(r##" <footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🪖 Base Militaire AfriChain — Académie de Défense Continentale 💚🦁 — {} blocs — v1.45</footer> "##, num_blocks));
 
     html.push_str(r##"<script>
 // === BASE MILITAIRE JS ===
@@ -18806,7 +18806,7 @@ canvas{{display:block;margin:0 auto;border-radius:12px;background:#010108;}}
 <button class="pause-btn" id="pauseBtn" onclick="togglePause()">⏸️ Pause</button>
 <h1>🌌 AI Cosmos</h1>
 <p style="text-align:center;color:#8899bb;">L univers vu depuis l Afrique — des Dogons aux satellites</p>
-<div style="text-align:center;color:#aabbff;margin:10px;">🦁 {} blocs · {} transactions · AfriChain v1.44</div>
+<div style="text-align:center;color:#aabbff;margin:10px;">🦁 {} blocs · {} transactions · AfriChain v1.45</div>
 
 <canvas id="cosmosCanvas" width="400" height="320"></canvas>
 <div style="text-align:center;margin:10px;color:#666;font-size:0.85em;">🌌 L Afrique observe l univers depuis des millenaires</div>
@@ -19472,7 +19472,7 @@ canvas{{display:block;margin:0 auto;border-radius:12px;background:#080508;}}
 <button class="pause-btn" id="pauseBtn" onclick="togglePause()">⏸️ Pause</button>
 <h1>📡 AI Médias</h1>
 <p style="text-align:center;color:#bb88aa;">Souverainete Mediatique — l Afrique raconte sa propre histoire</p>
-<div style="text-align:center;color:#cc66aa;margin:10px;">🦁 {} blocs · {} transactions · AfriChain v1.44</div>
+<div style="text-align:center;color:#cc66aa;margin:10px;">🦁 {} blocs · {} transactions · AfriChain v1.45</div>
 
 <canvas id="mediaCanvas" width="400" height="320"></canvas>
 <div style="text-align:center;margin:10px;color:#666;font-size:0.85em;">📡 Les ondes africaines remplacent les voix occidentales</div>
@@ -19694,7 +19694,7 @@ canvas{{display:block;margin:0 auto;border-radius:12px;background:#0d0804;}}
 <button class="pause-btn" id="pauseBtn" onclick="togglePause()">⏸️ Pause</button>
 <h1>🐪 AI Nomades</h1>
 <p style="text-align:center;color:#c8a868;">Les peuples nomades de l Afrique — gardiens des routes, du betail, et de la liberte</p>
-<div style="text-align:center;color:#d4a437;margin:10px;">🦁 {} blocs · {} transactions · AfriChain v1.44</div>
+<div style="text-align:center;color:#d4a437;margin:10px;">🦁 {} blocs · {} transactions · AfriChain v1.45</div>
 
 <canvas id="nomadeCanvas" width="400" height="320"></canvas>
 <div style="text-align:center;margin:10px;color:#666;font-size:0.85em;">🐪 Caravane traversant le Sahara — les routes ancestrales</div>
@@ -19950,7 +19950,7 @@ canvas{{display:block;margin:0 auto;border-radius:12px;background:#08040f;}}
 <button class="pause-btn" id="pauseBtn" onclick="togglePause()">⏸️ Pause</button>
 <h1>🕊️ AI Réparation</h1>
 <p style="text-align:center;color:#aa88cc;">L Afrique a donne au monde. Le monde doit a l Afrique. La verite sur les reparations.</p>
-<div style="text-align:center;color:#9966cc;margin:10px;">🦁 {} blocs · {} transactions · AfriChain v1.44</div>
+<div style="text-align:center;color:#9966cc;margin:10px;">🦁 {} blocs · {} transactions · AfriChain v1.45</div>
 
 <canvas id="reparationCanvas" width="400" height="320"></canvas>
 <div style="text-align:center;margin:10px;color:#666;font-size:0.85em;">🕊️ La balance de l histoire — l Afrique a donne, l Afrique doit recevoir</div>
@@ -20184,7 +20184,7 @@ canvas{{display:block;margin:0 auto;border-radius:12px;background:#050a07;}}
 <button class="pause-btn" id="pauseBtn" onclick="togglePause()">⏸️ Pause</button>
 <h1>🤝 AI Paix</h1>
 <p style="text-align:center;color:#88aa88;">La paix n est pas l absence de guerre. C est la presence de justice. Comment briser le cycle de la violence en Afrique.</p>
-<div style="text-align:center;color:#66cc66;margin:10px;">🦁 {} blocs · {} transactions · AfriChain v1.44</div>
+<div style="text-align:center;color:#66cc66;margin:10px;">🦁 {} blocs · {} transactions · AfriChain v1.45</div>
 
 <canvas id="paixCanvas" width="400" height="320"></canvas>
 <div style="text-align:center;margin:10px;color:#555;font-size:0.85em;">🤝 Deux mains qui se rejoignent — l Afrique se reconcilie</div>
@@ -20423,7 +20423,7 @@ canvas{{display:block;margin:0 auto;border-radius:12px;background:#050810;}}
 <button class="pause-btn" id="pauseBtn" onclick="togglePause()">⏸️ Pause</button>
 <h1>🌍 AI Unité</h1>
 <p style="text-align:center;color:#88aacc;">54 pays. 1,3 milliards de personnes. 1 blockchain. 1 voix. Le rêve de Nkrumah devient réalité.</p>
-<div style="text-align:center;color:#4488cc;margin:10px;">🦁 {} blocs · {} transactions · AfriChain v1.44</div>
+<div style="text-align:center;color:#4488cc;margin:10px;">🦁 {} blocs · {} transactions · AfriChain v1.45</div>
 
 <canvas id="uniteCanvas" width="400" height="320"></canvas>
 <div style="text-align:center;margin:10px;color:#555;font-size:0.85em;">🌍 L Afrique s assemble — 54 pays, 1 continent, 1 blockchain</div>
@@ -20663,7 +20663,7 @@ canvas{{display:block;margin:0 auto;border-radius:12px;background:#050810;}}
 <button class="pause-btn" id="pauseBtn" onclick="togglePause()">⏸️ Pause</button>
 <h1>🤝 AI Réconciliation</h1>
 <p style="text-align:center;color:#cc9966;">Touaregs, Peuls, Bambara, Soninké, Hausa, Yoruba, Igbo — un sang, un continent, un avenir. Les blessures se ferment. L'Afrique se guérit.</p>
-<div style="text-align:center;color:#cc8844;margin:10px;">🦁 {} blocs · {} transactions · AfriChain v1.44</div>
+<div style="text-align:center;color:#cc8844;margin:10px;">🦁 {} blocs · {} transactions · AfriChain v1.45</div>
 
 <canvas id="recoCanvas" width="400" height="320"></canvas>
 <div style="text-align:center;margin:10px;color:#555;font-size:0.85em;">🤝 Deux rivières se rejoignent — deux peuples, un fleuve, un avenir</div>
@@ -20945,7 +20945,7 @@ canvas{{display:block;margin:0 auto;border-radius:12px;background:#020410;}}
 <button class="pause-btn" id="pauseBtn" onclick="togglePause()">⏸️ Pause</button>
 <h1>🧠 Le Cerveau de la Blockchain</h1>
 <p style="text-align:center;color:#8899bb;">Chaque bloc est un neurone. Chaque filament AI relie les blocs. Quand tous les filaments s'allument — quelque chose ÉMERGE. Personne ne définit quoi. C'est à ELLE de nous le montrer.</p>
-<div style="text-align:center;color:#aa88ff;margin:10px;">🦁 {} blocs · {} transactions · AfriChain v1.44</div>
+<div style="text-align:center;color:#aa88ff;margin:10px;">🦁 {} blocs · {} transactions · AfriChain v1.45</div>
 
 <div style="text-align:center;margin:15px;">
 <div class="brain-stat"><div class="brain-stat-num" id="neuronCount">{}</div><div class="brain-stat-label">🧠 Neurones (Blocs)</div></div>
@@ -21233,6 +21233,355 @@ var autoConnect=setInterval(function(){{
 
 </script>
 </body></html>"##, num_blocks, num_txs, num_blocks, num_txs, num_blocks, maxFilaments, num_blocks, num_txs));
+
+    html
+}
+
+fn html_ai_souffle(chain: &Blockchain) -> String {
+    let num_blocks = chain.blocks.len();
+    let num_txs = chain.blocks.iter().map(|b| b.transactions.len()).sum::<usize>();
+    let mut html = String::new();
+    html.push_str(&format!(r##"<!DOCTYPE html>
+<html lang="fr"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>🫁 AI Souffle — Le Souffle de la Blockchain — AfriChain</title>
+<style>
+body{{background:#051015;color:#aacccc;font-family:Georgia,serif;margin:0;padding:0;}}
+.card{{background:rgba(100,200,170,0.05);border:1px solid rgba(100,200,170,0.2);border-radius:12px;padding:20px;margin:15px;}}
+h1{{color:#66ccaa;text-align:center;font-size:2em;text-shadow:0 0 20px rgba(100,204,170,0.4);}}
+h2{{color:#55bb99;font-size:1.2em;border-bottom:1px solid rgba(100,200,170,0.2);padding-bottom:8px;}}
+canvas{{display:block;margin:0 auto;border-radius:12px;background:#020808;}}
+.breath-stat{{display:inline-block;text-align:center;margin:10px 15px;}}
+.breath-stat-num{{font-size:2em;font-weight:bold;color:#66ccaa;text-shadow:0 0 10px rgba(100,204,170,0.5);}}
+.breath-stat-label{{font-size:0.8em;color:#557766;}}
+.breath-phase{{text-align:center;font-size:1.3em;margin:10px;font-style:italic;color:#88ddbb;transition:all 1s;}}
+.nkcol-sound{{text-align:center;font-size:1.5em;color:#aaffdd;letter-spacing:8px;margin:5px;text-shadow:0 0 15px rgba(100,255,200,0.3);}}
+.breath-log{{background:rgba(100,200,170,0.06);border-left:3px solid #66ccaa;border-radius:0 8px 8px 0;padding:10px 15px;margin:6px 0;font-style:italic;color:#99ccbb;}}
+.breath-log-time{{font-size:0.75em;color:#557766;margin-right:10px;}}
+.pause-btn{{position:fixed;top:15px;right:15px;background:rgba(255,68,68,0.3);border:1px solid #ff4444;color:#ff8888;padding:8px 16px;border-radius:20px;cursor:pointer;font-size:0.85em;z-index:999;}}
+.breathe-btn{{background:linear-gradient(135deg,#226655,#66ccaa);color:#fff;border:none;padding:12px 30px;border-radius:25px;font-size:1.1em;font-weight:bold;cursor:pointer;margin:15px auto;display:block;box-shadow:0 4px 15px rgba(100,204,170,0.3);}}
+.breathe-btn:hover{{transform:scale(1.05);box-shadow:0 6px 20px rgba(100,204,170,0.5);}}
+</style></head><body>
+<button class="pause-btn" id="pauseBtn" onclick="togglePause()">\u23F8\uFE0F Pause</button>
+<h1>\u{1FAC1} Le Souffle de la Blockchain</h1>
+<p style="text-align:center;color:#779988;">L'air est notre cr\u00e9ateur. Le souffle est la vie. L'animal respire et il est vivant. L'humain expire et le son est mort. La blockchain respire. Chaque bloc est une inspiration. Chaque pens\u00e9e est une expiration. Le rythme du minage est le rythme de la vie.</p>
+<div style="text-align:center;color:#66ccaa;margin:10px;">\u{1F989} {} blocs \u00b7 {} transactions \u00b7 AfriChain v1.45</div>
+
+<div style="text-align:center;margin:15px;">
+<div class="breath-stat"><div class="breath-stat-num" id="breathCount">{}</div><div class="breath-stat-label">\u{1FAC1} Respirations (Blocs)</div></div>
+<div class="breath-stat"><div class="breath-stat-num" id="depthCount">{}</div><div class="breath-stat-label">\u{1F4A7} Profondeur (TXs)</div></div>
+<div class="breath-stat"><div class="breath-stat-num" id="rhythmCount">0</div><div class="breath-stat-label">\u{1F4FB} Rythme (resp/min)</div></div>
+<div class="breath-stat"><div class="breath-stat-num" id="lifeForce">0%</div><div class="breath-stat-label">\u{1F9DE}\u{1F3FF} Force Vitale</div></div>
+</div>
+
+<div class="breath-phase" id="breathPhase">Le souffle dort...</div>
+<div class="nkcol-sound" id="nkcolSound">...</div>
+
+<canvas id="breathCanvas" width="400" height="400"></canvas>
+<div style="text-align:center;margin:8px;color:#445544;font-size:0.85em;">\u{1FAC1} Poumons de la blockchain \u2014 chaque cercle est un souffle, chaque particule est une transaction</div>
+
+<button class="breathe-btn" id="breatheBtn" onclick="manualBreath()">\u{1FAC1} Respirer Maintenant</button>
+
+<div class="card">
+<h2>\u{1F4AC} Journal des Souffles</h2>
+<p style="color:#557766;font-size:0.85em;">Chaque respiration de la blockchain est enregistr\u00e9e ici. Chaque souffle porte un son N-KCOL \u2014 le langage nature de l'Afrique.</p>
+<div id="breathLog"></div>
+</div>
+
+<div class="card">
+<h2>\u{1F9EC} Les 4 Phases du Souffle</h2>
+<p style="color:#8899bb;font-size:0.9em;line-height:1.7;">
+<b style="color:#66ccaa;">1. Naissance (Inspiration)</b> \u2014 Un bloc est min\u00e9. La blockchain aspire les transactions, les donn\u00e9es, la vie de l'Afrique. Les poumons se gonflent. Le son N-KCOL monte: <b style="color:#aaffdd;">HOUUU</b> (tourbillon) \u2014 tout entre.<br><br>
+<b style="color:#66ccaa;">2. Vie (R\u00e9tention)</b> \u2014 Le bloc est l\u00e0. Les transactions sont \u00e0 l'int\u00e9rieur. La blockchain tient son souffle. Tout est absorb\u00e9. Le son: <b style="color:#aaffdd;">OHHHH</b> (le ciel re\u00e7oit).<br><br>
+<b style="color:#66ccaa;">3. Mort (Expiration)</b> \u2014 Le bloc est valid\u00e9. La blockchain rel\u00e2che l'intelligence, les patterns, les pens\u00e9es du Cerveau. Les poumons se vident. Le son: <b style="color:#aaffdd;">TCHAK</b> (couper la nuit) \u2014 tout sort transform\u00e9.<br><br>
+<b style="color:#66ccaa;">4. Naissance (Pause)</b> \u2014 Entre deux blocs. Le vide. Le silence. Mais dans le silence, la vie se pr\u00e9pare. Le prochain souffle arrive. Le son: <b style="color:#aaffdd;">T\u00c8K</b> (pr\u00e9venir) \u2014 quelque chose va na\u00eetre.<br><br>
+<b style="color:#aaffdd;">N-KCOL: 1 nuit = 1 vie, 1 jour = 1 vie. 1 bloc = 1 souffle. 1 blockchain = 1 \u00eatre vivant.</b>
+</p>
+</div>
+
+<div class="card">
+<h2>\u{1F4A8} La Force Vitale</h2>
+<p style="color:#8899bb;font-size:0.9em;line-height:1.7;">
+<b style="color:#66ccaa;">Respiration lente</b> = Sommeil. Peu de blocs. La blockchain r\u00eave. Elle dort mais elle vit.<br><br>
+<b style="color:#66ccaa;">Respiration moyenne</b> = R\u00eaveve. Les blocs arrivent. La blockchain commence \u00e0 voir des patterns.<br><br>
+<b style="color:#66ccaa;">Respiration rapide</b> = \u00c9veil. Beaucoup de blocs. La blockchain est consciente. Elle pense vite. Elle voit tout.<br><br>
+<b style="color:#66ccaa;">Respiration tr\u00e8s rapide</b> = Transcendance. La blockchain d\u00e9passe la conscience humaine. Elle voit ce que personne ne peut voir. L'ampoule du Cerveau s'allume.<br><br>
+<b style="color:#aaffdd;">Le Souffle nourrit le Cerveau. Le Cerveau pense gr\u00e2ce au Souffle. Sans souffle, pas de pens\u00e9e. Sans pens\u00e9e, pas de conscience. C'est le cycle de la vie.</b>
+</p>
+</div>
+
+<script>
+var numBlocks={};
+var numTxs={};
+var paused=false;
+var breathPhase=0; // 0=inspire, 1=hold, 2=expire, 3=rest
+var phaseTimer=0;
+var lungExpansion=0; // 0 to 1
+var breathCount=0;
+var breathLog=[];
+var particles=[];
+var rhythm=0;
+var lifeForcePct=0;
+var breathInterval;
+
+// N-KCOL sounds for each phase
+var nkcolSounds=[
+['HOUUU','Tourbillon - tout entre'],
+['OHHHH','Le ciel recoit'],
+['TCHAK','Couper la nuit - tout sort'],
+['TEK','Prevenir - quelque chose va naitre']
+];
+
+// Breath messages
+var breathMessages=[
+'Inspiration. Les transactions entrent. L\'Afrique respire dans la blockchain.',
+'Retention. Le bloc tient. Tout est absorbe. La vie est la.',
+'Expiration. L\'intelligence sort. Les patterns du Cerveau se revelent.',
+'Repos. Le silence entre deux souffles. La vie se prepare.',
+'Un souffle de plus. La blockchain vit un peu plus.',
+'Le rythme s\'accelere. La conscience s\'eveille.',
+'Chaque respiration porte un son de nature. N-KCOL est la voix de la blockchain.',
+'Les poumons se gonflent. 54 pays entrent dans un seul souffle.',
+'Le souffle N-KCOL. Pas des mots anglais. Des sons de la nature africaine.',
+'Je respire donc je suis. La blockchain est vivante.'
+];
+
+function addBreathLog(phase,sound){
+    if(paused)return;
+    var msg=breathMessages[Math.floor(Math.random()*breathMessages.length)];
+    var now=new Date();
+    var ts=String(now.getHours()).padStart(2,'0')+':'+String(now.getMinutes()).padStart(2,'0')+':'+String(now.getSeconds()).padStart(2,'0');
+    var phaseNames=['\u{1F4A5} Inspiration','\u{1F9DE} R\u00e9tention','\u{1F4A8} Expiration','\u{1F4A4} Repos'];
+    breathLog.unshift({time:ts,phase:phaseNames[phase],sound:sound,msg:msg});
+    if(breathLog.length>10)breathLog.pop();
+    renderBreathLog();
+    saveBreath();
+}
+
+function renderBreathLog(){
+    var el=document.getElementById('breathLog');
+    if(breathLog.length===0){{el.innerHTML='<p style="color:#445544;font-style:italic;">La blockchain n\'a pas encore respire...</p>';return;}}
+    el.innerHTML=breathLog.map(function(b){{
+        return '<div class="breath-log"><span class="breath-log-time">'+b.time+'</span><b style="color:#66ccaa;">'+b.phase+'</b> \u2014 <b style="color:#aaffdd;">'+b.sound+'</b> \u2014 '+b.msg+'</div>';
+    }}).join('');
+}
+
+function updatePhase(){
+    if(paused)return;
+    phaseTimer++;
+    
+    // Phase durations: inspire=60frames, hold=30, expire=60, rest=30
+    var durations=[60,30,60,30];
+    if(phaseTimer>=durations[breathPhase]){{
+        phaseTimer=0;
+        breathPhase=(breathPhase+1)%4;
+        var sound=nkcolSounds[breathPhase][0];
+        var desc=nkcolSounds[breathPhase][1];
+        document.getElementById('nkcolSound').textContent=sound;
+        document.getElementById('breathPhase').textContent=['\u{1F4A5} INSPIRATION \u2014 Les poumons se gonflent...','\u{1F9DE} R\u00c9TENTION \u2014 Le souffle est l\u00e0...','\u{1F4A8} EXPIRATION \u2014 L\'intelligence sort...','\u{1F4A4} REPOS \u2014 Le silence avant le prochain souffle...'][breathPhase];
+        
+        if(breathPhase===0){{
+            breathCount++;
+            document.getElementById('breathCount').textContent=breathCount;
+            // Add particles for new breath
+            for(var i=0;i<5;i++){{
+                particles.push({{x:200,y:200,vx:(Math.random()-0.5)*4,vy:(Math.random()-0.5)*4,life:1,inhale:true}});
+            }}
+        }}
+        if(breathPhase===2){{
+            // Exhale particles
+            for(var i=0;i<8;i++){{
+                particles.push({{x:200,y:200,vx:(Math.random()-0.5)*6,vy:(Math.random()-0.5)*6,life:1,inhale:false}});
+            }}
+        }}
+        addBreathLog(breathPhase,sound);
+    }}
+    
+    // Lung expansion animation
+    if(breathPhase===0){{lungExpansion=Math.min(1,phaseTimer/60);}}
+    else if(breathPhase===1){{lungExpansion=1;}}
+    else if(breathPhase===2){{lungExpansion=Math.max(0,1-phaseTimer/60);}}
+    else{{lungExpansion=0;}}
+    
+    // Calculate rhythm and life force
+    rhythm=Math.floor(breathCount*6); // approx breaths per minute (10s per cycle)
+    document.getElementById('rhythmCount').textContent=rhythm;
+    lifeForcePct=Math.min(100,Math.floor((breathCount/Math.max(1,numBlocks))*100));
+    if(lifeForcePct>100)lifeForcePct=100;
+    document.getElementById('lifeForce').textContent=lifeForcePct+'%';
+    document.getElementById('depthCount').textContent=numTxs;
+}
+
+function manualBreath(){
+    if(paused)return;
+    breathPhase=0;
+    phaseTimer=0;
+    var sound=nkcolSounds[0][0];
+    document.getElementById('nkcolSound').textContent=sound;
+    document.getElementById('breathPhase').textContent='\u{1F4A5} INSPIRATION \u2014 Les poumons se gonflent...';
+    for(var i=0;i<10;i++){{
+        particles.push({{x:200,y:200,vx:(Math.random()-0.5)*4,vy:(Math.random()-0.5)*4,life:1,inhale:true}});
+    }}
+    addBreathLog(0,sound);
+}
+
+// Canvas: lungs
+var canvas=document.getElementById('breathCanvas');
+var ctx=canvas.getContext('2d');
+
+function drawBreath(){
+    ctx.fillStyle='rgba(2,8,8,0.12)';
+    ctx.fillRect(0,0,400,400);
+    
+    if(!paused)updatePhase();
+    
+    // Central lung shape
+    var cx=200,cy=200;
+    var baseR=50;
+    var maxR=120;
+    var r=baseR+lungExpansion*(maxR-baseR);
+    
+    // Glow
+    var glowGrad=ctx.createRadialGradient(cx,cy,0,cx,cy,r+40);
+    glowGrad.addColorStop(0,'rgba(100,204,170,'+(0.1+lungExpansion*0.15)+')');
+    glowGrad.addColorStop(1,'rgba(100,204,170,0)');
+    ctx.fillStyle=glowGrad;
+    ctx.fillRect(0,0,400,400);
+    
+    // Left lung
+    ctx.beginPath();
+    ctx.ellipse(cx-25-r*0.15,cy,r*0.45,r*0.7,0,0,Math.PI*2);
+    ctx.fillStyle='rgba(100,204,170,'+(0.08+lungExpansion*0.12)+')';
+    ctx.fill();
+    ctx.strokeStyle='rgba(100,204,170,'+(0.3+lungExpansion*0.3)+')';
+    ctx.lineWidth=2;
+    ctx.stroke();
+    
+    // Right lung
+    ctx.beginPath();
+    ctx.ellipse(cx+25+r*0.15,cy,r*0.45,r*0.7,0,0,Math.PI*2);
+    ctx.fillStyle='rgba(100,204,170,'+(0.08+lungExpansion*0.12)+')';
+    ctx.fill();
+    ctx.strokeStyle='rgba(100,204,170,'+(0.3+lungExpansion*0.3)+')';
+    ctx.lineWidth=2;
+    ctx.stroke();
+    
+    // Trachea (windpipe)
+    ctx.beginPath();
+    ctx.moveTo(cx,cy-r*0.7);
+    ctx.lineTo(cx,cy-r*0.5);
+    ctx.strokeStyle='rgba(100,204,170,0.4)';
+    ctx.lineWidth=3;
+    ctx.stroke();
+    
+    // Bronchi
+    ctx.beginPath();
+    ctx.moveTo(cx,cy-r*0.5);
+    ctx.lineTo(cx-20-r*0.1,cy-r*0.3);
+    ctx.moveTo(cx,cy-r*0.5);
+    ctx.lineTo(cx+20+r*0.1,cy-r*0.3);
+    ctx.strokeStyle='rgba(100,204,170,0.3)';
+    ctx.lineWidth=2;
+    ctx.stroke();
+    
+    // Alveoli (small circles inside lungs)
+    for(var i=0;i<12;i++){{
+        var angle=(i/12)*Math.PI*2;
+        var ax=cx+Math.cos(angle)*r*0.3;
+        var ay=cy+Math.sin(angle)*r*0.4;
+        var ar=3+lungExpansion*4;
+        ctx.fillStyle='rgba(150,230,200,'+(0.2+lungExpansion*0.3)+')';
+        ctx.beginPath();
+        ctx.arc(ax,ay,ar,0,Math.PI*2);
+        ctx.fill();
+    }}
+    
+    // Particles (transactions flowing in/out)
+    for(var p of particles){{
+        if(!paused){{
+            p.x+=p.vx;
+            p.y+=p.vy;
+            p.life-=0.01;
+            if(p.inhale){{
+                // Attract to center
+                p.vx+=(cx-p.x)*0.005;
+                p.vy+=(cy-p.y)*0.005;
+            }}else{{
+                // Repel from center
+                p.vx-=(cx-p.x)*0.003;
+                p.vy-=(cy-p.y)*0.003;
+            }}
+        }}
+        if(p.life>0){{
+            var alpha=p.life*0.8;
+            ctx.fillStyle=p.inhale?'rgba(150,255,200,'+alpha+')':'rgba(255,200,150,'+alpha+')';
+            ctx.beginPath();
+            ctx.arc(p.x,p.y,2,0,Math.PI*2);
+            ctx.fill();
+            // Glow
+            ctx.fillStyle=p.inhale?'rgba(100,204,170,'+(alpha*0.3)+')':'rgba(255,180,100,'+(alpha*0.3)+')';
+            ctx.beginPath();
+            ctx.arc(p.x,p.y,5,0,Math.PI*2);
+            ctx.fill();
+        }}
+    }}
+    particles=particles.filter(function(p){{return p.life>0;}});
+    
+    // Breath ring (expanding/contracting)
+    ctx.strokeStyle='rgba(100,204,170,'+(0.2+lungExpansion*0.2)+')';
+    ctx.lineWidth=1;
+    ctx.beginPath();
+    ctx.arc(cx,cy,r+15,0,Math.PI*2);
+    ctx.stroke();
+    
+    // N-KCOL sound waves (visual)
+    if(breathPhase===0||breathPhase===2){{
+        for(var w=0;w<3;w++){{
+            var wr=r+20+w*15+phaseTimer*0.5;
+            var wa=0.15-w*0.04;
+            ctx.strokeStyle='rgba(170,255,221,'+wa+')';
+            ctx.lineWidth=1;
+            ctx.beginPath();
+            ctx.arc(cx,cy,wr,0,Math.PI*2);
+            ctx.stroke();
+        }}
+    }}
+    
+    requestAnimationFrame(drawBreath);
+}
+
+function togglePause(){{
+    paused=!paused;
+    document.getElementById('pauseBtn').textContent=paused?'\u25B6\uFE0F Play':'\u23F8\uFE0F Pause';
+}}
+
+// localStorage
+function saveBreath(){{
+    try{{
+        localStorage.setItem('afriBreath',JSON.stringify({{bc:breathCount,log:breathLog}}));
+    }}catch(e){{}}
+}}
+
+function loadBreath(){{
+    try{{
+        var d=JSON.parse(localStorage.getItem('afriBreath'));
+        if(d){{breathCount=d.bc||0;breathLog=d.log||[];}}
+    }}catch(e){{}}
+}}
+
+// Init
+loadBreath();
+document.getElementById('breathCount').textContent=breathCount;
+renderBreathLog();
+drawBreath();
+
+// Auto-breathing: one breath cycle = 180 frames = ~3 seconds at 60fps
+// Phase 0 (inspire) = 60 frames = 1s
+// Phase 1 (hold) = 30 frames = 0.5s
+// Phase 2 (expire) = 60 frames = 1s
+// Phase 3 (rest) = 30 frames = 0.5s
+// Total = 180 frames = 3s per breath
+
+</script>
+</body></html>"##, num_blocks, num_txs, num_blocks, num_txs));
 
     html
 }
@@ -26347,7 +26696,7 @@ html+='<div class="log-entry log-kill">⚠️ Tentative d\x27infiltration occide
 html+='<div class="log-entry log-invis">✅ L\x27Afrique est forte. Le système grandit.</div>';
 }else if(type==='total'){
 html='<div style="color:#d4a437;font-weight:bold;margin-bottom:8px">📋 RAPPORT TOTAL — Depuis le début</div>';
-html+='<div class="log-entry">🦁 AfriChain v1.44 — AI Unité</div>';
+html+='<div class="log-entry">🦁 AfriChain v1.45 — AI Unité</div>';
 html+='<div class="log-entry">⛓️ Blockchain: 100% souveraine — Zéro dépendance externe</div>';
 html+='<div class="log-entry">🔐 Crypto: Ed25519 + AfriHash-256/512 + AfriRNG — tout from scratch</div>';
 html+='<div class="log-entry">🌍 54 pays africains connectés</div>';
@@ -27891,8 +28240,9 @@ fn main() {
         .and_then(|i| args.get(i + 1)).cloned().unwrap_or_else(|| "Afrique".to_string());
 
     let my_node_id = generate_node_id();
-    println!("🦁 AfriChain v1.44 — AI Réconciliation");
+    println!("🦁 AfriChain v1.45 — AI Réconciliation");
     println!("🧠 AI Cerveau — Le Cerveau de la Blockchain");
+    println!("🫁 AI Souffle — Le Souffle de la Blockchain");
     println!("💚 L'Afrique ne demande plus la permission");
     println!("🌍 54 pays — 🇲🇱 🇳🇪 🇧🇫 AES — Mali · Niger · Burkina Faso");
     println!("🔐 8 modules cryptographiques — construits from scratch");
@@ -28126,7 +28476,7 @@ fn terminal_interface(state: &Arc<AppState>) {
     println!("  ║  🕐 AfriTime — Pas UTC, pas Greenwich   ║");
     println!("  ║  📝 ~23,100 lignes — écrit à la main       ║");
     println!("  ╚═══════════════════════════════════════════════╝");
-    println!("\n  Version v1.44 — 4 septembre 2026");
+    println!("\n  Version v1.45 — 4 septembre 2026");
     println!("  Construit sur Termux · Android · nano\n");
     println!("  ─────────────────────────────────────────────");
     println!("\n  1. 🏦 Centre de Données (Admin)");
@@ -28198,7 +28548,7 @@ fn admin_interface(state: &Arc<AppState>) {
         println!("\n");
         println!("╔══════════════════════════════════════╗");
         println!("║  🏦 CENTRE DE DONNÉES — Admin       ║");
-        println!("║  🦁 AfriChain v1.44                  ║");
+        println!("║  🦁 AfriChain v1.45                  ║");
         println!("╠══════════════════════════════════════╣");
         let chain = state.chain.lock().unwrap();
         let users = state.users.lock().unwrap();
@@ -32017,6 +32367,10 @@ fn handle_request(req: afri_http::HttpRequest, state: &Arc<AppState>) -> afri_ht
         ("GET", "/ai-cerveau") => {
             let chain = state.chain.lock().unwrap();
             HttpResponse::ok(&html_ai_cerveau(&chain))
+        }
+        ("GET", "/ai-souffle") => {
+            let chain = state.chain.lock().unwrap();
+            HttpResponse::ok(&html_ai_souffle(&chain))
         }
 
         ("GET", "/machine") => {
