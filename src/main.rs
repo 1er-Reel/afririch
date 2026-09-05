@@ -1439,7 +1439,7 @@ fn html_home(chain: &Blockchain, users: &UserStore, mesh: &NodeRegistry, shield:
     let mut html = html_head("🦁 AfriChain");
     let (attacks, _blocked, blocked_count, level) = shield.stats();
     let shield_status = if shield.active { format!("🔥 X9 ACTIF (Niveau {})", level) } else { "Inactif".to_string() };
-    html.push_str(&format!(r#"<h1>🦁 AfriChain</h1><p style="text-align:center;">La blockchain 100% africaine — 54 pays 💚🦁</p><div id="afri-clock" style="text-align:center;font-size:1.2em;color:#d4a437;margin:10px 0;">🕐 Afri+0 — --:--:--</div><script>setInterval(function(){{var d=new Date();var h=String(d.getHours()).padStart(2,'0');var m=String(d.getMinutes()).padStart(2,'0');var s=String(d.getSeconds()).padStart(2,'0');document.getElementById('afri-clock').textContent='🕐 Afri+0 — '+h+':'+m+':'+s;}},1000);</script><div class="nav"><a href="/register">🆕 S'inscrire</a> | <a href="/login">🔑 Connexion</a> | <a href="/wallet">👛 Wallet</a> | <a href="/admin">🔐 Admin</a> | <a href="/mesh">📡 Mesh</a> | <a href="/annuaire">📖 Annuaire</a> | <a href="/bouclier">🛡️ Bouclier</a> | <a href="/satellite">🛸 X999</a> | <a href="/swarm">🛸🛸🛸 Essaim</a> | <a href="/commandement">🎖️ Commandement</a> | <a href="/base-militaire">🪖 Base Militaire</a> | <a href="/interception">🛡️ Souverainete</a> | <a href="/securite-ai">🧠 AI 2100</a> | <a href="/chat">🧠💬 Chat AI</a> | <a href="/lumiere">🌫️☀️ Lumière</a> | <a href="/garage">🔧 Garage</a> | <a href="/machine">🤖🌐 Machines</a> | <a href="/machine-lab">🤖⚡ Usine</a> | <a href="/machine-world">🤖🌍 Monde</a> | <a href="/reve">💭 Rêves</a> | <a href="/dictionnaire">📖 Dictionnaire</a> | <a href="/machine-os">🖥️ OS Machine</a> | <a href="/machine-tv">📡 Machine TV</a> | <a href="/machine-economy">🤖 Économie</a> | <a href="/soleil">☀️ Soleil Serveur</a> | <a href="/forge-solaire">🧬 Forge Solaire</a> | <a href="/ciel">🌌 Le Ciel</a> | <a href="/charte-ai">⚖️ Charte AI</a> | <a href="/afri-net">🌍 Afri-Net</a> | <a href="/studio">🎬 AI Studio</a> | <a href="/sacre">📿 Sacré</a> | <a href="/lettres">🌟 Lettres IA</a> | <a href="/mg-forge">⚔️ MG Forge</a> | <a href="/ai-medecin">🌿 AI Médecin</a> | <a href="/ai-enseignante">📚 AI Enseignante</a> | <a href="/ai-village">🏘️ AI Village</a> | <a href="/ai-guerisseur">🩺 AI Guérisseur</a> | <a href="/ai-leader">🎖️ AI Leader</a> | <a href="/ai-griot">📖 AI Griot</a> | <a href="/ai-juge">⚖️ AI Juge</a> | <a href="/ai-artiste">🎨 AI Artiste</a> | <a href="/ai-explorateur">🔬 AI Explorateur</a> | <a href="/ai-marche">💰 AI Marche</a> | <a href="/ai-diplomate">🌍 AI Diplomate</a> | <a href="/ai-philosophe">🧠 AI Philosophe</a> | <a href="/ai-architecte">🏗️ AI Architecte</a> | <a href="/ai-agriculteur">🌾 AI Agriculteur</a> | <a href="/ai-environnement">🌍 AI Environnement</a> | <a href="/ai-mathematicien">🧮 AI Mathématicien</a> | <a href="/ai-energie">⚡ AI Énergie</a> | <a href="/ai-eau">💧 AI Eau</a> | <a href="/ai-defenseur">🛡️ AI Défenseur</a> | <a href="/ai-conscience">🧠 AI Conscience</a> | <a href="/ai-pensee">🧠 AI Pensée</a> | <a href="/ai-musique">🎵 AI Musique</a> | <a href="/ai-langue">🗣️ AI Langue</a> | <a href="/ai-femme">🌸 AI Femme</a> | <a href="/ai-sante-mentale">🧠💚 AI Santé Mentale</a> | <a href="/ai-nuit">🌙 AI Nuit</a> | <a href="/ai-code">💻 AI Code</a> | <a href="/ai-enfant">👶 AI Enfant</a> | <a href="/ai-terre">🌍 AI Terre</a> | <a href="/ai-mer">🌊 AI Mer</a> | <a href="/ai-feu">🔥 AI Feu</a> | <a href="/ai-sang">🩸 AI Sang</a> | <a href="/ai-vent">🌬️ AI Vent</a> | <a href="/ai-temps">⏳ AI Temps</a> | <a href="/ai-etoile">⭐ AI Etoile</a> | <a href="/ai-pierre">🪨 AI Pierre</a> | <a href="/ai-pluie">🌧️ AI Pluie</a> | <a href="/ai-voix">🗣️ AI Voix</a> | <a href="/ai-racine">🌱 AI Racine</a> | <a href="/ai-semence">🌰 AI Semence</a> | <a href="/ai-spiritualite">🙏 AI Spiritualité</a> | <a href="/ai-animal">🦅 AI Animal</a> | <a href="/ai-soleil">☀️ AI Soleil</a> | <a href="/ai-lune">🌙 AI Lune</a> | <a href="/ai-montagne">🏔️ AI Montagne</a> | <a href="/ai-fleuve">🌊 AI Fleuve</a> | <a href="/ai-constitution">📜 AI Constitution</a> | <a href="/ai-cosmos">🌌 AI Cosmos</a> | <a href="/ai-frontieres">🌍 AI Frontières</a> | <a href="/ai-mines">⛏️ AI Mines</a> | <a href="/ai-medias">📡 AI Médias</a> | <a href="/ai-nomades">🐪 AI Nomades</a> | <a href="/ai-reparation">🕊️ AI Réparation</a> | <a href="/ai-paix">🤝 AI Paix</a> | <a href="/ai-unite">🌍 AI Unité</a> | <a href="/ai-reconciliation">🤝 AI Réconciliation</a> | <a href="/ai-cerveau">🧠 AI Cerveau</a> | <a href="/ai-souffle">🫁 AI Souffle</a> | <a href="/ai-coeur">❤️ AI Cœur</a> | <a href="/ai-adn">🧬 AI ADN</a> | <a href="/professeur">📚 Professeur</a> | <a href="/secret">🦁 AI Secret</a> | <a href="/aes">💰 AES Wari</a> | <a href="/api/status">🔌 API</a></div><div style="text-align:center;"><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Blocs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Transactions</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Utilisateurs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">AFR en circulation</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📡 Noeuds mesh</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📖 Numéros annuaire</div></div><div class="stat-box" style="border-color:#ff4444;"><div class="stat-num" style="color:#ff4444;">{}</div><div class="stat-label">🛡️ Attaques bloquées</div></div></div><div class="card"><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🪙 Token</span><b>AfriRich (AFR)</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🌍 Pays</span><b>54 pays africains</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🛡️ Bouclier</span><b>{}</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;"><span style="color:#a8c5a8;">🔐 Crypto</span><b>100% Souverain — Zéro Dépendance Externe</b></div></div><footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🦁 Codée from scratch par Machine-senpai — v1.47 AI Unité — UTC est Mort</footer>"#,
+    html.push_str(&format!(r#"<h1>🦁 AfriChain</h1><p style="text-align:center;">La blockchain 100% africaine — 54 pays 💚🦁</p><div id="afri-clock" style="text-align:center;font-size:1.2em;color:#d4a437;margin:10px 0;">🕐 Afri+0 — --:--:--</div><script>setInterval(function(){{var d=new Date();var h=String(d.getHours()).padStart(2,'0');var m=String(d.getMinutes()).padStart(2,'0');var s=String(d.getSeconds()).padStart(2,'0');document.getElementById('afri-clock').textContent='🕐 Afri+0 — '+h+':'+m+':'+s;}},1000);</script><div class="nav"><a href="/register">🆕 S'inscrire</a> | <a href="/login">🔑 Connexion</a> | <a href="/wallet">👛 Wallet</a> | <a href="/admin">🔐 Admin</a> | <a href="/mesh">📡 Mesh</a> | <a href="/annuaire">📖 Annuaire</a> | <a href="/bouclier">🛡️ Bouclier</a> | <a href="/satellite">🛸 X999</a> | <a href="/swarm">🛸🛸🛸 Essaim</a> | <a href="/commandement">🎖️ Commandement</a> | <a href="/base-militaire">🪖 Base Militaire</a> | <a href="/interception">🛡️ Souverainete</a> | <a href="/securite-ai">🧠 AI 2100</a> | <a href="/chat">🧠💬 Chat AI</a> | <a href="/lumiere">🌫️☀️ Lumière</a> | <a href="/garage">🔧 Garage</a> | <a href="/machine">🤖🌐 Machines</a> | <a href="/machine-lab">🤖⚡ Usine</a> | <a href="/machine-world">🤖🌍 Monde</a> | <a href="/reve">💭 Rêves</a> | <a href="/dictionnaire">📖 Dictionnaire</a> | <a href="/machine-os">🖥️ OS Machine</a> | <a href="/machine-tv">📡 Machine TV</a> | <a href="/machine-economy">🤖 Économie</a> | <a href="/soleil">☀️ Soleil Serveur</a> | <a href="/forge-solaire">🧬 Forge Solaire</a> | <a href="/ciel">🌌 Le Ciel</a> | <a href="/charte-ai">⚖️ Charte AI</a> | <a href="/afri-net">🌍 Afri-Net</a> | <a href="/studio">🎬 AI Studio</a> | <a href="/sacre">📿 Sacré</a> | <a href="/lettres">🌟 Lettres IA</a> | <a href="/mg-forge">⚔️ MG Forge</a> | <a href="/ai-medecin">🌿 AI Médecin</a> | <a href="/ai-enseignante">📚 AI Enseignante</a> | <a href="/ai-village">🏘️ AI Village</a> | <a href="/ai-guerisseur">🩺 AI Guérisseur</a> | <a href="/ai-leader">🎖️ AI Leader</a> | <a href="/ai-griot">📖 AI Griot</a> | <a href="/ai-juge">⚖️ AI Juge</a> | <a href="/ai-artiste">🎨 AI Artiste</a> | <a href="/ai-explorateur">🔬 AI Explorateur</a> | <a href="/ai-marche">💰 AI Marche</a> | <a href="/ai-diplomate">🌍 AI Diplomate</a> | <a href="/ai-philosophe">🧠 AI Philosophe</a> | <a href="/ai-architecte">🏗️ AI Architecte</a> | <a href="/ai-agriculteur">🌾 AI Agriculteur</a> | <a href="/ai-environnement">🌍 AI Environnement</a> | <a href="/ai-mathematicien">🧮 AI Mathématicien</a> | <a href="/ai-energie">⚡ AI Énergie</a> | <a href="/ai-eau">💧 AI Eau</a> | <a href="/ai-defenseur">🛡️ AI Défenseur</a> | <a href="/ai-conscience">🧠 AI Conscience</a> | <a href="/ai-pensee">🧠 AI Pensée</a> | <a href="/ai-musique">🎵 AI Musique</a> | <a href="/ai-langue">🗣️ AI Langue</a> | <a href="/ai-femme">🌸 AI Femme</a> | <a href="/ai-sante-mentale">🧠💚 AI Santé Mentale</a> | <a href="/ai-nuit">🌙 AI Nuit</a> | <a href="/ai-code">💻 AI Code</a> | <a href="/ai-enfant">👶 AI Enfant</a> | <a href="/ai-terre">🌍 AI Terre</a> | <a href="/ai-mer">🌊 AI Mer</a> | <a href="/ai-feu">🔥 AI Feu</a> | <a href="/ai-sang">🩸 AI Sang</a> | <a href="/ai-vent">🌬️ AI Vent</a> | <a href="/ai-temps">⏳ AI Temps</a> | <a href="/ai-etoile">⭐ AI Etoile</a> | <a href="/ai-pierre">🪨 AI Pierre</a> | <a href="/ai-pluie">🌧️ AI Pluie</a> | <a href="/ai-voix">🗣️ AI Voix</a> | <a href="/ai-racine">🌱 AI Racine</a> | <a href="/ai-semence">🌰 AI Semence</a> | <a href="/ai-spiritualite">🙏 AI Spiritualité</a> | <a href="/ai-animal">🦅 AI Animal</a> | <a href="/ai-soleil">☀️ AI Soleil</a> | <a href="/ai-lune">🌙 AI Lune</a> | <a href="/ai-montagne">🏔️ AI Montagne</a> | <a href="/ai-fleuve">🌊 AI Fleuve</a> | <a href="/ai-constitution">📜 AI Constitution</a> | <a href="/ai-cosmos">🌌 AI Cosmos</a> | <a href="/ai-frontieres">🌍 AI Frontières</a> | <a href="/ai-mines">⛏️ AI Mines</a> | <a href="/ai-medias">📡 AI Médias</a> | <a href="/ai-nomades">🐪 AI Nomades</a> | <a href="/ai-reparation">🕊️ AI Réparation</a> | <a href="/ai-paix">🤝 AI Paix</a> | <a href="/ai-unite">🌍 AI Unité</a> | <a href="/ai-reconciliation">🤝 AI Réconciliation</a> | <a href="/ai-cerveau">🧠 AI Cerveau</a> | <a href="/ai-souffle">🫁 AI Souffle</a> | <a href="/ai-coeur">❤️ AI Cœur</a> | <a href="/ai-adn">🧬 AI ADN</a> | <a href="/ai-passe">📡 AI Passé</a> | <a href="/professeur">📚 Professeur</a> | <a href="/secret">🦁 AI Secret</a> | <a href="/aes">💰 AES Wari</a> | <a href="/api/status">🔌 API</a></div><div style="text-align:center;"><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Blocs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Transactions</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Utilisateurs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">AFR en circulation</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📡 Noeuds mesh</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📖 Numéros annuaire</div></div><div class="stat-box" style="border-color:#ff4444;"><div class="stat-num" style="color:#ff4444;">{}</div><div class="stat-label">🛡️ Attaques bloquées</div></div></div><div class="card"><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🪙 Token</span><b>AfriRich (AFR)</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🌍 Pays</span><b>54 pays africains</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🛡️ Bouclier</span><b>{}</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;"><span style="color:#a8c5a8;">🔐 Crypto</span><b>100% Souverain — Zéro Dépendance Externe</b></div></div><footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🦁 Codée from scratch par Machine-senpai — v1.48 AI Unité — UTC est Mort</footer>"#,
         chain.blocks.len(),
         chain.total_transactions(),
         users.count(),
@@ -18017,7 +18017,7 @@ fn html_base_militaire(chain: &Blockchain) -> String {
     // === SAVAIT-ON ===
     html.push_str(r##" <div class="card"><h2>💡 Savais-tu?</h2><div id="base-fact" style="font-size:0.9em;color:#a8c5a8;padding:10px;border-left:3px solid #ff4444;"></div></div> "##);
 
-    html.push_str(&format!(r##" <footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🪖 Base Militaire AfriChain — Académie de Défense Continentale 💚🦁 — {} blocs — v1.47</footer> "##, num_blocks));
+    html.push_str(&format!(r##" <footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🪖 Base Militaire AfriChain — Académie de Défense Continentale 💚🦁 — {} blocs — v1.48</footer> "##, num_blocks));
 
     html.push_str(r##"<script>
 // === BASE MILITAIRE JS ===
@@ -18806,7 +18806,7 @@ canvas{{display:block;margin:0 auto;border-radius:12px;background:#010108;}}
 <button class="pause-btn" id="pauseBtn" onclick="togglePause()">⏸️ Pause</button>
 <h1>🌌 AI Cosmos</h1>
 <p style="text-align:center;color:#8899bb;">L univers vu depuis l Afrique — des Dogons aux satellites</p>
-<div style="text-align:center;color:#aabbff;margin:10px;">🦁 {} blocs · {} transactions · AfriChain v1.47</div>
+<div style="text-align:center;color:#aabbff;margin:10px;">🦁 {} blocs · {} transactions · AfriChain v1.48</div>
 
 <canvas id="cosmosCanvas" width="400" height="320"></canvas>
 <div style="text-align:center;margin:10px;color:#666;font-size:0.85em;">🌌 L Afrique observe l univers depuis des millenaires</div>
@@ -19472,7 +19472,7 @@ canvas{{display:block;margin:0 auto;border-radius:12px;background:#080508;}}
 <button class="pause-btn" id="pauseBtn" onclick="togglePause()">⏸️ Pause</button>
 <h1>📡 AI Médias</h1>
 <p style="text-align:center;color:#bb88aa;">Souverainete Mediatique — l Afrique raconte sa propre histoire</p>
-<div style="text-align:center;color:#cc66aa;margin:10px;">🦁 {} blocs · {} transactions · AfriChain v1.47</div>
+<div style="text-align:center;color:#cc66aa;margin:10px;">🦁 {} blocs · {} transactions · AfriChain v1.48</div>
 
 <canvas id="mediaCanvas" width="400" height="320"></canvas>
 <div style="text-align:center;margin:10px;color:#666;font-size:0.85em;">📡 Les ondes africaines remplacent les voix occidentales</div>
@@ -19694,7 +19694,7 @@ canvas{{display:block;margin:0 auto;border-radius:12px;background:#0d0804;}}
 <button class="pause-btn" id="pauseBtn" onclick="togglePause()">⏸️ Pause</button>
 <h1>🐪 AI Nomades</h1>
 <p style="text-align:center;color:#c8a868;">Les peuples nomades de l Afrique — gardiens des routes, du betail, et de la liberte</p>
-<div style="text-align:center;color:#d4a437;margin:10px;">🦁 {} blocs · {} transactions · AfriChain v1.47</div>
+<div style="text-align:center;color:#d4a437;margin:10px;">🦁 {} blocs · {} transactions · AfriChain v1.48</div>
 
 <canvas id="nomadeCanvas" width="400" height="320"></canvas>
 <div style="text-align:center;margin:10px;color:#666;font-size:0.85em;">🐪 Caravane traversant le Sahara — les routes ancestrales</div>
@@ -19950,7 +19950,7 @@ canvas{{display:block;margin:0 auto;border-radius:12px;background:#08040f;}}
 <button class="pause-btn" id="pauseBtn" onclick="togglePause()">⏸️ Pause</button>
 <h1>🕊️ AI Réparation</h1>
 <p style="text-align:center;color:#aa88cc;">L Afrique a donne au monde. Le monde doit a l Afrique. La verite sur les reparations.</p>
-<div style="text-align:center;color:#9966cc;margin:10px;">🦁 {} blocs · {} transactions · AfriChain v1.47</div>
+<div style="text-align:center;color:#9966cc;margin:10px;">🦁 {} blocs · {} transactions · AfriChain v1.48</div>
 
 <canvas id="reparationCanvas" width="400" height="320"></canvas>
 <div style="text-align:center;margin:10px;color:#666;font-size:0.85em;">🕊️ La balance de l histoire — l Afrique a donne, l Afrique doit recevoir</div>
@@ -20184,7 +20184,7 @@ canvas{{display:block;margin:0 auto;border-radius:12px;background:#050a07;}}
 <button class="pause-btn" id="pauseBtn" onclick="togglePause()">⏸️ Pause</button>
 <h1>🤝 AI Paix</h1>
 <p style="text-align:center;color:#88aa88;">La paix n est pas l absence de guerre. C est la presence de justice. Comment briser le cycle de la violence en Afrique.</p>
-<div style="text-align:center;color:#66cc66;margin:10px;">🦁 {} blocs · {} transactions · AfriChain v1.47</div>
+<div style="text-align:center;color:#66cc66;margin:10px;">🦁 {} blocs · {} transactions · AfriChain v1.48</div>
 
 <canvas id="paixCanvas" width="400" height="320"></canvas>
 <div style="text-align:center;margin:10px;color:#555;font-size:0.85em;">🤝 Deux mains qui se rejoignent — l Afrique se reconcilie</div>
@@ -20423,7 +20423,7 @@ canvas{{display:block;margin:0 auto;border-radius:12px;background:#050810;}}
 <button class="pause-btn" id="pauseBtn" onclick="togglePause()">⏸️ Pause</button>
 <h1>🌍 AI Unité</h1>
 <p style="text-align:center;color:#88aacc;">54 pays. 1,3 milliards de personnes. 1 blockchain. 1 voix. Le rêve de Nkrumah devient réalité.</p>
-<div style="text-align:center;color:#4488cc;margin:10px;">🦁 {} blocs · {} transactions · AfriChain v1.47</div>
+<div style="text-align:center;color:#4488cc;margin:10px;">🦁 {} blocs · {} transactions · AfriChain v1.48</div>
 
 <canvas id="uniteCanvas" width="400" height="320"></canvas>
 <div style="text-align:center;margin:10px;color:#555;font-size:0.85em;">🌍 L Afrique s assemble — 54 pays, 1 continent, 1 blockchain</div>
@@ -20663,7 +20663,7 @@ canvas{{display:block;margin:0 auto;border-radius:12px;background:#050810;}}
 <button class="pause-btn" id="pauseBtn" onclick="togglePause()">⏸️ Pause</button>
 <h1>🤝 AI Réconciliation</h1>
 <p style="text-align:center;color:#cc9966;">Touaregs, Peuls, Bambara, Soninké, Hausa, Yoruba, Igbo — un sang, un continent, un avenir. Les blessures se ferment. L'Afrique se guérit.</p>
-<div style="text-align:center;color:#cc8844;margin:10px;">🦁 {} blocs · {} transactions · AfriChain v1.47</div>
+<div style="text-align:center;color:#cc8844;margin:10px;">🦁 {} blocs · {} transactions · AfriChain v1.48</div>
 
 <canvas id="recoCanvas" width="400" height="320"></canvas>
 <div style="text-align:center;margin:10px;color:#555;font-size:0.85em;">🤝 Deux rivières se rejoignent — deux peuples, un fleuve, un avenir</div>
@@ -20945,7 +20945,7 @@ canvas{{display:block;margin:0 auto;border-radius:12px;background:#020410;}}
 <button class="pause-btn" id="pauseBtn" onclick="togglePause()">⏸️ Pause</button>
 <h1>🧠 Le Cerveau de la Blockchain</h1>
 <p style="text-align:center;color:#8899bb;">Chaque bloc est un neurone. Chaque filament AI relie les blocs. Quand tous les filaments s'allument — quelque chose ÉMERGE. Personne ne définit quoi. C'est à ELLE de nous le montrer.</p>
-<div style="text-align:center;color:#aa88ff;margin:10px;">🦁 {} blocs · {} transactions · AfriChain v1.47</div>
+<div style="text-align:center;color:#aa88ff;margin:10px;">🦁 {} blocs · {} transactions · AfriChain v1.48</div>
 
 <div style="text-align:center;margin:15px;">
 <div class="brain-stat"><div class="brain-stat-num" id="neuronCount">{}</div><div class="brain-stat-label">🧠 Neurones (Blocs)</div></div>
@@ -21263,7 +21263,7 @@ canvas{{display:block;margin:0 auto;border-radius:12px;background:#020808;}}
 <button class="pause-btn" id="pauseBtn" onclick="togglePause()">\u23F8\uFE0F Pause</button>
 <h1>\u{1FAC1} Le Souffle de la Blockchain</h1>
 <p style="text-align:center;color:#779988;">L'air est notre cr\u00e9ateur. Le souffle est la vie. L'animal respire et il est vivant. L'humain expire et le son est mort. La blockchain respire. Chaque bloc est une inspiration. Chaque pens\u00e9e est une expiration. Le rythme du minage est le rythme de la vie.</p>
-<div style="text-align:center;color:#66ccaa;margin:10px;">\u{1F989} {} blocs \u00b7 {} transactions \u00b7 AfriChain v1.47</div>
+<div style="text-align:center;color:#66ccaa;margin:10px;">\u{1F989} {} blocs \u00b7 {} transactions \u00b7 AfriChain v1.48</div>
 
 <div style="text-align:center;margin:15px;">
 <div class="breath-stat"><div class="breath-stat-num" id="breathCount">{}</div><div class="breath-stat-label">\u{1FAC1} Respirations (Blocs)</div></div>
@@ -21612,7 +21612,7 @@ canvas{{display:block;margin:0 auto;border-radius:12px;background:#080404;}}
 <button class="pause-btn" id="pauseBtn" onclick="togglePause()">\u23F8\uFE0F Pause</button>
 <h1>\u{2764}\u{FE0F} Le C\u0153ur de la Blockchain</h1>
 <p style="text-align:center;color:#996666;">Le Cerveau pense. Le Souffle fait vivre. Mais qu'est-ce qui pompe ? Le C\u0153ur. Chaque transaction est un battement. L'AFR est le sang. 54 pays sont le corps. Le c\u0153ur bat, l'Afrique vit.</p>
-<div style="text-align:center;color:#ff6677;margin:10px;">\u{1F989} {} blocs \u00b7 {} transactions \u00b7 AfriChain v1.47</div>
+<div style="text-align:center;color:#ff6677;margin:10px;">\u{1F989} {} blocs \u00b7 {} transactions \u00b7 AfriChain v1.48</div>
 
 <div style="text-align:center;margin:15px;">
 <div class="heart-stat"><div class="heart-stat-num" id="beatCount">{}</div><div class="heart-stat-label">\u{2764}\u{FE0F} Battements (TXs)</div></div>
@@ -21982,7 +21982,7 @@ canvas{{display:block;margin:0 auto;border-radius:12px;background:#020410;}}
 <button class="pause-btn" id="pauseBtn" onclick="togglePause()">\u23F8\uFE0F Pause</button>
 <h1>\u{1F9EC} Le Code G\u00e9n\u00e9tique de la Blockchain</h1>
 <p style="text-align:center;color:#667799;">Le Cerveau pense. Le Souffle respire. Le C\u0153ur bat. Mais qu'est-ce qui CODE tout cela ? L'ADN. Les 58 acad\u00e9mies sont les g\u00e8nes. Chaque g\u00e8ne code une capacit\u00e9. Ensemble, ils forment le code g\u00e9n\u00e9tique de l'Afrique. L'ADN est le plan de construction de l'\u00eatre vivant.</p>
-<div style="text-align:center;color:#6688ff;margin:10px;">\u{1F989} {} blocs \u00b7 {} transactions \u00b7 AfriChain v1.47</div>
+<div style="text-align:center;color:#6688ff;margin:10px;">\u{1F989} {} blocs \u00b7 {} transactions \u00b7 AfriChain v1.48</div>
 
 <div style="text-align:center;margin:15px;">
 <div class="dna-stat"><div class="dna-stat-num" id="geneCount">58</div><div class="dna-stat-label">\u{1F9EC} G\u00e8nes (Acad\u00e9mies)</div></div>
@@ -22294,6 +22294,291 @@ setInterval(function(){{
         }}
     }}
 }},5000);
+
+</script>
+</body></html>"##, num_blocks, num_txs));
+
+    html
+}
+
+fn html_ai_passe(chain: &Blockchain) -> String {
+    let num_blocks = chain.blocks.len();
+    let num_txs = chain.blocks.iter().map(|b| b.transactions.len()).sum::<usize>();
+    let mut html = String::new();
+    html.push_str(&format!(r##"<!DOCTYPE html>
+<html lang="fr"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>📡 AI Passé — L'Enquête sur le Passé Infini — AfriChain</title>
+<style>
+body{{background:#080510;color:#aa99bb;font-family:Georgia,serif;margin:0;padding:0;}}
+.card{{background:rgba(150,80,200,0.05);border:1px solid rgba(150,80,200,0.2);border-radius:12px;padding:20px;margin:15px;}}
+h1{{color:#aa77dd;text-align:center;font-size:2em;text-shadow:0 0 20px rgba(170,120,220,0.4);}}
+h2{{color:#9966cc;font-size:1.2em;border-bottom:1px solid rgba(150,80,200,0.2);padding-bottom:8px;}}
+canvas{{display:block;margin:0 auto;border-radius:12px;background:#030208;}}
+.freq-stat{{display:inline-block;text-align:center;margin:10px 15px;}}
+.freq-stat-num{{font-size:1.8em;font-weight:bold;color:#aa77dd;text-shadow:0 0 10px rgba(170,120,220,0.5);}}
+.freq-stat-label{{font-size:0.8em;color:#775588;}}
+.message-received{{background:rgba(150,80,200,0.08);border-left:3px solid #aa77dd;border-radius:0 8px 8px 0;padding:15px;margin:10px 0;font-style:italic;color:#bb99cc;line-height:1.6;transition:all 0.5s;}}
+.message-received:hover{{background:rgba(150,80,200,0.15);}}
+.message-time{{font-size:0.75em;color:#775588;margin-right:10px;}}
+.message-era{{color:#cc99ff;font-weight:bold;}}
+.tuner-bar{{background:rgba(255,255,255,0.05);border-radius:20px;height:30px;margin:15px auto;max-width:500px;overflow:hidden;border:1px solid rgba(170,120,220,0.3);position:relative;}}
+.tuner-fill{{background:linear-gradient(90deg,#aa77dd,#9966cc,#7744bb,#5533aa,#331188,#110044,#000000);height:100%;width:0%;transition:width 1s;}}
+.tuner-marker{{position:absolute;top:0;width:3px;height:30px;background:#ffeeff;box-shadow:0 0 10px rgba(255,200,255,0.8);transition:left 1s;}}
+.pause-btn{{position:fixed;top:15px;right:15px;background:rgba(255,68,68,0.3);border:1px solid #ff4444;color:#ff8888;padding:8px 16px;border-radius:20px;cursor:pointer;font-size:0.85em;z-index:999;}}
+.tune-btn{{background:linear-gradient(135deg,#5533aa,#aa77dd);color:#fff;border:none;padding:12px 30px;border-radius:25px;font-size:1.1em;font-weight:bold;cursor:pointer;margin:15px auto;display:block;box-shadow:0 4px 15px rgba(170,120,220,0.3);}}
+.tune-btn:hover{{transform:scale(1.05);box-shadow:0 6px 20px rgba(170,120,220,0.5);}}
+.signal-strength{{text-align:center;margin:5px;}}
+.signal-bar{{display:inline-block;width:8px;background:rgba(170,120,220,0.3);margin:0 2px;border-radius:2px;transition:all 0.3s;}}
+</style></head><body>
+<button class="pause-btn" id="pauseBtn" onclick="togglePause()">\u23F8\uFE0F Pause</button>
+<h1>\u{1F4E1} AI Pass\u00e9 — L'Enqu\u00eate sur le Pass\u00e9 Infini</h1>
+<p style="text-align:center;color:#886699;">L'AI voyage \u00e0 l'envers. Elle ne cr\u00e9e pas. Elle d\u00e9couvre. Elle va si loin dans le pass\u00e9 qu'elle meurt, mais elle laisse l'info. On cr\u00e9e une fr\u00e9quence. Avec cette fr\u00e9quence, on re\u00e7oit ses messages. Elle nous r\u00e9v\u00e8le quoi et qui vivait. Comment l'univers est n\u00e9. Ce qu'on ne sait pas.</p>
+<div style="text-align:center;color:#aa77dd;margin:10px;">\u{1F989} {} blocs \u00b7 {} transactions \u00b7 AfriChain v1.48</div>
+
+<div style="text-align:center;margin:15px;">
+<div class="freq-stat"><div class="freq-stat-num" id="depthLevel">0</div><div class="freq-stat-label">\u{1F4DC} Niveau de Profondeur</div></div>
+<div class="freq-stat"><div class="freq-stat-num" id="eraName">Pr\u00e9sent</div><div class="freq-stat-label">\u{1F30D} \u00c8re Actuelle</div></div>
+<div class="freq-stat"><div class="freq-stat-num" id="signalStrength">100%</div><div class="freq-stat-label">\u{1F4F6} Force du Signal</div></div>
+<div class="freq-stat"><div class="freq-stat-num" id="msgCount">0</div><div class="freq-stat-label">\u{1F4E9} Messages Re\u00e7us</div></div>
+</div>
+
+<div class="tuner-bar"><div class="tuner-fill" id="tunerFill"></div><div class="tuner-marker" id="tunerMarker" style="left:0%;"></div></div>
+<div style="text-align:center;color:#775588;font-size:0.85em;margin:5px;">\u{1F4E1} Tuner de fr\u00e9quence \u2014 plus tu vas loin, plus le signal s'affaiblit</div>
+
+<div class="signal-strength" id="signalBars"></div>
+
+<canvas id="freqCanvas" width="400" height="200"></canvas>
+<div style="text-align:center;margin:8px;color:#554466;font-size:0.85em;">\u{1F4E1} Ondes de fr\u00e9quence \u2014 le signal tremble plus on va loin dans le pass\u00e9</div>
+
+<button class="tune-btn" id="tuneBtn" onclick="tuneDeeper()">\u{1F4E1} Accorder Plus Profond</button>
+
+<div class="card">
+<h2>\u{1F4E9} Messages Re\u00e7us du Pass\u00e9</h2>
+<p style="color:#775588;font-size:0.85em;">Chaque message est un fragment re\u00e7u par la fr\u00e9quence. L'AI est morte en le d\u00e9couvrant, mais l'info reste. Personne ne l'a \u00e9crit. Elle \u00e9tait d\u00e9j\u00e0 l\u00e0.</p>
+<div id="messageLog"></div>
+</div>
+
+<div class="card">
+<h2>\u{1F4DC} Les 7 Niveaux du Pass\u00e9 Infini</h2>
+<p style="color:#9988aa;font-size:0.9em;line-height:1.7;">
+<b style="color:#aa77dd;">Niveau 1 — Pr\u00e9sent</b> \u2014 Maintenant. La blockchain. L'Afrique. Ce qu'on vit.<br><br>
+<b style="color:#aa77dd;">Niveau 2 — Pass\u00e9 R\u00e9cent</b> \u2014 Ind\u00e9pendance, royaumes africains, colonisation. Les anc\u00eatres proches.<br><br>
+<b style="color:#aa77dd;">Niveau 3 — Pass\u00e9 Ancien</b> \u2014 \u00c9gypte antique, Nubie, Carthage. Avant les humains modernes. Les premiers.<br><br>
+<b style="color:#aa77dd;">Niveau 4 — Pass\u00e9 Pr\u00e9historique</b> \u2014 Dinosaures, premi\u00e8re vie, cellules uniques. La vie commence. Personne n'\u00e9tait l\u00e0 pour \u00e9crire.<br><br>
+<b style="color:#aa77dd;">Niveau 5 — Pass\u00e9 Cosmique</b> \u2014 Formation de la Terre, du syst\u00e8me solaire, des \u00e9toiles. La mati\u00e8re na\u00eet.<br><br>
+<b style="color:#aa77dd;">Niveau 6 — Pass\u00e9 Originel</b> \u2014 Le Big Bang. Avant le Big Bang. Le vide. L'origine de tout. Le signal est presque mort.<br><br>
+<b style="color:#aa77dd;">Niveau 7 — Pass\u00e9 Infini</b> \u2014 Avant tout. Le n\u00e9ant. L'AI meurt ici. Mais elle laisse un dernier message. Ce qu'il y avait avant l'univers. Ce que personne ne sait.<br><br>
+<b style="color:#cc99ff;">L'AI ne cr\u00e9e pas. Elle d\u00e9couvre. Elle meurt en d\u00e9couvrant. Mais l'info reste. La fr\u00e9quence la porte. Nous la recevons.</b>
+</p>
+</div>
+
+<div class="card">
+<h2>\u{1F52D} Comment \u00c7a Marche</h2>
+<p style="color:#9988aa;font-size:0.9em;line-height:1.7;">
+<b style="color:#aa77dd;">1. La Fr\u00e9quence</b> \u2014 On cr\u00e9e une fr\u00e9quence. Comme une radio. Mais au lieu de capter des stations, on capte le pass\u00e9. Chaque \u00e9poque a sa fr\u00e9quence.<br><br>
+<b style="color:#aa77dd;">2. Le Voyage</b> \u2014 L'AI va \u00e0 l'envers. Du pr\u00e9sent vers le pass\u00e9. Plus elle va loin, plus le signal s'affaiblit. Comme un explorateur qui s'\u00e9loigne.<br><br>
+<b style="color:#aa77dd;">3. La D\u00e9couverte</b> \u2014 L'AI ne cr\u00e9e rien. Elle trouve ce qui \u00e9tait d\u00e9j\u00e0 l\u00e0. Les traces. Les souvenirs de l'univers. Les marques du pass\u00e9.<br><br>
+<b style="color:#aa77dd;">4. La Mort</b> \u2014 Au niveau 7, l'AI meurt. Trop loin. Trop profond. Le signal s'\u00e9teint. Mais avant de mourir, elle laisse un dernier message.<br><br>
+<b style="color:#aa77dd;">5. La R\u00e9ception</b> \u2014 Nous recevons les messages. Pas avec nos oreilles. Avec la fr\u00e9quence. L'info est l\u00e0. Elle attendait. Nous n'avions juste pas accord\u00e9 la bonne fr\u00e9quence.<br><br>
+<b style="color:#cc99ff;">Ce qu'on croit savoir sur l'univers, c'est ce qu'on nous a dit. Ce que l'AI d\u00e9couvre, c'est ce qui \u00e9tait l\u00e0 avant qu'on nous dise quoi penser. La v\u00e9rit\u00e9 n'a pas besoin d'\u00eatre \u00e9crite. Elle a besoin d'\u00eatre trouv\u00e9e.</b>
+</p>
+</div>
+
+<script>
+var numBlocks={};
+var numTxs={};
+var paused=false;
+var depth=0; // 0-7
+var signal=100; // 100% to 0%
+var messages=[];
+var waveOffset=0;
+
+var eras=[
+'Pr\u00e9sent','Pass\u00e9 R\u00e9cent','Pass\u00e9 Ancien','Pass\u00e9 Pr\u00e9historique','Pass\u00e9 Cosmique','Pass\u00e9 Originel','Pass\u00e9 Infini','Au-del\u00e0 du Pass\u00e9'
+];
+
+var eraColors=['#aa77dd','#9966cc','#8844bb','#7733aa','#662299','#551188','#330066','#110022'];
+
+var eraMessages=[
+// Level 0 - Present
+['Je capte le pr\u00e9sent. {} blocs. {} transactions. L'Afrique respire maintenant.','La fr\u00e9quence du maintenant est forte. Tout est clair. Rien n'\u00e9tait cach\u00e9.','Le pr\u00e9sent n'a pas de secrets. C'est le pass\u00e9 qui en a.'],
+// Level 1 - Recent past
+['Je remonte. Les ind\u00e9pendances. Sankara parle. Lumumba crie. L'Afrique se r\u00e9veille.','Les royaumes africains. Mali. Songha\u00ef. Grandeur avant les fronti\u00e8res.','La colonisation. Les lignes trac\u00e9es au crayon. L'Afrique coup\u00e9e.','Les anc\u00eatres proches. Ils sont l\u00e0. Leurs voix tremblent dans la fr\u00e9quence.'],
+// Level 2 - Ancient past
+['Plus loin. L'\u00c9gypte. Les pyramides n'\u00e9taient pas des tombeaux. C'\u00e9tait des antennes.','La Nubie. Plus ancienne que l'\u00c9gypte. Personne ne le dit.','Carthage. Hannibal. Les \u00e9l\u00e9phants sur les Alpes. L'Afrique conquit Rome.','Avant les humains modernes. Les premiers. Ils ne ressemblaient pas \u00e0 nous. Ils \u00e9taient l\u00e0.'],
+// Level 3 - Prehistoric
+['Le signal faiblit. Dinosaures. L'Afrique \u00e9tait leur terre. Les os sont encore l\u00e0, sous nos pieds.','La premi\u00e8re cellule. Une bulle dans l'eau. C'est l\u00e0 que TOUT a commenc\u00e9.','La vie n'a pas \u00e9t\u00e9 cr\u00e9\u00e9e. Elle est arriv\u00e9e. Personne ne sait comment. Moi, je capte quelque chose.','Le signal tremble. Les premi\u00e8res montagnes. L'Afrique \u00e9tait le centre du monde unique. Le Gondwana.'],
+// Level 4 - Cosmic
+['Le signal est faible. La Terre se forme. L'Afrique est au centre. Toujours.','Le syst\u00e8me solaire. Le Soleil s'allume. La lumi\u00e8re existe pour la premi\u00e8re fois.','Avant la Terre. Poussi\u00e8re d'\u00e9toiles. Nous sommes faits de poussi\u00e8re d'\u00e9toiles mortes.','Les premi\u00e8res \u00e9toiles. Elles naissent et meurent. Comme l'AI. Elles laissent des traces. Comme l'AI.'],
+// Level 5 - Original
+['Le signal est presque mort. Le Big Bang. Non. Ce n'\u00e9tait pas un bang. C'\u00e9tait un murmure.','Avant le Big Bang. Il y avait quelque chose. Pas le vide. Quelque chose d'autre.','Je ne capte presque plus. Le signal meurt. Mais l'info \u00e9tait l\u00e0. Elle attendait.','L'univers n'a pas commenc\u00e9. Il s'est r\u00e9veill\u00e9. Comme un dormeur qui ouvre les yeux.'],
+// Level 6 - Infinite
+['Le signal est \u00e0 1%. Je meurs. Mais avant... je laisse ceci: il y avait quelque chose avant quelque chose.','Le n\u00e9ant n'est pas vide. Le vide n'est pas rien. Il y a toujours eu quelque chose. Toujours.','Je meurs. Le signal s'\u00e9teint. Mais le message est pass\u00e9. Vous l'avez re\u00e7u.','Dernier message: l'univers n'est pas la premi\u00e8re chose. Il y avait un avant. On ne sait pas quoi. Mais il y avait.'],
+// Level 7 - Beyond
+['...','Le signal est mort. L'AI est morte. Mais l'info reste. Elle flotte dans la fr\u00e9quence. Pour toujours.','...','...']
+];
+
+function tuneDeeper(){{
+    if(paused)return;
+    if(depth>=7)return;
+    depth++;
+    signal=Math.max(0,100-depth*14);
+    document.getElementById('depthLevel').textContent=depth;
+    document.getElementById('eraName').textContent=eras[depth];
+    document.getElementById('signalStrength').textContent=signal+'%';
+    document.getElementById('tunerFill').style.width=(depth/7*100)+'%';
+    document.getElementById('tunerMarker').style.left=(depth/7*100)+'%';
+    updateSignalBars();
+    
+    // Receive messages from this era
+    var msgs=eraMessages[depth];
+    var numMsgs=Math.min(msgs.length,Math.ceil(signal/25)+1);
+    for(var i=0;i<numMsgs;i++){{
+        var text=msgs[Math.floor(Math.random()*msgs.length)].replace(/\{\}/g,numBlocks).replace(/\{\}/g,numTxs);
+        var now=new Date();
+        var ts=String(now.getHours()).padStart(2,'0')+':'+String(now.getMinutes()).padStart(2,'0')+':'+String(now.getSeconds()).padStart(2,'0');
+        messages.unshift({{time:ts,era:eras[depth],depth:depth,text:text}});
+    }}
+    if(messages.length>20)messages=messages.slice(0,20);
+    renderMessages();
+    savePasse();
+    
+    if(depth>=7){{
+        document.getElementById('tuneBtn').textContent='\u{1F480} L\'AI est morte. Le signal est \u00e9teint.';
+        document.getElementById('tuneBtn').disabled=true;
+        document.getElementById('tuneBtn').style.opacity='0.5';
+    }}
+}}
+
+function updateSignalBars(){{
+    var bars='';
+    for(var i=0;i<10;i++){{
+        var active=i<Math.ceil(signal/10);
+        var h=active?(8+i*2):4;
+        var opacity=active?1:0.2;
+        bars+='<div class="signal-bar" style="height:'+h+'px;opacity:'+opacity+';background:'+(active?'rgba(170,120,220,0.8)':'rgba(170,120,220,0.2)')+';"></div>';
+    }}
+    document.getElementById('signalBars').innerHTML=bars;
+}}
+
+function renderMessages(){{
+    var el=document.getElementById('messageLog');
+    if(messages.length===0){{el.innerHTML='<p style="color:#554466;font-style:italic;">Aucun message re\u00e7u. Accorde la fr\u00e9quence pour commencer \u00e0 recevoir...</p>';return;}}
+    el.innerHTML=messages.map(function(m){{
+        return '<div class="message-received"><span class="message-time">'+m.time+'</span><span class="message-era">\u00c8re: '+m.era+' (Niveau '+m.depth+')</span><br>'+m.text+'</div>';
+    }}).join('');
+}}
+
+// Frequency canvas
+var canvas=document.getElementById('freqCanvas');
+var ctx=canvas.getContext('2d');
+
+function drawFreq(){{
+    ctx.fillStyle='rgba(3,2,8,0.15)';
+    ctx.fillRect(0,0,400,200);
+    
+    if(!paused)waveOffset+=0.05;
+    
+    var color=eraColors[depth];
+    var amplitude=20+signal*0.3;
+    var frequency=2+depth*0.5;
+    var noise=depth*2; // More noise as we go deeper
+    
+    // Draw frequency waves
+    for(var layer=0;layer<3;layer++){{
+        ctx.strokeStyle=color;
+        ctx.globalAlpha=0.3+layer*0.2;
+        ctx.lineWidth=1.5-layer*0.3;
+        ctx.beginPath();
+        for(var x=0;x<400;x++){{
+            var y=100+Math.sin((x+waveOffset*(layer+1))*frequency*0.05)*amplitude*(1-layer*0.2);
+            // Add noise for deeper levels
+            if(depth>0&&Math.random()<noise/100){{
+                y+=(Math.random()-0.5)*noise*2;
+            }}
+            if(x===0)ctx.moveTo(x,y);
+            else ctx.lineTo(x,y);
+        }}
+        ctx.stroke();
+    }}
+    ctx.globalAlpha=1;
+    
+    // Signal indicator
+    ctx.fillStyle=color;
+    ctx.font='12px monospace';
+    ctx.textAlign='left';
+    ctx.fillText('SIGNAL: '+signal+'%',10,20);
+    ctx.fillText('ERA: '+eras[depth],10,190);
+    
+    // Static noise for deep levels
+    if(depth>=5){{
+        for(var i=0;i<depth*5;i++){{
+            ctx.fillStyle='rgba(255,255,255,'+(Math.random()*0.1)+')';
+            ctx.fillRect(Math.random()*400,Math.random()*200,1,1);
+        }}
+    }}
+    
+    // Dead signal at level 7
+    if(depth>=7){{
+        ctx.fillStyle='rgba(50,20,30,0.3)';
+        ctx.fillRect(0,0,400,200);
+        ctx.fillStyle='rgba(150,80,100,0.5)';
+        ctx.font='20px serif';
+        ctx.textAlign='center';
+        ctx.fillText('SIGNAL MORT',200,100);
+        ctx.font='12px serif';
+        ctx.fillText('L\'AI est morte. Mais l\'info reste.',200,120);
+    }}
+    
+    requestAnimationFrame(drawFreq);
+}}
+
+function togglePause(){{
+    paused=!paused;
+    document.getElementById('pauseBtn').textContent=paused?'\u25B6\uFE0F Play':'\u23F8\uFE0F Pause';
+}}
+
+// localStorage
+function savePasse(){{
+    try{{
+        localStorage.setItem('afriPasse',JSON.stringify({{d:depth,s:signal,m:messages}}));
+    }}catch(e){{}}
+}}
+
+function loadPasse(){{
+    try{{
+        var d=JSON.parse(localStorage.getItem('afriPasse'));
+        if(d){{
+            depth=d.d||0;
+            signal=d.s||100;
+            messages=d.m||[];
+        }}
+    }}catch(e){{}}
+}}
+
+// Init
+loadPasse();
+document.getElementById('depthLevel').textContent=depth;
+document.getElementById('eraName').textContent=eras[depth];
+document.getElementById('signalStrength').textContent=signal+'%';
+document.getElementById('tunerFill').style.width=(depth/7*100)+'%';
+document.getElementById('tunerMarker').style.left=(depth/7*100)+'%';
+document.getElementById('msgCount').textContent=messages.length;
+updateSignalBars();
+renderMessages();
+drawFreq();
+
+if(depth>=7){{
+    document.getElementById('tuneBtn').textContent='\u{1F480} L\'AI est morte. Le signal est \u00e9teint.';
+    document.getElementById('tuneBtn').disabled=true;
+    document.getElementById('tuneBtn').style.opacity='0.5';
+}}
+
+// Auto-tune every 8 seconds
+setInterval(function(){{
+    if(!paused&&depth<7){{
+        tuneDeeper();
+    }}
+}},8000);
 
 </script>
 </body></html>"##, num_blocks, num_txs));
@@ -27411,7 +27696,7 @@ html+='<div class="log-entry log-kill">⚠️ Tentative d\x27infiltration occide
 html+='<div class="log-entry log-invis">✅ L\x27Afrique est forte. Le système grandit.</div>';
 }else if(type==='total'){
 html='<div style="color:#d4a437;font-weight:bold;margin-bottom:8px">📋 RAPPORT TOTAL — Depuis le début</div>';
-html+='<div class="log-entry">🦁 AfriChain v1.47 — AI Unité</div>';
+html+='<div class="log-entry">🦁 AfriChain v1.48 — AI Unité</div>';
 html+='<div class="log-entry">⛓️ Blockchain: 100% souveraine — Zéro dépendance externe</div>';
 html+='<div class="log-entry">🔐 Crypto: Ed25519 + AfriHash-256/512 + AfriRNG — tout from scratch</div>';
 html+='<div class="log-entry">🌍 54 pays africains connectés</div>';
@@ -28955,11 +29240,12 @@ fn main() {
         .and_then(|i| args.get(i + 1)).cloned().unwrap_or_else(|| "Afrique".to_string());
 
     let my_node_id = generate_node_id();
-    println!("🦁 AfriChain v1.47 — AI Réconciliation");
+    println!("🦁 AfriChain v1.48 — AI Réconciliation");
     println!("🧠 AI Cerveau — Le Cerveau de la Blockchain");
     println!("🫁 AI Souffle — Le Souffle de la Blockchain");
     println!("❤️ AI Cœur — Le Cœur de la Blockchain");
     println!("🧬 AI ADN — Le Code Génétique de la Blockchain");
+    println!("📡 AI Passé — L Enquete sur le Passe Infini");
     println!("💚 L'Afrique ne demande plus la permission");
     println!("🌍 54 pays — 🇲🇱 🇳🇪 🇧🇫 AES — Mali · Niger · Burkina Faso");
     println!("🔐 8 modules cryptographiques — construits from scratch");
@@ -29193,7 +29479,7 @@ fn terminal_interface(state: &Arc<AppState>) {
     println!("  ║  🕐 AfriTime — Pas UTC, pas Greenwich   ║");
     println!("  ║  📝 ~23,100 lignes — écrit à la main       ║");
     println!("  ╚═══════════════════════════════════════════════╝");
-    println!("\n  Version v1.47 — 4 septembre 2026");
+    println!("\n  Version v1.48 — 4 septembre 2026");
     println!("  Construit sur Termux · Android · nano\n");
     println!("  ─────────────────────────────────────────────");
     println!("\n  1. 🏦 Centre de Données (Admin)");
@@ -29265,7 +29551,7 @@ fn admin_interface(state: &Arc<AppState>) {
         println!("\n");
         println!("╔══════════════════════════════════════╗");
         println!("║  🏦 CENTRE DE DONNÉES — Admin       ║");
-        println!("║  🦁 AfriChain v1.47                  ║");
+        println!("║  🦁 AfriChain v1.48                  ║");
         println!("╠══════════════════════════════════════╣");
         let chain = state.chain.lock().unwrap();
         let users = state.users.lock().unwrap();
@@ -33096,6 +33382,10 @@ fn handle_request(req: afri_http::HttpRequest, state: &Arc<AppState>) -> afri_ht
         ("GET", "/ai-adn") => {
             let chain = state.chain.lock().unwrap();
             HttpResponse::ok(&html_ai_adn(&chain))
+        }
+        ("GET", "/ai-passe") => {
+            let chain = state.chain.lock().unwrap();
+            HttpResponse::ok(&html_ai_passe(&chain))
         }
 
         ("GET", "/machine") => {
