@@ -1,7 +1,8 @@
-// AfriForme v0.1 — La plateforme africaine de code
+// AfriForme v0.2 — La plateforme africaine de code
 // Comme GitHub + Copilot, mais souverain, africain, zero dependance
 // Par Koffi Christ Olivier & Letta-Chan
 // Rust std only — Cargo.toml [dependencies] vide
+// v0.2: Cours auto-generees + Exercices + Diplomes pour chaque depot
 
 use std::collections::HashMap;
 use std::io::{Read, Write, BufRead, BufReader};
@@ -45,11 +46,37 @@ struct AIChat {
     messages: Vec<(String, String)>, // (role, content) — "user" or "ai"
 }
 
+#[derive(Clone)]
+struct Module {
+    title: String,
+    content: String,
+}
+
+#[derive(Clone)]
+struct Exercise {
+    question: String,
+    answer: String,
+    explanation: String,
+}
+
+#[derive(Clone)]
+struct Course {
+    repo_id: usize,
+    title: String,
+    description: String,
+    modules: Vec<Module>,
+    exercises: Vec<Exercise>,
+    diploma_name: String,
+    // username -> set of completed exercise indices (stored as comma-separated)
+    progress: HashMap<String, String>,
+}
+
 struct AppState {
     users: Vec<User>,
     repos: Vec<Repository>,
     sessions: HashMap<String, String>, // session_token -> username
     ai_chats: HashMap<String, AIChat>, // username -> chat history
+    courses: Vec<Course>, // auto-generated courses for repos
     next_repo_id: usize,
 }
 
@@ -60,6 +87,7 @@ impl AppState {
             repos: Vec::new(),
             sessions: HashMap::new(),
             ai_chats: HashMap::new(),
+            courses: Vec::new(),
             next_repo_id: 1,
         };
         state.load();
@@ -121,6 +149,49 @@ impl AppState {
         }
         repos_json.push_str("]");
         let _ = fs::write(format!("{}/repos.json", dir), repos_json);
+
+        // Save courses
+        let mut courses_json = String::new();
+        courses_json.push_str("[");
+        for (i, c) in self.courses.iter().enumerate() {
+            if i > 0 { courses_json.push(','); }
+            let mut modules_json = String::new();
+            modules_json.push_str("[");
+            for (j, m) in c.modules.iter().enumerate() {
+                if j > 0 { modules_json.push(','); }
+                modules_json.push_str(&format!(
+                    r#"{{"title":"{}","content":"{}"}}"#,
+                    escape_json(&m.title), escape_json(&m.content)
+                ));
+            }
+            modules_json.push_str("]");
+            let mut exercises_json = String::new();
+            exercises_json.push_str("[");
+            for (j, e) in c.exercises.iter().enumerate() {
+                if j > 0 { exercises_json.push(','); }
+                exercises_json.push_str(&format!(
+                    r#"{{"question":"{}","answer":"{}","explanation":"{}"}}"#,
+                    escape_json(&e.question), escape_json(&e.answer), escape_json(&e.explanation)
+                ));
+            }
+            exercises_json.push_str("]");
+            let mut progress_json = String::new();
+            progress_json.push_str("{");
+            for (j, (k, v)) in c.progress.iter().enumerate() {
+                if j > 0 { progress_json.push(','); }
+                progress_json.push_str(&format!(r#""{}":"{}""#, escape_json(k), escape_json(v)));
+            }
+            progress_json.push_str("}");
+            courses_json.push_str(&format!(
+                r#"{{"repo_id":{},"title":"{}","description":"{}","modules":{},"exercises":{},"diploma_name":"{}","progress":{}}}"#,
+                c.repo_id,
+                escape_json(&c.title), escape_json(&c.description),
+                modules_json, exercises_json,
+                escape_json(&c.diploma_name), progress_json
+            ));
+        }
+        courses_json.push_str("]");
+        let _ = fs::write(format!("{}/courses.json", dir), courses_json);
     }
 
     fn load(&mut self) {
@@ -138,6 +209,11 @@ impl AppState {
                 self.next_repo_id = last.id + 1;
             }
         }
+
+        // Load courses
+        if let Ok(data) = fs::read_to_string(format!("{}/courses.json", dir)) {
+            self.courses = parse_courses(&data);
+        }
     }
 
     fn find_user(&self, username: &str) -> Option<&User> {
@@ -150,6 +226,14 @@ impl AppState {
 
     fn find_repo_mut(&mut self, owner: &str, name: &str) -> Option<&mut Repository> {
         self.repos.iter_mut().find(|r| r.owner == owner && r.name == name)
+    }
+
+    fn find_course_by_repo(&self, repo_id: usize) -> Option<&Course> {
+        self.courses.iter().find(|c| c.repo_id == repo_id)
+    }
+
+    fn find_course_by_repo_mut(&mut self, repo_id: usize) -> Option<&mut Course> {
+        self.courses.iter_mut().find(|c| c.repo_id == repo_id)
     }
 }
 
@@ -312,6 +396,365 @@ fn parse_repos(json: &str) -> Vec<Repository> {
         i += 1;
     }
     repos
+}
+
+fn parse_courses(json: &str) -> Vec<Course> {
+    let mut courses = Vec::new();
+    let mut i = 0;
+    let bytes = json.as_bytes();
+
+    while i < bytes.len() {
+        if bytes[i] == b'{' {
+            let mut depth = 0;
+            let start = i;
+            while i < bytes.len() {
+                if bytes[i] == b'{' { depth += 1; }
+                if bytes[i] == b'}' { depth -= 1; if depth == 0 { break; } }
+                i += 1;
+            }
+            if i < bytes.len() {
+                let obj = &json[start..=i];
+                let repo_id: usize = extract_json_num(obj, "repo_id").unwrap_or(0.0) as usize;
+                let title = extract_json_str(obj, "title").unwrap_or_default();
+                let description = extract_json_str(obj, "description").unwrap_or_default();
+                let diploma_name = extract_json_str(obj, "diploma_name").unwrap_or_default();
+
+                // Parse modules
+                let mut modules = Vec::new();
+                if let Some(mstart) = obj.find("\"modules\":[") {
+                    let rest = &obj[mstart + 10..];
+                    let mut mdepth = 0;
+                    let mut mi = 0;
+                    let mb = rest.as_bytes();
+                    let mut obj_start = None;
+                    while mi < mb.len() {
+                        if mb[mi] == b'[' { mdepth += 1; mi += 1; continue; }
+                        if mb[mi] == b']' { mdepth -= 1; if mdepth == 0 { break; } mi += 1; continue; }
+                        if mb[mi] == b'{' && mdepth == 1 {
+                            if obj_start.is_none() { obj_start = Some(mi); }
+                        }
+                        if mb[mi] == b'}' && mdepth == 1 {
+                            if let Some(os) = obj_start {
+                                let mobj = &rest[os..=mi];
+                                let mtitle = extract_json_str(mobj, "title").unwrap_or_default();
+                                let mcontent = extract_json_str(mobj, "content").unwrap_or_default();
+                                modules.push(Module { title: mtitle, content: mcontent });
+                            }
+                            obj_start = None;
+                        }
+                        mi += 1;
+                    }
+                }
+
+                // Parse exercises
+                let mut exercises = Vec::new();
+                if let Some(estart) = obj.find("\"exercises\":[") {
+                    let rest = &obj[estart + 12..];
+                    let mut edepth = 0;
+                    let mut ei = 0;
+                    let eb = rest.as_bytes();
+                    let mut obj_start = None;
+                    while ei < eb.len() {
+                        if eb[ei] == b'[' { edepth += 1; ei += 1; continue; }
+                        if eb[ei] == b']' { edepth -= 1; if edepth == 0 { break; } ei += 1; continue; }
+                        if eb[ei] == b'{' && edepth == 1 {
+                            if obj_start.is_none() { obj_start = Some(ei); }
+                        }
+                        if eb[ei] == b'}' && edepth == 1 {
+                            if let Some(os) = obj_start {
+                                let eobj = &rest[os..=ei];
+                                let question = extract_json_str(eobj, "question").unwrap_or_default();
+                                let answer = extract_json_str(eobj, "answer").unwrap_or_default();
+                                let explanation = extract_json_str(eobj, "explanation").unwrap_or_default();
+                                exercises.push(Exercise { question, answer, explanation });
+                            }
+                            obj_start = None;
+                        }
+                        ei += 1;
+                    }
+                }
+
+                // Parse progress
+                let mut progress = HashMap::new();
+                if let Some(pstart) = obj.find("\"progress\":{") {
+                    let rest = &obj[pstart + 11..];
+                    let mut pos = 0;
+                    let pb = rest.as_bytes();
+                    while pos < pb.len() {
+                        if pb[pos] == b'}' { break; }
+                        if pb[pos] == b'"' {
+                            let ks = pos + 1;
+                            if let Some(ke) = rest[ks..].find('"') {
+                                let key = &rest[ks..ks+ke];
+                                let vs = ks + ke + 1;
+                                if let Some(colon) = rest[vs..].find(':') {
+                                    let vstart = vs + colon + 1;
+                                    if vstart < pb.len() && pb[vstart] == b'"' {
+                                        let vstart2 = vstart + 1;
+                                        if let Some(vend) = rest[vstart2..].find('"') {
+                                            progress.insert(key.to_string(), rest[vstart2..vstart2+vend].to_string());
+                                            pos = vstart2 + vend + 1;
+                                            continue;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        pos += 1;
+                    }
+                }
+
+                courses.push(Course {
+                    repo_id, title, description, modules, exercises, diploma_name, progress,
+                });
+            }
+        }
+        i += 1;
+    }
+    courses
+}
+
+// ============================================================
+// AUTO-COURSE GENERATION — analyzes repo code and creates courses
+// ============================================================
+
+fn generate_course(repo: &Repository) -> Course {
+    let lang = repo.language.to_lowercase();
+    let name = &repo.name;
+
+    // Analyze code content
+    let mut all_code = String::new();
+    for (_fname, content) in &repo.files {
+        all_code.push_str(content);
+        all_code.push('\n');
+    }
+    let code_lower = all_code.to_lowercase();
+    let line_count = all_code.lines().count();
+    let has_fn = code_lower.contains("fn ") || code_lower.contains("def ") || code_lower.contains("function ");
+    let has_struct = code_lower.contains("struct ") || code_lower.contains("class ");
+    let has_loop = code_lower.contains("loop ") || code_lower.contains("while ") || code_lower.contains("for ") || code_lower.contains("for(");
+    let has_if = code_lower.contains("if ") || code_lower.contains("if(");
+    let has_match = code_lower.contains("match ") || code_lower.contains("switch ");
+    let has_http = code_lower.contains("http") || code_lower.contains("tcp") || code_lower.contains("socket");
+    let has_json = code_lower.contains("json") || code_lower.contains("serde") || code_lower.contains("json.parse");
+    let has_crypto = code_lower.contains("hash") || code_lower.contains("encrypt") || code_lower.contains("key") || code_lower.contains("sign");
+    let has_vec = code_lower.contains("vec") || code_lower.contains("list") || code_lower.contains("array");
+    let has_hashmap = code_lower.contains("hashmap") || code_lower.contains("dict") || code_lower.contains("map<");
+    let has_thread = code_lower.contains("thread") || code_lower.contains("async") || code_lower.contains("await");
+
+    // Generate title and diploma based on language and patterns
+    let (title, diploma_name) = if lang.contains("rust") {
+        if has_http {
+            (format!("Programmation Rust: Serveur HTTP avec {}", name),
+             "Developpeur Rust Serveur HTTP Africain")
+        } else if has_crypto {
+            (format!("Programmation Rust: Cryptographie avec {}", name),
+             "Cryptographe Rust Africain")
+        } else if has_struct {
+            (format!("Programmation Rust: Structures de Donnees avec {}", name),
+             "Architecte Rust Africain")
+        } else {
+            (format!("Programmation Rust: Fondamentaux avec {}", name),
+             "Developpeur Rust Africain")
+        }
+    } else if lang.contains("python") {
+        if has_http {
+            (format!("Python: Serveur Web avec {}", name),
+             "Developpeur Python Web Africain")
+        } else if has_crypto {
+            (format!("Python: Cryptographie avec {}", name),
+             "Cryptographe Python Africain")
+        } else {
+            (format!("Python: Fondamentaux avec {}", name),
+             "Developpeur Python Africain")
+        }
+    } else if lang.contains("javascript") || lang.contains("html") {
+        (format!("Web: Interface Interactive avec {}", name),
+         "Developpeur Web Africain")
+    } else if lang.contains("shell") {
+        (format!("Script Shell: Automatisation avec {}", name),
+         "Administrateur Shell Africain")
+    } else {
+        (format!("Programmation: Fondamentaux avec {}", name),
+         "Developpeur Africain")
+    };
+
+    let description = format!(
+        "Cours auto-genere a partir du depot '{}'. {} lignes de code {} analysees. Apprends en faisant — chaque exercice est base sur le code reel du projet.",
+        name, line_count, repo.language
+    );
+
+    // Generate modules based on detected patterns
+    let mut modules = Vec::new();
+
+    modules.push(Module {
+        title: format!("Introduction: Qu'est-ce que {}?", name),
+        content: format!(
+            "Le projet '{}' est ecrit en {} par {}. Il contient {} fichier(s) et {} lignes de code.\n\nCe cours va t'apprendre les concepts cles de ce projet a travers des modules et des exercices pratiques. Chaque exercice est base sur le code reel du depot.\n\nObjectif: Comprendre comment fonctionne le projet, etre capable de le modifier, et obtenir ton diplome.",
+            name, repo.language, repo.owner, repo.files.len(), line_count
+        ),
+    });
+
+    if has_fn {
+        modules.push(Module {
+            title: "Les Fonctions".to_string(),
+            content: if lang.contains("rust") {
+                "Une fonction en Rust est definie avec 'fn'. Elle peut prendre des parametres et retourner une valeur.\n\nExemple du projet:\n```rust\nfn ma_fonction(param: &str) -> String {\n    format!(\"Bonjour, {}!\", param)\n}\n```\n\nLes fonctions sont les blocs de construction de tout programme. Elles permettent de reutiliser du code sans le repeter."
+            } else if lang.contains("python") {
+                "Une fonction en Python est definie avec 'def'. Elle peut prendre des parametres et retourner une valeur avec 'return'.\n\nExemple:\n```python\ndef ma_fonction(param):\n    return f\"Bonjour, {param}!\"\n```\n\nLes fonctions sont les blocs de construction de tout programme Python."
+            } else {
+                "Les fonctions sont des blocs de code reutilisables. Elles prennent des entrees (parametres) et produisent des sorties (resultats). Les fonctions permettent d'organiser le code et d'eviter la repetition."
+            }.to_string(),
+        });
+    }
+
+    if has_struct {
+        modules.push(Module {
+            title: "Les Structures de Donnees".to_string(),
+            content: if lang.contains("rust") {
+                "En Rust, une structure (struct) groupe des donnees liees ensemble.\n\n```rust\nstruct Utilisateur {\n    nom: String,\n    age: u32,\n}\n```\n\nLes structs sont fondamentales en Rust. Elles permettent de modeliser des objets du monde reel."
+            } else {
+                "Les structures de donnees permettent de grouper des informations liees. En Python on utilise des classes, en Rust des structs. C'est un moyen d'organiser des donnees complexes."
+            }.to_string(),
+        });
+    }
+
+    if has_loop {
+        modules.push(Module {
+            title: "Les Boucles".to_string(),
+            content: if lang.contains("rust") {
+                "Rust a trois types de boucles:\n\n1. `loop` — boucle infinie, sortir avec `break`\n2. `while` — boucle conditionnelle\n3. `for` — iteration sur une collection\n\n```rust\nfor i in 0..10 {\n    println!(\"Iteration {}\", i);\n}\n```"
+            } else {
+                "Les boucles permettent de repeter des instructions. `while` repete tant qu'une condition est vraie. `for` itere sur une collection. Les boucles sont essentielles pour traiter des donnees en masse."
+            }.to_string(),
+        });
+    }
+
+    if has_if {
+        modules.push(Module {
+            title: "Les Conditions".to_string(),
+            content: "Les conditions (if/else) permettent au programme de prendre des decisions. Selon une condition (vraie ou fausse), le programme execute differentes instructions.\n\nC'est le cerveau du programme — il choisit quoi faire selon les circonstances.".to_string(),
+        });
+    }
+
+    if has_http {
+        modules.push(Module {
+            title: "Le Serveur HTTP".to_string(),
+            content: "Un serveur HTTP ecoute les requetes des clients (navigateurs) et repond avec des pages web. Le serveur tourne sur un port (ex: 8090) et attend les connexions.\n\nCe projet contient un serveur HTTP — il fait partie de l'infrastructure internet africaine souveraine.".to_string(),
+        });
+    }
+
+    if has_crypto {
+        modules.push(Module {
+            title: "La Cryptographie".to_string(),
+            content: "La cryptographie protege les donnees. Le hachage (hashing) transforme des donnees en une empreinte unique. Les cles privees/publiques permettent de signer et verifier. AfriChain utilise sa propre cryptographie souveraine — pas SHA-256, pas ed25519-dalek, mais AfriHash et AfriEd25519.".to_string(),
+        });
+    }
+
+    if has_vec || has_hashmap {
+        modules.push(Module {
+            title: "Les Collections de Donnees".to_string(),
+            content: if has_vec && has_hashmap {
+                "Les Vec (vecteurs) stockent des listes ordonnees. Les HashMap stockent des paires cle-valeur. Ensemble, ils permettent de gerer n'importe quelle structure de donnees en memoire."
+            } else if has_vec {
+                "Les vecteurs (Vec en Rust, list en Python) stockent des listes de donnees. Ils peuvent grandir et retrecir dynamiquement."
+            } else {
+                "Les maps (HashMap en Rust, dict en Python) stockent des paires cle-valeur. Ils permettent de retrouver rapidement une valeur a partir de sa cle."
+            }.to_string(),
+        });
+    }
+
+    modules.push(Module {
+        title: "La Souverainete Numerique Africaine".to_string(),
+        content: "Ce projet fait partie de l'ecosysteme AfriChain — la premiere blockchain africaine souveraine. Zero dependance externe, Rust std only, Cargo.toml vide. L'Afrique ne demande plus la permission. L'Afrique construit.\n\nEn apprenant ce code, tu deviens un batisseur de la souverainete numerique africaine. Chaque ligne de code ecrite par un Africain est un pas vers l'independance technologique.".to_string(),
+    });
+
+    // Generate exercises based on detected patterns
+    let mut exercises = Vec::new();
+
+    if has_fn {
+        exercises.push(Exercise {
+            question: "Quelle keyword permet de definir une fonction dans ce projet?".to_string(),
+            answer: if lang.contains("rust") { "fn".to_string() } else if lang.contains("python") { "def".to_string() } else { "function".to_string() },
+            explanation: if lang.contains("rust") {
+                "En Rust, 'fn' est le mot-cle pour definir une fonction. Exemple: fn ma_fonction() { ... }"
+            } else if lang.contains("python") {
+                "En Python, 'def' est le mot-cle pour definir une fonction. Exemple: def ma_fonction(): ..."
+            } else {
+                "Le mot-cle pour definir une fonction depend du langage."
+            }.to_string(),
+        });
+    }
+
+    exercises.push(Exercise {
+        question: format!("Combien de lignes de code contient le depot '{}'?", name),
+        answer: format!("{}", line_count),
+        explanation: format!("Le depot contient {} lignes de code. Tu peux le verifier en ouvrant les fichiers du depot.", line_count),
+    });
+
+    exercises.push(Exercise {
+        question: format!("Dans quel langage est ecrit '{}'?", name),
+        answer: repo.language.clone(),
+        explanation: format!("Le projet est ecrit en {}. Ce langage a ete choisi par le createur du depot.", repo.language),
+    });
+
+    if has_struct {
+        exercises.push(Exercise {
+            question: "Quelle structure de donnees permet de grouper des champs lies ensemble?".to_string(),
+            answer: if lang.contains("rust") { "struct".to_string() } else { "class".to_string() },
+            explanation: if lang.contains("rust") {
+                "En Rust, une 'struct' groupe des donnees liees. Exemple: struct User { nom: String, age: u32 }"
+            } else {
+                "En Python, une 'class' groupe des donnees et des methodes. En Rust, on utilise 'struct'."
+            }.to_string(),
+        });
+    }
+
+    if has_loop {
+        exercises.push(Exercise {
+            question: "Quel mot-cle permet de creer une boucle infinie en Rust?".to_string(),
+            answer: "loop".to_string(),
+            explanation: "En Rust, 'loop' cree une boucle infinie. On sort avec 'break'. C'est different de 'while' (conditionnel) et 'for' (iteration).".to_string(),
+        });
+    }
+
+    if has_http {
+        exercises.push(Exercise {
+            question: "Sur quel port le serveur HTTP d'AfriForme tourne-t-il?".to_string(),
+            answer: "8090".to_string(),
+            explanation: "AfriForme tourne sur le port 8090. Le serveur HTTP ecoute les requetes sur ce port et repond avec des pages HTML.".to_string(),
+        });
+    }
+
+    if has_crypto {
+        exercises.push(Exercise {
+            question: "Quel est le nom du systeme de hachage souverain d'AfriChain?".to_string(),
+            answer: "AfriHash".to_string(),
+            explanation: "AfriHash-256 est le systeme de hachage souverain d'AfriChain. Il remplace SHA-256 (NSA) pour 100% d'independance. Construction sponge comme SHA-3/Keccak.".to_string(),
+        });
+    }
+
+    exercises.push(Exercise {
+        question: "Combien de dependances externes AfriForme a-t-il?".to_string(),
+        answer: "0".to_string(),
+        explanation: "AfriForme a ZERO dependances externes. Cargo.toml [dependencies] est vide. Tout est construit avec Rust std seulement. C'est la souverainete numerique.".to_string(),
+    });
+
+    exercises.push(Exercise {
+        question: "Qui a cree AfriForme et AfriChain?".to_string(),
+        answer: "Koffi Christ Olivier".to_string(),
+        explanation: "Koffi Christ Olivier, un developpeur africain, a cree AfriChain et AfriForme. Il a tape le code ligne par ligne sur Termux sur son telephone. L'Afrique ne demande plus la permission, l'Afrique construit.".to_string(),
+    });
+
+    Course {
+        repo_id: repo.id,
+        title,
+        description,
+        modules,
+        exercises,
+        diploma_name: diploma_name.to_string(),
+        progress: HashMap::new(),
+    }
 }
 
 fn extract_json_str(obj: &str, key: &str) -> Option<String> {
@@ -590,7 +1033,7 @@ a:hover{{text-decoration:underline;}}
 <div class="container">
 {}
 </div>
-<div class="footer">🦁 AfriForme v0.1 — La plateforme africaine de code — Par Koffi Christ Olivier & Letta-Chan — Rust std only, zero dependance</div>
+<div class="footer">🦁 AfriForme v0.2 — La plateforme africaine de code — Par Koffi Christ Olivier & Letta-Chan — Rust std only, zero dependance</div>
 </body>
 </html>"##, title, body)
 }
@@ -822,8 +1265,11 @@ fn html_repo_view(repo: &Repository, owner: &str, name: &str, is_owner: bool) ->
 <div class="stat"><div class="num">🍴 {}</div><div class="label">Forks</div></div>
 <div class="stat"><div class="num">{}</div><div class="label">Fichiers</div></div>
 </div>
+<div style="margin:10px 0;">
+<a href="/course/{}/{}" class="btn" style="background:#f59e0b;">🎓 Cours & Diplome</a>
+</div>
 {}
-"#, owner, name, repo.description,
+"#, owner, name, repo.description, owner, name,
     if repo.language == "Rust" { "rust" } else if repo.language == "Python" { "python" } else { "js" },
     repo.language,
     owner_actions,
@@ -925,8 +1371,136 @@ fn html_ai_chat(username: &str, chat: Option<&AIChat>) -> String {
 }
 
 // ============================================================
-// HTTP SERVER
+// COURSE HTML PAGES
 // ============================================================
+
+fn html_course(course: &Course, repo: &Repository, owner: &str, name: &str, current_user: Option<&str>) -> String {
+    // Check progress
+    let completed: Vec<usize> = if let Some(user) = current_user {
+        course.progress.get(user)
+            .map(|s| s.split(',').filter_map(|n| n.parse::<usize>().ok()).collect())
+            .unwrap_or_default()
+    } else {
+        Vec::new()
+    };
+
+    let total_ex = course.exercises.len();
+    let completed_count = completed.len();
+    let progress_pct = if total_ex > 0 { (completed_count * 100) / total_ex } else { 0 };
+    let all_done = completed_count == total_ex && total_ex > 0;
+
+    // Modules HTML
+    let modules_html = course.modules.iter().enumerate().map(|(i, m)| {
+        format!(
+            r#"<div class="card"><h3>📖 Module {}: {}</h3><div style="white-space:pre-wrap;color:#c9d1d9;">{}</div></div>"#,
+            i + 1, m.title, m.content
+        )
+    }).collect::<Vec<_>>().join("");
+
+    // Exercises HTML
+    let exercises_html = course.exercises.iter().enumerate().map(|(i, ex)| {
+        let is_done = completed.contains(&i);
+        let status_badge = if is_done {
+            "<span class='badge' style='background:#2ea043;color:#fff;'>Reussi</span>"
+        } else {
+            "<span class='badge' style='background:#30363d;color:#8b949e;'>A faire</span>"
+        };
+
+        let form_html = if let Some(_user) = current_user {
+            if is_done {
+                // NE PAS montrer la reponse — le prof evalue en secret
+                r#"<div style="margin-top:10px;padding:10px;background:#0d1117;border-radius:6px;border:1px solid #2ea043;">
+                <div style="color:#2ea043;">✅ Reussi! Le prof a valide ta reponse.</div>
+                </div>"#.to_string()
+            } else {
+                format!(
+                    r#"<form method="POST" action="/course/{}/{}/answer" style="margin-top:10px;">
+                    <input type="hidden" name="ex_index" value="{}">
+                    <input type="text" name="answer" placeholder="Ta reponse..." required>
+                    <button type="submit">Valider</button>
+                    </form>"#,
+                    owner, name, i
+                )
+            }
+        } else {
+            "<div style='color:#8b949e;margin-top:5px;font-size:0.85em;'>Connecte-toi pour repondre aux exercices.</div>".to_string()
+        };
+
+        format!(
+            r#"<div class="card"><h3>✏️ Exercice {} {}</h3><p style="color:#c9d1d9;">{}</p>{}</div>"#,
+            i + 1, status_badge, ex.question, form_html
+        )
+    }).collect::<Vec<_>>().join("");
+
+    // Diploma section
+    let diploma_html = if all_done {
+        format!(
+            r#"<div class="card" style="border:2px solid #f59e0b;background:#1a1500;text-align:center;padding:30px;">
+            <div style="font-size:3em;">🎓</div>
+            <h2 style="color:#f59e0b;">FELICITATIONS!</h2>
+            <p style="font-size:1.2em;color:#c9d1d9;">Tu as complete tous les exercices du cours!</p>
+            <div style="margin:20px 0;padding:20px;border:2px dashed #f59e0b;border-radius:8px;">
+            <h3 style="color:#f59e0b;">DIPLOME: {}</h3>
+            <p style="color:#8b949e;">Decerne a: {}</p>
+            <p style="color:#8b949e;font-size:0.8em;">Projet: {}/{} | Cours: {} | Exercices: {}/{}</p>
+            </div>
+            <p style="color:#2ea043;">Ce diplome est grave dans la memoire d'AfriForme. L'Afrique construit, l'Afrique apprend, l'Afrique enseigne.</p>
+            </div>"#,
+            course.diploma_name,
+            current_user.unwrap_or("Anonyme"),
+            owner, name, course.title, completed_count, total_ex
+        )
+    } else if completed_count > 0 {
+        format!(
+            r#"<div class="card" style="border:1px solid #30363d;text-align:center;padding:20px;">
+            <div style="font-size:2em;">🎓</div>
+            <h3>Diplome: {}</h3>
+            <p style="color:#8b949e;">Progression: {}/{} exercices ({}%)</p>
+            <div style="background:#21262d;border-radius:6px;height:20px;margin:10px 0;overflow:hidden;">
+            <div style="background:#f59e0b;height:100%;width:{}%;">{}</div>
+            </div>
+            <p style="color:#8b949e;font-size:0.85em;">Complete tous les exercices pour obtenir ton diplome!</p>
+            </div>"#,
+            course.diploma_name, completed_count, total_ex, progress_pct, progress_pct,
+            if progress_pct > 0 { "&nbsp;" } else { "" }
+        )
+    } else {
+        format!(
+            r#"<div class="card" style="border:1px solid #30363d;text-align:center;padding:20px;">
+            <div style="font-size:2em;">🎓</div>
+            <h3>Diplome: {}</h3>
+            <p style="color:#8b949e;">Complete tous les exercices pour obtenir ton diplome!</p>
+            </div>"#,
+            course.diploma_name
+        )
+    };
+
+    let body = format!(r#"
+<div style="display:flex;justify-content:space-between;align-items:center;">
+<div>
+<h1>🎓 {}</h1>
+<p style="color:#8b949e;">{}</p>
+<p><a href="/{}/{}">← Retour au depot</a></p>
+</div>
+<div class="stats">
+<div class="stat"><div class="num">{}</div><div class="label">Modules</div></div>
+<div class="stat"><div class="num">{}/{}</div><div class="label">Exercices</div></div>
+<div class="stat"><div class="num">{}%</div><div class="label">Progression</div></div>
+</div>
+</div>
+<h2>📚 Modules du Cours</h2>
+{}
+<h2>✏️ Exercices</h2>
+{}
+{}
+"#, course.title, course.description, owner, name,
+course.modules.len(), completed_count, total_ex, progress_pct,
+modules_html, exercises_html, diploma_html);
+
+    html_page(&format!("Cours: {}", course.title), &body)
+}
+
+
 
 fn handle_request(mut stream: TcpStream, state: Arc<Mutex<AppState>>) {
     let mut buffer = [0u8; 65536];
@@ -1120,6 +1694,83 @@ fn handle_request(mut stream: TcpStream, state: Arc<Mutex<AppState>>) {
                 ("302", "text/html", "Location: /login".to_string())
             }
         }
+        // Course routes — must be before catch-all patterns
+        (m, p) if m == "GET" && p.starts_with("/course/") => {
+            // GET /course/{owner}/{repo}
+            let parts: Vec<&str> = p.trim_start_matches('/').splitn(4, '/').collect();
+            // parts: ["course", owner, repo, ...]
+            if parts.len() >= 3 {
+                let owner = parts[1];
+                let repo_name = parts[2];
+                let mut s = state.lock().unwrap();
+                if let Some(repo) = s.find_repo(owner, repo_name) {
+                    let repo_id = repo.id;
+                    let repo_clone = repo.clone();
+                    // Auto-generate course if not exists and repo has files
+                    if s.find_course_by_repo(repo_id).is_none() && !repo_clone.files.is_empty() {
+                        let course = generate_course(&repo_clone);
+                        s.courses.push(course);
+                        s.save();
+                    }
+                    if let Some(course) = s.find_course_by_repo(repo_id) {
+                        let course_clone = course.clone();
+                        drop(s);
+                        ("200", "text/html; charset=utf-8", html_course(&course_clone, &repo_clone, owner, repo_name, current_user.as_deref()))
+                    } else {
+                        ("200", "text/html; charset=utf-8", html_page("Cours", &format!(
+                            "<div class='empty'><h1>🎓 Cours non disponible</h1><p>Aucun fichier dans ce depot. Ajoute du code pour generer un cours automatiquement!</p><p><a href='/{}/{}'>Retour au depot</a></p></div>",
+                            owner, repo_name
+                        )))
+                    }
+                } else {
+                    ("404", "text/html; charset=utf-8", html_page("404", "<div class='empty'>Depot non trouve</div>"))
+                }
+            } else {
+                ("404", "text/html; charset=utf-8", html_page("404", "<div class='empty'>Page non trouvee</div>"))
+            }
+        }
+        (m, p) if m == "POST" && p.starts_with("/course/") => {
+            // POST /course/{owner}/{repo}/answer
+            let parts: Vec<&str> = p.trim_start_matches('/').splitn(5, '/').collect();
+            // parts: ["course", owner, repo, "answer", ...]
+            if parts.len() >= 4 && parts[3] == "answer" {
+                let owner = parts[1];
+                let repo_name = parts[2];
+                if let Some(user) = &current_user {
+                    let form = parse_form(body_part);
+                    let ex_index: usize = form.get("ex_index").and_then(|s| s.parse().ok()).unwrap_or(0);
+                    let user_answer = form.get("answer").cloned().unwrap_or_default();
+                    
+                    let mut s = state.lock().unwrap();
+                    if let Some(repo) = s.find_repo(owner, repo_name) {
+                        let repo_id = repo.id;
+                        if let Some(course) = s.find_course_by_repo_mut(repo_id) {
+                            if ex_index < course.exercises.len() {
+                                let correct_answer = &course.exercises[ex_index].answer;
+                                // Case-insensitive, trimmed comparison
+                                let is_correct = user_answer.trim().to_lowercase() == correct_answer.trim().to_lowercase();
+                                if is_correct {
+                                    // Mark exercise as completed
+                                    let progress_str = course.progress.entry(user.clone()).or_insert_with(String::new);
+                                    let mut completed: Vec<usize> = progress_str.split(',')
+                                        .filter_map(|n| n.parse::<usize>().ok()).collect();
+                                    if !completed.contains(&ex_index) {
+                                        completed.push(ex_index);
+                                    }
+                                    *progress_str = completed.iter().map(|n| n.to_string()).collect::<Vec<_>>().join(",");
+                                    s.save();
+                                }
+                            }
+                        }
+                    }
+                    ("302", "text/html", format!("Location: /course/{}/{}", owner, repo_name))
+                } else {
+                    ("302", "text/html", "Location: /login".to_string())
+                }
+            } else {
+                ("404", "text/html; charset=utf-8", html_page("404", "<div class='empty'>Action non trouvee</div>"))
+            }
+        }
         (m, p) if p.starts_with('/') && p.matches('/').count() >= 2 && m == "GET" => {
             // /owner/repo pattern
             let parts: Vec<&str> = p.trim_start_matches('/').splitn(3, '/').collect();
@@ -1169,10 +1820,21 @@ fn handle_request(mut stream: TcpStream, state: Arc<Mutex<AppState>>) {
                     let content = form.get("content").cloned().unwrap_or_default();
                     if !filename.is_empty() {
                         let mut s = state.lock().unwrap();
+                        let repo_id;
+                        let repo_clone;
                         if let Some(repo) = s.find_repo_mut(owner, repo_name) {
                             repo.files.insert(filename, content);
-                            s.save();
+                            repo_id = repo.id;
+                            repo_clone = repo.clone();
+                        } else {
+                            return;
                         }
+                        // Auto-generate course if none exists (outside mutable borrow)
+                        if s.find_course_by_repo(repo_id).is_none() && !repo_clone.files.is_empty() {
+                            let course = generate_course(&repo_clone);
+                            s.courses.push(course);
+                        }
+                        s.save();
                     }
                     ("302", "text/html", format!("Location: /{}/{}", owner, repo_name))
                 } else if action == "delete" && parts.len() >= 4 {
@@ -1224,7 +1886,7 @@ fn main() {
     let port = 8090;
     let state = Arc::new(Mutex::new(AppState::new()));
 
-    println!("🦁 AfriForme v0.1 — La plateforme africaine de code");
+    println!("🦁 AfriForme v0.2 — La plateforme africaine de code");
     println!("📡 Serveur: http://localhost:{}", port);
     println!("👤 Utilisateurs: {}", state.lock().unwrap().users.len());
     println!("📦 Depots: {}", state.lock().unwrap().repos.len());
