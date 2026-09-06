@@ -1,10 +1,11 @@
-// AfriForme v0.4 — La plateforme africaine de code
+// AfriForme v0.5 — La plateforme africaine de code
 // Comme GitHub + Copilot, mais souverain, africain, zero dependance
 // Par Koffi Christ Olivier & Letta-Chan
 // Rust std only — Cargo.toml [dependencies] vide
 // v0.2: Cours auto-generees + Exercices + Diplomes pour chaque depot
 // v0.3: Profils utilisateurs + Catalogue de cours + Stars
 // v0.4: Classement + README + Recherche
+// v0.5: Fil d activite + Fork + Commentaires
 
 use std::collections::HashMap;
 use std::io::{Read, Write, BufRead, BufReader};
@@ -73,6 +74,14 @@ struct Course {
     progress: HashMap<String, String>,
 }
 
+#[derive(Clone)]
+struct Comment {
+    repo_id: usize,
+    author: String,
+    text: String,
+    created_at: String,
+}
+
 struct AppState {
     users: Vec<User>,
     repos: Vec<Repository>,
@@ -80,6 +89,7 @@ struct AppState {
     ai_chats: HashMap<String, AIChat>, // username -> chat history
     courses: Vec<Course>, // auto-generated courses for repos
     starred: HashMap<String, Vec<usize>>, // username -> repo IDs starred
+    comments: Vec<Comment>, // comments on repos
     next_repo_id: usize,
 }
 
@@ -92,6 +102,7 @@ impl AppState {
             ai_chats: HashMap::new(),
             courses: Vec::new(),
             starred: HashMap::new(),
+            comments: Vec::new(),
             next_repo_id: 1,
         };
         state.load();
@@ -207,6 +218,19 @@ impl AppState {
         }
         starred_json.push_str("}");
         let _ = fs::write(format!("{}/starred.json", dir), starred_json);
+
+        // Save comments
+        let mut comments_json = String::new();
+        comments_json.push_str("[");
+        for (i, c) in self.comments.iter().enumerate() {
+            if i > 0 { comments_json.push(','); }
+            comments_json.push_str(&format!(
+                r#"{{"repo_id":{},"author":"{}","text":"{}","created_at":"{}"}}"#,
+                c.repo_id, escape_json(&c.author), escape_json(&c.text), escape_json(&c.created_at)
+            ));
+        }
+        comments_json.push_str("]");
+        let _ = fs::write(format!("{}/comments.json", dir), comments_json);
     }
 
     fn load(&mut self) {
@@ -228,6 +252,11 @@ impl AppState {
         // Load courses
         if let Ok(data) = fs::read_to_string(format!("{}/courses.json", dir)) {
             self.courses = parse_courses(&data);
+        }
+
+        // Load comments
+        if let Ok(data) = fs::read_to_string(format!("{}/comments.json", dir)) {
+            self.comments = parse_comments(&data);
         }
     }
 
@@ -267,6 +296,46 @@ impl AppState {
             if let Some(repo) = self.repos.iter_mut().find(|r| r.id == repo_id) {
                 repo.stars += 1;
             }
+        }
+    }
+
+    fn get_repo_comments(&self, repo_id: usize) -> Vec<&Comment> {
+        self.comments.iter().filter(|c| c.repo_id == repo_id).collect()
+    }
+
+    fn fork_repo(&mut self, owner: &str, repo_name: &str, new_owner: &str) -> Option<usize> {
+        // Clone repo data to avoid borrow conflict
+        let repo_data = self.find_repo(owner, repo_name).map(|r| {
+            (r.description.clone(), r.language.clone(), r.files.clone())
+        });
+        if let Some((desc, lang, files)) = repo_data {
+            let id = self.next_repo_id;
+            self.next_repo_id += 1;
+            let forked_name = if repo_name.starts_with("fork-") {
+                repo_name.to_string()
+            } else {
+                format!("fork-{}", repo_name)
+            };
+            self.repos.push(Repository {
+                id,
+                owner: new_owner.to_string(),
+                name: forked_name,
+                description: format!("Fork de {}/{} — {}", owner, repo_name, desc),
+                language: lang,
+                stars: 0,
+                forks: 0,
+                created_at: now_string(),
+                files,
+                is_public: true,
+            });
+            // Increment original repo fork count
+            if let Some(orig) = self.find_repo_mut(owner, repo_name) {
+                orig.forks += 1;
+            }
+            self.save();
+            Some(id)
+        } else {
+            None
         }
     }
 
@@ -1082,6 +1151,7 @@ a:hover{{text-decoration:underline;}}
 <a href="/courses">🎓 Cours</a>
 <a href="/leaderboard">🏆 Classement</a>
 <a href="/search">🔍 Rechercher</a>
+<a href="/explore">📦 Explorer</a>
 <a href="/ai">🤖 IA Copilot</a>
 <a href="/register">S'inscrire</a>
 <a href="/login">Connexion</a>
@@ -1090,7 +1160,7 @@ a:hover{{text-decoration:underline;}}
 <div class="container">
 {}
 </div>
-<div class="footer">🦁 AfriForme v0.4 — La plateforme africaine de code — Par Koffi Christ Olivier & Letta-Chan — Rust std only, zero dependance</div>
+<div class="footer">🦁 AfriForme v0.5 — La plateforme africaine de code — Par Koffi Christ Olivier & Letta-Chan — Rust std only, zero dependance</div>
 </body>
 </html>"##, title, body)
 }
@@ -1111,6 +1181,34 @@ fn html_home(state: &AppState, current_user: Option<&str>) -> String {
                 r.stars, r.forks, r.created_at
             )).collect::<Vec<_>>().join("")
         };
+        // Build activity feed
+        let mut activities: Vec<String> = Vec::new();
+        // Recent repos (last 5)
+        let mut recent: Vec<&Repository> = state.repos.iter().filter(|r| r.is_public).collect();
+        recent.sort_by(|a, b| b.created_at.cmp(&a.created_at));
+        for r in recent.iter().take(5) {
+            activities.push(format!(
+                r#"<div class="card" style="padding:10px;margin:5px 0;"><span style="color:#58a6ff;">📦 Nouveau depot</span> — <a href="/{}/{}">{}/{}</a> <span style="color:#8b949e;">· {}</span></div>"#,
+                r.owner, r.name, r.owner, r.name, r.created_at
+            ));
+        }
+        // Recent comments (last 5)
+        let mut recent_comments: Vec<&Comment> = state.comments.iter().collect();
+        recent_comments.sort_by(|a, b| b.created_at.cmp(&a.created_at));
+        for c in recent_comments.iter().take(5) {
+            if let Some(repo) = state.repos.iter().find(|r| r.id == c.repo_id) {
+                activities.push(format!(
+                    r#"<div class="card" style="padding:10px;margin:5px 0;"><span style="color:#f59e0b;">💬 Commentaire</span> — <strong>{}</strong> sur <a href="/{}/{}">{}/{}</a> <span style="color:#8b949e;">· {}</span></div>"#,
+                    c.author, repo.owner, repo.name, repo.owner, repo.name, c.created_at
+                ));
+            }
+        }
+        let activity_html = if activities.is_empty() {
+            "<div class='empty'>Aucune activite recente.</div>".to_string()
+        } else {
+            activities.join("")
+        };
+
         format!(r#"
 <div style="display:flex;justify-content:space-between;align-items:center;">
 <h1>Bonjour, {} 👋</h1>
@@ -1123,7 +1221,9 @@ fn html_home(state: &AppState, current_user: Option<&str>) -> String {
 </div>
 <h2>Mes depots</h2>
 {}
-"#, u, user_repos.len(), state.users.len(), state.repos.len(), repo_list)
+<h2>📊 Activite recente</h2>
+{}
+"#, u, user_repos.len(), state.users.len(), state.repos.len(), repo_list, activity_html)
     } else {
         let recent_repos: Vec<&Repository> = state.repos.iter().filter(|r| r.is_public).take(5).collect();
         let repo_list = if recent_repos.is_empty() {
@@ -1281,7 +1381,7 @@ fn html_new_repo() -> String {
     html_page("Nouveau depot", body)
 }
 
-fn html_repo_view(repo: &Repository, owner: &str, name: &str, is_owner: bool, current_user_opt: Option<&str>) -> String {
+fn html_repo_view(repo: &Repository, owner: &str, name: &str, is_owner: bool, current_user_opt: Option<&str>, comments_html: &str) -> String {
     let files_html = if repo.files.is_empty() {
         if is_owner {
             format!("<div class='empty'>Aucun fichier. <a href='/{}/{}/upload'>Ajouter un fichier</a></div>", owner, name)
@@ -1322,6 +1422,23 @@ fn html_repo_view(repo: &Repository, owner: &str, name: &str, is_owner: bool, cu
         String::new()
     };
 
+    let fork_form = if let Some(user) = current_user_opt {
+        if user != owner {
+            format!(r#"<form method="POST" action="/{}/{}/fork" style="display:inline;"><button type="submit" class="btn btn-secondary">🍴 Fork</button></form>"#, owner, name)
+        } else {
+            String::new()
+        }
+    } else {
+        String::new()
+    };
+
+    // Comments section
+    let comments_html = {
+        // We need the repo_id to get comments, but we only have repo here
+        // Since repo is borrowed, we can use repo.id directly
+        format!("<h2>💬 Commentaires</h2>")
+    };
+
     let body = format!(r#"
 <div style="display:flex;justify-content:space-between;align-items:center;">
 <div>
@@ -1330,7 +1447,7 @@ fn html_repo_view(repo: &Repository, owner: &str, name: &str, is_owner: bool, cu
 </div>
 <div>
 <span class="badge badge-{}">{}</span>
-{} <span class="badge {}">{}</span> {}
+{} <span class="badge {}">{}</span> {} {}
 </div>
 </div>
 <div class="stats">
@@ -1343,15 +1460,16 @@ fn html_repo_view(repo: &Repository, owner: &str, name: &str, is_owner: bool, cu
 </div>
 {}
 {}
+{}
 "#, owner, name, repo.description, owner, name,
     if repo.language == "Rust" { "rust" } else if repo.language == "Python" { "python" } else { "js" },
     repo.language,
     owner_actions,
     if repo.is_public { "badge-public" } else { "badge-private" },
     if repo.is_public { "Public" } else { "Prive" },
-    star_form,
+    star_form, fork_form,
     repo.stars, repo.forks, repo.files.len(),
-    readme_html, files_html
+    readme_html, files_html, comments_html
     );
 
     html_page(&format!("{}/{}", owner, name), &body)
@@ -1580,6 +1698,41 @@ fn html_search(state: &AppState, current_user: Option<&str>, query: &str) -> Str
 "#, query, results.len(), results_html);
 
     html_page("Rechercher", &body)
+}
+
+fn parse_comments(data: &str) -> Vec<Comment> {
+    let mut comments = Vec::new();
+    let data = data.trim();
+    if data == "[]" || data.is_empty() {
+        return comments;
+    }
+    // Simple parser: find {"repo_id":N,"author":"...","text":"...","created_at":"..."}
+    let mut depth = 0;
+    let mut start = 0;
+    for (i, ch) in data.char_indices() {
+        if ch == '{' {
+            if depth == 0 {
+                start = i;
+            }
+            depth += 1;
+        } else if ch == '}' {
+            depth -= 1;
+            if depth == 0 {
+                let obj = &data[start..=i];
+                let repo_id = extract_json_num(obj, "repo_id").map(|n| n as usize).unwrap_or(0);
+                let author = extract_json_str(obj, "author").unwrap_or_default();
+                let text = extract_json_str(obj, "text").unwrap_or_default();
+                let created_at = extract_json_str(obj, "created_at").unwrap_or_default();
+                comments.push(Comment {
+                    repo_id,
+                    author,
+                    text,
+                    created_at,
+                });
+            }
+        }
+    }
+    comments
 }
 
 fn html_explore(state: &AppState) -> String {
@@ -2098,7 +2251,27 @@ fn handle_request(mut stream: TcpStream, state: Arc<Mutex<AppState>>) {
                     } else if sub == "upload" && is_owner {
                         ("200", "text/html; charset=utf-8", html_upload(owner, repo_name))
                     } else if sub.is_empty() {
-                        ("200", "text/html; charset=utf-8", html_repo_view(repo, owner, repo_name, is_owner, current_user.as_deref()))
+                        let repo_id = repo.id;
+                        let repo_comments: Vec<&Comment> = s.get_repo_comments(repo_id);
+                        let comments_html = if repo_comments.is_empty() {
+                            format!(r#"<h2>💬 Commentaires</h2><div class='empty'>Aucun commentaire. Sois le premier a repondre!</div><form method="POST" action="/{}/{}/comment" style="margin:10px 0;"><input type="text" name="text" placeholder="Ecrire un commentaire..." style="width:70%;"><button type="submit">Envoyer</button></form>"#, owner, repo_name)
+                        } else {
+                            let mut html = format!("<h2>💬 Commentaires ({})</h2>", repo_comments.len());
+                            for c in &repo_comments {
+                                html.push_str(&format!(
+                                    r#"<div class="card" style="padding:10px;margin:5px 0;"><strong>{}</strong> <span style="color:#8b949e;font-size:0.8em;">· {}</span><br>{}</div>"#,
+                                    c.author, c.created_at, c.text
+                                ));
+                            }
+                            if current_user.is_some() {
+                                html.push_str(&format!(r#"<form method="POST" action="/{}/{}/comment" style="margin:10px 0;"><input type="text" name="text" placeholder="Ecrire un commentaire..." style="width:70%;"><button type="submit">Envoyer</button></form>"#, owner, repo_name));
+                            }
+                            html
+                        };
+                        drop(s);
+                        let s2 = state.lock().unwrap();
+                        let repo2 = s2.find_repo(owner, repo_name).unwrap();
+                        ("200", "text/html; charset=utf-8", html_repo_view(repo2, owner, repo_name, is_owner, current_user.as_deref(), &comments_html))
                     } else {
                         ("404", "text/html; charset=utf-8", html_page("404", "<div class='empty'>Page non trouvee</div>"))
                     }
@@ -2125,6 +2298,35 @@ fn handle_request(mut stream: TcpStream, state: Arc<Mutex<AppState>>) {
                             let repo_id = repo.id;
                             s.toggle_star(user, repo_id);
                             s.save();
+                        }
+                        ("302", "text/html", format!("Location: /{}/{}", owner, repo_name))
+                    } else {
+                        ("302", "text/html", "Location: /login".to_string())
+                    }
+                } else if action == "fork" {
+                    if let Some(user) = &current_user {
+                        let mut s = state.lock().unwrap();
+                        s.fork_repo(owner, repo_name, user);
+                        ("302", "text/html", format!("Location: /{}/fork-{}", user, repo_name))
+                    } else {
+                        ("302", "text/html", "Location: /login".to_string())
+                    }
+                } else if action == "comment" {
+                    if let Some(user) = &current_user {
+                        let form = parse_form(body_part);
+                        let text = form.get("text").cloned().unwrap_or_default();
+                        if !text.is_empty() {
+                            let mut s = state.lock().unwrap();
+                            if let Some(repo) = s.find_repo(owner, repo_name) {
+                                let repo_id = repo.id;
+                                s.comments.push(Comment {
+                                    repo_id,
+                                    author: user.clone(),
+                                    text,
+                                    created_at: now_string(),
+                                });
+                                s.save();
+                            }
                         }
                         ("302", "text/html", format!("Location: /{}/{}", owner, repo_name))
                     } else {
@@ -2204,7 +2406,7 @@ fn main() {
     let port = 8090;
     let state = Arc::new(Mutex::new(AppState::new()));
 
-    println!("🦁 AfriForme v0.4 — La plateforme africaine de code");
+    println!("🦁 AfriForme v0.5 — La plateforme africaine de code");
     println!("📡 Serveur: http://localhost:{}", port);
     println!("👤 Utilisateurs: {}", state.lock().unwrap().users.len());
     println!("📦 Depots: {}", state.lock().unwrap().repos.len());
