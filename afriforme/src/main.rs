@@ -1,8 +1,9 @@
-// AfriForme v0.2 — La plateforme africaine de code
+// AfriForme v0.3 — La plateforme africaine de code
 // Comme GitHub + Copilot, mais souverain, africain, zero dependance
 // Par Koffi Christ Olivier & Letta-Chan
 // Rust std only — Cargo.toml [dependencies] vide
 // v0.2: Cours auto-generees + Exercices + Diplomes pour chaque depot
+// v0.3: Profils utilisateurs + Catalogue de cours + Stars
 
 use std::collections::HashMap;
 use std::io::{Read, Write, BufRead, BufReader};
@@ -77,6 +78,7 @@ struct AppState {
     sessions: HashMap<String, String>, // session_token -> username
     ai_chats: HashMap<String, AIChat>, // username -> chat history
     courses: Vec<Course>, // auto-generated courses for repos
+    starred: HashMap<String, Vec<usize>>, // username -> repo IDs starred
     next_repo_id: usize,
 }
 
@@ -88,6 +90,7 @@ impl AppState {
             sessions: HashMap::new(),
             ai_chats: HashMap::new(),
             courses: Vec::new(),
+            starred: HashMap::new(),
             next_repo_id: 1,
         };
         state.load();
@@ -192,6 +195,17 @@ impl AppState {
         }
         courses_json.push_str("]");
         let _ = fs::write(format!("{}/courses.json", dir), courses_json);
+
+        // Save starred
+        let mut starred_json = String::new();
+        starred_json.push_str("{");
+        for (i, (k, v)) in self.starred.iter().enumerate() {
+            if i > 0 { starred_json.push(','); }
+            let ids: Vec<String> = v.iter().map(|x| x.to_string()).collect();
+            starred_json.push_str(&format!(r#""{}":"[{}]""#, escape_json(k), ids.join(",")));
+        }
+        starred_json.push_str("}");
+        let _ = fs::write(format!("{}/starred.json", dir), starred_json);
     }
 
     fn load(&mut self) {
@@ -234,6 +248,45 @@ impl AppState {
 
     fn find_course_by_repo_mut(&mut self, repo_id: usize) -> Option<&mut Course> {
         self.courses.iter_mut().find(|c| c.repo_id == repo_id)
+    }
+
+    fn has_starred(&self, username: &str, repo_id: usize) -> bool {
+        self.starred.get(username).map(|ids| ids.contains(&repo_id)).unwrap_or(false)
+    }
+
+    fn toggle_star(&mut self, username: &str, repo_id: usize) {
+        let list = self.starred.entry(username.to_string()).or_insert_with(Vec::new);
+        if let Some(pos) = list.iter().position(|&x| x == repo_id) {
+            list.remove(pos);
+            if let Some(repo) = self.repos.iter_mut().find(|r| r.id == repo_id) {
+                if repo.stars > 0 { repo.stars -= 1; }
+            }
+        } else {
+            list.push(repo_id);
+            if let Some(repo) = self.repos.iter_mut().find(|r| r.id == repo_id) {
+                repo.stars += 1;
+            }
+        }
+    }
+
+    fn get_user_diplomas(&self, username: &str) -> Vec<(String, String, usize)> {
+        let mut diplomas = Vec::new();
+        for course in &self.courses {
+            if let Some(progress) = course.progress.get(username) {
+                let completed: Vec<usize> = progress.split(',')
+                    .filter_map(|n| n.parse::<usize>().ok()).collect();
+                if completed.len() == course.exercises.len() && !course.exercises.is_empty() {
+                    if let Some(repo) = self.repos.iter().find(|r| r.id == course.repo_id) {
+                        diplomas.push((
+                            course.diploma_name.clone(),
+                            format!("{}/{}", repo.owner, repo.name),
+                            course.exercises.len(),
+                        ));
+                    }
+                }
+            }
+        }
+        diplomas
     }
 }
 
@@ -1025,6 +1078,7 @@ a:hover{{text-decoration:underline;}}
 <div>
 <a href="/">Accueil</a>
 <a href="/explore">Explorer</a>
+<a href="/courses">🎓 Cours</a>
 <a href="/ai">🤖 IA Copilot</a>
 <a href="/register">S'inscrire</a>
 <a href="/login">Connexion</a>
@@ -1033,7 +1087,7 @@ a:hover{{text-decoration:underline;}}
 <div class="container">
 {}
 </div>
-<div class="footer">🦁 AfriForme v0.2 — La plateforme africaine de code — Par Koffi Christ Olivier & Letta-Chan — Rust std only, zero dependance</div>
+<div class="footer">🦁 AfriForme v0.3 — La plateforme africaine de code — Par Koffi Christ Olivier & Letta-Chan — Rust std only, zero dependance</div>
 </body>
 </html>"##, title, body)
 }
@@ -1224,7 +1278,7 @@ fn html_new_repo() -> String {
     html_page("Nouveau depot", body)
 }
 
-fn html_repo_view(repo: &Repository, owner: &str, name: &str, is_owner: bool) -> String {
+fn html_repo_view(repo: &Repository, owner: &str, name: &str, is_owner: bool, current_user_opt: Option<&str>) -> String {
     let files_html = if repo.files.is_empty() {
         if is_owner {
             format!("<div class='empty'>Aucun fichier. <a href='/{}/{}/upload'>Ajouter un fichier</a></div>", owner, name)
@@ -1249,6 +1303,12 @@ fn html_repo_view(repo: &Repository, owner: &str, name: &str, is_owner: bool) ->
         String::new()
     };
 
+    let star_form = if let Some(_user) = current_user_opt {
+        format!(r#"<form method="POST" action="/{}/{}/star" style="display:inline;"><button type="submit" class="btn btn-secondary">⭐ Star</button></form>"#, owner, name)
+    } else {
+        String::new()
+    };
+
     let body = format!(r#"
 <div style="display:flex;justify-content:space-between;align-items:center;">
 <div>
@@ -1257,7 +1317,7 @@ fn html_repo_view(repo: &Repository, owner: &str, name: &str, is_owner: bool) ->
 </div>
 <div>
 <span class="badge badge-{}">{}</span>
-{} <span class="badge {}">{}</span>
+{} <span class="badge {}">{}</span> {}
 </div>
 </div>
 <div class="stats">
@@ -1275,6 +1335,7 @@ fn html_repo_view(repo: &Repository, owner: &str, name: &str, is_owner: bool) ->
     owner_actions,
     if repo.is_public { "badge-public" } else { "badge-private" },
     if repo.is_public { "Public" } else { "Prive" },
+    star_form,
     repo.stars, repo.forks, repo.files.len(),
     files_html
     );
@@ -1314,6 +1375,105 @@ fn html_upload(owner: &str, name: &str) -> String {
 </div>
 "#, owner, name, owner, name);
     html_page("Ajouter un fichier", &body)
+}
+
+fn html_user_profile(user: &User, state: &AppState, current_user: Option<&str>) -> String {
+    let is_own = current_user.map(|u| u == user.username).unwrap_or(false);
+    let user_repos: Vec<&Repository> = state.repos.iter()
+        .filter(|r| r.owner == user.username && (r.is_public || is_own))
+        .collect();
+
+    let repos_html = if user_repos.is_empty() {
+        "<div class='empty'>Aucun depot public.</div>".to_string()
+    } else {
+        user_repos.iter().map(|r| format!(
+            r#"<div class="repo"><h3><a href="/{}/{}">{}/{}</a> <span class="badge badge-{}">{}</span></h3><div class="desc">{}</div><div class="meta">⭐ {} · {}</div></div>"#,
+            r.owner, r.name, r.owner, r.name,
+            if r.language == "Rust" { "rust" } else if r.language == "Python" { "python" } else { "js" },
+            r.language, r.description, r.stars, r.created_at
+        )).collect::<Vec<_>>().join("")
+    };
+
+    let diplomas = state.get_user_diplomas(&user.username);
+    let diplomas_html = if diplomas.is_empty() {
+        "<div class='empty'>Aucun diplome encore. Complete des cours pour obtenir des diplomes!</div>".to_string()
+    } else {
+        diplomas.iter().map(|(name, repo, ex_count)| format!(
+            r#"<div class="card" style="border:1px solid #f59e0b;background:#1a1500;">
+            <div style="font-size:2em;">🎓</div>
+            <h3 style="color:#f59e0b;">{}</h3>
+            <p style="color:#8b949e;">Projet: {} | {} exercices</p>
+            </div>"#,
+            name, repo, ex_count
+        )).collect::<Vec<_>>().join("")
+    };
+
+    let edit_bio = if is_own {
+        format!(r#"<form method="POST" action="/profile/edit" style="margin-top:10px;">
+        <textarea name="bio" placeholder="Ta bio..." rows="2">{}</textarea>
+        <button type="submit" class="btn btn-secondary">Modifier bio</button>
+        </form>"#, user.bio)
+    } else {
+        String::new()
+    };
+
+    let total_stars: usize = user_repos.iter().map(|r| r.stars).sum();
+
+    let body = format!(r#"
+<div style="display:flex;justify-content:space-between;align-items:center;">
+<div>
+<h1>👤 {}</h1>
+<p style="color:#8b949e;">🌍 {} | 📅 Inscription: {}</p>
+<p style="margin:10px 0;color:#c9d1d9;">{}</p>
+{}
+</div>
+<div class="stats">
+<div class="stat"><div class="num">{}</div><div class="label">Depots</div></div>
+<div class="stat"><div class="num">{}</div><div class="label">Diplomes</div></div>
+<div class="stat"><div class="num">⭐ {}</div><div class="label">Stars recues</div></div>
+</div>
+</div>
+<h2>📦 Depots</h2>
+{}
+<h2>🎓 Diplomes</h2>
+{}
+"#, user.username, user.country, user.created_at,
+    if user.bio.is_empty() { "Pas de bio encore." } else { &user.bio },
+    edit_bio,
+    user_repos.len(), diplomas.len(), total_stars,
+    repos_html, diplomas_html);
+
+    html_page(&format!("Profil: {}", user.username), &body)
+}
+
+fn html_course_catalog(state: &AppState, current_user: Option<&str>) -> String {
+    let courses_html = if state.courses.is_empty() {
+        "<div class='empty'>Aucun cours disponible encore. Cree un depot et ajoute du code pour generer un cours!</div>".to_string()
+    } else {
+        state.courses.iter().filter_map(|c| {
+            if let Some(repo) = state.repos.iter().find(|r| r.id == c.repo_id) {
+                if !repo.is_public && current_user != Some(repo.owner.as_str()) {
+                    return None;
+                }
+                let ex_count = c.exercises.len();
+                let mod_count = c.modules.len();
+                Some(format!(
+                    r#"<div class="card"><h3><a href="/course/{}/{}">🎓 {}</a></h3><p style="color:#8b949e;">{}</p><div class="meta">📚 {} modules · ✏️ {} exercices · 🏷️ {} · Par <a href="/{}">{}</a></div></div>"#,
+                    repo.owner, repo.name, c.title, c.description, mod_count, ex_count, repo.language, repo.owner, repo.owner
+                ))
+            } else {
+                None
+            }
+        }).collect::<Vec<_>>().join("")
+    };
+
+    let body = format!(r#"
+<h1>🎓 Catalogue de Cours</h1>
+<p style="color:#8b949e;">Apprends a coder avec des cours auto-generees a partir de vrais projets africains</p>
+{}
+"#, courses_html);
+
+    html_page("Catalogue de Cours", &body)
 }
 
 fn html_explore(state: &AppState) -> String {
@@ -1694,6 +1854,37 @@ fn handle_request(mut stream: TcpStream, state: Arc<Mutex<AppState>>) {
                 ("302", "text/html", "Location: /login".to_string())
             }
         }
+        ("GET", "/courses") => {
+            let s = state.lock().unwrap();
+            ("200", "text/html; charset=utf-8", html_course_catalog(&s, current_user.as_deref()))
+        }
+        ("POST", "/profile/edit") => {
+            if let Some(user) = &current_user {
+                let form = parse_form(body_part);
+                let bio = form.get("bio").cloned().unwrap_or_default();
+                let mut s = state.lock().unwrap();
+                if let Some(u) = s.users.iter_mut().find(|u| u.username == *user) {
+                    u.bio = bio;
+                    s.save();
+                }
+                ("302", "text/html", format!("Location: /{}", user))
+            } else {
+                ("302", "text/html", "Location: /login".to_string())
+            }
+        }
+        // User profile route — single segment (before catch-all)
+        (m, p) if m == "GET" && p.starts_with('/') && p.matches('/').count() == 1 && p.len() > 1 => {
+            let username = &p[1..];
+            let s = state.lock().unwrap();
+            if let Some(user) = s.find_user(username) {
+                let user_clone = user.clone();
+                drop(s);
+                let s2 = state.lock().unwrap();
+                ("200", "text/html; charset=utf-8", html_user_profile(&user_clone, &s2, current_user.as_deref()))
+            } else {
+                ("404", "text/html; charset=utf-8", html_page("404", &format!("<div class='empty'>Utilisateur '{}' non trouve</div>", username)))
+            }
+        }
         // Course routes — must be before catch-all patterns
         (m, p) if m == "GET" && p.starts_with("/course/") => {
             // GET /course/{owner}/{repo}
@@ -1792,7 +1983,7 @@ fn handle_request(mut stream: TcpStream, state: Arc<Mutex<AppState>>) {
                     } else if sub == "upload" && is_owner {
                         ("200", "text/html; charset=utf-8", html_upload(owner, repo_name))
                     } else if sub.is_empty() {
-                        ("200", "text/html; charset=utf-8", html_repo_view(repo, owner, repo_name, is_owner))
+                        ("200", "text/html; charset=utf-8", html_repo_view(repo, owner, repo_name, is_owner, current_user.as_deref()))
                     } else {
                         ("404", "text/html; charset=utf-8", html_page("404", "<div class='empty'>Page non trouvee</div>"))
                     }
@@ -1804,7 +1995,7 @@ fn handle_request(mut stream: TcpStream, state: Arc<Mutex<AppState>>) {
             }
         }
         (m, p) if m == "POST" && p.matches('/').count() >= 2 => {
-            // POST /owner/repo/upload or POST /owner/repo/delete/file
+            // POST /owner/repo/upload, /owner/repo/delete/file, /owner/repo/star
             let parts: Vec<&str> = p.trim_start_matches('/').splitn(4, '/').collect();
             if parts.len() >= 3 {
                 let owner = parts[0];
@@ -1812,7 +2003,19 @@ fn handle_request(mut stream: TcpStream, state: Arc<Mutex<AppState>>) {
                 let action = parts[2];
                 let is_owner = current_user.as_deref() == Some(owner);
 
-                if !is_owner {
+                if action == "star" {
+                    if let Some(user) = &current_user {
+                        let mut s = state.lock().unwrap();
+                        if let Some(repo) = s.find_repo(owner, repo_name) {
+                            let repo_id = repo.id;
+                            s.toggle_star(user, repo_id);
+                            s.save();
+                        }
+                        ("302", "text/html", format!("Location: /{}/{}", owner, repo_name))
+                    } else {
+                        ("302", "text/html", "Location: /login".to_string())
+                    }
+                } else if !is_owner {
                     ("403", "text/html; charset=utf-8", html_page("403", "<div class='empty'>Acces refuse</div>"))
                 } else if action == "upload" {
                     let form = parse_form(body_part);
@@ -1886,11 +2089,12 @@ fn main() {
     let port = 8090;
     let state = Arc::new(Mutex::new(AppState::new()));
 
-    println!("🦁 AfriForme v0.2 — La plateforme africaine de code");
+    println!("🦁 AfriForme v0.3 — La plateforme africaine de code");
     println!("📡 Serveur: http://localhost:{}", port);
     println!("👤 Utilisateurs: {}", state.lock().unwrap().users.len());
     println!("📦 Depots: {}", state.lock().unwrap().repos.len());
     println!("🤖 IA Copilot: Active");
+    println!("🎓 Cours: {}", state.lock().unwrap().courses.len());
     println!("💚 Zero dependance — Rust std only");
     println!("---");
 
