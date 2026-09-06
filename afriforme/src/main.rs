@@ -1,4 +1,4 @@
-// AfriForme v0.5 — La plateforme africaine de code
+// AfriForme v0.6 — La plateforme africaine de code
 // Comme GitHub + Copilot, mais souverain, africain, zero dependance
 // Par Koffi Christ Olivier & Letta-Chan
 // Rust std only — Cargo.toml [dependencies] vide
@@ -6,6 +6,7 @@
 // v0.3: Profils utilisateurs + Catalogue de cours + Stars
 // v0.4: Classement + README + Recherche
 // v0.5: Fil d activite + Fork + Commentaires
+// v0.6: Notifications + Tags + Trending
 
 use std::collections::HashMap;
 use std::io::{Read, Write, BufRead, BufReader};
@@ -40,6 +41,7 @@ struct Repository {
     forks: usize,
     created_at: String,
     files: HashMap<String, String>, // filename -> content
+    tags: Vec<String>, // topic tags
     is_public: bool,
 }
 
@@ -82,6 +84,15 @@ struct Comment {
     created_at: String,
 }
 
+#[derive(Clone)]
+struct Notification {
+    username: String, // who receives it
+    message: String,
+    link: String,
+    created_at: String,
+    read: bool,
+}
+
 struct AppState {
     users: Vec<User>,
     repos: Vec<Repository>,
@@ -90,6 +101,7 @@ struct AppState {
     courses: Vec<Course>, // auto-generated courses for repos
     starred: HashMap<String, Vec<usize>>, // username -> repo IDs starred
     comments: Vec<Comment>, // comments on repos
+    notifications: Vec<Notification>, // user notifications
     next_repo_id: usize,
 }
 
@@ -103,6 +115,7 @@ impl AppState {
             courses: Vec::new(),
             starred: HashMap::new(),
             comments: Vec::new(),
+            notifications: Vec::new(),
             next_repo_id: 1,
         };
         state.load();
@@ -148,8 +161,9 @@ impl AppState {
                 files_json.push_str(&format!(r#""{}":"{}""#, escape_json(fname), escape_json(fcontent)));
             }
             files_json.push_str("}");
+            let tags_str: String = r.tags.iter().map(|t| format!(r#""{}""#, escape_json(t))).collect::<Vec<_>>().join(",");
             repos_json.push_str(&format!(
-                r#"{{"id":{},"owner":"{}","name":"{}","description":"{}","language":"{}","stars":{},"forks":{},"created_at":"{}","files":{},"is_public":{}}}"#,
+                r#"{{"id":{},"owner":"{}","name":"{}","description":"{}","language":"{}","stars":{},"forks":{},"created_at":"{}","files":{},"tags":[{}],"is_public":{}}}"#,
                 r.id,
                 escape_json(&r.owner),
                 escape_json(&r.name),
@@ -159,6 +173,7 @@ impl AppState {
                 r.forks,
                 escape_json(&r.created_at),
                 files_json,
+                tags_str,
                 r.is_public
             ));
         }
@@ -231,6 +246,19 @@ impl AppState {
         }
         comments_json.push_str("]");
         let _ = fs::write(format!("{}/comments.json", dir), comments_json);
+
+        // Save notifications
+        let mut notif_json = String::new();
+        notif_json.push_str("[");
+        for (i, n) in self.notifications.iter().enumerate() {
+            if i > 0 { notif_json.push(','); }
+            notif_json.push_str(&format!(
+                r#"{{"username":"{}","message":"{}","link":"{}","created_at":"{}","read":{}}}"#,
+                escape_json(&n.username), escape_json(&n.message), escape_json(&n.link), escape_json(&n.created_at), n.read
+            ));
+        }
+        notif_json.push_str("]");
+        let _ = fs::write(format!("{}/notifications.json", dir), notif_json);
     }
 
     fn load(&mut self) {
@@ -257,6 +285,11 @@ impl AppState {
         // Load comments
         if let Ok(data) = fs::read_to_string(format!("{}/comments.json", dir)) {
             self.comments = parse_comments(&data);
+        }
+
+        // Load notifications
+        if let Ok(data) = fs::read_to_string(format!("{}/notifications.json", dir)) {
+            self.notifications = parse_notifications(&data);
         }
     }
 
@@ -303,12 +336,38 @@ impl AppState {
         self.comments.iter().filter(|c| c.repo_id == repo_id).collect()
     }
 
+    fn add_notification(&mut self, username: &str, message: &str, link: &str) {
+        self.notifications.push(Notification {
+            username: username.to_string(),
+            message: message.to_string(),
+            link: link.to_string(),
+            created_at: now_string(),
+            read: false,
+        });
+    }
+
+    fn get_user_notifications(&self, username: &str) -> Vec<&Notification> {
+        self.notifications.iter().filter(|n| n.username == username).collect()
+    }
+
+    fn get_unread_count(&self, username: &str) -> usize {
+        self.notifications.iter().filter(|n| n.username == username && !n.read).count()
+    }
+
+    fn mark_notifications_read(&mut self, username: &str) {
+        for n in self.notifications.iter_mut() {
+            if n.username == username {
+                n.read = true;
+            }
+        }
+    }
+
     fn fork_repo(&mut self, owner: &str, repo_name: &str, new_owner: &str) -> Option<usize> {
         // Clone repo data to avoid borrow conflict
         let repo_data = self.find_repo(owner, repo_name).map(|r| {
-            (r.description.clone(), r.language.clone(), r.files.clone())
+            (r.description.clone(), r.language.clone(), r.files.clone(), r.tags.clone())
         });
-        if let Some((desc, lang, files)) = repo_data {
+        if let Some((desc, lang, files, tags)) = repo_data {
             let id = self.next_repo_id;
             self.next_repo_id += 1;
             let forked_name = if repo_name.starts_with("fork-") {
@@ -326,6 +385,7 @@ impl AppState {
                 forks: 0,
                 created_at: now_string(),
                 files,
+                tags,
                 is_public: true,
             });
             // Increment original repo fork count
@@ -502,6 +562,30 @@ fn parse_repos(json: &str) -> Vec<Repository> {
                     }
                 }
 
+                // Parse tags array
+                let mut tags = Vec::new();
+                if let Some(tags_start) = obj.find("\"tags\":[") {
+                    let rest = &obj[tags_start + 8..];
+                    let mut ti = 0;
+                    while ti < rest.len() {
+                        if rest.as_bytes()[ti] == b']' { break; }
+                        if rest.as_bytes()[ti] == b'"' {
+                            let tstart = ti + 1;
+                            let mut tend = tstart;
+                            let tb = rest.as_bytes();
+                            while tend < tb.len() {
+                                if tb[tend] == b'\\' { tend += 2; continue; }
+                                if tb[tend] == b'"' { break; }
+                                tend += 1;
+                            }
+                            tags.push(unescape_json(&rest[tstart..tend]));
+                            ti = tend + 1;
+                        } else {
+                            ti += 1;
+                        }
+                    }
+                }
+
                 repos.push(Repository {
                     id,
                     owner,
@@ -512,6 +596,7 @@ fn parse_repos(json: &str) -> Vec<Repository> {
                     forks,
                     created_at,
                     files,
+                    tags,
                     is_public,
                 });
             }
@@ -1151,7 +1236,7 @@ a:hover{{text-decoration:underline;}}
 <a href="/courses">🎓 Cours</a>
 <a href="/leaderboard">🏆 Classement</a>
 <a href="/search">🔍 Rechercher</a>
-<a href="/explore">📦 Explorer</a>
+<a href="/notifications">🔔 Notifications</a>
 <a href="/ai">🤖 IA Copilot</a>
 <a href="/register">S'inscrire</a>
 <a href="/login">Connexion</a>
@@ -1160,7 +1245,7 @@ a:hover{{text-decoration:underline;}}
 <div class="container">
 {}
 </div>
-<div class="footer">🦁 AfriForme v0.5 — La plateforme africaine de code — Par Koffi Christ Olivier & Letta-Chan — Rust std only, zero dependance</div>
+<div class="footer">🦁 AfriForme v0.6 — La plateforme africaine de code — Par Koffi Christ Olivier & Letta-Chan — Rust std only, zero dependance</div>
 </body>
 </html>"##, title, body)
 }
@@ -1374,6 +1459,7 @@ fn html_new_repo() -> String {
 <option value="public">Public — tout le monde peut voir</option>
 <option value="private">Prive — seulement toi</option>
 </select>
+<input type="text" name="tags" placeholder="Tags (separe par virgules: rust, blockchain, africa)">
 <button type="submit">Creer le depot</button>
 </form>
 </div>
@@ -1410,6 +1496,16 @@ fn html_repo_view(repo: &Repository, owner: &str, name: &str, is_owner: bool, cu
         String::new()
     };
 
+    // Tags display
+    let tags_html = if repo.tags.is_empty() {
+        String::new()
+    } else {
+        let badges: String = repo.tags.iter().map(|t| {
+            format!(r#"<span class="badge" style="background:#1f6feb;color:#fff;">🏷️ {}</span>"#, escape_json(t))
+        }).collect::<Vec<_>>().join(" ");
+        format!(r#"<div style="margin:5px 0;">{}</div>"#, badges)
+    };
+
     let owner_actions = if is_owner {
         format!(r#"<a href="/{}/{}/upload" class="btn btn-secondary">+ Ajouter fichier</a>"#, owner, name)
     } else {
@@ -1444,6 +1540,7 @@ fn html_repo_view(repo: &Repository, owner: &str, name: &str, is_owner: bool, cu
 <div>
 <h1>{}/<span style="color:#58a6ff;">{}</span></h1>
 <p style="color:#8b949e;">{}</p>
+{}
 </div>
 <div>
 <span class="badge badge-{}">{}</span>
@@ -1469,7 +1566,7 @@ fn html_repo_view(repo: &Repository, owner: &str, name: &str, is_owner: bool, cu
     if repo.is_public { "Public" } else { "Prive" },
     star_form, fork_form,
     repo.stars, repo.forks, repo.files.len(),
-    readme_html, files_html, comments_html
+    tags_html, readme_html, files_html, comments_html
     );
 
     html_page(&format!("{}/{}", owner, name), &body)
@@ -1735,6 +1832,34 @@ fn parse_comments(data: &str) -> Vec<Comment> {
     comments
 }
 
+fn parse_notifications(data: &str) -> Vec<Notification> {
+    let mut notifications = Vec::new();
+    let data = data.trim();
+    if data == "[]" || data.is_empty() {
+        return notifications;
+    }
+    let mut depth = 0;
+    let mut start = 0;
+    for (i, ch) in data.char_indices() {
+        if ch == '{' {
+            if depth == 0 { start = i; }
+            depth += 1;
+        } else if ch == '}' {
+            depth -= 1;
+            if depth == 0 {
+                let obj = &data[start..=i];
+                let username = extract_json_str(obj, "username").unwrap_or_default();
+                let message = extract_json_str(obj, "message").unwrap_or_default();
+                let link = extract_json_str(obj, "link").unwrap_or_default();
+                let created_at = extract_json_str(obj, "created_at").unwrap_or_default();
+                let read = extract_json_bool(obj, "read").unwrap_or(false);
+                notifications.push(Notification { username, message, link, created_at, read });
+            }
+        }
+    }
+    notifications
+}
+
 fn html_explore(state: &AppState) -> String {
     let public_repos: Vec<&Repository> = state.repos.iter().filter(|r| r.is_public).collect();
     let repos_html = if public_repos.is_empty() {
@@ -1748,11 +1873,37 @@ fn html_explore(state: &AppState) -> String {
         )).collect::<Vec<_>>().join("")
     };
 
+    // Trending: top 5 by (stars * 2 + forks)
+    let mut trending: Vec<&Repository> = public_repos.clone();
+    trending.sort_by(|a, b| {
+        let score_a = a.stars * 2 + a.forks;
+        let score_b = b.stars * 2 + b.forks;
+        score_b.cmp(&score_a)
+    });
+    let trending_html = if trending.is_empty() {
+        "<div class='empty'>Aucun depot en tendance.</div>".to_string()
+    } else {
+        trending.iter().take(5).enumerate().map(|(i, r)| {
+            let score = r.stars * 2 + r.forks;
+            let rank: String = if i == 0 { "🔥".to_string() } else { format!("{}.", i + 1) };
+            format!(
+                r#"<div class="repo" style="border-left:3px solid #f59e0b;"><h3>{} <a href="/{}/{}">{}/{}</a> <span class="badge badge-{}">{}</span></h3><div class="desc">{}</div><div class="meta">⭐ {} · 🍴 {} · Score: {}</div></div>"#,
+                rank,
+                r.owner, r.name, r.owner, r.name,
+                if r.language == "Rust" { "rust" } else if r.language == "Python" { "python" } else { "js" },
+                r.language, r.description, r.stars, r.forks, score
+            )
+        }).collect::<Vec<_>>().join("")
+    };
+
     let body = format!(r#"
 <h1>Explorer les depots</h1>
 <p style="color:#8b949e;">Decouvrez les projets de la communaute africaine</p>
+<h2>🔥 Trending</h2>
 {}
-"#, repos_html);
+<h2>📦 Tous les depots</h2>
+{}
+"#, trending_html, repos_html);
 
     html_page("Explorer", &body)
 }
@@ -1921,6 +2072,42 @@ modules_html, exercises_html, diploma_html);
 
 
 
+fn html_notifications(state: &AppState, current_user: Option<&str>) -> String {
+    let user_section = if let Some(user) = current_user {
+        let user_notifs: Vec<&Notification> = state.get_user_notifications(user);
+        let unread = state.get_unread_count(user);
+        let notif_html = if user_notifs.is_empty() {
+            "<div class='empty'>Aucune notification. Tu es a jour!</div>".to_string()
+        } else {
+            user_notifs.iter().rev().map(|n| {
+                let icon = if n.read { "📭" } else { "🔔" };
+                let style = if n.read { "opacity:0.6;" } else { "border-left:3px solid #f59e0b;" };
+                format!(
+                    r#"<div class="card" style="{}"><span style="font-size:1.2em;">{}</span> <span style="color:#8b949e;font-size:0.8em;">· {}</span><br>{} <a href="{}" style="color:#58a6ff;">Voir</a></div>"#,
+                    style, icon, n.created_at, n.message, n.link
+                )
+            }).collect::<Vec<_>>().join("")
+        };
+
+        format!(r#"
+<h1>🔔 Notifications</h1>
+<div class="stats">
+<div class="stat"><div class="num">{}</div><div class="label">Non lues</div></div>
+<div class="stat"><div class="num">{}</div><div class="label">Total</div></div>
+</div>
+{}
+"#, unread, user_notifs.len(), notif_html)
+    } else {
+        format!(r#"
+<h1>🔔 Notifications</h1>
+<div class='empty'>Connecte-toi pour voir tes notifications.</div>
+<a href="/login" class="btn">Connexion</a>
+"#)
+    };
+
+    html_page("Notifications", &user_section)
+}
+
 fn handle_request(mut stream: TcpStream, state: Arc<Mutex<AppState>>) {
     let mut buffer = [0u8; 65536];
     let mut total = 0;
@@ -2032,6 +2219,11 @@ fn handle_request(mut stream: TcpStream, state: Arc<Mutex<AppState>>) {
                 let description = form.get("description").cloned().unwrap_or_default();
                 let language = form.get("language").cloned().unwrap_or("Rust".to_string());
                 let is_public = form.get("visibility").map(|v| v == "public").unwrap_or(true);
+                let tags_str = form.get("tags").cloned().unwrap_or_default();
+                let tags: Vec<String> = tags_str.split(',')
+                    .map(|t| t.trim().to_string())
+                    .filter(|t| !t.is_empty())
+                    .collect();
 
                 if !name.is_empty() {
                     let mut s = state.lock().unwrap();
@@ -2047,6 +2239,7 @@ fn handle_request(mut stream: TcpStream, state: Arc<Mutex<AppState>>) {
                         forks: 0,
                         created_at: now_string(),
                         files: HashMap::new(),
+                        tags,
                         is_public,
                     });
                     s.save();
@@ -2139,6 +2332,20 @@ fn handle_request(mut stream: TcpStream, state: Arc<Mutex<AppState>>) {
             let s = state.lock().unwrap();
             let q = query_params.get("q").cloned().unwrap_or_default();
             ("200", "text/html; charset=utf-8", html_search(&s, current_user.as_deref(), &q))
+        }
+        ("GET", "/notifications") => {
+            let s = state.lock().unwrap();
+            ("200", "text/html; charset=utf-8", html_notifications(&s, current_user.as_deref()))
+        }
+        ("POST", "/notifications/read") => {
+            if let Some(user) = &current_user {
+                let mut s = state.lock().unwrap();
+                s.mark_notifications_read(user);
+                s.save();
+                ("302", "text/html", "Location: /notifications".to_string())
+            } else {
+                ("302", "text/html", "Location: /login".to_string())
+            }
         }
         // User profile route — single segment (before catch-all)
         (m, p) if m == "GET" && p.starts_with('/') && p.matches('/').count() == 1 && p.len() > 1 => {
@@ -2296,7 +2503,11 @@ fn handle_request(mut stream: TcpStream, state: Arc<Mutex<AppState>>) {
                         let mut s = state.lock().unwrap();
                         if let Some(repo) = s.find_repo(owner, repo_name) {
                             let repo_id = repo.id;
+                            let repo_owner = repo.owner.clone();
                             s.toggle_star(user, repo_id);
+                            if user != &repo_owner {
+                                s.add_notification(&repo_owner, &format!("{} a ajoute une etoile a {}/{}", user, owner, repo_name), &format!("/{}/{}", owner, repo_name));
+                            }
                             s.save();
                         }
                         ("302", "text/html", format!("Location: /{}/{}", owner, repo_name))
@@ -2306,7 +2517,14 @@ fn handle_request(mut stream: TcpStream, state: Arc<Mutex<AppState>>) {
                 } else if action == "fork" {
                     if let Some(user) = &current_user {
                         let mut s = state.lock().unwrap();
+                        let repo_owner = s.find_repo(owner, repo_name).map(|r| r.owner.clone());
                         s.fork_repo(owner, repo_name, user);
+                        if let Some(ro) = repo_owner {
+                            if user != &ro {
+                                s.add_notification(&ro, &format!("{} a fork {}/{}", user, owner, repo_name), &format!("/{}/fork-{}", user, repo_name));
+                            }
+                        }
+                        s.save();
                         ("302", "text/html", format!("Location: /{}/fork-{}", user, repo_name))
                     } else {
                         ("302", "text/html", "Location: /login".to_string())
@@ -2406,7 +2624,7 @@ fn main() {
     let port = 8090;
     let state = Arc::new(Mutex::new(AppState::new()));
 
-    println!("🦁 AfriForme v0.5 — La plateforme africaine de code");
+    println!("🦁 AfriForme v0.6 — La plateforme africaine de code");
     println!("📡 Serveur: http://localhost:{}", port);
     println!("👤 Utilisateurs: {}", state.lock().unwrap().users.len());
     println!("📦 Depots: {}", state.lock().unwrap().repos.len());
