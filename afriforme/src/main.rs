@@ -1,9 +1,10 @@
-// AfriForme v0.3 — La plateforme africaine de code
+// AfriForme v0.4 — La plateforme africaine de code
 // Comme GitHub + Copilot, mais souverain, africain, zero dependance
 // Par Koffi Christ Olivier & Letta-Chan
 // Rust std only — Cargo.toml [dependencies] vide
 // v0.2: Cours auto-generees + Exercices + Diplomes pour chaque depot
 // v0.3: Profils utilisateurs + Catalogue de cours + Stars
+// v0.4: Classement + README + Recherche
 
 use std::collections::HashMap;
 use std::io::{Read, Write, BufRead, BufReader};
@@ -1079,6 +1080,8 @@ a:hover{{text-decoration:underline;}}
 <a href="/">Accueil</a>
 <a href="/explore">Explorer</a>
 <a href="/courses">🎓 Cours</a>
+<a href="/leaderboard">🏆 Classement</a>
+<a href="/search">🔍 Rechercher</a>
 <a href="/ai">🤖 IA Copilot</a>
 <a href="/register">S'inscrire</a>
 <a href="/login">Connexion</a>
@@ -1087,7 +1090,7 @@ a:hover{{text-decoration:underline;}}
 <div class="container">
 {}
 </div>
-<div class="footer">🦁 AfriForme v0.3 — La plateforme africaine de code — Par Koffi Christ Olivier & Letta-Chan — Rust std only, zero dependance</div>
+<div class="footer">🦁 AfriForme v0.4 — La plateforme africaine de code — Par Koffi Christ Olivier & Letta-Chan — Rust std only, zero dependance</div>
 </body>
 </html>"##, title, body)
 }
@@ -1297,6 +1300,16 @@ fn html_repo_view(repo: &Repository, owner: &str, name: &str, is_owner: bool, cu
         format!("<h2>Fichiers</h2><ul class='file-list'>{}</ul>", files_list)
     };
 
+    // README rendering
+    let readme_html = if let Some(readme_content) = repo.files.get("README.md")
+        .or_else(|| repo.files.get("readme.md"))
+        .or_else(|| repo.files.get("README"))
+    {
+        format!(r#"<div class="card"><h2>📖 README</h2><div style="white-space:pre-wrap;color:#c9d1d9;">{}</div></div>"#, readme_content)
+    } else {
+        String::new()
+    };
+
     let owner_actions = if is_owner {
         format!(r#"<a href="/{}/{}/upload" class="btn btn-secondary">+ Ajouter fichier</a>"#, owner, name)
     } else {
@@ -1329,6 +1342,7 @@ fn html_repo_view(repo: &Repository, owner: &str, name: &str, is_owner: bool, cu
 <a href="/course/{}/{}" class="btn" style="background:#f59e0b;">🎓 Cours & Diplome</a>
 </div>
 {}
+{}
 "#, owner, name, repo.description, owner, name,
     if repo.language == "Rust" { "rust" } else if repo.language == "Python" { "python" } else { "js" },
     repo.language,
@@ -1337,7 +1351,7 @@ fn html_repo_view(repo: &Repository, owner: &str, name: &str, is_owner: bool, cu
     if repo.is_public { "Public" } else { "Prive" },
     star_form,
     repo.stars, repo.forks, repo.files.len(),
-    files_html
+    readme_html, files_html
     );
 
     html_page(&format!("{}/{}", owner, name), &body)
@@ -1474,6 +1488,98 @@ fn html_course_catalog(state: &AppState, current_user: Option<&str>) -> String {
 "#, courses_html);
 
     html_page("Catalogue de Cours", &body)
+}
+
+fn html_leaderboard(state: &AppState) -> String {
+    // Calculate scores: stars received + diplomas earned
+    let mut user_scores: Vec<(String, String, usize, usize, usize)> = Vec::new();
+    // (username, country, repos_count, diplomas_count, stars_received)
+
+    for user in &state.users {
+        let user_repos: Vec<&Repository> = state.repos.iter()
+            .filter(|r| r.owner == user.username && r.is_public).collect();
+        let repos_count = user_repos.len();
+        let stars: usize = user_repos.iter().map(|r| r.stars).sum();
+        let diplomas = state.get_user_diplomas(&user.username);
+        user_scores.push((user.username.clone(), user.country.clone(), repos_count, diplomas.len(), stars));
+    }
+
+    // Sort by total score (diplomas * 3 + stars + repos)
+    user_scores.sort_by(|a, b| {
+        let score_a = a.3 * 3 + a.4 + a.2;
+        let score_b = b.3 * 3 + b.4 + b.2;
+        score_b.cmp(&score_a)
+    });
+
+    let leaderboard_html = if user_scores.is_empty() {
+        "<div class='empty'>Aucun developpeur inscrit encore.</div>".to_string()
+    } else {
+        let medals = ["🥇", "🥈", "🥉"];
+        user_scores.iter().enumerate().map(|(i, (username, country, repos, diplomas, stars))| {
+            let medal: String = if i < 3 { medals[i].to_string() } else { format!("{}.", i + 1) };
+            format!(
+                r#"<div class="card" style="display:flex;justify-content:space-between;align-items:center;">
+                <div><span style="font-size:1.5em;">{}</span> <a href="/{}"><strong>{}</strong></a> <span style="color:#8b949e;">🌍 {}</span></div>
+                <div class="stats" style="gap:10px;">
+                <div class="stat"><div class="num">{}</div><div class="label">Depots</div></div>
+                <div class="stat"><div class="num">🎓 {}</div><div class="label">Diplomes</div></div>
+                <div class="stat"><div class="num">⭐ {}</div><div class="label">Stars</div></div>
+                </div>
+                </div>"#,
+                medal, username, username, country, repos, diplomas, stars
+            )
+        }).collect::<Vec<_>>().join("")
+    };
+
+    let body = format!(r#"
+<h1>🏆 Classement des Developpeurs</h1>
+<p style="color:#8b949e;">Les meilleurs developpeurs africains — classe par diplomes, stars et depots</p>
+{}
+"#, leaderboard_html);
+
+    html_page("Classement", &body)
+}
+
+fn html_search(state: &AppState, current_user: Option<&str>, query: &str) -> String {
+    let q = query.to_lowercase();
+    let results: Vec<&Repository> = state.repos.iter()
+        .filter(|r| {
+            r.is_public || current_user == Some(r.owner.as_str())
+        })
+        .filter(|r| {
+            r.name.to_lowercase().contains(&q)
+            || r.description.to_lowercase().contains(&q)
+            || r.owner.to_lowercase().contains(&q)
+            || r.language.to_lowercase().contains(&q)
+        })
+        .collect();
+
+    let results_html = if results.is_empty() {
+        if query.is_empty() {
+            "<div class='empty'>Tape quelque chose pour rechercher!</div>".to_string()
+        } else {
+            format!("<div class='empty'>Aucun resultat pour '{}'</div>", query)
+        }
+    } else {
+        results.iter().map(|r| format!(
+            r#"<div class="repo"><h3><a href="/{}/{}">{}/{}</a> <span class="badge badge-{}">{}</span></h3><div class="desc">{}</div><div class="meta">⭐ {} · {}</div></div>"#,
+            r.owner, r.name, r.owner, r.name,
+            if r.language == "Rust" { "rust" } else if r.language == "Python" { "python" } else { "js" },
+            r.language, r.description, r.stars, r.created_at
+        )).collect::<Vec<_>>().join("")
+    };
+
+    let body = format!(r#"
+<h1>🔍 Rechercher</h1>
+<form method="GET" action="/search">
+<input type="text" name="q" placeholder="Nom, description, langage, ou createeur..." value="{}">
+<button type="submit">Rechercher</button>
+</form>
+<h2>Resultats ({})</h2>
+{}
+"#, query, results.len(), results_html);
+
+    html_page("Rechercher", &body)
 }
 
 fn html_explore(state: &AppState) -> String {
@@ -1872,6 +1978,15 @@ fn handle_request(mut stream: TcpStream, state: Arc<Mutex<AppState>>) {
                 ("302", "text/html", "Location: /login".to_string())
             }
         }
+        ("GET", "/leaderboard") => {
+            let s = state.lock().unwrap();
+            ("200", "text/html; charset=utf-8", html_leaderboard(&s))
+        }
+        ("GET", "/search") => {
+            let s = state.lock().unwrap();
+            let q = query_params.get("q").cloned().unwrap_or_default();
+            ("200", "text/html; charset=utf-8", html_search(&s, current_user.as_deref(), &q))
+        }
         // User profile route — single segment (before catch-all)
         (m, p) if m == "GET" && p.starts_with('/') && p.matches('/').count() == 1 && p.len() > 1 => {
             let username = &p[1..];
@@ -2089,7 +2204,7 @@ fn main() {
     let port = 8090;
     let state = Arc::new(Mutex::new(AppState::new()));
 
-    println!("🦁 AfriForme v0.3 — La plateforme africaine de code");
+    println!("🦁 AfriForme v0.4 — La plateforme africaine de code");
     println!("📡 Serveur: http://localhost:{}", port);
     println!("👤 Utilisateurs: {}", state.lock().unwrap().users.len());
     println!("📦 Depots: {}", state.lock().unwrap().repos.len());
