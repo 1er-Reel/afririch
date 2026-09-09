@@ -1,4 +1,4 @@
-// AfriForme v0.7 — La plateforme africaine de code
+// AfriForme v0.8 — La plateforme africaine de code
 // Comme GitHub + Copilot, mais souverain, africain, zero dependance
 // Par Koffi Christ Olivier & Letta-Chan
 // Rust std only — Cargo.toml [dependencies] vide
@@ -7,7 +7,7 @@
 // v0.4: Classement + README + Recherche
 // v0.5: Fil d activite + Fork + Commentaires
 // v0.6: Notifications + Tags + Trending
-// v0.7: Issues + Follow + Repo Settings
+// v0.8: Telechargement ZIP (Afri-ZIP pur)
 
 use std::collections::HashMap;
 use std::io::{Read, Write, BufRead, BufReader};
@@ -1376,7 +1376,7 @@ a:hover{{text-decoration:underline;}}
 <div class="container">
 {}
 </div>
-<div class="footer">🦁 AfriForme v0.7 — La plateforme africaine de code — Par Koffi Christ Olivier & Letta-Chan — Rust std only, zero dependance</div>
+<div class="footer">🦁 AfriForme v0.8 — La plateforme africaine de code — Par Koffi Christ Olivier & Letta-Chan — Rust std only, zero dependance</div>
 </body>
 </html>"##, title, body)
 }
@@ -1649,6 +1649,8 @@ fn html_repo_view(repo: &Repository, owner: &str, name: &str, is_owner: bool, cu
         String::new()
     };
 
+    let download_btn = format!(r#"<a href="/{}/{}/download" class="btn btn-secondary" style="display:inline;">⬇ Telecharger ZIP</a>"#, owner, name);
+
     let fork_form = if let Some(user) = current_user_opt {
         if user != owner {
             format!(r#"<form method="POST" action="/{}/{}/fork" style="display:inline;"><button type="submit" class="btn btn-secondary">🍴 Fork</button></form>"#, owner, name)
@@ -1668,7 +1670,7 @@ fn html_repo_view(repo: &Repository, owner: &str, name: &str, is_owner: bool, cu
 </div>
 <div>
 <span class="badge badge-{}">{}</span>
-{} <span class="badge {}">{}</span> {} {}
+{} <span class="badge {}">{}</span> {} {} {}
 </div>
 </div>
 <div class="stats">
@@ -1690,7 +1692,7 @@ fn html_repo_view(repo: &Repository, owner: &str, name: &str, is_owner: bool, cu
     owner_actions,
     if repo.is_public { "badge-public" } else { "badge-private" },
     if repo.is_public { "Public" } else { "Prive" },
-    star_form, fork_form,
+    star_form, fork_form, download_btn,
     repo.stars, repo.forks, repo.files.len(),
     owner, name, tags_html, readme_html, files_html, comments_html, issues_html
     );
@@ -2349,6 +2351,100 @@ fn html_notifications(state: &AppState, current_user: Option<&str>) -> String {
     html_page("Notifications", &user_section)
 }
 
+// ============================================================
+// AFRI-ZIP — Constructeur ZIP pur (zero dependance)
+// Format ZIP stocke (sans compression), CRC32 maison
+// ============================================================
+
+fn crc32_afri(data: &[u8]) -> u32 {
+    let mut crc: u32 = 0xFFFFFFFF;
+    for &b in data {
+        crc ^= b as u32;
+        for _ in 0..8 {
+            crc = if crc & 1 != 0 { (crc >> 1) ^ 0xEDB88320 } else { crc >> 1 };
+        }
+    }
+    !crc
+}
+
+fn push_u16(v: &mut Vec<u8>, val: u16) {
+    v.push((val & 0xFF) as u8);
+    v.push((val >> 8) as u8);
+}
+
+fn push_u32(v: &mut Vec<u8>, val: u32) {
+    v.push((val & 0xFF) as u8);
+    v.push(((val >> 8) & 0xFF) as u8);
+    v.push(((val >> 16) & 0xFF) as u8);
+    v.push(((val >> 24) & 0xFF) as u8);
+}
+
+fn build_zip(files: &[(String, String)]) -> Vec<u8> {
+    let mut zip: Vec<u8> = Vec::new();
+    let mut central: Vec<u8> = Vec::new();
+    let mut count: u16 = 0;
+
+    for (name, content) in files {
+        let data = content.as_bytes();
+        let crc = crc32_afri(data);
+        let size = data.len() as u32;
+        let name_bytes = name.as_bytes();
+        let offset = zip.len() as u32;
+
+        // En-tete local: PK\x03\x04
+        zip.extend_from_slice(&[0x50, 0x4B, 0x03, 0x04]);
+        push_u16(&mut zip, 20);      // version minimale
+        push_u16(&mut zip, 0);       // flags
+        push_u16(&mut zip, 0);       // methode 0 = stocke
+        push_u16(&mut zip, 0);       // heure
+        push_u16(&mut zip, 0x21);    // date (1980-01-01 approx)
+        push_u32(&mut zip, crc);
+        push_u32(&mut zip, size);    // taille compressee
+        push_u32(&mut zip, size);    // taille originale
+        push_u16(&mut zip, name_bytes.len() as u16);
+        push_u16(&mut zip, 0);       // extra len
+        zip.extend_from_slice(name_bytes);
+        zip.extend_from_slice(data);
+
+        // Enregistrement central: PK\x01\x02
+        central.extend_from_slice(&[0x50, 0x4B, 0x01, 0x02]);
+        push_u16(&mut central, 20);  // version fait par
+        push_u16(&mut central, 20);  // version minimale
+        push_u16(&mut central, 0);   // flags
+        push_u16(&mut central, 0);   // methode
+        push_u16(&mut central, 0);   // heure
+        push_u16(&mut central, 0x21);// date
+        push_u32(&mut central, crc);
+        push_u32(&mut central, size);
+        push_u32(&mut central, size);
+        push_u16(&mut central, name_bytes.len() as u16);
+        push_u16(&mut central, 0);   // extra
+        push_u16(&mut central, 0);   // commentaire
+        push_u16(&mut central, 0);   // disque
+        push_u16(&mut central, 0);   // interne
+        push_u32(&mut central, 0);   // externe
+        push_u32(&mut central, offset);
+        central.extend_from_slice(name_bytes);
+
+        count += 1;
+    }
+
+    let central_offset = zip.len() as u32;
+    zip.extend_from_slice(&central);
+
+    // Fin de central: PK\x05\x06
+    zip.extend_from_slice(&[0x50, 0x4B, 0x05, 0x06]);
+    push_u16(&mut zip, 0);
+    push_u16(&mut zip, 0);
+    push_u16(&mut zip, count);       // entrees sur ce disque
+    push_u16(&mut zip, count);       // entrees total
+    push_u32(&mut zip, central.len() as u32);
+    push_u32(&mut zip, central_offset);
+    push_u16(&mut zip, 0);           // commentaire len
+
+    zip
+}
+
 fn handle_request(mut stream: TcpStream, state: Arc<Mutex<AppState>>) {
     let mut buffer = [0u8; 65536];
     let mut total = 0;
@@ -2382,6 +2478,33 @@ fn handle_request(mut stream: TcpStream, state: Arc<Mutex<AppState>>) {
         let s = state.lock().unwrap();
         get_session_user(headers_part, &s)
     };
+
+    // ===== GET /{owner}/{repo}/download — Telechargement ZIP binaire =====
+    if method == "GET" && clean_path.ends_with("/download") && clean_path.matches('/').count() == 3 {
+        let parts: Vec<&str> = clean_path.trim_start_matches('/').split('/').collect();
+        if parts.len() == 3 {
+            let (owner, repo_name) = (parts[0], parts[1]);
+            let s = state.lock().unwrap();
+            let allowed = match s.find_repo(owner, repo_name) {
+                Some(repo) => repo.is_public || current_user.as_deref() == Some(owner),
+                None => false,
+            };
+            if allowed {
+                let repo = s.find_repo(owner, repo_name).unwrap();
+                let files: Vec<(String, String)> = repo.files.iter().map(|(k, v)| (k.clone(), v.clone())).collect();
+                let zip_bytes = build_zip(&files);
+                let head = format!(
+                    "HTTP/1.1 200 OK\r\nContent-Type: application/zip\r\nContent-Disposition: attachment; filename=\"{}.zip\"\r\nContent-Length: {}\r\n\r\n",
+                    repo_name, zip_bytes.len()
+                );
+                let mut response = head.into_bytes();
+                response.extend_from_slice(&zip_bytes);
+                let _ = stream.write_all(&response);
+                let _ = stream.flush();
+                return;
+            }
+        }
+    }
 
     let (status, content_type, body) = match (method, clean_path.as_str()) {
         ("GET", "/") => {
@@ -2689,7 +2812,10 @@ fn handle_request(mut stream: TcpStream, state: Arc<Mutex<AppState>>) {
                 let s = state.lock().unwrap();
                 if let Some(repo) = s.find_repo(owner, repo_name) {
                     let is_owner = current_user.as_deref() == Some(owner);
-                    if sub.starts_with("file/") {
+                    if !repo.is_public && !is_owner {
+                        // Depot prive: invisible pour les autres
+                        ("404", "text/html; charset=utf-8", html_page("404", "<div class='empty'>Depot non trouve</div>"))
+                    } else if sub.starts_with("file/") {
                         let filename = &sub[5..];
                         if let Some(content) = repo.files.get(filename) {
                             ("200", "text/html; charset=utf-8", html_file_view(repo, owner, repo_name, filename, content, is_owner))
@@ -2954,8 +3080,14 @@ fn handle_request(mut stream: TcpStream, state: Arc<Mutex<AppState>>) {
             body
         )
     } else {
+        let status_line = match status {
+            "403" => "HTTP/1.1 403 Forbidden",
+            "404" => "HTTP/1.1 404 Not Found",
+            _ => "HTTP/1.1 200 OK",
+        };
         format!(
-            "HTTP/1.1 200 OK\r\nContent-Type: {}\r\nContent-Length: {}\r\n\r\n{}",
+            "{}\r\nContent-Type: {}\r\nContent-Length: {}\r\n\r\n{}",
+            status_line,
             content_type,
             body.len(),
             body
@@ -2977,7 +3109,7 @@ fn main() {
     let port = 8090;
     let state = Arc::new(Mutex::new(AppState::new()));
 
-    println!("🦁 AfriForme v0.7 — La plateforme africaine de code");
+    println!("🦁 AfriForme v0.8 — La plateforme africaine de code");
     println!("📡 Serveur: http://localhost:{}", port);
     println!("👤 Utilisateurs: {}", state.lock().unwrap().users.len());
     println!("📦 Depots: {}", state.lock().unwrap().repos.len());
