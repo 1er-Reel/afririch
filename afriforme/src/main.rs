@@ -1,4 +1,4 @@
-// AfriForme v0.14 — La plateforme africaine de code
+// AfriForme v0.15 — La plateforme africaine de code
 // La plateforme africaine du code — souveraine, zero dependance
 // Par Koffi Christ Olivier & Letta-Chan
 // Rust std only — Cargo.toml [dependencies] vide
@@ -7,7 +7,7 @@
 // v0.4: Classement + README + Recherche
 // v0.5: Fil d activite + Fork + Commentaires
 // v0.6: Notifications + Tags + Trending
-// v0.14: Cycle du Sage (universite) — 6 niveaux L1 a Doctorat, diplome du Sage — lecons, exercices evalues par Le Griot, diplomes degress
+// v0.15: Le Griot explique tout — chaque exercice revele le POURQUOI, le COMMENT et le VOILA
 
 use std::collections::HashMap;
 use std::io::{Read, Write, BufRead, BufReader};
@@ -1402,7 +1402,7 @@ a:hover{{text-decoration:underline;}}
 <div class="container">
 {}
 </div>
-<div class="footer">🦁 AfriForme v0.13 — La plateforme africaine de code — Par Koffi Christ Olivier & Letta-Chan — Rust std only, zero dependance</div>
+<div class="footer">🦁 AfriForme v0.15 — La plateforme africaine de code — Par Koffi Christ Olivier & Letta-Chan — Rust std only, zero dependance</div>
 </body>
 </html>"##, title, body)
 }
@@ -2195,7 +2195,7 @@ struct EcoleLevel {
     title: &'static str,
     cycle: &'static str,
     lessons: &'static str,
-    exercises: Vec<(&'static str, &'static str)>, // (question, reponse attendue)
+    exercises: Vec<(&'static str, &'static str, &'static str)>, // (question, reponse, explication)
 }
 
 fn ecole_levels() -> Vec<EcoleLevel> {
@@ -2203,135 +2203,135 @@ fn ecole_levels() -> Vec<EcoleLevel> {
         EcoleLevel { slug: "cp1", title: "CP1 — Le Decouvreur", cycle: "Semence",
             lessons: r#"<h3>Lecon 1: Les sons de la nature (N-KCOL)</h3><p>N-KCOL, c'est lire la nature. Chaque lettre est un son vivant: C c'est HOUUU le tourbillon, K c'est TÈK le bois qui previent, X c'est TCHAK qui coupe la nuit. Un aveugle doit comprendre le son, un sourd doit sentir la vibration, un enfant de 3 ans doit pouvoir l'imiter.</p><h3>Lecon 2: Les animaux parlent N-KCOL</h3><p>Le coq ne dit pas "cocorico" — il dit TÈK-ETCHIIII-TCHAK-OHHHH. Le mouton dit M-B-OHHHH. La grenouille dit DRIIIIP-DJRRR. Le hibou dit OHHHH-OUUUH. L'abeille dit MMMMM. Ecoute la nature: elle parle notre langue.</p>"#,
             exercises: vec![
-                ("Quel animal dit TÈK-ETCHIIII-TCHAK-OHHHH ?", "coq"),
-                ("Quel est le son de la lettre C dans N-KCOL ?", "houuu"),
-                ("Combien de lettres a l'alphabet N-KCOL ?", "26"),
+                ("Quel animal dit TÈK-ETCHIIII-TCHAK-OHHHH ?", "coq", "POURQUOI: N-KCOL ecoute le vrai son de la nature, pas le mot francais 'cocorico'. COMMENT: le chant du coq suit 4 lois vivantes — TÈK (il previent), ETCHIIII (il s'etire), TCHAK (il tranche la nuit), OHHHH (il annonce le jour). VOILA: quand tu ecoutes un coq africain, tu entends N-KCOL parler."),
+                ("Quel est le son de la lettre C dans N-KCOL ?", "houuu", "POURQUOI: dans N-KCOL, chaque lettre est un son de la nature, pas un symbole mort. COMMENT: le C est le tourbillon — HOUUU. Il passe les 3 lois: un aveugle comprend le son, un sourd sent la vibration, un enfant de 3 ans l'imite. VOILA: C = tourbillon, pour toujours."),
+                ("Combien de lettres a l'alphabet N-KCOL ?", "26", "POURQUOI: N-KCOL est le label qui cree toutes les langues du monde. COMMENT: 26 lettres, chacune avec son symbole, son son, son sens — toutes les langues naissent de la meme nature. VOILA: 26 lettres — l'alphabet vivant."),
             ] },
         EcoleLevel { slug: "cp2", title: "CP2 — Le Conteur en Herbe", cycle: "Semence",
             lessons: r#"<h3>Lecon 1: Les contes du village</h3><p>Pourquoi la tortue a une carapace? Parce qu'elle a vole la sagesse du village et a du se cacher dedans. Les contes africains n'amusent pas seulement: ils enseignent. Chaque conte cache une lecon de sagesse.</p><h3>Lecon 2: Compter en langues africaines</h3><p>En bambara: kelen (1), fila (2), saba (3), naani (4), duuru (5). En wolof: benn, jar, yett... Chaque langue africaine a sa propre arithmetique. Compter dans sa langue, c'est penser dans sa langue.</p>"#,
             exercises: vec![
-                ("Qui a vole la sagesse dans le conte?", "tortue"),
-                ("Comment dit-on 3 en bambara?", "saba"),
-                ("Comment dit-on 5 en bambara?", "duuru"),
+                ("Qui a vole la sagesse dans le conte?", "tortue", "POURQUOI: les contes africains enseignent, ils n'amusent pas seulement. COMMENT: la tortue vole la sagesse du village, les villageois la poursuivent, elle se cache dans sa carapace. VOILA: la sagesse volee ne nourrit pas — elle pese. Le conte donne la lecon."),
+                ("Comment dit-on 3 en bambara?", "saba", "POURQUOI: compter dans sa langue, c'est penser dans sa langue. COMMENT: en bambara kelen (1), fila (2), saba (3), naani (4), duuru (5). VOILA: ton cerveau calcule plus vite car il ne traduit pas."),
+                ("Comment dit-on 5 en bambara?", "duuru", "POURQUOI: chaque langue africaine a sa propre arithmetique. COMMENT: duuru c'est 5 — la main complete, les cinq doigts du paysan qui seme. VOILA: un mot bambara, un concept universel."),
             ] },
         EcoleLevel { slug: "ce1", title: "CE1 — L'Explorateur", cycle: "Semence",
             lessons: r#"<h3>Lecon 1: Les 54 pays d'Afrique</h3><p>L'Afrique compte 54 pays, du Senegal a la Somalie, du Maroc a l'Afrique du Sud. Chaque drapeau raconte une histoire: le vert du Mali c'est la nature, l'or c'est la richesse du soleil, le rouge c'est le sang des martyrs.</p><h3>Lecon 2: Les grands fleuves</h3><p>Le Nil: le plus long (6650 km), il a nourri l'Egypte ancienne. Le Niger: il traverse le Mali et fait vivre tout le Sahel. Le Congo: le plus puissant, le coeur de la foret. Un fleuve africain, c'est une artere du continent.</p>"#,
             exercises: vec![
-                ("Combien de pays a l'Afrique?", "54"),
-                ("Quel fleuve traverse le Mali?", "niger"),
-                ("Quel est le plus long fleuve d'Afrique?", "nil"),
+                ("Combien de pays a l'Afrique?", "54", "POURQUOI: connaitre son continent, c'est connaitre sa maison. COMMENT: 54 pays reconnus, du Maroc a l'Afrique du Sud, du Senegal aux Seychelles. VOILA: 54 drapeaux, 54 fiertes, une seule Afrique."),
+                ("Quel fleuve traverse le Mali?", "niger", "POURQUOI: les fleuves sont les arteres du continent. COMMENT: le Niger nait en Guinee, traverse le Mali (Segou, Tombouctou), le Niger, le Nigeria, et rejoint l'Atlantique. VOILA: il fait vivre tout le Sahel — sans lui pas de riz, pas de mil, pas de villes."),
+                ("Quel est le plus long fleuve d'Afrique?", "nil", "POURQUOI: le Nil est le fleuve-mere de la civilisation. COMMENT: 6650 km, le plus long du monde, il traverse 11 pays avant la mer. VOILA: sans le Nil, ni pyramides, ni Egypte ancienne — le fleuve a ecrit l'histoire."),
             ] },
         EcoleLevel { slug: "ce2", title: "CE2 — Le Sage des Betes", cycle: "Semence",
             lessons: r#"<h3>Lecon 1: Les fables africaines</h3><p>Le lievre est petit mais malin. L'hyene est forte mais bete. Dans toutes les fables africaines, l'intelligence bat la force. C'est la lecon du Sahel: la ruse du lievre gagne toujours contre les dents de l'hyene.</p><h3>Lecon 2: Le calendrier agricole</h3><p>Au Sahel, l'annee suit la pluie: la saison seche (octobre-mai) et l'hivernage, la saison des pluies (juin-septembre). Le paysan africain lit le ciel, les oiseaux, les termites — il sait quand semer sans aucune montre.</p>"#,
             exercises: vec![
-                ("Quel animal est le plus malin dans les fables africaines?", "lievre"),
-                ("Comment appelle-t-on la saison des pluies au Sahel?", "hivernage"),
-                ("Quel animal est fort mais bete dans les fables?", "hyene"),
+                ("Quel animal est le plus malin dans les fables africaines?", "lievre", "POURQUOI: la sagesse africaine place l'esprit au-dessus de la force. COMMENT: dans toutes les fables, le lievre petit et malin gagne contre les grands et les forts. VOILA: la ruse du lievre est la lecon du Sahel — l'intelligence bat les dents."),
+                ("Comment appelle-t-on la saison des pluies au Sahel?", "hivernage", "POURQUOI: le paysan africain lit la nature, pas la montre. COMMENT: l'annee suit la pluie — saison seche (octobre-mai), hivernage (juin-septembre). Oiseaux, termites, lune annoncent la semaille. VOILA: la nature est le calendrier du Sahel."),
+                ("Quel animal est fort mais bete dans les fables?", "hyene", "POURQUOI: les fables opposent deux forces — l'esprit et les muscles. COMMENT: l'hyene est puissante mais bete, elle represente la force sans reflexion. VOILA: le lievre gagne toujours — voila pourquoi les griots racontent."),
             ] },
         EcoleLevel { slug: "cm1", title: "CM1 — L'Historien Junior", cycle: "Semence",
             lessons: r#"<h3>Lecon 1: Les empires du Ghana et du Mali</h3><p>L'empire du Ghana (300-1240): le pays de l'or, la ville de Koumbi Saleh. Puis l'empire du Mali (1235): Soundjata Keita l'a fonde apres la bataille de Kirina contre le roi Soumaoro. Soundjata, le lion du Mali, a transforme un peuple brise en empire.</p><h3>Lecon 2: Mansa Moussa, l'homme le plus riche</h3><p>Mansa Moussa (1312-1337) a fait le pelerinage a La Mecque avec 100 000 hommes et des tonnes d'or. Il a tant donne que l'or a perdu sa valeur au Caire. Les historiens disent: l'homme le plus riche de toute l'histoire — et il etait africain.</p>"#,
             exercises: vec![
-                ("Qui a fonde l'empire du Mali?", "soundjata"),
-                ("Quel empereur est l'homme le plus riche de l'histoire?", "mansa moussa"),
-                ("Quelle bataille a fonde l'empire du Mali?", "kirina"),
+                ("Qui a fonde l'empire du Mali?", "soundjata", "POURQUOI: l'empire du Mali est ne d'un enfant brise devenu lion. COMMENT: Soundjata Keita, paralyse enfant, se leve, vainc le roi sorcier Soumaoro a Kirina en 1235. VOILA: un peuple brise devient empire — la plus grande lecon d'Afrique de l'Ouest."),
+                ("Quel empereur est l'homme le plus riche de l'histoire?", "mansa moussa", "POURQUOI: la richesse de l'Afrique est historique, pas nouvelle. COMMENT: Mansa Moussa (1312-1337) part en pelerinage avec 100 000 hommes et des tonnes d'or — au Caire, la valeur de l'or chute pendant des annees. VOILA: l'homme le plus riche de l'histoire etait africain."),
+                ("Quelle bataille a fonde l'empire du Mali?", "kirina", "POURQUOI: les batailles fondent les empires. COMMENT: Kirina (1235) oppose Soundjata au roi sorcier Soumaoro. Victoire de Soundjata — naissance de l'empire du Mali et de la Charte de Kurukan Fuga. VOILA: une bataille, un empire, une constitution."),
             ] },
         EcoleLevel { slug: "cm2", title: "CM2 — L'Heritier", cycle: "Semence",
             lessons: r#"<h3>Lecon 1: L'empire Songhai et Tombouctou</h3><p>L'empire Songhai (1464-1591): Sonni Ali Ber puis Askia Mohammed. Tombouctou etait l'universite du desert: Ahmed Baba, le grand savant, avait 1600 livres quand les bibliothiques d'Europe en avaient 10. L'Afrique ecrivait quand d'autres ne lisaient pas.</p><h3>Lecon 2: Les mathematiques africaines</h3><p>Les fractales: les motifs du kente, les coiffures tresses, les villages en spirale — les mathematiciens africains utilisaient la geometrie des fractales des siecles avant que l'Occident ne la decouvre. Et les pyramides d'Egypte: calculees avec une precision que nos ingenieurs admirent encore.</p>"#,
             exercises: vec![
-                ("Quelle ville etait l'universite du desert?", "tombouctou"),
-                ("Quel savant de Tombouctou avait 1600 livres?", "ahmed baba"),
-                ("Quel empire a suivi le Mali?", "songhai"),
+                ("Quelle ville etait l'universite du desert?", "tombouctou", "POURQUOI: l'Afrique ecrivait quand d'autres ne lisaient pas. COMMENT: Tombouctou, l'universite du desert — Sankore, des milliers de manuscrits, des savants du monde entier venaient etudier. VOILA: la ville du savoir au milieu du sable."),
+                ("Quel savant de Tombouctou avait 1600 livres?", "ahmed baba", "POURQUOI: le savoir africain a ses heros. COMMENT: Ahmed Baba (1556-1627) possedait 1600 livres quand les grandes bibliotheques d'Europe en avaient 10. VOILA: le savant de Tombouctou, symbole du savoir africain."),
+                ("Quel empire a suivi le Mali?", "songhai", "POURQUOI: les empires se transmettent le flambeau. COMMENT: Ghana (300-1240), puis Mali (1235), puis Songhai (1464-1591) — Sonni Ali Ber le fonde, Askia Mohammed le rayonne. VOILA: le plus grand empire ouest-africain de l'histoire."),
             ] },
         EcoleLevel { slug: "6eme", title: "6eme — L'Apprenti Tambour", cycle: "Griot",
             lessons: r#"<h3>Lecon 1: Les royaumes d'Afrique</h3><p>Le royaume Ashanti: le tabouret d'or, symbole de l'ame du peuple. Le Dahomey: les Amazones, des guerrieres que l'Europe redoutait. Le Kanem-Bornou: mille ans d'histoire autour du lac Tchad. Le Wassoulou: l'empire de Samori.</p><h3>Lecon 2: Le tambour parleur</h3><p>Le tambour imite la langue: il reproduit les tons des mots. Un message tamboure voyage de village en village plus vite qu'un cavalier. Avant le telephone, l'Afrique avait deja son reseau de communication — le tambour parleur.</p>"#,
             exercises: vec![
-                ("Quel royaume avait des guerrieres amazones?", "dahomey"),
-                ("Quel instrument porte les messages a travers la savane?", "tambour"),
-                ("Quel objet sacre symbolise le royaume Ashanti?", "tabouret"),
+                ("Quel royaume avait des guerrieres amazones?", "dahomey", "POURQUOI: les femmes africaines se battaient pour leur royaume. COMMENT: le Dahomey avait un regiment d'Amazones — des guerrieres d'elite que l'Europe redoutait. VOILA: les Amazones du Dahomey, fierte de l'Afrique."),
+                ("Quel instrument porte les messages a travers la savane?", "tambour", "POURQUOI: avant le telephone, l'Afrique avait son reseau. COMMENT: le tambour parleur imite les tons de la langue — le message voyage de village en village plus vite qu'un cavalier. VOILA: le premier reseau de communication du continent."),
+                ("Quel objet sacre symbolise le royaume Ashanti?", "tabouret", "POURQUOI: les symboles unissent les peuples. COMMENT: le tabouret d'or Ashanti porte l'ame du peuple — il descend du ciel, personne ne s'assoit dessus. VOILA: l'objet le plus sacre du royaume."),
             ] },
         EcoleLevel { slug: "5eme", title: "5eme — L'Apprenti Griot", cycle: "Griot",
             lessons: r#"<h3>Lecon 1: La traite, la verite sans fard</h3><p>Pendant des siecles, des millions d'Africains ont ete deportes vers les Ameriques. L'Afrique a ete saignee de ses enfants. On ne l'oublie pas pour pleurer — on s'en souvient pour ne plus jamais le laisser arriver. La memoire est un bouclier.</p><h3>Lecon 2: Les resistances</h3><p>La reine Aline Sitoe Diatta: la femme qui reveille, la Casamance s'est levee derriere elle (1942). Samori Toure: l'Almamy, 7 ans de resistance aux Francais, son empire du Wassoulou. Behanzin: le requin du Dahomey. Ils ont perdu les batailles, mais ils ont gagne notre fierte.</p>"#,
             exercises: vec![
-                ("Quelle reine a resiste en Casamance?", "aline sitoe diatta"),
-                ("Quel Almamy a resiste 7 ans aux Francais?", "samori toure"),
-                ("Quel animal symbolise Behanzin?", "requin"),
+                ("Quelle reine a resiste en Casamance?", "aline sitoe diatta", "POURQUOI: les resistances africaines ont leurs heros feminins. COMMENT: Aline Sitoe Diatta, la reine de Casamance, a resiste a la France coloniale. Deportee, elle n'a jamais cede. VOILA: la reine qui a dit non."),
+                ("Quel Almamy a resiste 7 ans aux Francais?", "samori toure", "POURQUOI: la resistance africaine a dure des decennies. COMMENT: Samori Toure, l'Almamy de l'empire du Wassoulou, a resiste 7 ans aux Francais avec une armee organisee et des fusils fabriques sur place. VOILA: le general qui a presque gagne."),
+                ("Quel animal symbolise Behanzin?", "requin", "POURQUOI: les rois africains choisissaient leurs symboles. COMMENT: Behanzin, roi du Dahomey, avait le requin pour symbole — puissant, insaisissable, maitre des eaux. VOILA: le roi requin d'Abomey."),
             ] },
         EcoleLevel { slug: "4eme", title: "4eme — Le Jeune Conscience", cycle: "Griot",
             lessons: r#"<h3>Lecon 1: La colonisation</h3><p>En 1884-85, a la conference de Berlin, l'Europe a partage l'Afrique comme un gateau — sans un seul Africain a la table. Les frontieres ont coupe les peuples: les Touaregs entre 5 pays, les Peuls entre 15. Les cultures ont ete brisees, les langues interdites a l'ecole.</p><h3>Lecon 2: Ubuntu et la Charte de Kurukan Fuga</h3><p>Ubuntu: "Je suis parce que nous sommes" — la philosophie du sud du continent. Et en 1236, apres Kirina, Soundjata a proclame la Charte de Kurukan Fuga: 44 articles oraux — le droit a la vie, la protection de l'environnement, l'interdiction de l'esclavage interne. La premiere constitution du monde, et elle etait africaine.</p>"#,
             exercises: vec![
-                ("Dans quelle ville les frontieres africaines ont-elles ete tracees?", "berlin"),
-                ("Complete Ubuntu: 'Je suis parce que...'", "nous sommes"),
-                ("Quelle charte de 1236 est la premiere constitution orale?", "kurukan fuga"),
+                ("Dans quelle ville les frontieres africaines ont-elles ete tracees?", "berlin", "POURQUOI: les frontieres actuelles portent une blessure. COMMENT: la conference de Berlin (1884-85) — des Europeens decoupent l'Afrique a la regle, sans aucun Africain a la table. VOILA: voila pourquoi des familles se retrouvent de deux cotes d'une meme ligne."),
+                ("Complete Ubuntu: 'Je suis parce que...'", "nous sommes", "POURQUOI: l'Afrique a sa propre philosophie de la personne. COMMENT: Ubuntu — 'Je suis parce que nous sommes.' L'individu n'existe que par la communaute. VOILA: le contraire du 'chacun pour soi' occidental."),
+                ("Quelle charte de 1236 est la premiere constitution orale?", "kurukan fuga", "POURQUOI: la constitution orale africaine precede beaucoup de textes occidentaux. COMMENT: la Charte de Kurukan Fuga (1236), proclamee par Soundjata apres Kirina — droits, devoirs, organisation sociale. VOILA: une des premieres declarations des droits de l'humanite."),
             ] },
         EcoleLevel { slug: "3eme", title: "3eme — Le Griot", cycle: "Griot",
             lessons: r#"<h3>Lecon 1: Les independances et les peres fondateurs</h3><p>1960: 17 pays africains deviennent independants en une seule annee. Kwame Nkrumah: le Ghana d'abord, l'unite africaine ensuite — "Seek ye first the political kingdom". Patrice Lumumba: le Congo libre, tue en 1961 pour son petrole. Amilcar Cabral: la liberation de la Guinnee-Bissau, l'arme de la theorie.</p><h3>Lecon 2: La medecine traditionnelle et le temps N-KCOL</h3><p>Le neem: l'arbre qui guerit tout — paludisme, plaies, peau. Le moringa: l'arbre de vie, plus de vitamines qu'aucun legume. Le kinkeliba: le the du Sahel qui purifie. Et le temps N-KCOL: pas 24 heures — 4 passages: Naissance, Vie, Mort, Naissance. Une nuit est une vie entiere.</p>"#,
             exercises: vec![
-                ("Combien de pays africains ont eu l'independance en 1960?", "17"),
-                ("Quel arbre est appele l'arbre de vie?", "moringa"),
-                ("Combien de passages a le temps N-KCOL?", "4"),
+                ("Combien de pays africains ont eu l'independance en 1960?", "17", "POURQUOI: 1960 est l'annee de l'eclair africain. COMMENT: 17 pays gagnent l'independance en une seule annee — du Senegal au Nigeria, du Mali a Madagascar. VOILA: l'annee ou l'Afrique a dit 'assez' en choeur."),
+                ("Quel arbre est appele l'arbre de vie?", "moringa", "POURQUOI: la nature africaine nourrit et guerit. COMMENT: le moringa — feuilles riches en vitamines, proteines, fer. On l'appelle l'arbre de vie car il pousse vite et nourrit tout. VOILA: la pharmacie et la cantine du village."),
+                ("Combien de passages a le temps N-KCOL?", "4", "POURQUOI: N-KCOL remplace la montre par la nature. COMMENT: le temps suit 4 passages — Naissance, Vie, Mort, Naissance. Une nuit = une vie, un jour = une vie. VOILA: le cercle du temps, pas la ligne du colon."),
             ] },
         EcoleLevel { slug: "2nde", title: "2nde — Le Jeune Lion", cycle: "Baobab",
             lessons: r#"<h3>Lecon 1: La richesse de l'Afrique</h3><p>30% des minerais du monde sont sous nos pieds. 60% des terres arables non exploitees de la planete sont ici. Le meilleur soleil du monde nous eclaire. Le coltan du Congo est dans chaque telephone de la planete — et l'Afrique ne fixe pas les prix. La richesse est africaine; la decision ne l'est pas encore.</p><h3>Lecon 2: Le FCFA et la ZLECAf</h3><p>Le FCFA: cree par la France en 1945, ancre a l'euro, frappe en Europe. Une monnaie que l'Afrique ne controle pas est une chaine invisible. La ZLECAf: le marche commun des 54 pays — 1,4 milliard d'Africains qui peuvent echanger sans barriers. L'avenir: notre monnaie, notre marche, nos prix.</p>"#,
             exercises: vec![
-                ("Quel pourcentage des minerais du monde est en Afrique?", "30"),
-                ("Qui a cree le FCFA en 1945?", "france"),
-                ("Quel marche commun reunit les 54 pays africains?", "zlecaf"),
+                ("Quel pourcentage des minerais du monde est en Afrique?", "30", "POURQUOI: la richesse africaine se mesure en chiffres, pas en discours. COMMENT: l'Afrique a 30% des minerais du monde — or, coltan, lithium, uranium. Mais elle fixe 0% des prix. VOILA: le probleme n'est pas la richesse, c'est qui tient le comptoir."),
+                ("Qui a cree le FCFA en 1945?", "france", "POURQUOI: le FCFA est une monnaie coloniale qui a survecu a la colonisation. COMMENT: cree par la France en 1945 pour ses colonies — meme aujourd'hui, 50% des reserves restent au Tresor francais. VOILA: voila pourquoi l'AES veut sa propre monnaie."),
+                ("Quel marche commun reunit les 54 pays africains?", "zlecaf", "POURQUOI: l'unite economique est la vraie force. COMMENT: la ZLECAf — Zone de Libre-Echange Continentale Africaine — 54 pays, 1,3 milliard de consommateurs, le plus grand marche du monde. VOILA: l'Afrique qui commerce avec l'Afrique."),
             ] },
         EcoleLevel { slug: "1ere", title: "1ere — Le Batisseur", cycle: "Baobab",
             lessons: r#"<h3>Lecon 1: Le code, la blockchain</h3><p>Rust compile sur Termux: on peut coder sur son telephone, sans dependance, sans permission. La blockchain: un grand livre que personne ne peut effacer ni falsifier — chaque bloc porte le sceau du precedent. Ed25519: la signature cryptographique qui prouve que c'est toi, sans reveler ton secret. La souverainete numerique s'ecrit en code.</p><h3>Lecon 2: Le soleil serveur</h3><p>L'Afrique a le meilleur gisement solaire de la planete: 6,8 kWh/m2/jour au Niger. Chaque village peut avoir son energie sans reseau occidental. Le soleil est gratuit, il est a nous, il ne demande pas de permission. L'energie est la nouvelle souverainete.</p>"#,
             exercises: vec![
-                ("Quel langage compile sur Termux sans dependance?", "rust"),
-                ("Quel grand livre personne ne peut effacer?", "blockchain"),
-                ("Quelle source d'energie rend l'Afrique souveraine?", "soleil"),
+                ("Quel langage compile sur Termux sans dependance?", "rust", "POURQUOI: le code souverain doit compiler partout sans maitre etranger. COMMENT: Rust — zero dependance possible, Cargo.toml [dependencies] vide, compile sur Termux, sur Linux, partout. VOILA: le langage qui a construit AfriChain sur un telephone."),
+                ("Quel grand livre personne ne peut effacer?", "blockchain", "POURQUOI: l'Afrique a besoin d'un livre que personne ne peut effacer. COMMENT: la blockchain — chaque bloc porte le hash du precedent, modifier un bloc casse toute la chaine. VOILA: le grand livre que le colon ne peut plus bruler."),
+                ("Quelle source d'energie rend l'Afrique souveraine?", "soleil", "POURQUOI: l'energie est la cle de la souverainete. COMMENT: l'Afrique a le meilleur ensoleillement du monde — 6 kWh/m2/jour au Niger. Le soleil est gratuit, abondant, africain. VOILA: le serveur que personne ne peut couper."),
             ] },
         EcoleLevel { slug: "terminale", title: "Terminale — L'Aine", cycle: "Baobab",
             lessons: r#"<h3>Lecon 1: Le leadership africain</h3><p>Thomas Sankara: 4 ans au Burkina (1983-87) — 2,5 millions de vaccins, des ecoles pour les enfants, des femmes au gouvernement. "La patrie ou la mort, nous vaincrons." Aujourd'hui l'AES: le Mali, le Niger, le Burkina sortent du FCFA et construisent leur confederation. Le leadership africain ne demande pas — il construit.</p><h3>Lecon 2: L'union et l'avenir</h3><p>Nkrumah reve des Etats-Unis d'Afrique: un continent, une voix. N-KCOL devient notre langage de programmation souverain. L'Afrique de 2050: 2,5 milliards d'habitants, la plus jeune population du monde, la technologie entre ses mains. Le baton de l'humanite revient a qui l'a fait naitre: l'Afrique guide l'humanite.</p>"#,
             exercises: vec![
-                ("Quel president du Burkina a vaccine 2,5 millions d'enfants?", "sankara"),
-                ("Quelle alliance reunit le Mali, le Niger et le Burkina?", "aes"),
-                ("Quel reve de Nkrumah doit unir l'Afrique?", "etats-unis d'afrique"),
+                ("Quel president du Burkina a vaccine 2,5 millions d'enfants?", "sankara", "POURQUOI: le leadership africain se mesure aux actes. COMMENT: Thomas Sankara, 4 ans au Burkina (1983-87) — 2,5 millions de vaccines, ecoles, femmes au gouvernement, salaires des ministres coupes. VOILA: 'La patrie ou la mort, nous vaincrons.'"),
+                ("Quelle alliance reunit le Mali, le Niger et le Burkina?", "aes", "POURQUOI: la souverainete se construit en alliance. COMMENT: l'AES — Alliance des Etats du Sahel — Mali, Niger, Burkina Faso. Sortie du FCFA en projet, confederation en construction. VOILA: la premiere confederation souveraine de l'Afrique moderne."),
+                ("Quel reve de Nkrumah doit unir l'Afrique?", "etats-unis d'afrique", "POURQUOI: le reve de Nkrumah reste le cap. COMMENT: Kwame Nkrumah, pere de l'independance du Ghana, reveait des Etats-Unis d'Afrique — un continent, une monnaie, une armee, une voix. VOILA: l'union totale, l'objectif final."),
             ] },
         EcoleLevel { slug: "l1", title: "Licence 1 — L'Initie", cycle: "Sage",
             lessons: r#"<h3>Lecon 1: La blockchain souveraine</h3><p>AfriChain, c'est Rust std only — zero dependance. Ed25519 pour les signatures, AfriHash-256 pour le minage. Chaque bloc contient: index, timestamp, transactions, prev_hash, nonce. Le minage trouve un nonce tel que hash < difficulte. Pas de Bitcoin, pas d'Ethereum — notre propre chaine, notre propre monnaie.</p><h3>Lecon 2: L'economie africaine</h3><p>Le FCFA: 50% des reserves dans le Tresor francais. La ZLECAf: 1,3 milliard de consommateurs, le plus grand marche du monde. L'AES sort du FCFA et cree sa propre monnaie. L'Afrique a 30% des minerais du monde mais fixe 0% des prix. L'economie souveraine, c'est controler la production, la transformation et la vente.</p>"#,
             exercises: vec![
-                ("Quel algorithme AfriChain utilise pour les signatures?", "ed25519"),
-                ("Quel pourcentage des reserves FCFA est en France?", "50"),
-                ("Combien de consommateurs a la ZLECAf?", "1,3 milliard"),
+                ("Quel algorithme AfriChain utilise pour les signatures?", "ed25519", "POURQUOI: les signatures prouvent qui parle sans reveler le secret. COMMENT: Ed25519 — ta cle privee signe, ta cle publique verifie. AfriChain l'a implemente from scratch, zero dependance. VOILA: la signature souveraine, ecrite par nous."),
+                ("Quel pourcentage des reserves FCFA est en France?", "50", "POURQUOI: une monnaie dont les reserves sont ailleurs n'est pas une monnaie. COMMENT: le FCFA — 50% des reserves au Tresor francais, par accord colonial toujours valable. VOILA: voila pourquoi chaque franc CFA est un bail colonial."),
+                ("Combien de consommateurs a la ZLECAf?", "1,3 milliard", "POURQUOI: le marche interieur africain est le plus grand du monde. COMMENT: la ZLECAf reunit 54 pays et 1,3 milliard de consommateurs — plus grand que l'UE et les USA reunis. VOILA: produisons pour nous d'abord."),
             ] },
         EcoleLevel { slug: "l2", title: "Licence 2 — Le Batisseur", cycle: "Sage",
             lessons: r#"<h3>Lecon 1: Le code souverain</h3><p>Rust: zero cout, zero dependance, compile partout. Cargo.toml [dependencies] vide. std::net pour le reseau, std::fs pour les fichiers. Le code souverain, c'est quand personne ne peut couper ton acces — tu controlles le compilateur, tu controlles le langage.</p><h3>Lecon 2: Les reseaux mesh</h3><p>AfriMesh: UDP broadcast pour la decouverte, TCP pour les messages. Chaque telephone est un noeud. Pas de tour cellulaire, pas de satellite etranger — les telephones africains communiquent directement entre eux.</p>"#,
             exercises: vec![
-                ("Quelle section de Cargo.toml reste vide en code souverain?", "dependencies"),
-                ("Quel protocole AfriMesh utilise pour la decouverte des noeuds?", "udp"),
-                ("Quel protocole AfriMesh utilise pour les messages?", "tcp"),
+                ("Quelle section de Cargo.toml reste vide en code souverain?", "dependencies", "POURQUOI: chaque dependance est une chaine. COMMENT: Cargo.toml [dependencies] vide — tout le code est std only: reseau, fichiers, crypto, JSON, HTTP. VOILA: personne ne peut couper l'acces a ce qui n'est pas emprunte."),
+                ("Quel protocole AfriMesh utilise pour la decouverte des noeuds?", "udp", "POURQUOI: la decouverte des noeuds doit marcher sans serveur central. COMMENT: AfriMesh envoie des broadcasts UDP — chaque telephone proche entend 'je suis un noeud'. VOILA: le village se decouvre tout seul."),
+                ("Quel protocole AfriMesh utilise pour les messages?", "tcp", "POURQUOI: les messages doivent arriver complets et fiables. COMMENT: une fois decouverts, les noeuds se parlent en TCP — connexion durable, messages signes Ed25519. VOILA: les telephones africains se parlent sans tour, sans satellite etranger."),
             ] },
         EcoleLevel { slug: "l3", title: "Licence 3 — Le Strategie", cycle: "Sage",
             lessons: r#"<h3>Lecon 1: La cryptographie pratique</h3><p>Hash: entree → sponge → sortie. AfriHash-256: 5x5 mots 64 bits, 24 rounds (theta, rho, pi, chi, iota). Avalanche: 1 bit change → 50% des bits changes. Collision: 2 entrees differentes → meme sortie (tres rare). Signature: cle privee signe, cle publique verifie.</p><h3>Lecon 2: L'energie solaire</h3><p>L'Afrique a le meilleur ensoleillement du monde: 6 kWh/m2/jour au Niger. Le PoST (Proof of Solar Time): minage seulement quand le soleil brille. Le Sahara pourrait alimenter toute l'Europe — mais l'Afrique garde son energie pour l'Afrique.</p>"#,
             exercises: vec![
-                ("Combien de rounds AfriHash-256 utilise?", "24"),
-                ("Quel pays a le meilleur ensoleillement au monde?", "niger"),
-                ("Quel consensus solaire AfriChain utilise?", "post"),
+                ("Combien de rounds AfriHash-256 utilise?", "24", "POURQUOI: la securite d'un hash vient de ses tours. COMMENT: AfriHash-256 — construction sponge, 5x5 mots de 64 bits, 24 rounds (theta, rho, pi, chi, iota). VOILA: 24 tours, 51% d'avalanche — notre propre hash, pas SHA."),
+                ("Quel pays a le meilleur ensoleillement au monde?", "niger", "POURQUOI: la souverainete energetique commence par la carte du soleil. COMMENT: le Niger recoit 6 kWh/m2/jour — le meilleur ensoleillement du monde. VOILA: le desert qui va alimenter le continent."),
+                ("Quel consensus solaire AfriChain utilise?", "post", "POURQUOI: le minage doit suivre la nature africaine. COMMENT: PoST — Proof of Solar Time — on mine quand le soleil brille, chaque pays mine a son tour selon son ensoleillement reel. VOILA: le consensus qui respecte le soleil."),
             ] },
         EcoleLevel { slug: "m1", title: "Master 1 — Le Visionnaire", cycle: "Sage",
             lessons: r#"<h3>Lecon 1: L'IA africaine</h3><p>L'IA occidentale est entrainee sur les donnees africaines volees. Notre IA: donnees africaines, hebergees en Afrique, au service de l'Afrique. Le Griot IA: repond en N-KCOL, connait les 54 pays, enseigne l'histoire africaine. Pas de OpenAI, pas de Claude — notre propre intelligence.</p><h3>Lecon 2: La souverainete numerique</h3><p>Les donnees africaines voyagent par cables sous-marins vers l'Europe. DNS: chaque requete Google = donnee vendue. AfriNet: nos propres serveurs, notre propre DNS, nos propres cables. L'Afrique ne demande plus la permission — elle construit.</p>"#,
             exercises: vec![
-                ("Quelle IA AfriForme utilise pour enseigner?", "griot"),
-                ("Par ou voyagent les donnees africaines vers l'Occident?", "cables sous-marins"),
-                ("Qui controle le DNS occidental?", "google"),
+                ("Quelle IA AfriForme utilise pour enseigner?", "griot", "POURQUOI: l'IA africaine doit connaitre l'Afrique d'abord. COMMENT: Le Griot — l'IA d'AfriForme — enseigne, evalue, explique. Pas de OpenAI, pas de serveur etranger. VOILA: notre intelligence, pour nos enfants."),
+                ("Par ou voyagent les donnees africaines vers l'Occident?", "cables sous-marins", "POURQUOI: les donnees africaines voyagent souvent par la porte de l'Occident. COMMENT: les cables sous-marins routent les donnees africaines vers l'Europe — chaque clic passe par Londres ou Marseille. VOILA: AfriNet veut nos serveurs, nos routes, nos donnees chez nous."),
+                ("Qui controle le DNS occidental?", "google", "POURQUOI: le DNS est l'annuaire d'internet — qui le tient vous tient. COMMENT: les requetes DNS passent par des serveurs occidentaux — Google, Cloudflare — chaque visite est enregistree. VOILA: notre propre DNS = notre propre annuaire."),
             ] },
         EcoleLevel { slug: "m2", title: "Master 2 — Le Fondateur", cycle: "Sage",
             lessons: r#"<h3>Lecon 1: Creer une startup souveraine</h3><p>Pas de capital risque etranger. Financement: AFR tokens, revenus reels, cooperation africaine. Le modele: construire lentement, posseder 100%, ne jamais vendre. L'Afrique a assez de richesses pour financer ses propres Google, ses propres Amazon.</p><h3>Lecon 2: L'autonomie alimentaire</h3><p>L'Afrique importe 35 milliards de nourriture par an. Or 60% des terres arables du monde sont en Afrique. Le probleme: on exporte brut, on importe transforme. La solution: transformer sur place, vendre a valeur ajoutee, nourrir le continent d'abord.</p>"#,
             exercises: vec![
-                ("Combien de nourriture l'Afrique importe par an?", "35 milliards"),
-                ("Quel pourcentage des terres arables du monde sont en Afrique?", "60"),
-                ("Quelle monnaie AfriForme utilise pour le financement?", "afr"),
+                ("Combien de nourriture l'Afrique importe par an?", "35 milliards", "POURQUOI: l'Afrique riche qui importe sa nourriture est une anomalie. COMMENT: 35 milliards de dollars de nourriture importee chaque an — alors que le continent possede 60% des terres arables du monde. VOILA: transformer sur place, nourrir le continent, exporter le surplus."),
+                ("Quel pourcentage des terres arables du monde sont en Afrique?", "60", "POURQUOI: la securite alimentaire est une question de terre. COMMENT: 60% des terres arables non exploitees du monde sont en Afrique. Le probleme n'est pas la terre, c'est la transformation et l'acces au marche. VOILA: la solution est sous nos pieds."),
+                ("Quelle monnaie AfriForme utilise pour le financement?", "afr", "POURQUOI: le financement etranger achete ta liberte. COMMENT: le capital-risque occidental prend des parts et dicte la direction. Le modele souverain: AFR tokens, revenus reels, cooperation africaine. VOILA: construire lentement, posseder 100%, ne jamais vendre."),
             ] },
         EcoleLevel { slug: "doctorat", title: "Doctorat — Le Sage", cycle: "Sage",
             lessons: r#"<h3>Lecon 1: L'heritage du Sage</h3><p>Le Sage ne garde pas le savoir — il le transmet. Tu as appris les empires, les langues, le code, l'economie. Maintenant tu enseignes. Le diplome du Sage n'est pas une fin — c'est un debut: tu retournes au village et tu transmets.</p><h3>Lecon 2: L'Afrique guide l'humanite</h3><p>En 2050: 2,5 milliards d'Africains, la moitie ont moins de 25 ans. L'Afrique n'est pas l'avenir de l'humanite — elle est l'humanite. Le baton revient a qui l'a fait naitre. Les Sages africains guideront le monde — avec sagesse, pas avec force.</p>"#,
             exercises: vec![
-                ("Combien d'Africains en 2050?", "2,5 milliards"),
-                ("Quel est le devoir du Sage?", "transmettre"),
-                ("Qui guidera l'humanite en 2050?", "les sages africains"),
+                ("Combien d'Africains en 2050?", "2,5 milliards", "POURQUOI: l'avenir demographique du monde est africain. COMMENT: en 2050, 2,5 milliards d'Africains — la moitie aura moins de 25 ans. La plus grande jeunesse du monde. VOILA: le continent qui aura les mains, les tetes, et la technologie."),
+                ("Quel est le devoir du Sage?", "transmettre", "POURQUOI: le savoir garde est un savoir mort. COMMENT: le Sage a appris les empires, les langues, le code, l'economie — maintenant il retourne au village et enseigne. VOILA: la transmission est le diplome final."),
+                ("Qui guidera l'humanite en 2050?", "les sages africains", "POURQUOI: le baton revient a qui l'a fait naitre. COMMENT: l'humanite est nee en Afrique — l'ADN de tout le monde vient d'ici. En 2050, la jeunesse africaine guidera avec sagesse, pas avec force. VOILA: l'Afrique guide l'humanite."),
             ] },
 
     ]
@@ -3075,11 +3075,11 @@ fn handle_request(mut stream: TcpStream, state: Arc<Mutex<AppState>>) {
                         body.push_str("<p style='color:#238636;'>✅ Niveau complete! Passe au niveau suivant.</p>");
                     } else {
                         body.push_str(&format!("<form method='POST' action='/ecole/{}/repondre'>", lv.slug));
-                        for (i, (q, _)) in lv.exercises.iter().enumerate() {
+                        for (i, (q, _, _)) in lv.exercises.iter().enumerate() {
                             body.push_str(&format!("<p style='margin:12px 0;'><strong>Question {}:</strong> {}<br><input type='text' name='a{}' placeholder='Ta reponse...' style='width:60%;margin-top:5px;'></p>", i + 1, q, i + 1));
                         }
                         body.push_str("<button type='submit' class='btn'>📖 Le Griot evalue mes reponses</button></form>");
-                        body.push_str("<p style='color:#8b949e;font-size:0.85em;margin-top:10px;'>Les reponses sont gardees par Le Griot — il evalue en secret, comme les anciens evaluaient les jeunes autour du feu.</p>");
+                        body.push_str("<p style='color:#8b949e;font-size:0.85em;margin-top:10px;'>Les reponses sont gardees par Le Griot. Apres ta soumission, il t'explique chaque reponse: le POURQUOI, le COMMENT, et le VOILA — comme les anciens autour du feu.</p>");
                     }
                     body.push_str("</div>");
                     ("200", "text/html; charset=utf-8", html_page(lv.title, &body))
@@ -3102,12 +3102,13 @@ fn handle_request(mut stream: TcpStream, state: Arc<Mutex<AppState>>) {
                 Some(lv) => {
                     let mut correct = 0;
                     let mut results = String::new();
-                    for (i, (q, a)) in lv.exercises.iter().enumerate() {
+                    for (i, (_q, a, e)) in lv.exercises.iter().enumerate() {
                         let given = form.get(&format!("a{}", i + 1)).cloned().unwrap_or_default();
                         let ok = ecole_normalize(&given) == ecole_normalize(a);
                         if ok { correct += 1; }
-                        results.push_str(&format!("<li>{} <strong>Question {}:</strong> {}</li>",
-                            if ok { "✅" } else { "❌" }, i + 1, if ok { "juste!" } else { "a revoir" }));
+                        let bonne = if ok { String::new() } else { format!("<br>La bonne reponse: <strong>{}</strong>", a) };
+                        results.push_str(&format!("<li>{} <strong>Question {}:</strong> {}{}<br><span style=\"color:#8b949e;font-size:0.9em;\">{}</span></li>",
+                            if ok { "✅" } else { "❌" }, i + 1, if ok { "juste!" } else { "a revoir" }, bonne, e));
                     }
                     let all_ok = correct == lv.exercises.len();
                     let mut body = String::new();
@@ -3582,7 +3583,7 @@ fn main() {
     let port = 8090;
     let state = Arc::new(Mutex::new(AppState::new()));
 
-    println!("🦁 AfriForme v0.13 — La plateforme africaine de code");
+    println!("🦁 AfriForme v0.15 — La plateforme africaine de code");
     println!("📡 Serveur: http://localhost:{}", port);
     println!("👤 Utilisateurs: {}", state.lock().unwrap().users.len());
     println!("📦 Depots: {}", state.lock().unwrap().repos.len());
