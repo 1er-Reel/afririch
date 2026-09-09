@@ -1,4 +1,4 @@
-// AfriForme v0.6 — La plateforme africaine de code
+// AfriForme v0.7 — La plateforme africaine de code
 // Comme GitHub + Copilot, mais souverain, africain, zero dependance
 // Par Koffi Christ Olivier & Letta-Chan
 // Rust std only — Cargo.toml [dependencies] vide
@@ -7,6 +7,7 @@
 // v0.4: Classement + README + Recherche
 // v0.5: Fil d activite + Fork + Commentaires
 // v0.6: Notifications + Tags + Trending
+// v0.7: Issues + Follow + Repo Settings
 
 use std::collections::HashMap;
 use std::io::{Read, Write, BufRead, BufReader};
@@ -93,6 +94,17 @@ struct Notification {
     read: bool,
 }
 
+#[derive(Clone)]
+struct Issue {
+    id: usize,
+    repo_id: usize,
+    title: String,
+    body: String,
+    author: String,
+    created_at: String,
+    status: String,
+}
+
 struct AppState {
     users: Vec<User>,
     repos: Vec<Repository>,
@@ -102,6 +114,9 @@ struct AppState {
     starred: HashMap<String, Vec<usize>>, // username -> repo IDs starred
     comments: Vec<Comment>, // comments on repos
     notifications: Vec<Notification>, // user notifications
+    issues: Vec<Issue>, // bug/feature tracking
+    follows: HashMap<String, Vec<String>>, // username -> users they follow
+    next_issue_id: usize,
     next_repo_id: usize,
 }
 
@@ -116,6 +131,9 @@ impl AppState {
             starred: HashMap::new(),
             comments: Vec::new(),
             notifications: Vec::new(),
+            issues: Vec::new(),
+            follows: HashMap::new(),
+            next_issue_id: 1,
             next_repo_id: 1,
         };
         state.load();
@@ -229,7 +247,7 @@ impl AppState {
         for (i, (k, v)) in self.starred.iter().enumerate() {
             if i > 0 { starred_json.push(','); }
             let ids: Vec<String> = v.iter().map(|x| x.to_string()).collect();
-            starred_json.push_str(&format!(r#""{}":"[{}]""#, escape_json(k), ids.join(",")));
+            starred_json.push_str(&format!(r#""{}":[{}]"#, escape_json(k), ids.join(",")));
         }
         starred_json.push_str("}");
         let _ = fs::write(format!("{}/starred.json", dir), starred_json);
@@ -259,6 +277,31 @@ impl AppState {
         }
         notif_json.push_str("]");
         let _ = fs::write(format!("{}/notifications.json", dir), notif_json);
+
+        // Save issues
+        let mut issues_json = String::new();
+        issues_json.push_str("[");
+        for (i, is) in self.issues.iter().enumerate() {
+            if i > 0 { issues_json.push(','); }
+            issues_json.push_str(&format!(
+                r#"{{"id":{},"repo_id":{},"title":"{}","body":"{}","author":"{}","created_at":"{}","status":"{}"}}"#,
+                is.id, is.repo_id, escape_json(&is.title), escape_json(&is.body),
+                escape_json(&is.author), escape_json(&is.created_at), escape_json(&is.status)
+            ));
+        }
+        issues_json.push_str("]");
+        let _ = fs::write(format!("{}/issues.json", dir), issues_json);
+
+        // Save follows
+        let mut follows_json = String::new();
+        follows_json.push_str("{");
+        for (i, (k, v)) in self.follows.iter().enumerate() {
+            if i > 0 { follows_json.push(','); }
+            let users: Vec<String> = v.iter().map(|u| format!(r#""{}""#, escape_json(u))).collect();
+            follows_json.push_str(&format!(r#""{}":[{}]"#, escape_json(k), users.join(",")));
+        }
+        follows_json.push_str("}");
+        let _ = fs::write(format!("{}/follows.json", dir), follows_json);
     }
 
     fn load(&mut self) {
@@ -290,6 +333,24 @@ impl AppState {
         // Load notifications
         if let Ok(data) = fs::read_to_string(format!("{}/notifications.json", dir)) {
             self.notifications = parse_notifications(&data);
+        }
+
+        // Load issues
+        if let Ok(data) = fs::read_to_string(format!("{}/issues.json", dir)) {
+            self.issues = parse_issues(&data);
+            if let Some(last) = self.issues.last() {
+                self.next_issue_id = last.id + 1;
+            }
+        }
+
+        // Load follows
+        if let Ok(data) = fs::read_to_string(format!("{}/follows.json", dir)) {
+            self.follows = parse_follows(&data);
+        }
+
+        // Load starred
+        if let Ok(data) = fs::read_to_string(format!("{}/starred.json", dir)) {
+            self.starred = parse_starred(&data);
         }
     }
 
@@ -359,6 +420,76 @@ impl AppState {
             if n.username == username {
                 n.read = true;
             }
+        }
+    }
+
+    fn get_repo_issues(&self, repo_id: usize) -> Vec<&Issue> {
+        self.issues.iter().filter(|i| i.repo_id == repo_id).collect()
+    }
+
+    fn add_issue(&mut self, repo_id: usize, title: &str, body: &str, author: &str) {
+        let id = self.next_issue_id;
+        self.next_issue_id += 1;
+        self.issues.push(Issue {
+            id, repo_id,
+            title: title.to_string(),
+            body: body.to_string(),
+            author: author.to_string(),
+            created_at: now_string(),
+            status: "open".to_string(),
+        });
+    }
+
+    fn toggle_issue_status(&mut self, issue_id: usize) {
+        if let Some(issue) = self.issues.iter_mut().find(|i| i.id == issue_id) {
+            issue.status = if issue.status == "open" { "closed".to_string() } else { "open".to_string() };
+        }
+    }
+
+    fn is_following(&self, follower: &str, target: &str) -> bool {
+        self.follows.get(follower).map(|list| list.contains(&target.to_string())).unwrap_or(false)
+    }
+
+    fn toggle_follow(&mut self, follower: &str, target: &str) {
+        let list = self.follows.entry(follower.to_string()).or_insert_with(Vec::new);
+        if let Some(pos) = list.iter().position(|x| x == target) {
+            list.remove(pos);
+        } else {
+            list.push(target.to_string());
+        }
+    }
+
+    fn get_followers(&self, username: &str) -> Vec<String> {
+        self.follows.iter()
+            .filter(|(_, list)| list.contains(&username.to_string()))
+            .map(|(k, _)| k.clone())
+            .collect()
+    }
+
+    fn get_following(&self, username: &str) -> Vec<String> {
+        self.follows.get(username).cloned().unwrap_or_default()
+    }
+
+    fn update_repo_settings(&mut self, owner: &str, repo_name: &str, description: &str, is_public: bool) -> bool {
+        if let Some(repo) = self.find_repo_mut(owner, repo_name) {
+            repo.description = description.to_string();
+            repo.is_public = is_public;
+            true
+        } else {
+            false
+        }
+    }
+
+    fn delete_repo(&mut self, owner: &str, repo_name: &str) -> bool {
+        if let Some(pos) = self.repos.iter().position(|r| r.owner == owner && r.name == repo_name) {
+            let repo_id = self.repos[pos].id;
+            self.repos.remove(pos);
+            self.courses.retain(|c| c.repo_id != repo_id);
+            self.issues.retain(|i| i.repo_id != repo_id);
+            self.comments.retain(|c| c.repo_id != repo_id);
+            true
+        } else {
+            false
         }
     }
 
@@ -1245,7 +1376,7 @@ a:hover{{text-decoration:underline;}}
 <div class="container">
 {}
 </div>
-<div class="footer">🦁 AfriForme v0.6 — La plateforme africaine de code — Par Koffi Christ Olivier & Letta-Chan — Rust std only, zero dependance</div>
+<div class="footer">🦁 AfriForme v0.7 — La plateforme africaine de code — Par Koffi Christ Olivier & Letta-Chan — Rust std only, zero dependance</div>
 </body>
 </html>"##, title, body)
 }
@@ -1467,7 +1598,7 @@ fn html_new_repo() -> String {
     html_page("Nouveau depot", body)
 }
 
-fn html_repo_view(repo: &Repository, owner: &str, name: &str, is_owner: bool, current_user_opt: Option<&str>, comments_html: &str) -> String {
+fn html_repo_view(repo: &Repository, owner: &str, name: &str, is_owner: bool, current_user_opt: Option<&str>, comments_html: &str, issues_html: &str) -> String {
     let files_html = if repo.files.is_empty() {
         if is_owner {
             format!("<div class='empty'>Aucun fichier. <a href='/{}/{}/upload'>Ajouter un fichier</a></div>", owner, name)
@@ -1507,7 +1638,7 @@ fn html_repo_view(repo: &Repository, owner: &str, name: &str, is_owner: bool, cu
     };
 
     let owner_actions = if is_owner {
-        format!(r#"<a href="/{}/{}/upload" class="btn btn-secondary">+ Ajouter fichier</a>"#, owner, name)
+        format!(r#"<a href="/{}/{}/upload" class="btn btn-secondary">+ Ajouter fichier</a> <a href="/{}/{}/settings" class="btn btn-secondary">⚙ Parametres</a>"#, owner, name, owner, name)
     } else {
         String::new()
     };
@@ -1526,13 +1657,6 @@ fn html_repo_view(repo: &Repository, owner: &str, name: &str, is_owner: bool, cu
         }
     } else {
         String::new()
-    };
-
-    // Comments section
-    let comments_html = {
-        // We need the repo_id to get comments, but we only have repo here
-        // Since repo is borrowed, we can use repo.id directly
-        format!("<h2>💬 Commentaires</h2>")
     };
 
     let body = format!(r#"
@@ -1558,7 +1682,9 @@ fn html_repo_view(repo: &Repository, owner: &str, name: &str, is_owner: bool, cu
 {}
 {}
 {}
-"#, owner, name, repo.description, owner, name,
+{}
+{}
+"#, owner, name, repo.description, tags_html,
     if repo.language == "Rust" { "rust" } else if repo.language == "Python" { "python" } else { "js" },
     repo.language,
     owner_actions,
@@ -1566,7 +1692,7 @@ fn html_repo_view(repo: &Repository, owner: &str, name: &str, is_owner: bool, cu
     if repo.is_public { "Public" } else { "Prive" },
     star_form, fork_form,
     repo.stars, repo.forks, repo.files.len(),
-    tags_html, readme_html, files_html, comments_html
+    owner, name, tags_html, readme_html, files_html, comments_html, issues_html
     );
 
     html_page(&format!("{}/{}", owner, name), &body)
@@ -1646,6 +1772,20 @@ fn html_user_profile(user: &User, state: &AppState, current_user: Option<&str>) 
         String::new()
     };
 
+    let follow_btn = if let Some(cu) = current_user {
+        if cu != user.username {
+            let is_following = state.is_following(cu, &user.username);
+            format!(r#"<form method="POST" action="/follow/{}" style="display:inline;"><button type="submit" class="btn {}">{}</button></form>"#,
+                user.username,
+                if is_following { "btn-secondary" } else { "" },
+                if is_following { "Suivi" } else { "+ Suivre" }
+            )
+        } else { String::new() }
+    } else { String::new() };
+
+    let follower_count = state.get_followers(&user.username).len();
+    let following_count = state.get_following(&user.username).len();
+
     let total_stars: usize = user_repos.iter().map(|r| r.stars).sum();
 
     let body = format!(r#"
@@ -1660,7 +1800,10 @@ fn html_user_profile(user: &User, state: &AppState, current_user: Option<&str>) 
 <div class="stat"><div class="num">{}</div><div class="label">Depots</div></div>
 <div class="stat"><div class="num">{}</div><div class="label">Diplomes</div></div>
 <div class="stat"><div class="num">⭐ {}</div><div class="label">Stars recues</div></div>
+<div class="stat"><div class="num">{}</div><div class="label">Abonnes</div></div>
+<div class="stat"><div class="num">{}</div><div class="label">Suivis</div></div>
 </div>
+<div style="margin:10px 0;">{}</div>
 </div>
 <h2>📦 Depots</h2>
 {}
@@ -1669,8 +1812,8 @@ fn html_user_profile(user: &User, state: &AppState, current_user: Option<&str>) 
 "#, user.username, user.country, user.created_at,
     if user.bio.is_empty() { "Pas de bio encore." } else { &user.bio },
     edit_bio,
-    user_repos.len(), diplomas.len(), total_stars,
-    repos_html, diplomas_html);
+    user_repos.len(), diplomas.len(), total_stars, follower_count, following_count,
+    follow_btn, repos_html, diplomas_html);
 
     html_page(&format!("Profil: {}", user.username), &body)
 }
@@ -1858,6 +2001,104 @@ fn parse_notifications(data: &str) -> Vec<Notification> {
         }
     }
     notifications
+}
+
+fn parse_issues(data: &str) -> Vec<Issue> {
+    let mut issues = Vec::new();
+    let data = data.trim();
+    if data == "[]" || data.is_empty() { return issues; }
+    let mut depth = 0;
+    let mut start = 0;
+    for (i, ch) in data.char_indices() {
+        if ch == '{' {
+            if depth == 0 { start = i; }
+            depth += 1;
+        } else if ch == '}' {
+            depth -= 1;
+            if depth == 0 {
+                let obj = &data[start..=i];
+                issues.push(Issue {
+                    id: extract_json_num(obj, "id").unwrap_or(0.0) as usize,
+                    repo_id: extract_json_num(obj, "repo_id").unwrap_or(0.0) as usize,
+                    title: extract_json_str(obj, "title").unwrap_or_default(),
+                    body: extract_json_str(obj, "body").unwrap_or_default(),
+                    author: extract_json_str(obj, "author").unwrap_or_default(),
+                    created_at: extract_json_str(obj, "created_at").unwrap_or_default(),
+                    status: extract_json_str(obj, "status").unwrap_or_default(),
+                });
+            }
+        }
+    }
+    issues
+}
+
+fn parse_follows(data: &str) -> HashMap<String, Vec<String>> {    let mut follows = HashMap::new();
+    let data = data.trim();
+    if data == "{}" || data.is_empty() { return follows; }
+    let mut pos = 0;
+    let bytes = data.as_bytes();
+    while pos < bytes.len() {
+        if bytes[pos] == b'"' {
+            let key_start = pos + 1;
+            let mut key_end = key_start;
+            while key_end < bytes.len() && bytes[key_end] != b'"' { key_end += 1; }
+            let key = unescape_json(&data[key_start..key_end]);
+            pos = key_end + 1;
+            while pos < bytes.len() && bytes[pos] != b'[' { pos += 1; }
+            pos += 1;
+            let mut users = Vec::new();
+            while pos < bytes.len() && bytes[pos] != b']' {
+                if bytes[pos] == b'"' {
+                    let ustart = pos + 1;
+                    let mut uend = ustart;
+                    while uend < bytes.len() && bytes[uend] != b'"' {
+                        if bytes[uend] == b'\\' { uend += 2; continue; }
+                        uend += 1;
+                    }
+                    users.push(unescape_json(&data[ustart..uend]));
+                    pos = uend + 1;
+                } else { pos += 1; }
+            }
+            follows.insert(key, users);
+        } else { pos += 1; }
+    }
+    follows
+}
+
+fn parse_starred(data: &str) -> HashMap<String, Vec<usize>> {
+    let mut starred: HashMap<String, Vec<usize>> = HashMap::new();
+    let data = data.trim();
+    if data == "{}" || data.is_empty() { return starred; }
+    let mut pos = 0;
+    let bytes = data.as_bytes();
+    while pos < bytes.len() {
+        if bytes[pos] == b'"' {
+            let key_start = pos + 1;
+            let mut key_end = key_start;
+            while key_end < bytes.len() && bytes[key_end] != b'"' { key_end += 1; }
+            let key = unescape_json(&data[key_start..key_end]);
+            pos = key_end + 1;
+            while pos < bytes.len() && bytes[pos] != b'[' { pos += 1; }
+            pos += 1;
+            let mut ids = Vec::new();
+            let mut num = String::new();
+            while pos < bytes.len() && bytes[pos] != b']' {
+                let c = bytes[pos] as char;
+                if c.is_ascii_digit() {
+                    num.push(c);
+                } else if !num.is_empty() {
+                    if let Ok(id) = num.parse::<usize>() { ids.push(id); }
+                    num.clear();
+                }
+                pos += 1;
+            }
+            if !num.is_empty() {
+                if let Ok(id) = num.parse::<usize>() { ids.push(id); }
+            }
+            starred.insert(key, ids);
+        } else { pos += 1; }
+    }
+    starred
 }
 
 fn html_explore(state: &AppState) -> String {
@@ -2457,6 +2698,29 @@ fn handle_request(mut stream: TcpStream, state: Arc<Mutex<AppState>>) {
                         }
                     } else if sub == "upload" && is_owner {
                         ("200", "text/html; charset=utf-8", html_upload(owner, repo_name))
+                    } else if sub == "settings" && is_owner {
+                        let vis_checked_pub = if repo.is_public { "checked" } else { "" };
+                        let vis_checked_priv = if !repo.is_public { "checked" } else { "" };
+                        ("200", "text/html; charset=utf-8", html_page(&format!("Parametres — {}/{}", owner, repo_name), &format!(r#"
+<div class="card">
+  <h2>⚙ Parametres du depot</h2>
+  <form method="POST" action="/{}/{}/settings">
+    <p><label>Description</label><br><input type="text" name="description" value="{}" style="width:90%;"></p>
+    <p><label>Visibilite</label><br>
+      <input type="radio" name="visibility" value="public" {}> Public
+      <input type="radio" name="visibility" value="private" {}> Prive
+    </p>
+    <button type="submit" class="btn">Enregistrer</button>
+  </form>
+</div>
+<div class="card" style="border:1px solid #f85149;">
+  <h2 style="color:#f85149;">⚠ Zone dangereuse</h2>
+  <form method="POST" action="/{}/{}/settings" onsubmit="return confirm('Supprimer ce depot definitivement?');">
+    <input type="hidden" name="op" value="delete">
+    <button type="submit" class="btn btn-danger">Supprimer ce depot</button>
+  </form>
+</div>
+"#, owner, repo_name, repo.description, vis_checked_pub, vis_checked_priv, owner, repo_name)))
                     } else if sub.is_empty() {
                         let repo_id = repo.id;
                         let repo_comments: Vec<&Comment> = s.get_repo_comments(repo_id);
@@ -2475,10 +2739,28 @@ fn handle_request(mut stream: TcpStream, state: Arc<Mutex<AppState>>) {
                             }
                             html
                         };
+                        let repo_issues: Vec<&Issue> = s.get_repo_issues(repo_id);
+                        let open_count = repo_issues.iter().filter(|i| i.status == "open").count();
+                        let mut issues_html = format!("<h2>🐛 Issues ({})</h2>", open_count);
+                        if repo_issues.is_empty() {
+                            issues_html.push_str("<div class='empty'>Aucune issue. Ce depot est sain!</div>");
+                        } else {
+                            for i in &repo_issues {
+                                let status = if i.status == "open" { "<span class=\"badge\" style=\"background:#f85149;color:#fff;\">Ouverte</span>" } else { "<span class=\"badge\" style=\"background:#238636;color:#fff;\">Fermee</span>" };
+                                issues_html.push_str(&format!(
+                                    r#"<div class="card" style="padding:10px;margin:5px 0;">{} <strong>#{}</strong> {} <span style="color:#8b949e;font-size:0.8em;">par {} · {}</span><br>{}<form method="POST" action="/{}/{}/issue/{}/toggle" style="display:inline;"><button type="submit" class="btn btn-secondary" style="font-size:0.7em;">{}</button></form></div>"#,
+                                    status, i.id, i.title, i.author, i.created_at, i.body, owner, repo_name, i.id,
+                                    if i.status == "open" { "Fermer" } else { "Reouvrir" }
+                                ));
+                            }
+                        }
+                        if current_user.is_some() {
+                            issues_html.push_str(&format!(r#"<form method="POST" action="/{}/{}/issue" style="margin:10px 0;"><input type="text" name="title" placeholder="Titre du bug..." style="width:45%;"><input type="text" name="body" placeholder="Details..." style="width:45%;"><button type="submit">Signaler</button></form>"#, owner, repo_name));
+                        }
                         drop(s);
                         let s2 = state.lock().unwrap();
                         let repo2 = s2.find_repo(owner, repo_name).unwrap();
-                        ("200", "text/html; charset=utf-8", html_repo_view(repo2, owner, repo_name, is_owner, current_user.as_deref(), &comments_html))
+                        ("200", "text/html; charset=utf-8", html_repo_view(repo2, owner, repo_name, is_owner, current_user.as_deref(), &comments_html, &issues_html))
                     } else {
                         ("404", "text/html; charset=utf-8", html_page("404", "<div class='empty'>Page non trouvee</div>"))
                     }
@@ -2487,6 +2769,28 @@ fn handle_request(mut stream: TcpStream, state: Arc<Mutex<AppState>>) {
                 }
             } else {
                 ("404", "text/html; charset=utf-8", html_page("404", "<div class='empty'>Page non trouvee</div>"))
+            }
+        }
+        (m, p) if m == "POST" && p.starts_with("/follow/") => {
+            // POST /follow/{username}
+            let target = p.trim_start_matches("/follow/").trim_end_matches('/');
+            if target.is_empty() || target.contains('/') {
+                ("404", "text/html; charset=utf-8", html_page("404", "<div class='empty'>Page non trouvee</div>"))
+            } else if let Some(user) = &current_user {
+                if user == target {
+                    ("302", "text/html", format!("Location: /{}", target))
+                } else {
+                    let mut s = state.lock().unwrap();
+                    let was_following = s.is_following(user, target);
+                    s.toggle_follow(user, target);
+                    if !was_following {
+                        s.add_notification(target, &format!("{} te suit maintenant", user), &format!("/{}", user));
+                    }
+                    s.save();
+                    ("302", "text/html", format!("Location: /{}", target))
+                }
+            } else {
+                ("302", "text/html", "Location: /login".to_string())
             }
         }
         (m, p) if m == "POST" && p.matches('/').count() >= 2 => {
@@ -2549,6 +2853,55 @@ fn handle_request(mut stream: TcpStream, state: Arc<Mutex<AppState>>) {
                         ("302", "text/html", format!("Location: /{}/{}", owner, repo_name))
                     } else {
                         ("302", "text/html", "Location: /login".to_string())
+                    }
+                } else if action == "issue" {
+                    if let Some(user) = &current_user {
+                        let form = parse_form(body_part);
+                        if let Some(rest) = parts.get(3) {
+                            // POST /owner/repo/issue/{id}/toggle
+                            let sub_parts: Vec<&str> = rest.split('/').collect();
+                            if sub_parts.len() == 2 && sub_parts[1] == "toggle" {
+                                if let Ok(issue_id) = sub_parts[0].parse::<usize>() {
+                                    let mut s = state.lock().unwrap();
+                                    s.toggle_issue_status(issue_id);
+                                    s.save();
+                                }
+                            }
+                        } else {
+                            let title = form.get("title").cloned().unwrap_or_default();
+                            let body_text = form.get("body").cloned().unwrap_or_default();
+                            if !title.is_empty() {
+                                let mut s = state.lock().unwrap();
+                                if let Some(repo) = s.find_repo(owner, repo_name) {
+                                    let repo_id = repo.id;
+                                    s.add_issue(repo_id, user, &title, &body_text);
+                                    s.save();
+                                }
+                            }
+                        }
+                        ("302", "text/html", format!("Location: /{}/{}", owner, repo_name))
+                    } else {
+                        ("302", "text/html", "Location: /login".to_string())
+                    }
+                } else if action == "settings" {
+                    if !is_owner {
+                        ("403", "text/html; charset=utf-8", html_page("403", "<div class='empty'>Acces refuse</div>"))
+                    } else {
+                        let form = parse_form(body_part);
+                        let op = form.get("op").cloned().unwrap_or_default();
+                        if op == "delete" {
+                            let mut s = state.lock().unwrap();
+                            s.delete_repo(owner, repo_name);
+                            s.save();
+                            ("302", "text/html", format!("Location: /{}", owner))
+                        } else {
+                            let description = form.get("description").cloned().unwrap_or_default();
+                            let is_public = form.get("visibility").map(|v| v == "public").unwrap_or(true);
+                            let mut s = state.lock().unwrap();
+                            s.update_repo_settings(owner, repo_name, &description, is_public);
+                            s.save();
+                            ("302", "text/html", format!("Location: /{}/{}", owner, repo_name))
+                        }
                     }
                 } else if !is_owner {
                     ("403", "text/html; charset=utf-8", html_page("403", "<div class='empty'>Acces refuse</div>"))
@@ -2624,7 +2977,7 @@ fn main() {
     let port = 8090;
     let state = Arc::new(Mutex::new(AppState::new()));
 
-    println!("🦁 AfriForme v0.6 — La plateforme africaine de code");
+    println!("🦁 AfriForme v0.7 — La plateforme africaine de code");
     println!("📡 Serveur: http://localhost:{}", port);
     println!("👤 Utilisateurs: {}", state.lock().unwrap().users.len());
     println!("📦 Depots: {}", state.lock().unwrap().repos.len());
