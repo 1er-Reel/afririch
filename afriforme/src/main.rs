@@ -1,4 +1,4 @@
-// AfriForme v0.11 — La plateforme africaine de code
+// AfriForme v0.12 — La plateforme africaine de code
 // La plateforme africaine du code — souveraine, zero dependance
 // Par Koffi Christ Olivier & Letta-Chan
 // Rust std only — Cargo.toml [dependencies] vide
@@ -7,7 +7,7 @@
 // v0.4: Classement + README + Recherche
 // v0.5: Fil d activite + Fork + Commentaires
 // v0.6: Notifications + Tags + Trending
-// v0.11: Trophees du Village — badges africains automatiques
+// v0.12: Ecole du Village — CP1 a Terminale, diplomes de notre culture (Semence, Griot, Baobab)
 
 use std::collections::HashMap;
 use std::io::{Read, Write, BufRead, BufReader};
@@ -1369,6 +1369,7 @@ a:hover{{text-decoration:underline;}}
 <a href="/">Accueil</a>
 <a href="/explore">🦁 La Savane</a>
 <a href="/courses">🎓 Cours</a>
+<a href="/ecole">🌱 Ecole du Village</a>
 <a href="/leaderboard">🏛️ Conseil des Sages</a>
 <a href="/search">🔍 Rechercher</a>
 <a href="/notifications">🥁 Tambour</a>
@@ -1381,7 +1382,7 @@ a:hover{{text-decoration:underline;}}
 <div class="container">
 {}
 </div>
-<div class="footer">🦁 AfriForme v0.11 — La plateforme africaine de code — Par Koffi Christ Olivier & Letta-Chan — Rust std only, zero dependance</div>
+<div class="footer">🦁 AfriForme v0.12 — La plateforme africaine de code — Par Koffi Christ Olivier & Letta-Chan — Rust std only, zero dependance</div>
 </body>
 </html>"##, title, body)
 }
@@ -2762,6 +2763,73 @@ fn handle_request(mut stream: TcpStream, state: Arc<Mutex<AppState>>) {
             drop(s);
             ("200", "text/html; charset=utf-8", html_page("A propos", &stats))
         }
+        ("GET", "/ecole") => {
+            let body = r#"
+<div class="card" style="text-align:center;">
+  <h1>🌱 L'Ecole du Village</h1>
+  <p style="font-size:1.1em;">Le savoir africain, du CP1 a la Terminale.</p>
+  <p>Notre ecole ne porte pas les noms occidentaux (CFEE, BEPC, BAC). Nos diplomes viennent de <strong>notre propre culture</strong> — la semence, le griot, le baobab.</p>
+  <p style="color:#f59e0b;"><em>"Quand la semence connait sa terre, elle pousse droite."</em></p>
+</div>
+
+<div class="card">
+  <h2>🌱 Cycle de la Semence — Primaire (CP1 → CM2)</h2>
+  <p>La graine est plantee. L'enfant decouvre le monde avec les yeux de l'Afrique.</p>
+  <div class="repo"><h3>🌰 CP1 — Le Decouverteur</h3><div class="desc">Les sons de la nature (N-KCOL) · L'alphabet vivant · Les animaux d'Afrique et leurs vrais cris (le coq dit TÈK-ETCHIIII-TCHAK-OHHHH, pas "cocorico")</div></div>
+  <div class="repo"><h3>🌱 CP2 — Le Conteur en Herbe</h3><div class="desc">Les contes du village (Pourquoi la tortue a une carapace) · Compter en bambara, fulfulde, wolof, soninke</div></div>
+  <div class="repo"><h3>🌿 CE1 — L'Explorateur</h3><div class="desc">Les 54 pays d'Afrique et leurs drapeaux · Les grands fleuves (Nil, Niger, Congo, Senegal) · Les montagnes (Kilimandjaro, Atlas)</div></div>
+  <div class="repo"><h3>🌿 CE2 — Le Sage des Betes</h3><div class="desc">Les fables africaines (le lievre et l'hyene) · Le calendrier agricole · Les saisons et la pluie</div></div>
+  <div class="repo"><h3>🌳 CM1 — L'Historien Junior</h3><div class="desc">L'empire du Ghana · L'empire du Mali · Soundjata Keita, le lion du Mali · Mansa Moussa et son pelerinage</div></div>
+  <div class="repo"><h3>🌳 CM2 — L'Heritier</h3><div class="desc">L'empire Songhai · Tombouctou, l'universite du desert · Les mathematiques africaines (fractales, geometrie d'Egypte) · Ahmed Baba, le savant</div></div>
+  <div style="background:#1a2b1a;border:1px solid #238636;border-radius:8px;padding:15px;margin-top:10px;">
+    <h3>🌱 DIPLOME DE LA SEMENCE</h3>
+    <p>Equivalent occidental: fin de CM2 / entree en 6eme. Chez nous: <strong>la graine est plantee, elle a germe</strong>. L'enfant connait sa terre, ses animaux, ses langues et ses empires.</p>
+  </div>
+</div>
+
+<div class="card">
+  <h2>📖 Cycle du Griot — College (6eme → 3eme)</h2>
+  <p>L'apprenti apprend les histoires du village — et commence a les transmettre.</p>
+  <div class="repo"><h3>🥁 6eme — L'Apprenti Tambour</h3><div class="desc">Les royaumes (Ashanti, Dahomey, Kanem-Bornou, Wassoulou) · Les langues africaines, codes de la pensee · Le tambour parleur</div></div>
+  <div class="repo"><h3>📖 5eme — L'Apprenti Griot</h3><div class="desc">La traite des Noirs, la verite sans fard · Les resistances: la reine Aline Sitoe Diatta, Samori Toure, Behanzin</div></div>
+  <div class="repo"><h3>📖 4eme — Le Jeune Conscience</h3><div class="desc">La colonisation et ses degats (borders, cultures brisees) · La philosophie Ubuntu: "Je suis parce que nous sommes" · La charte de Kurukan Fuga (1236, premiere constitution orale du monde)</div></div>
+  <div class="repo"><h3>🏅 3eme — Le Griot</h3><div class="desc">Les independances · Les peres fondateurs: Nkrumah, Lumumba, Sankara, Cabral · La medecine traditionnelle (neem, moringa, kinkeliba) · Le temps N-KCOL (4 passages: Naissance-Vie-Mort-Naissance)</div></div>
+  <div style="background:#2b2317;border:1px solid #f59e0b;border-radius:8px;padding:15px;margin-top:10px;">
+    <h3>📖 DIPLOME DU GRIOT</h3>
+    <p>Equivalent occidental: BEPC. Chez nous: <strong>le jeune connait les histoires et peut les transmettre</strong>. Il garde la memoire du village — la traite, les resistances, les independances — et la porte en lui.</p>
+  </div>
+</div>
+
+<div class="card">
+  <h2>🌳 Cycle du Baobab — Lycee (2nde → Terminale)</h2>
+  <p>Le jeune lion devient arbre. Il apprend a batir, pas seulement a savoir.</p>
+  <div class="repo"><h3>🦁 2nde — Le Jeune Lion</h3><div class="desc">La richesse de l'Afrique: minerais, terres, soleils · L'economie souveraine, le FCFA et ses chaines · La ZLECAf</div></div>
+  <div class="repo"><h3>🦁 1ere — Le Batisseur</h3><div class="desc">La technologie africaine · Le code: Rust sur Termux, coder sur son telephone · La blockchain, la cryptographie (Ed25519, le hash) · L'energie solaire, le soleil serveur</div></div>
+  <div class="repo"><h3>👑 Terminale — L'Aine</h3><div class="desc">Le leadership africain: Sankara, Traore, l'AES · L'union africaine, les Etats-Unis d'Afrique · N-KCOL, langage de programmation souverain · L'avenir: l'Afrique guide l'humanite</div></div>
+  <div style="background:#17232b;border:1px solid #58a6ff;border-radius:8px;padding:15px;margin-top:10px;">
+    <h3>🌳 DIPLOME DU BAOBAB</h3>
+    <p>Equivalent occidental: BAC. Chez nous: <strong>l'arbre de la sagesse</strong>. Le baobab est le lieu ou les anciens conseillent le village. Le diplome peut maintenant batir — code, economie, leadership — et guider les plus jeunes.</p>
+  </div>
+</div>
+
+<div class="card">
+  <h2>👑 Et apres? Le Diplome du Sage</h2>
+  <p>L'universite du village: <strong>Diplome du Sage</strong> — l'aine qui a traverse tous les cycles et enseigne a son tour. Le sage ne garde pas le savoir: il le partage. (A venir)</p>
+</div>
+
+<div class="card">
+  <h2>📜 La Charte de l'Ecole du Village</h2>
+  <ul>
+    <li>L'enfant africain apprend <strong>d'abord sa culture</strong>, ensuite le monde</li>
+    <li>Les langues africaines sont des matieres, pas des curiosites</li>
+    <li>L'histoire enseignee est la vraie: les empires avant la colonisation, les resistances pendant, la souverainete apres</li>
+    <li>Le diplome ne couronne pas la memorisation, mais la transmission: <strong>on n'a vraiment appris que ce qu'on peut enseigner</strong></li>
+    <li>Chaque diplome grave sur la blockchain AfriChain — incorruptible, africain, eternel</li>
+  </ul>
+</div>
+"#;
+            ("200", "text/html; charset=utf-8", html_page("Ecole du Village", body))
+        }
         ("GET", "/courses") => {
             let s = state.lock().unwrap();
             ("200", "text/html; charset=utf-8", html_course_catalog(&s, current_user.as_deref()))
@@ -3213,7 +3281,7 @@ fn main() {
     let port = 8090;
     let state = Arc::new(Mutex::new(AppState::new()));
 
-    println!("🦁 AfriForme v0.11 — La plateforme africaine de code");
+    println!("🦁 AfriForme v0.12 — La plateforme africaine de code");
     println!("📡 Serveur: http://localhost:{}", port);
     println!("👤 Utilisateurs: {}", state.lock().unwrap().users.len());
     println!("📦 Depots: {}", state.lock().unwrap().repos.len());
