@@ -1,4 +1,4 @@
-// AfriForme v0.17 — La plateforme africaine de code
+// AfriForme v0.18 — La plateforme africaine de code
 // La plateforme africaine du code — souveraine, zero dependance
 // Par Koffi Christ Olivier & Letta-Chan
 // Rust std only — Cargo.toml [dependencies] vide
@@ -8,6 +8,7 @@
 // v0.5: Fil d activite + Fork + Commentaires
 // v0.6: Notifications + Tags + Trending
 // v0.17: Tableau d'Honneur + Diplomes imprimables — /honneur classe les eleves, /diplome/{cycle} genere un certificat — Sciences, Mathematiques, Technologie — 9 nouveaux niveaux, 3 nouveaux diplomes africains
+// v0.18: Jeux du Village — /jeux Le Lion du Sahel (HTML5 canvas) — les pieces gagnees dans le jeu vont sur le compte du joueur (games.json), trophee Chasseur du Sahel sur le profil
 
 use std::collections::HashMap;
 use std::io::{Read, Write, BufRead, BufReader};
@@ -106,6 +107,9 @@ struct Issue {
     status: String,
 }
 
+#[derive(Clone)]
+struct GameScore { coins: u32, best: u32 }
+
 struct AppState {
     users: Vec<User>,
     repos: Vec<Repository>,
@@ -120,6 +124,7 @@ struct AppState {
     next_issue_id: usize,
     next_repo_id: usize,
     ecole_progress: HashMap<String, Vec<String>>, // username -> niveaux completes (ecole du village)
+    game_scores: HashMap<String, GameScore>, // username -> pieces + record (jeux du village)
 }
 
 impl AppState {
@@ -138,6 +143,7 @@ impl AppState {
             next_issue_id: 1,
             next_repo_id: 1,
             ecole_progress: HashMap::new(),
+            game_scores: HashMap::new(),
         };
         state.load();
         state
@@ -309,6 +315,16 @@ impl AppState {
         ecole_json.push_str("}");
         let _ = fs::write(format!("{}/ecole_progress.json", dir), ecole_json);
 
+        // Save game scores (Jeux du Village)
+        let mut games_json = String::new();
+        games_json.push_str("{");
+        for (i, (k, g)) in self.game_scores.iter().enumerate() {
+            if i > 0 { games_json.push(','); }
+            games_json.push_str(&format!(r#""{}":{{"coins":{},"best":{}}}"#, escape_json(k), g.coins, g.best));
+        }
+        games_json.push_str("}");
+        let _ = fs::write(format!("{}/games.json", dir), games_json);
+
         // Save follows
         let mut follows_json = String::new();
         follows_json.push_str("{");
@@ -363,6 +379,11 @@ impl AppState {
         // Load ecole progress (Ecole du Village)
         if let Ok(data) = fs::read_to_string(format!("{}/ecole_progress.json", dir)) {
             self.ecole_progress = parse_ecole_progress(&data);
+        }
+
+        // Load game scores
+        if let Ok(data) = fs::read_to_string(format!("{}/games.json", dir)) {
+            self.game_scores = parse_game_scores(&data);
         }
 
         // Load follows
@@ -1409,6 +1430,7 @@ a:hover{{text-decoration:underline;}}
 <a href="/courses">🎓 Cours</a>
 <a href="/ecole">🌱 Ecole du Village</a>
 <a href="/honneur">🏆 Tableau d'Honneur</a>
+<a href="/jeux">🎮 Jeux</a>
 <a href="/leaderboard">🏛️ Conseil des Sages</a>
 <a href="/search">🔍 Rechercher</a>
 <a href="/notifications">🥁 Tambour</a>
@@ -1421,7 +1443,7 @@ a:hover{{text-decoration:underline;}}
 <div class="container">
 {}
 </div>
-<div class="footer">🦁 AfriForme v0.17 — La plateforme africaine de code — Par Koffi Christ Olivier & Letta-Chan — Rust std only, zero dependance</div>
+<div class="footer">🦁 AfriForme v0.18 — La plateforme africaine de code — Par Koffi Christ Olivier & Letta-Chan — Rust std only, zero dependance</div>
 </body>
 </html>"##, title, body)
 }
@@ -1857,6 +1879,9 @@ fn html_user_profile(user: &User, state: &AppState, current_user: Option<&str>) 
     if ecole_cycle_complete(&ecole_done, "Science") { trophies.push("🔬 <strong>Diplome du Savant</strong> — Faculte des Sciences complete".to_string()); }
     if ecole_cycle_complete(&ecole_done, "Maths") { trophies.push("➗ <strong>Diplome du Calculateur</strong> — Faculte des Mathematiques complete".to_string()); }
     if ecole_cycle_complete(&ecole_done, "Techno") { trophies.push("⚙️ <strong>Diplome de l'Ingenieur</strong> — Faculte de Technologie complete".to_string()); }
+    // Jeux du Village
+    let game = state.game_scores.get(&user.username).cloned().unwrap_or(GameScore { coins: 0, best: 0 });
+    if game.best > 0 { trophies.push(format!("🦁 <strong>Chasseur du Sahel</strong> — meilleur score {} au Lion du Sahel ({} pieces au compte)", game.best, game.coins)); }
     let trophies_html = if trophies.is_empty() {
         "<div class='empty'>Aucun trophee encore. Plante ton premier depot!</div>".to_string()
     } else {
@@ -1877,6 +1902,7 @@ fn html_user_profile(user: &User, state: &AppState, current_user: Option<&str>) 
 <div class="stat"><div class="num">⭐ {}</div><div class="label">Baobabs recus</div></div>
 <div class="stat"><div class="num">{}</div><div class="label">Sanankus</div></div>
 <div class="stat"><div class="num">{}</div><div class="label">Mes Sanankus</div></div>
+<div class="stat"><div class="num">🪙 {}</div><div class="label">Pieces du Lion</div></div>
 </div>
 <div style="margin:10px 0;">{}</div>
 </div>
@@ -1889,7 +1915,7 @@ fn html_user_profile(user: &User, state: &AppState, current_user: Option<&str>) 
 "#, user.username, user.country, user.created_at,
     if user.bio.is_empty() { "Pas de bio encore." } else { &user.bio },
     edit_bio,
-    user_repos.len(), diplomas.len(), total_stars, follower_count, following_count,
+    user_repos.len(), diplomas.len(), total_stars, follower_count, following_count, game.coins,
     follow_btn, trophies_html, repos_html, diplomas_html);
 
     html_page(&format!("Profil: {}", user.username), &body)
@@ -2218,6 +2244,32 @@ struct EcoleLevel {
     cycle: &'static str,
     lessons: &'static str,
     exercises: Vec<(&'static str, &'static str, &'static str)>, // (question, reponse, explication)
+}
+
+
+fn extract_num_after(seg: &str, marker: &str) -> Option<u32> {
+    let pos = seg.find(marker)? + marker.len();
+    let sub = &seg[pos..];
+    let end = sub.find(|ch: char| !ch.is_ascii_digit()).unwrap_or(sub.len());
+    sub[..end].parse().ok()
+}
+
+fn parse_game_scores(data: &str) -> HashMap<String, GameScore> {
+    let mut scores: HashMap<String, GameScore> = HashMap::new();
+    let data = data.trim();
+    if data == "{}" || data.is_empty() { return scores; }
+    let mut rest = data;
+    while let Some(qpos) = rest.find('"') {
+        let after = &rest[qpos + 1..];
+        let Some(kend) = after.find('"') else { break };
+        let key = unescape_json(&after[..kend]);
+        let seg = &after[kend + 1..];
+        if let (Some(c), Some(b)) = (extract_num_after(seg, "\"coins\":"), extract_num_after(seg, "\"best\":")) {
+            scores.insert(key, GameScore { coins: c, best: b });
+        }
+        match seg.find('}') { Some(p) => { rest = &seg[p + 1..]; } None => break }
+    }
+    scores
 }
 
 fn ecole_levels() -> Vec<EcoleLevel> {
@@ -2863,6 +2915,216 @@ fn build_zip(files: &[(String, String)]) -> Vec<u8> {
     zip
 }
 
+// ============================================================
+// Jeux du Village — Le Lion du Sahel (v0.18)
+// Chaque piece ramassee dans le jeu va sur le compte du joueur.
+// ============================================================
+const GAME_HTML: &str = r##"<!DOCTYPE html><html lang="fr"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+<title>Le Lion du Sahel</title><style>
+body{margin:0;background:#1a0f00;overflow:hidden;touch-action:manipulation;user-select:none;-webkit-user-select:none;}
+canvas{display:block;width:100vw;height:100vh;}
+#hud{position:fixed;top:10px;left:12px;color:#ffd54a;font-family:monospace;font-size:18px;text-shadow:2px 2px 0 #000;z-index:2;}
+#best{position:fixed;top:10px;right:12px;color:#ffb74a;font-family:monospace;font-size:14px;text-shadow:2px 2px 0 #000;z-index:2;}
+#msg{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center;color:#fff;font-family:monospace;z-index:3;pointer-events:none;}
+#msg h1{color:#ffd54a;font-size:34px;margin:0;text-shadow:3px 3px 0 #000;}
+#msg p{color:#ffe0a0;font-size:16px;text-shadow:2px 2px 0 #000;}
+</style></head><body>
+<canvas id="c"></canvas>
+<div id="hud">🦁 <span id="score">0</span> · 🪙 <span id="coins">0</span></div>
+<div id="best">Record: <span id="hiscore">0</span></div>
+<div id="srv" style="position:fixed;top:34px;right:12px;color:#ffd54a;font-family:monospace;font-size:12px;text-shadow:2px 2px 0 #000;z-index:2;"></div>
+<div id="msg"><h1>🦁 Le Lion du Sahel</h1><p id="sub">Touche l'écran pour sauter · 2 touches = double saut<br>Collecte les pièces AFR · Évite les obstacles</p></div>
+<script>
+const cv=document.getElementById('c'),x=cv.getContext('2d');
+let W,H;function resize(){W=cv.width=innerWidth;H=cv.height=innerHeight;}resize();onresize=resize;
+const hud=document.getElementById('score'),hudC=document.getElementById('coins'),hiEl=document.getElementById('hiscore'),msg=document.getElementById('msg'),sub=document.getElementById('sub');
+let hi=+(localStorage.getItem('lionHi')||0);hiEl.textContent=hi;
+fetch('/jeux/score').then(r=>r.json()).then(d=>{if(d.ok)document.getElementById('srv').textContent='🪙 Compte: '+d.coins+' pieces · Record: '+d.best;}).catch(()=>{});
+
+// Etat du jeu
+let S='menu'; // menu | play | over
+let t=0,speed=6,score=0,coins=0;
+let lion={y:0,vy:0,jumps:0,size:Math.min(innerWidth,innerHeight)*0.06+20};
+let sol,obs=[],pcs=[],parts=[],nuages=[],arbres=[];
+let G=0.55;
+
+function groundY(){return H*0.82;}
+function init(){
+  lion.y=groundY();lion.vy=0;lion.jumps=0;
+  obs=[];pcs=[];parts=[];score=0;coins=0;speed=6;t=0;
+  nuages=[];for(let i=0;i<5;i++)nuages.push({x:Math.random()*W,y:H*0.12+Math.random()*H*0.2,s:20+Math.random()*40});
+  arbres=[];for(let i=0;i<3;i++)arbres.push({x:Math.random()*W*1.5,s:0.5+Math.random()*0.6});
+}
+init();
+
+function jump(){
+  if(S!=='play'){if(S==='menu'){start();}else if(S==='over'){S='menu';msg.style.display='block';sub.innerHTML='Touche l\'écran pour sauter · 2 touches = double saut<br>Collecte les pièces AFR · Évite les obstacles';document.querySelector('#msg h1').textContent='🦁 Le Lion du Sahel';init();}return;}
+  if(lion.jumps<2){lion.vy=lion.jumps===0?-13:-11;lion.jumps++;for(let i=0;i<6;i++)parts.push({x:lionX(),y:lion.y,vx:(Math.random()-0.5)*3,vy:Math.random()*-2,l:20,c:'#c8a24a'});}
+}
+function lionX(){return W*0.18;}
+function start(){S='play';msg.style.display='none';}
+
+addEventListener('pointerdown',e=>{e.preventDefault();jump();},{passive:false});
+addEventListener('keydown',e=>{if(e.code==='Space'||e.code==='ArrowUp')jump();});
+
+// Obstacles: 0=cactus,1=rocher,2=termitiere,3=oiseau (volant)
+function spawn(){
+  const r=Math.random();
+  if(r<0.55){const k=Math.floor(Math.random()*3);obs.push({x:W+50,k:k,w:26+k*8,h:34+k*10,bird:false});}
+  else{obs.push({x:W+50,k:3,w:36,h:24,bird:true,fly:groundY()-70-Math.random()*60});}
+  // Piece AFR parfois au-dessus d'un obstacle
+  if(Math.random()<0.5){const o=obs[obs.length-1];pcs.push({x:o.x+o.w/2+30+Math.random()*80,y:groundY()-60-Math.random()*100,r:12});}
+}
+
+function drawLion(px,py,rot){
+  x.save();x.translate(px,py);x.rotate(rot);
+  const s=lion.size;
+  // corps
+  x.fillStyle='#c8952a';x.beginPath();x.ellipse(0,0,s,s*0.62,0,0,Math.PI*2);x.fill();
+  // tete
+  x.beginPath();x.ellipse(s*0.72,-s*0.35,s*0.5,s*0.46,0,0,Math.PI*2);x.fill();
+  // criniere
+  x.fillStyle='#8a5a10';for(let i=0;i<8;i++){const a=i/8*Math.PI*2;x.beginPath();x.arc(s*0.72+Math.cos(a)*s*0.55,-s*0.35+Math.sin(a)*s*0.55,s*0.22,0,Math.PI*2);x.fill();}
+  x.fillStyle='#c8952a';x.beginPath();x.ellipse(s*0.72,-s*0.35,s*0.42,s*0.38,0,0,Math.PI*2);x.fill();
+  // oreille
+  x.beginPath();x.arc(s*0.5,-s*0.75,s*0.14,0,Math.PI*2);x.fill();
+  // oeil
+  x.fillStyle='#000';x.beginPath();x.arc(s*0.85,-s*0.42,s*0.06,0,Math.PI*2);x.fill();
+  // museau
+  x.fillStyle='#e8c070';x.beginPath();x.ellipse(s*1.05,-s*0.18,s*0.18,s*0.13,0,0,Math.PI*2);x.fill();
+  x.fillStyle='#000';x.beginPath();x.arc(s*1.12,-s*0.2,s*0.035,0,Math.PI*2);x.fill();
+  // queue
+  x.strokeStyle='#c8952a';x.lineWidth=s*0.12;x.beginPath();x.moveTo(-s*0.95,0);x.quadraticCurveTo(-s*1.3,-s*0.3+Math.sin(t*0.2)*s*0.25,-s*1.15,-s*0.55+Math.sin(t*0.2)*s*0.2);x.stroke();
+  // pattes (animation course)
+  x.fillStyle='#a87a1e';const ph=Math.sin(t*0.35)*s*0.3;
+  x.fillRect(-s*0.55,s*0.35,s*0.22,s*0.4+ph);
+  x.fillRect(s*0.15,s*0.35,s*0.22,s*0.4-ph);
+  x.fillRect(-s*0.25,s*0.35,s*0.22,s*0.4-ph);
+  x.fillRect(s*0.42,s*0.35,s*0.22,s*0.4+ph);
+  x.restore();
+}
+
+function drawObstacle(o){
+  const gy=o.bird?o.fly:groundY()-o.h;
+  if(o.bird){
+    // aigle ennemi
+    x.fillStyle='#4a3220';x.beginPath();x.ellipse(o.x+o.w/2,gy+o.h/2,o.w/2,o.h/2,0,0,Math.PI*2);x.fill();
+    const fl=Math.sin(t*0.3)*14;
+    x.strokeStyle='#5a4028';x.lineWidth=5;
+    x.beginPath();x.moveTo(o.x+o.w/2,gy+o.h/2);x.lineTo(o.x+o.w/2-26,gy+o.h/2-10-fl);x.stroke();
+    x.beginPath();x.moveTo(o.x+o.w/2,gy+o.h/2);x.lineTo(o.x+o.w/2+26,gy+o.h/2-10-fl);x.stroke();
+    x.fillStyle='#ffd54a';x.beginPath();x.arc(o.x+o.w/2+8,gy+o.h/2-3,3,0,Math.PI*2);x.fill();
+  }else if(o.k===0){
+    // cactus
+    x.fillStyle='#3d7a2e';x.fillRect(o.x,gy+8,o.w,o.h-8);
+    x.fillRect(o.x-10,gy+18,10,8);x.fillRect(o.x-10,gy+18,8,16);
+    x.fillRect(o.x+o.w,gy+12,10,8);x.fillRect(o.x+o.w+2,gy+12,8,20);
+  }else if(o.k===1){
+    // rocher
+    x.fillStyle='#7a6a54';x.beginPath();x.moveTo(o.x,gy+o.h);x.lineTo(o.x+o.w*0.2,gy+4);x.lineTo(o.x+o.w*0.8,gy);x.lineTo(o.x+o.w,gy+o.h);x.closePath();x.fill();
+    x.fillStyle='#94826a';x.fillRect(o.x+o.w*0.3,gy+6,o.w*0.2,6);
+  }else{
+    // termitiere
+    x.fillStyle='#a05a20';x.beginPath();x.moveTo(o.x,gy+o.h);x.quadraticCurveTo(o.x+o.w/2,gy-8,o.x+o.w,gy+o.h);x.closePath();x.fill();
+    x.fillStyle='#c07030';x.fillRect(o.x+o.w*0.35,gy+o.h*0.5,o.w*0.3,4);
+  }
+}
+
+function drawPiece(p){
+  const bob=Math.sin(t*0.15+p.x*0.02)*4;
+  x.fillStyle='#ffd54a';x.beginPath();x.arc(p.x,p.y+bob,p.r,0,Math.PI*2);x.fill();
+  x.fillStyle='#b8860b';x.font='bold '+p.r+'px monospace';x.textAlign='center';x.fillText('₳',p.x,p.y+bob+p.r*0.35);
+}
+
+function loop(){
+  t++;
+  // CIEL — coucher de soleil du Sahel
+  const grd=x.createLinearGradient(0,0,0,H);
+  grd.addColorStop(0,'#2a1040');grd.addColorStop(0.4,'#8a2a0a');grd.addColorStop(0.7,'#d4681a');grd.addColorStop(1,'#f4a24a');
+  x.fillStyle=grd;x.fillRect(0,0,W,H);
+  // soleil
+  x.fillStyle='#ffe08a';x.beginPath();x.arc(W*0.75,H*0.35,H*0.09+Math.sin(t*0.01)*2,0,Math.PI*2);x.fill();
+  x.fillStyle='rgba(255,224,138,0.25)';x.beginPath();x.arc(W*0.75,H*0.35,H*0.13,0,Math.PI*2);x.fill();
+  // etoiles
+  x.fillStyle='rgba(255,255,255,0.7)';
+  for(let i=0;i<12;i++){const sx=(i*97+t*0.15)%W,sy=(i*53)%Math.floor(H*0.25);x.fillRect(sx,sy,2,2);}
+  // nuages
+  x.fillStyle='rgba(255,200,150,0.3)';
+  nuages.forEach(n=>{if(S==='play')n.x-=speed*0.25;if(n.x<-80)n.x=W+80;x.beginPath();x.ellipse(n.x,n.y,n.s*1.6,n.s*0.5,0,0,Math.PI*2);x.fill();});
+  // montagnes lointaines
+  x.fillStyle='#5a2a18';x.beginPath();x.moveTo(0,H*0.62);
+  for(let i=0;i<=8;i++){x.lineTo(W/8*i,H*0.62-((i*37)%60)-20);}
+  x.lineTo(W,H*0.7);x.lineTo(0,H*0.7);x.fill();
+  // arbres (acacias)
+  arbres.forEach(a=>{
+    if(S==='play')a.x-=speed*0.5;if(a.x<-100)a.x=W+Math.random()*200;
+    const s=a.s*60,gy=groundY()+8;
+    x.strokeStyle='#3a1a08';x.lineWidth=6*a.s;
+    x.beginPath();x.moveTo(a.x,gy);x.lineTo(a.x-s*0.1,gy-s*0.8);x.stroke();
+    x.fillStyle='#2d4a1a';
+    x.beginPath();x.ellipse(a.x-s*0.1,gy-s*0.85,s*0.7,s*0.18,0,0,Math.PI*2);x.fill();
+    x.beginPath();x.ellipse(a.x-s*0.3,gy-s*0.7,s*0.4,s*0.12,0,0,Math.PI*2);x.fill();
+  });
+  // SOL — savane
+  x.fillStyle='#c88a3a';x.fillRect(0,groundY(),W,H-groundY());
+  x.fillStyle='#a86a20';x.fillRect(0,groundY(),W,6);
+  // herbe qui defile
+  x.fillStyle='#8a6a2a';
+  for(let i=0;i<20;i++){const gx=(i*73-(S==='play'?t*speed:0))%(W+40)-20;x.fillRect(gx,groundY()+14+(i%3)*10,8,3);}
+
+  if(S==='play'){
+    // physique lion
+    lion.vy+=G;lion.y+=lion.vy;
+    if(lion.y>=groundY()){lion.y=groundY();lion.vy=0;lion.jumps=0;}
+    // spawn
+    if(t%Math.max(35,Math.floor(90-speed*4))===0)spawn();
+    // score
+    score++;if(score%10===0)speed+=0.15;
+    hud.textContent=Math.floor(score/5);hudC.textContent=coins;
+    // deplacement obstacles
+    obs.forEach(o=>{o.x-=speed;if(!o.bird)o.bird=false;});
+    pcs.forEach(p=>{p.x-=speed;});
+    // collision pieces
+    pcs=pcs.filter(p=>{
+      const dx=p.x-lionX(),dy=p.y-lion.y;
+      if(dx*dx+dy*dy<(p.r+lion.size*0.6)**2){coins++;for(let i=0;i<8;i++)parts.push({x:p.x,y:p.y,vx:(Math.random()-0.5)*4,vy:(Math.random()-0.5)*4,l:18,c:'#ffd54a'});return false;}
+      return p.x>-30;});
+    // collision obstacles
+    const lx=lionX(),ls=lion.size;
+    for(const o of obs){
+      const oy=o.bird?o.fly:groundY()-o.h;
+      if(lx+ls*0.8>o.x&&lx-ls*0.9<o.x+o.w&&lion.y+ls*0.55>oy&&lion.y-ls*0.55<oy+o.h){
+        S='over';
+        const sc=Math.floor(score/5);
+        if(sc>hi){hi=sc;localStorage.setItem('lionHi',hi);hiEl.textContent=hi;}
+        msg.style.display='block';
+        document.querySelector('#msg h1').textContent='💀 Le Lion est tombé';
+        sub.innerHTML='Score: <b>'+sc+'</b> · Pièces: <b>'+coins+'</b> 🪙<br>Record: <b>'+hi+'</b><br><br>🦁 Touche pour rejouer';
+        fetch('/jeux/score',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:'score='+sc+'&coins='+coins}).then(r=>r.json()).then(d=>{if(d.ok)document.getElementById('srv').textContent='🪙 Compte: '+d.coins+' pieces · Record: '+d.best;}).catch(()=>{});
+      }
+    }
+    obs=obs.filter(o=>o.x>-80);
+  }
+
+  // particules
+  parts.forEach(p=>{p.x+=p.vx;p.y+=p.vy;p.vy+=0.2;p.l--;});
+  parts=parts.filter(p=>p.l>0);
+  parts.forEach(p=>{x.fillStyle=p.c;x.fillRect(p.x,p.y,4,4);});
+
+  // dessiner objets
+  pcs.forEach(drawPiece);
+  obs.forEach(drawObstacle);
+  // lion (rotation en saut)
+  const rot=S==='play'&&lion.jumps>0?Math.max(-0.3,Math.min(0.3,lion.vy*0.03)):0;
+  drawLion(lionX(),lion.y-lion.size*0.3,rot);
+
+  requestAnimationFrame(loop);
+}
+loop();
+</script></body></html>
+"##;
+
 fn handle_request(mut stream: TcpStream, state: Arc<Mutex<AppState>>) {
     let mut buffer = [0u8; 65536];
     let mut total = 0;
@@ -3320,6 +3582,36 @@ fn handle_request(mut stream: TcpStream, state: Arc<Mutex<AppState>>) {
             let s = state.lock().unwrap();
             ("200", "text/html; charset=utf-8", html_honneur(&s))
         }
+        ("GET", "/jeux") => {
+            ("200", "text/html; charset=utf-8", GAME_HTML.to_string())
+        }
+        ("GET", "/jeux/score") => {
+            match current_user.as_deref() {
+                Some(user) => {
+                    let s = state.lock().unwrap();
+                    let g = s.game_scores.get(user).cloned().unwrap_or(GameScore { coins: 0, best: 0 });
+                    ("200", "application/json", format!("{{\"ok\":true,\"coins\":{},\"best\":{}}}", g.coins, g.best))
+                }
+                None => ("200", "application/json", "{\"ok\":false}".to_string()),
+            }
+        }
+        ("POST", "/jeux/score") => {
+            let form = parse_form(body_part);
+            let score: u32 = form.get("score").and_then(|v| v.parse().ok()).unwrap_or(0);
+            let coins: u32 = form.get("coins").and_then(|v| v.parse().ok()).unwrap_or(0);
+            match current_user.as_deref() {
+                Some(user) => {
+                    let mut s = state.lock().unwrap();
+                    let entry = s.game_scores.entry(user.to_string()).or_insert(GameScore { coins: 0, best: 0 });
+                    entry.coins += coins;
+                    if score > entry.best { entry.best = score; }
+                    let (tc, tb) = (entry.coins, entry.best);
+                    s.save();
+                    ("200", "application/json", format!("{{\"ok\":true,\"coins\":{},\"best\":{}}}", tc, tb))
+                }
+                None => ("200", "application/json", "{\"ok\":false}".to_string()),
+            }
+        }
         (m, p) if m == "GET" && p.starts_with("/diplome/") => {
             let cycle = p.trim_start_matches("/diplome/").to_string();
             match current_user.as_deref() {
@@ -3764,7 +4056,7 @@ fn main() {
     let port = 8090;
     let state = Arc::new(Mutex::new(AppState::new()));
 
-    println!("🦁 AfriForme v0.17 — La plateforme africaine de code");
+    println!("🦁 AfriForme v0.18 — La plateforme africaine de code");
     println!("📡 Serveur: http://localhost:{}", port);
     println!("👤 Utilisateurs: {}", state.lock().unwrap().users.len());
     println!("📦 Depots: {}", state.lock().unwrap().repos.len());
