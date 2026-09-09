@@ -1,4 +1,4 @@
-// AfriForme v0.10 — La plateforme africaine de code
+// AfriForme v0.11 — La plateforme africaine de code
 // La plateforme africaine du code — souveraine, zero dependance
 // Par Koffi Christ Olivier & Letta-Chan
 // Rust std only — Cargo.toml [dependencies] vide
@@ -7,7 +7,7 @@
 // v0.4: Classement + README + Recherche
 // v0.5: Fil d activite + Fork + Commentaires
 // v0.6: Notifications + Tags + Trending
-// v0.10: Vocabulaire africain — Baobab, Bouture, Termite, Sananku, Griot, Tambour
+// v0.11: Trophees du Village — badges africains automatiques
 
 use std::collections::HashMap;
 use std::io::{Read, Write, BufRead, BufReader};
@@ -1381,7 +1381,7 @@ a:hover{{text-decoration:underline;}}
 <div class="container">
 {}
 </div>
-<div class="footer">🦁 AfriForme v0.10 — La plateforme africaine de code — Par Koffi Christ Olivier & Letta-Chan — Rust std only, zero dependance</div>
+<div class="footer">🦁 AfriForme v0.11 — La plateforme africaine de code — Par Koffi Christ Olivier & Letta-Chan — Rust std only, zero dependance</div>
 </body>
 </html>"##, title, body)
 }
@@ -1796,6 +1796,24 @@ fn html_user_profile(user: &User, state: &AppState, current_user: Option<&str>) 
 
     let total_stars: usize = user_repos.iter().map(|r| r.stars).sum();
 
+    // TROPHEES DU VILLAGE — badges africains calcules depuis l'activite reelle
+    let user_repo_ids: Vec<usize> = user_repos.iter().map(|r| r.id).collect();
+    let mut trophies: Vec<String> = Vec::new();
+    if !user_repos.is_empty() { trophies.push("🏕️ <strong>Premiere Case</strong> — a construit son premier depot".to_string()); }
+    if user_repos.len() >= 3 { trophies.push("🏘️ <strong> Chef de Concession</strong> — 3 depots ou plus".to_string()); }
+    if total_stars >= 5 { trophies.push("🌳 <strong>Grand Baobab</strong> — 5 baobabs recus".to_string()); }
+    if user_repos.iter().any(|r| r.name.starts_with("fork-")) { trophies.push("🌿 <strong>Pepinieriste</strong> — a fait une bouture".to_string()); }
+    if state.issues.iter().any(|i| i.author == user.username) { trophies.push("🐜 <strong>Vigilant</strong> — a signale un termite".to_string()); }
+    if state.comments.iter().any(|c| c.author == user.username) { trophies.push("💬 <strong>Griot du Dialogue</strong> — a participe aux discussions".to_string()); }
+    if follower_count >= 3 { trophies.push("🤝 <strong>Sanankuya</strong> — 3 sanankus ou plus".to_string()); }
+    if state.courses.iter().any(|c| user_repo_ids.contains(&c.repo_id)) { trophies.push("🎓 <strong>Professeur</strong> — son depot est devenu cours".to_string()); }
+    if diplomas.len() >= 1 { trophies.push("📜 <strong>Eleve Model</strong> — a obtenu un diplome".to_string()); }
+    let trophies_html = if trophies.is_empty() {
+        "<div class='empty'>Aucun trophee encore. Plante ton premier depot!</div>".to_string()
+    } else {
+        format!("<ul style='margin:0;padding-left:20px;'>{}</ul>", trophies.iter().map(|t| format!("<li style='margin:6px 0;'>{}</li>", t)).collect::<Vec<_>>().join(""))
+    };
+
     let body = format!(r#"
 <div style="display:flex;justify-content:space-between;align-items:center;">
 <div>
@@ -1809,10 +1827,12 @@ fn html_user_profile(user: &User, state: &AppState, current_user: Option<&str>) 
 <div class="stat"><div class="num">{}</div><div class="label">Diplomes</div></div>
 <div class="stat"><div class="num">⭐ {}</div><div class="label">Baobabs recus</div></div>
 <div class="stat"><div class="num">{}</div><div class="label">Sanankus</div></div>
-<div class="stat"><div class="num">{}</div><div class="label">Sanankus</div></div>
+<div class="stat"><div class="num">{}</div><div class="label">Mes Sanankus</div></div>
 </div>
 <div style="margin:10px 0;">{}</div>
 </div>
+<h2>🏅 Trophees du Village</h2>
+{}
 <h2>📦 Depots</h2>
 {}
 <h2>🎓 Diplomes</h2>
@@ -1821,7 +1841,7 @@ fn html_user_profile(user: &User, state: &AppState, current_user: Option<&str>) 
     if user.bio.is_empty() { "Pas de bio encore." } else { &user.bio },
     edit_bio,
     user_repos.len(), diplomas.len(), total_stars, follower_count, following_count,
-    follow_btn, repos_html, diplomas_html);
+    follow_btn, trophies_html, repos_html, diplomas_html);
 
     html_page(&format!("Profil: {}", user.username), &body)
 }
@@ -3193,7 +3213,7 @@ fn main() {
     let port = 8090;
     let state = Arc::new(Mutex::new(AppState::new()));
 
-    println!("🦁 AfriForme v0.10 — La plateforme africaine de code");
+    println!("🦁 AfriForme v0.11 — La plateforme africaine de code");
     println!("📡 Serveur: http://localhost:{}", port);
     println!("👤 Utilisateurs: {}", state.lock().unwrap().users.len());
     println!("📦 Depots: {}", state.lock().unwrap().repos.len());
