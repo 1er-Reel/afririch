@@ -1,4 +1,4 @@
-// AfriForme v0.18 — La plateforme africaine de code
+// AfriForme v0.19 — La plateforme africaine de code
 // La plateforme africaine du code — souveraine, zero dependance
 // Par Koffi Christ Olivier & Letta-Chan
 // Rust std only — Cargo.toml [dependencies] vide
@@ -9,6 +9,7 @@
 // v0.6: Notifications + Tags + Trending
 // v0.17: Tableau d'Honneur + Diplomes imprimables — /honneur classe les eleves, /diplome/{cycle} genere un certificat — Sciences, Mathematiques, Technologie — 9 nouveaux niveaux, 3 nouveaux diplomes africains
 // v0.18: Jeux du Village — /jeux Le Lion du Sahel (HTML5 canvas) — les pieces gagnees dans le jeu vont sur le compte du joueur (games.json), trophee Chasseur du Sahel sur le profil
+// v0.19: Le Lion du Sahel v2 — LA VRAIE SAVANE — cycle jour/nuit reel (soleil qui se couche, lune, etoiles), montagnes, acacias, nuages, poussiere, oeil du lion qui brille la nuit
 
 use std::collections::HashMap;
 use std::io::{Read, Write, BufRead, BufReader};
@@ -1443,7 +1444,7 @@ a:hover{{text-decoration:underline;}}
 <div class="container">
 {}
 </div>
-<div class="footer">🦁 AfriForme v0.18 — La plateforme africaine de code — Par Koffi Christ Olivier & Letta-Chan — Rust std only, zero dependance</div>
+<div class="footer">🦁 AfriForme v0.19 — La plateforme africaine de code — Par Koffi Christ Olivier & Letta-Chan — Rust std only, zero dependance</div>
 </body>
 </html>"##, title, body)
 }
@@ -2921,208 +2922,388 @@ fn build_zip(files: &[(String, String)]) -> Vec<u8> {
 // ============================================================
 const GAME_HTML: &str = r##"<!DOCTYPE html><html lang="fr"><head><meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
-<title>Le Lion du Sahel</title><style>
-body{margin:0;background:#1a0f00;overflow:hidden;touch-action:manipulation;user-select:none;-webkit-user-select:none;}
-canvas{display:block;width:100vw;height:100vh;}
-#hud{position:fixed;top:10px;left:12px;color:#ffd54a;font-family:monospace;font-size:18px;text-shadow:2px 2px 0 #000;z-index:2;}
-#best{position:fixed;top:10px;right:12px;color:#ffb74a;font-family:monospace;font-size:14px;text-shadow:2px 2px 0 #000;z-index:2;}
-#msg{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center;color:#fff;font-family:monospace;z-index:3;pointer-events:none;}
-#msg h1{color:#ffd54a;font-size:34px;margin:0;text-shadow:3px 3px 0 #000;}
-#msg p{color:#ffe0a0;font-size:16px;text-shadow:2px 2px 0 #000;}
+<title>Le Lion du Sahel — La Vraie Savane</title>
+<style>
+body{margin:0;background:#000;overflow:hidden;touch-action:manipulation;user-select:none;-webkit-user-select:none}
+canvas{display:block}
+#hud{position:fixed;top:10px;left:14px;right:14px;display:flex;justify-content:space-between;align-items:flex-start;color:#fff;font-family:Georgia,serif;text-shadow:0 2px 6px rgba(0,0,0,.7);z-index:2;pointer-events:none}
+#score{font-size:24px;font-weight:bold;letter-spacing:1px}
+#best{font-size:12px;opacity:.85;margin-top:2px}
+#phase{font-size:12px;margin-top:4px;opacity:.9}
+#coins{font-size:18px;font-weight:bold}
+#srv{position:fixed;top:64px;right:14px;color:#ffd54a;font-family:Georgia,serif;font-size:11px;text-shadow:0 2px 4px #000;z-index:2;pointer-events:none;text-align:right}
+#msg{position:fixed;bottom:16px;width:100%;text-align:center;color:#fff;font-family:Georgia,serif;font-size:14px;text-shadow:0 2px 6px #000;z-index:2;pointer-events:none;opacity:.9}
 </style></head><body>
-<canvas id="c"></canvas>
-<div id="hud">🦁 <span id="score">0</span> · 🪙 <span id="coins">0</span></div>
-<div id="best">Record: <span id="hiscore">0</span></div>
-<div id="srv" style="position:fixed;top:34px;right:12px;color:#ffd54a;font-family:monospace;font-size:12px;text-shadow:2px 2px 0 #000;z-index:2;"></div>
-<div id="msg"><h1>🦁 Le Lion du Sahel</h1><p id="sub">Touche l'écran pour sauter · 2 touches = double saut<br>Collecte les pièces AFR · Évite les obstacles</p></div>
+<canvas id="cv"></canvas>
+<div id="hud">
+<div><div id="score">0</div><div id="best">Record: <span id="hiscore">0</span></div><div id="phase"></div></div>
+<div id="coins">🪙 0</div>
+</div>
+<div id="srv"></div>
+<div id="msg">🦁 Touche l'écran pour sauter — double saut permis !</div>
 <script>
-const cv=document.getElementById('c'),x=cv.getContext('2d');
-let W,H;function resize(){W=cv.width=innerWidth;H=cv.height=innerHeight;}resize();onresize=resize;
-const hud=document.getElementById('score'),hudC=document.getElementById('coins'),hiEl=document.getElementById('hiscore'),msg=document.getElementById('msg'),sub=document.getElementById('sub');
-let hi=+(localStorage.getItem('lionHi')||0);hiEl.textContent=hi;
-fetch('/jeux/score').then(r=>r.json()).then(d=>{if(d.ok)document.getElementById('srv').textContent='🪙 Compte: '+d.coins+' pieces · Record: '+d.best;}).catch(()=>{});
+const cv=document.getElementById('cv'),ctx=cv.getContext('2d');
+let W,H,hor;
+function fit(){W=cv.width=innerWidth;H=cv.height=innerHeight;hor=H*0.72;}
+fit();addEventListener('resize',fit);
 
-// Etat du jeu
-let S='menu'; // menu | play | over
-let t=0,speed=6,score=0,coins=0;
-let lion={y:0,vy:0,jumps:0,size:Math.min(innerWidth,innerHeight)*0.06+20};
-let sol,obs=[],pcs=[],parts=[],nuages=[],arbres=[];
-let G=0.55;
-
-function groundY(){return H*0.82;}
-function init(){
-  lion.y=groundY();lion.vy=0;lion.jumps=0;
-  obs=[];pcs=[];parts=[];score=0;coins=0;speed=6;t=0;
-  nuages=[];for(let i=0;i<5;i++)nuages.push({x:Math.random()*W,y:H*0.12+Math.random()*H*0.2,s:20+Math.random()*40});
-  arbres=[];for(let i=0;i<3;i++)arbres.push({x:Math.random()*W*1.5,s:0.5+Math.random()*0.6});
-}
-init();
-
-function jump(){
-  if(S!=='play'){if(S==='menu'){start();}else if(S==='over'){S='menu';msg.style.display='block';sub.innerHTML='Touche l\'écran pour sauter · 2 touches = double saut<br>Collecte les pièces AFR · Évite les obstacles';document.querySelector('#msg h1').textContent='🦁 Le Lion du Sahel';init();}return;}
-  if(lion.jumps<2){lion.vy=lion.jumps===0?-13:-11;lion.jumps++;for(let i=0;i<6;i++)parts.push({x:lionX(),y:lion.y,vx:(Math.random()-0.5)*3,vy:Math.random()*-2,l:20,c:'#c8a24a'});}
-}
-function lionX(){return W*0.18;}
-function start(){S='play';msg.style.display='none';}
-
-addEventListener('pointerdown',e=>{e.preventDefault();jump();},{passive:false});
-addEventListener('keydown',e=>{if(e.code==='Space'||e.code==='ArrowUp')jump();});
-
-// Obstacles: 0=cactus,1=rocher,2=termitiere,3=oiseau (volant)
-function spawn(){
-  const r=Math.random();
-  if(r<0.55){const k=Math.floor(Math.random()*3);obs.push({x:W+50,k:k,w:26+k*8,h:34+k*10,bird:false});}
-  else{obs.push({x:W+50,k:3,w:36,h:24,bird:true,fly:groundY()-70-Math.random()*60});}
-  // Piece AFR parfois au-dessus d'un obstacle
-  if(Math.random()<0.5){const o=obs[obs.length-1];pcs.push({x:o.x+o.w/2+30+Math.random()*80,y:groundY()-60-Math.random()*100,r:12});}
+// ---------- couleurs du ciel : cycle jour/nuit reel ----------
+const SKY=[
+ [255,150,58, 255,190,100, 255,228,170, 0.00,'🌅 Heure dorée'],
+ [120,48,95, 225,95,60, 255,175,80, 0.25,'🌇 Coucher du soleil'],
+ [40,30,70, 90,55,95, 210,105,80, 0.50,'🌆 Crépuscule'],
+ [8,8,24, 18,22,55, 30,32,75, 0.75,'🌌 Nuit du Sahel'],
+ [70,80,125, 225,120,140, 255,215,165, 0.25,'🌄 Aube'],
+ [255,150,58, 255,190,100, 255,228,170, 0.00,'🌅 Heure dorée']
+];
+function lerp(a,b,t){return a+(b-a)*t;}
+function lerpC(a,b,t){return [lerp(a[0],b[0],t),lerp(a[1],b[1],t),lerp(a[2],b[2],t)];}
+function rgb(c){return 'rgb('+(c[0]|0)+','+(c[1]|0)+','+(c[2]|0)+')';}
+function skyAt(t){
+  const n=SKY.length-1, f=t*n, i=Math.min(n-1,f|0), u=f-i;
+  const A=SKY[i],B=SKY[i+1];
+  return {top:lerpC(A,B,u), mid:lerpC(A.slice(3,6),B.slice(3,6),u), bot:lerpC(A.slice(6,9),B.slice(6,9),u),
+          night:lerp(A[9],B[9],u), name:(u<0.5?A[10]:B[10])};
 }
 
-function drawLion(px,py,rot){
-  x.save();x.translate(px,py);x.rotate(rot);
-  const s=lion.size;
-  // corps
-  x.fillStyle='#c8952a';x.beginPath();x.ellipse(0,0,s,s*0.62,0,0,Math.PI*2);x.fill();
-  // tete
-  x.beginPath();x.ellipse(s*0.72,-s*0.35,s*0.5,s*0.46,0,0,Math.PI*2);x.fill();
-  // criniere
-  x.fillStyle='#8a5a10';for(let i=0;i<8;i++){const a=i/8*Math.PI*2;x.beginPath();x.arc(s*0.72+Math.cos(a)*s*0.55,-s*0.35+Math.sin(a)*s*0.55,s*0.22,0,Math.PI*2);x.fill();}
-  x.fillStyle='#c8952a';x.beginPath();x.ellipse(s*0.72,-s*0.35,s*0.42,s*0.38,0,0,Math.PI*2);x.fill();
-  // oreille
-  x.beginPath();x.arc(s*0.5,-s*0.75,s*0.14,0,Math.PI*2);x.fill();
-  // oeil
-  x.fillStyle='#000';x.beginPath();x.arc(s*0.85,-s*0.42,s*0.06,0,Math.PI*2);x.fill();
-  // museau
-  x.fillStyle='#e8c070';x.beginPath();x.ellipse(s*1.05,-s*0.18,s*0.18,s*0.13,0,0,Math.PI*2);x.fill();
-  x.fillStyle='#000';x.beginPath();x.arc(s*1.12,-s*0.2,s*0.035,0,Math.PI*2);x.fill();
-  // queue
-  x.strokeStyle='#c8952a';x.lineWidth=s*0.12;x.beginPath();x.moveTo(-s*0.95,0);x.quadraticCurveTo(-s*1.3,-s*0.3+Math.sin(t*0.2)*s*0.25,-s*1.15,-s*0.55+Math.sin(t*0.2)*s*0.2);x.stroke();
-  // pattes (animation course)
-  x.fillStyle='#a87a1e';const ph=Math.sin(t*0.35)*s*0.3;
-  x.fillRect(-s*0.55,s*0.35,s*0.22,s*0.4+ph);
-  x.fillRect(s*0.15,s*0.35,s*0.22,s*0.4-ph);
-  x.fillRect(-s*0.25,s*0.35,s*0.22,s*0.4-ph);
-  x.fillRect(s*0.42,s*0.35,s*0.22,s*0.4+ph);
-  x.restore();
+// ---------- decor genere ----------
+let stars=[],clouds=[],trees=[],tufts=[],mtn1=[],mtn2=[],dots=[];
+function seedRand(s){return function(){s=(s*16807)%2147483647;return (s&0xffff)/0xffff;};}
+function genWorld(){
+  const r=seedRand(1234567);
+  stars=[];for(let i=0;i<130;i++)stars.push({x:r()*1.2,y:r()*0.55,p:r()*6.28,w:1+r()*2});
+  clouds=[];for(let i=0;i<5;i++)clouds.push({x:r(),y:0.08+r()*0.22,s:0.5+r(),v:0.004+r()*0.008});
+  trees=[];for(let i=0;i<7;i++)trees.push({x:0.1+i*0.15+r()*0.05,s:0.7+r()*0.9});
+  tufts=[];for(let i=0;i<26;i++)tufts.push({x:r(),s:0.5+r()});
+  mtn1=[];for(let i=0;i<=24;i++)mtn1.push(0.10+r()*0.13);
+  mtn2=[];for(let i=0;i<=18;i++)mtn2.push(0.05+r()*0.09);
+  dots=[];for(let i=0;i<50;i++)dots.push({x:r(),y:r(),s:0.5+r()});
 }
+genWorld();
 
-function drawObstacle(o){
-  const gy=o.bird?o.fly:groundY()-o.h;
-  if(o.bird){
-    // aigle ennemi
-    x.fillStyle='#4a3220';x.beginPath();x.ellipse(o.x+o.w/2,gy+o.h/2,o.w/2,o.h/2,0,0,Math.PI*2);x.fill();
-    const fl=Math.sin(t*0.3)*14;
-    x.strokeStyle='#5a4028';x.lineWidth=5;
-    x.beginPath();x.moveTo(o.x+o.w/2,gy+o.h/2);x.lineTo(o.x+o.w/2-26,gy+o.h/2-10-fl);x.stroke();
-    x.beginPath();x.moveTo(o.x+o.w/2,gy+o.h/2);x.lineTo(o.x+o.w/2+26,gy+o.h/2-10-fl);x.stroke();
-    x.fillStyle='#ffd54a';x.beginPath();x.arc(o.x+o.w/2+8,gy+o.h/2-3,3,0,Math.PI*2);x.fill();
-  }else if(o.k===0){
-    // cactus
-    x.fillStyle='#3d7a2e';x.fillRect(o.x,gy+8,o.w,o.h-8);
-    x.fillRect(o.x-10,gy+18,10,8);x.fillRect(o.x-10,gy+18,8,16);
-    x.fillRect(o.x+o.w,gy+12,10,8);x.fillRect(o.x+o.w+2,gy+12,8,20);
-  }else if(o.k===1){
-    // rocher
-    x.fillStyle='#7a6a54';x.beginPath();x.moveTo(o.x,gy+o.h);x.lineTo(o.x+o.w*0.2,gy+4);x.lineTo(o.x+o.w*0.8,gy);x.lineTo(o.x+o.w,gy+o.h);x.closePath();x.fill();
-    x.fillStyle='#94826a';x.fillRect(o.x+o.w*0.3,gy+6,o.w*0.2,6);
-  }else{
-    // termitiere
-    x.fillStyle='#a05a20';x.beginPath();x.moveTo(o.x,gy+o.h);x.quadraticCurveTo(o.x+o.w/2,gy-8,o.x+o.w,gy+o.h);x.closePath();x.fill();
-    x.fillStyle='#c07030';x.fillRect(o.x+o.w*0.35,gy+o.h*0.5,o.w*0.3,4);
+// ---------- etat du jeu ----------
+let S='menu',score=0,coins=0,speed=0,scroll=0,dayT=0,timeMs=0;
+let lion={y:0,vy:0,jumps:0,ph:0};
+let obs=[],cns=[],puffs=[];
+const G=2600,JUMP=950,GR=0.72;
+let hi=+(localStorage.getItem('lionHi')||0);
+document.getElementById('hiscore').textContent=hi;
+fetch('/jeux/score').then(r=>r.json()).then(d=>{if(d.ok)document.getElementById('srv').innerHTML='🪙 Compte: '+d.coins+' pièces · Record: '+d.best;}).catch(()=>{});
+
+function reset(){
+  score=0;coins=0;speed=340;scroll=0;obs=[];cns=[];puffs=[];
+  lion.y=0;lion.vy=0;lion.jumps=0;lion.ph=0;
+  document.getElementById('msg').textContent='';
+}
+function start(){reset();S='play';}
+
+// ---------- entrees ----------
+function tap(){
+  if(S==='menu'){start();return;}
+  if(S==='over'){if(timeMs-overAt>600)start();return;}
+  if(lion.jumps<2){lion.vy=-JUMP*(lion.jumps===0?1:0.88);lion.jumps++;
+    for(let i=0;i<6;i++)puffs.push({x:W*0.18,y:hor-lion.y,vx:-60-Math.random()*80,vy:20+Math.random()*50,l:0.5,r:3+Math.random()*4});}
+}
+addEventListener('pointerdown',tap);
+addEventListener('keydown',e=>{if(e.code==='Space')tap();});
+
+// ---------- spawn ----------
+let nextObs=600,nextCns=900;
+function spawn(dt){
+  scroll+=speed*dt;
+  nextObs-=speed*dt;nextCns-=speed*dt;
+  if(nextObs<=0){
+    nextObs=420+Math.random()*520*(340/speed+0.4);
+    const k=Math.random();
+    if(k<0.34)obs.push({t:'cactus',x:W+60,w:26,h:58});
+    else if(k<0.62)obs.push({t:'rocher',x:W+60,w:44,h:34});
+    else if(k<0.86)obs.push({t:'termitiere',x:W+60,w:40,h:64});
+    else obs.push({t:'aigle',x:W+60,w:64,h:30,fly:60+Math.random()*90,ph:Math.random()*6});
+  }
+  if(nextCns<=0){
+    nextCns=700+Math.random()*900;
+    const n=3+(Math.random()*3|0),bx=W+60,arc=Math.random()<0.5;
+    for(let i=0;i<n;i++)cns.push({x:bx+i*46,y:arc?Math.sin(i/(n-1)*Math.PI)*120:0,ph:Math.random()*6});
   }
 }
 
-function drawPiece(p){
-  const bob=Math.sin(t*0.15+p.x*0.02)*4;
-  x.fillStyle='#ffd54a';x.beginPath();x.arc(p.x,p.y+bob,p.r,0,Math.PI*2);x.fill();
-  x.fillStyle='#b8860b';x.font='bold '+p.r+'px monospace';x.textAlign='center';x.fillText('₳',p.x,p.y+bob+p.r*0.35);
+// ---------- dessin : decor ----------
+function drawSky(sky){
+  const g=ctx.createLinearGradient(0,0,0,hor);
+  g.addColorStop(0,rgb(sky.top));g.addColorStop(0.55,rgb(sky.mid));g.addColorStop(1,rgb(sky.bot));
+  ctx.fillStyle=g;ctx.fillRect(0,0,W,hor+2);
+  // etoiles
+  if(sky.night>0.08){
+    for(const st of stars){
+      const a=sky.night*(0.35+0.65*Math.abs(Math.sin(timeMs*0.001+st.p)));
+      ctx.fillStyle='rgba(255,250,220,'+a.toFixed(2)+')';
+      ctx.fillRect(st.x*W,st.y*H,st.w,st.w);
+    }
+  }
+  // soleil
+  const sunAlt=1-Math.min(1,dayT/0.32);
+  if(sunAlt>0){
+    const sx=W*0.76,sy=hor-sunAlt*H*0.5-10;
+    const sg=ctx.createRadialGradient(sx,sy,0,sx,sy,90);
+    sg.addColorStop(0,'rgba(255,240,180,0.95)');sg.addColorStop(0.25,'rgba(255,190,90,0.55)');sg.addColorStop(1,'rgba(255,150,50,0)');
+    ctx.fillStyle=sg;ctx.beginPath();ctx.arc(sx,sy,90,0,7);ctx.fill();
+    ctx.fillStyle='rgb(255,235,170)';ctx.beginPath();ctx.arc(sx,sy,26,0,7);ctx.fill();
+  }
+  // lune
+  const mT=(dayT-0.30)/0.48;
+  if(mT>0&&mT<1){
+    const mx=W*0.22,my=hor-Math.sin(mT*Math.PI)*H*0.5-10;
+    ctx.fillStyle='rgba(235,235,220,0.95)';ctx.beginPath();ctx.arc(mx,my,20,0,7);ctx.fill();
+    ctx.fillStyle=rgb(sky.top);ctx.beginPath();ctx.arc(mx-9,my-5,17,0,7);ctx.fill();
+  }
+  // nuages
+  for(const c of clouds){
+    c.x-=c.v*0.016*(1+speed/600);if(c.x<-0.25)c.x=1.25;
+    const cy=c.y*H,cw=70*c.s;
+    const col=lerpC([255,230,200],[40,40,70],sky.night);
+    ctx.fillStyle='rgba('+(col[0]|0)+','+(col[1]|0)+','+(col[2]|0)+',0.5)';
+    ctx.beginPath();
+    ctx.ellipse(c.x*W,cy,cw,14*c.s,0,0,7);
+    ctx.ellipse(c.x*W-cw*0.5,cy+6,cw*0.55,10*c.s,0,0,7);
+    ctx.ellipse(c.x*W+cw*0.55,cy+7,cw*0.5,9*c.s,0,0,7);
+    ctx.fill();
+  }
+}
+function drawRidge(arr,par,col,base){
+  const n=arr.length-1,seg=W/n;
+  ctx.fillStyle=col;ctx.beginPath();ctx.moveTo(0,hor+2);
+  for(let i=0;i<=n;i++){
+    const x=(i*seg-(scroll*par)%(W))+(scroll*par>W?-W:0);
+    ctx.lineTo(x,hor-arr[i]*H*2.4-base);
+  }
+  ctx.lineTo(W,hor+2);ctx.closePath();ctx.fill();
+}
+function acacia(x,y,s,sky){
+  const dark=lerpC([70,45,25],[12,10,20],sky.night);
+  ctx.fillStyle=rgb(dark);
+  ctx.fillRect(x-3*s,y-46*s,6*s,46*s);
+  ctx.beginPath();
+  ctx.moveTo(x-2*s,y-40*s);ctx.lineTo(x-26*s,y-52*s);ctx.lineTo(x-24*s,y-55*s);ctx.lineTo(x-2*s,y-46*s);ctx.closePath();ctx.fill();
+  ctx.beginPath();
+  ctx.moveTo(x+2*s,y-42*s);ctx.lineTo(x+24*s,y-54*s);ctx.lineTo(x+22*s,y-57*s);ctx.lineTo(x+2*s,y-48*s);ctx.closePath();ctx.fill();
+  ctx.beginPath();ctx.ellipse(x,y-58*s,34*s,10*s,0,0,7);ctx.fill();
+  ctx.beginPath();ctx.ellipse(x-8*s,y-66*s,20*s,7*s,0,0,7);ctx.fill();
+}
+function drawGround(sky){
+  const g=ctx.createLinearGradient(0,hor,0,H);
+  const c1=lerpC([150,105,55],[28,22,38],sky.night),c2=lerpC([105,72,38],[16,13,26],sky.night);
+  g.addColorStop(0,rgb(c1));g.addColorStop(1,rgb(c2));
+  ctx.fillStyle=g;ctx.fillRect(0,hor,W,H-hor);
+  // cailloux / texture
+  ctx.fillStyle='rgba(0,0,0,0.18)';
+  for(const d of dots){
+    const x=((d.x*W*2-scroll)%(W*2)+W*2)%(W*2)-W*0.5;
+    ctx.beginPath();ctx.ellipse(x,hor+8+d.y*(H-hor-14),4*d.s,2*d.s,0,0,7);ctx.fill();
+  }
+  // herbes premier plan
+  const gc=lerpC([120,140,50],[20,30,25],sky.night);
+  ctx.strokeStyle=rgb(gc);ctx.lineWidth=2;
+  for(const t of tufts){
+    const x=((t.x*W*2-scroll*1.15)%(W*2)+W*2)%(W*2)-W*0.5;
+    const y=hor+14+t.s*(H-hor-20),s=t.s*14,sw=Math.sin(timeMs*0.003+x)*3;
+    ctx.beginPath();ctx.moveTo(x,y);ctx.quadraticCurveTo(x+sw,y-s*0.6,x+sw*2,y-s);
+    ctx.moveTo(x+5,y);ctx.quadraticCurveTo(x+5+sw,y-s*0.5,x+6+sw*2,y-s*0.85);
+    ctx.stroke();
+  }
 }
 
-function loop(){
-  t++;
-  // CIEL — coucher de soleil du Sahel
-  const grd=x.createLinearGradient(0,0,0,H);
-  grd.addColorStop(0,'#2a1040');grd.addColorStop(0.4,'#8a2a0a');grd.addColorStop(0.7,'#d4681a');grd.addColorStop(1,'#f4a24a');
-  x.fillStyle=grd;x.fillRect(0,0,W,H);
-  // soleil
-  x.fillStyle='#ffe08a';x.beginPath();x.arc(W*0.75,H*0.35,H*0.09+Math.sin(t*0.01)*2,0,Math.PI*2);x.fill();
-  x.fillStyle='rgba(255,224,138,0.25)';x.beginPath();x.arc(W*0.75,H*0.35,H*0.13,0,Math.PI*2);x.fill();
-  // etoiles
-  x.fillStyle='rgba(255,255,255,0.7)';
-  for(let i=0;i<12;i++){const sx=(i*97+t*0.15)%W,sy=(i*53)%Math.floor(H*0.25);x.fillRect(sx,sy,2,2);}
-  // nuages
-  x.fillStyle='rgba(255,200,150,0.3)';
-  nuages.forEach(n=>{if(S==='play')n.x-=speed*0.25;if(n.x<-80)n.x=W+80;x.beginPath();x.ellipse(n.x,n.y,n.s*1.6,n.s*0.5,0,0,Math.PI*2);x.fill();});
-  // montagnes lointaines
-  x.fillStyle='#5a2a18';x.beginPath();x.moveTo(0,H*0.62);
-  for(let i=0;i<=8;i++){x.lineTo(W/8*i,H*0.62-((i*37)%60)-20);}
-  x.lineTo(W,H*0.7);x.lineTo(0,H*0.7);x.fill();
-  // arbres (acacias)
-  arbres.forEach(a=>{
-    if(S==='play')a.x-=speed*0.5;if(a.x<-100)a.x=W+Math.random()*200;
-    const s=a.s*60,gy=groundY()+8;
-    x.strokeStyle='#3a1a08';x.lineWidth=6*a.s;
-    x.beginPath();x.moveTo(a.x,gy);x.lineTo(a.x-s*0.1,gy-s*0.8);x.stroke();
-    x.fillStyle='#2d4a1a';
-    x.beginPath();x.ellipse(a.x-s*0.1,gy-s*0.85,s*0.7,s*0.18,0,0,Math.PI*2);x.fill();
-    x.beginPath();x.ellipse(a.x-s*0.3,gy-s*0.7,s*0.4,s*0.12,0,0,Math.PI*2);x.fill();
-  });
-  // SOL — savane
-  x.fillStyle='#c88a3a';x.fillRect(0,groundY(),W,H-groundY());
-  x.fillStyle='#a86a20';x.fillRect(0,groundY(),W,6);
-  // herbe qui defile
-  x.fillStyle='#8a6a2a';
-  for(let i=0;i<20;i++){const gx=(i*73-(S==='play'?t*speed:0))%(W+40)-20;x.fillRect(gx,groundY()+14+(i%3)*10,8,3);}
+// ---------- dessin : lion ----------
+function drawLion(sky){
+  const x=W*0.18,y=hor-lion.y,bob=Math.sin(lion.ph*2)*2.5;
+  const run=S==='play'&&lion.y<=0.5;
+  ctx.save();ctx.translate(x,y+bob);
+  const dark=lerpC([0,0,0],[0,0,0],0);
+  // queue
+  ctx.strokeStyle='#8a5a28';ctx.lineWidth=5;ctx.lineCap='round';
+  ctx.beginPath();ctx.moveTo(-34,-26);
+  ctx.quadraticCurveTo(-58,-34+Math.sin(timeMs*0.01)*6,-60,-52+Math.sin(timeMs*0.01)*8);
+  ctx.stroke();
+  ctx.fillStyle='#6a3a18';ctx.beginPath();ctx.arc(-60,-54+Math.sin(timeMs*0.01)*8,7,0,7);ctx.fill();
+  // pattes
+  const lp=run?Math.sin(lion.ph*2):0;
+  ctx.fillStyle='#b57a30';
+  for(const [ox,ph] of [[-22,0],[-14,Math.PI],[16,Math.PI],[24,0]]){
+    const sw=run?Math.sin(lion.ph*2+ph)*10:0;
+    ctx.save();ctx.translate(ox+sw*0.4,-14);
+    ctx.rotate(run?Math.sin(lion.ph*2+ph)*0.35:0);
+    ctx.fillRect(-4,0,8,16);ctx.restore();
+  }
+  // corps
+  ctx.fillStyle='#c8862e';
+  ctx.beginPath();ctx.ellipse(0,-26,36,17,0,0,7);ctx.fill();
+  ctx.fillStyle='#e0a856';
+  ctx.beginPath();ctx.ellipse(2,-18,26,10,0,0,7);ctx.fill();
+  // criniere
+  ctx.fillStyle='#7a4218';
+  ctx.beginPath();ctx.arc(34,-34,17,0,7);ctx.fill();
+  for(let i=0;i<8;i++){const a=i/8*6.28;
+    ctx.beginPath();ctx.arc(34+Math.cos(a)*17,-34+Math.sin(a)*17,5,0,7);ctx.fill();}
+  // tete
+  ctx.fillStyle='#d09040';
+  ctx.beginPath();ctx.arc(34,-34,12,0,7);ctx.fill();
+  // oreille
+  ctx.beginPath();ctx.arc(28,-45,5,0,7);ctx.fill();
+  // museau
+  ctx.beginPath();ctx.ellipse(43,-30,7,5,0,0,7);ctx.fill();
+  ctx.fillStyle='#5a3010';ctx.beginPath();ctx.arc(46,-30,2.5,0,7);ctx.fill();
+  // oeil
+  ctx.fillStyle='#1a0f05';ctx.beginPath();ctx.arc(37,-37,2.4,0,7);ctx.fill();
+  if(sky.night>0.5){ctx.fillStyle='rgba(255,220,120,0.9)';ctx.beginPath();ctx.arc(37,-37,1.2,0,7);ctx.fill();}
+  ctx.restore();
+}
+
+// ---------- dessin : obstacles & pieces ----------
+function drawObs(sky){
+  const shade=lerpC([0,0,0],[0,0,0],0);
+  for(const o of obs){
+    const x=o.x,y=o.t==='aigle'?hor-o.fly-o.h+Math.sin(timeMs*0.004+o.ph)*14:hor-o.h;
+    if(o.t==='cactus'){
+      ctx.fillStyle=lerpC([46,110,58],[14,30,26],sky.night)?rgb(lerpC([46,110,58],[14,30,26],sky.night)):'#2e6e3a';
+      ctx.fillRect(x-8,y,16,o.h);
+      ctx.fillRect(x-22,y+o.h*0.35,14,8);ctx.fillRect(x-22,y+o.h*0.35,8,o.h*0.3);
+      ctx.fillRect(x+8,y+o.h*0.2,14,8);ctx.fillRect(x+14,y+o.h*0.2,8,o.h*0.35);
+      ctx.fillStyle='rgba(255,255,255,0.25)';ctx.fillRect(x-8,y,4,o.h);
+    }else if(o.t==='rocher'){
+      const g=ctx.createLinearGradient(x,y,x,y+o.h);
+      g.addColorStop(0,'#8a8a92');g.addColorStop(1,'#4a4a52');
+      ctx.fillStyle=g;ctx.beginPath();ctx.ellipse(x,y+o.h*0.6,o.w/2,o.h*0.62,0,Math.PI,0);ctx.fill();
+      ctx.fillStyle='rgba(255,255,255,0.18)';ctx.beginPath();ctx.ellipse(x-6,y+o.h*0.35,8,5,-0.5,0,7);ctx.fill();
+    }else if(o.t==='termitiere'){
+      ctx.fillStyle='#9a5a2c';
+      ctx.beginPath();ctx.moveTo(x-o.w/2,y+o.h);ctx.quadraticCurveTo(x-o.w/2,y+o.h*0.3,x,y);
+      ctx.quadraticCurveTo(x+o.w/2,y+o.h*0.3,x+o.w/2,y+o.h);ctx.closePath();ctx.fill();
+      ctx.fillStyle='#6a3a18';
+      for(let i=0;i<4;i++)ctx.fillRect(x-8+((i*13)%16),y+o.h*0.25+i*o.h*0.16,3,3);
+    }else{ // aigle
+      const fl=Math.sin(timeMs*0.012+o.ph);
+      ctx.fillStyle='#2a2018';
+      ctx.beginPath();ctx.ellipse(x+10,y+o.h/2,16,7,0,0,7);ctx.fill();
+      ctx.beginPath();ctx.moveTo(x+2,y+o.h/2);ctx.lineTo(x-14,y+o.h/2-16*fl);ctx.lineTo(x+6,y+o.h/2+2);ctx.closePath();ctx.fill();
+      ctx.beginPath();ctx.moveTo(x+16,y+o.h/2);ctx.lineTo(x+32,y+o.h/2-16*fl);ctx.lineTo(x+22,y+o.h/2+2);ctx.closePath();ctx.fill();
+      ctx.fillStyle='#d8b060';ctx.beginPath();ctx.moveTo(x+24,y+o.h/2-2);ctx.lineTo(x+32,y+o.h/2);ctx.lineTo(x+24,y+o.h/2+3);ctx.closePath();ctx.fill();
+    }
+  }
+}
+function drawCoins(){
+  for(const c of cns){
+    const x=c.x,y=hor-30-c.y,sq=Math.abs(Math.sin(timeMs*0.004+c.ph));
+    ctx.save();ctx.translate(x,y);ctx.scale(0.4+sq*0.6,1);
+    const g=ctx.createRadialGradient(-3,-3,1,0,0,12);
+    g.addColorStop(0,'#fff3b0');g.addColorStop(0.5,'#ffd24a');g.addColorStop(1,'#c8901a');
+    ctx.fillStyle=g;ctx.beginPath();ctx.arc(0,0,12,0,7);ctx.fill();
+    ctx.strokeStyle='rgba(120,70,10,0.6)';ctx.lineWidth=1.5;ctx.stroke();
+    ctx.fillStyle='#8a5a10';ctx.font='bold 11px Georgia';ctx.textAlign='center';ctx.fillText('₳',0,4);
+    ctx.restore();
+  }
+}
+function drawPuffs(){
+  for(const p of puffs){
+    ctx.fillStyle='rgba(160,120,70,'+(p.l*0.5).toFixed(2)+')';
+    ctx.beginPath();ctx.arc(p.x,p.y,p.r*(1.6-p.l),0,7);ctx.fill();
+  }
+}
+function drawVignette(){
+  const g=ctx.createRadialGradient(W/2,H*0.45,H*0.3,W/2,H*0.5,H*0.85);
+  g.addColorStop(0,'rgba(0,0,0,0)');g.addColorStop(1,'rgba(0,0,0,0.35)');
+  ctx.fillStyle=g;ctx.fillRect(0,0,W,H);
+}
+
+// ---------- game over ----------
+let overAt=0;
+function gameOver(){
+  S='over';overAt=timeMs;
+  const sc=Math.floor(score);
+  if(sc>hi){hi=sc;localStorage.setItem('lionHi',hi);document.getElementById('hiscore').textContent=hi;}
+  document.getElementById('msg').innerHTML='🦁 Le Lion est tombé... Touche pour revivre';
+  fetch('/jeux/score',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:'score='+sc+'&coins='+coins})
+    .then(r=>r.json()).then(d=>{if(d.ok)document.getElementById('srv').innerHTML='🪙 Compte: '+d.coins+' pièces · Record: '+d.best;}).catch(()=>{});
+}
+
+// ---------- boucle ----------
+let last=0;
+function loop(ts){
+  const dt=Math.min(0.033,(ts-last)/1000||0.016);last=ts;timeMs=ts;
+  const sky=skyAt(dayT);
+  document.getElementById('phase').textContent=sky.name;
 
   if(S==='play'){
-    // physique lion
-    lion.vy+=G;lion.y+=lion.vy;
-    if(lion.y>=groundY()){lion.y=groundY();lion.vy=0;lion.jumps=0;}
-    // spawn
-    if(t%Math.max(35,Math.floor(90-speed*4))===0)spawn();
-    // score
-    score++;if(score%10===0)speed+=0.15;
-    hud.textContent=Math.floor(score/5);hudC.textContent=coins;
-    // deplacement obstacles
-    obs.forEach(o=>{o.x-=speed;if(!o.bird)o.bird=false;});
-    pcs.forEach(p=>{p.x-=speed;});
-    // collision pieces
-    pcs=pcs.filter(p=>{
-      const dx=p.x-lionX(),dy=p.y-lion.y;
-      if(dx*dx+dy*dy<(p.r+lion.size*0.6)**2){coins++;for(let i=0;i<8;i++)parts.push({x:p.x,y:p.y,vx:(Math.random()-0.5)*4,vy:(Math.random()-0.5)*4,l:18,c:'#ffd54a'});return false;}
-      return p.x>-30;});
-    // collision obstacles
-    const lx=lionX(),ls=lion.size;
+    speed+=dt*9;
+    dayT=(dayT+dt*0.012)%1;
+    score+=speed*dt*0.02;
+    spawn(dt);
+    // physique
+    lion.vy+=G*3*dt*0.55;lion.y-=lion.vy*dt;
+    if(lion.y<=0){if(lion.vy>300&&lion.jumps>0){for(let i=0;i<8;i++)puffs.push({x:W*0.18+(Math.random()*30-15),y:hor,vx:-40-Math.random()*60,vy:-10-Math.random()*30,l:0.6,r:3+Math.random()*5});}
+      lion.y=0;lion.vy=0;lion.jumps=0;}
+    lion.ph+=dt*(8+speed*0.012);
+    if(lion.y<=0.5&&Math.random()<0.3)puffs.push({x:W*0.18-20,y:hor-2,vx:-80-Math.random()*60,vy:-5-Math.random()*15,l:0.45,r:2+Math.random()*3});
+    // mouvements
+    for(const o of obs){o.x-=speed*dt*(o.t==='aigle'?1.35:1);}
+    for(const c of cns){c.x-=speed*dt;}
+    obs=obs.filter(o=>o.x>-80);cns=cns.filter(c=>c.x>-40);
+    // collisions
+    const lx=W*0.18,ly=hor-lion.y,lb={x:lx-24,y:ly-48,w:52,h:48};
     for(const o of obs){
-      const oy=o.bird?o.fly:groundY()-o.h;
-      if(lx+ls*0.8>o.x&&lx-ls*0.9<o.x+o.w&&lion.y+ls*0.55>oy&&lion.y-ls*0.55<oy+o.h){
-        S='over';
-        const sc=Math.floor(score/5);
-        if(sc>hi){hi=sc;localStorage.setItem('lionHi',hi);hiEl.textContent=hi;}
-        msg.style.display='block';
-        document.querySelector('#msg h1').textContent='💀 Le Lion est tombé';
-        sub.innerHTML='Score: <b>'+sc+'</b> · Pièces: <b>'+coins+'</b> 🪙<br>Record: <b>'+hi+'</b><br><br>🦁 Touche pour rejouer';
-        fetch('/jeux/score',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:'score='+sc+'&coins='+coins}).then(r=>r.json()).then(d=>{if(d.ok)document.getElementById('srv').textContent='🪙 Compte: '+d.coins+' pieces · Record: '+d.best;}).catch(()=>{});
+      const oy=o.t==='aigle'?hor-o.fly-o.h+Math.sin(timeMs*0.004+o.ph)*14:hor-o.h;
+      const ob={x:o.x-o.w/2+4,y:oy+4,w:o.w-8,h:o.h-4};
+      if(lb.x<ob.x+ob.w&&lb.x+lb.w>ob.x&&lb.y<ob.y+ob.h&&lb.y+lb.h>ob.y){gameOver();break;}
+    }
+    for(const c of cns){
+      if(Math.abs(c.x-lx)<26&&Math.abs((hor-30-c.y)-ly+20)<32){
+        c.got=true;coins++;
+        for(let i=0;i<7;i++)puffs.push({x:c.x,y:hor-30-c.y,vx:(Math.random()*160-80),vy:-Math.random()*120,l:0.5,r:2+Math.random()*3,gold:true});
+        document.getElementById('coins').textContent='🪙 '+coins;
       }
     }
-    obs=obs.filter(o=>o.x>-80);
+    cns=cns.filter(c=>!c.got);
   }
+  for(const p of puffs){p.x+=p.vx*dt;p.y+=p.vy*dt;p.l-=dt*1.6;}
+  puffs=puffs.filter(p=>p.l>0);
 
-  // particules
-  parts.forEach(p=>{p.x+=p.vx;p.y+=p.vy;p.vy+=0.2;p.l--;});
-  parts=parts.filter(p=>p.l>0);
-  parts.forEach(p=>{x.fillStyle=p.c;x.fillRect(p.x,p.y,4,4);});
+  // ---------- rendu ----------
+  drawSky(sky);
+  drawRidge(mtn2,0.12,rgb(lerpC(sky.mid,[10,8,22],0.55+sky.night*0.3)),0);
+  drawRidge(mtn1,0.25,rgb(lerpC(sky.mid,[8,6,18],0.75+sky.night*0.2)),H*0.02);
+  for(const t of trees){
+    const x=((t.x*W*1.6-scroll*0.45)%(W*1.6)+W*1.6)%(W*1.6)-W*0.3;
+    acacia(x,hor+4,t.s*0.9,sky);
+  }
+  drawGround(sky);
+  drawObs(sky);
+  drawCoins();
+  drawPuffs();
+  drawLion(sky);
+  drawVignette();
 
-  // dessiner objets
-  pcs.forEach(drawPiece);
-  obs.forEach(drawObstacle);
-  // lion (rotation en saut)
-  const rot=S==='play'&&lion.jumps>0?Math.max(-0.3,Math.min(0.3,lion.vy*0.03)):0;
-  drawLion(lionX(),lion.y-lion.size*0.3,rot);
-
+  if(S==='menu'){
+    ctx.fillStyle='rgba(10,5,0,0.45)';ctx.fillRect(0,0,W,H);
+    ctx.fillStyle='#ffe8b0';ctx.font='bold 34px Georgia';ctx.textAlign='center';
+    ctx.fillText('🦁 Le Lion du Sahel',W/2,H*0.34);
+    ctx.font='16px Georgia';ctx.fillStyle='#f0d8a8';
+    ctx.fillText('La Vraie Savane — du soleil doré à la nuit étoilée',W/2,H*0.40);
+    ctx.fillText('Touche pour courir 🏃',W/2,H*0.50);
+  }
+  if(S==='over'){
+    ctx.fillStyle='rgba(10,5,0,0.55)';ctx.fillRect(0,H*0.28,W,H*0.44);
+    ctx.fillStyle='#ffe8b0';ctx.font='bold 30px Georgia';ctx.textAlign='center';
+    ctx.fillText('🦁 Le Lion est tombé',W/2,H*0.38);
+    ctx.font='18px Georgia';ctx.fillStyle='#f0d8a8';
+    ctx.fillText('Score: '+Math.floor(score)+'  ·  Pièces: '+coins+' 🪙',W/2,H*0.45);
+    ctx.fillText('Record: '+hi,W/2,H*0.50);
+    ctx.font='15px Georgia';
+    ctx.fillText('Touche pour revivre',W/2,H*0.58);
+  }
+  document.getElementById('score').textContent=Math.floor(score);
   requestAnimationFrame(loop);
 }
-loop();
-</script></body></html>
+requestAnimationFrame(loop);
+</script>
+</body></html>
 "##;
 
 fn handle_request(mut stream: TcpStream, state: Arc<Mutex<AppState>>) {
@@ -4056,7 +4237,7 @@ fn main() {
     let port = 8090;
     let state = Arc::new(Mutex::new(AppState::new()));
 
-    println!("🦁 AfriForme v0.18 — La plateforme africaine de code");
+    println!("🦁 AfriForme v0.19 — La plateforme africaine de code");
     println!("📡 Serveur: http://localhost:{}", port);
     println!("👤 Utilisateurs: {}", state.lock().unwrap().users.len());
     println!("📦 Depots: {}", state.lock().unwrap().repos.len());
