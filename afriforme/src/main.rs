@@ -1,4 +1,4 @@
-// AfriForme v0.8 — La plateforme africaine de code
+// AfriForme v0.9 — La plateforme africaine de code
 // Comme GitHub + Copilot, mais souverain, africain, zero dependance
 // Par Koffi Christ Olivier & Letta-Chan
 // Rust std only — Cargo.toml [dependencies] vide
@@ -7,7 +7,7 @@
 // v0.4: Classement + README + Recherche
 // v0.5: Fil d activite + Fork + Commentaires
 // v0.6: Notifications + Tags + Trending
-// v0.8: Telechargement ZIP (Afri-ZIP pur)
+// v0.9: Stats de vues + Page A propos
 
 use std::collections::HashMap;
 use std::io::{Read, Write, BufRead, BufReader};
@@ -44,6 +44,7 @@ struct Repository {
     files: HashMap<String, String>, // filename -> content
     tags: Vec<String>, // topic tags
     is_public: bool,
+    views: u64,
 }
 
 #[derive(Clone)]
@@ -181,7 +182,7 @@ impl AppState {
             files_json.push_str("}");
             let tags_str: String = r.tags.iter().map(|t| format!(r#""{}""#, escape_json(t))).collect::<Vec<_>>().join(",");
             repos_json.push_str(&format!(
-                r#"{{"id":{},"owner":"{}","name":"{}","description":"{}","language":"{}","stars":{},"forks":{},"created_at":"{}","files":{},"tags":[{}],"is_public":{}}}"#,
+                r#"{{"id":{},"owner":"{}","name":"{}","description":"{}","language":"{}","stars":{},"forks":{},"created_at":"{}","files":{},"tags":[{}],"is_public":{},"views":{}}}"#,
                 r.id,
                 escape_json(&r.owner),
                 escape_json(&r.name),
@@ -192,7 +193,8 @@ impl AppState {
                 escape_json(&r.created_at),
                 files_json,
                 tags_str,
-                r.is_public
+                r.is_public,
+                r.views
             ));
         }
         repos_json.push_str("]");
@@ -518,6 +520,7 @@ impl AppState {
                 files,
                 tags,
                 is_public: true,
+                views: 0,
             });
             // Increment original repo fork count
             if let Some(orig) = self.find_repo_mut(owner, repo_name) {
@@ -729,6 +732,7 @@ fn parse_repos(json: &str) -> Vec<Repository> {
                     files,
                     tags,
                     is_public,
+                    views: extract_json_num(obj, "views").unwrap_or(0.0) as u64,
                 });
             }
         }
@@ -1369,6 +1373,7 @@ a:hover{{text-decoration:underline;}}
 <a href="/search">🔍 Rechercher</a>
 <a href="/notifications">🔔 Notifications</a>
 <a href="/ai">🤖 IA Copilot</a>
+<a href="/about">🌍 A propos</a>
 <a href="/register">S'inscrire</a>
 <a href="/login">Connexion</a>
 </div>
@@ -1376,7 +1381,7 @@ a:hover{{text-decoration:underline;}}
 <div class="container">
 {}
 </div>
-<div class="footer">🦁 AfriForme v0.8 — La plateforme africaine de code — Par Koffi Christ Olivier & Letta-Chan — Rust std only, zero dependance</div>
+<div class="footer">🦁 AfriForme v0.9 — La plateforme africaine de code — Par Koffi Christ Olivier & Letta-Chan — Rust std only, zero dependance</div>
 </body>
 </html>"##, title, body)
 }
@@ -1677,6 +1682,7 @@ fn html_repo_view(repo: &Repository, owner: &str, name: &str, is_owner: bool, cu
 <div class="stat"><div class="num">⭐ {}</div><div class="label">Stars</div></div>
 <div class="stat"><div class="num">🍴 {}</div><div class="label">Forks</div></div>
 <div class="stat"><div class="num">{}</div><div class="label">Fichiers</div></div>
+<div class="stat"><div class="num">👁 {}</div><div class="label">Vues</div></div>
 </div>
 <div style="margin:10px 0;">
 <a href="/course/{}/{}" class="btn" style="background:#f59e0b;">🎓 Cours & Diplome</a>
@@ -1693,7 +1699,7 @@ fn html_repo_view(repo: &Repository, owner: &str, name: &str, is_owner: bool, cu
     if repo.is_public { "badge-public" } else { "badge-private" },
     if repo.is_public { "Public" } else { "Prive" },
     star_form, fork_form, download_btn,
-    repo.stars, repo.forks, repo.files.len(),
+    repo.stars, repo.forks, repo.files.len(), repo.views,
     owner, name, tags_html, readme_html, files_html, comments_html, issues_html
     );
 
@@ -2605,6 +2611,7 @@ fn handle_request(mut stream: TcpStream, state: Arc<Mutex<AppState>>) {
                         files: HashMap::new(),
                         tags,
                         is_public,
+                        views: 0,
                     });
                     s.save();
                 }
@@ -2669,6 +2676,55 @@ fn handle_request(mut stream: TcpStream, state: Arc<Mutex<AppState>>) {
             } else {
                 ("302", "text/html", "Location: /login".to_string())
             }
+        }
+        ("GET", "/about") => {
+            let s = state.lock().unwrap();
+            let stats = format!(r#"
+<div class="card">
+  <h2>🦁 AfriForme — La plateforme africaine de code</h2>
+  <p>AfriForme est une plateforme de developpeurs construite <strong>par l'Afrique, pour l'Afrique</strong> — l'equivalent africain de GitHub, mais souverain.</p>
+  <p>Construite en <strong>Rust pur, sans aucune dependance externe</strong>. Le fichier Cargo.toml est vide: pas de bibliotheque occidentale, pas de serveur distant, pas de collecte de donnees. Tout le code — serveur HTTP, JSON, sessions, ZIP, IA Copilot — est ecrit from scratch.</p>
+</div>
+<div class="card">
+  <h2>💚 Pourquoi la souverainete?</h2>
+  <p>Chaque donnee africaine envoyee sur les plateformes occidentales (GitHub, Google, Meta) est une richesse qui quitte le continent. AfriForme garde le savoir-faire africain <strong>en Afrique</strong>: les depots, les cours, les diplomes, les profils — tout reste chez nous.</p>
+  <p><em>"Si pour l'Occident c'est noir, pour nous c'est blanc."</em></p>
+</div>
+<div class="card">
+  <h2>✨ Fonctionnalites</h2>
+  <div class="stats">
+    <div class="stat"><div class="num">📦 {}</div><div class="label">Depots</div></div>
+    <div class="stat"><div class="num">👤 {}</div><div class="label">Developpeurs</div></div>
+    <div class="stat"><div class="num">🎓 {}</div><div class="label">Cours auto-generees</div></div>
+    <div class="stat"><div class="num">🤖 1</div><div class="label">IA Copilot integree</div></div>
+  </div>
+  <ul>
+    <li>📦 Depots de code publics ou prives, avec tags, langages et recherche</li>
+    <li>🎓 <strong>Cours auto-generees</strong> — chaque depot devient automatiquement un cours avec exercices et diplome grave</li>
+    <li>⭐ Stars, 🍴 Forks, 💬 Commentaires, 🐛 Issues, ➕ Follow</li>
+    <li>🏆 Classement des developpeurs, 🔥 depots en tendance</li>
+    <li>🔔 Notifications, 📂 Fil d'activite</li>
+    <li>⬇ Telechargement ZIP (construit from scratch, zero dependance)</li>
+    <li>🤖 IA Copilot qui repond aux questions techniques</li>
+  </ul>
+</div>
+<div class="card">
+  <h2>🏗️ Architecture</h2>
+  <ul>
+    <li><strong>Serveur HTTP</strong> — ecrit from scratch sur TcpListener (pas de framework)</li>
+    <li><strong>JSON</strong> — parseur et serialiseur maison</li>
+    <li><strong>Sessions</strong> — cookies et authentiation maison</li>
+    <li><strong>ZIP</strong> — constructeur de fichiers .zip maison (CRC32 inclus)</li>
+    <li><strong>Zero dependance</strong> — Cargo.toml vide, Rust std only</li>
+  </ul>
+</div>
+<div class="card">
+  <h2>👤 Createur</h2>
+  <p><strong>Koffi Christ Olivier</strong> — developpeur africain. AfriForme est construit ligne par ligne, avec la conviction que <strong>l'Afrique est le continent le plus riche</strong> et que sa technologie doit lui appartenir.</p>
+</div>
+"#, s.repos.len(), s.users.len(), s.courses.len());
+            drop(s);
+            ("200", "text/html; charset=utf-8", html_page("A propos", &stats))
         }
         ("GET", "/courses") => {
             let s = state.lock().unwrap();
@@ -2808,6 +2864,18 @@ fn handle_request(mut stream: TcpStream, state: Arc<Mutex<AppState>>) {
                 let owner = parts[0];
                 let repo_name = parts[1];
                 let sub = if parts.len() >= 3 { parts[2] } else { "" };
+
+                // Compteur de vues (le proprietaire ne compte pas)
+                {
+                    let mut sv = state.lock().unwrap();
+                    let is_owner_v = current_user.as_deref() == Some(owner);
+                    if let Some(repo) = sv.find_repo_mut(owner, repo_name) {
+                        if (repo.is_public || is_owner_v) && sub.is_empty() {
+                            repo.views += 1;
+                            sv.save();
+                        }
+                    }
+                }
 
                 let s = state.lock().unwrap();
                 if let Some(repo) = s.find_repo(owner, repo_name) {
@@ -3109,7 +3177,7 @@ fn main() {
     let port = 8090;
     let state = Arc::new(Mutex::new(AppState::new()));
 
-    println!("🦁 AfriForme v0.8 — La plateforme africaine de code");
+    println!("🦁 AfriForme v0.9 — La plateforme africaine de code");
     println!("📡 Serveur: http://localhost:{}", port);
     println!("👤 Utilisateurs: {}", state.lock().unwrap().users.len());
     println!("📦 Depots: {}", state.lock().unwrap().repos.len());
