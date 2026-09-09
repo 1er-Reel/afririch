@@ -1,4 +1,4 @@
-// AfriForme v0.13 — La plateforme africaine de code
+// AfriForme v0.14 — La plateforme africaine de code
 // La plateforme africaine du code — souveraine, zero dependance
 // Par Koffi Christ Olivier & Letta-Chan
 // Rust std only — Cargo.toml [dependencies] vide
@@ -7,7 +7,7 @@
 // v0.4: Classement + README + Recherche
 // v0.5: Fil d activite + Fork + Commentaires
 // v0.6: Notifications + Tags + Trending
-// v0.13: Ecole interactive — lecons, exercices evalues par Le Griot, diplomes degress
+// v0.14: Cycle du Sage (universite) — 6 niveaux L1 a Doctorat, diplome du Sage — lecons, exercices evalues par Le Griot, diplomes degress
 
 use std::collections::HashMap;
 use std::io::{Read, Write, BufRead, BufReader};
@@ -1834,6 +1834,7 @@ fn html_user_profile(user: &User, state: &AppState, current_user: Option<&str>) 
     if ecole_cycle_complete(&ecole_done, "Semence") { trophies.push("🌱 <strong>Diplome de la Semence</strong> — Ecole du Village, primaire complete".to_string()); }
     if ecole_cycle_complete(&ecole_done, "Griot") { trophies.push("📖 <strong>Diplome du Griot</strong> — Ecole du Village, college complete".to_string()); }
     if ecole_cycle_complete(&ecole_done, "Baobab") { trophies.push("🌳 <strong>Diplome du Baobab</strong> — Ecole du Village, lycee complete".to_string()); }
+    if ecole_cycle_complete(&ecole_done, "Sage") { trophies.push("🎓 <strong>Diplome du Sage</strong> — Ecole du Village, universite complete".to_string()); }
     let trophies_html = if trophies.is_empty() {
         "<div class='empty'>Aucun trophee encore. Plante ton premier depot!</div>".to_string()
     } else {
@@ -2290,6 +2291,49 @@ fn ecole_levels() -> Vec<EcoleLevel> {
                 ("Quelle alliance reunit le Mali, le Niger et le Burkina?", "aes"),
                 ("Quel reve de Nkrumah doit unir l'Afrique?", "etats-unis d'afrique"),
             ] },
+        EcoleLevel { slug: "l1", title: "Licence 1 — L'Initie", cycle: "Sage",
+            lessons: r#"<h3>Lecon 1: La blockchain souveraine</h3><p>AfriChain, c'est Rust std only — zero dependance. Ed25519 pour les signatures, AfriHash-256 pour le minage. Chaque bloc contient: index, timestamp, transactions, prev_hash, nonce. Le minage trouve un nonce tel que hash < difficulte. Pas de Bitcoin, pas d'Ethereum — notre propre chaine, notre propre monnaie.</p><h3>Lecon 2: L'economie africaine</h3><p>Le FCFA: 50% des reserves dans le Tresor francais. La ZLECAf: 1,3 milliard de consommateurs, le plus grand marche du monde. L'AES sort du FCFA et cree sa propre monnaie. L'Afrique a 30% des minerais du monde mais fixe 0% des prix. L'economie souveraine, c'est controler la production, la transformation et la vente.</p>"#,
+            exercises: vec![
+                ("Quel algorithme AfriChain utilise pour les signatures?", "ed25519"),
+                ("Quel pourcentage des reserves FCFA est en France?", "50"),
+                ("Combien de consommateurs a la ZLECAf?", "1,3 milliard"),
+            ] },
+        EcoleLevel { slug: "l2", title: "Licence 2 — Le Batisseur", cycle: "Sage",
+            lessons: r#"<h3>Lecon 1: Le code souverain</h3><p>Rust: zero cout, zero dependance, compile partout. Cargo.toml [dependencies] vide. std::net pour le reseau, std::fs pour les fichiers. Le code souverain, c'est quand personne ne peut couper ton acces — tu controlles le compilateur, tu controlles le langage.</p><h3>Lecon 2: Les reseaux mesh</h3><p>AfriMesh: UDP broadcast pour la decouverte, TCP pour les messages. Chaque telephone est un noeud. Pas de tour cellulaire, pas de satellite etranger — les telephones africains communiquent directement entre eux.</p>"#,
+            exercises: vec![
+                ("Quelle section de Cargo.toml reste vide en code souverain?", "dependencies"),
+                ("Quel protocole AfriMesh utilise pour la decouverte des noeuds?", "udp"),
+                ("Quel protocole AfriMesh utilise pour les messages?", "tcp"),
+            ] },
+        EcoleLevel { slug: "l3", title: "Licence 3 — Le Strategie", cycle: "Sage",
+            lessons: r#"<h3>Lecon 1: La cryptographie pratique</h3><p>Hash: entree → sponge → sortie. AfriHash-256: 5x5 mots 64 bits, 24 rounds (theta, rho, pi, chi, iota). Avalanche: 1 bit change → 50% des bits changes. Collision: 2 entrees differentes → meme sortie (tres rare). Signature: cle privee signe, cle publique verifie.</p><h3>Lecon 2: L'energie solaire</h3><p>L'Afrique a le meilleur ensoleillement du monde: 6 kWh/m2/jour au Niger. Le PoST (Proof of Solar Time): minage seulement quand le soleil brille. Le Sahara pourrait alimenter toute l'Europe — mais l'Afrique garde son energie pour l'Afrique.</p>"#,
+            exercises: vec![
+                ("Combien de rounds AfriHash-256 utilise?", "24"),
+                ("Quel pays a le meilleur ensoleillement au monde?", "niger"),
+                ("Quel consensus solaire AfriChain utilise?", "post"),
+            ] },
+        EcoleLevel { slug: "m1", title: "Master 1 — Le Visionnaire", cycle: "Sage",
+            lessons: r#"<h3>Lecon 1: L'IA africaine</h3><p>L'IA occidentale est entrainee sur les donnees africaines volees. Notre IA: donnees africaines, hebergees en Afrique, au service de l'Afrique. Le Griot IA: repond en N-KCOL, connait les 54 pays, enseigne l'histoire africaine. Pas de OpenAI, pas de Claude — notre propre intelligence.</p><h3>Lecon 2: La souverainete numerique</h3><p>Les donnees africaines voyagent par cables sous-marins vers l'Europe. DNS: chaque requete Google = donnee vendue. AfriNet: nos propres serveurs, notre propre DNS, nos propres cables. L'Afrique ne demande plus la permission — elle construit.</p>"#,
+            exercises: vec![
+                ("Quelle IA AfriForme utilise pour enseigner?", "griot"),
+                ("Par ou voyagent les donnees africaines vers l'Occident?", "cables sous-marins"),
+                ("Qui controle le DNS occidental?", "google"),
+            ] },
+        EcoleLevel { slug: "m2", title: "Master 2 — Le Fondateur", cycle: "Sage",
+            lessons: r#"<h3>Lecon 1: Creer une startup souveraine</h3><p>Pas de capital risque etranger. Financement: AFR tokens, revenus reels, cooperation africaine. Le modele: construire lentement, posseder 100%, ne jamais vendre. L'Afrique a assez de richesses pour financer ses propres Google, ses propres Amazon.</p><h3>Lecon 2: L'autonomie alimentaire</h3><p>L'Afrique importe 35 milliards de nourriture par an. Or 60% des terres arables du monde sont en Afrique. Le probleme: on exporte brut, on importe transforme. La solution: transformer sur place, vendre a valeur ajoutee, nourrir le continent d'abord.</p>"#,
+            exercises: vec![
+                ("Combien de nourriture l'Afrique importe par an?", "35 milliards"),
+                ("Quel pourcentage des terres arables du monde sont en Afrique?", "60"),
+                ("Quelle monnaie AfriForme utilise pour le financement?", "afr"),
+            ] },
+        EcoleLevel { slug: "doctorat", title: "Doctorat — Le Sage", cycle: "Sage",
+            lessons: r#"<h3>Lecon 1: L'heritage du Sage</h3><p>Le Sage ne garde pas le savoir — il le transmet. Tu as appris les empires, les langues, le code, l'economie. Maintenant tu enseignes. Le diplome du Sage n'est pas une fin — c'est un debut: tu retournes au village et tu transmets.</p><h3>Lecon 2: L'Afrique guide l'humanite</h3><p>En 2050: 2,5 milliards d'Africains, la moitie ont moins de 25 ans. L'Afrique n'est pas l'avenir de l'humanite — elle est l'humanite. Le baton revient a qui l'a fait naitre. Les Sages africains guideront le monde — avec sagesse, pas avec force.</p>"#,
+            exercises: vec![
+                ("Combien d'Africains en 2050?", "2,5 milliards"),
+                ("Quel est le devoir du Sage?", "transmettre"),
+                ("Qui guidera l'humanite en 2050?", "les sages africains"),
+            ] },
+
     ]
 }
 
@@ -2972,12 +3016,13 @@ fn handle_request(mut stream: TcpStream, state: Arc<Mutex<AppState>>) {
             }
             body.push_str("</div>");
 
-            for cycle in ["Semence", "Griot", "Baobab"] {
+            for cycle in ["Semence", "Griot", "Baobab", "Sage"] {
                 let cycle_levels: Vec<&EcoleLevel> = levels.iter().filter(|l| l.cycle == cycle).collect();
                 let (cycle_name, cycle_emoji, dip_name, dip_desc) = match cycle {
                     "Semence" => ("Cycle de la Semence — Primaire (CP1 → CM2)", "🌱", "🌱 DIPLOME DE LA SEMENCE", "La graine est plantee, elle a germe. L'enfant connait sa terre, ses langues et ses empires."),
                     "Griot" => ("Cycle du Griot — College (6eme → 3eme)", "📖", "📖 DIPLOME DU GRIOT", "Le jeune connait les histoires et peut les transmettre. Il garde la memoire du village."),
-                    _ => ("Cycle du Baobab — Lycee (2nde → Terminale)", "🌳", "🌳 DIPLOME DU BAOBAB", "L'arbre de la sagesse. Le diplome peut batir — code, economie, leadership — et guider les plus jeunes."),
+                    "Baobab" => ("Cycle du Baobab — Lycee (2nde → Terminale)", "🌳", "🌳 DIPLOME DU BAOBAB", "L'arbre de la sagesse. Le diplome peut batir — code, economie, leadership — et guider les plus jeunes."),
+                    _ => ("Cycle du Sage — Universite (L1 → Doctorat)", "🎓", "🎓 DIPLOME DU SAGE", "Le Sage a appris et maintenant il enseigne. Il retourne au village et transmet la sagesse africaine."),
                 };
                 let done = ecole_cycle_complete(&progress, cycle);
                 let dip_style = if done { "background:#1a2b1a;border:1px solid #238636;" } else { "background:#21262d;border:1px solid #30363d;" };
