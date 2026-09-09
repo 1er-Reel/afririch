@@ -1,4 +1,4 @@
-// AfriForme v0.12 — La plateforme africaine de code
+// AfriForme v0.13 — La plateforme africaine de code
 // La plateforme africaine du code — souveraine, zero dependance
 // Par Koffi Christ Olivier & Letta-Chan
 // Rust std only — Cargo.toml [dependencies] vide
@@ -7,7 +7,7 @@
 // v0.4: Classement + README + Recherche
 // v0.5: Fil d activite + Fork + Commentaires
 // v0.6: Notifications + Tags + Trending
-// v0.12: Ecole du Village — CP1 a Terminale, diplomes de notre culture (Semence, Griot, Baobab)
+// v0.13: Ecole interactive — lecons, exercices evalues par Le Griot, diplomes degress
 
 use std::collections::HashMap;
 use std::io::{Read, Write, BufRead, BufReader};
@@ -119,6 +119,7 @@ struct AppState {
     follows: HashMap<String, Vec<String>>, // username -> users they follow
     next_issue_id: usize,
     next_repo_id: usize,
+    ecole_progress: HashMap<String, Vec<String>>, // username -> niveaux completes (ecole du village)
 }
 
 impl AppState {
@@ -136,6 +137,7 @@ impl AppState {
             follows: HashMap::new(),
             next_issue_id: 1,
             next_repo_id: 1,
+            ecole_progress: HashMap::new(),
         };
         state.load();
         state
@@ -294,6 +296,19 @@ impl AppState {
         issues_json.push_str("]");
         let _ = fs::write(format!("{}/issues.json", dir), issues_json);
 
+        // Save ecole progress (Ecole du Village)
+        let mut ecole_json = String::new();
+        ecole_json.push_str("{");
+        let mut first = true;
+        for (user, levels) in &self.ecole_progress {
+            if !first { ecole_json.push(','); }
+            first = false;
+            let lv: Vec<String> = levels.iter().map(|l| format!("\"{}\"", escape_json(l))).collect();
+            ecole_json.push_str(&format!(r#""{}":[{}]"#, escape_json(user), lv.join(",")));
+        }
+        ecole_json.push_str("}");
+        let _ = fs::write(format!("{}/ecole_progress.json", dir), ecole_json);
+
         // Save follows
         let mut follows_json = String::new();
         follows_json.push_str("{");
@@ -343,6 +358,11 @@ impl AppState {
             if let Some(last) = self.issues.last() {
                 self.next_issue_id = last.id + 1;
             }
+        }
+
+        // Load ecole progress (Ecole du Village)
+        if let Ok(data) = fs::read_to_string(format!("{}/ecole_progress.json", dir)) {
+            self.ecole_progress = parse_ecole_progress(&data);
         }
 
         // Load follows
@@ -1382,7 +1402,7 @@ a:hover{{text-decoration:underline;}}
 <div class="container">
 {}
 </div>
-<div class="footer">🦁 AfriForme v0.12 — La plateforme africaine de code — Par Koffi Christ Olivier & Letta-Chan — Rust std only, zero dependance</div>
+<div class="footer">🦁 AfriForme v0.13 — La plateforme africaine de code — Par Koffi Christ Olivier & Letta-Chan — Rust std only, zero dependance</div>
 </body>
 </html>"##, title, body)
 }
@@ -1809,6 +1829,11 @@ fn html_user_profile(user: &User, state: &AppState, current_user: Option<&str>) 
     if follower_count >= 3 { trophies.push("🤝 <strong>Sanankuya</strong> — 3 sanankus ou plus".to_string()); }
     if state.courses.iter().any(|c| user_repo_ids.contains(&c.repo_id)) { trophies.push("🎓 <strong>Professeur</strong> — son depot est devenu cours".to_string()); }
     if diplomas.len() >= 1 { trophies.push("📜 <strong>Eleve Model</strong> — a obtenu un diplome".to_string()); }
+    // Diplomes de l'Ecole du Village
+    let ecole_done = state.ecole_progress.get(&user.username).cloned().unwrap_or_default();
+    if ecole_cycle_complete(&ecole_done, "Semence") { trophies.push("🌱 <strong>Diplome de la Semence</strong> — Ecole du Village, primaire complete".to_string()); }
+    if ecole_cycle_complete(&ecole_done, "Griot") { trophies.push("📖 <strong>Diplome du Griot</strong> — Ecole du Village, college complete".to_string()); }
+    if ecole_cycle_complete(&ecole_done, "Baobab") { trophies.push("🌳 <strong>Diplome du Baobab</strong> — Ecole du Village, lycee complete".to_string()); }
     let trophies_html = if trophies.is_empty() {
         "<div class='empty'>Aucun trophee encore. Plante ton premier depot!</div>".to_string()
     } else {
@@ -2128,6 +2153,169 @@ fn parse_starred(data: &str) -> HashMap<String, Vec<usize>> {
         } else { pos += 1; }
     }
     starred
+}
+
+fn parse_ecole_progress(data: &str) -> HashMap<String, Vec<String>> {
+    let mut progress: HashMap<String, Vec<String>> = HashMap::new();
+    let data = data.trim();
+    if data == "{}" || data.is_empty() { return progress; }
+    let mut pos = 0;
+    let bytes = data.as_bytes();
+    while pos < bytes.len() {
+        if bytes[pos] == b'"' {
+            let key_start = pos + 1;
+            let mut key_end = key_start;
+            while key_end < bytes.len() && bytes[key_end] != b'"' { key_end += 1; }
+            let key = unescape_json(&data[key_start..key_end]);
+            pos = key_end + 1;
+            while pos < bytes.len() && bytes[pos] != b'[' { pos += 1; }
+            pos += 1;
+            let mut levels = Vec::new();
+            while pos < bytes.len() && bytes[pos] != b']' {
+                if bytes[pos] == b'"' {
+                    let s_start = pos + 1;
+                    let mut s_end = s_start;
+                    while s_end < bytes.len() && bytes[s_end] != b'"' { s_end += 1; }
+                    levels.push(unescape_json(&data[s_start..s_end]));
+                    pos = s_end + 1;
+                } else { pos += 1; }
+            }
+            progress.insert(key, levels);
+        } else { pos += 1; }
+    }
+    progress
+}
+
+// ============================================================
+// ECOLE DU VILLAGE — lecons et exercices (reponses cachees cote serveur)
+// ============================================================
+struct EcoleLevel {
+    slug: &'static str,
+    title: &'static str,
+    cycle: &'static str,
+    lessons: &'static str,
+    exercises: Vec<(&'static str, &'static str)>, // (question, reponse attendue)
+}
+
+fn ecole_levels() -> Vec<EcoleLevel> {
+    vec![
+        EcoleLevel { slug: "cp1", title: "CP1 — Le Decouvreur", cycle: "Semence",
+            lessons: r#"<h3>Lecon 1: Les sons de la nature (N-KCOL)</h3><p>N-KCOL, c'est lire la nature. Chaque lettre est un son vivant: C c'est HOUUU le tourbillon, K c'est TÈK le bois qui previent, X c'est TCHAK qui coupe la nuit. Un aveugle doit comprendre le son, un sourd doit sentir la vibration, un enfant de 3 ans doit pouvoir l'imiter.</p><h3>Lecon 2: Les animaux parlent N-KCOL</h3><p>Le coq ne dit pas "cocorico" — il dit TÈK-ETCHIIII-TCHAK-OHHHH. Le mouton dit M-B-OHHHH. La grenouille dit DRIIIIP-DJRRR. Le hibou dit OHHHH-OUUUH. L'abeille dit MMMMM. Ecoute la nature: elle parle notre langue.</p>"#,
+            exercises: vec![
+                ("Quel animal dit TÈK-ETCHIIII-TCHAK-OHHHH ?", "coq"),
+                ("Quel est le son de la lettre C dans N-KCOL ?", "houuu"),
+                ("Combien de lettres a l'alphabet N-KCOL ?", "26"),
+            ] },
+        EcoleLevel { slug: "cp2", title: "CP2 — Le Conteur en Herbe", cycle: "Semence",
+            lessons: r#"<h3>Lecon 1: Les contes du village</h3><p>Pourquoi la tortue a une carapace? Parce qu'elle a vole la sagesse du village et a du se cacher dedans. Les contes africains n'amusent pas seulement: ils enseignent. Chaque conte cache une lecon de sagesse.</p><h3>Lecon 2: Compter en langues africaines</h3><p>En bambara: kelen (1), fila (2), saba (3), naani (4), duuru (5). En wolof: benn, jar, yett... Chaque langue africaine a sa propre arithmetique. Compter dans sa langue, c'est penser dans sa langue.</p>"#,
+            exercises: vec![
+                ("Qui a vole la sagesse dans le conte?", "tortue"),
+                ("Comment dit-on 3 en bambara?", "saba"),
+                ("Comment dit-on 5 en bambara?", "duuru"),
+            ] },
+        EcoleLevel { slug: "ce1", title: "CE1 — L'Explorateur", cycle: "Semence",
+            lessons: r#"<h3>Lecon 1: Les 54 pays d'Afrique</h3><p>L'Afrique compte 54 pays, du Senegal a la Somalie, du Maroc a l'Afrique du Sud. Chaque drapeau raconte une histoire: le vert du Mali c'est la nature, l'or c'est la richesse du soleil, le rouge c'est le sang des martyrs.</p><h3>Lecon 2: Les grands fleuves</h3><p>Le Nil: le plus long (6650 km), il a nourri l'Egypte ancienne. Le Niger: il traverse le Mali et fait vivre tout le Sahel. Le Congo: le plus puissant, le coeur de la foret. Un fleuve africain, c'est une artere du continent.</p>"#,
+            exercises: vec![
+                ("Combien de pays a l'Afrique?", "54"),
+                ("Quel fleuve traverse le Mali?", "niger"),
+                ("Quel est le plus long fleuve d'Afrique?", "nil"),
+            ] },
+        EcoleLevel { slug: "ce2", title: "CE2 — Le Sage des Betes", cycle: "Semence",
+            lessons: r#"<h3>Lecon 1: Les fables africaines</h3><p>Le lievre est petit mais malin. L'hyene est forte mais bete. Dans toutes les fables africaines, l'intelligence bat la force. C'est la lecon du Sahel: la ruse du lievre gagne toujours contre les dents de l'hyene.</p><h3>Lecon 2: Le calendrier agricole</h3><p>Au Sahel, l'annee suit la pluie: la saison seche (octobre-mai) et l'hivernage, la saison des pluies (juin-septembre). Le paysan africain lit le ciel, les oiseaux, les termites — il sait quand semer sans aucune montre.</p>"#,
+            exercises: vec![
+                ("Quel animal est le plus malin dans les fables africaines?", "lievre"),
+                ("Comment appelle-t-on la saison des pluies au Sahel?", "hivernage"),
+                ("Quel animal est fort mais bete dans les fables?", "hyene"),
+            ] },
+        EcoleLevel { slug: "cm1", title: "CM1 — L'Historien Junior", cycle: "Semence",
+            lessons: r#"<h3>Lecon 1: Les empires du Ghana et du Mali</h3><p>L'empire du Ghana (300-1240): le pays de l'or, la ville de Koumbi Saleh. Puis l'empire du Mali (1235): Soundjata Keita l'a fonde apres la bataille de Kirina contre le roi Soumaoro. Soundjata, le lion du Mali, a transforme un peuple brise en empire.</p><h3>Lecon 2: Mansa Moussa, l'homme le plus riche</h3><p>Mansa Moussa (1312-1337) a fait le pelerinage a La Mecque avec 100 000 hommes et des tonnes d'or. Il a tant donne que l'or a perdu sa valeur au Caire. Les historiens disent: l'homme le plus riche de toute l'histoire — et il etait africain.</p>"#,
+            exercises: vec![
+                ("Qui a fonde l'empire du Mali?", "soundjata"),
+                ("Quel empereur est l'homme le plus riche de l'histoire?", "mansa moussa"),
+                ("Quelle bataille a fonde l'empire du Mali?", "kirina"),
+            ] },
+        EcoleLevel { slug: "cm2", title: "CM2 — L'Heritier", cycle: "Semence",
+            lessons: r#"<h3>Lecon 1: L'empire Songhai et Tombouctou</h3><p>L'empire Songhai (1464-1591): Sonni Ali Ber puis Askia Mohammed. Tombouctou etait l'universite du desert: Ahmed Baba, le grand savant, avait 1600 livres quand les bibliothiques d'Europe en avaient 10. L'Afrique ecrivait quand d'autres ne lisaient pas.</p><h3>Lecon 2: Les mathematiques africaines</h3><p>Les fractales: les motifs du kente, les coiffures tresses, les villages en spirale — les mathematiciens africains utilisaient la geometrie des fractales des siecles avant que l'Occident ne la decouvre. Et les pyramides d'Egypte: calculees avec une precision que nos ingenieurs admirent encore.</p>"#,
+            exercises: vec![
+                ("Quelle ville etait l'universite du desert?", "tombouctou"),
+                ("Quel savant de Tombouctou avait 1600 livres?", "ahmed baba"),
+                ("Quel empire a suivi le Mali?", "songhai"),
+            ] },
+        EcoleLevel { slug: "6eme", title: "6eme — L'Apprenti Tambour", cycle: "Griot",
+            lessons: r#"<h3>Lecon 1: Les royaumes d'Afrique</h3><p>Le royaume Ashanti: le tabouret d'or, symbole de l'ame du peuple. Le Dahomey: les Amazones, des guerrieres que l'Europe redoutait. Le Kanem-Bornou: mille ans d'histoire autour du lac Tchad. Le Wassoulou: l'empire de Samori.</p><h3>Lecon 2: Le tambour parleur</h3><p>Le tambour imite la langue: il reproduit les tons des mots. Un message tamboure voyage de village en village plus vite qu'un cavalier. Avant le telephone, l'Afrique avait deja son reseau de communication — le tambour parleur.</p>"#,
+            exercises: vec![
+                ("Quel royaume avait des guerrieres amazones?", "dahomey"),
+                ("Quel instrument porte les messages a travers la savane?", "tambour"),
+                ("Quel objet sacre symbolise le royaume Ashanti?", "tabouret"),
+            ] },
+        EcoleLevel { slug: "5eme", title: "5eme — L'Apprenti Griot", cycle: "Griot",
+            lessons: r#"<h3>Lecon 1: La traite, la verite sans fard</h3><p>Pendant des siecles, des millions d'Africains ont ete deportes vers les Ameriques. L'Afrique a ete saignee de ses enfants. On ne l'oublie pas pour pleurer — on s'en souvient pour ne plus jamais le laisser arriver. La memoire est un bouclier.</p><h3>Lecon 2: Les resistances</h3><p>La reine Aline Sitoe Diatta: la femme qui reveille, la Casamance s'est levee derriere elle (1942). Samori Toure: l'Almamy, 7 ans de resistance aux Francais, son empire du Wassoulou. Behanzin: le requin du Dahomey. Ils ont perdu les batailles, mais ils ont gagne notre fierte.</p>"#,
+            exercises: vec![
+                ("Quelle reine a resiste en Casamance?", "aline sitoe diatta"),
+                ("Quel Almamy a resiste 7 ans aux Francais?", "samori toure"),
+                ("Quel animal symbolise Behanzin?", "requin"),
+            ] },
+        EcoleLevel { slug: "4eme", title: "4eme — Le Jeune Conscience", cycle: "Griot",
+            lessons: r#"<h3>Lecon 1: La colonisation</h3><p>En 1884-85, a la conference de Berlin, l'Europe a partage l'Afrique comme un gateau — sans un seul Africain a la table. Les frontieres ont coupe les peuples: les Touaregs entre 5 pays, les Peuls entre 15. Les cultures ont ete brisees, les langues interdites a l'ecole.</p><h3>Lecon 2: Ubuntu et la Charte de Kurukan Fuga</h3><p>Ubuntu: "Je suis parce que nous sommes" — la philosophie du sud du continent. Et en 1236, apres Kirina, Soundjata a proclame la Charte de Kurukan Fuga: 44 articles oraux — le droit a la vie, la protection de l'environnement, l'interdiction de l'esclavage interne. La premiere constitution du monde, et elle etait africaine.</p>"#,
+            exercises: vec![
+                ("Dans quelle ville les frontieres africaines ont-elles ete tracees?", "berlin"),
+                ("Complete Ubuntu: 'Je suis parce que...'", "nous sommes"),
+                ("Quelle charte de 1236 est la premiere constitution orale?", "kurukan fuga"),
+            ] },
+        EcoleLevel { slug: "3eme", title: "3eme — Le Griot", cycle: "Griot",
+            lessons: r#"<h3>Lecon 1: Les independances et les peres fondateurs</h3><p>1960: 17 pays africains deviennent independants en une seule annee. Kwame Nkrumah: le Ghana d'abord, l'unite africaine ensuite — "Seek ye first the political kingdom". Patrice Lumumba: le Congo libre, tue en 1961 pour son petrole. Amilcar Cabral: la liberation de la Guinnee-Bissau, l'arme de la theorie.</p><h3>Lecon 2: La medecine traditionnelle et le temps N-KCOL</h3><p>Le neem: l'arbre qui guerit tout — paludisme, plaies, peau. Le moringa: l'arbre de vie, plus de vitamines qu'aucun legume. Le kinkeliba: le the du Sahel qui purifie. Et le temps N-KCOL: pas 24 heures — 4 passages: Naissance, Vie, Mort, Naissance. Une nuit est une vie entiere.</p>"#,
+            exercises: vec![
+                ("Combien de pays africains ont eu l'independance en 1960?", "17"),
+                ("Quel arbre est appele l'arbre de vie?", "moringa"),
+                ("Combien de passages a le temps N-KCOL?", "4"),
+            ] },
+        EcoleLevel { slug: "2nde", title: "2nde — Le Jeune Lion", cycle: "Baobab",
+            lessons: r#"<h3>Lecon 1: La richesse de l'Afrique</h3><p>30% des minerais du monde sont sous nos pieds. 60% des terres arables non exploitees de la planete sont ici. Le meilleur soleil du monde nous eclaire. Le coltan du Congo est dans chaque telephone de la planete — et l'Afrique ne fixe pas les prix. La richesse est africaine; la decision ne l'est pas encore.</p><h3>Lecon 2: Le FCFA et la ZLECAf</h3><p>Le FCFA: cree par la France en 1945, ancre a l'euro, frappe en Europe. Une monnaie que l'Afrique ne controle pas est une chaine invisible. La ZLECAf: le marche commun des 54 pays — 1,4 milliard d'Africains qui peuvent echanger sans barriers. L'avenir: notre monnaie, notre marche, nos prix.</p>"#,
+            exercises: vec![
+                ("Quel pourcentage des minerais du monde est en Afrique?", "30"),
+                ("Qui a cree le FCFA en 1945?", "france"),
+                ("Quel marche commun reunit les 54 pays africains?", "zlecaf"),
+            ] },
+        EcoleLevel { slug: "1ere", title: "1ere — Le Batisseur", cycle: "Baobab",
+            lessons: r#"<h3>Lecon 1: Le code, la blockchain</h3><p>Rust compile sur Termux: on peut coder sur son telephone, sans dependance, sans permission. La blockchain: un grand livre que personne ne peut effacer ni falsifier — chaque bloc porte le sceau du precedent. Ed25519: la signature cryptographique qui prouve que c'est toi, sans reveler ton secret. La souverainete numerique s'ecrit en code.</p><h3>Lecon 2: Le soleil serveur</h3><p>L'Afrique a le meilleur gisement solaire de la planete: 6,8 kWh/m2/jour au Niger. Chaque village peut avoir son energie sans reseau occidental. Le soleil est gratuit, il est a nous, il ne demande pas de permission. L'energie est la nouvelle souverainete.</p>"#,
+            exercises: vec![
+                ("Quel langage compile sur Termux sans dependance?", "rust"),
+                ("Quel grand livre personne ne peut effacer?", "blockchain"),
+                ("Quelle source d'energie rend l'Afrique souveraine?", "soleil"),
+            ] },
+        EcoleLevel { slug: "terminale", title: "Terminale — L'Aine", cycle: "Baobab",
+            lessons: r#"<h3>Lecon 1: Le leadership africain</h3><p>Thomas Sankara: 4 ans au Burkina (1983-87) — 2,5 millions de vaccins, des ecoles pour les enfants, des femmes au gouvernement. "La patrie ou la mort, nous vaincrons." Aujourd'hui l'AES: le Mali, le Niger, le Burkina sortent du FCFA et construisent leur confederation. Le leadership africain ne demande pas — il construit.</p><h3>Lecon 2: L'union et l'avenir</h3><p>Nkrumah reve des Etats-Unis d'Afrique: un continent, une voix. N-KCOL devient notre langage de programmation souverain. L'Afrique de 2050: 2,5 milliards d'habitants, la plus jeune population du monde, la technologie entre ses mains. Le baton de l'humanite revient a qui l'a fait naitre: l'Afrique guide l'humanite.</p>"#,
+            exercises: vec![
+                ("Quel president du Burkina a vaccine 2,5 millions d'enfants?", "sankara"),
+                ("Quelle alliance reunit le Mali, le Niger et le Burkina?", "aes"),
+                ("Quel reve de Nkrumah doit unir l'Afrique?", "etats-unis d'afrique"),
+            ] },
+    ]
+}
+
+fn ecole_normalize(s: &str) -> String {
+    let mut out = String::new();
+    for c in s.trim().to_lowercase().chars() {
+        match c {
+            'a'..='z' | '0'..='9' => out.push(c),
+            'é' | 'è' | 'ê' | 'ë' => out.push('e'),
+            'à' | 'â' | 'ä' => out.push('a'),
+            'ô' | 'ö' => out.push('o'),
+            'ù' | 'û' | 'ü' => out.push('u'),
+            'î' | 'ï' => out.push('i'),
+            'ç' => out.push('c'),
+            ' ' | '-' | '\'' => out.push(' '),
+            _ => {},
+        }
+    }
+    out.split_whitespace().collect::<Vec<_>>().join(" ")
+}
+
+fn ecole_cycle_complete(progress: &[String], cycle: &str) -> bool {
+    let levels = ecole_levels();
+    levels.iter().all(|l| {
+        l.cycle != cycle || progress.iter().any(|p| p == l.slug)
+    })
 }
 
 fn html_explore(state: &AppState) -> String {
@@ -2764,71 +2952,139 @@ fn handle_request(mut stream: TcpStream, state: Arc<Mutex<AppState>>) {
             ("200", "text/html; charset=utf-8", html_page("A propos", &stats))
         }
         ("GET", "/ecole") => {
-            let body = r#"
-<div class="card" style="text-align:center;">
-  <h1>🌱 L'Ecole du Village</h1>
-  <p style="font-size:1.1em;">Le savoir africain, du CP1 a la Terminale.</p>
-  <p>Notre ecole ne porte pas les noms occidentaux (CFEE, BEPC, BAC). Nos diplomes viennent de <strong>notre propre culture</strong> — la semence, le griot, le baobab.</p>
-  <p style="color:#f59e0b;"><em>"Quand la semence connait sa terre, elle pousse droite."</em></p>
-</div>
+            let levels = ecole_levels();
+            let (progress, is_logged) = {
+                let s = state.lock().unwrap();
+                match &current_user {
+                    Some(u) => (s.ecole_progress.get(u).cloned().unwrap_or_default(), true),
+                    None => (Vec::new(), false),
+                }
+            };
+            let mut body = String::new();
+            body.push_str(r#"<div class="card" style="text-align:center;">
+<h1>🌱 L'Ecole du Village</h1>
+<p style="font-size:1.1em;">Le savoir africain, du CP1 a la Terminale.</p>
+<p>Notre ecole ne porte pas les noms occidentaux (CFEE, BEPC, BAC). Nos diplomes viennent de <strong>notre propre culture</strong> — la semence, le griot, le baobab.</p>
+<p style="color:#f59e0b;"><em>"On n'a vraiment appris que ce qu'on peut enseigner."</em></p>
+"#);
+            if !is_logged {
+                body.push_str("<p style='color:#f85149;'>Connecte-toi pour suivre les lecons et passer les niveaux. <a href='/login'>Connexion</a> · <a href='/register'>S'inscrire</a></p>");
+            }
+            body.push_str("</div>");
 
-<div class="card">
-  <h2>🌱 Cycle de la Semence — Primaire (CP1 → CM2)</h2>
-  <p>La graine est plantee. L'enfant decouvre le monde avec les yeux de l'Afrique.</p>
-  <div class="repo"><h3>🌰 CP1 — Le Decouverteur</h3><div class="desc">Les sons de la nature (N-KCOL) · L'alphabet vivant · Les animaux d'Afrique et leurs vrais cris (le coq dit TÈK-ETCHIIII-TCHAK-OHHHH, pas "cocorico")</div></div>
-  <div class="repo"><h3>🌱 CP2 — Le Conteur en Herbe</h3><div class="desc">Les contes du village (Pourquoi la tortue a une carapace) · Compter en bambara, fulfulde, wolof, soninke</div></div>
-  <div class="repo"><h3>🌿 CE1 — L'Explorateur</h3><div class="desc">Les 54 pays d'Afrique et leurs drapeaux · Les grands fleuves (Nil, Niger, Congo, Senegal) · Les montagnes (Kilimandjaro, Atlas)</div></div>
-  <div class="repo"><h3>🌿 CE2 — Le Sage des Betes</h3><div class="desc">Les fables africaines (le lievre et l'hyene) · Le calendrier agricole · Les saisons et la pluie</div></div>
-  <div class="repo"><h3>🌳 CM1 — L'Historien Junior</h3><div class="desc">L'empire du Ghana · L'empire du Mali · Soundjata Keita, le lion du Mali · Mansa Moussa et son pelerinage</div></div>
-  <div class="repo"><h3>🌳 CM2 — L'Heritier</h3><div class="desc">L'empire Songhai · Tombouctou, l'universite du desert · Les mathematiques africaines (fractales, geometrie d'Egypte) · Ahmed Baba, le savant</div></div>
-  <div style="background:#1a2b1a;border:1px solid #238636;border-radius:8px;padding:15px;margin-top:10px;">
-    <h3>🌱 DIPLOME DE LA SEMENCE</h3>
-    <p>Equivalent occidental: fin de CM2 / entree en 6eme. Chez nous: <strong>la graine est plantee, elle a germe</strong>. L'enfant connait sa terre, ses animaux, ses langues et ses empires.</p>
-  </div>
-</div>
+            for cycle in ["Semence", "Griot", "Baobab"] {
+                let cycle_levels: Vec<&EcoleLevel> = levels.iter().filter(|l| l.cycle == cycle).collect();
+                let (cycle_name, cycle_emoji, dip_name, dip_desc) = match cycle {
+                    "Semence" => ("Cycle de la Semence — Primaire (CP1 → CM2)", "🌱", "🌱 DIPLOME DE LA SEMENCE", "La graine est plantee, elle a germe. L'enfant connait sa terre, ses langues et ses empires."),
+                    "Griot" => ("Cycle du Griot — College (6eme → 3eme)", "📖", "📖 DIPLOME DU GRIOT", "Le jeune connait les histoires et peut les transmettre. Il garde la memoire du village."),
+                    _ => ("Cycle du Baobab — Lycee (2nde → Terminale)", "🌳", "🌳 DIPLOME DU BAOBAB", "L'arbre de la sagesse. Le diplome peut batir — code, economie, leadership — et guider les plus jeunes."),
+                };
+                let done = ecole_cycle_complete(&progress, cycle);
+                let dip_style = if done { "background:#1a2b1a;border:1px solid #238636;" } else { "background:#21262d;border:1px solid #30363d;" };
+                body.push_str(&format!("<div class='card'><h2>{} {}</h2>", cycle_emoji, cycle_name));
+                for l in &cycle_levels {
+                    let completed = progress.iter().any(|p| p == l.slug);
+                    let mark = if completed { "✅" } else { "⬜" };
+                    body.push_str(&format!("<div class='repo'><h3>{} <a href='/ecole/{}'>{}</a></h3><div class='meta'>{} niveau · {}</div></div>",
+                        mark, l.slug, l.title, cycle_emoji, if completed { "Complete" } else { "A suivre" }));
+                }
+                body.push_str(&format!("<div style='{}border-radius:8px;padding:15px;margin-top:10px;'><h3>{}</h3><p>{}</p><p>{}</p></div></div>",
+                    dip_style, dip_name, dip_desc,
+                    if done { "🎉 <strong>Diplome obtenu! Bravo, l'Afrique est fiere de toi.</strong>" } else if !is_logged { "Connecte-toi et complete tous les niveaux du cycle pour recevoir ce diplome." } else { "Complete tous les niveaux du cycle pour recevoir ce diplome." }));
+            }
 
-<div class="card">
-  <h2>📖 Cycle du Griot — College (6eme → 3eme)</h2>
-  <p>L'apprenti apprend les histoires du village — et commence a les transmettre.</p>
-  <div class="repo"><h3>🥁 6eme — L'Apprenti Tambour</h3><div class="desc">Les royaumes (Ashanti, Dahomey, Kanem-Bornou, Wassoulou) · Les langues africaines, codes de la pensee · Le tambour parleur</div></div>
-  <div class="repo"><h3>📖 5eme — L'Apprenti Griot</h3><div class="desc">La traite des Noirs, la verite sans fard · Les resistances: la reine Aline Sitoe Diatta, Samori Toure, Behanzin</div></div>
-  <div class="repo"><h3>📖 4eme — Le Jeune Conscience</h3><div class="desc">La colonisation et ses degats (borders, cultures brisees) · La philosophie Ubuntu: "Je suis parce que nous sommes" · La charte de Kurukan Fuga (1236, premiere constitution orale du monde)</div></div>
-  <div class="repo"><h3>🏅 3eme — Le Griot</h3><div class="desc">Les independances · Les peres fondateurs: Nkrumah, Lumumba, Sankara, Cabral · La medecine traditionnelle (neem, moringa, kinkeliba) · Le temps N-KCOL (4 passages: Naissance-Vie-Mort-Naissance)</div></div>
-  <div style="background:#2b2317;border:1px solid #f59e0b;border-radius:8px;padding:15px;margin-top:10px;">
-    <h3>📖 DIPLOME DU GRIOT</h3>
-    <p>Equivalent occidental: BEPC. Chez nous: <strong>le jeune connait les histoires et peut les transmettre</strong>. Il garde la memoire du village — la traite, les resistances, les independances — et la porte en lui.</p>
-  </div>
-</div>
-
-<div class="card">
-  <h2>🌳 Cycle du Baobab — Lycee (2nde → Terminale)</h2>
-  <p>Le jeune lion devient arbre. Il apprend a batir, pas seulement a savoir.</p>
-  <div class="repo"><h3>🦁 2nde — Le Jeune Lion</h3><div class="desc">La richesse de l'Afrique: minerais, terres, soleils · L'economie souveraine, le FCFA et ses chaines · La ZLECAf</div></div>
-  <div class="repo"><h3>🦁 1ere — Le Batisseur</h3><div class="desc">La technologie africaine · Le code: Rust sur Termux, coder sur son telephone · La blockchain, la cryptographie (Ed25519, le hash) · L'energie solaire, le soleil serveur</div></div>
-  <div class="repo"><h3>👑 Terminale — L'Aine</h3><div class="desc">Le leadership africain: Sankara, Traore, l'AES · L'union africaine, les Etats-Unis d'Afrique · N-KCOL, langage de programmation souverain · L'avenir: l'Afrique guide l'humanite</div></div>
-  <div style="background:#17232b;border:1px solid #58a6ff;border-radius:8px;padding:15px;margin-top:10px;">
-    <h3>🌳 DIPLOME DU BAOBAB</h3>
-    <p>Equivalent occidental: BAC. Chez nous: <strong>l'arbre de la sagesse</strong>. Le baobab est le lieu ou les anciens conseillent le village. Le diplome peut maintenant batir — code, economie, leadership — et guider les plus jeunes.</p>
-  </div>
-</div>
-
-<div class="card">
-  <h2>👑 Et apres? Le Diplome du Sage</h2>
-  <p>L'universite du village: <strong>Diplome du Sage</strong> — l'aine qui a traverse tous les cycles et enseigne a son tour. Le sage ne garde pas le savoir: il le partage. (A venir)</p>
-</div>
-
-<div class="card">
-  <h2>📜 La Charte de l'Ecole du Village</h2>
-  <ul>
-    <li>L'enfant africain apprend <strong>d'abord sa culture</strong>, ensuite le monde</li>
-    <li>Les langues africaines sont des matieres, pas des curiosites</li>
-    <li>L'histoire enseignee est la vraie: les empires avant la colonisation, les resistances pendant, la souverainete apres</li>
-    <li>Le diplome ne couronne pas la memorisation, mais la transmission: <strong>on n'a vraiment appris que ce qu'on peut enseigner</strong></li>
-    <li>Chaque diplome grave sur la blockchain AfriChain — incorruptible, africain, eternel</li>
-  </ul>
-</div>
-"#;
-            ("200", "text/html; charset=utf-8", html_page("Ecole du Village", body))
+            body.push_str(r#"<div class="card">
+<h2>📜 La Charte de l'Ecole du Village</h2>
+<ul>
+<li>L'enfant africain apprend <strong>d'abord sa culture</strong>, ensuite le monde</li>
+<li>Les langues africaines sont des matieres, pas des curiosites</li>
+<li>L'histoire enseignee est la vraie: les empires avant la colonisation, les resistances pendant, la souverainete apres</li>
+<li>Le diplome ne couronne pas la memorisation, mais la transmission</li>
+<li>Les reponses des exercices sont gardees par Le Griot — on ne triche pas au village, on apprend</li>
+</ul>
+</div>"#);
+            ("200", "text/html; charset=utf-8", html_page("Ecole du Village", &body))
+        }
+        ("GET", "/ecole/") => ("302", "text/html", "Location: /ecole".to_string()),
+        (m, p) if m == "GET" && p.starts_with("/ecole/") => {
+            let slug = p.trim_start_matches("/ecole/").trim_end_matches('/');
+            let levels = ecole_levels();
+            let level = levels.iter().find(|l| l.slug == slug);
+            match level {
+                None => ("404", "text/html; charset=utf-8", html_page("404", "<div class='empty'>Ce niveau n'existe pas a l'Ecole du Village.</div>")),
+                Some(lv) => {
+                    let (completed, is_logged) = {
+                        let s = state.lock().unwrap();
+                        match &current_user {
+                            Some(u) => (s.ecole_progress.get(u).map(|v| v.iter().any(|p| p == lv.slug)).unwrap_or(false), true),
+                            None => (false, false),
+                        }
+                    };
+                    let mut body = String::new();
+                    body.push_str(&format!("<div class='card'><h1>{} {}</h1><p>{} · <a href='/ecole'>← Ecole du Village</a></p>{}</div>",
+                        if completed { "✅" } else { "⬜" }, lv.title, lv.cycle, lv.lessons));
+                    body.push_str(&format!("<div class='card'><h2>📝 Exercices du niveau</h2>"));
+                    if !is_logged {
+                        body.push_str("<p style='color:#f85149;'>Connecte-toi pour passer les exercices. <a href='/login'>Connexion</a></p>");
+                    } else if completed {
+                        body.push_str("<p style='color:#238636;'>✅ Niveau complete! Passe au niveau suivant.</p>");
+                    } else {
+                        body.push_str(&format!("<form method='POST' action='/ecole/{}/repondre'>", lv.slug));
+                        for (i, (q, _)) in lv.exercises.iter().enumerate() {
+                            body.push_str(&format!("<p style='margin:12px 0;'><strong>Question {}:</strong> {}<br><input type='text' name='a{}' placeholder='Ta reponse...' style='width:60%;margin-top:5px;'></p>", i + 1, q, i + 1));
+                        }
+                        body.push_str("<button type='submit' class='btn'>📖 Le Griot evalue mes reponses</button></form>");
+                        body.push_str("<p style='color:#8b949e;font-size:0.85em;margin-top:10px;'>Les reponses sont gardees par Le Griot — il evalue en secret, comme les anciens evaluaient les jeunes autour du feu.</p>");
+                    }
+                    body.push_str("</div>");
+                    ("200", "text/html; charset=utf-8", html_page(lv.title, &body))
+                }
+            }
+        }
+        (m, p) if m == "POST" && p.starts_with("/ecole/") && p.ends_with("/repondre") => {
+            let form = parse_form(body_part);
+            let user = match &current_user { Some(u) => u.clone(), None => {
+                let resp = "HTTP/1.1 302 Found\r\nLocation: /login\r\n\r\n".to_string();
+                let _ = stream.write_all(resp.as_bytes());
+                let _ = stream.flush();
+                return;
+            } };
+            let slug = p.trim_start_matches("/ecole/").trim_end_matches("/repondre").to_string();
+            let levels = ecole_levels();
+            let level = levels.iter().find(|l| l.slug == slug);
+            match level {
+                None => ("404", "text/html; charset=utf-8", html_page("404", "<div class='empty'>Niveau inconnu.</div>")),
+                Some(lv) => {
+                    let mut correct = 0;
+                    let mut results = String::new();
+                    for (i, (q, a)) in lv.exercises.iter().enumerate() {
+                        let given = form.get(&format!("a{}", i + 1)).cloned().unwrap_or_default();
+                        let ok = ecole_normalize(&given) == ecole_normalize(a);
+                        if ok { correct += 1; }
+                        results.push_str(&format!("<li>{} <strong>Question {}:</strong> {}</li>",
+                            if ok { "✅" } else { "❌" }, i + 1, if ok { "juste!" } else { "a revoir" }));
+                    }
+                    let all_ok = correct == lv.exercises.len();
+                    let mut body = String::new();
+                    body.push_str(&format!("<div class='card'><h1>{} {} — Resultat: {}/{}</h1><ul>{}</ul>{}</div>",
+                        if all_ok { "🎉" } else { "📖" }, lv.title, correct, lv.exercises.len(), results,
+                        if all_ok { "<p style='color:#238636;font-size:1.1em;'><strong>Niveau complete! Le Griot grave ta reussite.</strong></p>" } else { "<p style='color:#f85149;'>Le Griot t'invite a reviser les lecons et a reessayer — au village, on apprend jusqu'a reussir.</p>" }));
+                    body.push_str(&format!("<div class='card'><a href='/ecole/{}' class='btn btn-secondary'>← Reviser les lecons</a> <a href='/ecole' class='btn'>Ecole du Village</a></div>", lv.slug));
+                    if all_ok {
+                        let mut s = state.lock().unwrap();
+                        let entry = s.ecole_progress.entry(user.clone()).or_default();
+                        if !entry.iter().any(|p| p == &lv.slug) { entry.push(lv.slug.to_string()); }
+                        s.add_notification(&user, &format!("Niveau {} complete a l'Ecole du Village", lv.title), "/ecole");
+                        let cycle_done = ecole_cycle_complete(&s.ecole_progress.get(&user).cloned().unwrap_or_default(), lv.cycle);
+                        if cycle_done {
+                            let dip = match lv.cycle { "Semence" => "🌱 Diplome de la Semence", "Griot" => "📖 Diplome du Griot", _ => "🌳 Diplome du Baobab" };
+                            s.add_notification(&user, &format!("DIPLOME OBTENU: {} — l'Afrique est fiere de toi!", dip), "/ecole");
+                        }
+                        s.save();
+                    }
+                    ("200", "text/html; charset=utf-8", html_page("Resultat", &body))
+                }
+            }
         }
         ("GET", "/courses") => {
             let s = state.lock().unwrap();
@@ -3281,7 +3537,7 @@ fn main() {
     let port = 8090;
     let state = Arc::new(Mutex::new(AppState::new()));
 
-    println!("🦁 AfriForme v0.12 — La plateforme africaine de code");
+    println!("🦁 AfriForme v0.13 — La plateforme africaine de code");
     println!("📡 Serveur: http://localhost:{}", port);
     println!("👤 Utilisateurs: {}", state.lock().unwrap().users.len());
     println!("📦 Depots: {}", state.lock().unwrap().repos.len());
