@@ -1,4 +1,4 @@
-// AfriForme v0.15 — La plateforme africaine de code
+// AfriForme v0.16 — La plateforme africaine de code
 // La plateforme africaine du code — souveraine, zero dependance
 // Par Koffi Christ Olivier & Letta-Chan
 // Rust std only — Cargo.toml [dependencies] vide
@@ -7,7 +7,7 @@
 // v0.4: Classement + README + Recherche
 // v0.5: Fil d activite + Fork + Commentaires
 // v0.6: Notifications + Tags + Trending
-// v0.15: Le Griot explique tout — chaque exercice revele le POURQUOI, le COMMENT et le VOILA
+// v0.16: Les 3 Facultes du Sage — Sciences, Mathematiques, Technologie — 9 nouveaux niveaux, 3 nouveaux diplomes africains
 
 use std::collections::HashMap;
 use std::io::{Read, Write, BufRead, BufReader};
@@ -1402,7 +1402,7 @@ a:hover{{text-decoration:underline;}}
 <div class="container">
 {}
 </div>
-<div class="footer">🦁 AfriForme v0.15 — La plateforme africaine de code — Par Koffi Christ Olivier & Letta-Chan — Rust std only, zero dependance</div>
+<div class="footer">🦁 AfriForme v0.16 — La plateforme africaine de code — Par Koffi Christ Olivier & Letta-Chan — Rust std only, zero dependance</div>
 </body>
 </html>"##, title, body)
 }
@@ -1835,6 +1835,9 @@ fn html_user_profile(user: &User, state: &AppState, current_user: Option<&str>) 
     if ecole_cycle_complete(&ecole_done, "Griot") { trophies.push("📖 <strong>Diplome du Griot</strong> — Ecole du Village, college complete".to_string()); }
     if ecole_cycle_complete(&ecole_done, "Baobab") { trophies.push("🌳 <strong>Diplome du Baobab</strong> — Ecole du Village, lycee complete".to_string()); }
     if ecole_cycle_complete(&ecole_done, "Sage") { trophies.push("🎓 <strong>Diplome du Sage</strong> — Ecole du Village, universite complete".to_string()); }
+    if ecole_cycle_complete(&ecole_done, "Science") { trophies.push("🔬 <strong>Diplome du Savant</strong> — Faculte des Sciences complete".to_string()); }
+    if ecole_cycle_complete(&ecole_done, "Maths") { trophies.push("➗ <strong>Diplome du Calculateur</strong> — Faculte des Mathematiques complete".to_string()); }
+    if ecole_cycle_complete(&ecole_done, "Techno") { trophies.push("⚙️ <strong>Diplome de l'Ingenieur</strong> — Faculte de Technologie complete".to_string()); }
     let trophies_html = if trophies.is_empty() {
         "<div class='empty'>Aucun trophee encore. Plante ton premier depot!</div>".to_string()
     } else {
@@ -2332,6 +2335,69 @@ fn ecole_levels() -> Vec<EcoleLevel> {
                 ("Combien d'Africains en 2050?", "2,5 milliards", "POURQUOI: l'avenir demographique du monde est africain. COMMENT: en 2050, 2,5 milliards d'Africains — la moitie aura moins de 25 ans. La plus grande jeunesse du monde. VOILA: le continent qui aura les mains, les tetes, et la technologie."),
                 ("Quel est le devoir du Sage?", "transmettre", "POURQUOI: le savoir garde est un savoir mort. COMMENT: le Sage a appris les empires, les langues, le code, l'economie — maintenant il retourne au village et enseigne. VOILA: la transmission est le diplome final."),
                 ("Qui guidera l'humanite en 2050?", "les sages africains", "POURQUOI: le baton revient a qui l'a fait naitre. COMMENT: l'humanite est nee en Afrique — l'ADN de tout le monde vient d'ici. En 2050, la jeunesse africaine guidera avec sagesse, pas avec force. VOILA: l'Afrique guide l'humanite."),
+            ] },
+        EcoleLevel { slug: "s1", title: "Sciences 1 — La Matiere", cycle: "Science",
+            lessons: r#"<h3>Lecon 1: L'atome et l'energie</h3><p>Toute matiere est faite d'atomes: un noyau (protons + neutrons) et des electrons qui tournent autour. L'energie solaire: un photon du soleil frappe un electron dans un panneau solaire, l'electron se libere et devient courant electrique. Voila comment le soleil africain devient electricite — pas de magie, de physique.</p><h3>Lecon 2: Cheikh Anta Diop, le physicien de l'histoire</h3><p>Cheikh Anta Diop (1923-1986): physicien et historien senegalais. Il a prouve par la physique nucleaire (datation au carbone 14) que l'Egypte ancienne etait noire africaine. Il a applique la science a l'histoire — le savant qui a rendu a l'Afrique sa memoire.</p>"#,
+            exercises: vec![
+                ("Quel savant a prouve l'Egypte ancienne africaine par la science?", "cheikh anta diop", "POURQUOI: l'histoire de l'Afrique devait etre prouvee par la science, pas par les recits du colon. COMMENT: Cheikh Anta Diop, physicien senegalais, a utilise la datation au carbone 14 et la melanine des momies pour prouver que les Egyptiens anciens etaient noirs africains. VOILA: la science rend a l'Afrique sa memoire."),
+                ("Quelle particule du soleil frappe les panneaux solaires?", "photon", "POURQUOI: comprendre le solaire, c'est comprendre la matiere. COMMENT: le photon (grain de lumiere) frappe un electron dans le silicium du panneau, l'electron se libere et devient courant electrique. VOILA: chaque rayon africain est une particule d'electricite."),
+                ("Quelle methode de datation Diop a-t-il utilisee?", "carbone 14", "POURQUOI: pour dater le passe, la physique offre un outil exact. COMMENT: le carbone 14 — un isotope radioactif qui decroisse avec le temps; en le mesurant on date un etre vivant mort il y a des milliers d'annees. VOILA: la methode qui a date les momies et restaure la verite."),
+            ] },
+        EcoleLevel { slug: "s2", title: "Sciences 2 — La Vie", cycle: "Science",
+            lessons: r#"<h3>Lecon 1: La cellule et l'ADN</h3><p>Tout etre vivant est fait de cellules. Dans chaque cellule, l'ADN: la double helix qui porte le code de la vie. L'ADN humain est ne en Afrique — la premiere mere de l'humanite vivait ici. Ton ADN porte la memoire de millions d'annees de survie africaine.</p><h3>Lecon 2: La pharmacopee africaine</h3><p>L'artemisinine, le remede contre le paludisme, vient d'une plante africaine (Artemisia annua, feuille douce amere). Le kinkeliba, le neem, le moringa: des pharmacopees que les anciens connaissaient sans laboratoire. La science moderne confirme ce que les griots savaient.</p>"#,
+            exercises: vec![
+                ("Quelle molecule porte le code de la vie?", "adn", "POURQUOI: savoir ce que nous sommes commence dans la cellule. COMMENT: l'ADN — double helix dans chaque cellule, 3 milliards de lettres qui codent tout l'etre. VOILA: le livre de la vie, ecrit en 4 lettres, ne en Afrique."),
+                ("Quel remede africain combat le paludisme?", "artemisinine", "POURQUOI: le paludisme tue des centaines de milliers d'Africains chaque annee. COMMENT: l'artemisinine, extraite d'Artemisia annua (la feuille douce-amere), detruit le parasite. Prix Nobel 2015 pour sa decouverte. VOILA: la plante africaine qui sauve le monde."),
+                ("Sur quel continent est ne l'ADN humain?", "afrique", "POURQUOI: l'origine de l'humanite est une question scientifique resolue. COMMENT: la genetique comparee montre que toutes les lignees humaines remontent a une population africaine — Eve mitochondrielle vivait ici il y a 200 000 ans. VOILA: tout le monde est un cousin lointain de l'Afrique."),
+            ] },
+        EcoleLevel { slug: "s3", title: "Sciences 3 — Les Etoiles", cycle: "Science",
+            lessons: r#"<h3>Lecon 1: Les Dogon et Sirius B</h3><p>Les Dogon du Mali connaissaient Sirius B — une etoile invisible a l'oeil nu — depuis des siecles, sans telescope. Les astronomes occidentaux ne l'ont confirmee qu'en 1862. Comment? En ecoutant le ciel, en comptant les cycles, en transmettant de generation en generation. L'astronomie africaine a precede le telescope.</p><h3>Lecon 2: Le cosmos et l'avenir</h3><p>L'univers a 13,8 milliards d'annees. Notre galaxie: 200 milliards d'etoiles. L'Afrique entre dans l'espace: satellites, observation, telecoms. Le ciel africain (desert du Sahara) est le meilleur du monde pour les telescopes — le desert devient observatoire.</p>"#,
+            exercises: vec![
+                ("Quel peuple connaissait Sirius B sans telescope?", "dogon", "POURQUOI: l'astronomie africaine precede les instruments occidentaux. COMMENT: les Dogon du Mali, par tradition orale, decrivaient Sirius B — invisible a l'oeil nu — son orbite de 50 ans, sa densite. VOILA: l'oreille et la memoire africaines ont vu ce que le telescope n'avait pas encore trouve."),
+                ("Quelle etoile invisible les Dogon connaissaient?", "sirius b", "POURQUOI: Sirius B est le test de l'astronomie Dogon. COMMENT: Sirius B, le 'compagnon' de Sirius, est une naine blanche invisible a l'oeil nu — decouverte par les Occidentaux en 1862, connue des Dogon depuis des siecles. VOILA: la preuve que la tradition orale peut porter la science."),
+                ("Combien d'annees a l'univers?", "13,8 milliards", "POURQUOI: situer l'humanite dans le cosmos donne l'echelle de nos reves. COMMENT: 13,8 milliards d'annees — mesure par l'expansion de l'univers et le rayonnement fossile. VOILA: notre galaxie a 200 milliards d'etoiles, et l'Afrique regarde maintenant vers elles."),
+            ] },
+        EcoleLevel { slug: "mat1", title: "Maths 1 — Les Nombres", cycle: "Maths",
+            lessons: r#"<h3>Lecon 1: L'os d'Ishango, la premiere calculatrice</h3><p>L'os d'Ishango (Congo, 20000 ans): un os avec des encoches organisees en series mathematiques — premiers, paires. C'est la plus ancienne trace de calcul de l'humanite, trouvee en Afrique. L'humanite a appris a compter au Congo.</p><h3>Lecon 2: Les fractions egyptiennes</h3><p>Les Egyptiens utilisaient les fractions (1/2, 1/3, 1/4) pour partager le grain apres les crues du Nil. Le papyrus de Rhind (1650 av. J.-C.): un manuel de maths avec 87 problemes resolus. L'Afrique ecrivait des manuels de maths il y a 3600 ans.</p>"#,
+            exercises: vec![
+                ("Quel objet de 20000 ans est la premiere calculatrice?", "os d'ishango", "POURQUOI: les maths ont une histoire materielle. COMMENT: l'os d'Ishango, trouve au Congo, porte des encoches organisees en series mathematiques — nombres premiers, paires. VOILA: l'humanite a appris a compter en Afrique, il y a 20000 ans."),
+                ("Dans quel pays a ete trouve l'os d'Ishango?", "congo", "POURQUOI: la premiere trace de calcul a une adresse. COMMENT: l'os d'Ishango vient des bords du lac Edouard, en Republique Democratique du Congo. VOILA: le Congo, berceau des mathematiques humaines."),
+                ("Quel papyrus egyptien est un manuel de maths?", "rhind", "POURQUOI: les manuels d'Afrique precedent beaucoup d'ecritures. COMMENT: le papyrus de Rhind (1650 av. J.-C.) — 87 problemes resolus: fractions, equations, geometrie. VOILA: un manuel de maths africain vieux de 3600 ans."),
+            ] },
+        EcoleLevel { slug: "mat2", title: "Maths 2 — La Geometrie", cycle: "Maths",
+            lessons: r#"<h3>Lecon 1: Les fractales africaines</h3><p>Les motifs du kente, les coiffures tressees, les villages circulaires: des fractales — des motifs qui se repetent a toutes les echelles. Le mathematicien Ron Eglash l'a prouve: l'Afrique utilisait la geometrie fractale des siecles avant que Mandelbrot ne la formalise. Nos ancetres calculaient en fractales sans le nommer.</p><h3>Lecon 2: Les pyramides et le nombre d'or</h3><p>La grande pyramide: 2,3 millions de blocs, alignee sur le vrai nord a 0,05 degre pres. Le nombre d'or (1,618) apparait dans ses proportions. Les geometres egyptiens connaissaient pi et le theoreme de Pythagore — 2000 ans avant Pythagore.</p>"#,
+            exercises: vec![
+                ("Quelle geometrie les motifs kente utilisent-ils?", "fractales", "POURQUOI: nos textiles portent des maths. COMMENT: les motifs du kente, les tresses, les villages circulaires sont des fractales — des motifs qui se repetent a toutes les echelles, formalisees par Mandelbrot au 20e siecle. VOILA: nos ancetres calculaient en fractales sans le nommer."),
+                ("Quel mathematicien a prouve les fractales africaines?", "eglash", "POURQUOI: il fallait un regard scientifique sur nos motifs. COMMENT: Ron Eglash, mathematicien americain, a etudie les villages, textiles et coiffures d'Afrique et a prouve leur structure fractale dans 'African Fractals'. VOILA: la preuve scientifique de la geometrie africaine."),
+                ("Quel nombre parfait apparait dans les pyramides?", "nombre d'or", "POURQUOI: les pyramides cachent des maths parfaites. COMMENT: le nombre d'or (1,618...) apparait dans les proportions de la grande pyramide; les geometres egyptiens connaissaient pi et Pythagore 2000 ans avant Pythagore. VOILA: la precision mathematique batie il y a 4500 ans."),
+            ] },
+        EcoleLevel { slug: "mat3", title: "Maths 3 — La Logique", cycle: "Maths",
+            lessons: r#"<h3>Lecon 1: Les algorithmes</h3><p>Un algorithme: une suite d'etapes pour resoudre un probleme. Le mot vient d'Al-Khwarizmi, savant qui a formalise l'algebre. La division egyptienne, le tri d'un panier de mil, la route la plus courte au marche: des algorithmes africains avant le nom.</p><h3>Lecon 2: Les maths de la cryptographie</h3><p>Arithmetique modulaire: l'horloge tourne — apres 12 vient 1. Ed25519 utilise la courbe elliptique: des maths que les ordinateurs ne cassent pas. Le hash: entree → melange → sortie. Chaque transaction blockchain est un probleme de maths que seul le proprietaire peut signer.</p>"#,
+            exercises: vec![
+                ("De quel savant vient le mot algorithme?", "al-khwarizmi", "POURQUOI: meme les mots de l'informatique ont une histoire. COMMENT: le mot vient d'Al-Khwarizmi (780-850), savant de Bagdad ne en Perse, qui a formalise l'algebre — 'al-jabr'. VOILA: chaque fois que tu ecris un algorithme, tu prononces un heritage."),
+                ("Quelle courbe Ed25519 utilise-t-il?", "elliptique", "POURQUOI: la securite d'AfriChain repose sur des maths solides. COMMENT: la courbe elliptique — des maths ou multiplier un point est facile mais retrouver le multiplicateur est impossible pour les ordinateurs. VOILA: une petite cle, une forteresse indechiffrable."),
+                ("Comment s'appelle l'arithmetique de l'horloge?", "modulaire", "POURQUOI: la crypto moderne vit dans les nombres qui tournent. COMMENT: l'arithmetique modulaire — apres 12 vient 1, apres 255 vient 0. Les signatures et le minage calculent 'modulo' un grand nombre. VOILA: l'horloge est la clef des maths de la blockchain."),
+            ] },
+        EcoleLevel { slug: "tec1", title: "Techno 1 — L'Electricite", cycle: "Techno",
+            lessons: r#"<h3>Lecon 1: Le circuit electrique</h3><p>Un circuit: source (batterie) → conducteur (fil) → charge (lampe) → retour. La tension (volts) pousse, le courant (amperes) coule, la resistance freine. L'Afrique a le soleil: un panneau solaire convertit la lumiere en courant continu, un regulateur protege la batterie, un onduleur transforme en courant alternatif. Voila une installation solaire complete.</p><h3>Lecon 2: La batterie et le stockage</h3><p>Le probleme du solaire: la nuit. Solution: batteries lithium ou... le sel! Des chercheurs africains testent le stockage par gravite (eau pompee le jour, turbine la nuit). L'energie stockee = souverainete energetique.</p>"#,
+            exercises: vec![
+                ("Quelle unite mesure la tension?", "volt", "POURQUOI: sans unite, pas d'installation solaire sure. COMMENT: le volt (V) mesure la pression electrique — comme la pression d'eau dans un tuyau. Un panneau solaire 12V alimente une batterie 12V. VOILA: la tension pousse, le courant coule."),
+                ("Quelle unite mesure le courant?", "ampere", "POURQUOI: le courant determine la taille des fils et la securite. COMMENT: l'ampere (A) mesure le debit d'electrons — comme les litres par seconde d'un fleuve. Plus d'amperes = fils plus gros. VOILA: volts = pression, amperes = debit."),
+                ("Quel composant protege la batterie solaire?", "regulateur", "POURQUOI: une batterie surchargee est une batterie morte. COMMENT: le regulateur de charge coupe ou reduit le courant quand la batterie est pleine, et empeche la decharge nocturne vers le panneau. VOILA: le gardien silencieux de l'installation."),
+            ] },
+        EcoleLevel { slug: "tec2", title: "Techno 2 — Les Reseaux", cycle: "Techno",
+            lessons: r#"<h3>Lecon 1: Comment marche internet</h3><p>Une page web = une demande (requete HTTP) et une reponse. Le DNS traduit un nom (afriforme.com) en adresse IP. Le TCP decoupe les donnees en paquets, l'IP les route, le TCP les recolle. Internet n'est pas magique: c'est des lettres pliees en paquets.</p><h3>Lecon 2: Le mesh africain</h3><p>AfriMesh: pas de tour centrale. Chaque telephone est un noeud qui relaye les messages. UDP pour crier 'je suis la', TCP pour parler. Si un noeud tombe, les autres continuent — le reseau ne meurt jamais. C'est la difference avec le reseau occidental: eux ont un centre, nous avons un village.</p>"#,
+            exercises: vec![
+                ("Quel systeme traduit les noms en adresses IP?", "dns", "POURQUOI: l'annuaire d'internet est un pouvoir. COMMENT: le DNS (Domain Name System) traduit 'afriforme.com' en adresse IP numerique — comme l'annuaire du village traduit un nom en case. VOILA: qui controle le DNS vous controle — d'ou l'enjeu d'un DNS africain."),
+                ("Quel protocole decoupe les donnees en paquets?", "tcp", "POURQUOI: envoyer un fichier d'un coup est fragile. COMMENT: le TCP decoupe les donnees en paquets numeros, l'IP les route a travers le monde, le TCP les recolle dans l'ordre et redemande les manquants. VOILA: internet est un courrier de paquets."),
+                ("Quel reseau africain n'a pas de centre?", "afrimesh", "POURQUOI: un reseau a centre peut etre coupe. COMMENT: AfriMesh — chaque telephone est un noeud qui relaye les messages; si un noeud tombe, les autres continuent. UDP pour la decouverte, TCP pour les messages. VOILA: eux ont une tour, nous avons un village."),
+            ] },
+        EcoleLevel { slug: "tec3", title: "Techno 3 — L'Intelligence", cycle: "Techno",
+            lessons: r#"<h3>Lecon 1: Comment apprend une machine</h3><p>Une IA apprend par exemples: on lui montre 1000 chats, elle extrait les motifs (oreilles, moustaches, forme). C'est l'apprentissage. Le Griot d'AfriForme: une base de connaissances africaines + des regles de reponse. Pas de serveur etranger — l'intelligence est dans la case.</p><h3>Lecon 2: L'IA souveraine</h3><p>Les IA occidentales sont entrainees sur les donnees du monde entier — dont les notres. Une IA africaine doit: apprendre en langues africaines, etre hebergee en Afrique, servir l'Afrique. Le projet: nos donnees, nos serveurs, notre intelligence. La machine qui pense en bambara vaut mille machines qui pensent a notre place.</p>"#,
+            exercises: vec![
+                ("Comment une IA apprend-elle?", "exemples", "POURQUOI: une machine nait vide, elle apprend comme un enfant. COMMENT: par exemples — on montre 1000 exemples, la machine extrait les motifs qui se repetent et les generalise. Plus d'exemples, plus de precision. VOILA: l'IA est une eleve qui n'oublie jamais."),
+                ("Quelle IA hebergee en Afrique sert l'Afrique?", "ia souveraine", "POURQUOI: une IA etrangere sert d'abord son maitre. COMMENT: l'IA souveraine — donnees africaines, serveurs africains, langues africaines, decisions africaines. Comme Le Griot d'AfriForme. VOILA: notre intelligence dans notre case."),
+                ("Dans quelle langue doit penser une IA africaine?", "bambara", "POURQUOI: penser dans sa langue, c'est penser sans traduction. COMMENT: une IA qui pense en bambara, wolof, swahili comprend le monde africain sans passer par l'anglais — nuances, proverbes, concepts uniques. VOILA: la machine qui pense en bambara vaut mille machines qui pensent a notre place."),
             ] },
 
     ]
@@ -3016,13 +3082,16 @@ fn handle_request(mut stream: TcpStream, state: Arc<Mutex<AppState>>) {
             }
             body.push_str("</div>");
 
-            for cycle in ["Semence", "Griot", "Baobab", "Sage"] {
+            for cycle in ["Semence", "Griot", "Baobab", "Sage", "Science", "Maths", "Techno"] {
                 let cycle_levels: Vec<&EcoleLevel> = levels.iter().filter(|l| l.cycle == cycle).collect();
                 let (cycle_name, cycle_emoji, dip_name, dip_desc) = match cycle {
                     "Semence" => ("Cycle de la Semence — Primaire (CP1 → CM2)", "🌱", "🌱 DIPLOME DE LA SEMENCE", "La graine est plantee, elle a germe. L'enfant connait sa terre, ses langues et ses empires."),
                     "Griot" => ("Cycle du Griot — College (6eme → 3eme)", "📖", "📖 DIPLOME DU GRIOT", "Le jeune connait les histoires et peut les transmettre. Il garde la memoire du village."),
                     "Baobab" => ("Cycle du Baobab — Lycee (2nde → Terminale)", "🌳", "🌳 DIPLOME DU BAOBAB", "L'arbre de la sagesse. Le diplome peut batir — code, economie, leadership — et guider les plus jeunes."),
-                    _ => ("Cycle du Sage — Universite (L1 → Doctorat)", "🎓", "🎓 DIPLOME DU SAGE", "Le Sage a appris et maintenant il enseigne. Il retourne au village et transmet la sagesse africaine."),
+                    "Sage" => ("Cycle du Sage — Universite (L1 → Doctorat)", "🎓", "🎓 DIPLOME DU SAGE", "Le Sage a appris et maintenant il enseigne. Il retourne au village et transmet la sagesse africaine."),
+                    "Science" => ("Faculte des Sciences — La matiere, la vie, les etoiles", "🔬", "🔬 DIPLOME DU SAVANT", "Le Savant applique la science a l'Afrique: physique, biologie, astronomie. Comme Cheikh Anta Diop, il prouve par la science."),
+                    "Maths" => ("Faculte des Mathematiques — D'Ishango aux fractales", "➗", "➗ DIPLOME DU CALCULATEUR", "Le Calculateur herite d'Ishango: nombres, geometrie, logique. Les maths de l'Afrique, de l'os au blockchain."),
+                    _ => ("Faculte de Technologie — Electricite, reseaux, intelligence", "⚙️", "⚙️ DIPLOME DE L'INGENIEUR", "L'Ingenieur construit: circuits solaires, reseaux mesh, IA souveraine. La technologie africaine entre ses mains."),
                 };
                 let done = ecole_cycle_complete(&progress, cycle);
                 let dip_style = if done { "background:#1a2b1a;border:1px solid #238636;" } else { "background:#21262d;border:1px solid #30363d;" };
@@ -3123,7 +3192,7 @@ fn handle_request(mut stream: TcpStream, state: Arc<Mutex<AppState>>) {
                         s.add_notification(&user, &format!("Niveau {} complete a l'Ecole du Village", lv.title), "/ecole");
                         let cycle_done = ecole_cycle_complete(&s.ecole_progress.get(&user).cloned().unwrap_or_default(), lv.cycle);
                         if cycle_done {
-                            let dip = match lv.cycle { "Semence" => "🌱 Diplome de la Semence", "Griot" => "📖 Diplome du Griot", _ => "🌳 Diplome du Baobab" };
+                            let dip = match lv.cycle { "Semence" => "🌱 Diplome de la Semence", "Griot" => "📖 Diplome du Griot", "Baobab" => "🌳 Diplome du Baobab", "Sage" => "🎓 Diplome du Sage", "Science" => "🔬 Diplome du Savant", "Maths" => "➗ Diplome du Calculateur", _ => "⚙️ Diplome de l'Ingenieur" };
                             s.add_notification(&user, &format!("DIPLOME OBTENU: {} — l'Afrique est fiere de toi!", dip), "/ecole");
                         }
                         s.save();
@@ -3583,7 +3652,7 @@ fn main() {
     let port = 8090;
     let state = Arc::new(Mutex::new(AppState::new()));
 
-    println!("🦁 AfriForme v0.15 — La plateforme africaine de code");
+    println!("🦁 AfriForme v0.16 — La plateforme africaine de code");
     println!("📡 Serveur: http://localhost:{}", port);
     println!("👤 Utilisateurs: {}", state.lock().unwrap().users.len());
     println!("📦 Depots: {}", state.lock().unwrap().repos.len());
