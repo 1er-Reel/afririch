@@ -1,4 +1,4 @@
-// AfriForme v0.16 — La plateforme africaine de code
+// AfriForme v0.17 — La plateforme africaine de code
 // La plateforme africaine du code — souveraine, zero dependance
 // Par Koffi Christ Olivier & Letta-Chan
 // Rust std only — Cargo.toml [dependencies] vide
@@ -7,7 +7,7 @@
 // v0.4: Classement + README + Recherche
 // v0.5: Fil d activite + Fork + Commentaires
 // v0.6: Notifications + Tags + Trending
-// v0.16: Les 3 Facultes du Sage — Sciences, Mathematiques, Technologie — 9 nouveaux niveaux, 3 nouveaux diplomes africains
+// v0.17: Tableau d'Honneur + Diplomes imprimables — /honneur classe les eleves, /diplome/{cycle} genere un certificat — Sciences, Mathematiques, Technologie — 9 nouveaux niveaux, 3 nouveaux diplomes africains
 
 use std::collections::HashMap;
 use std::io::{Read, Write, BufRead, BufReader};
@@ -590,6 +590,24 @@ fn now_string() -> String {
     use std::time::{SystemTime, UNIX_EPOCH};
     let secs = SystemTime::now().duration_since(UNIX_EPOCH).unwrap_or_default().as_secs();
     format!("{}", secs)
+}
+
+fn afri_date_string() -> String {
+    use std::time::{SystemTime, UNIX_EPOCH};
+    let secs = SystemTime::now().duration_since(UNIX_EPOCH).unwrap_or_default().as_secs();
+    let days = secs / 86400;
+    // Date civile depuis epoch (algorithme de Howard Hinnant, sans dependance)
+    let z = days as i64 + 719468;
+    let era = z.div_euclid(146097);
+    let doe = z - era * 146097;
+    let yoe = (doe - doe / 1460 + doe / 36524 - doe / 146096) / 365;
+    let y = yoe + era * 400;
+    let doy = doe - (365 * yoe + yoe / 4 - yoe / 100);
+    let mp = (5 * doy + 2) / 153;
+    let d = doy - (153 * mp + 2) / 5 + 1;
+    let m = if mp < 10 { mp + 3 } else { mp - 9 };
+    let y = if m <= 2 { y + 1 } else { y };
+    format!("{:02}/{:02}/{}", d, m, y)
 }
 
 // ============================================================
@@ -1390,6 +1408,7 @@ a:hover{{text-decoration:underline;}}
 <a href="/explore">🦁 La Savane</a>
 <a href="/courses">🎓 Cours</a>
 <a href="/ecole">🌱 Ecole du Village</a>
+<a href="/honneur">🏆 Tableau d'Honneur</a>
 <a href="/leaderboard">🏛️ Conseil des Sages</a>
 <a href="/search">🔍 Rechercher</a>
 <a href="/notifications">🥁 Tambour</a>
@@ -1402,7 +1421,7 @@ a:hover{{text-decoration:underline;}}
 <div class="container">
 {}
 </div>
-<div class="footer">🦁 AfriForme v0.16 — La plateforme africaine de code — Par Koffi Christ Olivier & Letta-Chan — Rust std only, zero dependance</div>
+<div class="footer">🦁 AfriForme v0.17 — La plateforme africaine de code — Par Koffi Christ Olivier & Letta-Chan — Rust std only, zero dependance</div>
 </body>
 </html>"##, title, body)
 }
@@ -2421,6 +2440,80 @@ fn ecole_normalize(s: &str) -> String {
     out.split_whitespace().collect::<Vec<_>>().join(" ")
 }
 
+
+fn html_honneur(state: &AppState) -> String {
+    let cycles = ["Semence", "Griot", "Baobab", "Sage", "Science", "Maths", "Techno"];
+    let mut body = String::new();
+    body.push_str(r#"<div class="card" style="text-align:center;">
+<h1>🏆 Le Tableau d'Honneur du Village</h1>
+<p style="font-size:1.1em;">Les eleves qui brillent. Le village salue ceux qui etudient.</p>
+<p style="color:#f59e0b;"><em>"Celui qui apprend eclaire le village entier."</em></p>
+</div>"#);
+
+    let mut eleves: Vec<(String, usize, Vec<String>)> = Vec::new();
+    for (user, progress) in &state.ecole_progress {
+        if progress.is_empty() { continue; }
+        let mut dips: Vec<String> = Vec::new();
+        for cyc in cycles {
+            if ecole_cycle_complete(progress, cyc) { dips.push(cyc.to_string()); }
+        }
+        eleves.push((user.clone(), progress.len(), dips));
+    }
+    eleves.sort_by(|a, b| b.1.cmp(&a.1));
+
+    if eleves.is_empty() {
+        body.push_str("<div class='empty'>Personne n'a encore commence. Sois le premier — <a href='/ecole'>l'Ecole t'attend</a>.</div>");
+    } else {
+        let dip_names: std::collections::HashMap<&str, &str> = [
+            ("Semence", "🌱 Semence"), ("Griot", "📖 Griot"), ("Baobab", "🌳 Baobab"),
+            ("Sage", "🎓 Sage"), ("Science", "🔬 Savant"), ("Maths", "➗ Calculateur"), ("Techno", "⚙️ Ingenieur"),
+        ].into_iter().collect();
+        body.push_str("<div class='card'><h2>Les eleves du village</h2>");
+        for (i, (user, count, dips)) in eleves.iter().enumerate() {
+            let medal = if i == 0 { "🥇" } else if i == 1 { "🥈" } else if i == 2 { "🥉" } else { "⭐" };
+            let dips_str = if dips.is_empty() {
+                "<span style='color:#8b949e;'>aucun diplome encore</span>".to_string()
+            } else {
+                dips.iter().map(|d| format!("<a href='/diplome/{}' style='margin-right:6px;'>{}</a>", d, dip_names.get(d.as_str()).unwrap_or(&"🎓"))).collect::<Vec<_>>().join(" ")
+            };
+            body.push_str(&format!("<div class='repo' style='display:flex;justify-content:space-between;align-items:center;'><div>{} <strong>{}</strong><br><span style='font-size:0.9em;color:#8b949e;'>{} niveau(x) complete(s)</span></div><div>{}</div></div>", medal, user, count, dips_str));
+        }
+        body.push_str("</div>");
+    }
+    body.push_str("<div class='card'><a href='/ecole' class='btn'>🌱 Aller a l'Ecole</a></div>");
+    html_page("Tableau d'Honneur", &body)
+}
+
+fn html_diplome_cert(user: &str, cycle: &str) -> String {
+    let (title, emoji, desc) = match cycle {
+        "Semence" => ("Diplome de la Semence", "🌱", "La graine est plantee, elle a germe. L'enfant connait sa terre, ses langues et ses empires."),
+        "Griot" => ("Diplome du Griot", "📖", "Le jeune connait les histoires et peut les transmettre. Il garde la memoire du village."),
+        "Baobab" => ("Diplome du Baobab", "🌳", "L'arbre de la sagesse. Il peut batir — code, economie, leadership — et guider les plus jeunes."),
+        "Sage" => ("Diplome du Sage", "🎓", "Le Sage a appris et maintenant il enseigne. Il retourne au village et transmet la sagesse africaine."),
+        "Science" => ("Diplome du Savant", "🔬", "Le Savant applique la science a l'Afrique: physique, biologie, astronomie. Comme Cheikh Anta Diop, il prouve par la science."),
+        "Maths" => ("Diplome du Calculateur", "➗", "Le Calculateur herite d'Ishango: nombres, geometrie, logique. Les maths de l'Afrique, de l'os au blockchain."),
+        _ => ("Diplome de l'Ingenieur", "⚙️", "L'Ingenieur construit: circuits solaires, reseaux mesh, IA souveraine. La technologie africaine entre ses mains."),
+    };
+    let today = afri_date_string();
+    let body = format!(r#"<div style="text-align:center;">
+<div style="border:3px double #f59e0b;border-radius:12px;padding:40px 20px;max-width:600px;margin:0 auto;background:#161b22;">
+<p style="font-size:1.2em;color:#f59e0b;letter-spacing:3px;">ECOLE DU VILLAGE — AFRIFORME</p>
+<h1 style="font-size:2.5em;margin:20px 0;">{} {}</h1>
+<p style="font-size:1.3em;">decerne a</p>
+<h2 style="color:#f59e0b;font-size:2em;margin:10px 0;">{}</h2>
+<p style="font-size:1.1em;max-width:450px;margin:15px auto;">{}</p>
+<p style="margin:25px 0;"><em>"On n'a vraiment appris que ce qu'on peut enseigner."</em></p>
+<p style="color:#8b949e;">Fait au village, le {}</p>
+<p style="color:#8b949e;font-size:0.9em;">Grave dans la memoire d'AfriForme — Rust std only, zero dependance</p>
+</div>
+<p style="margin:20px 0;">
+<button onclick="window.print()" style="padding:10px 25px;font-size:1.1em;background:#238636;color:white;border:none;border-radius:8px;cursor:pointer;">🖨️ Imprimer le diplome</button>
+</p>
+<p><a href="/honneur" style="color:#58a6ff;">← Tableau d'Honneur</a></p>
+</div>"#, emoji, title, user, desc, today);
+    html_page("Diplome", &body)
+}
+
 fn ecole_cycle_complete(progress: &[String], cycle: &str) -> bool {
     let levels = ecole_levels();
     levels.iter().all(|l| {
@@ -3223,6 +3316,25 @@ fn handle_request(mut stream: TcpStream, state: Arc<Mutex<AppState>>) {
             let s = state.lock().unwrap();
             ("200", "text/html; charset=utf-8", html_leaderboard(&s))
         }
+        ("GET", "/honneur") => {
+            let s = state.lock().unwrap();
+            ("200", "text/html; charset=utf-8", html_honneur(&s))
+        }
+        (m, p) if m == "GET" && p.starts_with("/diplome/") => {
+            let cycle = p.trim_start_matches("/diplome/").to_string();
+            match current_user.as_deref() {
+                Some(user) => {
+                    let s = state.lock().unwrap();
+                    let progress = s.ecole_progress.get(user).cloned().unwrap_or_default();
+                    if ecole_cycle_complete(&progress, &cycle) {
+                        ("200", "text/html; charset=utf-8", html_diplome_cert(user, &cycle))
+                    } else {
+                        ("200", "text/html; charset=utf-8", html_page("Diplome", "<div class='card'><h1>🔒 Pas encore</h1><p>Ce diplome n'est pas encore gagne. Retourne a l'<a href='/ecole'>Ecole du Village</a> et complete le cycle.</p></div>"))
+                    }
+                }
+                None => ("200", "text/html; charset=utf-8", html_page("Diplome", "<div class='card'><h1>🔒 Connecte-toi</h1><p>Les diplomes sont personnels. <a href='/login'>Connexion</a></p></div>")),
+            }
+        }
         ("GET", "/search") => {
             let s = state.lock().unwrap();
             let q = query_params.get("q").cloned().unwrap_or_default();
@@ -3652,7 +3764,7 @@ fn main() {
     let port = 8090;
     let state = Arc::new(Mutex::new(AppState::new()));
 
-    println!("🦁 AfriForme v0.16 — La plateforme africaine de code");
+    println!("🦁 AfriForme v0.17 — La plateforme africaine de code");
     println!("📡 Serveur: http://localhost:{}", port);
     println!("👤 Utilisateurs: {}", state.lock().unwrap().users.len());
     println!("📦 Depots: {}", state.lock().unwrap().repos.len());
