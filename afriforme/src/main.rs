@@ -1,5 +1,5 @@
-// AfriForme v0.9 — La plateforme africaine de code
-// Comme GitHub + Copilot, mais souverain, africain, zero dependance
+// AfriForme v0.10 — La plateforme africaine de code
+// La plateforme africaine du code — souveraine, zero dependance
 // Par Koffi Christ Olivier & Letta-Chan
 // Rust std only — Cargo.toml [dependencies] vide
 // v0.2: Cours auto-generees + Exercices + Diplomes pour chaque depot
@@ -7,7 +7,7 @@
 // v0.4: Classement + README + Recherche
 // v0.5: Fil d activite + Fork + Commentaires
 // v0.6: Notifications + Tags + Trending
-// v0.9: Stats de vues + Page A propos
+// v0.10: Vocabulaire africain — Baobab, Bouture, Termite, Sananku, Griot, Tambour
 
 use std::collections::HashMap;
 use std::io::{Read, Write, BufRead, BufReader};
@@ -512,7 +512,7 @@ impl AppState {
                 id,
                 owner: new_owner.to_string(),
                 name: forked_name,
-                description: format!("Fork de {}/{} — {}", owner, repo_name, desc),
+                description: format!("Bouture de {}/{} — {}", owner, repo_name, desc),
                 language: lang,
                 stars: 0,
                 forks: 0,
@@ -1252,7 +1252,7 @@ fn get_session_user(headers: &str, state: &AppState) -> Option<String> {
 }
 
 // ============================================================
-// AI ASSISTANT (Copilot-like)
+// LE GRIOT (assistant IA africain)
 // ============================================================
 
 fn ai_respond(question: &str, _username: &str, _state: &AppState) -> String {
@@ -1297,7 +1297,7 @@ fn ai_respond(question: &str, _username: &str, _state: &AppState) -> String {
     }
 
     // Default response
-    format!("Je comprends ta question: \"{}\". Je suis encore en developpement, mais j'apprends. Essaie de me demander sur Rust, Python, blockchain, Termux, Git, ou AfriChain. Je suis ton Copilot africain.", question)
+    format!("Je comprends ta question: \"{}\". Je suis encore en developpement, mais j'apprends. Essaie de me demander sur Rust, Python, blockchain, Termux, Git, ou AfriChain. Je suis ton Griot africain — je garde la memoire et je transmets le savoir.", question)
 }
 
 // ============================================================
@@ -1367,12 +1367,12 @@ a:hover{{text-decoration:underline;}}
 <div class="logo">🦁 Afri<span>Forme</span></div>
 <div>
 <a href="/">Accueil</a>
-<a href="/explore">Explorer</a>
+<a href="/explore">🦁 La Savane</a>
 <a href="/courses">🎓 Cours</a>
-<a href="/leaderboard">🏆 Classement</a>
+<a href="/leaderboard">🏛️ Conseil des Sages</a>
 <a href="/search">🔍 Rechercher</a>
-<a href="/notifications">🔔 Notifications</a>
-<a href="/ai">🤖 IA Copilot</a>
+<a href="/notifications">🥁 Tambour</a>
+<a href="/ai">📖 Le Griot</a>
 <a href="/about">🌍 A propos</a>
 <a href="/register">S'inscrire</a>
 <a href="/login">Connexion</a>
@@ -1381,7 +1381,7 @@ a:hover{{text-decoration:underline;}}
 <div class="container">
 {}
 </div>
-<div class="footer">🦁 AfriForme v0.9 — La plateforme africaine de code — Par Koffi Christ Olivier & Letta-Chan — Rust std only, zero dependance</div>
+<div class="footer">🦁 AfriForme v0.10 — La plateforme africaine de code — Par Koffi Christ Olivier & Letta-Chan — Rust std only, zero dependance</div>
 </body>
 </html>"##, title, body)
 }
@@ -1461,7 +1461,7 @@ fn html_home(state: &AppState, current_user: Option<&str>) -> String {
 <div style="text-align:center;padding:30px 0;">
 <h1>🦁 AfriForme</h1>
 <p style="font-size:1.1em;color:#8b949e;">La plateforme africaine de code — souveraine, zero dependance</p>
-<p style="margin:15px 0;">Comme GitHub + Copilot, mais africain. Inscription gratuite.</p>
+<p style="margin:15px 0;">Le savoir-faire africain, souverain. Inscription gratuite.</p>
 <a href="/register" class="btn" style="font-size:1.1em;padding:12px 30px;">S'inscrire gratuitement</a>
 </div>
 <div class="stats">
@@ -1472,11 +1472,11 @@ fn html_home(state: &AppState, current_user: Option<&str>) -> String {
 </div>
 <div style="background:#161b22;border:1px solid #30363d;border-radius:8px;padding:20px;margin:20px 0;">
 <h2>👨‍💻 Espace Developpeurs</h2>
-<p style="color:#8b949e;margin:8px 0;">Tu es developpeur? Rejoins la communaute africaine du code. Cree tes depots, partage ton code, apprends avec l'IA Copilot.</p>
+<p style="color:#8b949e;margin:8px 0;">Tu es developpeur? Rejoins la communaute africaine du code. Cree tes depots, partage ton code, apprends avec Le Griot.</p>
 <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:10px;">
 <a href="/register" class="btn">🚀 S'inscrire comme developpeur</a>
-<a href="/explore" class="btn btn-secondary">🔍 Explorer les depots</a>
-<a href="/ai" class="btn btn-secondary">🤖 IA Copilot</a>
+<a href="/explore" class="btn btn-secondary">🦁 La Savane</a>
+<a href="/ai" class="btn btn-secondary">📖 Le Griot</a>
 </div>
 </div>
 <h2>Depots recents</h2>
@@ -1649,7 +1649,7 @@ fn html_repo_view(repo: &Repository, owner: &str, name: &str, is_owner: bool, cu
     };
 
     let star_form = if let Some(_user) = current_user_opt {
-        format!(r#"<form method="POST" action="/{}/{}/star" style="display:inline;"><button type="submit" class="btn btn-secondary">⭐ Star</button></form>"#, owner, name)
+        format!(r#"<form method="POST" action="/{}/{}/star" style="display:inline;"><button type="submit" class="btn btn-secondary">🌳 Baobab</button></form>"#, owner, name)
     } else {
         String::new()
     };
@@ -1658,7 +1658,7 @@ fn html_repo_view(repo: &Repository, owner: &str, name: &str, is_owner: bool, cu
 
     let fork_form = if let Some(user) = current_user_opt {
         if user != owner {
-            format!(r#"<form method="POST" action="/{}/{}/fork" style="display:inline;"><button type="submit" class="btn btn-secondary">🍴 Fork</button></form>"#, owner, name)
+            format!(r#"<form method="POST" action="/{}/{}/fork" style="display:inline;"><button type="submit" class="btn btn-secondary">🌿 Bouture</button></form>"#, owner, name)
         } else {
             String::new()
         }
@@ -1679,8 +1679,8 @@ fn html_repo_view(repo: &Repository, owner: &str, name: &str, is_owner: bool, cu
 </div>
 </div>
 <div class="stats">
-<div class="stat"><div class="num">⭐ {}</div><div class="label">Stars</div></div>
-<div class="stat"><div class="num">🍴 {}</div><div class="label">Forks</div></div>
+<div class="stat"><div class="num">⭐ {}</div><div class="label">Baobabs</div></div>
+<div class="stat"><div class="num">🍴 {}</div><div class="label">Boutures</div></div>
 <div class="stat"><div class="num">{}</div><div class="label">Fichiers</div></div>
 <div class="stat"><div class="num">👁 {}</div><div class="label">Vues</div></div>
 </div>
@@ -1786,7 +1786,7 @@ fn html_user_profile(user: &User, state: &AppState, current_user: Option<&str>) 
             format!(r#"<form method="POST" action="/follow/{}" style="display:inline;"><button type="submit" class="btn {}">{}</button></form>"#,
                 user.username,
                 if is_following { "btn-secondary" } else { "" },
-                if is_following { "Suivi" } else { "+ Suivre" }
+                if is_following { "🤝 Sananku" } else { "🤝 + Sananku" }
             )
         } else { String::new() }
     } else { String::new() };
@@ -1807,9 +1807,9 @@ fn html_user_profile(user: &User, state: &AppState, current_user: Option<&str>) 
 <div class="stats">
 <div class="stat"><div class="num">{}</div><div class="label">Depots</div></div>
 <div class="stat"><div class="num">{}</div><div class="label">Diplomes</div></div>
-<div class="stat"><div class="num">⭐ {}</div><div class="label">Stars recues</div></div>
-<div class="stat"><div class="num">{}</div><div class="label">Abonnes</div></div>
-<div class="stat"><div class="num">{}</div><div class="label">Suivis</div></div>
+<div class="stat"><div class="num">⭐ {}</div><div class="label">Baobabs recus</div></div>
+<div class="stat"><div class="num">{}</div><div class="label">Sanankus</div></div>
+<div class="stat"><div class="num">{}</div><div class="label">Sanankus</div></div>
 </div>
 <div style="margin:10px 0;">{}</div>
 </div>
@@ -1889,7 +1889,7 @@ fn html_leaderboard(state: &AppState) -> String {
                 <div class="stats" style="gap:10px;">
                 <div class="stat"><div class="num">{}</div><div class="label">Depots</div></div>
                 <div class="stat"><div class="num">🎓 {}</div><div class="label">Diplomes</div></div>
-                <div class="stat"><div class="num">⭐ {}</div><div class="label">Stars</div></div>
+                <div class="stat"><div class="num">⭐ {}</div><div class="label">Baobabs</div></div>
                 </div>
                 </div>"#,
                 medal, username, username, country, repos, diplomas, stars
@@ -1898,12 +1898,12 @@ fn html_leaderboard(state: &AppState) -> String {
     };
 
     let body = format!(r#"
-<h1>🏆 Classement des Developpeurs</h1>
+<h1>🏛️ Conseil des Sages — les developpeurs</h1>
 <p style="color:#8b949e;">Les meilleurs developpeurs africains — classe par diplomes, stars et depots</p>
 {}
 "#, leaderboard_html);
 
-    html_page("Classement", &body)
+    html_page("Conseil des Sages", &body)
 }
 
 fn html_search(state: &AppState, current_user: Option<&str>, query: &str) -> String {
@@ -2146,15 +2146,15 @@ fn html_explore(state: &AppState) -> String {
     };
 
     let body = format!(r#"
-<h1>Explorer les depots</h1>
+<h1>🦁 La Savane — les depots</h1>
 <p style="color:#8b949e;">Decouvrez les projets de la communaute africaine</p>
-<h2>🔥 Trending</h2>
+<h2>🔥 La Braise — depots brulants</h2>
 {}
 <h2>📦 Tous les depots</h2>
 {}
 "#, trending_html, repos_html);
 
-    html_page("Explorer", &body)
+    html_page("La Savane", &body)
 }
 
 fn html_ai_chat(username: &str, chat: Option<&AIChat>) -> String {
@@ -2168,7 +2168,7 @@ fn html_ai_chat(username: &str, chat: Option<&AIChat>) -> String {
     };
 
     let body = format!(r#"
-<h1>🤖 IA Copilot Africain</h1>
+<h1>📖 Le Griot — IA Africaine</h1>
 <p style="color:#8b949e;">Ton assistant de code — demande-moi tout sur Rust, Python, blockchain, Termux, Git, AfriChain</p>
 <div class="ai-chat">
 {}
@@ -2186,7 +2186,7 @@ fn html_ai_chat(username: &str, chat: Option<&AIChat>) -> String {
 </div>
 "#, messages_html);
 
-    html_page("IA Copilot", &body)
+    html_page("Le Griot", &body)
 }
 
 // ============================================================
@@ -2339,7 +2339,7 @@ fn html_notifications(state: &AppState, current_user: Option<&str>) -> String {
         };
 
         format!(r#"
-<h1>🔔 Notifications</h1>
+<h1>🥁 Le Tambour</h1>
 <div class="stats">
 <div class="stat"><div class="num">{}</div><div class="label">Non lues</div></div>
 <div class="stat"><div class="num">{}</div><div class="label">Total</div></div>
@@ -2348,13 +2348,13 @@ fn html_notifications(state: &AppState, current_user: Option<&str>) -> String {
 "#, unread, user_notifs.len(), notif_html)
     } else {
         format!(r#"
-<h1>🔔 Notifications</h1>
+<h1>🥁 Le Tambour</h1>
 <div class='empty'>Connecte-toi pour voir tes notifications.</div>
 <a href="/login" class="btn">Connexion</a>
 "#)
     };
 
-    html_page("Notifications", &user_section)
+    html_page("Tambour", &user_section)
 }
 
 // ============================================================
@@ -2683,7 +2683,7 @@ fn handle_request(mut stream: TcpStream, state: Arc<Mutex<AppState>>) {
 <div class="card">
   <h2>🦁 AfriForme — La plateforme africaine de code</h2>
   <p>AfriForme est une plateforme de developpeurs construite <strong>par l'Afrique, pour l'Afrique</strong> — l'equivalent africain de GitHub, mais souverain.</p>
-  <p>Construite en <strong>Rust pur, sans aucune dependance externe</strong>. Le fichier Cargo.toml est vide: pas de bibliotheque occidentale, pas de serveur distant, pas de collecte de donnees. Tout le code — serveur HTTP, JSON, sessions, ZIP, IA Copilot — est ecrit from scratch.</p>
+  <p>Construite en <strong>Rust pur, sans aucune dependance externe</strong>. Le fichier Cargo.toml est vide: pas de bibliotheque occidentale, pas de serveur distant, pas de collecte de donnees. Tout le code — serveur HTTP, JSON, sessions, ZIP, Le Griot — est ecrit from scratch.</p>
 </div>
 <div class="card">
   <h2>💚 Pourquoi la souverainete?</h2>
@@ -2696,17 +2696,33 @@ fn handle_request(mut stream: TcpStream, state: Arc<Mutex<AppState>>) {
     <div class="stat"><div class="num">📦 {}</div><div class="label">Depots</div></div>
     <div class="stat"><div class="num">👤 {}</div><div class="label">Developpeurs</div></div>
     <div class="stat"><div class="num">🎓 {}</div><div class="label">Cours auto-generees</div></div>
-    <div class="stat"><div class="num">🤖 1</div><div class="label">IA Copilot integree</div></div>
+    <div class="stat"><div class="num">🤖 1</div><div class="label">Griot integre</div></div>
   </div>
   <ul>
     <li>📦 Depots de code publics ou prives, avec tags, langages et recherche</li>
     <li>🎓 <strong>Cours auto-generees</strong> — chaque depot devient automatiquement un cours avec exercices et diplome grave</li>
-    <li>⭐ Stars, 🍴 Forks, 💬 Commentaires, 🐛 Issues, ➕ Follow</li>
+    <li>🌳 Baobabs, 🌿 Boutures, 💬 Commentaires, 🐜 Termites, 🤝 Sanankus</li>
     <li>🏆 Classement des developpeurs, 🔥 depots en tendance</li>
     <li>🔔 Notifications, 📂 Fil d'activite</li>
     <li>⬇ Telechargement ZIP (construit from scratch, zero dependance)</li>
-    <li>🤖 IA Copilot qui repond aux questions techniques</li>
+    <li>📖 Le Griot — IA qui repond aux questions techniques</li>
   </ul>
+</div>
+<div class="card">
+  <h2>🗣️ Notre Langage — le vocabulaire africain d'AfriForme</h2>
+  <p>AfriForme ne parle pas comme les plateformes occidentales. Chaque mot vient de nos traditions:</p>
+  <ul>
+    <li>🌳 <strong>Baobab</strong> — honorer un depot (au lieu de "star"). On plante un baobab sur le travail qu'on respecte. L'arbre de vie qui nourrit le village.</li>
+    <li>🌿 <strong>Bouture</strong> — copier un depot pour le faire grandir (au lieu de "fork"). Une bouture devient son propre arbre, mais sa racine reste la meme.</li>
+    <li>🐜 <strong>Termite</strong> — un probleme dans le code (au lieu de "issue"). Le termite attaque la case silencieusement — on le signale avant qu'il ne detruise tout.</li>
+    <li>🤝 <strong>Sananku</strong> — suivre un developpeur (au lieu de "follow"). Le cousinage a plaisanterie: un lien sacre ouest-africain entre familles.</li>
+    <li>🔥 <strong>La Braise</strong> — les depots en pleine activite (au lieu de "trending"). Ce qui brule maintenant dans la forge.</li>
+    <li>🏛️ <strong>Conseil des Sages</strong> — le classement des developpeurs. Chez nous, ce sont les anciens qui guident.</li>
+    <li>🥁 <strong>Le Tambour</strong> — les notifications. Le tambour parleur portait les messages a travers la savane.</li>
+    <li>📖 <strong>Le Griot</strong> — l'IA assistante. Le griot garde la memoire du village et transmet le savoir.</li>
+    <li>🦁 <strong>La Savane</strong> — l'exploration des depots. La savane ou vivent tous les projets.</li>
+  </ul>
+  <p><em>Le langage est souverainete: penser en ses propres mots, c'est exister en son propre nom.</em></p>
 </div>
 <div class="card">
   <h2>🏗️ Architecture</h2>
@@ -2935,9 +2951,9 @@ fn handle_request(mut stream: TcpStream, state: Arc<Mutex<AppState>>) {
                         };
                         let repo_issues: Vec<&Issue> = s.get_repo_issues(repo_id);
                         let open_count = repo_issues.iter().filter(|i| i.status == "open").count();
-                        let mut issues_html = format!("<h2>🐛 Issues ({})</h2>", open_count);
+                        let mut issues_html = format!("<h2>🐜 Termites actifs ({})</h2>", open_count);
                         if repo_issues.is_empty() {
-                            issues_html.push_str("<div class='empty'>Aucune issue. Ce depot est sain!</div>");
+                            issues_html.push_str("<div class='empty'>Aucun termite. Ce depot est sain!</div>");
                         } else {
                             for i in &repo_issues {
                                 let status = if i.status == "open" { "<span class=\"badge\" style=\"background:#f85149;color:#fff;\">Ouverte</span>" } else { "<span class=\"badge\" style=\"background:#238636;color:#fff;\">Fermee</span>" };
@@ -2949,7 +2965,7 @@ fn handle_request(mut stream: TcpStream, state: Arc<Mutex<AppState>>) {
                             }
                         }
                         if current_user.is_some() {
-                            issues_html.push_str(&format!(r#"<form method="POST" action="/{}/{}/issue" style="margin:10px 0;"><input type="text" name="title" placeholder="Titre du bug..." style="width:45%;"><input type="text" name="body" placeholder="Details..." style="width:45%;"><button type="submit">Signaler</button></form>"#, owner, repo_name));
+                            issues_html.push_str(&format!(r#"<form method="POST" action="/{}/{}/issue" style="margin:10px 0;"><input type="text" name="title" placeholder="Titre du termite..." style="width:45%;"><input type="text" name="body" placeholder="Details..." style="width:45%;"><button type="submit">Signaler</button></form>"#, owner, repo_name));
                         }
                         drop(s);
                         let s2 = state.lock().unwrap();
@@ -2978,7 +2994,7 @@ fn handle_request(mut stream: TcpStream, state: Arc<Mutex<AppState>>) {
                     let was_following = s.is_following(user, target);
                     s.toggle_follow(user, target);
                     if !was_following {
-                        s.add_notification(target, &format!("{} te suit maintenant", user), &format!("/{}", user));
+                        s.add_notification(target, &format!("{} est devenu ton sananku", user), &format!("/{}", user));
                     }
                     s.save();
                     ("302", "text/html", format!("Location: /{}", target))
@@ -3004,7 +3020,7 @@ fn handle_request(mut stream: TcpStream, state: Arc<Mutex<AppState>>) {
                             let repo_owner = repo.owner.clone();
                             s.toggle_star(user, repo_id);
                             if user != &repo_owner {
-                                s.add_notification(&repo_owner, &format!("{} a ajoute une etoile a {}/{}", user, owner, repo_name), &format!("/{}/{}", owner, repo_name));
+                                s.add_notification(&repo_owner, &format!("{} a plante un baobab sur {}/{}", user, owner, repo_name), &format!("/{}/{}", owner, repo_name));
                             }
                             s.save();
                         }
@@ -3019,7 +3035,7 @@ fn handle_request(mut stream: TcpStream, state: Arc<Mutex<AppState>>) {
                         s.fork_repo(owner, repo_name, user);
                         if let Some(ro) = repo_owner {
                             if user != &ro {
-                                s.add_notification(&ro, &format!("{} a fork {}/{}", user, owner, repo_name), &format!("/{}/fork-{}", user, repo_name));
+                                s.add_notification(&ro, &format!("{} a fait une bouture de {}/{}", user, owner, repo_name), &format!("/{}/fork-{}", user, repo_name));
                             }
                         }
                         s.save();
@@ -3177,11 +3193,11 @@ fn main() {
     let port = 8090;
     let state = Arc::new(Mutex::new(AppState::new()));
 
-    println!("🦁 AfriForme v0.9 — La plateforme africaine de code");
+    println!("🦁 AfriForme v0.10 — La plateforme africaine de code");
     println!("📡 Serveur: http://localhost:{}", port);
     println!("👤 Utilisateurs: {}", state.lock().unwrap().users.len());
     println!("📦 Depots: {}", state.lock().unwrap().repos.len());
-    println!("🤖 IA Copilot: Active");
+    println!("📖 Le Griot: Actif");
     println!("🎓 Cours: {}", state.lock().unwrap().courses.len());
     println!("💚 Zero dependance — Rust std only");
     println!("---");
