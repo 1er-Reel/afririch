@@ -18,10 +18,11 @@ impl AfriRng {
         let mut seed = [0u8; 64];
 
         // Source 1: /dev/urandom (available sur Linux/Termux/Android)
-        if let Ok(urandom) = fs::read("/dev/urandom") {
-            for i in 0..64.min(urandom.len()) {
-                seed[i] = urandom[i];
-            }
+        // ATTENTION: urandom est un device INFINI — fs::read() ne se termine jamais!
+        // On ouvre le fichier et on lit EXACTEMENT 64 bytes.
+        if let Ok(mut f) = fs::File::open("/dev/urandom") {
+            use std::io::Read;
+            let _ = f.read_exact(&mut seed);
         }
 
         // Source 2: Temps système (nanosecondes)
