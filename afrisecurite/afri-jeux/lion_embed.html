@@ -1,0 +1,204 @@
+<!DOCTYPE html><html lang="fr"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+<title>Le Lion du Sahel</title><style>
+body{margin:0;background:#1a0f00;overflow:hidden;touch-action:manipulation;user-select:none;-webkit-user-select:none;}
+canvas{display:block;width:100vw;height:100vh;}
+#hud{position:fixed;top:10px;left:12px;color:#ffd54a;font-family:monospace;font-size:18px;text-shadow:2px 2px 0 #000;z-index:2;}
+#best{position:fixed;top:10px;right:12px;color:#ffb74a;font-family:monospace;font-size:14px;text-shadow:2px 2px 0 #000;z-index:2;}
+#msg{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center;color:#fff;font-family:monospace;z-index:3;pointer-events:none;}
+#msg h1{color:#ffd54a;font-size:34px;margin:0;text-shadow:3px 3px 0 #000;}
+#msg p{color:#ffe0a0;font-size:16px;text-shadow:2px 2px 0 #000;}
+</style></head><body>
+<canvas id="c"></canvas>
+<div id="hud">🦁 <span id="score">0</span> · 🪙 <span id="coins">0</span></div>
+<div id="best">Record: <span id="hiscore">0</span></div>
+<div id="srv" style="position:fixed;top:34px;right:12px;color:#ffd54a;font-family:monospace;font-size:12px;text-shadow:2px 2px 0 #000;z-index:2;"></div>
+<div id="msg"><h1>🦁 Le Lion du Sahel</h1><p id="sub">Touche l'écran pour sauter · 2 touches = double saut<br>Collecte les pièces AFR · Évite les obstacles</p></div>
+<script>
+const cv=document.getElementById('c'),x=cv.getContext('2d');
+let W,H;function resize(){W=cv.width=innerWidth;H=cv.height=innerHeight;}resize();onresize=resize;
+const hud=document.getElementById('score'),hudC=document.getElementById('coins'),hiEl=document.getElementById('hiscore'),msg=document.getElementById('msg'),sub=document.getElementById('sub');
+let hi=+(localStorage.getItem('lionHi')||0);hiEl.textContent=hi;
+fetch('/jeux/score').then(r=>r.json()).then(d=>{if(d.ok)document.getElementById('srv').textContent='🪙 Compte: '+d.coins+' pieces · Record: '+d.best;}).catch(()=>{});
+
+// Etat du jeu
+let S='menu'; // menu | play | over
+let t=0,speed=6,score=0,coins=0;
+let lion={y:0,vy:0,jumps:0,size:Math.min(innerWidth,innerHeight)*0.06+20};
+let sol,obs=[],pcs=[],parts=[],nuages=[],arbres=[];
+let G=0.55;
+
+function groundY(){return H*0.82;}
+function init(){
+  lion.y=groundY();lion.vy=0;lion.jumps=0;
+  obs=[];pcs=[];parts=[];score=0;coins=0;speed=6;t=0;
+  nuages=[];for(let i=0;i<5;i++)nuages.push({x:Math.random()*W,y:H*0.12+Math.random()*H*0.2,s:20+Math.random()*40});
+  arbres=[];for(let i=0;i<3;i++)arbres.push({x:Math.random()*W*1.5,s:0.5+Math.random()*0.6});
+}
+init();
+
+function jump(){
+  if(S!=='play'){if(S==='menu'){start();}else if(S==='over'){S='menu';msg.style.display='block';sub.innerHTML='Touche l\'écran pour sauter · 2 touches = double saut<br>Collecte les pièces AFR · Évite les obstacles';document.querySelector('#msg h1').textContent='🦁 Le Lion du Sahel';init();}return;}
+  if(lion.jumps<2){lion.vy=lion.jumps===0?-13:-11;lion.jumps++;for(let i=0;i<6;i++)parts.push({x:lionX(),y:lion.y,vx:(Math.random()-0.5)*3,vy:Math.random()*-2,l:20,c:'#c8a24a'});}
+}
+function lionX(){return W*0.18;}
+function start(){S='play';msg.style.display='none';}
+
+addEventListener('pointerdown',e=>{e.preventDefault();jump();},{passive:false});
+addEventListener('keydown',e=>{if(e.code==='Space'||e.code==='ArrowUp')jump();});
+
+// Obstacles: 0=cactus,1=rocher,2=termitiere,3=oiseau (volant)
+function spawn(){
+  const r=Math.random();
+  if(r<0.55){const k=Math.floor(Math.random()*3);obs.push({x:W+50,k:k,w:26+k*8,h:34+k*10,bird:false});}
+  else{obs.push({x:W+50,k:3,w:36,h:24,bird:true,fly:groundY()-70-Math.random()*60});}
+  // Piece AFR parfois au-dessus d'un obstacle
+  if(Math.random()<0.5){const o=obs[obs.length-1];pcs.push({x:o.x+o.w/2+30+Math.random()*80,y:groundY()-60-Math.random()*100,r:12});}
+}
+
+function drawLion(px,py,rot){
+  x.save();x.translate(px,py);x.rotate(rot);
+  const s=lion.size;
+  // corps
+  x.fillStyle='#c8952a';x.beginPath();x.ellipse(0,0,s,s*0.62,0,0,Math.PI*2);x.fill();
+  // tete
+  x.beginPath();x.ellipse(s*0.72,-s*0.35,s*0.5,s*0.46,0,0,Math.PI*2);x.fill();
+  // criniere
+  x.fillStyle='#8a5a10';for(let i=0;i<8;i++){const a=i/8*Math.PI*2;x.beginPath();x.arc(s*0.72+Math.cos(a)*s*0.55,-s*0.35+Math.sin(a)*s*0.55,s*0.22,0,Math.PI*2);x.fill();}
+  x.fillStyle='#c8952a';x.beginPath();x.ellipse(s*0.72,-s*0.35,s*0.42,s*0.38,0,0,Math.PI*2);x.fill();
+  // oreille
+  x.beginPath();x.arc(s*0.5,-s*0.75,s*0.14,0,Math.PI*2);x.fill();
+  // oeil
+  x.fillStyle='#000';x.beginPath();x.arc(s*0.85,-s*0.42,s*0.06,0,Math.PI*2);x.fill();
+  // museau
+  x.fillStyle='#e8c070';x.beginPath();x.ellipse(s*1.05,-s*0.18,s*0.18,s*0.13,0,0,Math.PI*2);x.fill();
+  x.fillStyle='#000';x.beginPath();x.arc(s*1.12,-s*0.2,s*0.035,0,Math.PI*2);x.fill();
+  // queue
+  x.strokeStyle='#c8952a';x.lineWidth=s*0.12;x.beginPath();x.moveTo(-s*0.95,0);x.quadraticCurveTo(-s*1.3,-s*0.3+Math.sin(t*0.2)*s*0.25,-s*1.15,-s*0.55+Math.sin(t*0.2)*s*0.2);x.stroke();
+  // pattes (animation course)
+  x.fillStyle='#a87a1e';const ph=Math.sin(t*0.35)*s*0.3;
+  x.fillRect(-s*0.55,s*0.35,s*0.22,s*0.4+ph);
+  x.fillRect(s*0.15,s*0.35,s*0.22,s*0.4-ph);
+  x.fillRect(-s*0.25,s*0.35,s*0.22,s*0.4-ph);
+  x.fillRect(s*0.42,s*0.35,s*0.22,s*0.4+ph);
+  x.restore();
+}
+
+function drawObstacle(o){
+  const gy=o.bird?o.fly:groundY()-o.h;
+  if(o.bird){
+    // aigle ennemi
+    x.fillStyle='#4a3220';x.beginPath();x.ellipse(o.x+o.w/2,gy+o.h/2,o.w/2,o.h/2,0,0,Math.PI*2);x.fill();
+    const fl=Math.sin(t*0.3)*14;
+    x.strokeStyle='#5a4028';x.lineWidth=5;
+    x.beginPath();x.moveTo(o.x+o.w/2,gy+o.h/2);x.lineTo(o.x+o.w/2-26,gy+o.h/2-10-fl);x.stroke();
+    x.beginPath();x.moveTo(o.x+o.w/2,gy+o.h/2);x.lineTo(o.x+o.w/2+26,gy+o.h/2-10-fl);x.stroke();
+    x.fillStyle='#ffd54a';x.beginPath();x.arc(o.x+o.w/2+8,gy+o.h/2-3,3,0,Math.PI*2);x.fill();
+  }else if(o.k===0){
+    // cactus
+    x.fillStyle='#3d7a2e';x.fillRect(o.x,gy+8,o.w,o.h-8);
+    x.fillRect(o.x-10,gy+18,10,8);x.fillRect(o.x-10,gy+18,8,16);
+    x.fillRect(o.x+o.w,gy+12,10,8);x.fillRect(o.x+o.w+2,gy+12,8,20);
+  }else if(o.k===1){
+    // rocher
+    x.fillStyle='#7a6a54';x.beginPath();x.moveTo(o.x,gy+o.h);x.lineTo(o.x+o.w*0.2,gy+4);x.lineTo(o.x+o.w*0.8,gy);x.lineTo(o.x+o.w,gy+o.h);x.closePath();x.fill();
+    x.fillStyle='#94826a';x.fillRect(o.x+o.w*0.3,gy+6,o.w*0.2,6);
+  }else{
+    // termitiere
+    x.fillStyle='#a05a20';x.beginPath();x.moveTo(o.x,gy+o.h);x.quadraticCurveTo(o.x+o.w/2,gy-8,o.x+o.w,gy+o.h);x.closePath();x.fill();
+    x.fillStyle='#c07030';x.fillRect(o.x+o.w*0.35,gy+o.h*0.5,o.w*0.3,4);
+  }
+}
+
+function drawPiece(p){
+  const bob=Math.sin(t*0.15+p.x*0.02)*4;
+  x.fillStyle='#ffd54a';x.beginPath();x.arc(p.x,p.y+bob,p.r,0,Math.PI*2);x.fill();
+  x.fillStyle='#b8860b';x.font='bold '+p.r+'px monospace';x.textAlign='center';x.fillText('₳',p.x,p.y+bob+p.r*0.35);
+}
+
+function loop(){
+  t++;
+  // CIEL — coucher de soleil du Sahel
+  const grd=x.createLinearGradient(0,0,0,H);
+  grd.addColorStop(0,'#2a1040');grd.addColorStop(0.4,'#8a2a0a');grd.addColorStop(0.7,'#d4681a');grd.addColorStop(1,'#f4a24a');
+  x.fillStyle=grd;x.fillRect(0,0,W,H);
+  // soleil
+  x.fillStyle='#ffe08a';x.beginPath();x.arc(W*0.75,H*0.35,H*0.09+Math.sin(t*0.01)*2,0,Math.PI*2);x.fill();
+  x.fillStyle='rgba(255,224,138,0.25)';x.beginPath();x.arc(W*0.75,H*0.35,H*0.13,0,Math.PI*2);x.fill();
+  // etoiles
+  x.fillStyle='rgba(255,255,255,0.7)';
+  for(let i=0;i<12;i++){const sx=(i*97+t*0.15)%W,sy=(i*53)%Math.floor(H*0.25);x.fillRect(sx,sy,2,2);}
+  // nuages
+  x.fillStyle='rgba(255,200,150,0.3)';
+  nuages.forEach(n=>{if(S==='play')n.x-=speed*0.25;if(n.x<-80)n.x=W+80;x.beginPath();x.ellipse(n.x,n.y,n.s*1.6,n.s*0.5,0,0,Math.PI*2);x.fill();});
+  // montagnes lointaines
+  x.fillStyle='#5a2a18';x.beginPath();x.moveTo(0,H*0.62);
+  for(let i=0;i<=8;i++){x.lineTo(W/8*i,H*0.62-((i*37)%60)-20);}
+  x.lineTo(W,H*0.7);x.lineTo(0,H*0.7);x.fill();
+  // arbres (acacias)
+  arbres.forEach(a=>{
+    if(S==='play')a.x-=speed*0.5;if(a.x<-100)a.x=W+Math.random()*200;
+    const s=a.s*60,gy=groundY()+8;
+    x.strokeStyle='#3a1a08';x.lineWidth=6*a.s;
+    x.beginPath();x.moveTo(a.x,gy);x.lineTo(a.x-s*0.1,gy-s*0.8);x.stroke();
+    x.fillStyle='#2d4a1a';
+    x.beginPath();x.ellipse(a.x-s*0.1,gy-s*0.85,s*0.7,s*0.18,0,0,Math.PI*2);x.fill();
+    x.beginPath();x.ellipse(a.x-s*0.3,gy-s*0.7,s*0.4,s*0.12,0,0,Math.PI*2);x.fill();
+  });
+  // SOL — savane
+  x.fillStyle='#c88a3a';x.fillRect(0,groundY(),W,H-groundY());
+  x.fillStyle='#a86a20';x.fillRect(0,groundY(),W,6);
+  // herbe qui defile
+  x.fillStyle='#8a6a2a';
+  for(let i=0;i<20;i++){const gx=(i*73-(S==='play'?t*speed:0))%(W+40)-20;x.fillRect(gx,groundY()+14+(i%3)*10,8,3);}
+
+  if(S==='play'){
+    // physique lion
+    lion.vy+=G;lion.y+=lion.vy;
+    if(lion.y>=groundY()){lion.y=groundY();lion.vy=0;lion.jumps=0;}
+    // spawn
+    if(t%Math.max(35,Math.floor(90-speed*4))===0)spawn();
+    // score
+    score++;if(score%10===0)speed+=0.15;
+    hud.textContent=Math.floor(score/5);hudC.textContent=coins;
+    // deplacement obstacles
+    obs.forEach(o=>{o.x-=speed;if(!o.bird)o.bird=false;});
+    pcs.forEach(p=>{p.x-=speed;});
+    // collision pieces
+    pcs=pcs.filter(p=>{
+      const dx=p.x-lionX(),dy=p.y-lion.y;
+      if(dx*dx+dy*dy<(p.r+lion.size*0.6)**2){coins++;for(let i=0;i<8;i++)parts.push({x:p.x,y:p.y,vx:(Math.random()-0.5)*4,vy:(Math.random()-0.5)*4,l:18,c:'#ffd54a'});return false;}
+      return p.x>-30;});
+    // collision obstacles
+    const lx=lionX(),ls=lion.size;
+    for(const o of obs){
+      const oy=o.bird?o.fly:groundY()-o.h;
+      if(lx+ls*0.8>o.x&&lx-ls*0.9<o.x+o.w&&lion.y+ls*0.55>oy&&lion.y-ls*0.55<oy+o.h){
+        S='over';
+        const sc=Math.floor(score/5);
+        if(sc>hi){hi=sc;localStorage.setItem('lionHi',hi);hiEl.textContent=hi;}
+        msg.style.display='block';
+        document.querySelector('#msg h1').textContent='💀 Le Lion est tombé';
+        sub.innerHTML='Score: <b>'+sc+'</b> · Pièces: <b>'+coins+'</b> 🪙<br>Record: <b>'+hi+'</b><br><br>🦁 Touche pour rejouer';
+        fetch('/jeux/score',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:'score='+sc+'&coins='+coins}).then(r=>r.json()).then(d=>{if(d.ok)document.getElementById('srv').textContent='🪙 Compte: '+d.coins+' pieces · Record: '+d.best;}).catch(()=>{});
+      }
+    }
+    obs=obs.filter(o=>o.x>-80);
+  }
+
+  // particules
+  parts.forEach(p=>{p.x+=p.vx;p.y+=p.vy;p.vy+=0.2;p.l--;});
+  parts=parts.filter(p=>p.l>0);
+  parts.forEach(p=>{x.fillStyle=p.c;x.fillRect(p.x,p.y,4,4);});
+
+  // dessiner objets
+  pcs.forEach(drawPiece);
+  obs.forEach(drawObstacle);
+  // lion (rotation en saut)
+  const rot=S==='play'&&lion.jumps>0?Math.max(-0.3,Math.min(0.3,lion.vy*0.03)):0;
+  drawLion(lionX(),lion.y-lion.size*0.3,rot);
+
+  requestAnimationFrame(loop);
+}
+loop();
+</script></body></html>
