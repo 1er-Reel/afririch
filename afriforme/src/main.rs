@@ -1092,7 +1092,7 @@ fn generate_course(repo: &Repository) -> Course {
     if has_http {
         modules.push(Module {
             title: "Le Serveur HTTP".to_string(),
-            content: "Un serveur HTTP ecoute les requetes des clients (navigateurs) et repond avec des pages web. Le serveur tourne sur un port (ex: 8090) et attend les connexions.\n\nCe projet contient un serveur HTTP — il fait partie de l'infrastructure internet africaine souveraine.".to_string(),
+            content: "Un serveur HTTP ecoute les requetes des clients (navigateurs) et repond avec des pages web. Le serveur tourne sur un port (ex: 8091) et attend les connexions.\n\nCe projet contient un serveur HTTP — il fait partie de l'infrastructure internet africaine souveraine.".to_string(),
         });
     }
 
@@ -1174,7 +1174,7 @@ fn generate_course(repo: &Repository) -> Course {
         exercises.push(Exercise {
             question: "Sur quel port le serveur HTTP d'AfriForme tourne-t-il?".to_string(),
             answer: "8090".to_string(),
-            explanation: "AfriForme tourne sur le port 8090. Le serveur HTTP ecoute les requetes sur ce port et repond avec des pages HTML.".to_string(),
+            explanation: "AfriForme tourne sur le port 8091. Le serveur HTTP ecoute les requetes sur ce port et repond avec des pages HTML.".to_string(),
         });
     }
 
@@ -4320,7 +4320,7 @@ impl AppState {}
 // ============================================================
 
 fn main() {
-    let port = 8090;
+    let port = 8091;
     let state = Arc::new(Mutex::new(AppState::new()));
 
     println!("🦁 AfriForme v0.20 — La plateforme africaine de code");
