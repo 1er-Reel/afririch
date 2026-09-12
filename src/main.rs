@@ -33360,10 +33360,10 @@ fn main() {
             if tick % 3 == 0 {
                 let chain = cleanup_state.chain.lock().unwrap();
                 chain.save_to_file();
-                let wallets = cleanup_state.wallets.lock().unwrap();
-                wallets.save();
                 let users = cleanup_state.users.lock().unwrap();
                 users.save();
+                let wallets = cleanup_state.wallets.lock().unwrap();
+                wallets.save();
                 let machines = cleanup_state.machines.lock().unwrap();
                 machines.save();
                 println!("💾 Sauvegarde automatique — {} blocs, {} utilisateurs, {} machines", chain.blocks.len(), users.count(), machines.machines.len());
@@ -33914,10 +33914,10 @@ fn client_interface(state: &Arc<AppState>) {
             "1" => {
                 let username = read_input("\n👤 Nom d'utilisateur: ");
                 let password = read_input("🔑 Mot de passe: ");
+                let chain = state.chain.lock().unwrap();
                 let users = state.users.lock().unwrap();
                 match users.login(&username, &password) {
                     Some(user) => {
-                        let chain = state.chain.lock().unwrap();
                         let bal = chain.balance_of(&user.address);
                         println!("\n✅ Connecté: {} ({})", user.username, user.phone);
                         println!("💰 Solde: {} AFR", bal);
@@ -34551,11 +34551,11 @@ fn secret_three_worlds(state: &Arc<AppState>) {
 
     println!("\n🌍 MONDE DES VIVANTS — L'Afrique vit");
     println!("─────────────────────────────────────────────");
+    let chain = state.chain.lock().unwrap();
     let users = state.users.lock().unwrap();
     println!("  👥 {} utilisateurs inscrits", users.users.len());
     println!("  🌍 54 pays africains connectés");
     println!("  💚 1.4 milliard d'âmes");
-    let chain = state.chain.lock().unwrap();
     println!("  ⛓️ {} blocks minés", chain.blocks.len());
     println!("  💰 {} AFR en circulation", chain.total_supply());
 
@@ -36790,11 +36790,11 @@ fn terminal_login(state: &Arc<AppState>) {
     let username = read_input("\n👤 Nom d'utilisateur: ");
     let password = read_input("🔑 Mot de passe: ");
 
+    let chain = state.chain.lock().unwrap();
     let users = state.users.lock().unwrap();
     match users.login(&username, &password) {
         Some(user) => {
             println!("\n✅ Connecté: {} ({})", user.username, user.phone);
-            let chain = state.chain.lock().unwrap();
             let bal = chain.balance_of(&user.address);
             println!("💰 Solde: {} AFR", bal);
             log_activity("LOGIN", &user.username, &format!("Connexion depuis {}", user.phone), &user.country);
