@@ -37263,11 +37263,19 @@ fn handle_request(req: afri_http::HttpRequest, state: &Arc<AppState>) -> afri_ht
         }
 
         ("GET", "/mesh") => {
+            // v1.64: le reseau mesh est prive — connexion obligatoire
+            if session_user(&req, state).is_none() && req.cookie("afri_admin") != Some("1".to_string()) {
+                return HttpResponse::redirect("/login?err=Connecte-toi pour voir le reseau mesh");
+            }
             let mesh = state.mesh.lock().unwrap();
             HttpResponse::ok(&html_mesh(&mesh))
         }
 
         ("GET", "/annuaire") => {
+            // v1.64: l'annuaire des telephones est prive — connexion obligatoire
+            if session_user(&req, state).is_none() && req.cookie("afri_admin") != Some("1".to_string()) {
+                return HttpResponse::redirect("/login?err=Connecte-toi pour voir l annuaire");
+            }
             let users = state.users.lock().unwrap();
             let mesh = state.mesh.lock().unwrap();
             HttpResponse::ok(&html_annuaire(&mesh, &users))
@@ -38571,6 +38579,10 @@ pre {{ white-space:pre-wrap; word-wrap:break-word; }}
         }
 
         ("GET", "/api/directory") => {
+            // v1.64: l'API annuaire est privee — connexion obligatoire
+            if session_user(&req, state).is_none() && req.cookie("afri_admin") != Some("1".to_string()) {
+                return HttpResponse::json(r#"{"erreur":"Connecte-toi"}"#);
+            }
             let users = state.users.lock().unwrap();
             let mesh = state.mesh.lock().unwrap();
             let mut entries: Vec<DirectoryEntry> = Vec::new();
