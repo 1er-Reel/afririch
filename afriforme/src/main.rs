@@ -1,4 +1,4 @@
-// AfriForme v0.21 — La plateforme africaine de code
+// AfriForme v0.22 — La plateforme africaine de code
 // La plateforme africaine du code — souveraine, zero dependance
 // Par Koffi Christ Olivier & Letta-Chan
 // Rust std only — Cargo.toml [dependencies] vide
@@ -1507,6 +1507,7 @@ a:hover{{text-decoration:underline;}}
 <a href="/leaderboard">🏛️ Conseil des Sages</a>
 <a href="/search">🔍 Rechercher</a>
 <a href="/notifications">🥁 Tambour</a>
+<a href="/importer-africhain">⛓️ AfriChain</a>
 <a href="/ai">📖 Le Griot</a>
 <a href="/about">🌍 A propos</a>
 <a href="/register">S'inscrire</a>
@@ -1516,7 +1517,7 @@ a:hover{{text-decoration:underline;}}
 <div class="container">
 {}
 </div>
-<div class="footer">🦁 AfriForme v0.21 — La plateforme africaine de code — Par Koffi Christ Olivier & Letta-Chan — Rust std only, zero dependance</div>
+<div class="footer">🦁 AfriForme v0.22 — La plateforme africaine de code — Par Koffi Christ Olivier & Letta-Chan — Rust std only, zero dependance</div>
 <div id="copilote-bar" onclick="toggleCopilote()" style="position:fixed;bottom:0;left:0;right:0;background:#161b22;border-top:2px solid #238636;padding:10px 20px;cursor:pointer;z-index:999;font-size:0.95em;">🤖 Copilote IA — clique pour discuter</div>
 <div id="copilote" style="display:none;position:fixed;bottom:45px;right:10px;width:340px;max-width:95vw;background:#0d1117;border:2px solid #238636;border-radius:10px;z-index:1000;box-shadow:0 4px 20px rgba(0,0,0,0.6);">
 <div style="background:#161b22;padding:8px 12px;border-bottom:1px solid #30363d;display:flex;justify-content:space-between;align-items:center;"><strong style="color:#2ea043;">🤖 Copilote AfriForme</strong><span onclick="toggleCopilote()" style="cursor:pointer;color:#8b949e;">✕</span></div>
@@ -3601,6 +3602,77 @@ fn handle_request(mut stream: TcpStream, state: Arc<Mutex<AppState>>) {
         ("GET", "/explore") => {
             let s = state.lock().unwrap();
             ("200", "text/html; charset=utf-8", html_explore(&s))
+        }
+        ("GET", "/importer-africhain") => {
+            // v0.22: copie TOUT notre travail AfriChain (~/afririch/src/*.rs) dans un depot AfriForme
+            if let Some(user) = &current_user {
+                let home = std::env::var("HOME").unwrap_or_else(|_| ".".to_string());
+                let candidates = vec![
+                    format!("{}/afririch/src", home),
+                    "../src".to_string(),
+                    "./src".to_string(),
+                ];
+                let src_dir = candidates.into_iter().find(|p| std::path::Path::new(p).exists());
+                let mut s = state.lock().unwrap();
+                // Trouver un depot existant (majuscules ou non) ou en creer un
+                let existing = s.repos.iter().find(|r| r.owner == *user && r.name.eq_ignore_ascii_case("africhain")).map(|r| r.name.clone());
+                let repo_name = existing.unwrap_or_else(|| "africhain".to_string());
+                if s.find_repo(user, &repo_name).is_none() {
+                    let id = s.next_repo_id;
+                    s.next_repo_id += 1;
+                    s.repos.push(Repository {
+                        id,
+                        owner: user.clone(),
+                        name: repo_name.clone(),
+                        description: "La blockchain africaine souveraine — tout notre travail, notre enfant. Zero dependance, Rust std only, 54 pays, Ed25519, AfriHash-256.".to_string(),
+                        language: "Rust".to_string(),
+                        stars: 0,
+                        forks: 0,
+                        created_at: now_string(),
+                        files: HashMap::new(),
+                        tags: vec!["blockchain".to_string(), "africhain".to_string(), "souverainete".to_string(), "rust".to_string()],
+                        is_public: true,
+                        views: 0,
+                        commits: Vec::new(),
+                    });
+                }
+                let mut imported = 0usize;
+                if let Some(dir) = src_dir {
+                    if let Ok(entries) = std::fs::read_dir(&dir) {
+                        let mut paths: Vec<std::path::PathBuf> = entries.filter_map(|e| e.ok())
+                            .map(|e| e.path())
+                            .filter(|p| p.extension().map(|x| x == "rs").unwrap_or(false))
+                            .collect();
+                        paths.sort();
+                        for p in paths {
+                            let fname = match p.file_name() {
+                                Some(f) => f.to_string_lossy().to_string(),
+                                None => continue,
+                            };
+                            if let Ok(content) = std::fs::read_to_string(&p) {
+                                if let Some(repo) = s.find_repo_mut(user, &repo_name) {
+                                    let is_update = repo.files.contains_key(&fname);
+                                    repo.files.insert(fname.clone(), content);
+                                    repo.commits.push(Commit {
+                                        id: repo.commits.len() + 1,
+                                        message: if is_update { format!("Mise a jour: {}", fname) } else { format!("Import de {} — notre travail, notre enfant", fname) },
+                                        author: user.clone(),
+                                        filename: fname,
+                                        created_at: now_string(),
+                                    });
+                                    imported += 1;
+                                }
+                            }
+                        }
+                    }
+                }
+                if imported > 0 {
+                    s.save();
+                }
+                ("302", "text/html", format!("Location: /{}/{}", user, repo_name))
+            } else {
+                ("302", "text/html", "Location: /login".to_string())
+            }
         }
         ("GET", "/api/copilote") => {
             let q = query_params.get("q").cloned().unwrap_or_default();
