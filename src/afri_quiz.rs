@@ -1,8 +1,12 @@
-// ===== AFRI QUIZ — La Monnaie Intelligente v1.66 =====
+// ===== AFRI QUIZ — La Monnaie Intelligente v1.67 =====
 // "L'Afrique sera intelligente à force d'avoir des Afri."
-// Les questions sont posées selon TON pays — ta propre culture.
-// Bonne réponse = graines (1 graine = 0.00000001 AFR = $0.01).
-// v1.66 — construit pour le chef. 💚🦁
+// v1.66: les questions de CULTURE selon TON pays.
+// v1.67: les questions de LANGUE MATERNELLE — pour que l'utilisateur
+//         n'oublie JAMAIS sa langue derrière le français. 🗣️
+//         (bambara, haoussa, mooré, dioula, wolof, twi, yorouba...)
+// Bonne réponse = 20 000 FCFA (la monnaie du quotidien africain)
+//              = 3 333 graines (1 graine = 6 FCFA).
+// construit pour le chef. 💚🦁
 
 /// Une question culturelle — 4 choix, une bonne réponse, une explication
 #[derive(Clone, Debug)]
@@ -13,8 +17,11 @@ pub struct QuestionQuiz {
     pub explication: String, // le pourquoi — l'Afrique enseigne
 }
 
-/// Graines gagnées par bonne réponse
-pub const GRAINES_PAR_BONNE: u64 = 15;
+/// v1.67 — Graines gagnées par bonne réponse (20 000 FCFA / 6 = 3 333)
+pub const GRAINES_PAR_BONNE: u64 = 3_333;
+
+/// v1.67 — La récompense en FCFA, la monnaie que l'Africain connaît
+pub const FCFA_PAR_BONNE: u64 = 20_000;
 
 /// Petit constructeur pour écrire les questions proprement
 fn q(question: &str, c1: &str, c2: &str, c3: &str, c4: &str, bonne: usize, explication: &str) -> QuestionQuiz {
@@ -26,10 +33,16 @@ fn q(question: &str, c1: &str, c2: &str, c3: &str, c4: &str, bonne: usize, expli
     }
 }
 
-/// La banque de questions d'un pays — selon le pays de l'utilisateur.
-/// Si le pays n'a pas encore ses questions, on pose les grandes questions
-/// panafricaines — l'Afrique entière est notre culture.
+/// v1.67 — La banque de questions COMPLÈTE d'un pays: culture + langue maternelle.
+/// L'utilisateur apprend l'histoire de son pays ET sa propre langue.
 pub fn questions_pays(country: &str) -> Vec<QuestionQuiz> {
+    let mut toutes = questions_culture(country);
+    toutes.extend(questions_langue(country));
+    toutes
+}
+
+/// Les questions de CULTURE (histoire) d'un pays — v1.66
+fn questions_culture(country: &str) -> Vec<QuestionQuiz> {
     match country {
         "Mali" => vec![
             q("Qui gouvernait l'empire du Mali au 16e siècle ?",
@@ -199,9 +212,139 @@ pub fn questions_pays(country: &str) -> Vec<QuestionQuiz> {
             q("Quel royaume d'Afrique australe a bâti la grande muraille de Grand Zimbabwe ?",
               "Le royaume de Zimbabwe", "Le royaume Mutapa", "Le royaume Zoulou", "Le royaume Kongo", 0,
               "Grand Zimbabwe, bâtie de pierre sans mortier au 11e siècle, prouve la maîtrise architecturale africaine."),
-            q("Qui est l'auteur de « Things Fall Apart », le roman africain le plus lu au monde ?",
+            q("Qui est l'auteur de « Things Fall Apart », le roman africain le plus lu du monde ?",
               "Chinua Achebe", "Wole Soyinka", "Ngugi wa Thiongo", "Ayi Kwei Armah", 0,
               "Chinua Achebe a raconté l'Igbo du Nigeria au monde entier."),
+        ],
+    }
+}
+
+/// v1.67 — Les questions de LANGUE MATERNELLE d'un pays. 🗣️
+/// "Comment s'écrit banane en bambara ? Comment appelle-t-on le père ?
+///  Écris un, deux, trois. Comment tu vas ?"
+/// Pour que l'utilisateur comprenne SA langue et n'oublie pas le français
+/// au point d'oublier la langue de ses parents.
+fn questions_langue(country: &str) -> Vec<QuestionQuiz> {
+    match country {
+        "Mali" => vec![
+            // 🗣️ BAMBARA — la langue véhiculaire du Mali
+            q("Comment dit-on « une banane » en bambara ?",
+              "Bananki", "Kaba", "Nsoni", "Dugu", 0,
+              "En bambara, la banane se dit « bananki ». Le bambara est la langue véhiculaire du Mali, parlée du fleuve Niger aux frontières."),
+            q("Comment appelle-t-on le père en bambara ?",
+              "Na", "Fa", "Kele", "Dugu", 1,
+              "« Fa » = le père, « Na » = la mère. La famille en bambara : fa, na, den (l'enfant) — la langue garde la famille."),
+            q("Écris les nombres 1, 2, 3 en bambara :",
+              "Kelen, fila, saba", "Daya, biyu, uku", "Bennaan, ñaar, ñet", "Baako, mmienu, mmiɛnsa", 0,
+              "Kelen (1), fila (2), saba (3), naani (4), duuru (5) — compte en bambara et la langue coule toute seule."),
+            q("Comment dit-on « comment vas-tu ? » en bambara ?",
+              "« Na nga def ? »", "« Ka kene ? »", "« Yaya kake ? »", "« Ɛte sɛn ? »", 1,
+              "« I ka kene ? » / « Ka kene ? » = comment ça va ? Réponse : « kene to ! » (ça va bien !)."),
+        ],
+        "Niger" => vec![
+            // 🗣️ HAOUSSA — la langue du commerce du Sahel
+            q("Comment dit-on « une banane » en haoussa ?",
+              "Ogede", "Ayaba", "Bananki", "Dodo", 1,
+              "En haoussa, la banane se dit « ayaba ». L'haoussa est une des langues les plus parlées d'Afrique de l'Ouest."),
+            q("Comment appelle-t-on le père en haoussa ?",
+              "Uwa", "Uba", "Kai", "Baba", 1,
+              "« Uba » = le père, « uwa » = la mère — l'haoussa, langue du commerce de Kano à Zinder."),
+            q("Écris les nombres 1, 2, 3 en haoussa :",
+              "Daya, biyu, uku", "Kelen, fila, saba", "Ọkan, eji, ẹta", "Yembre, yiibu, tãabre", 0,
+              "Daya (1), biyu (2), uku (3), hudu (4), biyar (5) — l'haoussa compte depuis des siècles sur les marchés du Sahel."),
+            q("Comment dit-on « comment vas-tu ? » en haoussa ?",
+              "« I ka kene ? »", "« Yaya kake ? »", "« Na nga def ? »", "« Báwo ni ? »", 1,
+              "« Yaya kake ? » = comment vas-tu ? Réponse : « lafiya » (bien) — en haoussa, la santé vient avant tout."),
+        ],
+        "Burkina Faso" => vec![
+            // 🗣️ MOORÉ (langue des Mossi) + DIOULA (langue du commerce)
+            q("Comment appelle-t-on le père en mooré, langue des Mossi ?",
+              "Ma", "Ba", "Fa", "Agya", 1,
+              "En mooré, « ba » = le père, « ma » = la mère — la langue du peuple qui a fondé les royaumes Mossi."),
+            q("Écris les nombres 1, 2, 3 en mooré :",
+              "Yembre, yiibu, tãabre", "Kelen, fila, saba", "Daya, biyu, uku", "Bennaan, ñaar, ñet", 0,
+              "Yembre (1), yiibu (2), tãabre (3) — le mooré se parle de Ouagadougou à Koudougou."),
+            q("Comment dit-on « une banane » en dioula, langue du commerce du Faso ?",
+              "Bananki", "Ayaba", "Ogede", "Dodo", 0,
+              "« Bananki » = banane en dioula — le Faso parle mooré, dioula et fulfuldé, trois trésors."),
+            q("Comment dit-on « comment vas-tu ? » en dioula ?",
+              "« Yaya kake ? »", "« I ka kene ? »", "« Ɛte sɛn ? »", "« Na nga def ? »", 1,
+              "« I ka kene ? » = comment ça va en dioula — la langue des marchés, d'Abidjan à Ouagadougou."),
+        ],
+        "Sénégal" => vec![
+            // 🗣️ WOLOF — la langue du Sénégal
+            q("Comment appelle-t-on le père en wolof ?",
+              "Yaay", "Baay", "Ndaay", "Uba", 1,
+              "En wolof, « baay » = le père, « yaay » = la mère — deux mots qui portent tout le respect du Sénégal."),
+            q("Écris les nombres 1, 2, 3 en wolof :",
+              "Bennaan, ñaar, ñet", "Kelen, fila, saba", "Daya, biyu, uku", "Ọkan, eji, ẹta", 0,
+              "Bennaan (1), ñaar (2), ñet (3), ñeent (4), juróom (5) — le wolof compte sur les marchés de Dakar."),
+            q("Comment dit-on « merci » en wolof ?",
+              "Sawa", "Jërëjëf", "Ndank", "Baax", 1,
+              "« Jërëjëf » = merci. On répond parfois « ñoo ko jënd » (nous l'avons acheté ensemble) — l'humilité wolof."),
+            q("Comment dit-on « comment vas-tu ? » en wolof ?",
+              "« Yaya kake ? »", "« Ɛte sɛn ? »", "« Na nga def ? »", "« Báwo ni ? »", 2,
+              "« Na nga def ? » = comment vas-tu ? Réponse : « maa ngi fi rekk » (je suis là, tout va)."),
+        ],
+        "Ghana" => vec![
+            // 🗣️ TWI (ashanti) — la langue du cœur du Ghana
+            q("Comment appelle-t-on le père en twi (ashanti) ?",
+              "Ɛna", "Agya", "Ba", "Uba", 1,
+              "En twi, « agya » = le père, « ɛna » = la mère — la langue du peuple ashanti."),
+            q("Écris les nombres 1, 2, 3 en twi :",
+              "Baako, mmienu, mmiɛnsa", "Kelen, fila, saba", "Daya, biyu, uku", "Bennaan, ñaar, ñet", 0,
+              "Baako (1), mmienu (2), mmiɛnsa (3), eanan (4), enum (5) — le twi vit de Kumasi à Accra."),
+            q("Comment dit-on « merci » en twi ?",
+              "Sawa", "Medaase", "Yaya", "Ndank", 1,
+              "« Medaase » = merci — le mot que tout le Ghana connaît, du marché au palais."),
+            q("Comment dit-on « comment vas-tu ? » en twi ?",
+              "« Na nga def ? »", "« Ɛte sɛn ? »", "« Yaya kake ? »", "« I ka kene ? »", 1,
+              "« Ɛte sɛn ? » = comment ça va ? Réponse : « ɛyɛ » (c'est bon)."),
+        ],
+        "Nigeria" => vec![
+            // 🗣️ YOROUBA — une des grandes langues du Nigeria
+            q("Comment appelle-t-on le père en yorouba ?",
+              "Iya", "Baba", "Uba", "Agya", 1,
+              "En yorouba, « baba » = le père, « iya » = la mère — la langue du sud-ouest du Nigeria."),
+            q("Comment dit-on « une banane » en yorouba ?",
+              "Ayaba", "Ọgẹdẹ", "Bananki", "Dodo", 1,
+              "« Ọgẹdẹ » = banane en yorouba, une des langues les plus riches d'Afrique."),
+            q("Écris les nombres 1, 2, 3 en yorouba :",
+              "Ọkan, eji, ẹta", "Kelen, fila, saba", "Daya, biyu, uku", "Baako, mmienu, mmiɛnsa", 0,
+              "Ọkan (1), eji (2), ẹta (3), ẹrin (4), arun (5) — le yorouba compte depuis les royaumes d'Oyo."),
+            q("Comment dit-on « comment vas-tu ? » en yorouba ?",
+              "« Yaya kake ? »", "« Báwo ni ? »", "« Na nga def ? »", "« Ɛte sɛn ? »", 1,
+              "« Báwo ni ? » = comment vas-tu ? Réponse : « dáadáa ni » (ça va bien)."),
+        ],
+        "Côte d'Ivoire" => vec![
+            // 🗣️ DIOULA — la langue qui unit Abidjan à Ouagadougou
+            q("Comment dit-on « une banane » en dioula ?",
+              "Ayaba", "Bananki", "Ogede", "Dodo", 1,
+              "« Bananki » = banane en dioula — la langue qui unit Abidjan à Ouagadougou."),
+            q("Comment appelle-t-on le père en dioula ?",
+              "Na", "Fa", "Ba", "Baba", 1,
+              "« Fa » = le père, « na » = la mère — le dioula est la sœur du bambara, la langue mandingue du commerce."),
+            q("Écris les nombres 1, 2, 3 en dioula :",
+              "Kelen, fila, saba", "Daya, biyu, uku", "Bennaan, ñaar, ñet", "Ọkan, eji, ẹta", 0,
+              "Kelen (1), fila (2), saba (3) — le dioula compte comme le bambara, de Bouaké à Bobo."),
+            q("Comment dit-on « comment vas-tu ? » en dioula ?",
+              "« Báwo ni ? »", "« Na nga def ? »", "« I ka kene ? »", "« Ɛte sɛn ? »", 2,
+              "« I ka kene ? » = comment ça va ? Réponse : « kene to ! » (ça va bien !)."),
+        ],
+        _ => vec![
+            // Grandes questions de LANGUE panafricaines — pour tous les autres pays
+            q("Combien de langues l'Afrique compte-t-elle ?",
+              "Environ 100", "Environ 500", "Plus de 2 000", "Environ 50", 2,
+              "L'Afrique parle plus de 2 000 langues — un trésor vivant que le monde entier nous envie. Chaque langue qui meurt est une bibliothèque qui brûle."),
+            q("Quel est le mot mandingue (bambara/dioula) pour dire « merci » ?",
+              "« I ni ce »", "« Asante »", "« Medaase »", "« Sawa »", 0,
+              "« I ni ce » = merci en bambara et en dioula — la politesse mandingue, du Mali à la Côte d'Ivoire."),
+            q("Que signifie le mot « Ubuntu » ?",
+              "« L'argent avant tout »", "« Je suis parce que nous sommes »", "« La terre de mes pères »", "« Le pouvoir du lion »", 1,
+              "Ubuntu (zoulou/xhosa) : « je suis parce que nous sommes » — la philosophie africaine du lien entre tous les êtres."),
+            q("Le swahili, langue panafricaine de l'Union Africaine, dit « merci » comment ?",
+              "« Jambo »", "« Kwaheri »", "« Asante »", "« Sawa »", 2,
+              "« Asante » = merci en swahili, parlé de la Tanzanie au Kenya — une langue qui traverse les frontières."),
         ],
     }
 }

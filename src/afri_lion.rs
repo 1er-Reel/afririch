@@ -13,6 +13,23 @@ use crate::afri_time::now_timestamp;
 /// 1 AFR = 100 000 000 graines (le micro-unité de l'Afrique)
 pub const GRAINES_PAR_AFR: u64 = 100_000_000;
 
+/// v1.67 — LE FCFA, la monnaie du quotidien africain. 💵
+/// 1 AFR = $1M ≈ 600 000 000 FCFA → 1 graine = 6 FCFA.
+/// Le quiz paie 20 000 FCFA par bonne réponse — la valeur reste en Afri.
+pub const FCFA_PAR_AFR: u64 = 600_000_000;
+/// Le retrait FCFA est possible à partir de ce seuil (chef: 5 000 FCFA)
+pub const FCFA_RETRAIT_MIN: u64 = 5_000;
+
+/// Graines → FCFA (1 graine = 6 FCFA, dérivé de FCFA_PAR_AFR / GRAINES_PAR_AFR)
+pub fn graines_vers_fcfa(g: u64) -> u64 {
+    g * FCFA_PAR_AFR / GRAINES_PAR_AFR
+}
+
+/// Afficher des graines en FCFA: 834 graines = "5 004 FCFA"
+pub fn format_fcfa(g: u64) -> String {
+    format!("{} FCFA", graines_vers_fcfa(g))
+}
+
 /// Afficher des graines en AFR décimal: 10 graines = "0.00000010 AFR"
 pub fn format_graines(g: u64) -> String {
     let entiers = g / GRAINES_PAR_AFR;
