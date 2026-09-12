@@ -33333,8 +33333,8 @@ fn main() {
     thread::spawn(move || {
         loop {
             thread::sleep(Duration::from_secs(15));
-            let mut me = machine_state.machines.lock().unwrap();
             let mut chain = machine_state.chain.lock().unwrap();
+            let mut me = machine_state.machines.lock().unwrap();
             me.tick(&mut chain);
             chain.save_to_file();
         }
@@ -33734,8 +33734,8 @@ fn client_send(state: &Arc<AppState>, logged_user: &Option<String>) {
         }
     };
 
-    let wallets = state.wallets.lock().unwrap();
     let mut chain = state.chain.lock().unwrap();
+    let wallets = state.wallets.lock().unwrap();
     let mut tx = Transaction::new(&my_address, &to_addr, amount, &memo);
     if let Some(sk) = wallets.get_signing_key(&my_address) {
         tx.sign(&sk);
@@ -33846,8 +33846,8 @@ fn client_interface(state: &Arc<AppState>) {
 
         // Afficher le solde si connecté
         if let Some(username) = &logged_user {
-            let users = state.users.lock().unwrap();
             let chain = state.chain.lock().unwrap();
+            let users = state.users.lock().unwrap();
             if let Some(user) = users.users.iter().find(|u| &u.username == username) {
                 let bal = chain.balance_of(&user.address);
                 let my_addr = user.address.clone();
@@ -34950,8 +34950,8 @@ fn secret_veille_totale(state: &Arc<AppState>) {
         tick += 1;
         let chain = state.chain.lock().unwrap();
         let users = state.users.lock().unwrap();
-        let shield = state.shield.lock().unwrap();
         let mesh = state.mesh.lock().unwrap();
+        let shield = state.shield.lock().unwrap();
         let mesh_d = state.mesh_direct.lock().unwrap();
         let (active, _, _, stored, _) = mesh_d.stats();
         let alerts = load_alerts();
@@ -36075,8 +36075,8 @@ fn terminal_broadcast(state: &Arc<AppState>) {
 
 fn terminal_user_management(state: &Arc<AppState>) {
     loop {
-        let users = state.users.lock().unwrap();
         let chain = state.chain.lock().unwrap();
+        let users = state.users.lock().unwrap();
         let logs = load_activity();
 
         println!("\n👥 GESTION UTILISATEURS — SUIVRE LES TRACES");
@@ -36692,8 +36692,8 @@ fn terminal_send(state: &Arc<AppState>) {
     }
     drop(users);
 
-    let wallets = state.wallets.lock().unwrap();
     let users = state.users.lock().unwrap();
+    let wallets = state.wallets.lock().unwrap();
     let to_addr = match users.resolve_recipient(&to) {
         Some(addr) => addr,
         None => {
@@ -36756,8 +36756,8 @@ fn terminal_register(state: &Arc<AppState>) {
     let password = read_input("🔑 Mot de passe: ");
     let country = read_input("🌍 Code pays (ex: +227 Niger, +234 Nigeria): ");
 
-    let mut wallets = state.wallets.lock().unwrap();
     let mut users = state.users.lock().unwrap();
+    let mut wallets = state.wallets.lock().unwrap();
     match users.register(&username, &password, &country, &mut wallets) {
         Ok(user) => {
             println!("\n✅ Inscription réussie!");
@@ -36805,8 +36805,8 @@ fn terminal_login(state: &Arc<AppState>) {
 
 fn terminal_account(state: &Arc<AppState>) {
     let username = read_input("\n👤 Nom d'utilisateur: ");
-    let users = state.users.lock().unwrap();
     let chain = state.chain.lock().unwrap();
+    let users = state.users.lock().unwrap();
 
     match users.users.iter().find(|u| u.username == username) {
         Some(user) => {
@@ -36844,8 +36844,8 @@ fn terminal_view_chain(state: &Arc<AppState>) {
 }
 
 fn terminal_directory(state: &Arc<AppState>) {
-    let mesh = state.mesh.lock().unwrap();
     let users = state.users.lock().unwrap();
+    let mesh = state.mesh.lock().unwrap();
     println!("\n📖 ANNUAIRE PANAFRICAIN");
     println!("═══════════════════════════════════");
 
@@ -37019,8 +37019,8 @@ fn handle_request(req: afri_http::HttpRequest, state: &Arc<AppState>) -> afri_ht
         }
 
         ("GET", "/annuaire") => {
-            let mesh = state.mesh.lock().unwrap();
             let users = state.users.lock().unwrap();
+            let mesh = state.mesh.lock().unwrap();
             HttpResponse::ok(&html_annuaire(&mesh, &users))
         }
 
@@ -37030,39 +37030,39 @@ fn handle_request(req: afri_http::HttpRequest, state: &Arc<AppState>) -> afri_ht
         }
 
         ("GET", "/satellite") => {
-            let mesh = state.mesh.lock().unwrap();
             let users = state.users.lock().unwrap();
+            let mesh = state.mesh.lock().unwrap();
             HttpResponse::ok(&html_satellite(&mesh, &users))
         }
 
         ("GET", "/aes") => {
-            let users = state.users.lock().unwrap();
             let chain = state.chain.lock().unwrap();
+            let users = state.users.lock().unwrap();
             HttpResponse::ok(&html_aes_wari(&users, &chain))
         }
 
         ("GET", "/swarm") => {
-            let mesh = state.mesh.lock().unwrap();
             let users = state.users.lock().unwrap();
+            let mesh = state.mesh.lock().unwrap();
             HttpResponse::ok(&html_drone_swarm(&mesh, &users))
         }
 
         ("GET", "/commandement") => {
-            let mesh = state.mesh.lock().unwrap();
             let users = state.users.lock().unwrap();
+            let mesh = state.mesh.lock().unwrap();
             HttpResponse::ok(&html_command_center(&mesh, &users))
         }
 
         ("GET", "/interception") => {
-            let mesh = state.mesh.lock().unwrap();
-            let users = state.users.lock().unwrap();
             let chain = state.chain.lock().unwrap();
+            let users = state.users.lock().unwrap();
+            let mesh = state.mesh.lock().unwrap();
             HttpResponse::ok(&html_interception(&mesh, &users, &chain))
         }
 
         ("GET", "/securite-ai") => {
-            let shield = state.shield.lock().unwrap();
             let chain = state.chain.lock().unwrap();
+            let shield = state.shield.lock().unwrap();
             HttpResponse::ok(&html_ai_security(&shield, &chain))
         }
 
@@ -37547,8 +37547,8 @@ fn handle_request(req: afri_http::HttpRequest, state: &Arc<AppState>) -> afri_ht
 
         // ===== MACHINE ECONOMY =====
         ("GET", "/machine-economy") => {
-            let me = state.machines.lock().unwrap();
             let chain = state.chain.lock().unwrap();
+            let me = state.machines.lock().unwrap();
             HttpResponse::ok(&me.html(&chain))
         }
 
@@ -37695,8 +37695,8 @@ pre {{ white-space:pre-wrap; word-wrap:break-word; }}
                 Some(f) => f,
                 None => return HttpResponse::redirect("/wallet?msg=⚠️ Formulaire invalide"),
             };
-            let wallets = state.wallets.lock().unwrap();
             let users = state.users.lock().unwrap();
+            let wallets = state.wallets.lock().unwrap();
             let to_addr = match users.resolve_recipient(&form.to) {
                 Some(addr) => addr,
                 None => return HttpResponse::redirect("/wallet?msg=⚠️ Destinataire introuvable (numéro, adresse ou nom)"),
@@ -37744,8 +37744,8 @@ pre {{ white-space:pre-wrap; word-wrap:break-word; }}
                 Some(f) => f,
                 None => return HttpResponse::redirect("/register?err=Formulaire invalide"),
             };
-            let mut wallets = state.wallets.lock().unwrap();
             let mut users = state.users.lock().unwrap();
+            let mut wallets = state.wallets.lock().unwrap();
             match users.register(&form.username, &form.password, &form.country, &mut wallets) {
                 Ok(user) => {
                     let mesh = state.mesh.lock().unwrap();
@@ -37796,8 +37796,8 @@ pre {{ white-space:pre-wrap; word-wrap:break-word; }}
         // ===== ACCOUNT =====
         ("GET", "/account") => {
             let username = req.query_str("user").unwrap_or("").to_string();
-            let users = state.users.lock().unwrap();
             let chain = state.chain.lock().unwrap();
+            let users = state.users.lock().unwrap();
             let msg = req.query_str("msg").map(|s| s.to_string());
             match users.users.iter().find(|u| u.username == username) {
                 Some(user) => HttpResponse::ok(&html_account(user, &chain, msg.as_deref())),
@@ -37810,8 +37810,8 @@ pre {{ white-space:pre-wrap; word-wrap:break-word; }}
                 Some(f) => f,
                 None => return HttpResponse::redirect("/wallet?msg=⚠️ Formulaire invalide"),
             };
-            let wallets = state.wallets.lock().unwrap();
             let users = state.users.lock().unwrap();
+            let wallets = state.wallets.lock().unwrap();
             let to_addr = match users.resolve_recipient(&form.to) {
                 Some(addr) => addr,
                 None => {
@@ -37961,8 +37961,8 @@ pre {{ white-space:pre-wrap; word-wrap:break-word; }}
         }
 
         ("GET", "/api/directory") => {
-            let mesh = state.mesh.lock().unwrap();
             let users = state.users.lock().unwrap();
+            let mesh = state.mesh.lock().unwrap();
             let mut entries: Vec<DirectoryEntry> = Vec::new();
             for user in &users.users {
                 entries.push(DirectoryEntry {
