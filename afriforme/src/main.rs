@@ -1,4 +1,4 @@
-// AfriForme v0.20 — La plateforme africaine de code
+// AfriForme v0.21 — La plateforme africaine de code
 // La plateforme africaine du code — souveraine, zero dependance
 // Par Koffi Christ Olivier & Letta-Chan
 // Rust std only — Cargo.toml [dependencies] vide
@@ -646,6 +646,29 @@ fn afri_date_string() -> String {
     let m = if mp < 10 { mp + 3 } else { mp - 9 };
     let y = if m <= 2 { y + 1 } else { y };
     format!("{:02}/{:02}/{}", d, m, y)
+}
+
+fn ts_lisible(ts: &str) -> String {
+    // Convertit un timestamp UNIX en date lisible JJ/MM/AAAA HH:MM (sans dependance)
+    match ts.parse::<u64>() {
+        Ok(secs) => {
+            let days = secs / 86400;
+            let z = days as i64 + 719468;
+            let era = z.div_euclid(146097);
+            let doe = z - era * 146097;
+            let yoe = (doe - doe / 1460 + doe / 36524 - doe / 146096) / 365;
+            let y = yoe + era * 400;
+            let doy = doe - (365 * yoe + yoe / 4 - yoe / 100);
+            let mp = (5 * doy + 2) / 153;
+            let d = doy - (153 * mp + 2) / 5 + 1;
+            let m = if mp < 10 { mp + 3 } else { mp - 9 };
+            let y = if m <= 2 { y + 1 } else { y };
+            let hh = (secs % 86400) / 3600;
+            let mm = (secs % 3600) / 60;
+            format!("{:02}/{:02}/{} {:02}h{:02}", d, m, y, hh, mm)
+        }
+        Err(_) => ts.to_string(), // deja une date lisible
+    }
 }
 
 // ============================================================
@@ -1493,7 +1516,40 @@ a:hover{{text-decoration:underline;}}
 <div class="container">
 {}
 </div>
-<div class="footer">🦁 AfriForme v0.20 — La plateforme africaine de code — Par Koffi Christ Olivier & Letta-Chan — Rust std only, zero dependance</div>
+<div class="footer">🦁 AfriForme v0.21 — La plateforme africaine de code — Par Koffi Christ Olivier & Letta-Chan — Rust std only, zero dependance</div>
+<div id="copilote-bar" onclick="toggleCopilote()" style="position:fixed;bottom:0;left:0;right:0;background:#161b22;border-top:2px solid #238636;padding:10px 20px;cursor:pointer;z-index:999;font-size:0.95em;">🤖 Copilote IA — clique pour discuter</div>
+<div id="copilote" style="display:none;position:fixed;bottom:45px;right:10px;width:340px;max-width:95vw;background:#0d1117;border:2px solid #238636;border-radius:10px;z-index:1000;box-shadow:0 4px 20px rgba(0,0,0,0.6);">
+<div style="background:#161b22;padding:8px 12px;border-bottom:1px solid #30363d;display:flex;justify-content:space-between;align-items:center;"><strong style="color:#2ea043;">🤖 Copilote AfriForme</strong><span onclick="toggleCopilote()" style="cursor:pointer;color:#8b949e;">✕</span></div>
+<div id="copilote-msgs" style="max-height:260px;overflow-y:auto;padding:10px;font-size:0.85em;"></div>
+<form onsubmit="return askCopilote(event)" style="display:flex;gap:6px;padding:8px;border-top:1px solid #30363d;">
+<input id="copilote-q" placeholder="Pose ta question..." style="flex:1;margin:0;">
+<button type="submit">➤</button>
+</form>
+</div>
+<script>
+function toggleCopilote() {{
+  var p = document.getElementById('copilote');
+  p.style.display = p.style.display === 'none' ? 'block' : 'none';
+}}
+function askCopilote(e) {{
+  e.preventDefault();
+  var q = document.getElementById('copilote-q').value.trim();
+  if (!q) return false;
+  var msgs = document.getElementById('copilote-msgs');
+  msgs.innerHTML += '<div style="margin:6px 0;padding:6px;border-left:3px solid #58a6ff;">' + q.replace(/</g,'&lt;') + '</div>';
+  document.getElementById('copilote-q').value = '';
+  fetch('/api/copilote?q=' + encodeURIComponent(q))
+    .then(function(r) {{ return r.text(); }})
+    .then(function(t) {{
+      msgs.innerHTML += '<div style="margin:6px 0;padding:6px;border-left:3px solid #2ea043;white-space:pre-wrap;">' + t.replace(/</g,'&lt;') + '</div>';
+      msgs.scrollTop = msgs.scrollHeight;
+    }})
+    .catch(function() {{
+      msgs.innerHTML += '<div style="color:#f85149;">Connexion perdue.</div>';
+    }});
+  return false;
+}}
+</script>
 </body>
 </html>"##, title, body)
 }
@@ -1511,7 +1567,7 @@ fn html_home(state: &AppState, current_user: Option<&str>) -> String {
                 r.language,
                 if r.is_public { "<span class='badge badge-public'>Public</span>" } else { "<span class='badge badge-private'>Prive</span>" },
                 r.description,
-                r.stars, r.forks, r.created_at
+                r.stars, r.forks, ts_lisible(&r.created_at)
             )).collect::<Vec<_>>().join("")
         };
         // Build activity feed
@@ -1522,7 +1578,7 @@ fn html_home(state: &AppState, current_user: Option<&str>) -> String {
         for r in recent.iter().take(5) {
             activities.push(format!(
                 r#"<div class="card" style="padding:10px;margin:5px 0;"><span style="color:#58a6ff;">📦 Nouveau depot</span> — <a href="/{}/{}">{}/{}</a> <span style="color:#8b949e;">· {}</span></div>"#,
-                r.owner, r.name, r.owner, r.name, r.created_at
+                r.owner, r.name, r.owner, r.name, ts_lisible(&r.created_at)
             ));
         }
         // Recent comments (last 5)
@@ -1532,7 +1588,7 @@ fn html_home(state: &AppState, current_user: Option<&str>) -> String {
             if let Some(repo) = state.repos.iter().find(|r| r.id == c.repo_id) {
                 activities.push(format!(
                     r#"<div class="card" style="padding:10px;margin:5px 0;"><span style="color:#f59e0b;">💬 Commentaire</span> — <strong>{}</strong> sur <a href="/{}/{}">{}/{}</a> <span style="color:#8b949e;">· {}</span></div>"#,
-                    c.author, repo.owner, repo.name, repo.owner, repo.name, c.created_at
+                    c.author, repo.owner, repo.name, repo.owner, repo.name, ts_lisible(&c.created_at)
                 ));
             }
         }
@@ -1566,7 +1622,7 @@ fn html_home(state: &AppState, current_user: Option<&str>) -> String {
                 r#"<div class="repo"><h3><a href="/{}/{}">{}/{}</a> <span class="badge badge-{}">{}</span></h3><div class="desc">{}</div><div class="meta">⭐ {} · {}</div></div>"#,
                 r.owner, r.name, r.owner, r.name,
                 if r.language == "Rust" { "rust" } else if r.language == "Python" { "python" } else { "js" },
-                r.language, r.description, r.stars, r.created_at
+                r.language, r.description, r.stars, ts_lisible(&r.created_at)
             )).collect::<Vec<_>>().join("")
         };
         format!(r#"
@@ -1724,7 +1780,7 @@ fn html_repo_view(repo: &Repository, owner: &str, name: &str, is_owner: bool, cu
         for cm in repo.commits.iter().rev().take(20) {
             list.push_str(&format!(
                 r#"<li style="padding:6px 0;border-bottom:1px solid #21262d;"><span class="badge" style="background:#238636;color:#fff;">✔</span> <strong style="color:#58a6ff;">{}</strong> — {} <span style="color:#8b949e;font-size:0.85em;">par {} · {}</span></li>"#,
-                escape_json(&cm.filename), escape_json(&cm.message), escape_json(&cm.author), escape_json(&cm.created_at)
+                escape_json(&cm.filename), escape_json(&cm.message), escape_json(&cm.author), ts_lisible(&cm.created_at)
             ));
         }
         format!(r#"<div class="card"><h2>📜 Historique des commits ({})</h2><ul style="list-style:none;padding:0;margin:0;">{}</ul></div>"#,
@@ -1882,7 +1938,7 @@ fn html_user_profile(user: &User, state: &AppState, current_user: Option<&str>) 
             r#"<div class="repo"><h3><a href="/{}/{}">{}/{}</a> <span class="badge badge-{}">{}</span></h3><div class="desc">{}</div><div class="meta">⭐ {} · {}</div></div>"#,
             r.owner, r.name, r.owner, r.name,
             if r.language == "Rust" { "rust" } else if r.language == "Python" { "python" } else { "js" },
-            r.language, r.description, r.stars, r.created_at
+            r.language, r.description, r.stars, ts_lisible(&r.created_at)
         )).collect::<Vec<_>>().join("")
     };
 
@@ -2093,7 +2149,7 @@ fn html_search(state: &AppState, current_user: Option<&str>, query: &str) -> Str
             r#"<div class="repo"><h3><a href="/{}/{}">{}/{}</a> <span class="badge badge-{}">{}</span></h3><div class="desc">{}</div><div class="meta">⭐ {} · {}</div></div>"#,
             r.owner, r.name, r.owner, r.name,
             if r.language == "Rust" { "rust" } else if r.language == "Python" { "python" } else { "js" },
-            r.language, r.description, r.stars, r.created_at
+            r.language, r.description, r.stars, ts_lisible(&r.created_at)
         )).collect::<Vec<_>>().join("")
     };
 
@@ -2649,7 +2705,7 @@ fn html_explore(state: &AppState) -> String {
             r#"<div class="repo"><h3><a href="/{}/{}">{}/{}</a> <span class="badge badge-{}">{}</span></h3><div class="desc">{}</div><div class="meta">⭐ {} · 🍴 {} · {}</div></div>"#,
             r.owner, r.name, r.owner, r.name,
             if r.language == "Rust" { "rust" } else if r.language == "Python" { "python" } else { "js" },
-            r.language, r.description, r.stars, r.forks, r.created_at
+            r.language, r.description, r.stars, r.forks, ts_lisible(&r.created_at)
         )).collect::<Vec<_>>().join("")
     };
 
@@ -3546,6 +3602,12 @@ fn handle_request(mut stream: TcpStream, state: Arc<Mutex<AppState>>) {
             let s = state.lock().unwrap();
             ("200", "text/html; charset=utf-8", html_explore(&s))
         }
+        ("GET", "/api/copilote") => {
+            let q = query_params.get("q").cloned().unwrap_or_default();
+            let s = state.lock().unwrap();
+            let resp = ai_respond(&q, current_user.as_deref().unwrap_or("invite"), &s);
+            ("200", "text/html; charset=utf-8", resp)
+        }
         ("GET", "/ai") => {
             if let Some(user) = &current_user {
                 let s = state.lock().unwrap();
@@ -4052,7 +4114,7 @@ fn handle_request(mut stream: TcpStream, state: Arc<Mutex<AppState>>) {
                             for c in &repo_comments {
                                 html.push_str(&format!(
                                     r#"<div class="card" style="padding:10px;margin:5px 0;"><strong>{}</strong> <span style="color:#8b949e;font-size:0.8em;">· {}</span><br>{}</div>"#,
-                                    c.author, c.created_at, c.text
+                                    c.author, ts_lisible(&c.created_at), c.text
                                 ));
                             }
                             if current_user.is_some() {
