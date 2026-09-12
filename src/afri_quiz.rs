@@ -4,9 +4,12 @@
 // v1.67: les questions de LANGUE MATERNELLE — pour que l'utilisateur
 //         n'oublie JAMAIS sa langue derrière le français. 🗣️
 //         (bambara, haoussa, mooré, dioula, wolof, twi, yorouba...)
-// Bonne réponse = 20 000 FCFA (la monnaie du quotidien africain)
-//              = 3 333 graines (1 graine = 6 FCFA).
+// v1.67.1 — LE QUIZ ENTIER = 20 000 FCFA, réparti sur toutes les questions.
+//              Mali (7 questions): chaque bonne réponse ≈ 2 857 FCFA = 476 graines.
+//              1 graine = 6 FCFA. Retrait dès 5 000 FCFA.
 // construit pour le chef. 💚🦁
+
+use crate::afri_lion;
 
 /// Une question culturelle — 4 choix, une bonne réponse, une explication
 #[derive(Clone, Debug)]
@@ -17,11 +20,19 @@ pub struct QuestionQuiz {
     pub explication: String, // le pourquoi — l'Afrique enseigne
 }
 
-/// v1.67 — Graines gagnées par bonne réponse (20 000 FCFA / 6 = 3 333)
-pub const GRAINES_PAR_BONNE: u64 = 3_333;
+/// v1.67.1 — LE QUIZ ENTIER = 20 000 FCFA (le chef: "le quiz Total égal à 20.000 FCFA
+/// tout les questions posées"). La récompense est RÉPARTIE sur toutes les questions:
+/// graines par question = 20 000 FCFA / nombre de questions du pays.
+/// Mali (7 questions) = 476 graines/question ≈ 2 857 FCFA/question.
+pub const FCFA_QUIZ_TOTAL: u64 = 20_000;
 
-/// v1.67 — La récompense en FCFA, la monnaie que l'Africain connaît
-pub const FCFA_PAR_BONNE: u64 = 20_000;
+/// Graines pour UNE question, selon le nombre de questions du quiz du pays.
+/// (20 000 FCFA = 3 333 graines, divisé entre toutes les questions.)
+pub fn graines_par_question(nb_questions: usize) -> u64 {
+    let total_graines = FCFA_QUIZ_TOTAL * afri_lion::GRAINES_PAR_AFR / afri_lion::FCFA_PAR_AFR; // 3 333
+    if nb_questions == 0 { return 0; }
+    total_graines / nb_questions as u64
+}
 
 /// Petit constructeur pour écrire les questions proprement
 fn q(question: &str, c1: &str, c2: &str, c3: &str, c4: &str, bonne: usize, explication: &str) -> QuestionQuiz {

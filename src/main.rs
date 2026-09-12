@@ -32987,9 +32987,9 @@ fn html_lion(user: &UserAccount, chain: &Blockchain, lion: &afri_lion::LionStore
         etat.serie, bonus, etat.taches_faites.len(), afri_lion::taches_du_jour().len(), etat.quiz_reussis, bal));
 
     // v1.66 — Les graines (v1.67: + FCFA)
-    // v1.67 — + LE FCFA: 20 000 FCFA par bonne réponse, retrait dès 5 000 FCFA
+    // v1.67.1 — LE QUIZ ENTIER = 20 000 FCFA, réparti sur les questions du pays
     let fcfa_attente = afri_lion::graines_vers_fcfa(etat.graines);
-    html.push_str(&format!(r#"<div class="card"><h2>🌱 Tes graines — la monnaie intelligente</h2><p style="text-align:center;color:#a8c5a8;">1 AFR = 1 million de dollars. 1 graine = 0.00000001 AFR = $0.01 = <b>6 FCFA</b>.<br>Chaque bonne réponse au quiz = <b>20 000 FCFA</b>. Retirable dès <b>5 000 FCFA</b>.</p><div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;"><div class="stat-box" style="border-color:#d4a437;"><div class="stat-num" style="color:#d4a437;">{}</div><div class="stat-label">🌱 Graines en attente</div></div><div class="stat-box" style="border-color:#7ec97e;"><div class="stat-num" style="color:#7ec97e;">{}</div><div class="stat-label">💵 Valeur FCFA en attente</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">🌱 Graines gagnées (total)</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">🪙 Valeur en AFR (total)</div></div></div></div>"#,
+    html.push_str(&format!(r#"<div class="card"><h2>🌱 Tes graines — la monnaie intelligente</h2><p style="text-align:center;color:#a8c5a8;">1 AFR = 1 million de dollars. 1 graine = 0.00000001 AFR = $0.01 = <b>6 FCFA</b>.<br>LE QUIZ ENTIER = <b>20 000 FCFA</b> (réparti sur toutes les questions). Retirable dès <b>5 000 FCFA</b>.</p><div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;"><div class="stat-box" style="border-color:#d4a437;"><div class="stat-num" style="color:#d4a437;">{}</div><div class="stat-label">🌱 Graines en attente</div></div><div class="stat-box" style="border-color:#7ec97e;"><div class="stat-num" style="color:#7ec97e;">{}</div><div class="stat-label">💵 Valeur FCFA en attente</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">🌱 Graines gagnées (total)</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">🪙 Valeur en AFR (total)</div></div></div></div>"#,
         etat.graines, fcfa_attente, etat.total_gagne, afri_lion::format_graines(etat.total_gagne)));
 
     // v1.67 — RETRAIT FCFA: dès 5 000 FCFA (834 graines), tu retires tes graines
@@ -32999,8 +32999,11 @@ fn html_lion(user: &UserAccount, chain: &Blockchain, lion: &afri_lion::LionStore
             fcfa_attente, user.username, fcfa_attente));
     } else {
         let manquant = afri_lion::FCFA_RETRAIT_MIN - fcfa_attente;
-        html.push_str(&format!(r#"<div class="card"><p style="text-align:center;color:#a8c5a8;">📤 Le retrait FCFA s'ouvre à <b>5 000 FCFA</b> — il te manque <b>{} FCFA</b> ({} bonnes réponses au quiz). <a href="/quiz" style="color:#d4a437;">Réponds au quiz 🧠</a></p></div>"#,
-            manquant, (manquant + afri_lion::graines_vers_fcfa(afri_quiz::GRAINES_PAR_BONNE) - 1) / afri_lion::graines_vers_fcfa(afri_quiz::GRAINES_PAR_BONNE)));
+        let gain_q = afri_quiz::graines_par_question(afri_quiz::questions_pays(&user.country).len());
+        let fcfa_par_q = afri_lion::graines_vers_fcfa(gain_q);
+        let reponses_req = if fcfa_par_q > 0 { (manquant + fcfa_par_q - 1) / fcfa_par_q } else { 0 };
+        html.push_str(&format!(r#"<div class="card"><p style="text-align:center;color:#a8c5a8;">📤 Le retrait FCFA s'ouvre à <b>5 000 FCFA</b> — il te manque <b>{} FCFA</b> (≈ {} bonnes réponses au quiz). <a href="/quiz" style="color:#d4a437;">Réponds au quiz 🧠</a></p></div>"#,
+            manquant, reponses_req));
     }
 
     html.push_str(r#"<div class="card"><h2>🎯 Tâches du jour</h2>"#);
@@ -33028,6 +33031,8 @@ fn html_quiz(user: &UserAccount, lion: &afri_lion::LionStore, msg: Option<&str>,
     let flag = find_country(&user.country_code).map(|(_, f)| f).unwrap_or("🌍");
     let questions = afri_quiz::questions_pays(&user.country);
     let num_q = (etat.quiz_reussis as usize + etat.quiz_rates as usize) % questions.len();
+    // v1.67.1 — LE QUIZ ENTIER = 20 000 FCFA, réparti sur les questions du pays
+    let gain_question = afri_quiz::graines_par_question(questions.len());
 
     html.push_str(&format!(r#"<h1>🧠 Quiz Culturel — {} {}</h1><div class="nav"><a href="/lion">🦁 Le Lion</a> | <a href="/calculatrice">🧮 Calculatrice</a> | <a href="/account?user={}">← Mon compte</a></div>"#, flag, user.country, user.username));
     if let Some(m) = msg {
@@ -33036,7 +33041,7 @@ fn html_quiz(user: &UserAccount, lion: &afri_lion::LionStore, msg: Option<&str>,
     // Résultat de la dernière réponse
     if let Some((explication, gagne, bonne_idx, choisi_idx)) = derniere {
         if gagne {
-            html.push_str(&format!(r#"<div class="card" style="border-color:#7ec97e;"><h2 style="color:#7ec97e;">✅ EXACT ! +{} graines = 💵 {}</h2><p>{}</p></div>"#, afri_quiz::GRAINES_PAR_BONNE, afri_lion::format_fcfa(afri_quiz::GRAINES_PAR_BONNE), explication));
+            html.push_str(&format!(r#"<div class="card" style="border-color:#7ec97e;"><h2 style="color:#7ec97e;">✅ EXACT ! +{} graines = 💵 {}</h2><p>{}</p></div>"#, gain_question, afri_lion::format_fcfa(gain_question), explication));
         } else {
             html.push_str(&format!(r#"<div class="card" style="border-color:#ff6b6b;"><h2 style="color:#ff6b6b;">❌ Pas encore — la bonne réponse était : {}</h2><p>{}</p><p style="color:#a8c5a8;">Réessaie avec une autre question — chaque erreur t'enseigne aussi.</p></div>"#, questions[num_q].choix[bonne_idx], explication));
         }
@@ -33047,11 +33052,13 @@ fn html_quiz(user: &UserAccount, lion: &afri_lion::LionStore, msg: Option<&str>,
     for (i, c) in questions[num_q].choix.iter().enumerate() {
         html.push_str(&format!(r#"<div style="margin:8px 0;"><label style="display:block;padding:10px;border:1px solid rgba(212,164,55,0.3);border-radius:8px;cursor:pointer;"><input type="radio" name="choix" value="{}" required /> {}</label></div>"#, i, c));
     }
-    html.push_str(r#"<div style="text-align:center;margin-top:12px;"><button type="submit" style="font-size:1.1em;padding:10px 24px;">🧠 Répondre (+20 000 💵 si exact)</button></div></form></div>"#);
+    html.push_str(&format!(r#"<div style="text-align:center;margin-top:12px;"><button type="submit" style="font-size:1.1em;padding:10px 24px;">🧠 Répondre (+{} graines = 💵 {} si exact)</button></div></form></div>"#,
+        gain_question, afri_lion::format_fcfa(gain_question)));
 
     html.push_str(&format!(r#"<div class="card"><h2>📊 Ton intelligence</h2><div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;"><div class="stat-box" style="border-color:#7ec97e;"><div class="stat-num" style="color:#7ec97e;">{}</div><div class="stat-label">✅ Réussies</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">❌ Ratées</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">🌱 Graines en attente</div></div><div class="stat-box" style="border-color:#d4a437;"><div class="stat-num" style="color:#d4a437;">{}</div><div class="stat-label">💵 Valeur FCFA en attente</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">🌱 Total gagné</div></div></div></div>"#,
         etat.quiz_reussis, etat.quiz_rates, etat.graines, afri_lion::graines_vers_fcfa(etat.graines), etat.total_gagne));
-    html.push_str(&format!(r#"<div class="card"><p style="text-align:center;color:#a8c5a8;">🧠 Chaque bonne réponse = 20 000 FCFA = 3 333 graines. Apprends l'histoire de ton pays ET ta langue maternelle, gagne des Afri.<br>Retirable dès 5 000 FCFA sur <a href="/lion" style="color:#d4a437;">🦁 Le Lion</a>. L'Afrique sera intelligente à force d'avoir des Afri. 💚🦁</p></div>"#));
+    html.push_str(&format!(r#"<div class="card"><p style="text-align:center;color:#a8c5a8;">🧠 LE QUIZ ENTIER = <b>20 000 FCFA</b>, réparti sur les {} questions : chaque bonne réponse = <b>{} graines = {} FCFA</b>.<br>Apprends l'histoire de ton pays ET ta langue maternelle, gagne des Afri. Retirable dès 5 000 FCFA sur <a href="/lion" style="color:#d4a437;">🦁 Le Lion</a>.<br>L'Afrique sera intelligente à force d'avoir des Afri. 💚🦁</p></div>"#,
+        questions.len(), gain_question, afri_lion::graines_vers_fcfa(gain_question)));
     html.push_str("</body></html>");
     html
 }
@@ -33112,7 +33119,7 @@ function afriCalc(src){
 </script></div>"#);
 
     // Table de référence
-    html.push_str(r#"<div class="card"><h2>📋 Table de référence</h2><div class="tx">🌱 1 graine = 0.00000001 AFR = <b>$0.01</b> = <b>6 FCFA</b> — la plus petite récompense du Lion</div><div class="tx">🧠 1 bonne réponse au quiz = <b>20 000 FCFA</b> = 3 333 graines</div><div class="tx">📤 Retrait possible dès <b>5 000 FCFA</b> — la monnaie du quotidien africain</div><div class="tx">🪙 1 AFR = <b>$1 000 000</b> = <b>600 000 000 FCFA</b> — la monnaie numérique souveraine</div><div class="tx">🏛️ 1 AES = <b>$3 000 000</b> — la monnaie physique adossée or/fer/eau/pétrole/diamant</div><div class="tx">🌱 100 000 000 graines = 1 AFR — la conversion sur la blockchain</div></div>"#);
+    html.push_str(r#"<div class="card"><h2>📋 Table de référence</h2><div class="tx">🌱 1 graine = 0.00000001 AFR = <b>$0.01</b> = <b>6 FCFA</b> — la plus petite récompense du Lion</div><div class="tx">🧠 LE QUIZ ENTIER = <b>20 000 FCFA</b> = 3 333 graines — réparti sur toutes les questions de ton pays</div><div class="tx">📤 Retrait possible dès <b>5 000 FCFA</b> — la monnaie du quotidien africain</div><div class="tx">🪙 1 AFR = <b>$1 000 000</b> = <b>600 000 000 FCFA</b> — la monnaie numérique souveraine</div><div class="tx">🏛️ 1 AES = <b>$3 000 000</b> — la monnaie physique adossée or/fer/eau/pétrole/diamant</div><div class="tx">🌱 100 000 000 graines = 1 AFR — la conversion sur la blockchain</div></div>"#);
     html.push_str(r#"<div class="card"><p style="text-align:center;color:#a8c5a8;">🧮 1 AFR = 1 million de dollars = 600 millions de FCFA. Le quiz paie en FCFA, la valeur reste en Afri.<br>Le FCFA est la monnaie que l'Africain connaît — AfriChain la parle aussi. 💚🦁</p></div>"#);
     html.push_str("</body></html>");
     html
@@ -38530,10 +38537,12 @@ pre {{ white-space:pre-wrap; word-wrap:break-word; }}
             let bonne = question.bonne;
             let explication = question.explication.clone();
             let juste = choix == bonne;
+            // v1.67.1 — LE QUIZ ENTIER = 20 000 FCFA, réparti sur les questions du pays
+            let gain_question = afri_quiz::graines_par_question(questions.len());
             if juste {
                 etat.quiz_reussis += 1;
-                etat.graines += afri_quiz::GRAINES_PAR_BONNE;
-                etat.total_gagne += afri_quiz::GRAINES_PAR_BONNE;
+                etat.graines += gain_question;
+                etat.total_gagne += gain_question;
                 // Conversion automatique si 1 AFR atteint
                 let convertibles = etat.graines / afri_lion::GRAINES_PAR_AFR;
                 if convertibles > 0 {
@@ -38548,7 +38557,7 @@ pre {{ white-space:pre-wrap; word-wrap:break-word; }}
                     drop(lion);
                     drop(chain);
                     broadcast_mesh(&*state, "tx", &tx_json);
-                    return HttpResponse::redirect(&format!("/quiz?msg=🧠 EXACT ! +{} graines = 💵 {} — 🌱→🪙 {} AFR convertis sur la blockchain !", afri_quiz::GRAINES_PAR_BONNE, afri_lion::format_fcfa(afri_quiz::GRAINES_PAR_BONNE), convertibles));
+                    return HttpResponse::redirect(&format!("/quiz?msg=🧠 EXACT ! +{} graines = 💵 {} — 🌱→🪙 {} AFR convertis sur la blockchain !", gain_question, afri_lion::format_fcfa(gain_question), convertibles));
                 }
             } else {
                 etat.quiz_rates += 1;
