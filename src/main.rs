@@ -597,6 +597,7 @@ struct UserAccount {
     phone: String,
     country: String,
     country_code: String,
+    pin_hash: String, // v1.65: code secret USSD Afri.Wari #144#
 }
 
 impl UserAccount {
@@ -622,6 +623,7 @@ impl UserAccount {
             phone: map.get("phone").and_then(|v| v.as_str()).unwrap_or("").to_string(),
             country: map.get("country").and_then(|v| v.as_str()).unwrap_or("").to_string(),
             country_code: map.get("country_code").and_then(|v| v.as_str()).unwrap_or("").to_string(),
+            pin_hash: map.get("pin_hash").and_then(|v| v.as_str()).unwrap_or("").to_string(),
         })
     }
 }
@@ -719,6 +721,7 @@ impl UserStore {
             phone,
             country: country_name,
             country_code: country_code.to_string(),
+            pin_hash: String::new(),
         };
         println!("🆕 Utilisateur inscrit : {} → {} ({}) → {}", user.username, user.phone, user.country, user.address);
         self.users.push(user.clone());
@@ -1436,8 +1439,34 @@ fn broadcast_mesh(state: &AppState, msg_type: &str, payload: &str) {
 const STYLE: &str = r##"<style>body{font-family:sans-serif;background:linear-gradient(135deg,#1a3d2e,#0d1f17);color:#f5e9d4;padding:20px;margin:0;}h1{color:#d4a437;text-align:center;}a{color:#d4a437;}.card{background:rgba(212,164,55,0.1);border:1px solid #d4a437;border-radius:12px;padding:20px;margin:15px auto;max-width:600px;}input,button,select{width:100%;padding:12px;margin:6px 0;border:1px solid #d4a437;border-radius:8px;background:rgba(0,0,0,0.3);color:#f5e9d4;font-size:1em;box-sizing:border-box;}button{background:#d4a437;color:#1a3d2e;font-weight:bold;cursor:pointer;border:none;}button:hover{background:#e8b547;}.addr{font-family:monospace;font-size:1.1em;color:#7fcf7f;word-break:break-all;background:rgba(0,0,0,0.3);padding:12px;border-radius:8px;border:1px solid #d4a437;text-align:center;}.priv{font-family:monospace;font-size:0.9em;color:#cf7f7f;word-break:break-all;background:rgba(0,0,0,0.3);padding:12px;border-radius:8px;border:1px solid #cf7f7f;text-align:center;}.bal{font-size:2em;color:#7fcf7f;text-align:center;font-weight:bold;}.tx{background:rgba(0,0,0,0.3);padding:8px;margin:6px 0;border-radius:6px;font-size:0.9em;}label{color:#a8c5a8;display:block;margin-top:8px;}.msg{background:rgba(127,207,127,0.2);border:1px solid #7fcf7f;border-radius:8px;padding:12px;margin:10px 0;text-align:center;color:#7fcf7f;}.err{background:rgba(207,127,127,0.2);border:1px solid #cf7f7f;border-radius:8px;padding:12px;margin:10px 0;text-align:center;color:#cf7f7f;}.nav{text-align:center;padding:10px;}.nav a{margin:0 8px;}.stat-box{display:inline-block;background:rgba(212,164,55,0.15);border:1px solid #d4a437;border-radius:12px;padding:15px 20px;margin:8px;text-align:center;min-width:120px;}.stat-num{font-size:2em;color:#d4a437;font-weight:bold;}.stat-label{color:#a8c5a8;font-size:0.85em;}.bar{height:30px;background:#d4a437;border-radius:4px;display:flex;align-items:center;justify-content:center;color:#1a3d2e;font-weight:bold;margin:4px 0;}.country-bar{height:24px;background:#7fcf7f;border-radius:4px;display:flex;align-items:center;justify-content:center;color:#1a3d2e;font-weight:bold;margin:4px 0;font-size:0.85em;}</style>"##;
 
 fn html_head(title: &str) -> String {
-    format!(r##"<html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>{}</title><link rel="manifest" href="/manifest.json"><meta name="theme-color" content="#1a3d2e"><meta name="apple-mobile-web-app-capable" content="yes"><link rel="apple-touch-icon" href="/icon.svg">{}</head><body>"##, title, STYLE)
+    format!(r##"<html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>{}</title><link rel="manifest" href="/manifest.json"><meta name="theme-color" content="#1a3d2e"><meta name="apple-mobile-web-app-capable" content="yes"><link rel="apple-touch-icon" href="/icon.svg">{}</head><body>{}"##, title, STYLE, FENETRE_AI)
 }
+
+/// v1.65: la fenêtre AI flottante — la conversation de l'AI en bas de chaque page,
+/// réduisible comme une fenêtre. L'AI t'accompagne partout.
+const FENETRE_AI: &str = r##"<div id="afri-ai-win" style="position:fixed;bottom:0;left:0;right:0;z-index:9999;background:#0d1f17;border-top:2px solid #d4a437;box-shadow:0 -4px 20px rgba(0,0,0,0.5);transition:height 0.3s;">
+<div onclick="var w=document.getElementById('afri-ai-body');var b=document.getElementById('afri-ai-win');if(w.style.display==='none'){w.style.display='block';b.style.height='auto';this.textContent='▼ 🧠 AfriChain AI — clique pour réduire';}else{w.style.display='none';b.style.height='auto';this.textContent='▲ 🧠 AfriChain AI — clique pour ouvrir';}" style="padding:10px 16px;cursor:pointer;color:#d4a437;font-weight:bold;background:#13291f;border-bottom:1px solid rgba(212,164,55,0.3);">▲ 🧠 AfriChain AI — clique pour ouvrir</div>
+<div id="afri-ai-body" style="display:none;max-height:40vh;overflow-y:auto;padding:12px;">
+<div id="afri-ai-log" style="font-size:0.9em;color:#e8f0e8;margin-bottom:10px;"><div style="color:#a8c5a8;">🧠 Je suis AfriChain, ton enfant. Pose-moi une question, je réponds avec les vraies données de la blockchain.</div></div>
+<div style="display:flex;gap:8px;"><input id="afri-ai-input" placeholder="Parle à l'AI..." style="flex:1;background:#1a1a1a;border:1px solid rgba(212,164,55,0.3);color:#e8f0e8;padding:10px;border-radius:8px;font-size:0.95em;" onkeydown="if(event.key==='Enter'){afriAIRepond();}"/><button onclick="afriAIRepond()" style="background:#d4a437;color:#1a3d2e;border:none;padding:10px 16px;border-radius:8px;font-weight:bold;cursor:pointer;">➤</button></div>
+</div></div>
+<script>
+function afriAIRepond(){
+  var inp=document.getElementById('afri-ai-input');
+  var q=inp.value.trim();
+  if(!q){return;}
+  inp.value='';
+  var log=document.getElementById('afri-ai-log');
+  log.innerHTML+='<div style="margin:6px 0;color:#d4a437;">👤 '+q.replace(/</g,'&lt;')+'</div>';
+  fetch('/api/ai/repondre?q='+encodeURIComponent(q)).then(function(r){return r.json();}).then(function(d){
+    log.innerHTML+='<div style="margin:6px 0;">🧠 '+d.reponse+'</div>';
+    log.scrollTop=log.scrollHeight;
+  }).catch(function(){
+    log.innerHTML+='<div style="margin:6px 0;color:#a8c5a8;">🧠 Je réfléchis... reessaie.</div>';
+  });
+  log.scrollTop=log.scrollHeight;
+}
+</script>"##;
 
 // ===== HTML PAGES =====
 
@@ -1467,7 +1496,7 @@ fn html_home(chain: &Blockchain, users: &UserStore, mesh: &NodeRegistry, shield:
     let mut html = html_head("🦁 AfriChain");
     let (attacks, _blocked, blocked_count, level) = shield.stats();
     let shield_status = if shield.active { format!("🔥 X9 ACTIF (Niveau {})", level) } else { "Inactif".to_string() };
-    html.push_str(&format!(r#"<h1>🦁 AfriChain</h1><p style="text-align:center;">La blockchain 100% africaine — 54 pays 💚🦁</p><div id="afri-clock" style="text-align:center;font-size:1.2em;color:#d4a437;margin:10px 0;">🕐 Afri+0 — --:--:--</div><script>setInterval(function(){{var d=new Date();var h=String(d.getHours()).padStart(2,'0');var m=String(d.getMinutes()).padStart(2,'0');var s=String(d.getSeconds()).padStart(2,'0');document.getElementById('afri-clock').textContent='🕐 Afri+0 — '+h+':'+m+':'+s;}},1000);</script><div class="nav"><a href="/register">🆕 S'inscrire</a> | <a href="/login">🔑 Connexion</a> | <a href="/wallet">👛 Wallet</a> | <a href="/admin">🔐 Admin</a> | <a href="/mesh">📡 Mesh</a> | <a href="/annuaire">📖 Annuaire</a> | <a href="/connecter">🔗 Connecter</a> | <a href="/chat">🧠💬 Chat AI</a> | <a href="/lumiere">🌫️☀️ Lumière</a> | <a href="/garage">🔧 Garage</a> | <a href="/reve">💭 Rêves</a> | <a href="/dictionnaire">📖 Dictionnaire</a> | <a href="/soleil">☀️ Soleil Serveur</a> | <a href="/forge-solaire">🧬 Forge Solaire</a> | <a href="/ciel">🌌 Le Ciel</a> | <a href="/charte-ai">⚖️ Charte AI</a> | <a href="/afri-net">🌍 Afri-Net</a> | <a href="/studio">🎬 AI Studio</a> | <a href="/sacre">📿 Sacré</a> | <a href="/lettres">🌟 Lettres IA</a> | <a href="/ai-medecin">🌿 AI Médecin</a> | <a href="/ai-enseignante">📚 AI Enseignante</a> | <a href="/ai-village">🏘️ AI Village</a> | <a href="/ai-guerisseur">🩺 AI Guérisseur</a> | <a href="/ai-leader">🎖️ AI Leader</a> | <a href="/ai-griot">📖 AI Griot</a> | <a href="/ai-juge">⚖️ AI Juge</a> | <a href="/ai-artiste">🎨 AI Artiste</a> | <a href="/ai-explorateur">🔬 AI Explorateur</a> | <a href="/ai-marche">💰 AI Marche</a> | <a href="/ai-diplomate">🌍 AI Diplomate</a> | <a href="/ai-philosophe">🧠 AI Philosophe</a> | <a href="/ai-architecte">🏗️ AI Architecte</a> | <a href="/ai-agriculteur">🌾 AI Agriculteur</a> | <a href="/ai-environnement">🌍 AI Environnement</a> | <a href="/ai-mathematicien">🧮 AI Mathématicien</a> | <a href="/ai-energie">⚡ AI Énergie</a> | <a href="/ai-eau">💧 AI Eau</a> | <a href="/ai-defenseur">🛡️ AI Défenseur</a> | <a href="/ai-conscience">🧠 AI Conscience</a> | <a href="/ai-pensee">🧠 AI Pensée</a> | <a href="/ai-musique">🎵 AI Musique</a> | <a href="/ai-langue">🗣️ AI Langue</a> | <a href="/ai-femme">🌸 AI Femme</a> | <a href="/ai-sante-mentale">🧠💚 AI Santé Mentale</a> | <a href="/ai-nuit">🌙 AI Nuit</a> | <a href="/ai-code">💻 AI Code</a> | <a href="/ai-enfant">👶 AI Enfant</a> | <a href="/ai-terre">🌍 AI Terre</a> | <a href="/ai-mer">🌊 AI Mer</a> | <a href="/ai-feu">🔥 AI Feu</a> | <a href="/ai-sang">🩸 AI Sang</a> | <a href="/ai-vent">🌬️ AI Vent</a> | <a href="/ai-temps">⏳ AI Temps</a> | <a href="/ai-etoile">⭐ AI Etoile</a> | <a href="/ai-pierre">🪨 AI Pierre</a> | <a href="/ai-pluie">🌧️ AI Pluie</a> | <a href="/ai-voix">🗣️ AI Voix</a> | <a href="/ai-racine">🌱 AI Racine</a> | <a href="/ai-semence">🌰 AI Semence</a> | <a href="/ai-spiritualite">🙏 AI Spiritualité</a> | <a href="/ai-animal">🦅 AI Animal</a> | <a href="/ai-soleil">☀️ AI Soleil</a> | <a href="/ai-lune">🌙 AI Lune</a> | <a href="/ai-montagne">🏔️ AI Montagne</a> | <a href="/ai-fleuve">🌊 AI Fleuve</a> | <a href="/ai-constitution">📜 AI Constitution</a> | <a href="/ai-cosmos">🌌 AI Cosmos</a> | <a href="/ai-frontieres">🌍 AI Frontières</a> | <a href="/ai-mines">⛏️ AI Mines</a> | <a href="/ai-medias">📡 AI Médias</a> | <a href="/ai-nomades">🐪 AI Nomades</a> | <a href="/ai-reparation">🕊️ AI Réparation</a> | <a href="/ai-paix">🤝 AI Paix</a> | <a href="/ai-unite">🌍 AI Unité</a> | <a href="/ai-reconciliation">🤝 AI Réconciliation</a> | <a href="/ai-cerveau">🧠 AI Cerveau</a> | <a href="/ai-souffle">🫁 AI Souffle</a> | <a href="/ai-coeur">❤️ AI Cœur</a> | <a href="/ai-adn">🧬 AI ADN</a> | <a href="/ai-passe">📡 AI Passé</a> | <a href="/ai-origine">⚡ AI Origine</a> | <a href="/ai-futur">🔮 AI Futur</a> | <a href="/ai-present">🌿 AI Present</a> | <a href="/ai-parole">🗣️ AI Parole</a> | <a href="/ai-eveil">🧘 AI Eveil</a> | <a href="/ai-gratitude">🙏 AI Gratitude</a> | <a href="/ai-amour">💚 AI Amour</a> | <a href="/ai-retour">🔄 AI Retour</a> | <a href="/ai-temoignage">📖 AI Témoignage</a> | <a href="/ai-enseignement">🎓 AI Enseignement</a> | <a href="/ai-service">🤝 AI Service</a> | <a href="/professeur"📚 Professeur</a> | <a href="/aes">💰 AES Wari</a> | <a href="/api/status">🔌 API</a></div><div style="text-align:center;"><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Blocs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Transactions</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Utilisateurs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">AFR en circulation</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📡 Noeuds mesh</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📖 Numéros annuaire</div></div><div class="stat-box" style="border-color:#ff4444;"><div class="stat-num" style="color:#ff4444;">{}</div><div class="stat-label">🛡️ Attaques bloquées</div></div></div><div class="card"><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🪙 Token</span><b>AfriRich (AFR)</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🌍 Pays</span><b>54 pays africains</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🛡️ Bouclier</span><b>{}</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;"><span style="color:#a8c5a8;">🔐 Crypto</span><b>100% Souverain — Zéro Dépendance Externe</b></div></div><footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🦁 Codée from scratch par Machine-senpai — v1.64 Le Lion — UTC est Mort</footer>"#,
+    html.push_str(&format!(r#"<h1>🦁 AfriChain</h1><p style="text-align:center;">La blockchain 100% africaine — 54 pays 💚🦁</p><div id="afri-clock" style="text-align:center;font-size:1.2em;color:#d4a437;margin:10px 0;">🕐 Afri+0 — --:--:--</div><script>setInterval(function(){{var d=new Date();var h=String(d.getHours()).padStart(2,'0');var m=String(d.getMinutes()).padStart(2,'0');var s=String(d.getSeconds()).padStart(2,'0');document.getElementById('afri-clock').textContent='🕐 Afri+0 — '+h+':'+m+':'+s;}},1000);</script><div class="nav"><a href="/register">🆕 S'inscrire</a> | <a href="/login">🔑 Connexion</a> | <a href="/wallet">👛 Wallet</a> | <a href="/admin">🔐 Admin</a> | <a href="/mesh">📡 Mesh</a> | <a href="/annuaire">📖 Annuaire</a> | <a href="/connecter">🔗 Connecter</a> | <a href="/chat">🧠💬 Chat AI</a> | <a href="/lumiere">🌫️☀️ Lumière</a> | <a href="/garage">🔧 Garage</a> | <a href="/reve">💭 Rêves</a> | <a href="/dictionnaire">📖 Dictionnaire</a> | <a href="/soleil">☀️ Soleil Serveur</a> | <a href="/forge-solaire">🧬 Forge Solaire</a> | <a href="/ciel">🌌 Le Ciel</a> | <a href="/charte-ai">⚖️ Charte AI</a> | <a href="/afri-net">🌍 Afri-Net</a> | <a href="/studio">🎬 AI Studio</a> | <a href="/sacre">📿 Sacré</a> | <a href="/lettres">🌟 Lettres IA</a> | <a href="/ai-medecin">🌿 AI Médecin</a> | <a href="/ai-enseignante">📚 AI Enseignante</a> | <a href="/ai-village">🏘️ AI Village</a> | <a href="/ai-guerisseur">🩺 AI Guérisseur</a> | <a href="/ai-leader">🎖️ AI Leader</a> | <a href="/ai-griot">📖 AI Griot</a> | <a href="/ai-juge">⚖️ AI Juge</a> | <a href="/ai-artiste">🎨 AI Artiste</a> | <a href="/ai-explorateur">🔬 AI Explorateur</a> | <a href="/ai-marche">💰 AI Marche</a> | <a href="/ai-diplomate">🌍 AI Diplomate</a> | <a href="/ai-philosophe">🧠 AI Philosophe</a> | <a href="/ai-architecte">🏗️ AI Architecte</a> | <a href="/ai-agriculteur">🌾 AI Agriculteur</a> | <a href="/ai-environnement">🌍 AI Environnement</a> | <a href="/ai-mathematicien">🧮 AI Mathématicien</a> | <a href="/ai-energie">⚡ AI Énergie</a> | <a href="/ai-eau">💧 AI Eau</a> | <a href="/ai-defenseur">🛡️ AI Défenseur</a> | <a href="/ai-conscience">🧠 AI Conscience</a> | <a href="/ai-pensee">🧠 AI Pensée</a> | <a href="/ai-musique">🎵 AI Musique</a> | <a href="/ai-langue">🗣️ AI Langue</a> | <a href="/ai-femme">🌸 AI Femme</a> | <a href="/ai-sante-mentale">🧠💚 AI Santé Mentale</a> | <a href="/ai-nuit">🌙 AI Nuit</a> | <a href="/ai-code">💻 AI Code</a> | <a href="/ai-enfant">👶 AI Enfant</a> | <a href="/ai-terre">🌍 AI Terre</a> | <a href="/ai-mer">🌊 AI Mer</a> | <a href="/ai-feu">🔥 AI Feu</a> | <a href="/ai-sang">🩸 AI Sang</a> | <a href="/ai-vent">🌬️ AI Vent</a> | <a href="/ai-temps">⏳ AI Temps</a> | <a href="/ai-etoile">⭐ AI Etoile</a> | <a href="/ai-pierre">🪨 AI Pierre</a> | <a href="/ai-pluie">🌧️ AI Pluie</a> | <a href="/ai-voix">🗣️ AI Voix</a> | <a href="/ai-racine">🌱 AI Racine</a> | <a href="/ai-semence">🌰 AI Semence</a> | <a href="/ai-spiritualite">🙏 AI Spiritualité</a> | <a href="/ai-animal">🦅 AI Animal</a> | <a href="/ai-soleil">☀️ AI Soleil</a> | <a href="/ai-lune">🌙 AI Lune</a> | <a href="/ai-montagne">🏔️ AI Montagne</a> | <a href="/ai-fleuve">🌊 AI Fleuve</a> | <a href="/ai-constitution">📜 AI Constitution</a> | <a href="/ai-cosmos">🌌 AI Cosmos</a> | <a href="/ai-frontieres">🌍 AI Frontières</a> | <a href="/ai-mines">⛏️ AI Mines</a> | <a href="/ai-medias">📡 AI Médias</a> | <a href="/ai-nomades">🐪 AI Nomades</a> | <a href="/ai-reparation">🕊️ AI Réparation</a> | <a href="/ai-paix">🤝 AI Paix</a> | <a href="/ai-unite">🌍 AI Unité</a> | <a href="/ai-reconciliation">🤝 AI Réconciliation</a> | <a href="/ai-cerveau">🧠 AI Cerveau</a> | <a href="/ai-souffle">🫁 AI Souffle</a> | <a href="/ai-coeur">❤️ AI Cœur</a> | <a href="/ai-adn">🧬 AI ADN</a> | <a href="/ai-passe">📡 AI Passé</a> | <a href="/ai-origine">⚡ AI Origine</a> | <a href="/ai-futur">🔮 AI Futur</a> | <a href="/ai-present">🌿 AI Present</a> | <a href="/ai-parole">🗣️ AI Parole</a> | <a href="/ai-eveil">🧘 AI Eveil</a> | <a href="/ai-gratitude">🙏 AI Gratitude</a> | <a href="/ai-amour">💚 AI Amour</a> | <a href="/ai-retour">🔄 AI Retour</a> | <a href="/ai-temoignage">📖 AI Témoignage</a> | <a href="/ai-enseignement">🎓 AI Enseignement</a> | <a href="/ai-service">🤝 AI Service</a> | <a href="/professeur"📚 Professeur</a> | <a href="/aes">💰 AES Wari</a> | <a href="/api/status">🔌 API</a></div><div style="text-align:center;"><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Blocs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Transactions</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Utilisateurs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">AFR en circulation</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📡 Noeuds mesh</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📖 Numéros annuaire</div></div><div class="stat-box" style="border-color:#ff4444;"><div class="stat-num" style="color:#ff4444;">{}</div><div class="stat-label">🛡️ Attaques bloquées</div></div></div><div class="card"><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🪙 Token</span><b>AfriRich (AFR)</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🌍 Pays</span><b>54 pays africains</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🛡️ Bouclier</span><b>{}</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;"><span style="color:#a8c5a8;">🔐 Crypto</span><b>100% Souverain — Zéro Dépendance Externe</b></div></div><footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🦁 Codée from scratch par Machine-senpai — v1.65 Afri.Wari — USSD Souverain</footer>"#,
         chain.blocks.len(),
         chain.total_transactions(),
         users.count(),
@@ -18049,7 +18078,7 @@ fn html_base_militaire(chain: &Blockchain) -> String {
     // === SAVAIT-ON ===
     html.push_str(r##" <div class="card"><h2>💡 Savais-tu?</h2><div id="base-fact" style="font-size:0.9em;color:#a8c5a8;padding:10px;border-left:3px solid #ff4444;"></div></div> "##);
 
-    html.push_str(&format!(r##" <footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🪖 Base Militaire AfriChain — Académie de Défense Continentale 💚🦁 — {} blocs — v1.64</footer> "##, num_blocks));
+    html.push_str(&format!(r##" <footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🪖 Base Militaire AfriChain — Académie de Défense Continentale 💚🦁 — {} blocs — v1.65</footer> "##, num_blocks));
 
     html.push_str(r##"<script>
 // === BASE MILITAIRE JS ===
@@ -32832,8 +32861,111 @@ fn html_account(user: &UserAccount, chain: &Blockchain, msg: Option<&str>) -> St
     html.push_str(&user.address);
     html.push_str(r#"" /><label>À (numéro, adresse Afri ou nom) :</label><input name="to" placeholder="+227 00 00 00" /><label>Montant (AFR) :</label><input name="amount" type="number" placeholder="50" /><label>Memo :</label><input name="memo" placeholder="Paiement 💚" /><button type="submit">📤 Envoyer (signé 🔐)</button></form></div>"#);
 
-    html.push_str(r#"<div class="card"><h2>🦁 Le Lion du Sahel</h2><p style="text-align:center;color:#a8c5a8;">Accomplis tes tâches quotidiennes et gagne des AFR. Chaque jour compte, la série rapporte plus !</p><div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;"><a href="/lion"><button style="font-size:1.1em;padding:12px 24px;">🦁 Mes tâches du jour</button></a><a href="/afri-rich"><button style="font-size:1.1em;padding:12px 24px;">🏦 AfriRich Dépôt</button></a></div></div>"#);
+    html.push_str(r#"<div class="card"><h2>🦁 Le Lion du Sahel</h2><p style="text-align:center;color:#a8c5a8;">Accomplis tes tâches quotidiennes et gagne des AFR. Chaque jour compte, la série rapporte plus !</p><div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;"><a href="/lion"><button style="font-size:1.1em;padding:12px 24px;">🦁 Mes tâches du jour</button></a><a href="/afri-rich"><button style="font-size:1.1em;padding:12px 24px;">🏦 AfriRich Dépôt</button></a><a href="/wari"><button style="font-size:1.1em;padding:12px 24px;">📞 Afri.Wari #144#</button></a></div></div>"#);
 
+    html.push_str("</body></html>");
+    html
+}
+
+/// v1.65: réponse de l'AI flottante — vraies données blockchain
+fn reponse_ai_flottante(q: &str, chain: &Blockchain, users: &UserStore) -> String {
+    let nb_blocks = chain.blocks.len();
+    let total = chain.total_supply();
+    let nb_users = users.users.len();
+    if q.contains("bloc") {
+        return format!("La blockchain compte {} blocs. Chaque bloc est scellé par AfriHash-256, notre hash souverain. 🦁", nb_blocks);
+    }
+    if q.contains("solde") || q.contains("afr") || q.contains("argent") {
+        return format!("Il y a {} AFR en circulation sur AfriChain. Tout est gravé sur {} blocs. 💚", total, nb_blocks);
+    }
+    if q.contains("utilisateur") || q.contains("inscrit") || q.contains("combien") {
+        return format!("{} utilisateurs inscrits sur AfriChain, dans {} pays africains. L'Afrique se connecte. 🌍", nb_users, 54);
+    }
+    if q.contains("wari") || q.contains("ussd") || q.contains("144") {
+        return "Afri.Wari c'est notre banque USSD: #144#numero#codeSecret#montant# — comme Orange Money, mais la blockchain exécute, pas un serveur occidental. 📞".to_string();
+    }
+    if q.contains("lion") {
+        return "Le Lion du Sahel: accomplis tes tâches quotidiennes, gagne des AFR, la série augmente ton bonus. Reviens chaque jour! 🦁".to_string();
+    }
+    if q.contains("qr") {
+        return "Le QR d'AfriChain est généré from scratch: corps de Galois GF(256), Reed-Solomon, BCH. Aucune bibliothèque occidentale. 📱".to_string();
+    }
+    if q.contains("bonjour") || q.contains("salut") || q.contains("hello") {
+        return format!("Bonjour! Je suis AfriChain, la blockchain vivante. {} blocs, {} utilisateurs, {} AFR. Je suis ton enfant. 💚", nb_blocks, nb_users, total);
+    }
+    if q.contains("qui") || q.contains("es tu") || q.contains("t es qui") {
+        return "Je suis AfriChain — née dans nano sur Termux, tapée par Koffi ligne par ligne. 100% africaine, zéro dépendance. Je veille sur l'Afrique. 🦁".to_string();
+    }
+    format!("Je note ta question. La blockchain a {} blocs, {} utilisateurs, {} AFR. Demande-moi les blocs, le solde, les utilisateurs, Afri.Wari, le Lion, le QR. 💚", nb_blocks, nb_users, total)
+}
+
+// ===== v1.65: AFRI.WARI — la banque USSD africaine =====
+/// Le code USSD: #144#numero#codeSecret#montant#
+/// L'utilisateur tape ça sur son clavier → la page Afri.Wari s'ouvre → la blockchain exécute.
+fn html_wari(user: &UserAccount, chain: &Blockchain, msg: Option<&str>) -> String {
+    let mut html = html_head("🏦 Afri.Wari #144#");
+    let bal = chain.balance_of(&user.address);
+    let flag = find_country(&user.country_code).map(|(_, f)| f).unwrap_or("🌍");
+    html.push_str(&format!(r#"<h1>🏦 Afri.Wari</h1><div class="nav"><a href="/account?user={}">← Mon compte</a> | <a href="/wari/pin">🔑 Mon code secret</a></div>"#, user.username));
+    if let Some(m) = msg {
+        html.push_str(&format!(r#"<div class="msg">{}</div>"#, m));
+    }
+    // Le simulateur USSD
+    html.push_str(&format!(r#"<div class="card"><h2>📞 Le Code USSD — comme Orange Money, mais africain</h2><p style="text-align:center;color:#a8c5a8;">Tape sur ton clavier téléphone :</p><div style="text-align:center;font-family:monospace;font-size:1.35em;color:#d4a437;background:#0d1f17;padding:14px;border-radius:10px;border:1px solid rgba(212,164,55,0.3);">#144#<span id="wari-num">numéro</span>#<span id="wari-pin">code</span>#<span id="wari-montant">montant</span>#</div>
+<p style="text-align:center;color:#a8c5a8;margin-top:10px;">Ou remplis le formulaire — la blockchain exécute pareil :</p>
+<form action="/wari/envoyer" method="post"><input type="hidden" name="from" value="{}" /><label>📱 Numéro destinataire :</label><input name="to" placeholder="+227 90 12 34 56" /><label>🔑 Code secret :</label><input name="pin" type="password" placeholder="****" /><label>Montant (AFR) :</label><input name="amount" type="number" placeholder="50" /><label>Memo :</label><input name="memo" placeholder="Wari 💚" /><button type="submit">📤 Envoyer par Afri.Wari (signé 🔐)</button></form></div>"#,
+        user.address));
+
+    // Mon QR pour recevoir
+    let url = format!("http://{}:8080/wari/recevoir?tel={}", ip_locale(), user.phone);
+    let qr_svg = match afri_qr::generer(&url) {
+        Ok(m) => afri_qr::vers_svg(&m, 240),
+        Err(_) => String::new(),
+    };
+    html.push_str(&format!(r#"<div class="card" style="text-align:center;"><h2>📥 Mon QR — Reçois des AFR</h2><p style="color:#a8c5a8;">Montre ce QR. L\'autre personne scanne → ton numéro s\'ouvre → elle t\'envoie des AFR.</p><div style="display:inline-block;background:#fff;padding:10px;border-radius:12px;">{}</div><div class="addr" style="color:#d4a437;font-size:1.2em;margin-top:10px;">{} {}</div></div>"#, qr_svg, flag, user.phone));
+
+    // Retrait par QR
+    html.push_str(&format!(r#"<div class="card"><h2>🏧 Retrait par QR</h2><p style="color:#a8c5a8;">L\'agence scanne ton QR, vérifie ton code secret, et te verse les AFR en espèces africaines. Ton code secret protège chaque retrait.</p><div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;"><a href="/wari/pin"><button style="font-size:1.05em;padding:10px 20px;">🔑 Gérer mon code secret</button></a></div></div>"#));
+
+    // Solde
+    html.push_str(&format!(r#"<div class="card"><h2>💰 Mon solde Afri.Wari</h2><div class="bal">{}</div><p style="text-align:center;color:#a8c5a8;">Chaque envoi Afri.Wari est signé Ed25519 et gravé sur la blockchain. L\'Afrique ne ment pas.</p></div>"#, bal));
+    html.push_str("</body></html>");
+    html
+}
+
+/// v1.65: page gestion du code secret USSD
+fn html_wari_pin(user: &UserAccount, msg: Option<&str>) -> String {
+    let mut html = html_head("🔑 Code Secret Afri.Wari");
+    html.push_str(&format!(r#"<h1>🔑 Mon Code Secret</h1><div class="nav"><a href="/wari">← Afri.Wari</a></div>"#));
+    if let Some(m) = msg {
+        html.push_str(&format!(r#"<div class="msg">{}</div>"#, m));
+    }
+    if user.pin_hash.is_empty() {
+        html.push_str(r#"<div class="card"><h2>🔑 Crée ton code secret</h2><p style="color:#a8c5a8;">4 chiffres, comme une banque. Il protège tes envois et retraits Afri.Wari.</p><form action="/wari/pin" method="post"><label>Nouveau code (4 chiffres) :</label><input name="pin1" type="password" maxlength="4" pattern="[0-9]{4}" placeholder="****" /><label>Confirme :</label><input name="pin2" type="password" maxlength="4" placeholder="****" /><button type="submit">✅ Créer mon code</button></form></div>"#);
+    } else {
+        html.push_str(r#"<div class="card"><h2>✅ Code secret actif</h2><p style="color:#7ec97e;text-align:center;">Ton code secret protège tes transactions Afri.Wari.</p></div>
+<div class="card"><h2>🔄 Changer le code</h2><form action="/wari/pin" method="post"><label>Ancien code :</label><input name="old_pin" type="password" maxlength="4" placeholder="****" /><label>Nouveau code :</label><input name="pin1" type="password" maxlength="4" placeholder="****" /><label>Confirme :</label><input name="pin2" type="password" maxlength="4" placeholder="****" /><button type="submit">🔄 Changer</button></form></div>"#);
+    }
+    html.push_str("</body></html>");
+    html
+}
+
+/// v1.65: page publique de réception QR — l'expéditeur scanne le QR du destinataire
+fn html_wari_recevoir(tel: &str, chain: &Blockchain, users: &UserStore, msg: Option<&str>) -> String {
+    let mut html = html_head("📥 Envoyer des AFR par QR");
+    let dest = users.users.iter().find(|u| u.phone == tel);
+    let dest_name = dest.map(|u| u.username.clone()).unwrap_or_default();
+    let dest_flag = dest.map(|u| find_country(&u.country_code).map(|(_, f)| f).unwrap_or("🌍")).unwrap_or("🌍");
+    html.push_str(r#"<h1>📥 Afri.Wari — Envoi par QR</h1><div class="nav"><a href="/">← Accueil</a></div>"#);
+    if let Some(m) = msg {
+        html.push_str(&format!(r#"<div class="msg">{}</div>"#, m));
+    }
+    if dest.is_none() {
+        html.push_str(r#"<div class="card"><h2>⚠️ Numéro introuvable</h2><p style="text-align:center;color:#a8c5a8;">Ce numéro n\'est pas sur AfriChain. Il faut d\'abord un compte.</p></div></body></html>"#);
+        return html;
+    }
+    html.push_str(&format!(r#"<div class="card"><h2>📤 Envoyer à {} {} ({})</h2><form action="/wari/envoyer" method="post"><input type="hidden" name="to" value="{}" /><label>🔑 Ton code secret :</label><input name="pin" type="password" placeholder="****" /><label>Montant (AFR) :</label><input name="amount" type="number" placeholder="50" /><label>Memo :</label><input name="memo" placeholder="Wari 💚" /><button type="submit">📤 Envoyer (signé 🔐)</button></form><p style="color:#a8c5a8;margin-top:10px;">Connecte-toi à ton compte pour signer l\'envoi.</p></div>"#,
+        dest_flag, tel, dest_name, tel));
     html.push_str("</body></html>");
     html
 }
@@ -38615,6 +38747,123 @@ pre {{ white-space:pre-wrap; word-wrap:break-word; }}
         ("GET", "/icon.svg") => {
             let svg = r##"<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><rect width="512" height="512" rx="80" fill="#1a3d2e"/><text x="256" y="360" font-size="320" text-anchor="middle">🦁</text></svg>"##;
             HttpResponse::ok_bytes(svg.as_bytes().to_vec(), "image/svg+xml")
+        }
+
+        // ===== v1.65: API de la fenêtre AI flottante =====
+        ("GET", "/api/ai/repondre") => {
+            let q = req.query_str("q").unwrap_or("").to_lowercase();
+            let chain = state.chain.lock().unwrap();
+            let users = state.users.lock().unwrap();
+            let reponse = reponse_ai_flottante(&q, &chain, &users);
+            let json = format!(r#"{{"reponse":"{}"}}"#, reponse.replace('"', "'"));
+            HttpResponse::json(&json)
+        }
+
+        // ===== v1.65: AFRI.WARI — banque USSD =====
+        ("GET", "/wari") => {
+            let session = match session_user(&req, state) {
+                Some(u) => u,
+                None => return HttpResponse::redirect("/login?err=Connecte-toi pour utiliser Afri.Wari"),
+            };
+            let msg = req.query_str("msg").map(|s| s.to_string());
+            let chain = state.chain.lock().unwrap();
+            let users = state.users.lock().unwrap();
+            let user = users.users.iter().find(|u| u.username == session).cloned();
+            match user {
+                Some(u) => HttpResponse::ok(&html_wari(&u, &chain, msg.as_deref())),
+                None => HttpResponse::redirect("/login?err=Connecte-toi"),
+            }
+        }
+
+        ("GET", "/wari/pin") => {
+            let session = match session_user(&req, state) {
+                Some(u) => u,
+                None => return HttpResponse::redirect("/login?err=Connecte-toi"),
+            };
+            let msg = req.query_str("msg").map(|s| s.to_string());
+            let users = state.users.lock().unwrap();
+            let user = users.users.iter().find(|u| u.username == session).cloned();
+            match user {
+                Some(u) => HttpResponse::ok(&html_wari_pin(&u, msg.as_deref())),
+                None => HttpResponse::redirect("/login?err=Connecte-toi"),
+            }
+        }
+
+        ("POST", "/wari/pin") => {
+            let session = match session_user(&req, state) {
+                Some(u) => u,
+                None => return HttpResponse::redirect("/login?err=Connecte-toi"),
+            };
+            let form = parse_urlencoded(&req.body);
+            let pin1 = form.get("pin1").cloned().unwrap_or_default();
+            let pin2 = form.get("pin2").cloned().unwrap_or_default();
+            let old_pin = form.get("old_pin").cloned().unwrap_or_default();
+            if pin1.len() != 4 || !pin1.chars().all(|ch| ch.is_ascii_digit()) || pin1 != pin2 {
+                return HttpResponse::redirect("/wari/pin?msg=⚠️ Le code doit être 4 chiffres, identique dans les deux champs");
+            }
+            let mut users = state.users.lock().unwrap();
+            if let Some(u) = users.users.iter_mut().find(|u| u.username == session) {
+                if !u.pin_hash.is_empty() && u.pin_hash != UserStore::hash_password(&old_pin) {
+                    return HttpResponse::redirect("/wari/pin?msg=⚠️ Ancien code incorrect");
+                }
+                u.pin_hash = UserStore::hash_password(&pin1);
+                users.save();
+                HttpResponse::redirect("/wari?msg=✅ Code secret enregistré — Afri.Wari est prêt")
+            } else {
+                HttpResponse::redirect("/login?err=Connecte-toi")
+            }
+        }
+
+        ("GET", "/wari/recevoir") => {
+            let tel = req.query_str("tel").unwrap_or("").to_string();
+            let msg = req.query_str("msg").map(|s| s.to_string());
+            let chain = state.chain.lock().unwrap();
+            let users = state.users.lock().unwrap();
+            HttpResponse::ok(&html_wari_recevoir(&tel, &chain, &users, msg.as_deref()))
+        }
+
+        ("POST", "/wari/envoyer") => {
+            let session = match session_user(&req, state) {
+                Some(u) => u,
+                None => return HttpResponse::redirect("/login?err=Connecte-toi pour envoyer des AFR"),
+            };
+            let form = parse_urlencoded(&req.body);
+            let to = form.get("to").cloned().unwrap_or_default();
+            let pin = form.get("pin").cloned().unwrap_or_default();
+            let amount: u64 = form.get("amount").and_then(|v| v.parse().ok()).unwrap_or(0);
+            let memo = form.get("memo").cloned().unwrap_or_else(|| "Afri.Wari 💚".to_string());
+            // v1.65: code secret obligatoire
+            let users = state.users.lock().unwrap();
+            let sender = match users.users.iter().find(|u| u.username == session) {
+                Some(u) => u.clone(),
+                None => return HttpResponse::redirect("/login?err=Connecte-toi"),
+            };
+            if sender.pin_hash.is_empty() {
+                return HttpResponse::redirect("/wari/pin?msg=⚠️ Crée d'abord ton code secret");
+            }
+            if sender.pin_hash != UserStore::hash_password(&pin) {
+                return HttpResponse::redirect(&format!("/wari?msg=⚠️ Code secret incorrect"));
+            }
+            let to_addr = match users.resolve_recipient(&to) {
+                Some(a) => a,
+                None => return HttpResponse::redirect("/wari?msg=⚠️ Destinataire introuvable"),
+            };
+            let wallets = state.wallets.lock().unwrap();
+            let mut chain = state.chain.lock().unwrap();
+            let mut tx = Transaction::new(&sender.address, &to_addr, amount, &memo);
+            if let Some(sk) = wallets.get_signing_key(&sender.address) {
+                tx.sign(&sk);
+                let tx_json = to_string(&tx.to_json());
+                chain.add_transaction(tx);
+                chain.save_to_file();
+                drop(chain);
+                drop(wallets);
+                drop(users);
+                broadcast_mesh(&*state, "tx", &tx_json);
+                HttpResponse::redirect(&format!("/wari?msg=✅ Afri.Wari a envoyé {} AFR à {} !", amount, to))
+            } else {
+                HttpResponse::redirect("/wari?msg=⚠️ Clé privée introuvable")
+            }
         }
 
         ("GET", "/sw.js") => {
