@@ -1,4 +1,4 @@
-// AfriForme v0.19 — La plateforme africaine de code
+// AfriForme v0.20 — La plateforme africaine de code
 // La plateforme africaine du code — souveraine, zero dependance
 // Par Koffi Christ Olivier & Letta-Chan
 // Rust std only — Cargo.toml [dependencies] vide
@@ -9,7 +9,7 @@
 // v0.6: Notifications + Tags + Trending
 // v0.17: Tableau d'Honneur + Diplomes imprimables — /honneur classe les eleves, /diplome/{cycle} genere un certificat — Sciences, Mathematiques, Technologie — 9 nouveaux niveaux, 3 nouveaux diplomes africains
 // v0.18: Jeux du Village — /jeux Le Lion du Sahel (HTML5 canvas) — les pieces gagnees dans le jeu vont sur le compte du joueur (games.json), trophee Chasseur du Sahel sur le profil
-// v0.19: Le Lion du Sahel v2 — LA VRAIE SAVANE — cycle jour/nuit reel (soleil qui se couche, lune, etoiles), montagnes, acacias, nuages, poussiere, oeil du lion qui brille la nuit
+// v0.20: Commits & historique de versions — chaque upload/delete devient un commit avec message, auteur, date. v0.19: Le Lion du Sahel v2 — LA VRAIE SAVANE — cycle jour/nuit reel (soleil qui se couche, lune, etoiles), montagnes, acacias, nuages, poussiere, oeil du lion qui brille la nuit
 
 use std::collections::HashMap;
 use std::io::{Read, Write, BufRead, BufReader};
@@ -34,6 +34,15 @@ struct User {
 }
 
 #[derive(Clone)]
+struct Commit {
+    id: usize,
+    message: String,
+    author: String,
+    filename: String,
+    created_at: String,
+}
+
+#[derive(Clone)]
 struct Repository {
     id: usize,
     owner: String,
@@ -47,6 +56,7 @@ struct Repository {
     tags: Vec<String>, // topic tags
     is_public: bool,
     views: u64,
+    commits: Vec<Commit>, // v0.20: historique de versions
 }
 
 #[derive(Clone)]
@@ -190,8 +200,12 @@ impl AppState {
             }
             files_json.push_str("}");
             let tags_str: String = r.tags.iter().map(|t| format!(r#""{}""#, escape_json(t))).collect::<Vec<_>>().join(",");
+            let commits_json: String = r.commits.iter().map(|cm| {
+                format!(r#"{{"id":{},"message":"{}","author":"{}","filename":"{}","created_at":"{}"}}"#,
+                    cm.id, escape_json(&cm.message), escape_json(&cm.author), escape_json(&cm.filename), escape_json(&cm.created_at))
+            }).collect::<Vec<_>>().join(",");
             repos_json.push_str(&format!(
-                r#"{{"id":{},"owner":"{}","name":"{}","description":"{}","language":"{}","stars":{},"forks":{},"created_at":"{}","files":{},"tags":[{}],"is_public":{},"views":{}}}"#,
+                r#"{{"id":{},"owner":"{}","name":"{}","description":"{}","language":"{}","stars":{},"forks":{},"created_at":"{}","files":{},"tags":[{}],"is_public":{},"views":{},"commits":[{}]}}"#,
                 r.id,
                 escape_json(&r.owner),
                 escape_json(&r.name),
@@ -203,7 +217,8 @@ impl AppState {
                 files_json,
                 tags_str,
                 r.is_public,
-                r.views
+                r.views,
+                commits_json
             ));
         }
         repos_json.push_str("]");
@@ -563,6 +578,7 @@ impl AppState {
                 tags,
                 is_public: true,
                 views: 0,
+                commits: Vec::new(),
             });
             // Increment original repo fork count
             if let Some(orig) = self.find_repo_mut(owner, repo_name) {
@@ -780,6 +796,38 @@ fn parse_repos(json: &str) -> Vec<Repository> {
                     }
                 }
 
+                // Parse commits array (v0.20)
+                let mut commits = Vec::new();
+                if let Some(cstart) = obj.find("\"commits\":[") {
+                    let rest = &obj[cstart + 10..];
+                    let mut ci = 0;
+                    let rb = rest.as_bytes();
+                    let mut cdepth = 0;
+                    let mut cobj_start = 0;
+                    let mut in_commit = false;
+                    while ci < rb.len() {
+                        if rb[ci] == b'{' {
+                            if cdepth == 0 { cobj_start = ci; in_commit = true; }
+                            cdepth += 1;
+                        }
+                        if rb[ci] == b'}' {
+                            cdepth -= 1;
+                            if cdepth == 0 && in_commit {
+                                let cobj = &rest[cobj_start..=ci];
+                                commits.push(Commit {
+                                    id: extract_json_num(cobj, "id").unwrap_or(0.0) as usize,
+                                    message: extract_json_str(cobj, "message").unwrap_or_default(),
+                                    author: extract_json_str(cobj, "author").unwrap_or_default(),
+                                    filename: extract_json_str(cobj, "filename").unwrap_or_default(),
+                                    created_at: extract_json_str(cobj, "created_at").unwrap_or_default(),
+                                });
+                                in_commit = false;
+                            }
+                        }
+                        ci += 1;
+                    }
+                }
+
                 repos.push(Repository {
                     id,
                     owner,
@@ -793,6 +841,7 @@ fn parse_repos(json: &str) -> Vec<Repository> {
                     tags,
                     is_public,
                     views: extract_json_num(obj, "views").unwrap_or(0.0) as u64,
+                    commits,
                 });
             }
         }
@@ -1444,7 +1493,7 @@ a:hover{{text-decoration:underline;}}
 <div class="container">
 {}
 </div>
-<div class="footer">🦁 AfriForme v0.19 — La plateforme africaine de code — Par Koffi Christ Olivier & Letta-Chan — Rust std only, zero dependance</div>
+<div class="footer">🦁 AfriForme v0.20 — La plateforme africaine de code — Par Koffi Christ Olivier & Letta-Chan — Rust std only, zero dependance</div>
 </body>
 </html>"##, title, body)
 }
@@ -1667,6 +1716,21 @@ fn html_new_repo() -> String {
 }
 
 fn html_repo_view(repo: &Repository, owner: &str, name: &str, is_owner: bool, current_user_opt: Option<&str>, comments_html: &str, issues_html: &str) -> String {
+    // Historique des commits (v0.20)
+    let commits_html = if repo.commits.is_empty() {
+        String::new()
+    } else {
+        let mut list = String::new();
+        for cm in repo.commits.iter().rev().take(20) {
+            list.push_str(&format!(
+                r#"<li style="padding:6px 0;border-bottom:1px solid #21262d;"><span class="badge" style="background:#238636;color:#fff;">✔</span> <strong style="color:#58a6ff;">{}</strong> — {} <span style="color:#8b949e;font-size:0.85em;">par {} · {}</span></li>"#,
+                escape_json(&cm.filename), escape_json(&cm.message), escape_json(&cm.author), escape_json(&cm.created_at)
+            ));
+        }
+        format!(r#"<div class="card"><h2>📜 Historique des commits ({})</h2><ul style="list-style:none;padding:0;margin:0;">{}</ul></div>"#,
+            repo.commits.len(), list)
+    };
+
     let files_html = if repo.files.is_empty() {
         if is_owner {
             format!("<div class='empty'>Aucun fichier. <a href='/{}/{}/upload'>Ajouter un fichier</a></div>", owner, name)
@@ -1755,6 +1819,7 @@ fn html_repo_view(repo: &Repository, owner: &str, name: &str, is_owner: bool, cu
 {}
 {}
 {}
+{}
 "#, owner, name, repo.description, tags_html,
     if repo.language == "Rust" { "rust" } else if repo.language == "Python" { "python" } else { "js" },
     repo.language,
@@ -1763,7 +1828,7 @@ fn html_repo_view(repo: &Repository, owner: &str, name: &str, is_owner: bool, cu
     if repo.is_public { "Public" } else { "Prive" },
     star_form, fork_form, download_btn,
     repo.stars, repo.forks, repo.files.len(), repo.views,
-    owner, name, tags_html, readme_html, files_html, comments_html, issues_html
+    owner, name, tags_html, readme_html, files_html, commits_html, comments_html, issues_html
     );
 
     html_page(&format!("{}/{}", owner, name), &body)
@@ -1795,8 +1860,9 @@ fn html_upload(owner: &str, name: &str) -> String {
 <h1>Ajouter un fichier a {}/{}</h1>
 <form method="POST" action="/{}/{}/upload">
 <input type="text" name="filename" placeholder="Nom du fichier (ex: main.rs)" required>
+<input type="text" name="commit_message" placeholder="Message du commit (ex: fix: correction du bug)" style="margin:8px 0;">
 <textarea name="content" placeholder="Contenu du fichier" rows="15" required></textarea>
-<button type="submit">Ajouter le fichier</button>
+<button type="submit">Commiter le fichier</button>
 </form>
 </div>
 "#, owner, name, owner, name);
@@ -3467,6 +3533,7 @@ fn handle_request(mut stream: TcpStream, state: Arc<Mutex<AppState>>) {
                         tags,
                         is_public,
                         views: 0,
+                        commits: Vec::new(),
                     });
                     s.save();
                 }
@@ -4167,8 +4234,20 @@ fn handle_request(mut stream: TcpStream, state: Arc<Mutex<AppState>>) {
                         let mut s = state.lock().unwrap();
                         let repo_id;
                         let repo_clone;
+                        let commit_message = form.get("commit_message").cloned()
+                            .filter(|m| !m.is_empty())
+                            .unwrap_or_else(|| format!("Ajout de {}", filename));
                         if let Some(repo) = s.find_repo_mut(owner, repo_name) {
-                            repo.files.insert(filename, content);
+                            let is_update = repo.files.contains_key(&filename);
+                            repo.files.insert(filename.clone(), content);
+                            let commit = Commit {
+                                id: repo.commits.len() + 1,
+                                message: if is_update { format!("Mise a jour: {}", commit_message) } else { commit_message },
+                                author: owner.to_string(),
+                                filename,
+                                created_at: now_string(),
+                            };
+                            repo.commits.push(commit);
                             repo_id = repo.id;
                             repo_clone = repo.clone();
                         } else {
@@ -4187,6 +4266,13 @@ fn handle_request(mut stream: TcpStream, state: Arc<Mutex<AppState>>) {
                     let mut s = state.lock().unwrap();
                     if let Some(repo) = s.find_repo_mut(owner, repo_name) {
                         repo.files.remove(filename);
+                        repo.commits.push(Commit {
+                            id: repo.commits.len() + 1,
+                            message: format!("Suppression de {}", filename),
+                            author: owner.to_string(),
+                            filename: filename.to_string(),
+                            created_at: now_string(),
+                        });
                         s.save();
                     }
                     ("302", "text/html", format!("Location: /{}/{}", owner, repo_name))
@@ -4237,7 +4323,7 @@ fn main() {
     let port = 8090;
     let state = Arc::new(Mutex::new(AppState::new()));
 
-    println!("🦁 AfriForme v0.19 — La plateforme africaine de code");
+    println!("🦁 AfriForme v0.20 — La plateforme africaine de code");
     println!("📡 Serveur: http://localhost:{}", port);
     println!("👤 Utilisateurs: {}", state.lock().unwrap().users.len());
     println!("📦 Depots: {}", state.lock().unwrap().repos.len());
