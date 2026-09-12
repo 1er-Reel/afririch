@@ -1,11 +1,24 @@
 // ===== AFRI LION — Le Lion du Sahel: tâches + épargne + retraite =====
 // v1.64 — Comme Hamster, mais pour nous c'est le Lion. 🦁
-// Chaque tâche accomplie = vraie transaction blockchain (SYSTEM → utilisateur).
+// v1.66 — LA MONNAIE INTELLIGENTE: 1 AFR = 1 million de dollars.
+// Les récompenses sont en GRAINES: 1 AFR = 100 000 000 graines.
+// 1 graine = 0.00000001 AFR = 0.01 $. Tout petit, comme le veut le chef.
+// Quand tes graines atteignent 1 AFR → vraie transaction blockchain.
 // AfriRich Centre de Dépôt: Épargne Libre + Retraite (+25% après 6 mois).
 
 use std::collections::HashMap;
 use crate::afri_json::{JsonValue, to_string, from_str};
 use crate::afri_time::now_timestamp;
+
+/// 1 AFR = 100 000 000 graines (le micro-unité de l'Afrique)
+pub const GRAINES_PAR_AFR: u64 = 100_000_000;
+
+/// Afficher des graines en AFR décimal: 10 graines = "0.00000010 AFR"
+pub fn format_graines(g: u64) -> String {
+    let entiers = g / GRAINES_PAR_AFR;
+    let reste = g % GRAINES_PAR_AFR;
+    format!("{}.{:08} AFR", entiers, reste)
+}
 
 /// Une tâche du Lion — à faire chaque jour, comme Hamster Kombat
 #[derive(Clone, Debug)]
@@ -13,21 +26,21 @@ pub struct TacheLion {
     pub id: String,
     pub titre: String,
     pub description: String,
-    pub gain: u64,          // AFR gagnés
+    pub gain: u64,          // GRAINES gagnées (v1.66)
     pub icone: String,      // emoji
 }
 
-/// Les 8 tâches quotidiennes du Lion
+/// Les 8 tâches quotidiennes du Lion — gains en graines (1 graine = $0.01)
 pub fn taches_du_jour() -> Vec<TacheLion> {
     vec![
-        TacheLion { id: "salut".into(), titre: "Saluer le Lion".into(), description: "Dire bonjour à la blockchain africaine. Le Lion répond.".into(), gain: 5, icone: "🦁".into() },
-        TacheLion { id: "pays".into(), titre: "Connaître les 54 pays".into(), description: "Visiter l'annuaire des 54 pays africains.".into(), gain: 10, icone: "🌍".into() },
-        TacheLion { id: "annuaire".into(), titre: "Voir l'annuaire".into(), description: "Regarder qui est connecté sur le réseau panafricain.".into(), gain: 10, icone: "📖".into() },
-        TacheLion { id: "wallet".into(), titre: "Vérifier son wallet".into(), description: "Consulter son solde AfriRich.".into(), gain: 5, icone: "👛".into() },
-        TacheLion { id: "envoi".into(), titre: "Envoyer des AFR".into(), description: "Faire une transaction vers un autre Africain.".into(), gain: 20, icone: "📤".into() },
-        TacheLion { id: "mine".into(), titre: "Miner un bloc".into(), description: "Laisser le soleil du Sahel valider un bloc.".into(), gain: 15, icone: "⛏️".into() },
-        TacheLion { id: "histoire".into(), titre: "Apprendre l'histoire".into(), description: "Lire une page de l'Académie AI Griot (histoire de l'Afrique).".into(), gain: 15, icone: "📜".into() },
-        TacheLion { id: "partage".into(), titre: "Connecter un ami".into(), description: "Partager le QR de connexion à un ami.".into(), gain: 25, icone: "🔗".into() },
+        TacheLion { id: "salut".into(), titre: "Saluer le Lion".into(), description: "Dire bonjour à la blockchain africaine. Le Lion répond.".into(), gain: 10, icone: "🦁".into() },
+        TacheLion { id: "pays".into(), titre: "Connaître les 54 pays".into(), description: "Visiter l'annuaire des 54 pays africains.".into(), gain: 25, icone: "🌍".into() },
+        TacheLion { id: "annuaire".into(), titre: "Voir l'annuaire".into(), description: "Regarder qui est connecté sur le réseau panafricain.".into(), gain: 25, icone: "📖".into() },
+        TacheLion { id: "wallet".into(), titre: "Vérifier son wallet".into(), description: "Consulter son solde AfriRich.".into(), gain: 10, icone: "👛".into() },
+        TacheLion { id: "envoi".into(), titre: "Envoyer des AFR".into(), description: "Faire une transaction vers un autre Africain.".into(), gain: 50, icone: "📤".into() },
+        TacheLion { id: "mine".into(), titre: "Miner un bloc".into(), description: "Laisser le soleil du Sahel valider un bloc.".into(), gain: 40, icone: "⛏️".into() },
+        TacheLion { id: "histoire".into(), titre: "Apprendre l'histoire".into(), description: "Lire une page de l'Académie AI Griot (histoire de l'Afrique).".into(), gain: 40, icone: "📜".into() },
+        TacheLion { id: "partage".into(), titre: "Connecter un ami".into(), description: "Partager le QR de connexion à un ami.".into(), gain: 60, icone: "🔗".into() },
     ]
 }
 
@@ -37,12 +50,15 @@ pub struct EtatLion {
     pub dernier_jour: i64,                    // timestamp du jour (86400 * n) du dernier jeu
     pub taches_faites: Vec<String>,          // ids des tâches accomplies aujourd'hui
     pub serie: u32,                          // jours consécutifs joués
-    pub total_gagne: u64,                    // total AFR gagnés via le Lion
+    pub total_gagne: u64,                    // total GRAINES gagnées via le Lion (v1.66)
+    pub graines: u64,                        // graines en attente de conversion en AFR (v1.66)
+    pub quiz_reussis: u32,                   // questions culturelles réussies (v1.66)
+    pub quiz_rates: u32,                     // questions ratées (v1.66)
 }
 
 impl EtatLion {
     pub fn nouveau() -> Self {
-        EtatLion { dernier_jour: 0, taches_faites: Vec::new(), serie: 0, total_gagne: 0 }
+        EtatLion { dernier_jour: 0, taches_faites: Vec::new(), serie: 0, total_gagne: 0, graines: 0, quiz_reussis: 0, quiz_rates: 0 }
     }
 
     pub fn jour_actuel() -> i64 {
@@ -64,9 +80,14 @@ impl EtatLion {
         }
     }
 
-    /// Bonus de série: +5 AFR par jour consécutif (max +50)
+    /// Bonus de série: +5 graines par jour consécutif (max +50 graines = $0.50)
     pub fn bonus_serie(&self) -> u64 {
         (self.serie.saturating_sub(1)) as u64 * 5
+    }
+
+    /// Combien d'AFR entiers tes graines peuvent donner (conversion possible)
+    pub fn afr_convertibles(&self) -> u64 {
+        self.graines / GRAINES_PAR_AFR
     }
 }
 
@@ -144,6 +165,9 @@ impl LionStore {
             m.insert("dernier_jour".to_string(), JsonValue::Int(e.dernier_jour));
             m.insert("serie".to_string(), JsonValue::Int(e.serie as i64));
             m.insert("total_gagne".to_string(), JsonValue::Int(e.total_gagne as i64));
+            m.insert("graines".to_string(), JsonValue::Int(e.graines as i64));
+            m.insert("quiz_reussis".to_string(), JsonValue::Int(e.quiz_reussis as i64));
+            m.insert("quiz_rates".to_string(), JsonValue::Int(e.quiz_rates as i64));
             m.insert("taches_faites".to_string(), JsonValue::Array(
                 e.taches_faites.iter().map(|t| JsonValue::Str(t.clone())).collect()));
             etats.insert(user.clone(), JsonValue::Object(m));
@@ -183,6 +207,9 @@ impl LionStore {
                             dernier_jour: em.get("dernier_jour").and_then(|v| v.as_i64()).unwrap_or(0),
                             serie: em.get("serie").and_then(|v| v.as_i64()).unwrap_or(0) as u32,
                             total_gagne: em.get("total_gagne").and_then(|v| v.as_i64()).unwrap_or(0) as u64,
+                            graines: em.get("graines").and_then(|v| v.as_i64()).unwrap_or(0) as u64,
+                            quiz_reussis: em.get("quiz_reussis").and_then(|v| v.as_i64()).unwrap_or(0) as u32,
+                            quiz_rates: em.get("quiz_rates").and_then(|v| v.as_i64()).unwrap_or(0) as u32,
                             taches_faites: match em.get("taches_faites") {
                                 Some(JsonValue::Array(arr)) => arr.iter()
                                     .filter_map(|t| t.as_str().map(|s| s.to_string())).collect(),

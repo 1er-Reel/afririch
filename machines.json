@@ -1,0 +1,90 @@
+{
+  "machines": [
+    {
+      "address": "Afri17a129a477531c5399c7ca7f85380e252c53f0f21c750432fcc33e98e3a7ac3c",
+      "balance": 10301,
+      "blocks_mined": 20,
+      "city": "Bamako",
+      "country": "Mali",
+      "flag": "🇲🇱",
+      "last_action": "← 🇳🇬 ◈LAGOS-06 : 161 AFR",
+      "name": "◈BAMAKO-01",
+      "solar_kwh": 6.7,
+      "status": "ACTIF",
+      "tx_received": 58,
+      "tx_sent": 72
+    },
+    {
+      "address": "Afriffad656ed2491ff1be8b7b381cc0b3a759d9d2ce2b00ef4baf209c7a53f53604",
+      "balance": 13173,
+      "blocks_mined": 9,
+      "city": "Niamey",
+      "country": "Niger",
+      "flag": "🇳🇪",
+      "last_action": "← 🇧🇫 ◈OUAGA-03 : 104 AFR",
+      "name": "◈NIAMEY-02",
+      "solar_kwh": 6.8,
+      "status": "ACTIF",
+      "tx_received": 72,
+      "tx_sent": 63
+    },
+    {
+      "address": "Afri35e5c1fccb60086a718e308bc646d787d59e48c1cc83900b2a9616d6f5914097",
+      "balance": 12015,
+      "blocks_mined": 34,
+      "city": "Ouagadougou",
+      "country": "Burkina Faso",
+      "flag": "🇧🇫",
+      "last_action": "→ 🇳🇪 ◈NIAMEY-02 : 104 AFR",
+      "name": "◈OUAGA-03",
+      "solar_kwh": 6,
+      "status": "ACTIF",
+      "tx_received": 69,
+      "tx_sent": 77
+    },
+    {
+      "address": "Afri7171917c1db4861bc579a342a8a8dbb6a1b42b3314cf0fff9fd0a05cd1b18493",
+      "balance": 10014,
+      "blocks_mined": 24,
+      "city": "Accra",
+      "country": "Ghana",
+      "flag": "🇬🇭",
+      "last_action": "→ 🇳🇪 ◈NIAMEY-02 : 108 AFR",
+      "name": "◈ACCRA-04",
+      "solar_kwh": 5.1,
+      "status": "ACTIF",
+      "tx_received": 64,
+      "tx_sent": 69
+    },
+    {
+      "address": "Afribcb4c0cc8188440d0e130d619ef0f4df2f62dbcedfff9a90f011db9afa55267c",
+      "balance": 12782,
+      "blocks_mined": 17,
+      "city": "Abidjan",
+      "country": "Côte d'Ivoire",
+      "flag": "🇨🇮",
+      "last_action": "→ 🇳🇬 ◈LAGOS-06 : 103 AFR",
+      "name": "◈ABIDJAN-05",
+      "solar_kwh": 5.2,
+      "status": "ACTIF",
+      "tx_received": 71,
+      "tx_sent": 61
+    },
+    {
+      "address": "Afrib2684d036ba2f511c63f972c27c9cd80c1e943f7e7e7fdcd1d770bffb53af0f7",
+      "balance": 15115,
+      "blocks_mined": 30,
+      "city": "Lagos",
+      "country": "Nigeria",
+      "flag": "🇳🇬",
+      "last_action": "← 🇨🇮 ◈ABIDJAN-05 : 103 AFR",
+      "name": "◈LAGOS-06",
+      "solar_kwh": 5.8,
+      "status": "ACTIF",
+      "tx_received": 70,
+      "tx_sent": 62
+    }
+  ],
+  "total_mined": 134,
+  "tx_count": 404
+}
