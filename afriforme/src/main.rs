@@ -1,4 +1,4 @@
-// AfriForme v0.22 — La plateforme africaine de code
+// AfriForme v0.23 — La plateforme africaine de code
 // La plateforme africaine du code — souveraine, zero dependance
 // Par Koffi Christ Olivier & Letta-Chan
 // Rust std only — Cargo.toml [dependencies] vide
@@ -1508,6 +1508,7 @@ a:hover{{text-decoration:underline;}}
 <a href="/search">🔍 Rechercher</a>
 <a href="/notifications">🥁 Tambour</a>
 <a href="/importer-africhain">⛓️ AfriChain</a>
+<a href="/afri-net">🌍 Afri-Net</a>
 <a href="/ai">📖 Le Griot</a>
 <a href="/about">🌍 A propos</a>
 <a href="/register">S'inscrire</a>
@@ -1517,7 +1518,7 @@ a:hover{{text-decoration:underline;}}
 <div class="container">
 {}
 </div>
-<div class="footer">🦁 AfriForme v0.22 — La plateforme africaine de code — Par Koffi Christ Olivier & Letta-Chan — Rust std only, zero dependance</div>
+<div class="footer">🦁 AfriForme v0.23 — La plateforme africaine de code — Par Koffi Christ Olivier & Letta-Chan — Rust std only, zero dependance</div>
 <div id="copilote-bar" onclick="toggleCopilote()" style="position:fixed;bottom:0;left:0;right:0;background:#161b22;border-top:2px solid #238636;padding:10px 20px;cursor:pointer;z-index:999;font-size:0.95em;">🤖 Copilote IA — clique pour discuter</div>
 <div id="copilote" style="display:none;position:fixed;bottom:45px;right:10px;width:340px;max-width:95vw;background:#0d1117;border:2px solid #238636;border-radius:10px;z-index:1000;box-shadow:0 4px 20px rgba(0,0,0,0.6);">
 <div style="background:#161b22;padding:8px 12px;border-bottom:1px solid #30363d;display:flex;justify-content:space-between;align-items:center;"><strong style="color:#2ea043;">🤖 Copilote AfriForme</strong><span onclick="toggleCopilote()" style="cursor:pointer;color:#8b949e;">✕</span></div>
@@ -1553,6 +1554,70 @@ function askCopilote(e) {{
 </script>
 </body>
 </html>"##, title, body)
+}
+
+/// v0.23: AFRI-NET — les 5 plateformes africaines, présentées no1
+/// Facebook, WhatsApp, Telegram, Play Store — l'Afrique a ses propres versions.
+fn html_afri_net(current_user: Option<&str>) -> String {
+    let body = r##"
+<div style="text-align:center;padding:30px 0 10px;">
+<h1 style="font-size:2.2em;">🌍 Afri-Net</h1>
+<p style="color:#8b949e;font-size:1.1em;">L'internet africain. Facebook, WhatsApp, Telegram, Play Store — l'Afrique a ses propres versions. Hébergées sur le continent. Zéro dépendance.</p>
+</div>
+
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px;">
+
+<div class="card" style="border-top:3px solid #1877F2;">
+<h2 style="color:#1877F2;">🌿 PLANTÉ VERTE</h2>
+<p style="color:#8b949e;font-size:0.9em;">Remplace <b style="color:#f85149;">Facebook</b> (Meta, USA)</p>
+<p style="font-size:0.9em;">Le réseau social qui pousse comme une plante. Vos données restent en Afrique. Les créateurs gagnent des <b>AFR</b>, pas des likes. Pas d'algorithme de manipulation. Pas de publicité espionne.</p>
+<div style="margin-top:10px;color:#2ea043;font-size:0.8em;">✅ Données en Afrique · 🪙 AFR pour les créateurs · 🚫 Zéro tracking</div>
+</div>
+
+<div class="card" style="border-top:3px solid #25D366;">
+<h2 style="color:#25D366;">💬 LES NOIRES</h2>
+<p style="color:#8b949e;font-size:0.9em;">Remplace <b style="color:#f85149;">WhatsApp</b> (Meta, USA)</p>
+<p style="font-size:0.9em;">La messagerie qui appartient aux Noirs. Messages de téléphone à téléphone par le mesh AfriChain. Signés Ed25519. Même sans internet, les messages passent. Meta ne lit rien.</p>
+<div style="margin-top:10px;color:#2ea043;font-size:0.8em;">✅ Mesh sans opérateur · 🔐 Ed25519 · 🚫 Meta ne lit rien</div>
+</div>
+
+<div class="card" style="border-top:3px solid #229ED9;">
+<h2 style="color:#229ED9;">📢 AFRI TÉLÉGRAM</h2>
+<p style="color:#8b949e;font-size:0.9em;">Remplace <b style="color:#f85149;">Telegram</b> (Dubaï)</p>
+<p style="font-size:0.9em;">Les canaux africains. Un message part — tout le continent l'entend. 54 canaux pays + 1 canal panafricain. Les annonces importantes gravées sur la blockchain. « L'Afrique t'entend. »</p>
+<div style="margin-top:10px;color:#2ea043;font-size:0.8em;">✅ 54 canaux pays · ⛓️ Gravé sur blockchain · 🚫 Zéro serveur à Dubaï</div>
+</div>
+
+<div class="card" style="border-top:3px solid #34A853;">
+<h2 style="color:#34A853;">🏪 AFRI STORE</h2>
+<p style="color:#8b949e;font-size:0.9em;">Remplace <b style="color:#f85149;">Play Store</b> (Google, 30% commission)</p>
+<p style="font-size:0.9em;">La boutique d'applications africaine. 0% commission — le développeur garde 100% de sa valeur. Distribution par mesh, de téléphone à téléphone. Chaque installation gravée sur la blockchain.</p>
+<div style="margin-top:10px;color:#2ea043;font-size:0.8em;">✅ 0% commission · 📡 Distribution mesh · 🚫 Zéro compte Google</div>
+</div>
+
+<div class="card" style="border-top:3px solid #4285F4;">
+<h2 style="color:#4285F4;">🔍 SAHARA AFRI</h2>
+<p style="color:#8b949e;font-size:0.9em;">Remplace <b style="color:#f85149;">Google</b> (Alphabet, USA)</p>
+<p style="font-size:0.9em;">Le moteur de recherche africain. Le savoir africain indexé par des Africains, en Afrique. Recherche anonyme en 54 langues : wolof, bambara, swahili, haoussa, yorouba, amharique...</p>
+<div style="margin-top:10px;color:#2ea043;font-size:0.8em;">✅ Anonyme · 🗣️ 54 langues · 🚫 Zéro profilage</div>
+</div>
+
+<div class="card" style="border-top:3px solid #f59e0b;">
+<h2 style="color:#f59e0b;">💻 AFRI FORME</h2>
+<p style="color:#8b949e;font-size:0.9em;">Remplace <b style="color:#f85149;">GitHub</b> (Microsoft, USA)</p>
+<p style="font-size:0.9em;">Tu es déjà dessus. La plateforme africaine de code — repos, commits, cours, école du village, jeux, diplômes. Le savoir-faire africain, hébergé en Afrique.</p>
+<div style="margin-top:10px;color:#2ea043;font-size:0.8em;">✅ Tu es ici · 🎓 École CP1→Doctorat · 🦁 100% africain</div>
+</div>
+
+</div>
+
+<div class="card" style="margin-top:20px;border:1px solid #238636;">
+<h2 style="color:#2ea043;text-align:center;">💚 Pourquoi Afri-Net ?</h2>
+<p style="text-align:center;color:#c9d1d9;font-size:0.95em;">Facebook appartient à Meta. WhatsApp appartient à Meta. Telegram a ses serveurs à Dubaï. Play Store prend 30% du travail des développeurs africains.<br><br><b>PLANTÉ VERTE</b> appartient à l'Afrique. <b>LES NOIRES</b> appartient aux Noirs. <b>AFRI TÉLÉGRAM</b> appartient au continent. <b>AFRI STORE</b> ne prend rien.<br><br>L'Afrique ne demande plus la permission. L'Afrique construit. 💚🦁</p>
+</div>
+"##;
+    let _ = current_user;
+    html_page("🌍 Afri-Net", body)
 }
 
 fn html_home(state: &AppState, current_user: Option<&str>) -> String {
@@ -3602,6 +3667,9 @@ fn handle_request(mut stream: TcpStream, state: Arc<Mutex<AppState>>) {
         ("GET", "/explore") => {
             let s = state.lock().unwrap();
             ("200", "text/html; charset=utf-8", html_explore(&s))
+        }
+        ("GET", "/afri-net") => {
+            ("200", "text/html; charset=utf-8", html_afri_net(current_user.as_deref()))
         }
         ("GET", "/importer-africhain") => {
             // v0.22: copie TOUT notre travail AfriChain (~/afririch/src/*.rs) dans un depot AfriForme
