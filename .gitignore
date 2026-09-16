@@ -2,7 +2,11 @@ target/
 Cargo.lock
 *.sol
 blockchain.json
+cerveau.json
 wallets.json
 users.json
 cache/
 out/
+machines.json
+dns.json
+afrios
