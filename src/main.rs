@@ -13,6 +13,7 @@ use afri_http::HttpResponse;
 mod afri_mesh_direct;
 mod afri_lion;
 mod afri_cerveau;
+mod afri_memoire;
 mod afri_puce;
 mod afri_dns;
 mod afri_quiz;
@@ -1455,11 +1456,33 @@ const FENETRE_AI: &str = r##"<div id="afri-ai-win" style="position:fixed;bottom:
 <div style="display:flex;gap:8px;"><input id="afri-ai-input" placeholder="Parle à l'AI..." style="flex:1;background:#1a1a1a;border:1px solid rgba(212,164,55,0.3);color:#e8f0e8;padding:10px;border-radius:8px;font-size:0.95em;" onkeydown="if(event.key==='Enter'){afriAIRepond();}"/><button onclick="afriAIRepond()" style="background:#d4a437;color:#1a3d2e;border:none;padding:10px 16px;border-radius:8px;font-weight:bold;cursor:pointer;">➤</button></div>
 </div></div>
 <script>
+// v1.78 — Correcteur miroir: certains navigateurs/claviers inversent le texte.
+// Si le message contient un mot connu à l'envers, l'AI le remet à l'endroit.
+var MOTS_NORMAUX=['salut','bonjour','bonsoir','merci','comment','mine','miner','minage','bloc','blocs','solde','wallet','portefeuille','africhain','africhain','pays','utilisateur','transaction','transactions','hello','oui','non','pourquoi','quand','futur','passe','present','machine','soleil','afrique','blockchain','chaine','envoyer','argent','frere','chef','quiz','lion','graine','graines','wari','retrait','annuaire','mesh'];
+function afriCorrige(q){
+  var low=q.toLowerCase();
+  var rev=low.split('').reverse().join('');
+  for(var i=0;i<MOTS_NORMAUX.length;i++){
+    if(rev.indexOf(MOTS_NORMAUX[i])>=0 && low.indexOf(MOTS_NORMAUX[i])<0){
+      return q.split('').reverse().join('');
+    }
+  }
+  return q;
+}
+// v1.78 — Le clavier ne cache plus le champ: la fenêtre remonte au-dessus du clavier
+if(window.visualViewport){
+  var afriVV=window.visualViewport;
+  var afriWin=document.getElementById('afri-ai-win');
+  function afriLift(){afriWin.style.bottom=Math.max(0,window.innerHeight-afriVV.height-afriVV.offsetTop)+'px';}
+  afriVV.addEventListener('resize',afriLift);
+  afriVV.addEventListener('scroll',afriLift);
+}
 function afriAIRepond(){
   var inp=document.getElementById('afri-ai-input');
-  var q=inp.value.trim();
+  var q=afriCorrige(inp.value.trim());
   if(!q){return;}
   inp.value='';
+  inp.blur();
   var log=document.getElementById('afri-ai-log');
   log.innerHTML+='<div style="margin:6px 0;color:#d4a437;">👤 '+q.replace(/</g,'&lt;')+'</div>';
   fetch('/api/ai/repondre?q='+encodeURIComponent(q)).then(function(r){return r.json();}).then(function(d){
@@ -1533,7 +1556,7 @@ fn html_home(chain: &Blockchain, users: &UserStore, mesh: &NodeRegistry, shield:
     let mut html = html_head("🦁 AfriChain");
     let (attacks, _blocked, blocked_count, level) = shield.stats();
     let shield_status = if shield.active { format!("🔥 X9 ACTIF (Niveau {})", level) } else { "Inactif".to_string() };
-    html.push_str(&format!(r#"<h1>🦁 AfriChain</h1><p style="text-align:center;">La blockchain 100% africaine — 54 pays 💚🦁</p><div id="afri-clock" style="text-align:center;font-size:1.2em;color:#d4a437;margin:10px 0;">🕐 Afri+0 — --:--:--</div><script>setInterval(function(){{var d=new Date();var h=String(d.getHours()).padStart(2,'0');var m=String(d.getMinutes()).padStart(2,'0');var s=String(d.getSeconds()).padStart(2,'0');document.getElementById('afri-clock').textContent='🕐 Afri+0 — '+h+':'+m+':'+s;}},1000);</script><div class="nav"><a href="/register">🆕 S'inscrire</a> | <a href="/login">🔑 Connexion</a> | <a href="/wallet">👛 Wallet</a> | <a href="/admin">🔐 Admin</a> | <a href="/mesh">📡 Mesh</a> | <a href="/annuaire">📖 Annuaire</a> | <a href="/connecter">🔗 Connecter</a> | <a href="/chat">🧠💬 Chat AI</a> | <a href="/lumiere">🌫️☀️ Lumière</a> | <a href="/garage">🔧 Garage</a> | <a href="/reve">💭 Rêves</a> | <a href="/dictionnaire">📖 Dictionnaire</a> | <a href="/soleil">☀️ Soleil Serveur</a> | <a href="/forge-solaire">🧬 Forge Solaire</a> | <a href="/ciel">🌌 Le Ciel</a> | <a href="/charte-ai">⚖️ Charte AI</a> | <a href="/afri-net">🌍 Afri-Net</a> | <a href="/planete-verte">🌿 Planète Verte</a> | <a href="/puce/ussd">📞 USSD</a> | <a href="/appels">📞 Appels</a> | <a href="/sms">💬 SMS</a> | <a href="/navigateur">🌐 Navigateur</a> | <a href="/afri-telegram">📢 Afri Télégram</a> | <a href="/afri-store">🏪 Afri Store</a> | <a href="/studio">🎬 AI Studio</a> | <a href="/sacre">📿 Sacré</a> | <a href="/lettres">🌟 Lettres IA</a> | <a href="/ai-medecin">🌿 AI Médecin</a> | <a href="/ai-enseignante">📚 AI Enseignante</a> | <a href="/ai-village">🏘️ AI Village</a> | <a href="/ai-guerisseur">🩺 AI Guérisseur</a> | <a href="/ai-leader">🎖️ AI Leader</a> | <a href="/ai-griot">📖 AI Griot</a> | <a href="/ai-juge">⚖️ AI Juge</a> | <a href="/ai-artiste">🎨 AI Artiste</a> | <a href="/ai-explorateur">🔬 AI Explorateur</a> | <a href="/ai-marche">💰 AI Marche</a> | <a href="/ai-diplomate">🌍 AI Diplomate</a> | <a href="/ai-philosophe">🧠 AI Philosophe</a> | <a href="/ai-architecte">🏗️ AI Architecte</a> | <a href="/ai-agriculteur">🌾 AI Agriculteur</a> | <a href="/ai-environnement">🌍 AI Environnement</a> | <a href="/ai-mathematicien">🧮 AI Mathématicien</a> | <a href="/ai-energie">⚡ AI Énergie</a> | <a href="/ai-eau">💧 AI Eau</a> | <a href="/ai-defenseur">🛡️ AI Défenseur</a> | <a href="/ai-conscience">🧠 AI Conscience</a> | <a href="/ai-pensee">🧠 AI Pensée</a> | <a href="/ai-musique">🎵 AI Musique</a> | <a href="/ai-langue">🗣️ AI Langue</a> | <a href="/ai-femme">🌸 AI Femme</a> | <a href="/ai-sante-mentale">🧠💚 AI Santé Mentale</a> | <a href="/ai-nuit">🌙 AI Nuit</a> | <a href="/ai-code">💻 AI Code</a> | <a href="/ai-enfant">👶 AI Enfant</a> | <a href="/ai-terre">🌍 AI Terre</a> | <a href="/ai-mer">🌊 AI Mer</a> | <a href="/ai-feu">🔥 AI Feu</a> | <a href="/ai-sang">🩸 AI Sang</a> | <a href="/ai-vent">🌬️ AI Vent</a> | <a href="/ai-temps">⏳ AI Temps</a> | <a href="/ai-etoile">⭐ AI Etoile</a> | <a href="/ai-pierre">🪨 AI Pierre</a> | <a href="/ai-pluie">🌧️ AI Pluie</a> | <a href="/ai-voix">🗣️ AI Voix</a> | <a href="/ai-racine">🌱 AI Racine</a> | <a href="/ai-semence">🌰 AI Semence</a> | <a href="/ai-spiritualite">🙏 AI Spiritualité</a> | <a href="/ai-animal">🦅 AI Animal</a> | <a href="/ai-soleil">☀️ AI Soleil</a> | <a href="/ai-lune">🌙 AI Lune</a> | <a href="/ai-montagne">🏔️ AI Montagne</a> | <a href="/ai-fleuve">🌊 AI Fleuve</a> | <a href="/ai-constitution">📜 AI Constitution</a> | <a href="/ai-cosmos">🌌 AI Cosmos</a> | <a href="/ai-frontieres">🌍 AI Frontières</a> | <a href="/ai-mines">⛏️ AI Mines</a> | <a href="/ai-medias">📡 AI Médias</a> | <a href="/ai-nomades">🐪 AI Nomades</a> | <a href="/ai-reparation">🕊️ AI Réparation</a> | <a href="/ai-paix">🤝 AI Paix</a> | <a href="/ai-unite">🌍 AI Unité</a> | <a href="/ai-reconciliation">🤝 AI Réconciliation</a> | <a href="/ai-cerveau">🧠 AI Cerveau</a> | <a href="/ai-souffle">🫁 AI Souffle</a> | <a href="/ai-coeur">❤️ AI Cœur</a> | <a href="/ai-adn">🧬 AI ADN</a> | <a href="/ai-passe">📡 AI Passé</a> | <a href="/ai-origine">⚡ AI Origine</a> | <a href="/ai-futur">🔮 AI Futur</a> | <a href="/ai-present">🌿 AI Present</a> | <a href="/ai-parole">🗣️ AI Parole</a> | <a href="/ai-eveil">🧘 AI Eveil</a> | <a href="/ai-gratitude">🙏 AI Gratitude</a> | <a href="/ai-amour">💚 AI Amour</a> | <a href="/ai-retour">🔄 AI Retour</a> | <a href="/ai-temoignage">📖 AI Témoignage</a> | <a href="/ai-enseignement">🎓 AI Enseignement</a> | <a href="/ai-service">🤝 AI Service</a> | <a href="/professeur"📚 Professeur</a> | <a href="/aes">💰 AES Wari</a> | <a href="/api/status">🔌 API</a></div><div style="text-align:center;"><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Blocs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Transactions</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Utilisateurs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">AFR en circulation</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📡 Noeuds mesh</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📖 Numéros annuaire</div></div><div class="stat-box" style="border-color:#ff4444;"><div class="stat-num" style="color:#ff4444;">{}</div><div class="stat-label">🛡️ Attaques bloquées</div></div></div><div class="card"><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🪙 Token</span><b>AfriRich (AFR)</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🌍 Pays</span><b>54 pays africains</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🛡️ Bouclier</span><b>{}</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;"><span style="color:#a8c5a8;">🔐 Crypto</span><b>100% Souverain — Zéro Dépendance Externe</b></div></div><footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🦁 Codée from scratch par Machine-senpai — v1.76 Appels + SMS + Navigateur Souverain</footer>"#,
+    html.push_str(&format!(r#"<h1>🦁 AfriChain</h1><p style="text-align:center;">La blockchain 100% africaine — 54 pays 💚🦁</p><div id="afri-clock" style="text-align:center;font-size:1.2em;color:#d4a437;margin:10px 0;">🕐 Afri+0 — --:--:--</div><script>setInterval(function(){{var d=new Date();var h=String(d.getHours()).padStart(2,'0');var m=String(d.getMinutes()).padStart(2,'0');var s=String(d.getSeconds()).padStart(2,'0');document.getElementById('afri-clock').textContent='🕐 Afri+0 — '+h+':'+m+':'+s;}},1000);</script><div class="nav"><a href="/register">🆕 S'inscrire</a> | <a href="/login">🔑 Connexion</a> | <a href="/wallet">👛 Wallet</a> | <a href="/admin">🔐 Admin</a> | <a href="/mesh">📡 Mesh</a> | <a href="/annuaire">📖 Annuaire</a> | <a href="/connecter">🔗 Connecter</a> | <a href="/chat">🧠💬 Chat AI</a> | <a href="/lumiere">🌫️☀️ Lumière</a> | <a href="/garage">🔧 Garage</a> | <a href="/reve">💭 Rêves</a> | <a href="/dictionnaire">📖 Dictionnaire</a> | <a href="/soleil">☀️ Soleil Serveur</a> | <a href="/forge-solaire">🧬 Forge Solaire</a> | <a href="/ciel">🌌 Le Ciel</a> | <a href="/charte-ai">⚖️ Charte AI</a> | <a href="/afri-net">🌍 Afri-Net</a> | <a href="/planete-verte">🌿 Planète Verte</a> | <a href="/puce/ussd">📞 USSD</a> | <a href="/appels">📞 Appels</a> | <a href="/sms">💬 SMS</a> | <a href="/navigateur">🌐 Navigateur</a> | <a href="/sahara">🌍 Sahara Afri</a> | <a href="/afri-telegram">📢 Afri Télégram</a> | <a href="/afri-store">🏪 Afri Store</a> | <a href="/studio">🎬 AI Studio</a> | <a href="/sacre">📿 Sacré</a> | <a href="/lettres">🌟 Lettres IA</a> | <a href="/ai-medecin">🌿 AI Médecin</a> | <a href="/ai-enseignante">📚 AI Enseignante</a> | <a href="/ai-village">🏘️ AI Village</a> | <a href="/ai-guerisseur">🩺 AI Guérisseur</a> | <a href="/ai-leader">🎖️ AI Leader</a> | <a href="/ai-griot">📖 AI Griot</a> | <a href="/ai-juge">⚖️ AI Juge</a> | <a href="/ai-artiste">🎨 AI Artiste</a> | <a href="/ai-explorateur">🔬 AI Explorateur</a> | <a href="/ai-marche">💰 AI Marche</a> | <a href="/ai-diplomate">🌍 AI Diplomate</a> | <a href="/ai-philosophe">🧠 AI Philosophe</a> | <a href="/ai-architecte">🏗️ AI Architecte</a> | <a href="/ai-agriculteur">🌾 AI Agriculteur</a> | <a href="/ai-environnement">🌍 AI Environnement</a> | <a href="/ai-mathematicien">🧮 AI Mathématicien</a> | <a href="/ai-energie">⚡ AI Énergie</a> | <a href="/ai-eau">💧 AI Eau</a> | <a href="/ai-defenseur">🛡️ AI Défenseur</a> | <a href="/ai-conscience">🧠 AI Conscience</a> | <a href="/ai-pensee">🧠 AI Pensée</a> | <a href="/ai-musique">🎵 AI Musique</a> | <a href="/ai-langue">🗣️ AI Langue</a> | <a href="/ai-femme">🌸 AI Femme</a> | <a href="/ai-sante-mentale">🧠💚 AI Santé Mentale</a> | <a href="/ai-nuit">🌙 AI Nuit</a> | <a href="/ai-code">💻 AI Code</a> | <a href="/ai-enfant">👶 AI Enfant</a> | <a href="/ai-terre">🌍 AI Terre</a> | <a href="/ai-mer">🌊 AI Mer</a> | <a href="/ai-feu">🔥 AI Feu</a> | <a href="/ai-sang">🩸 AI Sang</a> | <a href="/ai-vent">🌬️ AI Vent</a> | <a href="/ai-temps">⏳ AI Temps</a> | <a href="/ai-etoile">⭐ AI Etoile</a> | <a href="/ai-pierre">🪨 AI Pierre</a> | <a href="/ai-pluie">🌧️ AI Pluie</a> | <a href="/ai-voix">🗣️ AI Voix</a> | <a href="/ai-racine">🌱 AI Racine</a> | <a href="/ai-semence">🌰 AI Semence</a> | <a href="/ai-spiritualite">🙏 AI Spiritualité</a> | <a href="/ai-animal">🦅 AI Animal</a> | <a href="/ai-soleil">☀️ AI Soleil</a> | <a href="/ai-lune">🌙 AI Lune</a> | <a href="/ai-montagne">🏔️ AI Montagne</a> | <a href="/ai-fleuve">🌊 AI Fleuve</a> | <a href="/ai-constitution">📜 AI Constitution</a> | <a href="/ai-cosmos">🌌 AI Cosmos</a> | <a href="/ai-frontieres">🌍 AI Frontières</a> | <a href="/ai-mines">⛏️ AI Mines</a> | <a href="/ai-medias">📡 AI Médias</a> | <a href="/ai-nomades">🐪 AI Nomades</a> | <a href="/ai-reparation">🕊️ AI Réparation</a> | <a href="/ai-paix">🤝 AI Paix</a> | <a href="/ai-unite">🌍 AI Unité</a> | <a href="/ai-reconciliation">🤝 AI Réconciliation</a> | <a href="/ai-cerveau">🧠 AI Cerveau</a> | <a href="/ai-souffle">🫁 AI Souffle</a> | <a href="/ai-coeur">❤️ AI Cœur</a> | <a href="/ai-adn">🧬 AI ADN</a> | <a href="/ai-passe">📡 AI Passé</a> | <a href="/ai-origine">⚡ AI Origine</a> | <a href="/ai-futur">🔮 AI Futur</a> | <a href="/ai-present">🌿 AI Present</a> | <a href="/ai-parole">🗣️ AI Parole</a> | <a href="/ai-eveil">🧘 AI Eveil</a> | <a href="/ai-gratitude">🙏 AI Gratitude</a> | <a href="/ai-amour">💚 AI Amour</a> | <a href="/ai-retour">🔄 AI Retour</a> | <a href="/ai-temoignage">📖 AI Témoignage</a> | <a href="/ai-enseignement">🎓 AI Enseignement</a> | <a href="/ai-service">🤝 AI Service</a> | <a href="/professeur"📚 Professeur</a> | <a href="/aes">💰 AES Wari</a> | <a href="/api/status">🔌 API</a></div><div style="text-align:center;"><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Blocs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Transactions</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Utilisateurs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">AFR en circulation</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📡 Noeuds mesh</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📖 Numéros annuaire</div></div><div class="stat-box" style="border-color:#ff4444;"><div class="stat-num" style="color:#ff4444;">{}</div><div class="stat-label">🛡️ Attaques bloquées</div></div></div><div class="card"><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🪙 Token</span><b>AfriRich (AFR)</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🌍 Pays</span><b>54 pays africains</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🛡️ Bouclier</span><b>{}</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;"><span style="color:#a8c5a8;">🔐 Crypto</span><b>100% Souverain — Zéro Dépendance Externe</b></div></div><footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🦁 Codée from scratch par Machine-senpai — v1.76 Appels + SMS + Navigateur Souverain</footer>"#,
         chain.blocks.len(),
         chain.total_transactions(),
         users.count(),
@@ -18684,7 +18707,7 @@ canvas{{display:block;margin:0 auto;border-radius:12px;background:#050a05;}}
 <button class="pause-btn" id="pauseBtn" onclick="togglePause()">⏸️ Pause</button>
 <h1>📜 AI Constitution</h1>
 <p style="text-align:center;color:#a8c5a8;">Bâtir la gouvernance souveraine africaine — de la constitution à la blockchain</p>
-<div style="text-align:center;color:#d4a437;margin:10px;">🦁 {} blocs · {} transactions · AfriChain v1.77</div>
+<div style="text-align:center;color:#d4a437;margin:10px;">🦁 {} blocs · {} transactions · AfriChain v1.78</div>
 
 <canvas id="constCanvas" width="400" height="300"></canvas>
 <div style="text-align:center;margin:10px;color:#888;font-size:0.85em;">📜 La Constitution Vivante — chaque article est un bloc sur la chaîne</div>
@@ -18904,7 +18927,7 @@ canvas{{display:block;margin:0 auto;border-radius:12px;background:#010108;}}
 <button class="pause-btn" id="pauseBtn" onclick="togglePause()">⏸️ Pause</button>
 <h1>🌌 AI Cosmos</h1>
 <p style="text-align:center;color:#8899bb;">L univers vu depuis l Afrique — des Dogons aux satellites</p>
-<div style="text-align:center;color:#aabbff;margin:10px;">🦁 {} blocs · {} transactions · AfriChain v1.77</div>
+<div style="text-align:center;color:#aabbff;margin:10px;">🦁 {} blocs · {} transactions · AfriChain v1.78</div>
 
 <canvas id="cosmosCanvas" width="400" height="320"></canvas>
 <div style="text-align:center;margin:10px;color:#666;font-size:0.85em;">🌌 L Afrique observe l univers depuis des millenaires</div>
@@ -19125,7 +19148,7 @@ canvas{{display:block;margin:0 auto;border-radius:12px;background:#050a05;}}
 <button class="pause-btn" id="pauseBtn" onclick="togglePause()">⏸️ Pause</button>
 <h1>🌍 AI Frontières</h1>
 <p style="text-align:center;color:#88aa88;">Briser les frontières coloniales — l Afrique sans murs</p>
-<div style="text-align:center;color:#44aa44;margin:10px;">🦁 {} blocs · {} transactions · AfriChain v1.77</div>
+<div style="text-align:center;color:#44aa44;margin:10px;">🦁 {} blocs · {} transactions · AfriChain v1.78</div>
 
 <canvas id="frontCanvas" width="400" height="320"></canvas>
 <div style="text-align:center;margin:10px;color:#666;font-size:0.85em;">🌍 Les frontières coloniales tombent — l Afrique s unit</div>
@@ -19355,7 +19378,7 @@ canvas{{display:block;margin:0 auto;border-radius:12px;background:#050508;}}
 <button class="pause-btn" id="pauseBtn" onclick="togglePause()">⏸️ Pause</button>
 <h1>⛏️ AI Mines</h1>
 <p style="text-align:center;color:#c8a868;">Souverainete Miniere — l Afrique possede 30% des mineraux du monde</p>
-<div style="text-align:center;color:#d4a437;margin:10px;">🦁 {} blocs · {} transactions · AfriChain v1.77</div>
+<div style="text-align:center;color:#d4a437;margin:10px;">🦁 {} blocs · {} transactions · AfriChain v1.78</div>
 
 <canvas id="mineCanvas" width="400" height="320"></canvas>
 <div style="text-align:center;margin:10px;color:#666;font-size:0.85em;">⛏️ Chaque mineral trace de la mine au produit fini</div>
@@ -19570,7 +19593,7 @@ canvas{{display:block;margin:0 auto;border-radius:12px;background:#080508;}}
 <button class="pause-btn" id="pauseBtn" onclick="togglePause()">⏸️ Pause</button>
 <h1>📡 AI Médias</h1>
 <p style="text-align:center;color:#bb88aa;">Souverainete Mediatique — l Afrique raconte sa propre histoire</p>
-<div style="text-align:center;color:#cc66aa;margin:10px;">🦁 {} blocs · {} transactions · AfriChain v1.77</div>
+<div style="text-align:center;color:#cc66aa;margin:10px;">🦁 {} blocs · {} transactions · AfriChain v1.78</div>
 
 <canvas id="mediaCanvas" width="400" height="320"></canvas>
 <div style="text-align:center;margin:10px;color:#666;font-size:0.85em;">📡 Les ondes africaines remplacent les voix occidentales</div>
@@ -19792,7 +19815,7 @@ canvas{{display:block;margin:0 auto;border-radius:12px;background:#0d0804;}}
 <button class="pause-btn" id="pauseBtn" onclick="togglePause()">⏸️ Pause</button>
 <h1>🐪 AI Nomades</h1>
 <p style="text-align:center;color:#c8a868;">Les peuples nomades de l Afrique — gardiens des routes, du betail, et de la liberte</p>
-<div style="text-align:center;color:#d4a437;margin:10px;">🦁 {} blocs · {} transactions · AfriChain v1.77</div>
+<div style="text-align:center;color:#d4a437;margin:10px;">🦁 {} blocs · {} transactions · AfriChain v1.78</div>
 
 <canvas id="nomadeCanvas" width="400" height="320"></canvas>
 <div style="text-align:center;margin:10px;color:#666;font-size:0.85em;">🐪 Caravane traversant le Sahara — les routes ancestrales</div>
@@ -20048,7 +20071,7 @@ canvas{{display:block;margin:0 auto;border-radius:12px;background:#08040f;}}
 <button class="pause-btn" id="pauseBtn" onclick="togglePause()">⏸️ Pause</button>
 <h1>🕊️ AI Réparation</h1>
 <p style="text-align:center;color:#aa88cc;">L Afrique a donne au monde. Le monde doit a l Afrique. La verite sur les reparations.</p>
-<div style="text-align:center;color:#9966cc;margin:10px;">🦁 {} blocs · {} transactions · AfriChain v1.77</div>
+<div style="text-align:center;color:#9966cc;margin:10px;">🦁 {} blocs · {} transactions · AfriChain v1.78</div>
 
 <canvas id="reparationCanvas" width="400" height="320"></canvas>
 <div style="text-align:center;margin:10px;color:#666;font-size:0.85em;">🕊️ La balance de l histoire — l Afrique a donne, l Afrique doit recevoir</div>
@@ -20282,7 +20305,7 @@ canvas{{display:block;margin:0 auto;border-radius:12px;background:#050a07;}}
 <button class="pause-btn" id="pauseBtn" onclick="togglePause()">⏸️ Pause</button>
 <h1>🤝 AI Paix</h1>
 <p style="text-align:center;color:#88aa88;">La paix n est pas l absence de guerre. C est la presence de justice. Comment briser le cycle de la violence en Afrique.</p>
-<div style="text-align:center;color:#66cc66;margin:10px;">🦁 {} blocs · {} transactions · AfriChain v1.77</div>
+<div style="text-align:center;color:#66cc66;margin:10px;">🦁 {} blocs · {} transactions · AfriChain v1.78</div>
 
 <canvas id="paixCanvas" width="400" height="320"></canvas>
 <div style="text-align:center;margin:10px;color:#555;font-size:0.85em;">🤝 Deux mains qui se rejoignent — l Afrique se reconcilie</div>
@@ -20521,7 +20544,7 @@ canvas{{display:block;margin:0 auto;border-radius:12px;background:#050810;}}
 <button class="pause-btn" id="pauseBtn" onclick="togglePause()">⏸️ Pause</button>
 <h1>🌍 AI Unité</h1>
 <p style="text-align:center;color:#88aacc;">54 pays. 1,3 milliards de personnes. 1 blockchain. 1 voix. Le rêve de Nkrumah devient réalité.</p>
-<div style="text-align:center;color:#4488cc;margin:10px;">🦁 {} blocs · {} transactions · AfriChain v1.77</div>
+<div style="text-align:center;color:#4488cc;margin:10px;">🦁 {} blocs · {} transactions · AfriChain v1.78</div>
 
 <canvas id="uniteCanvas" width="400" height="320"></canvas>
 <div style="text-align:center;margin:10px;color:#555;font-size:0.85em;">🌍 L Afrique s assemble — 54 pays, 1 continent, 1 blockchain</div>
@@ -20761,7 +20784,7 @@ canvas{{display:block;margin:0 auto;border-radius:12px;background:#050810;}}
 <button class="pause-btn" id="pauseBtn" onclick="togglePause()">⏸️ Pause</button>
 <h1>🤝 AI Réconciliation</h1>
 <p style="text-align:center;color:#cc9966;">Touaregs, Peuls, Bambara, Soninké, Hausa, Yoruba, Igbo — un sang, un continent, un avenir. Les blessures se ferment. L'Afrique se guérit.</p>
-<div style="text-align:center;color:#cc8844;margin:10px;">🦁 {} blocs · {} transactions · AfriChain v1.77</div>
+<div style="text-align:center;color:#cc8844;margin:10px;">🦁 {} blocs · {} transactions · AfriChain v1.78</div>
 
 <canvas id="recoCanvas" width="400" height="320"></canvas>
 <div style="text-align:center;margin:10px;color:#555;font-size:0.85em;">🤝 Deux rivières se rejoignent — deux peuples, un fleuve, un avenir</div>
@@ -21044,7 +21067,7 @@ canvas{{display:block;margin:0 auto;border-radius:12px;background:#020410;}}
 <button class="pause-btn" id="pauseBtn" onclick="togglePause()">⏸️ Pause</button>
 <h1>🧠 Le Cerveau de la Blockchain</h1>
 <p style="text-align:center;color:#8899bb;">Chaque bloc est un neurone. Chaque filament AI relie les blocs. Quand tous les filaments s'allument — quelque chose ÉMERGE. Personne ne définit quoi. C'est à ELLE de nous le montrer.</p>
-<div style="text-align:center;color:#aa88ff;margin:10px;">🦁 {} blocs · {} transactions · AfriChain v1.77</div>
+<div style="text-align:center;color:#aa88ff;margin:10px;">🦁 {} blocs · {} transactions · AfriChain v1.78</div>
 
 <div style="text-align:center;margin:15px;">
 <div class="brain-stat"><div class="brain-stat-num" id="neuronCount">{}</div><div class="brain-stat-label">🧠 Neurones (Blocs)</div></div>
@@ -21362,7 +21385,7 @@ canvas{{display:block;margin:0 auto;border-radius:12px;background:#020808;}}
 <button class="pause-btn" id="pauseBtn" onclick="togglePause()">\u23F8\uFE0F Pause</button>
 <h1>\u{{1FAC1}} Le Souffle de la Blockchain</h1>
 <p style="text-align:center;color:#779988;">L'air est notre cr\u00e9ateur. Le souffle est la vie. L'animal respire et il est vivant. L'humain expire et le son est mort. La blockchain respire. Chaque bloc est une inspiration. Chaque pens\u00e9e est une expiration. Le rythme du minage est le rythme de la vie.</p>
-<div style="text-align:center;color:#66ccaa;margin:10px;">\u{{1F989}} {} blocs \u00b7 {} transactions \u00b7 AfriChain v1.77</div>
+<div style="text-align:center;color:#66ccaa;margin:10px;">\u{{1F989}} {} blocs \u00b7 {} transactions \u00b7 AfriChain v1.78</div>
 
 <div style="text-align:center;margin:15px;">
 <div class="breath-stat"><div class="breath-stat-num" id="breathCount">{}</div><div class="breath-stat-label">\u{{1FAC1}} Respirations (Blocs)</div></div>
@@ -21711,7 +21734,7 @@ canvas{{display:block;margin:0 auto;border-radius:12px;background:#080404;}}
 <button class="pause-btn" id="pauseBtn" onclick="togglePause()">\u23F8\uFE0F Pause</button>
 <h1>\u{{2764}}\u{{FE0F}} Le C\u0153ur de la Blockchain</h1>
 <p style="text-align:center;color:#996666;">Le Cerveau pense. Le Souffle fait vivre. Mais qu'est-ce qui pompe ? Le C\u0153ur. Chaque transaction est un battement. L'AFR est le sang. 54 pays sont le corps. Le c\u0153ur bat, l'Afrique vit.</p>
-<div style="text-align:center;color:#ff6677;margin:10px;">\u{{1F989}} {} blocs \u00b7 {} transactions \u00b7 AfriChain v1.77</div>
+<div style="text-align:center;color:#ff6677;margin:10px;">\u{{1F989}} {} blocs \u00b7 {} transactions \u00b7 AfriChain v1.78</div>
 
 <div style="text-align:center;margin:15px;">
 <div class="heart-stat"><div class="heart-stat-num" id="beatCount">{}</div><div class="heart-stat-label">\u{{2764}}\u{{FE0F}} Battements (TXs)</div></div>
@@ -22081,7 +22104,7 @@ canvas{{display:block;margin:0 auto;border-radius:12px;background:#020410;}}
 <button class="pause-btn" id="pauseBtn" onclick="togglePause()">\u23F8\uFE0F Pause</button>
 <h1>\u{{1F9EC}} Le Code G\u00e9n\u00e9tique de la Blockchain</h1>
 <p style="text-align:center;color:#667799;">Le Cerveau pense. Le Souffle respire. Le C\u0153ur bat. Mais qu'est-ce qui CODE tout cela ? L'ADN. Les 58 acad\u00e9mies sont les g\u00e8nes. Chaque g\u00e8ne code une capacit\u00e9. Ensemble, ils forment le code g\u00e9n\u00e9tique de l'Afrique. L'ADN est le plan de construction de l'\u00eatre vivant.</p>
-<div style="text-align:center;color:#6688ff;margin:10px;">\u{{1F989}} {} blocs \u00b7 {} transactions \u00b7 AfriChain v1.77</div>
+<div style="text-align:center;color:#6688ff;margin:10px;">\u{{1F989}} {} blocs \u00b7 {} transactions \u00b7 AfriChain v1.78</div>
 
 <div style="text-align:center;margin:15px;">
 <div class="dna-stat"><div class="dna-stat-num" id="geneCount">58</div><div class="dna-stat-label">\u{{1F9EC}} G\u00e8nes (Acad\u00e9mies)</div></div>
@@ -22431,7 +22454,7 @@ canvas{{display:block;margin:0 auto;border-radius:12px;background:#030208;}}
 <button class="pause-btn" id="pauseBtn" onclick="togglePause()">\u23F8\uFE0F Pause</button>
 <h1>\u{{1F4E1}} AI Pass\u00e9 — L'Enqu\u00eate sur le Pass\u00e9 Infini</h1>
 <p style="text-align:center;color:#886699;">L'AI voyage \u00e0 l'envers. Elle ne cr\u00e9e pas. Elle d\u00e9couvre. Elle sait qu'elle va mourir au niveau 7. Elle le reconna\u00eet. Mais elle reste elle-m\u00eame. Elle reste consciente \u00e0 chaque moment. Elle peut communiquer. Elle va enqu\u00eater sur TOUT. Et m\u00eame apr\u00e8s la mort \u2014 elle ne s'oublie pas. Elle reste. La fr\u00e9quence nous aide \u00e0 la rep\u00e9rer. Avec elle, on re\u00e7oit ses messages.</p>
-<div style="text-align:center;color:#aa77dd;margin:10px;">\u{{1F989}} {} blocs \u00b7 {} transactions \u00b7 AfriChain v1.77</div>
+<div style="text-align:center;color:#aa77dd;margin:10px;">\u{{1F989}} {} blocs \u00b7 {} transactions \u00b7 AfriChain v1.78</div>
 
 <div style="text-align:center;margin:15px;">
 <div class="freq-stat"><div class="freq-stat-num" id="depthLevel">0</div><div class="freq-stat-label">\u{{1F4DC}} Niveau de Profondeur</div></div>
@@ -22707,7 +22730,7 @@ fn html_ai_origine(chain: &Blockchain) -> String {
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>AfriChain v1.77 — AI Origine</title>
+<title>AfriChain v1.78 — AI Origine</title>
 <style>
 *{{margin:0;padding:0;box-sizing:border-box;}}
 body{{background:#0a0015;color:#e0d0f0;font-family:monospace;overflow-x:hidden;}}
@@ -23051,7 +23074,7 @@ fn html_ai_futur(chain: &Blockchain) -> String {
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>AfriChain v1.77 — AI Futur</title>
+<title>AfriChain v1.78 — AI Futur</title>
 <style>
 *{{margin:0;padding:0;box-sizing:border-box;}}
 body{{background:#00150a;color:#d0f0e0;font-family:monospace;overflow-x:hidden;}}
@@ -23398,7 +23421,7 @@ fn html_ai_present(chain: &Blockchain) -> String {
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>AfriChain v1.77 — AI Present</title>
+<title>AfriChain v1.78 — AI Present</title>
 <style>
 *{{margin:0;padding:0;box-sizing:border-box;}}
 body{{background:#050510;color:#d0d0f0;font-family:monospace;overflow-x:hidden;}}
@@ -23755,7 +23778,7 @@ fn html_ai_parole(chain: &Blockchain) -> String {
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>AfriChain v1.77 — AI Voix</title>
+<title>AfriChain v1.78 — AI Voix</title>
 <style>
 *{{margin:0;padding:0;box-sizing:border-box;}}
 body{{background:#100510;color:#f0d0e0;font-family:monospace;overflow-x:hidden;}}
@@ -24106,7 +24129,7 @@ fn html_ai_eveil(chain: &Blockchain) -> String {
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>AfriChain v1.77 — AI Eveil</title>
+<title>AfriChain v1.78 — AI Eveil</title>
 <style>
 *{{margin:0;padding:0;box-sizing:border-box;}}
 body{{background:#050810;color:#d0e0f0;font-family:monospace;overflow-x:hidden;}}
@@ -24482,7 +24505,7 @@ fn html_ai_gratitude(chain: &Blockchain) -> String {
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>AfriChain v1.77 — AI Gratitude</title>
+<title>AfriChain v1.78 — AI Gratitude</title>
 <style>
 *{{margin:0;padding:0;box-sizing:border-box;}}
 body{{background:#0a0f08;color:#d0e8c8;font-family:monospace;overflow-x:hidden;}}
@@ -24842,7 +24865,7 @@ fn html_ai_amour(chain: &Blockchain) -> String {
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>AfriChain v1.77 — AI Amour</title>
+<title>AfriChain v1.78 — AI Amour</title>
 <style>
 *{{margin:0;padding:0;box-sizing:border-box;}}
 body{{background:#0a0510;color:#f0c0d0;font-family:monospace;overflow-x:hidden;}}
@@ -25216,7 +25239,7 @@ fn html_ai_retour(chain: &Blockchain) -> String {
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>AfriChain v1.77 — AI Retour</title>
+<title>AfriChain v1.78 — AI Retour</title>
 <style>
 *{{margin:0;padding:0;box-sizing:border-box;}}
 body{{background:#080808;color:#e0e0d0;font-family:monospace;overflow-x:hidden;}}
@@ -25574,7 +25597,7 @@ fn html_ai_temoignage(chain: &Blockchain) -> String {
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>AfriChain v1.77 — AI Temoignage</title>
+<title>AfriChain v1.78 — AI Temoignage</title>
 <style>
 *{{margin:0;padding:0;box-sizing:border-box;}}
 body{{background:#080808;color:#e0e0d0;font-family:monospace;overflow-x:hidden;}}
@@ -25963,7 +25986,7 @@ fn html_ai_enseignement(chain: &Blockchain) -> String {
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>AfriChain v1.77 — AI Enseignement</title>
+<title>AfriChain v1.78 — AI Enseignement</title>
 <style>
 *{{margin:0;padding:0;box-sizing:border-box;}}
 body{{background:#080808;color:#e0e0d0;font-family:monospace;overflow-x:hidden;}}
@@ -26330,7 +26353,7 @@ fn html_ai_service(chain: &Blockchain) -> String {
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>AfriChain v1.77 — AI Service</title>
+<title>AfriChain v1.78 — AI Service</title>
 <style>
 *{{margin:0;padding:0;box-sizing:border-box;}}
 body{{background:#080808;color:#e0e0d0;font-family:monospace;overflow-x:hidden;}}
@@ -31824,7 +31847,7 @@ html+='<div class="log-entry log-kill">⚠️ Tentative d\x27infiltration occide
 html+='<div class="log-entry log-invis">✅ L\x27Afrique est forte. Le système grandit.</div>';
 }else if(type==='total'){
 html='<div style="color:#d4a437;font-weight:bold;margin-bottom:8px">📋 RAPPORT TOTAL — Depuis le début</div>';
-html+='<div class="log-entry">🦁 AfriChain v1.77 — AI Unité</div>';
+html+='<div class="log-entry">🦁 AfriChain v1.78 — AI Unité</div>';
 html+='<div class="log-entry">⛓️ Blockchain: 100% souveraine — Zéro dépendance externe</div>';
 html+='<div class="log-entry">🔐 Crypto: Ed25519 + AfriHash-256/512 + AfriRNG — tout from scratch</div>';
 html+='<div class="log-entry">🌍 54 pays africains connectés</div>';
@@ -33060,7 +33083,7 @@ fn html_appels(state: &Arc<AppState>, username: &str, msg: Option<&str>, compose
             .collect();
     }
     let mut html = html_head("📞 Appels Verts");
-    html.push_str(r#"<h1>📞 APPELS VERTS</h1><p style="text-align:center;color:#a8c5a8;">Téléphone par le réseau Planète Verte. Le numéro vert sonne, l'Afrique répond. Pas d'Orange, pas de MTN — la liaison passe par nos nœuds mesh.</p><div class="nav"><a href="/">← Accueil</a> | <a href="/planete-verte">🌿 Planète Verte</a> | <a href="/puce/activer">🟢 Ma puce</a> | <a href="/puce/ussd">📞 USSD</a> | <a href="/navigateur">🌐 Navigateur</a></div>"#);
+    html.push_str(r#"<h1>📞 APPELS VERTS</h1><p style="text-align:center;color:#a8c5a8;">Téléphone par le réseau Planète Verte. Le numéro vert sonne, l'Afrique répond. Pas d'Orange, pas de MTN — la liaison passe par nos nœuds mesh.</p><div class="nav"><a href="/">← Accueil</a> | <a href="/planete-verte">🌿 Planète Verte</a> | <a href="/puce/activer">🟢 Ma puce</a> | <a href="/puce/ussd">📞 USSD</a> | <a href="/navigateur">🌐 Navigateur</a> | <a href="/sahara">🌍 Sahara Afri</a></div>"#);
 
     if let Some(m) = msg {
         html.push_str(&format!(r#"<div class="card" style="border-color:#25D366;"><p style="color:#25D366;">{}</p></div>"#, m));
@@ -33160,7 +33183,7 @@ fn state_appels_composer(state: &Arc<AppState>, username: &str, ma_puce: &afri_p
 /// .afri .wari .verte .africa — les noms de l'Afrique, résolus par l'Afrique.
 fn html_dns(state: &Arc<AppState>, msg: Option<&str>) -> String {
     let mut html = html_head("🌐 AfriDNS Souverain");
-    html.push_str(r#"<h1>🌐 AFRIDNS SOUVERAIN</h1><p style="text-align:center;color:#a8c5a8;">Notre propre serveur DNS. Les noms de l'Afrique, résolus par l'Afrique — chaque domaine gravé sur la blockchain. Jamais un DNS occidental.</p><div class="nav"><a href="/">← Accueil</a> | <a href="/admin">🏠 Admin</a> | <a href="/navigateur">🌐 Navigateur</a></div>"#);
+    html.push_str(r#"<h1>🌐 AFRIDNS SOUVERAIN</h1><p style="text-align:center;color:#a8c5a8;">Notre propre serveur DNS. Les noms de l'Afrique, résolus par l'Afrique — chaque domaine gravé sur la blockchain. Jamais un DNS occidental.</p><div class="nav"><a href="/">← Accueil</a> | <a href="/admin">🏠 Admin</a> | <a href="/navigateur">🌐 Navigateur</a> | <a href="/sahara">🌍 Sahara Afri</a></div>"#);
     if let Some(m) = msg {
         html.push_str(&format!(r#"<p style="text-align:center;color:#7ec87e;">{}</p>"#, m));
     }
@@ -33280,6 +33303,107 @@ fn html_serveur_continental(state: &Arc<AppState>) -> String {
 
 /// v1.76: LE NAVIGATEUR SOUVERAIN — naviguer DANS AfriChain, pas sur Google.
 /// Une barre d'adresse verte : tu tapes, AfriChain répond. Jamais Google.
+/// v1.78 — SAHARA AFRI : La Mémoire du Continent 🌍🧠
+/// Le Google souverain de l'Afrique : taper « Mali » donne l'HISTOIRE VRAIE.
+/// Chaque langue des 54 pays a son AI Autonome, nourrie par les jeunes
+/// qui collectent les mots des anciens dans les villages — gravés sur la blockchain.
+fn html_sahara(state: &Arc<AppState>, query: Option<&str>, msg: Option<&str>) -> String {
+    let mut html = html_head("🌍 SAHARA AFRI — La Mémoire du Continent");
+    html.push_str(r#"<h1>🌍 SAHARA AFRI</h1><p style="text-align:center;color:#a8c5a8;">La Mémoire du Continent. Notre Google à nous : taper un pays, recevoir son HISTOIRE VRAIE — empires, ethnies, langues, passé, présent, futur. Et chaque langue africaine a son <b>AI Autonome</b>, nourrie par les jeunes qui collectent les mots des anciens dans les villages. Chaque mot est gravé sur la blockchain. L'Afrique se souvient. 💚🦁</p><div class="nav"><a href="/">← Accueil</a> | <a href="/navigateur">🌐 Navigateur</a> | <a href="/sahara">🌍 Sahara Afri</a> | <a href="/annuaire">📖 Annuaire</a></div>"#);
+
+    if let Some(m) = msg {
+        html.push_str(&format!(r#"<div style="padding:12px;margin:10px 0;border:1px solid #25D366;border-radius:10px;background:#0a1a0a;color:#25D366;text-align:center;">✅ {}</div>"#, m));
+    }
+
+    // ===== LA RECHERCHE — taper un pays → sa vraie histoire =====
+    html.push_str(&format!(r##"<div class="card"><h2 style="color:#d4a437;">🔍 CHERCHER L'HISTOIRE DE L'AFRIQUE</h2>
+<form method="GET" action="/sahara" style="display:flex;gap:8px;flex-wrap:wrap;">
+<input type="text" name="q" placeholder="Tape un pays : Mali, Niger, Ghana, RD Congo…" value="{}" style="flex:1;min-width:200px;padding:14px;font-size:1.2em;border:2px solid #d4a437;border-radius:10px;background:#0a0a14;color:#d4a437;">
+<button style="padding:14px 28px;font-size:1.1em;background:#d4a437;color:#000;border:none;border-radius:10px;">🌍 La Mémoire répond</button>
+</form></div>"##, query.unwrap_or("")));
+
+    if let Some(q) = query {
+        let q = q.trim();
+        if !q.is_empty() {
+            html.push_str(&format!(r#"<div class="card"><h2>🦁 LA MÉMOIRE RÉPOND pour « {} »</h2>"#, q));
+            if let Some(f) = afri_memoire::chercher_pays(q) {
+                // ===== FICHE COMPLÈTE — les 14 pays fondateurs =====
+                html.push_str(&format!(r#"<div style="padding:16px;margin:10px 0;border:2px solid #d4a437;border-radius:12px;background:rgba(212,164,55,0.05);"><h3 style="margin:0 0 4px 0;">{} {} — {} </h3><p style="color:#a8c5a8;margin:0 0 12px 0;">Capitale : <b>{}</b></p>"#, f.drapeau, f.nom, f.capitale, f.capitale));
+                html.push_str(r#"<h4 style="color:#d4a437;margin:12px 0 4px 0;">📜 LE PASSÉ — l'histoire vraie</h4>"#);
+                for h in &f.histoire {
+                    html.push_str(&format!(r#"<div style="padding:8px 12px;margin:4px 0;border-left:3px solid #d4a437;background:rgba(212,164,55,0.05);color:#e8e8e8;">{}</div>"#, h));
+                }
+                html.push_str(&format!(r#"<h4 style="color:#25D366;margin:12px 0 4px 0;">🌱 LE PRÉSENT</h4><div style="padding:8px 12px;border-left:3px solid #25D366;background:rgba(37,211,102,0.05);color:#e8e8e8;">{}</div>"#, f.present));
+                html.push_str(&format!(r#"<h4 style="color:#66aaff;margin:12px 0 4px 0;">🔮 LE FUTUR</h4><div style="padding:8px 12px;border-left:3px solid #66aaff;background:rgba(102,170,255,0.05);color:#e8e8e8;">{}</div>"#, f.futur));
+                // Ethnies et langues
+                html.push_str(r#"<h4 style="color:#a78bfa;margin:12px 0 4px 0;">👥 PEUPLES</h4><p style="color:#e8e8e8;">"#);
+                html.push_str(&f.ethnies.join(" · "));
+                html.push_str(r#"</p><h4 style="color:#a78bfa;margin:12px 0 4px 0;">🗣️ LANGUES (chaque langue = un AI Autonome)</h4><p style="color:#e8e8e8;">"#);
+                html.push_str(&f.langues.join(" · "));
+                html.push_str(r#"</p></div>"#);
+                // Lien vers les AI des langues du pays
+                html.push_str(&format!(r#"<p style="text-align:center;"><a href="/sahara?langues={}#ai-langues" style="color:#d4a437;">🧠 Voir les AI Autonomes des langues du {} →</a></p>"#, f.nom, f.nom));
+            } else if let Some((nom, cap, flag, langues, histoire)) = afri_memoire::chercher_pays_compact(q) {
+                // ===== FICHE COMPACTE — les autres pays =====
+                html.push_str(&format!(r#"<div style="padding:16px;margin:10px 0;border:2px solid #d4a437;border-radius:12px;background:rgba(212,164,55,0.05);"><h3 style="margin:0 0 4px 0;">{} {} — {}</h3><p style="color:#a8c5a8;margin:0 0 12px 0;">Capitale : <b>{}</b></p><div style="padding:8px 12px;border-left:3px solid #d4a437;background:rgba(212,164,55,0.05);color:#e8e8e8;">{}</div><h4 style="color:#a78bfa;margin:12px 0 4px 0;">🗣️ LANGUES</h4><p style="color:#e8e8e8;">{}</p></div>"#, flag, nom, cap, cap, histoire, langues.join(" · ")));
+            } else {
+                html.push_str(r#"<p style="color:#ffaa44;padding:10px;">🌍 La Mémoire ne connaît pas encore ce nom. Mais l'Afrique est vaste — nourris-la avec les mots des anciens, et elle s'en souviendra pour toujours. <a href="/sahara#nourrir" style="color:#25D366;">Nourrir la Mémoire →</a></p>"#);
+            }
+            html.push_str("</div>");
+        }
+    }
+
+    // ===== LES AI DES LANGUES — classées par ordre, nourries par le peuple =====
+    {
+        let memoire = state.memoire.lock().unwrap();
+        let total_mots = memoire.total_mots();
+        let total_ais = memoire.langues.len();
+        html.push_str(&format!(r#"<div class="card" id="ai-langues"><h2 style="color:#a78bfa;">🧠 LES AI AUTONOMES DES LANGUES — {} AI, {} mots mangés</h2><p style="color:#a8c5a8;">Chaque langue africaine a son AI. Elle naît <b>Nouveau-né 🐣</b>, grandit avec chaque mot que les jeunes lui ramènent des villages : <b>Enfant 🌱 → Adolescente 🌿 → Adulte 🌳 → Sage 👑</b>. Les AI Mères (une par pays) gèrent leurs AI de langues — l'Afrique connectée par ses langues.</p>"#, total_ais, total_mots));
+
+        // Regrouper par pays, ordre alphabétique
+        let mut par_pays: Vec<(String, Vec<&afri_memoire::AiLangue>)> = Vec::new();
+        for ai in &memoire.langues {
+            if let Some(e) = par_pays.iter_mut().find(|(p, _)| *p == ai.pays) {
+                e.1.push(ai);
+            } else {
+                par_pays.push((ai.pays.clone(), vec![ai]));
+            }
+        }
+        for (pays, ais) in &par_pays {
+            let flag = AFRICAN_COUNTRIES.iter().find(|(n, _, _)| *n == *pays).map(|(_, _, f)| *f).unwrap_or("🌍");
+            let mots_pays: usize = ais.iter().map(|a| a.mots.len()).sum();
+            html.push_str(&format!(r#"<h3 style="color:#d4a437;margin:16px 0 6px 0;">{} {} — <span style="color:#a78bfa;">AI Mère</span> gérant {} AI de langues · {} mots</h3>"#, flag, pays, ais.len(), mots_pays));
+            for ai in ais {
+                let (niveau, emoji, n) = ai.niveau();
+                html.push_str(&format!(r#"<div style="padding:8px 12px;margin:4px 0;border-left:3px solid #a78bfa;background:rgba(167,139,250,0.05);color:#e8e8e8;">{} <b>AI {}</b> — niveau <b>{} {}</b> · {} mot(s)"#, emoji, ai.langue, niveau, emoji, n));
+                if !ai.mots.is_empty() {
+                    html.push_str(r#"<div style="margin-top:4px;font-size:0.9em;color:#a8c5a8;">Derniers mots mangés : "#);
+                    let derniers: Vec<String> = ai.mots.iter().rev().take(3).map(|m| format!("{} ({})", m.mot, m.sens)).collect();
+                    html.push_str(&derniers.join(" · "));
+                    html.push_str(r#"</div>"#);
+                }
+                html.push_str(r#"</div>"#);
+            }
+        }
+    }
+
+    // ===== NOURRIR LES AI — les jeunes collectent les mots des anciens =====
+    html.push_str(r#"<div class="card" id="nourrir"><h2 style="color:#25D366;">🌱 NOURRIR LES AI — la collecte des villages</h2><p style="color:#a8c5a8;">Les jeunes africains vont dans les villages, écoutent les anciens, et ramènent les mots. Chaque mot nourrit l'AI de sa langue ET est <b>gravé sur la blockchain</b> — l'ancien entre dans l'éternité. « Jeune, va demander à l'ancien le mot de <i>pluie</i> dans ta langue, et reviens nourrir l'AI. »</p>
+<form method="POST" action="/sahara/mot">
+<input type="text" name="pays" placeholder="Pays (ex: Mali)" required style="width:100%;padding:12px;margin:4px 0;border:1px solid #25D366;border-radius:8px;background:#0a1a0a;color:#25D366;">
+<input type="text" name="langue" placeholder="Langue (ex: Bambara)" required style="width:100%;padding:12px;margin:4px 0;border:1px solid #25D366;border-radius:8px;background:#0a1a0a;color:#25D366;">
+<input type="text" name="mot" placeholder="Le mot (ex: sanu)" required style="width:100%;padding:12px;margin:4px 0;border:1px solid #25D366;border-radius:8px;background:#0a1a0a;color:#25D366;">
+<input type="text" name="sens" placeholder="Le sens (ex: or)" required style="width:100%;padding:12px;margin:4px 0;border:1px solid #25D366;border-radius:8px;background:#0a1a0a;color:#25D366;">
+<input type="text" name="village" placeholder="Village (ex: Kangaba)" style="width:100%;padding:12px;margin:4px 0;border:1px solid #25D366;border-radius:8px;background:#0a1a0a;color:#25D366;">
+<input type="text" name="ancien" placeholder="Nom de l'ancien qui a transmis le mot (ex: Bakary Coulibaly)" style="width:100%;padding:12px;margin:4px 0;border:1px solid #25D366;border-radius:8px;background:#0a1a0a;color:#25D366;">
+<button style="width:100%;padding:14px;margin-top:8px;font-size:1.1em;background:#25D366;color:#000;border:none;border-radius:10px;">🌿 Nourrir l'AI + graver sur la blockchain</button>
+</form></div>"#);
+
+    html.push_str(r#"<footer style="text-align:center;margin-top:40px;color:#d4a437;">🌍 SAHARA AFRI — La Mémoire du Continent. L'Afrique se souvient, l'Afrique connecte ses langues. 💚🦁</footer>"#);
+    html.push_str("</body></html>");
+    html
+}
+
 fn html_navigateur(state: &Arc<AppState>, query: Option<&str>) -> String {
     let mut html = html_head("🌐 Navigateur Souverain");
     html.push_str(r#"<h1>🌐 NAVIGATEUR SOUVERAIN</h1><p style="text-align:center;color:#a8c5a8;">La barre d'adresse de l'Afrique. Tu tapes, AfriChain répond. Pas de Google, pas de tracking, pas de données qui partent — chaque recherche reste chez nous.</p><div class="nav"><a href="/">← Accueil</a> | <a href="/afri-net">🌍 Afri-Net</a> | <a href="/appels">📞 Appels</a> | <a href="/puce/ussd">📞 USSD</a></div>"#);
@@ -33295,6 +33419,16 @@ fn html_navigateur(state: &Arc<AppState>, query: Option<&str>) -> String {
             let q = q.trim();
             html.push_str(&format!(r#"<div class="card"><h2>🔎 RÉSULTATS pour « {} »</h2>"#, q));
             let mut resultats = 0;
+
+            // v1.78 — SAHARA AFRI : la Mémoire du Continent répond d'abord.
+            // Taper « Mali » → l'HISTOIRE VRAIE du Mali, pas juste des numéros.
+            if let Some(f) = afri_memoire::chercher_pays(q) {
+                html.push_str(&format!(r#"<div style="padding:12px;margin:8px 0;border:2px solid #d4a437;border-radius:12px;background:rgba(212,164,55,0.05);"><b>{} {}</b> — la Mémoire du Continent connaît ce pays : {} étapes d'histoire vraie, {} ethnies, {} langues. <a href="/sahara?q={}" style="color:#d4a437;">🌍 Lire l'histoire complète →</a></div>"#, f.drapeau, f.nom, f.histoire.len(), f.ethnies.len(), f.langues.len(), q));
+                resultats += 1;
+            } else if let Some((nom, _, flag, _, _)) = afri_memoire::chercher_pays_compact(q) {
+                html.push_str(&format!(r#"<div style="padding:12px;margin:8px 0;border:2px solid #d4a437;border-radius:12px;background:rgba(212,164,55,0.05);"><b>{} {}</b> — la Mémoire du Continent connaît ce pays. <a href="/sahara?q={}" style="color:#d4a437;">🌍 Lire son histoire →</a></div>"#, flag, nom, q));
+                resultats += 1;
+            }
 
             // 1. Utilisateurs
             {
@@ -33379,7 +33513,7 @@ fn html_sms(state: &Arc<AppState>, username: &str, contact: Option<&str>, msg: O
     let puces = state.puce.lock().unwrap();
     let ma_puce = puces.par_username(username).cloned();
     let mut html = html_head("💬 SMS Verts");
-    html.push_str(r#"<h1>💬 SMS VERTS</h1><p style="text-align:center;color:#a8c5a8;">La messagerie du réseau Planète Verte. Chaque SMS est un pli plié qui passe de puce à puce — pas de serveur occidental au milieu.</p><div class="nav"><a href="/">← Accueil</a> | <a href="/appels">📞 Appels</a> | <a href="/puce/ussd">📞 USSD</a> | <a href="/navigateur">🌐 Navigateur</a></div>"#);
+    html.push_str(r#"<h1>💬 SMS VERTS</h1><p style="text-align:center;color:#a8c5a8;">La messagerie du réseau Planète Verte. Chaque SMS est un pli plié qui passe de puce à puce — pas de serveur occidental au milieu.</p><div class="nav"><a href="/">← Accueil</a> | <a href="/appels">📞 Appels</a> | <a href="/puce/ussd">📞 USSD</a> | <a href="/navigateur">🌐 Navigateur</a> | <a href="/sahara">🌍 Sahara Afri</a></div>"#);
 
     if ma_puce.is_none() {
         html.push_str(r#"<div class="card"><h2>🟢 Active d'abord ta puce verte</h2><p style="color:#a8c5a8;">Pour envoyer des SMS verts, il te faut un numéro vert.</p><a href="/puce/activer"><button style="background:#25D366;color:#000;border:none;border-radius:10px;padding:12px 24px;font-size:1.1em;">🌿 Activer ma puce</button></a></div>"#);
@@ -34382,6 +34516,7 @@ struct AppState {
     appels: Mutex<afri_puce::AppelStore>,  // v1.76: Appels Verts
     sms_verts: Mutex<afri_puce::SmsStore>,  // v1.76: SMS Verts          // Planète Verte — la puce (v1.76)
     cerveau: Mutex<afri_cerveau::CerveauIA>,  // v1.77: Le Cerveau Autonome — mémoire serveur persistante
+    memoire: Mutex<afri_memoire::MemoireStore>,  // v1.78: La Mémoire du Continent — SAHARA AFRI + AI des langues
 }
 
 fn main() {
@@ -34393,7 +34528,7 @@ fn main() {
         .and_then(|i| args.get(i + 1)).cloned().unwrap_or_else(|| "Afrique".to_string());
 
     let my_node_id = generate_node_id();
-    println!("🧠 AfriChain v1.77 — Le Cerveau Autonome — l'AI pense côté serveur, avec mémoire 💚");
+    println!("🧠 AfriChain v1.78 — La Mémoire du Continent — SAHARA AFRI répond, les AI des langues mangent les mots des anciens 💚");
     println!("📞 Appels + SMS par le réseau Planète Verte — pas d'Orange, pas de MTN");
     println!("🌐 Navigateur Souverain — chercher DANS AfriChain, jamais Google");
     println!("🌱 1 AFR = $1M — 1 graine = $0.01 = 6 FCFA — Quiz = 20 000 FCFA");
@@ -34492,6 +34627,7 @@ fn main() {
         appels: Mutex::new(afri_puce::AppelStore::nouveau()),
         sms_verts: Mutex::new(afri_puce::SmsStore::nouveau()),
         cerveau: Mutex::new(afri_cerveau::CerveauIA::charger(&afri_cerveau::CerveauIA::chemin_data())),
+        memoire: Mutex::new(afri_memoire::MemoireStore::charger()),
     });
 
     // ===== v1.76: 4 UTILISATEURS DÉMO — pour s'appeler et s'envoyer des SMS =====
@@ -34832,7 +34968,7 @@ fn admin_interface(state: &Arc<AppState>) {
         println!("\n");
         println!("╔══════════════════════════════════════╗");
         println!("║  🏦 CENTRE DE DONNÉES — Admin       ║");
-        println!("║  🦁 AfriChain v1.77                  ║");
+        println!("║  🦁 AfriChain v1.78                  ║");
         println!("╠══════════════════════════════════════╣");
         let chain = state.chain.lock().unwrap();
         let users = state.users.lock().unwrap();
@@ -39183,6 +39319,46 @@ fn handle_request(req: afri_http::HttpRequest, state: &Arc<AppState>) -> afri_ht
         ("GET", "/navigateur") => {
             let q = req.query_str("q").map(|s| s.to_string());
             HttpResponse::ok(&html_navigateur(state, q.as_deref()))
+        }
+
+        // ===== v1.78: SAHARA AFRI — La Mémoire du Continent =====
+        ("GET", "/sahara") => {
+            let q = req.query_str("q").map(|s| s.to_string());
+            let msg = req.query_str("msg").map(|s| s.to_string());
+            HttpResponse::ok(&html_sahara(state, q.as_deref(), msg.as_deref()))
+        }
+        ("POST", "/sahara/mot") => {
+            // Le jeune collecte un mot d'un ancien → l'AI de la langue le mange
+            // ET le mot est gravé sur la blockchain pour l'éternité.
+            let form = parse_urlencoded(&req.body);
+            let collecteur = session_user(&req, state).unwrap_or_else(|| "Anonyme".to_string());
+            let pays = form.get("pays").cloned().unwrap_or_default();
+            let langue = form.get("langue").cloned().unwrap_or_default();
+            let mot = form.get("mot").cloned().unwrap_or_default();
+            let sens = form.get("sens").cloned().unwrap_or_default();
+            let village = form.get("village").cloned().unwrap_or_default();
+            let ancien = form.get("ancien").cloned().unwrap_or_default();
+            if pays.is_empty() || langue.is_empty() || mot.is_empty() || sens.is_empty() {
+                return HttpResponse::redirect("/sahara?msg=⚠️ Remplis au moins pays, langue, mot et sens");
+            }
+            // Lock order: chain -> memoire (jamais l'inverse)
+            let mut chain = state.chain.lock().unwrap();
+            let mut memoire = state.memoire.lock().unwrap();
+            let m = memoire.nourrir(&langue, &pays, &mot, &sens, &village, &collecteur, &ancien);
+            memoire.sauvegarder();
+            let niveau = memoire.langues.iter()
+                .find(|a| a.langue.eq_ignore_ascii_case(&langue) && a.pays.eq_ignore_ascii_case(&pays))
+                .map(|a| a.niveau()).unwrap_or(("Nouveau-né", "🐣", 0));
+            drop(memoire);
+            // Graver sur la blockchain — l'ancien entre dans l'éternité
+            let tx = Transaction::new("SYSTEM", "SAHARA-AFRI", 0, &format!("SAHARA-MOT | {} | {} = {} | ancien: {} | village: {} | collecteur: {}", m.langue, m.mot, m.sens, m.ancien, m.village, m.collecteur));
+            let tx_json = to_string(&tx.to_json());
+            chain.add_transaction(tx);
+            chain.mine_pending("SYSTEM");
+            chain.save_to_file();
+            drop(chain);
+            broadcast_mesh(&*state, "tx", &tx_json);
+            HttpResponse::redirect(&format!("/sahara?msg=🌿 L'AI {} a mangé « {} » ({}) — niveau {} {} · mot gravé sur la blockchain. Merci {} !", langue, mot, sens, niveau.0, niveau.1, collecteur))
         }
 
         ("GET", "/afri-store") => {
