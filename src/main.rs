@@ -1495,6 +1495,26 @@ Aucune donnée ne quitte le continent. 📡</p></div>
 </body></html>"##, html_head("🦁 AfriChain"))
 }
 
+/// v1.72.1: HOME UTILISATEUR — le client connecté voit les services Planète Verte,
+/// pas l'âme du créateur. Comme Orange Money : simple, bancaire, africain.
+fn html_home_user(username: &str, flag: &str, phone: &str) -> String {
+    format!(r##"{}<h1>🌿 Planète Verte</h1>
+<p style="text-align:center;color:#a8c5a8;">Salut <b>{}</b> {} — ton réseau africain. Tout est ici, rien ne sort du continent. 💚</p>
+<div class="nav"><a href="/account?user={}">👛 Mon compte</a> | <a href="/logout">🚪 Déconnexion</a></div>
+<div class="card"><h2>📞 Les services du réseau vert</h2>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-top:10px;">
+<a href="/appels" style="text-decoration:none;"><div style="padding:16px;border:1px solid #25D366;border-radius:10px;text-align:center;color:#25D366;">📞<br><b>Appels Verts</b></div></a>
+<a href="/sms" style="text-decoration:none;"><div style="padding:16px;border:1px solid #25D366;border-radius:10px;text-align:center;color:#25D366;">💬<br><b>SMS Verts</b></div></a>
+<a href="/navigateur" style="text-decoration:none;"><div style="padding:16px;border:1px solid #d4a437;border-radius:10px;text-align:center;color:#d4a437;">🌐<br><b>Navigateur</b></div></a>
+<a href="/wari" style="text-decoration:none;"><div style="padding:16px;border:1px solid #d4a437;border-radius:10px;text-align:center;color:#d4a437;">🏦<br><b>Afri.Wari #144#</b></div></a>
+<a href="/annuaire" style="text-decoration:none;"><div style="padding:16px;border:1px solid #7ec87e;border-radius:10px;text-align:center;color:#7ec87e;">📖<br><b>Annuaire</b></div></a>
+<a href="/account?user={}" style="text-decoration:none;"><div style="padding:16px;border:1px solid #7ec87e;border-radius:10px;text-align:center;color:#7ec87e;">🦁<br><b>Lion + Dépôt</b></div></a>
+</div></div>
+<div class="card"><h2>📱 Ma puce verte</h2><p style="text-align:center;color:#a8c5a8;">Ton numéro : <b style="color:#d4a437;">{} {}</b></p><p style="color:#a8c5a8;">Chaque appel, chaque SMS passe de puce à puce sur le réseau AfriChain. Aucun serveur occidental. 🌿</p></div>
+<footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🦁 AfriChain — L'Afrique ne demande plus la permission</footer>
+</body></html>"##, html_head("🌿 Planète Verte"), username, flag, username, username, flag, phone)
+}
+
 fn html_home(chain: &Blockchain, users: &UserStore, mesh: &NodeRegistry, shield: &ShieldState, machines: &MachineEconomy) -> String {
     let mut html = html_head("🦁 AfriChain");
     let (attacks, _blocked, blocked_count, level) = shield.stats();
@@ -38280,6 +38300,17 @@ fn handle_request(req: afri_http::HttpRequest, state: &Arc<AppState>) -> afri_ht
                 let shield = state.shield.lock().unwrap();
                 let machines = state.machines.lock().unwrap();
                 HttpResponse::ok(&html_home(&chain, &users, &mesh, &shield, &machines))
+            } else if let Some(username) = session_user(&req, state) {
+                // v1.72.1 — L'utilisateur connecté voit les services Planète Verte
+                let users = state.users.lock().unwrap();
+                if let Some(u) = users.users.iter().find(|u| u.username == username) {
+                    let (flag, phone) = (find_country(&u.country_code).map(|c| c.1.to_string()).unwrap_or("🌍".to_string()), u.phone.clone());
+                    drop(users);
+                    HttpResponse::ok(&html_home_user(&username, &flag, &phone))
+                } else {
+                    drop(users);
+                    HttpResponse::ok(&html_home_public())
+                }
             } else {
                 HttpResponse::ok(&html_home_public())
             }
