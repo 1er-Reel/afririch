@@ -14,8 +14,8 @@ use std::collections::HashMap;
 use crate::afri_json::{JsonValue, to_string, from_str};
 use crate::afri_time::now_timestamp;
 
-/// 1 AES = $3M = 3 AFR (l'or, le fer, l'eau, le pétrole, le diamant)
-pub const AFR_PAR_AES: u64 = 3;
+/// 1 AES = 3 000 000 € = 200 AFR (l'or, le fer, l'eau, le pétrole, le diamant)
+pub const AFR_PAR_AES: u64 = 200;
 
 /// La récompense de minage par bloc (doit rester synchronisée avec Blockchain::reward)
 pub const RECOMPENSE_BLOC_AFR: u64 = 100;

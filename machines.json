@@ -2,89 +2,89 @@
   "machines": [
     {
       "address": "Afri17a129a477531c5399c7ca7f85380e252c53f0f21c750432fcc33e98e3a7ac3c",
-      "balance": 14701,
-      "blocks_mined": 44,
+      "balance": 20381,
+      "blocks_mined": 85,
       "city": "Bamako",
       "country": "Mali",
       "flag": "🇲🇱",
-      "last_action": "→ 🇳🇬 ◈LAGOS-06 : 68 AFR",
+      "last_action": "→ 🇧🇫 ◈OUAGA-03 : 104 AFR",
       "name": "◈BAMAKO-01",
       "solar_kwh": 6.7,
       "status": "ACTIF",
-      "tx_received": 149,
-      "tx_sent": 152
+      "tx_received": 297,
+      "tx_sent": 286
     },
     {
       "address": "Afriffad656ed2491ff1be8b7b381cc0b3a759d9d2ce2b00ef4baf209c7a53f53604",
-      "balance": 14769,
-      "blocks_mined": 38,
+      "balance": 17548,
+      "blocks_mined": 79,
       "city": "Niamey",
       "country": "Niger",
       "flag": "🇳🇪",
-      "last_action": "→ 🇳🇬 ◈LAGOS-06 : 87 AFR",
+      "last_action": "→ 🇨🇮 ◈ABIDJAN-05 : 143 AFR",
       "name": "◈NIAMEY-02",
       "solar_kwh": 6.8,
       "status": "ACTIF",
-      "tx_received": 148,
-      "tx_sent": 146
+      "tx_received": 285,
+      "tx_sent": 293
     },
     {
       "address": "Afri35e5c1fccb60086a718e308bc646d787d59e48c1cc83900b2a9616d6f5914097",
-      "balance": 11887,
-      "blocks_mined": 60,
+      "balance": 12031,
+      "blocks_mined": 113,
       "city": "Ouagadougou",
       "country": "Burkina Faso",
       "flag": "🇧🇫",
-      "last_action": "← 🇳🇪 ◈NIAMEY-02 : 183 AFR",
+      "last_action": "← 🇳🇬 ◈LAGOS-06 : 71 AFR",
       "name": "◈OUAGA-03",
       "solar_kwh": 6,
       "status": "ACTIF",
-      "tx_received": 144,
-      "tx_sent": 165
+      "tx_received": 269,
+      "tx_sent": 316
     },
     {
       "address": "Afri7171917c1db4861bc579a342a8a8dbb6a1b42b3314cf0fff9fd0a05cd1b18493",
-      "balance": 15549,
-      "blocks_mined": 48,
+      "balance": 24023,
+      "blocks_mined": 94,
       "city": "Accra",
       "country": "Ghana",
       "flag": "🇬🇭",
-      "last_action": "→ 🇳🇬 ◈LAGOS-06 : 130 AFR",
+      "last_action": "→ 🇧🇫 ◈OUAGA-03 : 57 AFR",
       "name": "◈ACCRA-04",
       "solar_kwh": 5.1,
       "status": "ACTIF",
-      "tx_received": 158,
-      "tx_sent": 151
+      "tx_received": 298,
+      "tx_sent": 266
     },
     {
       "address": "Afribcb4c0cc8188440d0e130d619ef0f4df2f62dbcedfff9a90f011db9afa55267c",
-      "balance": 14881,
-      "blocks_mined": 52,
+      "balance": 21580,
+      "blocks_mined": 91,
       "city": "Abidjan",
       "country": "Côte d'Ivoire",
       "flag": "🇨🇮",
-      "last_action": "→ 🇬🇭 ◈ACCRA-04 : 125 AFR",
+      "last_action": "→ 🇳🇬 ◈LAGOS-06 : 183 AFR",
       "name": "◈ABIDJAN-05",
       "solar_kwh": 5.2,
       "status": "ACTIF",
-      "tx_received": 155,
-      "tx_sent": 151
+      "tx_received": 287,
+      "tx_sent": 265
     },
     {
       "address": "Afrib2684d036ba2f511c63f972c27c9cd80c1e943f7e7e7fdcd1d770bffb53af0f7",
-      "balance": 18113,
-      "blocks_mined": 57,
+      "balance": 21137,
+      "blocks_mined": 105,
       "city": "Lagos",
       "country": "Nigeria",
       "flag": "🇳🇬",
-      "last_action": "← 🇳🇪 ◈NIAMEY-02 : 87 AFR",
+      "last_action": "← 🇨🇮 ◈ABIDJAN-05 : 183 AFR",
       "name": "◈LAGOS-06",
       "solar_kwh": 5.8,
       "status": "ACTIF",
-      "tx_received": 144,
-      "tx_sent": 133
+      "tx_received": 265,
+      "tx_sent": 275
     }
   ],
-  "total_mined": 299,
-  "tx_count": 898
+  "total_mined": 567,
+  "tx_count": 1701
 }

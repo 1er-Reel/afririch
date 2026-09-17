@@ -1,6 +1,6 @@
 // ===== AFRI LION — Le Lion du Sahel: tâches + épargne + retraite =====
 // v1.64 — Comme Hamster, mais pour nous c'est le Lion. 🦁
-// v1.66 — LA MONNAIE INTELLIGENTE: 1 AFR = 1 million de dollars.
+// v1.66 — LA MONNAIE INTELLIGENTE: v1.81: 1 AFR = 600 000 000 €. 
 // Les récompenses sont en GRAINES: 1 AFR = 100 000 000 graines.
 // 1 graine = 0.00000001 AFR = 0.01 $. Tout petit, comme le veut le chef.
 // Quand tes graines atteignent 1 AFR → vraie transaction blockchain.
@@ -14,7 +14,7 @@ use crate::afri_time::now_timestamp;
 pub const GRAINES_PAR_AFR: u64 = 100_000_000;
 
 /// v1.67 — LE FCFA, la monnaie du quotidien africain. 💵
-/// 1 AFR = $1M ≈ 600 000 000 FCFA → 1 graine = 6 FCFA.
+/// 1 AFR = 600 000 000 € = 600 000 000 FCFA → 1 graine = 6 FCFA.
 /// Le quiz paie 20 000 FCFA par bonne réponse — la valeur reste en Afri.
 pub const FCFA_PAR_AFR: u64 = 600_000_000;
 /// Le retrait FCFA est possible à partir de ce seuil (chef: 5 000 FCFA)
@@ -47,7 +47,7 @@ pub struct TacheLion {
     pub icone: String,      // emoji
 }
 
-/// Les 8 tâches quotidiennes du Lion — gains en graines (1 graine = $0.01)
+/// Les 8 tâches quotidiennes du Lion — gains en graines (1 graine = 6 FCFA)
 pub fn taches_du_jour() -> Vec<TacheLion> {
     vec![
         TacheLion { id: "salut".into(), titre: "Saluer le Lion".into(), description: "Dire bonjour à la blockchain africaine. Le Lion répond.".into(), gain: 10, icone: "🦁".into() },

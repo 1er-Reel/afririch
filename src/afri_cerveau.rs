@@ -309,7 +309,7 @@ fn construire_reponse(cerveau: &mut CerveauIA, user: &str, nq: &str, sujet: &str
             if ctx.username.is_empty() {
                 "Connecte-toi à ton compte et je te donne ton solde en direct — chaque chiffre que je dis vient de la vraie blockchain. 💚".to_string()
             } else {
-                format!("Ton solde: {} AFR. Gravé sur {} blocs, signé Ed25519, personne ne peut y toucher. 1 AFR = $1M — tu es riche, {} ! 💰", ctx.solde, ctx.blocs, prenom)
+                format!("Ton solde: {} AFR. Gravé sur {} blocs, signé Ed25519, personne ne peut y toucher. 1 AFR = 600 000 000 € — tu es riche, {} ! 💰", ctx.solde, ctx.blocs, prenom)
             }
         }
         "utilisateur" => {
