@@ -32,11 +32,22 @@ pub struct CodeCompte {
     pub lu: bool,
 }
 
+/// v1.87 — UN GROUPE 👥 (conversation à plusieurs, comme les groupes WhatsApp)
+#[derive(Debug, Clone)]
+pub struct GroupeNoires {
+    pub id: String,           // "GR1"
+    pub nom: String,
+    pub createur: String,
+    pub membres: Vec<String>,  // usernames
+    pub messages: Vec<MsgNoires>, // réutilise MsgNoires: a = id du groupe
+}
+
 /// Le magasin LES NOIRES — messages + codes, persisté dans noires.json
 #[derive(Debug, Clone)]
 pub struct NoiresStore {
     pub messages: Vec<MsgNoires>,
     pub codes: Vec<CodeCompte>,
+    pub groupes: Vec<GroupeNoires>,   // v1.87 👥
     pub chemin: String,
 }
 
@@ -48,7 +59,7 @@ impl NoiresStore {
                 let v = from_str(&data).unwrap_or(JsonValue::Object(HashMap::new()));
                 NoiresStore::from_json(&v)
             }
-            Err(_) => NoiresStore { messages: Vec::new(), codes: Vec::new(), chemin },
+            Err(_) => NoiresStore { messages: Vec::new(), codes: Vec::new(), groupes: Vec::new(), chemin },
         };
         s
     }
@@ -153,6 +164,102 @@ impl NoiresStore {
     // ===== LES CODES DE COMPTE 🔢 =====
 
     /// Envoyer un code de compte à un utilisateur (6 chiffres, comme Orange Money)
+    // ===== v1.87 — GROUPES 👥 =====
+    /// Créer un groupe — le créateur est premier membre
+    pub fn creer_groupe(&mut self, nom: &str, createur: &str) -> GroupeNoires {
+        let g = GroupeNoires {
+            id: format!("GR{}", self.groupes.len() + 1),
+            nom: nom.to_string(),
+            createur: createur.to_string(),
+            membres: vec![createur.to_string()],
+            messages: Vec::new(),
+        };
+        self.groupes.push(g.clone());
+        g
+    }
+
+    /// Envoyer un message dans un groupe (l'expéditeur doit être membre)
+    /// Renvoie la liste des autres membres (pour les notifs 🔔)
+    pub fn envoyer_groupe(&mut self, gid: &str, de: &str, texte: &str, heure: i64) -> Result<Vec<String>, String> {
+        match self.groupes.iter_mut().find(|g| g.id == gid) {
+            Some(g) => {
+                if !g.membres.iter().any(|m| m == de) {
+                    return Err("Tu n'es pas membre de ce groupe".to_string());
+                }
+                let id = format!("NQ{}G{}", self.messages.len() + 1, g.messages.len() + 1);
+                g.messages.push(MsgNoires {
+                    id,
+                    de: de.to_string(),
+                    a: gid.to_string(),
+                    texte: texte.to_string(),
+                    heure,
+                    lu: false,
+                    reactions: Vec::new(),
+                });
+                let autres: Vec<String> = g.membres.iter().filter(|m| *m != de).cloned().collect();
+                Ok(autres)
+            }
+            None => Err("Groupe introuvable".to_string()),
+        }
+    }
+
+    /// Ajouter un membre (seul le créateur peut ajouter)
+    pub fn ajouter_membre(&mut self, gid: &str, par: &str, nouveau: &str) -> Result<(), String> {
+        match self.groupes.iter_mut().find(|g| g.id == gid) {
+            Some(g) => {
+                if g.createur != par {
+                    return Err("Seul le créateur du groupe peut ajouter des membres".to_string());
+                }
+                if g.membres.iter().any(|m| m == nouveau) {
+                    return Err("Déjà membre du groupe".to_string());
+                }
+                g.membres.push(nouveau.to_string());
+                Ok(())
+            }
+            None => Err("Groupe introuvable".to_string()),
+        }
+    }
+
+    /// Quitter un groupe
+    pub fn quitter_groupe(&mut self, gid: &str, moi: &str) -> Result<(), String> {
+        match self.groupes.iter_mut().find(|g| g.id == gid) {
+            Some(g) => {
+                g.membres.retain(|m| m != moi);
+                Ok(())
+            }
+            None => Err("Groupe introuvable".to_string()),
+        }
+    }
+
+    /// Mes groupes
+    pub fn groupes_de(&self, username: &str) -> Vec<&GroupeNoires> {
+        self.groupes.iter().filter(|g| g.membres.iter().any(|m| m == username)).collect()
+    }
+
+    /// Un groupe par id
+    pub fn groupe(&self, gid: &str) -> Option<&GroupeNoires> {
+        self.groupes.iter().find(|g| g.id == gid)
+    }
+
+    /// Marquer les messages du groupe comme lus pour un utilisateur
+    pub fn marquer_groupe_lu(&mut self, gid: &str, username: &str) {
+        if let Some(g) = self.groupes.iter_mut().find(|g| g.id == gid) {
+            for m in g.messages.iter_mut() {
+                if m.de != username {
+                    m.lu = true;
+                }
+            }
+        }
+    }
+
+    /// Messages non lus d'un groupe pour un utilisateur
+    pub fn groupe_non_lus(&self, gid: &str, username: &str) -> usize {
+        match self.groupes.iter().find(|g| g.id == gid) {
+            Some(g) => g.messages.iter().filter(|m| m.de != username && !m.lu).count(),
+            None => 0,
+        }
+    }
+
     pub fn envoyer_code(&mut self, username: &str, texte: &str, heure: i64) -> CodeCompte {
         let code = format!("{:06}", crate::afri_rng::random_u64() % 1_000_000);
         let id = format!("CD{}", self.codes.len() + 1);
@@ -225,9 +332,43 @@ impl NoiresStore {
             o.insert("lu".to_string(), JsonValue::Bool(c.lu));
             cds.push(JsonValue::Object(o));
         }
+        let mut grps = Vec::new();
+        for g in &self.groupes {
+            let mut o = HashMap::new();
+            o.insert("id".to_string(), JsonValue::Str(g.id.clone()));
+            o.insert("nom".to_string(), JsonValue::Str(g.nom.clone()));
+            o.insert("createur".to_string(), JsonValue::Str(g.createur.clone()));
+            let mut mb = Vec::new();
+            for m in &g.membres {
+                mb.push(JsonValue::Str(m.clone()));
+            }
+            o.insert("membres".to_string(), JsonValue::Array(mb));
+            let mut gmsgs = Vec::new();
+            for m in &g.messages {
+                let mut mo = HashMap::new();
+                mo.insert("id".to_string(), JsonValue::Str(m.id.clone()));
+                mo.insert("de".to_string(), JsonValue::Str(m.de.clone()));
+                mo.insert("a".to_string(), JsonValue::Str(m.a.clone()));
+                mo.insert("texte".to_string(), JsonValue::Str(m.texte.clone()));
+                mo.insert("heure".to_string(), JsonValue::Int(m.heure));
+                mo.insert("lu".to_string(), JsonValue::Bool(m.lu));
+                let mut rx = Vec::new();
+                for (u, e) in &m.reactions {
+                    let mut ro = HashMap::new();
+                    ro.insert("u".to_string(), JsonValue::Str(u.clone()));
+                    ro.insert("e".to_string(), JsonValue::Str(e.clone()));
+                    rx.push(JsonValue::Object(ro));
+                }
+                mo.insert("reactions".to_string(), JsonValue::Array(rx));
+                gmsgs.push(JsonValue::Object(mo));
+            }
+            o.insert("messages".to_string(), JsonValue::Array(gmsgs));
+            grps.push(JsonValue::Object(o));
+        }
         let mut root = HashMap::new();
         root.insert("messages".to_string(), JsonValue::Array(msgs));
         root.insert("codes".to_string(), JsonValue::Array(cds));
+        root.insert("groupes".to_string(), JsonValue::Array(grps));
         JsonValue::Object(root)
     }
 
@@ -274,6 +415,54 @@ impl NoiresStore {
                 }
             }
         }
-        NoiresStore { messages, codes, chemin: crate::data_path("noires.json") }
+        let mut groupes = Vec::new();
+        if let Some(obj) = v.as_object() {
+            if let Some(JsonValue::Array(arr)) = obj.get("groupes") {
+                for item in arr {
+                    if let Some(go) = item.as_object() {
+                        let g = |k: &str| go.get(k).and_then(|v| v.as_str()).unwrap_or("").to_string();
+                        let mut membres = Vec::new();
+                        if let Some(JsonValue::Array(mb)) = go.get("membres") {
+                            for m in mb {
+                                if let Some(s) = m.as_str() {
+                                    membres.push(s.to_string());
+                                }
+                            }
+                        }
+                        let mut messages = Vec::new();
+                        if let Some(JsonValue::Array(marr)) = go.get("messages") {
+                            for mitem in marr {
+                                if let Some(m) = mitem.as_object() {
+                                    let gm = |k: &str| m.get(k).and_then(|v| v.as_str()).unwrap_or("").to_string();
+                                    let gi = |k: &str| m.get(k).and_then(|v| v.as_i64()).unwrap_or(0);
+                                    let gb = |k: &str| m.get(k).and_then(|v| v.as_bool()).unwrap_or(false);
+                                    let mut reactions = Vec::new();
+                                    if let Some(JsonValue::Array(rx)) = m.get("reactions") {
+                                        for r in rx {
+                                            if let Some(ro) = r.as_object() {
+                                                reactions.push((
+                                                    ro.get("u").and_then(|v| v.as_str()).unwrap_or("").to_string(),
+                                                    ro.get("e").and_then(|v| v.as_str()).unwrap_or("").to_string(),
+                                                ));
+                                            }
+                                        }
+                                    }
+                                    messages.push(MsgNoires {
+                                        id: gm("id"), de: gm("de"), a: gm("a"),
+                                        texte: gm("texte"), heure: gi("heure"), lu: gb("lu"),
+                                        reactions,
+                                    });
+                                }
+                            }
+                        }
+                        groupes.push(GroupeNoires {
+                            id: g("id"), nom: g("nom"), createur: g("createur"),
+                            membres, messages,
+                        });
+                    }
+                }
+            }
+        }
+        NoiresStore { messages, codes, groupes, chemin: crate::data_path("noires.json") }
     }
 }

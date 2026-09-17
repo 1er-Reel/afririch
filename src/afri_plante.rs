@@ -49,6 +49,29 @@ pub struct PostPlante {
     pub reactions: Vec<(String, String)>, // v1.86 : (username, emoji) — ❤️😂😮😢👏 comme Facebook
 }
 
+/// v1.87 — UN ÉVÉNEMENT 📅 (comme Facebook Events: créer, inviter, participer)
+#[derive(Clone, Debug)]
+pub struct EvenementPlante {
+    pub id: String,
+    pub auteur: String,
+    pub titre: String,
+    pub lieu: String,
+    pub date_texte: String,        // date libre: "Samedi 20 sept à 15h"
+    pub description: String,
+    pub participants: Vec<String>,
+}
+
+/// v1.87 — UNE ANNONCE DU MARCHÉ 🏪 (Marketplace: vendre/acheter en AFR entre frères)
+#[derive(Clone, Debug)]
+pub struct AnnonceMarche {
+    pub id: String,
+    pub vendeur: String,
+    pub titre: String,
+    pub prix: i64,                 // en AFR
+    pub description: String,
+    pub vendu: bool,
+}
+
 /// Une story (expire après 24h) — v1.84: commentable 💬 comme les reels
 #[derive(Clone, Debug)]
 pub struct StoryPlante {
@@ -82,6 +105,8 @@ pub struct PlanteStore {
     pub profils: HashMap<String, ProfilPlante>,
     pub stories: Vec<StoryPlante>,
     pub invitations: Vec<InvitationPlante>,
+    pub evenements: Vec<EvenementPlante>,   // v1.87 📅
+    pub annonces: Vec<AnnonceMarche>,       // v1.87 🏪
 }
 
 impl PlanteStore {
@@ -92,6 +117,8 @@ impl PlanteStore {
             profils: HashMap::new(),
             stories: Vec::new(),
             invitations: Vec::new(),
+            evenements: Vec::new(),
+            annonces: Vec::new(),
         }
     }
 
@@ -201,6 +228,17 @@ impl PlanteStore {
 
     pub fn publier(&mut self, author: &str, contenu: &str) {
         self.publier_media(author, contenu, None, "", None);
+    }
+
+    /// v1.87 — MODIFIER SON PROPRE POST ✏️ (seul l'auteur peut)
+    pub fn modifier_post(&mut self, index: usize, moi: &str, texte: &str) -> bool {
+        match self.posts.get_mut(index) {
+            Some(p) if p.author == moi => {
+                p.contenu = texte.to_string();
+                true
+            }
+            _ => false,
+        }
     }
 
     pub fn publier_media(&mut self, author: &str, contenu: &str, media: Option<String>, media_type: &str, shared_from: Option<String>) {
@@ -473,6 +511,100 @@ impl PlanteStore {
     }
 
     /// ⭐ Les étoiles d'un utilisateur = le total de likes reçus sur ses posts
+    // ===== v1.87 — ÉVÉNEMENTS 📅 =====
+    pub fn creer_evenement(&mut self, auteur: &str, titre: &str, lieu: &str, date_texte: &str, description: &str) -> EvenementPlante {
+        let ev = EvenementPlante {
+            id: format!("EV{}", self.evenements.len() + 1),
+            auteur: auteur.to_string(),
+            titre: titre.to_string(),
+            lieu: lieu.to_string(),
+            date_texte: date_texte.to_string(),
+            description: description.to_string(),
+            participants: vec![auteur.to_string()],
+        };
+        self.evenements.push(ev.clone());
+        ev
+    }
+
+    pub fn participer_evenement(&mut self, id: &str, moi: &str) -> bool {
+        match self.evenements.iter_mut().find(|e| e.id == id) {
+            Some(e) => {
+                if !e.participants.iter().any(|p| p == moi) {
+                    e.participants.push(moi.to_string());
+                }
+                true
+            }
+            None => false,
+        }
+    }
+
+    pub fn annuler_participation(&mut self, id: &str, moi: &str) -> bool {
+        match self.evenements.iter_mut().find(|e| e.id == id) {
+            Some(e) => {
+                e.participants.retain(|p| p != moi);
+                true
+            }
+            None => false,
+        }
+    }
+
+    pub fn evenement(&self, id: &str) -> Option<&EvenementPlante> {
+        self.evenements.iter().find(|e| e.id == id)
+    }
+
+    // ===== v1.87 — MARCHÉ 🏪 =====
+    pub fn publier_annonce(&mut self, vendeur: &str, titre: &str, prix: i64, description: &str) -> AnnonceMarche {
+        let a = AnnonceMarche {
+            id: format!("MA{}", self.annonces.len() + 1),
+            vendeur: vendeur.to_string(),
+            titre: titre.to_string(),
+            prix,
+            description: description.to_string(),
+            vendu: false,
+        };
+        self.annonces.push(a.clone());
+        a
+    }
+
+    pub fn acheter_annonce(&mut self, id: &str) -> Option<String> {
+        // renvoie le nom du vendeur si l'annonce existe et pas encore vendue
+        match self.annonces.iter_mut().find(|a| a.id == id) {
+            Some(a) if !a.vendu => {
+                a.vendu = true;
+                Some(a.vendeur.clone())
+            }
+            _ => None,
+        }
+    }
+
+    // ===== v1.87 — MENTIONS @ 🏷️ =====
+    /// Extrait les usernames mentionnés dans un texte: "@koffi viens !" → ["koffi"]
+    pub fn extraire_mentions(texte: &str) -> Vec<String> {
+        let mut mentions = Vec::new();
+        let mut courant = String::new();
+        let mut en_mention = false;
+        for c in texte.chars() {
+            if c == '@' {
+                en_mention = true;
+                courant.clear();
+            } else if en_mention {
+                if c.is_alphanumeric() || c == '_' {
+                    courant.push(c);
+                } else {
+                    if !courant.is_empty() {
+                        mentions.push(courant.clone());
+                    }
+                    courant.clear();
+                    en_mention = false;
+                }
+            }
+        }
+        if !courant.is_empty() {
+            mentions.push(courant);
+        }
+        mentions
+    }
+
     pub fn etoiles_de(&self, moi: &str) -> u64 {
         self.posts.iter().filter(|p| p.author == moi).map(|p| p.likes).sum()
     }
@@ -649,6 +781,32 @@ impl PlanteStore {
                 im.insert("date".to_string(), JsonValue::Int(i.date));
                 JsonValue::Object(im)
             }).collect()));
+        // v1.87 — événements 📅
+        root.insert("evenements".to_string(), JsonValue::Array(
+            self.evenements.iter().map(|e| {
+                let mut em = HashMap::new();
+                em.insert("id".to_string(), JsonValue::Str(e.id.clone()));
+                em.insert("auteur".to_string(), JsonValue::Str(e.auteur.clone()));
+                em.insert("titre".to_string(), JsonValue::Str(e.titre.clone()));
+                em.insert("lieu".to_string(), JsonValue::Str(e.lieu.clone()));
+                em.insert("date_texte".to_string(), JsonValue::Str(e.date_texte.clone()));
+                em.insert("description".to_string(), JsonValue::Str(e.description.clone()));
+                em.insert("participants".to_string(), JsonValue::Array(
+                    e.participants.iter().map(|p| JsonValue::Str(p.clone())).collect()));
+                JsonValue::Object(em)
+            }).collect()));
+        // v1.87 — annonces du marché 🏪
+        root.insert("annonces".to_string(), JsonValue::Array(
+            self.annonces.iter().map(|a| {
+                let mut am = HashMap::new();
+                am.insert("id".to_string(), JsonValue::Str(a.id.clone()));
+                am.insert("vendeur".to_string(), JsonValue::Str(a.vendeur.clone()));
+                am.insert("titre".to_string(), JsonValue::Str(a.titre.clone()));
+                am.insert("prix".to_string(), JsonValue::Int(a.prix));
+                am.insert("description".to_string(), JsonValue::Str(a.description.clone()));
+                am.insert("vendu".to_string(), JsonValue::Bool(a.vendu));
+                JsonValue::Object(am)
+            }).collect()));
         JsonValue::Object(root)
     }
 
@@ -739,6 +897,41 @@ impl PlanteStore {
                             de: im.get("de").and_then(|v| v.as_str()).unwrap_or("").to_string(),
                             pour: im.get("pour").and_then(|v| v.as_str()).unwrap_or("").to_string(),
                             date: im.get("date").and_then(|v| v.as_i64()).unwrap_or(0),
+                        });
+                    }
+                }
+            }
+            // v1.87 — événements 📅
+            if let Some(JsonValue::Array(evenements)) = map.get("evenements") {
+                for e in evenements {
+                    if let Some(em) = e.as_object() {
+                        store.evenements.push(EvenementPlante {
+                            id: em.get("id").and_then(|v| v.as_str()).unwrap_or("").to_string(),
+                            auteur: em.get("auteur").and_then(|v| v.as_str()).unwrap_or("").to_string(),
+                            titre: em.get("titre").and_then(|v| v.as_str()).unwrap_or("").to_string(),
+                            lieu: em.get("lieu").and_then(|v| v.as_str()).unwrap_or("").to_string(),
+                            date_texte: em.get("date_texte").and_then(|v| v.as_str()).unwrap_or("").to_string(),
+                            description: em.get("description").and_then(|v| v.as_str()).unwrap_or("").to_string(),
+                            participants: match em.get("participants") {
+                                Some(JsonValue::Array(arr)) => arr.iter()
+                                    .filter_map(|p| p.as_str().map(|s| s.to_string())).collect(),
+                                _ => Vec::new(),
+                            },
+                        });
+                    }
+                }
+            }
+            // v1.87 — annonces du marché 🏪
+            if let Some(JsonValue::Array(annonces)) = map.get("annonces") {
+                for a in annonces {
+                    if let Some(am) = a.as_object() {
+                        store.annonces.push(AnnonceMarche {
+                            id: am.get("id").and_then(|v| v.as_str()).unwrap_or("").to_string(),
+                            vendeur: am.get("vendeur").and_then(|v| v.as_str()).unwrap_or("").to_string(),
+                            titre: am.get("titre").and_then(|v| v.as_str()).unwrap_or("").to_string(),
+                            prix: am.get("prix").and_then(|v| v.as_i64()).unwrap_or(0),
+                            description: am.get("description").and_then(|v| v.as_str()).unwrap_or("").to_string(),
+                            vendu: matches!(am.get("vendu"), Some(JsonValue::Bool(true))),
                         });
                     }
                 }
