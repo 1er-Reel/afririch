@@ -17,6 +17,7 @@ pub struct MsgNoires {
     pub texte: String,
     pub heure: i64,
     pub lu: bool,
+    pub reactions: Vec<(String, String)>, // (username, emoji) — comme WhatsApp ❤️😂😮
 }
 
 /// Un code de compte — la notification bancaire de l'Afrique 🔢
@@ -66,6 +67,7 @@ impl NoiresStore {
             texte: texte.to_string(),
             heure,
             lu: false,
+            reactions: Vec::new(),
         };
         self.messages.push(msg.clone());
         self.sauvegarder();
@@ -114,6 +116,33 @@ impl NoiresStore {
     /// Total des messages non lus
     pub fn non_lus(&self, username: &str) -> usize {
         self.messages.iter().filter(|m| m.a == username && !m.lu).count()
+    }
+
+    /// Réagir à un message avec un emoji — comme WhatsApp ❤️😂😮
+    /// Retourne Ok(()) ou Err(msg). Toggle : re-cliquer retire la réaction.
+    pub fn reagir(&mut self, msg_id: &str, username: &str, emoji: &str) -> Result<(), String> {
+        let EMOJIS_AUTORISES: [&str; 6] = ["❤️", "😂", "😮", "😢", "👏", "👍"];
+        if !EMOJIS_AUTORISES.contains(&emoji) {
+            return Err("Réaction non autorisée".into());
+        }
+        let m = self.messages.iter_mut().find(|m| m.id == msg_id)
+            .ok_or_else(|| "Message introuvable".to_string())?;
+        // Seuls les deux participants de la conversation peuvent réagir
+        if m.de != username && m.a != username {
+            return Err("Tu ne fais pas partie de cette conversation".into());
+        }
+        if let Some(pos) = m.reactions.iter().position(|(u, _)| u == username) {
+            let (_, ancien) = &m.reactions[pos];
+            if ancien == emoji {
+                m.reactions.remove(pos); // re-cliquer = retirer
+            } else {
+                m.reactions[pos] = (username.to_string(), emoji.to_string()); // changer
+            }
+        } else {
+            m.reactions.push((username.to_string(), emoji.to_string()));
+        }
+        self.sauvegarder();
+        Ok(())
     }
 
     /// Non lus d'un contact précis
@@ -175,6 +204,14 @@ impl NoiresStore {
             o.insert("texte".to_string(), JsonValue::Str(m.texte.clone()));
             o.insert("heure".to_string(), JsonValue::Int(m.heure));
             o.insert("lu".to_string(), JsonValue::Bool(m.lu));
+            let mut rx = Vec::new();
+            for (u, e) in &m.reactions {
+                let mut ro = HashMap::new();
+                ro.insert("u".to_string(), JsonValue::Str(u.clone()));
+                ro.insert("e".to_string(), JsonValue::Str(e.clone()));
+                rx.push(JsonValue::Object(ro));
+            }
+            o.insert("reactions".to_string(), JsonValue::Array(rx));
             msgs.push(JsonValue::Object(o));
         }
         let mut cds = Vec::new();
@@ -204,9 +241,21 @@ impl NoiresStore {
                         let g = |k: &str| m.get(k).and_then(|v| v.as_str()).unwrap_or("").to_string();
                         let gi = |k: &str| m.get(k).and_then(|v| v.as_i64()).unwrap_or(0);
                         let gb = |k: &str| m.get(k).and_then(|v| v.as_bool()).unwrap_or(false);
+                        let mut reactions = Vec::new();
+                        if let Some(JsonValue::Array(rx)) = m.get("reactions") {
+                            for r in rx {
+                                if let Some(ro) = r.as_object() {
+                                    reactions.push((
+                                        ro.get("u").and_then(|v| v.as_str()).unwrap_or("").to_string(),
+                                        ro.get("e").and_then(|v| v.as_str()).unwrap_or("").to_string(),
+                                    ));
+                                }
+                            }
+                        }
                         messages.push(MsgNoires {
                             id: g("id"), de: g("de"), a: g("a"),
                             texte: g("texte"), heure: gi("heure"), lu: gb("lu"),
+                            reactions,
                         });
                     }
                 }

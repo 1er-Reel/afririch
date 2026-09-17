@@ -46,6 +46,7 @@ pub struct PostPlante {
     pub partages: u64,
     pub boost: bool,                  // 🚀 post boosté (en haut du fil)
     pub shared_from: Option<String>,  // auteur d'origine si c'est un partage
+    pub reactions: Vec<(String, String)>, // v1.86 : (username, emoji) — ❤️😂😮😢👏 comme Facebook
 }
 
 /// Une story (expire après 24h) — v1.84: commentable 💬 comme les reels
@@ -215,6 +216,7 @@ impl PlanteStore {
             partages: 0,
             boost: false,
             shared_from,
+            reactions: Vec::new(),
         });
     }
 
@@ -255,6 +257,25 @@ impl PlanteStore {
         } else {
             false
         }
+    }
+
+    /// v1.86 : Réagir à un post avec un emoji — comme Facebook ❤️😂😮😢👏
+    /// Toggle : re-cliquer retire la réaction. Retourne l'auteur du post pour notifier.
+    pub fn react(&mut self, index: usize, moi: &str, emoji: &str) -> Option<String> {
+        let EMOJIS: [&str; 6] = ["❤️", "😂", "😮", "😢", "👏", "👍"];
+        if !EMOJIS.contains(&emoji) { return None; }
+        let post = self.posts.get_mut(index)?;
+        if let Some(pos) = post.reactions.iter().position(|(u, _)| u == moi) {
+            let (_, ancien) = &post.reactions[pos];
+            if ancien == emoji {
+                post.reactions.remove(pos); // retirer
+            } else {
+                post.reactions[pos] = (moi.to_string(), emoji.to_string()); // changer
+            }
+        } else {
+            post.reactions.push((moi.to_string(), emoji.to_string()));
+        }
+        Some(post.author.clone())
     }
 
     /// Commenter un post 💬
@@ -579,6 +600,14 @@ impl PlanteStore {
                 Some(a) => JsonValue::Str(a.clone()),
                 None => JsonValue::Null,
             });
+            let mut rx = Vec::new();
+            for (u, e) in &p.reactions {
+                let mut ro = HashMap::new();
+                ro.insert("u".to_string(), JsonValue::Str(u.clone()));
+                ro.insert("e".to_string(), JsonValue::Str(e.clone()));
+                rx.push(JsonValue::Object(ro));
+            }
+            m.insert("reactions".to_string(), JsonValue::Array(rx));
             JsonValue::Object(m)
         }).collect();
         root.insert("posts".to_string(), JsonValue::Array(posts));
@@ -649,6 +678,15 @@ impl PlanteStore {
                             partages: pm.get("partages").and_then(|v| v.as_i64()).unwrap_or(0) as u64,
                             boost: matches!(pm.get("boost"), Some(JsonValue::Bool(true))),
                             shared_from: pm.get("shared_from").and_then(|v| v.as_str()).map(|s| s.to_string()),
+                            reactions: match pm.get("reactions") {
+                                Some(JsonValue::Array(arr)) => arr.iter().filter_map(|r| {
+                                    r.as_object().map(|ro| (
+                                        ro.get("u").and_then(|v| v.as_str()).unwrap_or("").to_string(),
+                                        ro.get("e").and_then(|v| v.as_str()).unwrap_or("").to_string(),
+                                    ))
+                                }).collect(),
+                                _ => Vec::new(),
+                            },
                         });
                     }
                 }

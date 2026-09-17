@@ -12,6 +12,26 @@ pub struct MsgTelegram {
     pub de: String,       // username du créateur qui publie
     pub texte: String,
     pub heure: i64,
+    pub commentaires: Vec<CommentTelegram>, // v1.86 : les abonnés peuvent répondre 🗣️
+}
+
+/// Un commentaire sous une annonce — la voix des abonnés 🗣️
+#[derive(Debug, Clone)]
+pub struct CommentTelegram {
+    pub de: String,
+    pub texte: String,
+    pub heure: i64,
+    pub likers: Vec<String>,
+    pub reponses: Vec<RepTelegram>, // réponses imbriquées (1 niveau)
+}
+
+/// Une réponse à un commentaire ↩️
+#[derive(Debug, Clone)]
+pub struct RepTelegram {
+    pub de: String,
+    pub texte: String,
+    pub heure: i64,
+    pub likers: Vec<String>,
 }
 
 /// Un canal — la voix d'un Africain que des milliers peuvent suivre 📡
@@ -124,6 +144,7 @@ impl TelegramStore {
             de: createur.to_string(),
             texte: texte.to_string(),
             heure,
+            commentaires: Vec::new(),
         };
         canal.messages.push(msg.clone());
         // Garde les 200 dernières annonces par canal
@@ -138,6 +159,102 @@ impl TelegramStore {
     /// Les canaux auxquels un utilisateur est abonné
     pub fn abonnements_de(&self, username: &str) -> Vec<&CanalTelegram> {
         self.canaux.iter().filter(|c| c.abonnes.iter().any(|a| a == username)).collect()
+    }
+
+    /// v1.86 : Commenter une annonce — TOUT abonné peut commenter 🗣️
+    pub fn commenter_annonce(&mut self, id: u64, msg_index: usize, username: &str, texte: &str, heure: i64) -> Result<(), String> {
+        let texte = texte.trim();
+        if texte.is_empty() || texte.len() > 500 {
+            return Err("Commentaire vide ou trop long (max 500)".into());
+        }
+        let canal = self.canaux.iter_mut().find(|c| c.id == id)
+            .ok_or_else(|| "Canal introuvable".to_string())?;
+        if !canal.abonnes.iter().any(|a| a == username) {
+            return Err("Abonne-toi pour commenter".into());
+        }
+        let msg = canal.messages.get_mut(msg_index)
+            .ok_or_else(|| "Annonce introuvable".to_string())?;
+        let c = CommentTelegram {
+            de: username.to_string(),
+            texte: texte.to_string(),
+            heure,
+            likers: Vec::new(),
+            reponses: Vec::new(),
+        };
+        msg.commentaires.push(c);
+        self.sauvegarder();
+        Ok(())
+    }
+
+    /// v1.86 : Répondre à un commentaire ↩️
+    pub fn repondre_comment(&mut self, id: u64, msg_index: usize, c_index: usize, username: &str, texte: &str, heure: i64) -> Result<(), String> {
+        let texte = texte.trim();
+        if texte.is_empty() || texte.len() > 500 {
+            return Err("Réponse vide ou trop longue (max 500)".into());
+        }
+        let canal = self.canaux.iter_mut().find(|c| c.id == id)
+            .ok_or_else(|| "Canal introuvable".to_string())?;
+        if !canal.abonnes.iter().any(|a| a == username) {
+            return Err("Abonne-toi pour répondre".into());
+        }
+        let msg = canal.messages.get_mut(msg_index)
+            .ok_or_else(|| "Annonce introuvable".to_string())?;
+        let com = msg.commentaires.get_mut(c_index)
+            .ok_or_else(|| "Commentaire introuvable".to_string())?;
+        com.reponses.push(RepTelegram {
+            de: username.to_string(),
+            texte: texte.to_string(),
+            heure,
+            likers: Vec::new(),
+        });
+        self.sauvegarder();
+        Ok(())
+    }
+
+    /// v1.86 : Aimer un commentaire ❤️ (toggle, 1 like par personne)
+    pub fn aimer_comment(&mut self, id: u64, msg_index: usize, c_index: usize, username: &str) -> Result<bool, String> {
+        let canal = self.canaux.iter_mut().find(|c| c.id == id)
+            .ok_or_else(|| "Canal introuvable".to_string())?;
+        if !canal.abonnes.iter().any(|a| a == username) {
+            return Err("Abonne-toi pour aimer".into());
+        }
+        let msg = canal.messages.get_mut(msg_index)
+            .ok_or_else(|| "Annonce introuvable".to_string())?;
+        let com = msg.commentaires.get_mut(c_index)
+            .ok_or_else(|| "Commentaire introuvable".to_string())?;
+        if let Some(pos) = com.likers.iter().position(|u| u == username) {
+            com.likers.remove(pos);
+            self.sauvegarder();
+            Ok(false)
+        } else {
+            com.likers.push(username.to_string());
+            self.sauvegarder();
+            Ok(true)
+        }
+    }
+
+    /// v1.86 : Aimer une réponse ❤️ (toggle)
+    pub fn aimer_rep(&mut self, id: u64, msg_index: usize, c_index: usize, r_index: usize, username: &str) -> Result<bool, String> {
+        let canal = self.canaux.iter_mut().find(|c| c.id == id)
+            .ok_or_else(|| "Canal introuvable".to_string())?;
+        if !canal.abonnes.iter().any(|a| a == username) {
+            return Err("Abonne-toi pour aimer".into());
+        }
+        let msg = canal.messages.get_mut(msg_index)
+            .ok_or_else(|| "Annonce introuvable".to_string())?;
+        let com = msg.commentaires.get_mut(c_index)
+            .ok_or_else(|| "Commentaire introuvable".to_string())?;
+        let rep = com.reponses.get_mut(r_index)
+            .ok_or_else(|| "Réponse introuvable".to_string())?;
+        if let Some(pos) = rep.likers.iter().position(|u| u == username) {
+            rep.likers.remove(pos);
+            self.sauvegarder();
+            Ok(false)
+        } else {
+            rep.likers.push(username.to_string());
+            self.sauvegarder();
+            Ok(true)
+        }
     }
 
     /// Tous les canaux, les plus abonnés d'abord
@@ -156,6 +273,28 @@ impl TelegramStore {
                 mo.insert("de".to_string(), JsonValue::Str(m.de.clone()));
                 mo.insert("texte".to_string(), JsonValue::Str(m.texte.clone()));
                 mo.insert("heure".to_string(), JsonValue::Int(m.heure));
+                let mut cmts = Vec::new();
+                for cm in &m.commentaires {
+                    let mut co = HashMap::new();
+                    co.insert("de".to_string(), JsonValue::Str(cm.de.clone()));
+                    co.insert("texte".to_string(), JsonValue::Str(cm.texte.clone()));
+                    co.insert("heure".to_string(), JsonValue::Int(cm.heure));
+                    co.insert("likers".to_string(), JsonValue::Array(
+                        cm.likers.iter().map(|u| JsonValue::Str(u.clone())).collect()));
+                    let mut reps = Vec::new();
+                    for r in &cm.reponses {
+                        let mut ro = HashMap::new();
+                        ro.insert("de".to_string(), JsonValue::Str(r.de.clone()));
+                        ro.insert("texte".to_string(), JsonValue::Str(r.texte.clone()));
+                        ro.insert("heure".to_string(), JsonValue::Int(r.heure));
+                        ro.insert("likers".to_string(), JsonValue::Array(
+                            r.likers.iter().map(|u| JsonValue::Str(u.clone())).collect()));
+                        reps.push(JsonValue::Object(ro));
+                    }
+                    co.insert("reponses".to_string(), JsonValue::Array(reps));
+                    cmts.push(JsonValue::Object(co));
+                }
+                mo.insert("commentaires".to_string(), JsonValue::Array(cmts));
                 msgs.push(JsonValue::Object(mo));
             }
             let mut o = HashMap::new();
@@ -188,10 +327,40 @@ impl TelegramStore {
                         if let Some(JsonValue::Array(msgs)) = c.get("messages") {
                             for m in msgs {
                                 if let Some(mo) = m.as_object() {
+                                    let mut commentaires = Vec::new();
+                                    if let Some(JsonValue::Array(cmts)) = mo.get("commentaires") {
+                                        for cm in cmts {
+                                            if let Some(co) = cm.as_object() {
+                                                let mut reponses = Vec::new();
+                                                if let Some(JsonValue::Array(reps)) = co.get("reponses") {
+                                                    for r in reps {
+                                                        if let Some(ro) = r.as_object() {
+                                                            reponses.push(RepTelegram {
+                                                                de: ro.get("de").and_then(|v| v.as_str()).unwrap_or("").to_string(),
+                                                                texte: ro.get("texte").and_then(|v| v.as_str()).unwrap_or("").to_string(),
+                                                                heure: ro.get("heure").and_then(|v| v.as_i64()).unwrap_or(0),
+                                                                likers: ro.get("likers").and_then(|v| v.as_array()).map(|arr|
+                                                                    arr.iter().filter_map(|x| x.as_str().map(|s| s.to_string())).collect()).unwrap_or_default(),
+                                                            });
+                                                        }
+                                                    }
+                                                }
+                                                commentaires.push(CommentTelegram {
+                                                    de: co.get("de").and_then(|v| v.as_str()).unwrap_or("").to_string(),
+                                                    texte: co.get("texte").and_then(|v| v.as_str()).unwrap_or("").to_string(),
+                                                    heure: co.get("heure").and_then(|v| v.as_i64()).unwrap_or(0),
+                                                    likers: co.get("likers").and_then(|v| v.as_array()).map(|arr|
+                                                        arr.iter().filter_map(|x| x.as_str().map(|s| s.to_string())).collect()).unwrap_or_default(),
+                                                    reponses,
+                                                });
+                                            }
+                                        }
+                                    }
                                     messages.push(MsgTelegram {
                                         de: mo.get("de").and_then(|v| v.as_str()).unwrap_or("").to_string(),
                                         texte: mo.get("texte").and_then(|v| v.as_str()).unwrap_or("").to_string(),
                                         heure: mo.get("heure").and_then(|v| v.as_i64()).unwrap_or(0),
+                                        commentaires,
                                     });
                                 }
                             }
