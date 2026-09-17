@@ -70,6 +70,7 @@ pub struct AnnonceMarche {
     pub prix: i64,                 // en AFR
     pub description: String,
     pub vendu: bool,
+    pub media: Option<String>,     // v1.88: photo de l'article 📸
 }
 
 /// Une story (expire après 24h) — v1.84: commentable 💬 comme les reels
@@ -553,7 +554,7 @@ impl PlanteStore {
     }
 
     // ===== v1.87 — MARCHÉ 🏪 =====
-    pub fn publier_annonce(&mut self, vendeur: &str, titre: &str, prix: i64, description: &str) -> AnnonceMarche {
+    pub fn publier_annonce(&mut self, vendeur: &str, titre: &str, prix: i64, description: &str, media: Option<&str>) -> AnnonceMarche {
         let a = AnnonceMarche {
             id: format!("MA{}", self.annonces.len() + 1),
             vendeur: vendeur.to_string(),
@@ -561,6 +562,7 @@ impl PlanteStore {
             prix,
             description: description.to_string(),
             vendu: false,
+            media: media.map(|m| m.to_string()),
         };
         self.annonces.push(a.clone());
         a
@@ -805,6 +807,9 @@ impl PlanteStore {
                 am.insert("prix".to_string(), JsonValue::Int(a.prix));
                 am.insert("description".to_string(), JsonValue::Str(a.description.clone()));
                 am.insert("vendu".to_string(), JsonValue::Bool(a.vendu));
+                if let Some(m) = &a.media {
+                    am.insert("media".to_string(), JsonValue::Str(m.clone()));
+                }
                 JsonValue::Object(am)
             }).collect()));
         JsonValue::Object(root)
@@ -932,6 +937,7 @@ impl PlanteStore {
                             prix: am.get("prix").and_then(|v| v.as_i64()).unwrap_or(0),
                             description: am.get("description").and_then(|v| v.as_str()).unwrap_or("").to_string(),
                             vendu: matches!(am.get("vendu"), Some(JsonValue::Bool(true))),
+                            media: am.get("media").and_then(|v| v.as_str()).map(|s| s.to_string()),
                         });
                     }
                 }
