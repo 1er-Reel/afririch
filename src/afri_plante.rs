@@ -11,18 +11,25 @@ use crate::afri_time::{now_timestamp, now_timestamp_millis};
 
 /// Une story vit 24h — comme dans la vraie vie, elle disparaît. ⏳
 pub const DUREE_STORY: i64 = 86400;
-/// 🚀 Booster une publication: 10 AFR — elle monte en haut du fil.
-pub const PRIX_BOOST: u64 = 10;
+/// v1.84 — ÉCONOMIE EN GRAINES 🌱: le boost coûte 1 GRAINE (0.00000001 AFR = 6 FCFA).
+/// Fini les 10 AFR (= 6 milliards de FCFA, c'était du lourd !). Le chef a parlé.
+pub const PRIX_BOOST_GRAINES: u64 = 1;
+/// Prix des badges en GRAINES (v1.84): Lion 500, Griot 500, Roi 2000
+/// (500 graines = 3 000 FCFA, 2000 graines = 12 000 FCFA — l'échelle du quotidien)
+pub const PRIX_BADGES: [(&str, &str, u64); 3] = [("Lion", "🦁", 500), ("Griot", "📖", 500), ("Roi", "👑", 2000)];
 
 /// Les extensions média autorisées (photos + vidéos = reels)
 pub const EXTENSIONS_MEDIA: [&str; 9] = ["jpg", "jpeg", "png", "gif", "webp", "mp4", "webm", "3gp", "m4v"];
 
-/// Un commentaire sous un post
+/// Un commentaire sous un post — v1.84: aimable ❤️ + répondable ↩️ (comme Facebook)
 #[derive(Clone, Debug)]
 pub struct Commentaire {
     pub author: String,
     pub texte: String,
     pub date: i64,
+    pub likes: u64,
+    pub likers: Vec<String>,          // qui a aimé ce commentaire
+    pub reponses: Vec<Commentaire>,   // les réponses imbriquées (1 niveau)
 }
 
 /// Un post de Planté Verte
@@ -41,12 +48,14 @@ pub struct PostPlante {
     pub shared_from: Option<String>,  // auteur d'origine si c'est un partage
 }
 
-/// Une story (expire après 24h)
+/// Une story (expire après 24h) — v1.84: commentable 💬 comme les reels
 #[derive(Clone, Debug)]
 pub struct StoryPlante {
     pub author: String,
     pub media: String,
+    pub media_type: String,           // "image" | "video"
     pub date: i64,
+    pub commentaires: Vec<Commentaire>,
 }
 
 /// Une invitation: de → pour, en attente d'acceptation 🤝
@@ -255,11 +264,122 @@ impl PlanteStore {
                 author: author.to_string(),
                 texte: texte.to_string(),
                 date: now_timestamp(),
+                likes: 0,
+                likers: Vec::new(),
+                reponses: Vec::new(),
             });
             true
         } else {
             false
         }
+    }
+
+    /// v1.84: répondre à un commentaire ↩️ (réponse imbriquée dans le commentaire)
+    pub fn repondre_commentaire(&mut self, index: usize, cindex: usize, author: &str, texte: &str) -> bool {
+        if let Some(post) = self.posts.get_mut(index) {
+            if let Some(c) = post.commentaires.get_mut(cindex) {
+                c.reponses.push(Commentaire {
+                    author: author.to_string(),
+                    texte: texte.to_string(),
+                    date: now_timestamp(),
+                    likes: 0,
+                    likers: Vec::new(),
+                    reponses: Vec::new(),
+                });
+                return true;
+            }
+        }
+        false
+    }
+
+    /// v1.84: aimer un commentaire ❤️ (toggle, 1 like par personne)
+    pub fn aimer_commentaire(&mut self, index: usize, cindex: usize, moi: &str) -> bool {
+        if let Some(post) = self.posts.get_mut(index) {
+            if let Some(c) = post.commentaires.get_mut(cindex) {
+                if c.likers.iter().any(|l| l == moi) {
+                    c.likers.retain(|l| l != moi);
+                    c.likes = c.likes.saturating_sub(1);
+                } else {
+                    c.likers.push(moi.to_string());
+                    c.likes += 1;
+                }
+                return true;
+            }
+        }
+        false
+    }
+
+    /// v1.84: aimer une réponse à un commentaire ❤️ (toggle)
+    pub fn aimer_reponse(&mut self, index: usize, cindex: usize, rindex: usize, moi: &str) -> bool {
+        if let Some(post) = self.posts.get_mut(index) {
+            if let Some(c) = post.commentaires.get_mut(cindex) {
+                if let Some(r) = c.reponses.get_mut(rindex) {
+                    if r.likers.iter().any(|l| l == moi) {
+                        r.likers.retain(|l| l != moi);
+                        r.likes = r.likes.saturating_sub(1);
+                    } else {
+                        r.likers.push(moi.to_string());
+                        r.likes += 1;
+                    }
+                    return true;
+                }
+            }
+        }
+        false
+    }
+
+    /// v1.84: commenter une story 💬 (les stories deviennent sociales comme les reels)
+    pub fn commenter_story(&mut self, media: &str, author: &str, texte: &str) -> bool {
+        let limite = now_timestamp() - DUREE_STORY;
+        if let Some(s) = self.stories.iter_mut().find(|s| s.media == media && s.date > limite) {
+            s.commentaires.push(Commentaire {
+                author: author.to_string(),
+                texte: texte.to_string(),
+                date: now_timestamp(),
+                likes: 0,
+                likers: Vec::new(),
+                reponses: Vec::new(),
+            });
+            return true;
+        }
+        false
+    }
+
+    /// v1.84: aimer un commentaire de story ❤️
+    pub fn aimer_commentaire_story(&mut self, media: &str, cindex: usize, moi: &str) -> bool {
+        let limite = now_timestamp() - DUREE_STORY;
+        if let Some(s) = self.stories.iter_mut().find(|s| s.media == media && s.date > limite) {
+            if let Some(c) = s.commentaires.get_mut(cindex) {
+                if c.likers.iter().any(|l| l == moi) {
+                    c.likers.retain(|l| l != moi);
+                    c.likes = c.likes.saturating_sub(1);
+                } else {
+                    c.likers.push(moi.to_string());
+                    c.likes += 1;
+                }
+                return true;
+            }
+        }
+        false
+    }
+
+    /// v1.84: répondre à un commentaire de story ↩️
+    pub fn repondre_commentaire_story(&mut self, media: &str, cindex: usize, author: &str, texte: &str) -> bool {
+        let limite = now_timestamp() - DUREE_STORY;
+        if let Some(s) = self.stories.iter_mut().find(|s| s.media == media && s.date > limite) {
+            if let Some(c) = s.commentaires.get_mut(cindex) {
+                c.reponses.push(Commentaire {
+                    author: author.to_string(),
+                    texte: texte.to_string(),
+                    date: now_timestamp(),
+                    likes: 0,
+                    likers: Vec::new(),
+                    reponses: Vec::new(),
+                });
+                return true;
+            }
+        }
+        false
     }
 
     /// Partager un post: le repost entre dans MON fil, l'original gagne +1 partage ↗️
@@ -293,11 +413,13 @@ impl PlanteStore {
 
     // ===== STORIES ⏳ =====
 
-    pub fn ajouter_story(&mut self, author: &str, media: &str) {
+    pub fn ajouter_story(&mut self, author: &str, media: &str, media_type: &str) {
         self.stories.push(StoryPlante {
             author: author.to_string(),
             media: media.to_string(),
+            media_type: media_type.to_string(),
             date: now_timestamp(),
+            commentaires: Vec::new(),
         });
     }
 
@@ -399,6 +521,41 @@ impl PlanteStore {
 
     // ===== PERSISTANCE =====
 
+    /// Sérialise un commentaire (avec likes, likers, réponses imbriquées)
+    fn commentaire_to_json(c: &Commentaire) -> JsonValue {
+        let mut cm = HashMap::new();
+        cm.insert("author".to_string(), JsonValue::Str(c.author.clone()));
+        cm.insert("texte".to_string(), JsonValue::Str(c.texte.clone()));
+        cm.insert("date".to_string(), JsonValue::Int(c.date));
+        cm.insert("likes".to_string(), JsonValue::Int(c.likes as i64));
+        cm.insert("likers".to_string(), JsonValue::Array(
+            c.likers.iter().map(|l| JsonValue::Str(l.clone())).collect()));
+        cm.insert("reponses".to_string(), JsonValue::Array(
+            c.reponses.iter().map(|r| PlanteStore::commentaire_to_json(r)).collect()));
+        JsonValue::Object(cm)
+    }
+
+    /// Désérialise un commentaire — ancien format sans likes/réponses reste lisible
+    fn commentaire_from_json(v: &JsonValue) -> Option<Commentaire> {
+        let cm = v.as_object()?;
+        Some(Commentaire {
+            author: cm.get("author").and_then(|x| x.as_str()).unwrap_or("").to_string(),
+            texte: cm.get("texte").and_then(|x| x.as_str()).unwrap_or("").to_string(),
+            date: cm.get("date").and_then(|x| x.as_i64()).unwrap_or(0),
+            likes: cm.get("likes").and_then(|x| x.as_i64()).unwrap_or(0) as u64,
+            likers: match cm.get("likers") {
+                Some(JsonValue::Array(arr)) => arr.iter()
+                    .filter_map(|l| l.as_str().map(|s| s.to_string())).collect(),
+                _ => Vec::new(),
+            },
+            reponses: match cm.get("reponses") {
+                Some(JsonValue::Array(arr)) => arr.iter()
+                    .filter_map(|r| PlanteStore::commentaire_from_json(r)).collect(),
+                _ => Vec::new(),
+            },
+        })
+    }
+
     pub fn to_json(&self) -> JsonValue {
         let mut root = HashMap::new();
         let posts: Vec<JsonValue> = self.posts.iter().map(|p| {
@@ -415,13 +572,7 @@ impl PlanteStore {
             });
             m.insert("media_type".to_string(), JsonValue::Str(p.media_type.clone()));
             m.insert("commentaires".to_string(), JsonValue::Array(
-                p.commentaires.iter().map(|c| {
-                    let mut cm = HashMap::new();
-                    cm.insert("author".to_string(), JsonValue::Str(c.author.clone()));
-                    cm.insert("texte".to_string(), JsonValue::Str(c.texte.clone()));
-                    cm.insert("date".to_string(), JsonValue::Int(c.date));
-                    JsonValue::Object(cm)
-                }).collect()));
+                p.commentaires.iter().map(|c| PlanteStore::commentaire_to_json(c)).collect()));
             m.insert("partages".to_string(), JsonValue::Int(p.partages as i64));
             m.insert("boost".to_string(), JsonValue::Bool(p.boost));
             m.insert("shared_from".to_string(), match &p.shared_from {
@@ -455,7 +606,10 @@ impl PlanteStore {
                 let mut sm = HashMap::new();
                 sm.insert("author".to_string(), JsonValue::Str(s.author.clone()));
                 sm.insert("media".to_string(), JsonValue::Str(s.media.clone()));
+                sm.insert("media_type".to_string(), JsonValue::Str(s.media_type.clone()));
                 sm.insert("date".to_string(), JsonValue::Int(s.date));
+                sm.insert("commentaires".to_string(), JsonValue::Array(
+                    s.commentaires.iter().map(|c| PlanteStore::commentaire_to_json(c)).collect()));
                 JsonValue::Object(sm)
             }).collect()));
         root.insert("invitations".to_string(), JsonValue::Array(
@@ -488,14 +642,8 @@ impl PlanteStore {
                             media: pm.get("media").and_then(|v| v.as_str()).map(|s| s.to_string()),
                             media_type: pm.get("media_type").and_then(|v| v.as_str()).unwrap_or("").to_string(),
                             commentaires: match pm.get("commentaires") {
-                                Some(JsonValue::Array(arr)) => arr.iter().filter_map(|c| {
-                                    let cm = c.as_object()?;
-                                    Some(Commentaire {
-                                        author: cm.get("author").and_then(|v| v.as_str()).unwrap_or("").to_string(),
-                                        texte: cm.get("texte").and_then(|v| v.as_str()).unwrap_or("").to_string(),
-                                        date: cm.get("date").and_then(|v| v.as_i64()).unwrap_or(0),
-                                    })
-                                }).collect(),
+                                Some(JsonValue::Array(arr)) => arr.iter()
+                                    .filter_map(|c| PlanteStore::commentaire_from_json(c)).collect(),
                                 _ => Vec::new(),
                             },
                             partages: pm.get("partages").and_then(|v| v.as_i64()).unwrap_or(0) as u64,
@@ -535,7 +683,13 @@ impl PlanteStore {
                         store.stories.push(StoryPlante {
                             author: sm.get("author").and_then(|v| v.as_str()).unwrap_or("").to_string(),
                             media: sm.get("media").and_then(|v| v.as_str()).unwrap_or("").to_string(),
+                            media_type: sm.get("media_type").and_then(|v| v.as_str()).unwrap_or("image").to_string(),
                             date: sm.get("date").and_then(|v| v.as_i64()).unwrap_or(0),
+                            commentaires: match sm.get("commentaires") {
+                                Some(JsonValue::Array(arr)) => arr.iter()
+                                    .filter_map(|c| PlanteStore::commentaire_from_json(c)).collect(),
+                                _ => Vec::new(),
+                            },
                         });
                     }
                 }
