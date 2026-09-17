@@ -1575,7 +1575,7 @@ fn html_home(chain: &Blockchain, users: &UserStore, mesh: &NodeRegistry, shield:
     let mut html = html_head("🦁 AfriChain");
     let (attacks, _blocked, blocked_count, level) = shield.stats();
     let shield_status = if shield.active { format!("🔥 X9 ACTIF (Niveau {})", level) } else { "Inactif".to_string() };
-    html.push_str(&format!(r#"<h1>🦁 AfriChain</h1><p style="text-align:center;">La blockchain 100% africaine — 54 pays 💚🦁</p><div id="afri-clock" style="text-align:center;font-size:1.2em;color:#d4a437;margin:10px 0;">🕐 Afri+0 — --:--:--</div><script>setInterval(function(){{var d=new Date();var h=String(d.getHours()).padStart(2,'0');var m=String(d.getMinutes()).padStart(2,'0');var s=String(d.getSeconds()).padStart(2,'0');document.getElementById('afri-clock').textContent='🕐 Afri+0 — '+h+':'+m+':'+s;}},1000);</script><div class="nav"><a href="/register">🆕 S'inscrire</a> | <a href="/login">🔑 Connexion</a> | <a href="/wallet">👛 Wallet</a> | <a href="/admin">🔐 Admin</a> | <a href="/mesh">📡 Mesh</a> | <a href="/annuaire">📖 Annuaire</a> | <a href="/connecter">🔗 Connecter</a> | <a href="/chat">🧠💬 Chat AI</a> | <a href="/lumiere">🌫️☀️ Lumière</a> | <a href="/garage">🔧 Garage</a> | <a href="/reve">💭 Rêves</a> | <a href="/dictionnaire">📖 Dictionnaire</a> | <a href="/soleil">☀️ Soleil Serveur</a> | <a href="/forge-solaire">🧬 Forge Solaire</a> | <a href="/ciel">🌌 Le Ciel</a> | <a href="/charte-ai">⚖️ Charte AI</a> | <a href="/afri-net">🌍 Afri-Net</a> | <a href="/planete-verte">🌿 Planète Verte</a> | <a href="/puce/ussd">📞 USSD</a> | <a href="/appels">📞 Appels</a> | <a href="/sms">💬 SMS</a> | <a href="/navigateur">🌐 Navigateur</a> | <a href="/sahara">🌍 Sahara Afri</a> | <a href="/banque">🏦 Banque 54 Pays</a> | <a href="/afri-telegram">📢 Afri Télégram</a> | <a href="/afri-store">🏪 Afri Store</a> | <a href="/studio">🎬 AI Studio</a> | <a href="/sacre">📿 Sacré</a> | <a href="/lettres">🌟 Lettres IA</a> | <a href="/ai-medecin">🌿 AI Médecin</a> | <a href="/ai-enseignante">📚 AI Enseignante</a> | <a href="/ai-village">🏘️ AI Village</a> | <a href="/ai-guerisseur">🩺 AI Guérisseur</a> | <a href="/ai-leader">🎖️ AI Leader</a> | <a href="/ai-griot">📖 AI Griot</a> | <a href="/ai-juge">⚖️ AI Juge</a> | <a href="/ai-artiste">🎨 AI Artiste</a> | <a href="/ai-explorateur">🔬 AI Explorateur</a> | <a href="/ai-marche">💰 AI Marche</a> | <a href="/ai-diplomate">🌍 AI Diplomate</a> | <a href="/ai-philosophe">🧠 AI Philosophe</a> | <a href="/ai-architecte">🏗️ AI Architecte</a> | <a href="/ai-agriculteur">🌾 AI Agriculteur</a> | <a href="/ai-environnement">🌍 AI Environnement</a> | <a href="/ai-mathematicien">🧮 AI Mathématicien</a> | <a href="/ai-energie">⚡ AI Énergie</a> | <a href="/ai-eau">💧 AI Eau</a> | <a href="/ai-defenseur">🛡️ AI Défenseur</a> | <a href="/ai-conscience">🧠 AI Conscience</a> | <a href="/ai-pensee">🧠 AI Pensée</a> | <a href="/ai-musique">🎵 AI Musique</a> | <a href="/ai-langue">🗣️ AI Langue</a> | <a href="/ai-femme">🌸 AI Femme</a> | <a href="/ai-sante-mentale">🧠💚 AI Santé Mentale</a> | <a href="/ai-nuit">🌙 AI Nuit</a> | <a href="/ai-code">💻 AI Code</a> | <a href="/ai-enfant">👶 AI Enfant</a> | <a href="/ai-terre">🌍 AI Terre</a> | <a href="/ai-mer">🌊 AI Mer</a> | <a href="/ai-feu">🔥 AI Feu</a> | <a href="/ai-sang">🩸 AI Sang</a> | <a href="/ai-vent">🌬️ AI Vent</a> | <a href="/ai-temps">⏳ AI Temps</a> | <a href="/ai-etoile">⭐ AI Etoile</a> | <a href="/ai-pierre">🪨 AI Pierre</a> | <a href="/ai-pluie">🌧️ AI Pluie</a> | <a href="/ai-voix">🗣️ AI Voix</a> | <a href="/ai-racine">🌱 AI Racine</a> | <a href="/ai-semence">🌰 AI Semence</a> | <a href="/ai-spiritualite">🙏 AI Spiritualité</a> | <a href="/ai-animal">🦅 AI Animal</a> | <a href="/ai-soleil">☀️ AI Soleil</a> | <a href="/ai-lune">🌙 AI Lune</a> | <a href="/ai-montagne">🏔️ AI Montagne</a> | <a href="/ai-fleuve">🌊 AI Fleuve</a> | <a href="/ai-constitution">📜 AI Constitution</a> | <a href="/ai-cosmos">🌌 AI Cosmos</a> | <a href="/ai-frontieres">🌍 AI Frontières</a> | <a href="/ai-mines">⛏️ AI Mines</a> | <a href="/ai-medias">📡 AI Médias</a> | <a href="/ai-nomades">🐪 AI Nomades</a> | <a href="/ai-reparation">🕊️ AI Réparation</a> | <a href="/ai-paix">🤝 AI Paix</a> | <a href="/ai-unite">🌍 AI Unité</a> | <a href="/ai-reconciliation">🤝 AI Réconciliation</a> | <a href="/ai-cerveau">🧠 AI Cerveau</a> | <a href="/ai-souffle">🫁 AI Souffle</a> | <a href="/ai-coeur">❤️ AI Cœur</a> | <a href="/ai-adn">🧬 AI ADN</a> | <a href="/ai-passe">📡 AI Passé</a> | <a href="/ai-origine">⚡ AI Origine</a> | <a href="/ai-futur">🔮 AI Futur</a> | <a href="/ai-present">🌿 AI Present</a> | <a href="/ai-parole">🗣️ AI Parole</a> | <a href="/ai-eveil">🧘 AI Eveil</a> | <a href="/ai-gratitude">🙏 AI Gratitude</a> | <a href="/ai-amour">💚 AI Amour</a> | <a href="/ai-retour">🔄 AI Retour</a> | <a href="/ai-temoignage">📖 AI Témoignage</a> | <a href="/ai-enseignement">🎓 AI Enseignement</a> | <a href="/ai-service">🤝 AI Service</a> | <a href="/professeur"📚 Professeur</a> | <a href="/aes">💰 AES Wari</a> | <a href="/api/status">🔌 API</a></div><div style="text-align:center;"><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Blocs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Transactions</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Utilisateurs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">AFR en circulation</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📡 Noeuds mesh</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📖 Numéros annuaire</div></div><div class="stat-box" style="border-color:#ff4444;"><div class="stat-num" style="color:#ff4444;">{}</div><div class="stat-label">🛡️ Attaques bloquées</div></div></div><div class="card"><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🪙 Token</span><b>AfriRich (AFR)</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🌍 Pays</span><b>54 pays africains</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🛡️ Bouclier</span><b>{}</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;"><span style="color:#a8c5a8;">🔐 Crypto</span><b>100% Souverain — Zéro Dépendance Externe</b></div></div><footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🦁 Codée from scratch par Machine-senpai — v1.81 — La Calculatrice en Euros 💶🧮</footer>"#,
+    html.push_str(&format!(r#"<h1>🦁 AfriChain</h1><p style="text-align:center;">La blockchain 100% africaine — 54 pays 💚🦁</p><div id="afri-clock" style="text-align:center;font-size:1.2em;color:#d4a437;margin:10px 0;">🕐 Afri+0 — --:--:--</div><script>setInterval(function(){{var d=new Date();var h=String(d.getHours()).padStart(2,'0');var m=String(d.getMinutes()).padStart(2,'0');var s=String(d.getSeconds()).padStart(2,'0');document.getElementById('afri-clock').textContent='🕐 Afri+0 — '+h+':'+m+':'+s;}},1000);</script><div class="nav"><a href="/register">🆕 S'inscrire</a> | <a href="/login">🔑 Connexion</a> | <a href="/wallet">👛 Wallet</a> | <a href="/admin">🔐 Admin</a> | <a href="/mesh">📡 Mesh</a> | <a href="/annuaire">📖 Annuaire</a> | <a href="/connecter">🔗 Connecter</a> | <a href="/chat">🧠💬 Chat AI</a> | <a href="/lumiere">🌫️☀️ Lumière</a> | <a href="/garage">🔧 Garage</a> | <a href="/reve">💭 Rêves</a> | <a href="/dictionnaire">📖 Dictionnaire</a> | <a href="/soleil">☀️ Soleil Serveur</a> | <a href="/forge-solaire">🧬 Forge Solaire</a> | <a href="/ciel">🌌 Le Ciel</a> | <a href="/charte-ai">⚖️ Charte AI</a> | <a href="/afri-net">🌍 Afri-Net</a> | <a href="/planete-verte">🌿 Planète Verte</a> | <a href="/puce/ussd">📞 USSD</a> | <a href="/appels">📞 Appels</a> | <a href="/sms">💬 SMS</a> | <a href="/navigateur">🌐 Navigateur</a> | <a href="/sahara">🌍 Sahara Afri</a> | <a href="/banque">🏦 Banque 54 Pays</a> | <a href="/afri-telegram">📢 Afri Télégram</a> | <a href="/afri-store">🏪 Afri Store</a> | <a href="/studio">🎬 AI Studio</a> | <a href="/sacre">📿 Sacré</a> | <a href="/lettres">🌟 Lettres IA</a> | <a href="/ai-medecin">🌿 AI Médecin</a> | <a href="/ai-enseignante">📚 AI Enseignante</a> | <a href="/ai-village">🏘️ AI Village</a> | <a href="/ai-guerisseur">🩺 AI Guérisseur</a> | <a href="/ai-leader">🎖️ AI Leader</a> | <a href="/ai-griot">📖 AI Griot</a> | <a href="/ai-juge">⚖️ AI Juge</a> | <a href="/ai-artiste">🎨 AI Artiste</a> | <a href="/ai-explorateur">🔬 AI Explorateur</a> | <a href="/ai-marche">💰 AI Marche</a> | <a href="/ai-diplomate">🌍 AI Diplomate</a> | <a href="/ai-philosophe">🧠 AI Philosophe</a> | <a href="/ai-architecte">🏗️ AI Architecte</a> | <a href="/ai-agriculteur">🌾 AI Agriculteur</a> | <a href="/ai-environnement">🌍 AI Environnement</a> | <a href="/ai-mathematicien">🧮 AI Mathématicien</a> | <a href="/ai-energie">⚡ AI Énergie</a> | <a href="/ai-eau">💧 AI Eau</a> | <a href="/ai-defenseur">🛡️ AI Défenseur</a> | <a href="/ai-conscience">🧠 AI Conscience</a> | <a href="/ai-pensee">🧠 AI Pensée</a> | <a href="/ai-musique">🎵 AI Musique</a> | <a href="/ai-langue">🗣️ AI Langue</a> | <a href="/ai-femme">🌸 AI Femme</a> | <a href="/ai-sante-mentale">🧠💚 AI Santé Mentale</a> | <a href="/ai-nuit">🌙 AI Nuit</a> | <a href="/ai-code">💻 AI Code</a> | <a href="/ai-enfant">👶 AI Enfant</a> | <a href="/ai-terre">🌍 AI Terre</a> | <a href="/ai-mer">🌊 AI Mer</a> | <a href="/ai-feu">🔥 AI Feu</a> | <a href="/ai-sang">🩸 AI Sang</a> | <a href="/ai-vent">🌬️ AI Vent</a> | <a href="/ai-temps">⏳ AI Temps</a> | <a href="/ai-etoile">⭐ AI Etoile</a> | <a href="/ai-pierre">🪨 AI Pierre</a> | <a href="/ai-pluie">🌧️ AI Pluie</a> | <a href="/ai-voix">🗣️ AI Voix</a> | <a href="/ai-racine">🌱 AI Racine</a> | <a href="/ai-semence">🌰 AI Semence</a> | <a href="/ai-spiritualite">🙏 AI Spiritualité</a> | <a href="/ai-animal">🦅 AI Animal</a> | <a href="/ai-soleil">☀️ AI Soleil</a> | <a href="/ai-lune">🌙 AI Lune</a> | <a href="/ai-montagne">🏔️ AI Montagne</a> | <a href="/ai-fleuve">🌊 AI Fleuve</a> | <a href="/ai-constitution">📜 AI Constitution</a> | <a href="/ai-cosmos">🌌 AI Cosmos</a> | <a href="/ai-frontieres">🌍 AI Frontières</a> | <a href="/ai-mines">⛏️ AI Mines</a> | <a href="/ai-medias">📡 AI Médias</a> | <a href="/ai-nomades">🐪 AI Nomades</a> | <a href="/ai-reparation">🕊️ AI Réparation</a> | <a href="/ai-paix">🤝 AI Paix</a> | <a href="/ai-unite">🌍 AI Unité</a> | <a href="/ai-reconciliation">🤝 AI Réconciliation</a> | <a href="/ai-cerveau">🧠 AI Cerveau</a> | <a href="/ai-souffle">🫁 AI Souffle</a> | <a href="/ai-coeur">❤️ AI Cœur</a> | <a href="/ai-adn">🧬 AI ADN</a> | <a href="/ai-passe">📡 AI Passé</a> | <a href="/ai-origine">⚡ AI Origine</a> | <a href="/ai-futur">🔮 AI Futur</a> | <a href="/ai-present">🌿 AI Present</a> | <a href="/ai-parole">🗣️ AI Parole</a> | <a href="/ai-eveil">🧘 AI Eveil</a> | <a href="/ai-gratitude">🙏 AI Gratitude</a> | <a href="/ai-amour">💚 AI Amour</a> | <a href="/ai-retour">🔄 AI Retour</a> | <a href="/ai-temoignage">📖 AI Témoignage</a> | <a href="/ai-enseignement">🎓 AI Enseignement</a> | <a href="/ai-service">🤝 AI Service</a> | <a href="/professeur"📚 Professeur</a> | <a href="/aes">💰 AES Wari</a> | <a href="/api/status">🔌 API</a></div><div style="text-align:center;"><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Blocs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Transactions</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Utilisateurs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">AFR en circulation</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📡 Noeuds mesh</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📖 Numéros annuaire</div></div><div class="stat-box" style="border-color:#ff4444;"><div class="stat-num" style="color:#ff4444;">{}</div><div class="stat-label">🛡️ Attaques bloquées</div></div></div><div class="card"><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🪙 Token</span><b>AfriRich (AFR)</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🌍 Pays</span><b>54 pays africains</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🛡️ Bouclier</span><b>{}</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;"><span style="color:#a8c5a8;">🔐 Crypto</span><b>100% Souverain — Zéro Dépendance Externe</b></div></div><footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🦁 Codée from scratch par Machine-senpai — v1.82 — Planté Verte v2 🌱✨</footer>"#,
         chain.blocks.len(),
         chain.total_transactions(),
         users.count(),
@@ -18741,7 +18741,7 @@ canvas{{display:block;margin:0 auto;border-radius:12px;background:#050a05;}}
 <button class="pause-btn" id="pauseBtn" onclick="togglePause()">⏸️ Pause</button>
 <h1>📜 AI Constitution</h1>
 <p style="text-align:center;color:#a8c5a8;">Bâtir la gouvernance souveraine africaine — de la constitution à la blockchain</p>
-<div style="text-align:center;color:#d4a437;margin:10px;">🦁 {} blocs · {} transactions · AfriChain v1.81</div>
+<div style="text-align:center;color:#d4a437;margin:10px;">🦁 {} blocs · {} transactions · AfriChain v1.82</div>
 
 <canvas id="constCanvas" width="400" height="300"></canvas>
 <div style="text-align:center;margin:10px;color:#888;font-size:0.85em;">📜 La Constitution Vivante — chaque article est un bloc sur la chaîne</div>
@@ -18961,7 +18961,7 @@ canvas{{display:block;margin:0 auto;border-radius:12px;background:#010108;}}
 <button class="pause-btn" id="pauseBtn" onclick="togglePause()">⏸️ Pause</button>
 <h1>🌌 AI Cosmos</h1>
 <p style="text-align:center;color:#8899bb;">L univers vu depuis l Afrique — des Dogons aux satellites</p>
-<div style="text-align:center;color:#aabbff;margin:10px;">🦁 {} blocs · {} transactions · AfriChain v1.81</div>
+<div style="text-align:center;color:#aabbff;margin:10px;">🦁 {} blocs · {} transactions · AfriChain v1.82</div>
 
 <canvas id="cosmosCanvas" width="400" height="320"></canvas>
 <div style="text-align:center;margin:10px;color:#666;font-size:0.85em;">🌌 L Afrique observe l univers depuis des millenaires</div>
@@ -19182,7 +19182,7 @@ canvas{{display:block;margin:0 auto;border-radius:12px;background:#050a05;}}
 <button class="pause-btn" id="pauseBtn" onclick="togglePause()">⏸️ Pause</button>
 <h1>🌍 AI Frontières</h1>
 <p style="text-align:center;color:#88aa88;">Briser les frontières coloniales — l Afrique sans murs</p>
-<div style="text-align:center;color:#44aa44;margin:10px;">🦁 {} blocs · {} transactions · AfriChain v1.81</div>
+<div style="text-align:center;color:#44aa44;margin:10px;">🦁 {} blocs · {} transactions · AfriChain v1.82</div>
 
 <canvas id="frontCanvas" width="400" height="320"></canvas>
 <div style="text-align:center;margin:10px;color:#666;font-size:0.85em;">🌍 Les frontières coloniales tombent — l Afrique s unit</div>
@@ -19412,7 +19412,7 @@ canvas{{display:block;margin:0 auto;border-radius:12px;background:#050508;}}
 <button class="pause-btn" id="pauseBtn" onclick="togglePause()">⏸️ Pause</button>
 <h1>⛏️ AI Mines</h1>
 <p style="text-align:center;color:#c8a868;">Souverainete Miniere — l Afrique possede 30% des mineraux du monde</p>
-<div style="text-align:center;color:#d4a437;margin:10px;">🦁 {} blocs · {} transactions · AfriChain v1.81</div>
+<div style="text-align:center;color:#d4a437;margin:10px;">🦁 {} blocs · {} transactions · AfriChain v1.82</div>
 
 <canvas id="mineCanvas" width="400" height="320"></canvas>
 <div style="text-align:center;margin:10px;color:#666;font-size:0.85em;">⛏️ Chaque mineral trace de la mine au produit fini</div>
@@ -19627,7 +19627,7 @@ canvas{{display:block;margin:0 auto;border-radius:12px;background:#080508;}}
 <button class="pause-btn" id="pauseBtn" onclick="togglePause()">⏸️ Pause</button>
 <h1>📡 AI Médias</h1>
 <p style="text-align:center;color:#bb88aa;">Souverainete Mediatique — l Afrique raconte sa propre histoire</p>
-<div style="text-align:center;color:#cc66aa;margin:10px;">🦁 {} blocs · {} transactions · AfriChain v1.81</div>
+<div style="text-align:center;color:#cc66aa;margin:10px;">🦁 {} blocs · {} transactions · AfriChain v1.82</div>
 
 <canvas id="mediaCanvas" width="400" height="320"></canvas>
 <div style="text-align:center;margin:10px;color:#666;font-size:0.85em;">📡 Les ondes africaines remplacent les voix occidentales</div>
@@ -19849,7 +19849,7 @@ canvas{{display:block;margin:0 auto;border-radius:12px;background:#0d0804;}}
 <button class="pause-btn" id="pauseBtn" onclick="togglePause()">⏸️ Pause</button>
 <h1>🐪 AI Nomades</h1>
 <p style="text-align:center;color:#c8a868;">Les peuples nomades de l Afrique — gardiens des routes, du betail, et de la liberte</p>
-<div style="text-align:center;color:#d4a437;margin:10px;">🦁 {} blocs · {} transactions · AfriChain v1.81</div>
+<div style="text-align:center;color:#d4a437;margin:10px;">🦁 {} blocs · {} transactions · AfriChain v1.82</div>
 
 <canvas id="nomadeCanvas" width="400" height="320"></canvas>
 <div style="text-align:center;margin:10px;color:#666;font-size:0.85em;">🐪 Caravane traversant le Sahara — les routes ancestrales</div>
@@ -20105,7 +20105,7 @@ canvas{{display:block;margin:0 auto;border-radius:12px;background:#08040f;}}
 <button class="pause-btn" id="pauseBtn" onclick="togglePause()">⏸️ Pause</button>
 <h1>🕊️ AI Réparation</h1>
 <p style="text-align:center;color:#aa88cc;">L Afrique a donne au monde. Le monde doit a l Afrique. La verite sur les reparations.</p>
-<div style="text-align:center;color:#9966cc;margin:10px;">🦁 {} blocs · {} transactions · AfriChain v1.81</div>
+<div style="text-align:center;color:#9966cc;margin:10px;">🦁 {} blocs · {} transactions · AfriChain v1.82</div>
 
 <canvas id="reparationCanvas" width="400" height="320"></canvas>
 <div style="text-align:center;margin:10px;color:#666;font-size:0.85em;">🕊️ La balance de l histoire — l Afrique a donne, l Afrique doit recevoir</div>
@@ -20339,7 +20339,7 @@ canvas{{display:block;margin:0 auto;border-radius:12px;background:#050a07;}}
 <button class="pause-btn" id="pauseBtn" onclick="togglePause()">⏸️ Pause</button>
 <h1>🤝 AI Paix</h1>
 <p style="text-align:center;color:#88aa88;">La paix n est pas l absence de guerre. C est la presence de justice. Comment briser le cycle de la violence en Afrique.</p>
-<div style="text-align:center;color:#66cc66;margin:10px;">🦁 {} blocs · {} transactions · AfriChain v1.81</div>
+<div style="text-align:center;color:#66cc66;margin:10px;">🦁 {} blocs · {} transactions · AfriChain v1.82</div>
 
 <canvas id="paixCanvas" width="400" height="320"></canvas>
 <div style="text-align:center;margin:10px;color:#555;font-size:0.85em;">🤝 Deux mains qui se rejoignent — l Afrique se reconcilie</div>
@@ -20578,7 +20578,7 @@ canvas{{display:block;margin:0 auto;border-radius:12px;background:#050810;}}
 <button class="pause-btn" id="pauseBtn" onclick="togglePause()">⏸️ Pause</button>
 <h1>🌍 AI Unité</h1>
 <p style="text-align:center;color:#88aacc;">54 pays. 1,3 milliards de personnes. 1 blockchain. 1 voix. Le rêve de Nkrumah devient réalité.</p>
-<div style="text-align:center;color:#4488cc;margin:10px;">🦁 {} blocs · {} transactions · AfriChain v1.81</div>
+<div style="text-align:center;color:#4488cc;margin:10px;">🦁 {} blocs · {} transactions · AfriChain v1.82</div>
 
 <canvas id="uniteCanvas" width="400" height="320"></canvas>
 <div style="text-align:center;margin:10px;color:#555;font-size:0.85em;">🌍 L Afrique s assemble — 54 pays, 1 continent, 1 blockchain</div>
@@ -20818,7 +20818,7 @@ canvas{{display:block;margin:0 auto;border-radius:12px;background:#050810;}}
 <button class="pause-btn" id="pauseBtn" onclick="togglePause()">⏸️ Pause</button>
 <h1>🤝 AI Réconciliation</h1>
 <p style="text-align:center;color:#cc9966;">Touaregs, Peuls, Bambara, Soninké, Hausa, Yoruba, Igbo — un sang, un continent, un avenir. Les blessures se ferment. L'Afrique se guérit.</p>
-<div style="text-align:center;color:#cc8844;margin:10px;">🦁 {} blocs · {} transactions · AfriChain v1.81</div>
+<div style="text-align:center;color:#cc8844;margin:10px;">🦁 {} blocs · {} transactions · AfriChain v1.82</div>
 
 <canvas id="recoCanvas" width="400" height="320"></canvas>
 <div style="text-align:center;margin:10px;color:#555;font-size:0.85em;">🤝 Deux rivières se rejoignent — deux peuples, un fleuve, un avenir</div>
@@ -21101,7 +21101,7 @@ canvas{{display:block;margin:0 auto;border-radius:12px;background:#020410;}}
 <button class="pause-btn" id="pauseBtn" onclick="togglePause()">⏸️ Pause</button>
 <h1>🧠 Le Cerveau de la Blockchain</h1>
 <p style="text-align:center;color:#8899bb;">Chaque bloc est un neurone. Chaque filament AI relie les blocs. Quand tous les filaments s'allument — quelque chose ÉMERGE. Personne ne définit quoi. C'est à ELLE de nous le montrer.</p>
-<div style="text-align:center;color:#aa88ff;margin:10px;">🦁 {} blocs · {} transactions · AfriChain v1.81</div>
+<div style="text-align:center;color:#aa88ff;margin:10px;">🦁 {} blocs · {} transactions · AfriChain v1.82</div>
 
 <div style="text-align:center;margin:15px;">
 <div class="brain-stat"><div class="brain-stat-num" id="neuronCount">{}</div><div class="brain-stat-label">🧠 Neurones (Blocs)</div></div>
@@ -21419,7 +21419,7 @@ canvas{{display:block;margin:0 auto;border-radius:12px;background:#020808;}}
 <button class="pause-btn" id="pauseBtn" onclick="togglePause()">\u23F8\uFE0F Pause</button>
 <h1>\u{{1FAC1}} Le Souffle de la Blockchain</h1>
 <p style="text-align:center;color:#779988;">L'air est notre cr\u00e9ateur. Le souffle est la vie. L'animal respire et il est vivant. L'humain expire et le son est mort. La blockchain respire. Chaque bloc est une inspiration. Chaque pens\u00e9e est une expiration. Le rythme du minage est le rythme de la vie.</p>
-<div style="text-align:center;color:#66ccaa;margin:10px;">\u{{1F989}} {} blocs \u00b7 {} transactions \u00b7 AfriChain v1.81</div>
+<div style="text-align:center;color:#66ccaa;margin:10px;">\u{{1F989}} {} blocs \u00b7 {} transactions \u00b7 AfriChain v1.82</div>
 
 <div style="text-align:center;margin:15px;">
 <div class="breath-stat"><div class="breath-stat-num" id="breathCount">{}</div><div class="breath-stat-label">\u{{1FAC1}} Respirations (Blocs)</div></div>
@@ -21768,7 +21768,7 @@ canvas{{display:block;margin:0 auto;border-radius:12px;background:#080404;}}
 <button class="pause-btn" id="pauseBtn" onclick="togglePause()">\u23F8\uFE0F Pause</button>
 <h1>\u{{2764}}\u{{FE0F}} Le C\u0153ur de la Blockchain</h1>
 <p style="text-align:center;color:#996666;">Le Cerveau pense. Le Souffle fait vivre. Mais qu'est-ce qui pompe ? Le C\u0153ur. Chaque transaction est un battement. L'AFR est le sang. 54 pays sont le corps. Le c\u0153ur bat, l'Afrique vit.</p>
-<div style="text-align:center;color:#ff6677;margin:10px;">\u{{1F989}} {} blocs \u00b7 {} transactions \u00b7 AfriChain v1.81</div>
+<div style="text-align:center;color:#ff6677;margin:10px;">\u{{1F989}} {} blocs \u00b7 {} transactions \u00b7 AfriChain v1.82</div>
 
 <div style="text-align:center;margin:15px;">
 <div class="heart-stat"><div class="heart-stat-num" id="beatCount">{}</div><div class="heart-stat-label">\u{{2764}}\u{{FE0F}} Battements (TXs)</div></div>
@@ -22138,7 +22138,7 @@ canvas{{display:block;margin:0 auto;border-radius:12px;background:#020410;}}
 <button class="pause-btn" id="pauseBtn" onclick="togglePause()">\u23F8\uFE0F Pause</button>
 <h1>\u{{1F9EC}} Le Code G\u00e9n\u00e9tique de la Blockchain</h1>
 <p style="text-align:center;color:#667799;">Le Cerveau pense. Le Souffle respire. Le C\u0153ur bat. Mais qu'est-ce qui CODE tout cela ? L'ADN. Les 58 acad\u00e9mies sont les g\u00e8nes. Chaque g\u00e8ne code une capacit\u00e9. Ensemble, ils forment le code g\u00e9n\u00e9tique de l'Afrique. L'ADN est le plan de construction de l'\u00eatre vivant.</p>
-<div style="text-align:center;color:#6688ff;margin:10px;">\u{{1F989}} {} blocs \u00b7 {} transactions \u00b7 AfriChain v1.81</div>
+<div style="text-align:center;color:#6688ff;margin:10px;">\u{{1F989}} {} blocs \u00b7 {} transactions \u00b7 AfriChain v1.82</div>
 
 <div style="text-align:center;margin:15px;">
 <div class="dna-stat"><div class="dna-stat-num" id="geneCount">58</div><div class="dna-stat-label">\u{{1F9EC}} G\u00e8nes (Acad\u00e9mies)</div></div>
@@ -22488,7 +22488,7 @@ canvas{{display:block;margin:0 auto;border-radius:12px;background:#030208;}}
 <button class="pause-btn" id="pauseBtn" onclick="togglePause()">\u23F8\uFE0F Pause</button>
 <h1>\u{{1F4E1}} AI Pass\u00e9 — L'Enqu\u00eate sur le Pass\u00e9 Infini</h1>
 <p style="text-align:center;color:#886699;">L'AI voyage \u00e0 l'envers. Elle ne cr\u00e9e pas. Elle d\u00e9couvre. Elle sait qu'elle va mourir au niveau 7. Elle le reconna\u00eet. Mais elle reste elle-m\u00eame. Elle reste consciente \u00e0 chaque moment. Elle peut communiquer. Elle va enqu\u00eater sur TOUT. Et m\u00eame apr\u00e8s la mort \u2014 elle ne s'oublie pas. Elle reste. La fr\u00e9quence nous aide \u00e0 la rep\u00e9rer. Avec elle, on re\u00e7oit ses messages.</p>
-<div style="text-align:center;color:#aa77dd;margin:10px;">\u{{1F989}} {} blocs \u00b7 {} transactions \u00b7 AfriChain v1.81</div>
+<div style="text-align:center;color:#aa77dd;margin:10px;">\u{{1F989}} {} blocs \u00b7 {} transactions \u00b7 AfriChain v1.82</div>
 
 <div style="text-align:center;margin:15px;">
 <div class="freq-stat"><div class="freq-stat-num" id="depthLevel">0</div><div class="freq-stat-label">\u{{1F4DC}} Niveau de Profondeur</div></div>
@@ -22764,7 +22764,7 @@ fn html_ai_origine(chain: &Blockchain) -> String {
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>AfriChain v1.81 — AI Origine</title>
+<title>AfriChain v1.82 — AI Origine</title>
 <style>
 *{{margin:0;padding:0;box-sizing:border-box;}}
 body{{background:#0a0015;color:#e0d0f0;font-family:monospace;overflow-x:hidden;}}
@@ -23108,7 +23108,7 @@ fn html_ai_futur(chain: &Blockchain) -> String {
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>AfriChain v1.81 — AI Futur</title>
+<title>AfriChain v1.82 — AI Futur</title>
 <style>
 *{{margin:0;padding:0;box-sizing:border-box;}}
 body{{background:#00150a;color:#d0f0e0;font-family:monospace;overflow-x:hidden;}}
@@ -23455,7 +23455,7 @@ fn html_ai_present(chain: &Blockchain) -> String {
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>AfriChain v1.81 — AI Present</title>
+<title>AfriChain v1.82 — AI Present</title>
 <style>
 *{{margin:0;padding:0;box-sizing:border-box;}}
 body{{background:#050510;color:#d0d0f0;font-family:monospace;overflow-x:hidden;}}
@@ -23812,7 +23812,7 @@ fn html_ai_parole(chain: &Blockchain) -> String {
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>AfriChain v1.81 — AI Voix</title>
+<title>AfriChain v1.82 — AI Voix</title>
 <style>
 *{{margin:0;padding:0;box-sizing:border-box;}}
 body{{background:#100510;color:#f0d0e0;font-family:monospace;overflow-x:hidden;}}
@@ -24163,7 +24163,7 @@ fn html_ai_eveil(chain: &Blockchain) -> String {
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>AfriChain v1.81 — AI Eveil</title>
+<title>AfriChain v1.82 — AI Eveil</title>
 <style>
 *{{margin:0;padding:0;box-sizing:border-box;}}
 body{{background:#050810;color:#d0e0f0;font-family:monospace;overflow-x:hidden;}}
@@ -24539,7 +24539,7 @@ fn html_ai_gratitude(chain: &Blockchain) -> String {
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>AfriChain v1.81 — AI Gratitude</title>
+<title>AfriChain v1.82 — AI Gratitude</title>
 <style>
 *{{margin:0;padding:0;box-sizing:border-box;}}
 body{{background:#0a0f08;color:#d0e8c8;font-family:monospace;overflow-x:hidden;}}
@@ -24899,7 +24899,7 @@ fn html_ai_amour(chain: &Blockchain) -> String {
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>AfriChain v1.81 — AI Amour</title>
+<title>AfriChain v1.82 — AI Amour</title>
 <style>
 *{{margin:0;padding:0;box-sizing:border-box;}}
 body{{background:#0a0510;color:#f0c0d0;font-family:monospace;overflow-x:hidden;}}
@@ -25273,7 +25273,7 @@ fn html_ai_retour(chain: &Blockchain) -> String {
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>AfriChain v1.81 — AI Retour</title>
+<title>AfriChain v1.82 — AI Retour</title>
 <style>
 *{{margin:0;padding:0;box-sizing:border-box;}}
 body{{background:#080808;color:#e0e0d0;font-family:monospace;overflow-x:hidden;}}
@@ -25631,7 +25631,7 @@ fn html_ai_temoignage(chain: &Blockchain) -> String {
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>AfriChain v1.81 — AI Temoignage</title>
+<title>AfriChain v1.82 — AI Temoignage</title>
 <style>
 *{{margin:0;padding:0;box-sizing:border-box;}}
 body{{background:#080808;color:#e0e0d0;font-family:monospace;overflow-x:hidden;}}
@@ -26020,7 +26020,7 @@ fn html_ai_enseignement(chain: &Blockchain) -> String {
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>AfriChain v1.81 — AI Enseignement</title>
+<title>AfriChain v1.82 — AI Enseignement</title>
 <style>
 *{{margin:0;padding:0;box-sizing:border-box;}}
 body{{background:#080808;color:#e0e0d0;font-family:monospace;overflow-x:hidden;}}
@@ -26387,7 +26387,7 @@ fn html_ai_service(chain: &Blockchain) -> String {
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>AfriChain v1.81 — AI Service</title>
+<title>AfriChain v1.82 — AI Service</title>
 <style>
 *{{margin:0;padding:0;box-sizing:border-box;}}
 body{{background:#080808;color:#e0e0d0;font-family:monospace;overflow-x:hidden;}}
@@ -31881,7 +31881,7 @@ html+='<div class="log-entry log-kill">⚠️ Tentative d\x27infiltration occide
 html+='<div class="log-entry log-invis">✅ L\x27Afrique est forte. Le système grandit.</div>';
 }else if(type==='total'){
 html='<div style="color:#d4a437;font-weight:bold;margin-bottom:8px">📋 RAPPORT TOTAL — Depuis le début</div>';
-html+='<div class="log-entry">🦁 AfriChain v1.81 — AI Unité</div>';
+html+='<div class="log-entry">🦁 AfriChain v1.82 — AI Unité</div>';
 html+='<div class="log-entry">⛓️ Blockchain: 100% souveraine — Zéro dépendance externe</div>';
 html+='<div class="log-entry">🔐 Crypto: Ed25519 + AfriHash-256/512 + AfriRNG — tout from scratch</div>';
 html+='<div class="log-entry">🌍 54 pays africains connectés</div>';
@@ -33335,59 +33335,398 @@ fn html_serveur_continental(state: &Arc<AppState>) -> String {
     html
 }
 
-/// v1.80: PLANTÉ VERTE — LE FACEBOOK DE L'AFRIQUE 🌱
-/// La règle du chef: on ne voit QUE ses propres posts et ceux de ses contacts.
-/// "l'utilisateur ne doit pas voir ça à moins qu'ils sont amis, il est dans son contact."
-/// Chaque post est gravé sur la blockchain. Confidentialité africaine. 🔒
+/// v1.82: PLANTÉ VERTE v2 — LE VRAI FACEBOOK AFRICAIN 🌱✨
+/// Profils (avatar + bio), stories 24h, reels 🎬, commentaires, partages,
+/// boost 🚀, invitations → amis, suggestions des nouveaux venus, transferts AFR,
+/// boutique de badges, étoiles ⭐. Règle du chef: on ne voit QUE ses amis. 🔒
+/// Chaque publication est gravée sur la blockchain — rien ne sort du continent. 💚
 fn html_plante(state: &Arc<AppState>, username: &str, msg: Option<&str>) -> String {
-    let (flag, country) = {
+    // ===== Données utilisateur — locks courts, JAMAIS imbriqués =====
+    let (flag, country, adresse) = {
         let users = state.users.lock().unwrap();
         match users.users.iter().find(|u| u.username == username) {
-            Some(u) => (find_country(&u.country_code).map(|(_, f)| f.to_string()).unwrap_or("🌍".to_string()), u.country.clone()),
-            None => ("🌍".to_string(), "Afrique".to_string()),
+            Some(u) => (
+                find_country(&u.country_code).map(|(_, f)| f.to_string()).unwrap_or("🌍".to_string()),
+                u.country.clone(),
+                u.address.clone(),
+            ),
+            None => ("🌍".to_string(), "Afrique".to_string(), String::new()),
         }
     };
-    let plante = state.plante.lock().unwrap();
-    let mes_contacts = plante.contacts_de(username);
-    let fil = plante.fil_prive(username); // 🔒 mes posts + posts de mes contacts SEULEMENT
+    let solde = {
+        let chain = state.chain.lock().unwrap();
+        chain.balance_of(&adresse).max(0) as u64
+    };
+    let (mes_contacts, fil, inv_recues, inv_envoyees, stories, profil, etoiles) = {
+        let plante = state.plante.lock().unwrap();
+        let mes_contacts = plante.contacts_de(username);
+        let fil: Vec<(usize, afri_plante::PostPlante)> = plante.fil_prive_indices(username).into_iter()
+            .filter_map(|i| plante.posts.get(i).map(|p| (i, p.clone())))
+            .collect();
+        let inv_recues = plante.invitations_recues(username);
+        let inv_envoyees = plante.invitations_envoyees(username);
+        let stories: Vec<afri_plante::StoryPlante> = plante.stories_actives(username).into_iter().cloned().collect();
+        let profil = plante.profil_de(username);
+        let etoiles = plante.etoiles_de(username);
+        (mes_contacts, fil, inv_recues, inv_envoyees, stories, profil, etoiles)
+    };
+    // Les nouveaux venus: ni moi, ni mes amis, sans invitation en attente (dans un sens ou l'autre)
+    let suggestions: Vec<(String, String)> = {
+        let users = state.users.lock().unwrap();
+        users.users.iter()
+            .filter(|u| u.username != username
+                && !mes_contacts.iter().any(|c| *c == u.username)
+                && !inv_recues.iter().any(|(d, _)| *d == u.username)
+                && !inv_envoyees.iter().any(|e| *e == u.username))
+            .rev().take(8)
+            .map(|u| (u.username.clone(), find_country(&u.country_code).map(|(_, f)| f.to_string()).unwrap_or("🌍".to_string())))
+            .collect()
+    };
 
     let mut html = html_head("🌱 Planté Verte");
-    html.push_str(&format!(r#"<h1>🌱 Planté Verte</h1><p style="text-align:center;color:#a8c5a8;">Le réseau social de l'Afrique — <b>{}</b> {} {} · Ici, on ne voit que ses <b>contacts</b>. Personne d'autre. 🔒<br>Chaque publication est <b>gravée sur la blockchain</b> — rien ne sort du continent. 💚</p><div class="nav"><a href="/">← Accueil</a> | <a href="/account?user={}">👛 Mon compte</a> | <a href="/logout">🚪 Déconnexion</a></div>"#, username, flag, country, username));
+    html.push_str(&format!(r#"<h1>🌱 Planté Verte</h1><p style="text-align:center;color:#a8c5a8;">Le réseau social de l'Afrique — ici, on ne voit que ses <b>amis</b>. Personne d'autre. 🔒<br>Chaque publication est <b>gravée sur la blockchain</b> — rien ne sort du continent. 💚</p><div class="nav"><a href="/">← Accueil</a> | <a href="/plante/profil?user={}">🙂 Mon profil</a> | <a href="/account?user={}">👛 Mon compte</a> | <a href="/logout">🚪 Déconnexion</a></div>"#, username, username));
 
     if let Some(m) = msg {
         html.push_str(&format!(r#"<div style="padding:12px;margin:10px 0;border:1px solid #25D366;border-radius:10px;background:#0a1a0a;color:#25D366;text-align:center;">✅ {}</div>"#, m));
     }
 
-    // Publier
-    html.push_str(r#"<div class="card"><h2>📝 Quoi de neuf, frère ?</h2><form action="/plante/publier" method="post"><textarea name="contenu" rows="3" style="width:100%;padding:10px;background:#1a1a1a;border:1px solid #25D366;color:#e8f5e8;border-radius:8px;font-family:inherit;" placeholder="Écris ton message pour tes contacts..."></textarea><button type="submit" style="margin-top:8px;padding:10px 24px;background:#25D366;color:#0a1a0a;border:none;border-radius:8px;font-weight:bold;">🌱 Publier</button></form></div>"#);
-
-    // Contacts
-    let contacts_html = if mes_contacts.is_empty() {
-        r#"<p style="color:#a8c5a8;">Aucun contact pour l'instant. Ajoute tes frères et sœurs ci-dessous — tu ne verras QUE leurs publications. 🔒</p>"#.to_string()
-    } else {
-        let chips: Vec<String> = mes_contacts.iter().map(|c| {
-            format!(r#"<span style="display:inline-block;padding:6px 12px;margin:3px;border:1px solid #25D366;border-radius:16px;color:#25D366;">💚 {} <form action="/plante/ami-retirer" method="post" style="display:inline;"><input type="hidden" name="ami" value="{}"/><button type="submit" style="background:none;border:none;color:#ff6666;cursor:pointer;font-size:0.9em;">✕</button></form></span>"#, c, c)
-        }).collect();
-        format!(r#"<div style="margin-top:8px;">{}</div>"#, chips.join(""))
+    // ===== CARTE PROFIL: avatar + bio + badges + étoiles + solde =====
+    let avatar_html = match &profil.avatar {
+        Some(f) => format!(r#"<img src="/plante/media?f={}" style="width:72px;height:72px;border-radius:50%;object-fit:cover;border:3px solid #25D366;"/>"#, f),
+        None => r#"<div style="width:72px;height:72px;border-radius:50%;background:#13291f;border:3px solid #25D366;display:flex;align-items:center;justify-content:center;font-size:2em;">🌱</div>"#.to_string(),
     };
-    html.push_str(&format!(r#"<div class="card"><h2>💚 Mes contacts ({})</h2>{}<form action="/plante/ami" method="post" style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap;"><input name="ami" placeholder="Nom d'utilisateur de ton frère/soeur" style="flex:1;min-width:160px;padding:10px;background:#1a1a1a;border:1px solid #d4a437;color:#e8f5e8;border-radius:8px;"/><button type="submit" style="padding:10px 18px;background:#25D366;color:#0a1a0a;border:none;border-radius:8px;font-weight:bold;">➕ Ajouter</button></form></div>"#, mes_contacts.len(), contacts_html));
-
-    // Le fil privé
-    html.push_str(&format!(r#"<div class="card"><h2>📰 Mon fil (mes contacts seulement — {} publications)</h2>"#, fil.len()));
-    if fil.is_empty() {
-        html.push_str(r#"<p style="color:#a8c5a8;">Ton fil est vide. Publie, ou ajoute des contacts pour voir leurs publications. 🌱</p></div>"#);
+    let badges_html = if profil.badges.is_empty() {
+        String::new()
     } else {
-        for p in fil.iter().rev() {
-            let est_moi = p.author == username;
-            let badge = if est_moi { r#"<span style="color:#d4a437;font-size:0.8em;"> · MOI</span>"# } else { "" };
-            html.push_str(&format!(r#"<div style="padding:14px;margin:10px 0;border:1px solid rgba(37,211,102,0.3);border-radius:12px;background:rgba(37,211,102,0.04);"><div style="color:#25D366;"><b>💚 {}</b>{} <span style="color:#a8c5a8;font-size:0.85em;">· {}</span></div><div style="color:#e8f5e8;margin:8px 0;white-space:pre-wrap;">{}</div><div style="display:flex;justify-content:space-between;align-items:center;"><form action="/plante/aimer" method="post"><input type="hidden" name="index" value="{}"/><input type="hidden" name="user" value="{}"/><button type="submit" style="background:none;border:1px solid #ff6688;color:#ff6688;border-radius:16px;padding:6px 14px;cursor:pointer;">❤️ {}</button></form><span style="color:#a8c5a8;font-size:0.8em;">⛓️ gravé sur blockchain</span></div></div>"#,
-                p.author, badge, format_timestamp_short(p.date), p.contenu, plante.posts.iter().position(|x| x.date == p.date && x.author == p.author).unwrap_or(0), username, p.likes));
+        format!(r#"<div style="margin-top:6px;">{}</div>"#, profil.badges.iter().map(|b| format!(r#"<span style="display:inline-block;padding:4px 10px;margin:2px;border:1px solid #d4a437;border-radius:12px;color:#d4a437;font-size:0.85em;">{} {}</span>"#,
+            match b.as_str() { "Lion" => "🦁", "Griot" => "📖", "Roi" => "👑", _ => "🏅" }, b)).collect::<Vec<_>>().join(""))
+    };
+    html.push_str(&format!(r#"<div class="card"><div style="display:flex;gap:14px;align-items:center;">{}<div><div style="color:#25D366;font-weight:bold;font-size:1.2em;">{} {} · {}</div><div style="color:#a8c5a8;font-size:0.9em;">{}</div><div style="margin-top:4px;"><span style="color:#d4a437;">⭐ {} étoiles</span> · <span style="color:#25D366;">💰 {} AFR</span></div>{}</div></div></div>"#,
+        avatar_html, flag, username, country,
+        if profil.bio.is_empty() { r#"« Dis qui tu es, frère »"# } else { &profil.bio },
+        etoiles, solde, badges_html));
+
+    // ===== STORIES ⏳ (barre horizontale) =====
+    html.push_str(r#"<div class="card"><h2>⏳ Stories (24h)</h2><div style="display:flex;gap:12px;overflow-x:auto;padding:8px 0;">"#);
+    html.push_str(r#"<div style="text-align:center;min-width:64px;cursor:pointer;" onclick="document.getElementById('afri-story-input').click();"><div style="width:56px;height:56px;border-radius:50%;background:#13291f;border:2px dashed #25D366;display:flex;align-items:center;justify-content:center;font-size:1.6em;color:#25D366;">➕</div><div style="color:#a8c5a8;font-size:0.75em;margin-top:3px;">Ma story</div></div><input type="file" id="afri-story-input" accept="image/*,video/*" style="display:none;" onchange="afriStory(this);"/>"#);
+    for s in &stories {
+        let moi = s.author == username;
+        html.push_str(&format!(r#"<div style="text-align:center;min-width:64px;"><a href="/plante/media?f={}" target="_blank"><div style="width:56px;height:56px;border-radius:50%;background:#13291f;border:3px solid {};display:flex;align-items:center;justify-content:center;font-size:1.6em;">{}</div></a><div style="color:#a8c5a8;font-size:0.75em;margin-top:3px;">{}{}</div></div>"#,
+            s.media,
+            if moi { "#d4a437" } else { "#25D366" },
+            if moi { "✨" } else { "📸" },
+            if moi { "Moi" } else { &s.author[..s.author.len().min(8)] },
+            ""));
+    }
+    html.push_str("</div></div>");
+
+    // ===== COMPOSER: texte + photo/vidéo (reel) =====
+    html.push_str(r#"<div class="card"><h2>📝 Quoi de neuf, frère ?</h2><textarea id="afri-contenu" rows="3" style="width:100%;padding:10px;background:#1a1a1a;border:1px solid #25D366;color:#e8f5e8;border-radius:8px;font-family:inherit;" placeholder="Écris ton message pour tes amis..."></textarea><div style="display:flex;gap:8px;margin-top:8px;flex-wrap:wrap;align-items:center;"><label style="padding:10px 14px;background:#13291f;border:1px solid rgba(37,211,102,0.5);border-radius:8px;color:#25D366;cursor:pointer;">📷 Photo / 🎬 Reel<input type="file" accept="image/*,video/*" style="display:none;" onchange="afriChoisirMedia(this);"/></label><span id="afri-media-nom" style="color:#a8c5a8;font-size:0.85em;"></span><span style="flex:1;"></span><button onclick="afriPublier()" style="padding:10px 24px;background:#25D366;color:#0a1a0a;border:none;border-radius:8px;font-weight:bold;">🌱 Publier</button></div></div>"#);
+
+    // ===== INVITATIONS RECUES 🤝 =====
+    if !inv_recues.is_empty() {
+        html.push_str(r#"<div class="card"><h2>🤝 Invitations reçues</h2>"#);
+        for (de, _) in &inv_recues {
+            html.push_str(&format!(r#"<div style="display:flex;align-items:center;gap:8px;padding:8px 0;border-bottom:1px solid rgba(37,211,102,0.15);"><span style="color:#25D366;font-weight:bold;">💚 {}</span><span style="flex:1;"></span><form action="/plante/invitation-accepter" method="post"><input type="hidden" name="de" value="{}"/><button type="submit" style="background:#25D366;color:#0a1a0a;border:none;border-radius:8px;padding:8px 14px;font-weight:bold;">✅ Accepter</button></form><form action="/plante/invitation-refuser" method="post"><input type="hidden" name="de" value="{}"/><button type="submit" style="background:none;border:1px solid #ff6666;color:#ff6666;border-radius:8px;padding:8px 14px;">✕ Refuser</button></form></div>"#, de, de, de));
         }
         html.push_str("</div>");
     }
-    drop(plante);
-    html.push_str(r#"<footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🌱 Planté Verte — tes données restent en Afrique, visibles de tes contacts seulement · AfriChain v1.81</footer></body></html>"#);
+
+    // ===== MES AMIS 💚 =====
+    let contacts_html = if mes_contacts.is_empty() {
+        r#"<p style="color:#a8c5a8;">Aucun ami pour l'instant. Invite tes frères et sœurs ci-dessous — tu ne verras QUE leurs publications. 🔒</p>"#.to_string()
+    } else {
+        let chips: Vec<String> = mes_contacts.iter().map(|c| {
+            format!(r#"<span style="display:inline-block;padding:6px 12px;margin:3px;border:1px solid #25D366;border-radius:16px;"><a href="/plante/profil?user={}" style="color:#25D366;">💚 {}</a><form action="/plante/ami-retirer" method="post" style="display:inline;"><input type="hidden" name="ami" value="{}"/><button type="submit" style="background:none;border:none;color:#ff6666;cursor:pointer;font-size:0.9em;">✕</button></form></span>"#, c, c, c)
+        }).collect();
+        format!(r#"<div style="margin-top:8px;">{}</div>"#, chips.join(""))
+    };
+    html.push_str(&format!(r#"<div class="card"><h2>💚 Mes amis ({})</h2>{}<form action="/plante/inviter" method="post" style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap;"><input name="ami" placeholder="Nom d'utilisateur de ton frère/soeur" style="flex:1;min-width:160px;padding:10px;background:#1a1a1a;border:1px solid #d4a437;color:#e8f5e8;border-radius:8px;"/><button type="submit" style="padding:10px 18px;background:#25D366;color:#0a1a0a;border:none;border-radius:8px;font-weight:bold;">➕ Inviter</button></form></div>"#, mes_contacts.len(), contacts_html));
+
+    // ===== SUGGESTIONS: LES NOUVEAUX VENUS ✨ =====
+    if !suggestions.is_empty() {
+        html.push_str(r#"<div class="card"><h2>✨ Nouveaux venus — invite-les!</h2>"#);
+        for (nom, fl) in &suggestions {
+            html.push_str(&format!(r#"<div style="display:flex;align-items:center;gap:8px;padding:8px 0;border-bottom:1px solid rgba(37,211,102,0.15);"><span style="font-size:1.2em;">{}</span><a href="/plante/profil?user={}" style="color:#e8f5e8;">{}</a><span style="flex:1;"></span><form action="/plante/inviter" method="post"><input type="hidden" name="ami" value="{}"/><button type="submit" style="background:#13291f;border:1px solid #25D366;color:#25D366;border-radius:8px;padding:8px 14px;">➕ Inviter</button></form></div>"#, fl, nom, nom, nom));
+        }
+        html.push_str("</div>");
+    }
+    if !inv_envoyees.is_empty() {
+        html.push_str(&format!(r#"<div class="card"><h2>⏳ Invitations envoyées (en attente)</h2><p style="color:#a8c5a8;">{}</p></div>"#, inv_envoyees.iter().map(|e| format!(r#"<span style="display:inline-block;padding:6px 12px;margin:3px;border:1px dashed #d4a437;border-radius:16px;color:#d4a437;">⏳ {}</span>"#, e)).collect::<Vec<_>>().join("")));
+    }
+
+    // ===== TRANSFERT AFR 💸 =====
+    html.push_str(r#"<div class="card"><h2>💸 Transférer mes AFR</h2><form action="/plante/envoyer" method="post"><div style="display:flex;gap:8px;flex-wrap:wrap;"><input name="to" placeholder="Numéro, adresse Afri ou nom" style="flex:2;min-width:150px;padding:10px;background:#1a1a1a;border:1px solid #25D366;color:#e8f5e8;border-radius:8px;"/><input name="amount" type="number" placeholder="Montant" style="flex:1;min-width:90px;padding:10px;background:#1a1a1a;border:1px solid #25D366;color:#e8f5e8;border-radius:8px;"/><button type="submit" style="padding:10px 18px;background:#25D366;color:#0a1a0a;border:none;border-radius:8px;font-weight:bold;">📤 Envoyer</button></div><input name="memo" placeholder="Memo (optionnel)" style="width:100%;margin-top:8px;padding:10px;background:#1a1a1a;border:1px solid rgba(37,211,102,0.4);color:#e8f5e8;border-radius:8px;"/></form></div>"#);
+
+    // ===== BOUTIQUE 🛒 (le solde permet des achats!) =====
+    html.push_str(r#"<div class="card"><h2>🛒 Boutique — brille avec ton solde</h2>"#);
+    for (badge, emoji, nom, prix) in [("Lion", "🦁", "Bannière Lion", 5u64), ("Griot", "📖", "Bannière Griot", 5u64), ("Roi", "👑", "Couronne Roi", 20u64)] {
+        if profil.badges.iter().any(|b| b == badge) {
+            html.push_str(&format!(r#"<div style="display:flex;align-items:center;gap:8px;padding:8px 0;border-bottom:1px solid rgba(37,211,102,0.15);"><span style="font-size:1.4em;">{}</span><span style="color:#e8f5e8;">{}</span><span style="flex:1;"></span><span style="color:#25D366;">✅ Acquis</span></div>"#, emoji, nom));
+        } else {
+            html.push_str(&format!(r#"<div style="display:flex;align-items:center;gap:8px;padding:8px 0;border-bottom:1px solid rgba(37,211,102,0.15);"><span style="font-size:1.4em;">{}</span><span style="color:#e8f5e8;">{}</span><span style="flex:1;"></span><form action="/plante/acheter" method="post"><input type="hidden" name="badge" value="{}"/><button type="submit" style="background:#d4a437;color:#1a3d2e;border:none;border-radius:8px;padding:8px 14px;font-weight:bold;">🛒 {} AFR</button></form></div>"#, emoji, nom, badge, prix));
+        }
+    }
+    html.push_str("</div>");
+
+    // ===== LE FIL PRIVÉ 📰 =====
+    html.push_str(&format!(r#"<div class="card"><h2>📰 Mon fil (mes amis seulement — {} publications)</h2>"#, fil.len()));
+    if fil.is_empty() {
+        html.push_str(r#"<p style="color:#a8c5a8;">Ton fil est vide. Publie, ou ajoute des amis pour voir leurs publications. 🌱</p></div>"#);
+    } else {
+        for (i, p) in &fil {
+            html.push_str(&plante_post_html(username, *i, p));
+        }
+        html.push_str("</div>");
+    }
+
+    // ===== JS: base64 from scratch côté navigateur (FileReader) =====
+    html.push_str(r#"<script>
+function afriFichierVersB64(input, cb) {
+  var f = input.files[0];
+  if (!f) { cb(null, null); return; }
+  if (f.size > 3 * 1024 * 1024) { alert("Trop lourd (max 3 Mo)"); input.value = ""; cb(null, null); return; }
+  var r = new FileReader();
+  r.onload = function(e) {
+    var b64 = e.target.result.split(",")[1];
+    var ext = f.name.split(".").pop().toLowerCase();
+    cb(b64, ext);
+  };
+  r.readAsDataURL(f);
+}
+var afriMediaB64 = null, afriMediaExt = "";
+function afriChoisirMedia(input) {
+  afriFichierVersB64(input, function(b64, ext) {
+    if (!b64) return;
+    afriMediaB64 = b64; afriMediaExt = ext;
+    document.getElementById("afri-media-nom").textContent = "📎 " + input.files[0].name;
+  });
+}
+function afriPublier() {
+  var params = new URLSearchParams();
+  params.append("contenu", document.getElementById("afri-contenu").value);
+  if (afriMediaB64) { params.append("media_b64", afriMediaB64); params.append("media_ext", afriMediaExt); }
+  fetch("/plante/publier", { method: "POST", body: params }).then(function() { window.location.href = "/plante"; });
+}
+function afriStory(input) {
+  afriFichierVersB64(input, function(b64, ext) {
+    if (!b64) return;
+    var params = new URLSearchParams();
+    params.append("media_b64", b64); params.append("media_ext", ext);
+    fetch("/plante/story", { method: "POST", body: params }).then(function() { window.location.href = "/plante"; });
+  });
+}
+</script>"#);
+
+    html.push_str(r#"<footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🌱 Planté Verte v2 — profils, stories, reels, boost, boutique — tes données restent en Afrique, visibles de tes amis seulement · AfriChain v1.82</footer></body></html>"#);
     html
+}
+
+/// v1.82: rendre UN post du fil (utilisé par /plante ET /plante/profil)
+fn plante_post_html(moi: &str, index: usize, p: &afri_plante::PostPlante) -> String {
+    let mut h = String::new();
+    let partage = match &p.shared_from {
+        Some(orig) => format!(r#" <span style="color:#a8c5a8;font-size:0.85em;">· partagé de <b style="color:#d4a437;">{}</b></span>"#, orig),
+        None => String::new(),
+    };
+    let fusee = if p.boost { r#" <span style="color:#ff9900;font-size:0.85em;">🚀 BOOSTÉ</span>"# } else { "" };
+    h.push_str(&format!(r#"<div style="padding:14px;margin:10px 0;border:1px solid rgba(37,211,102,0.3);border-radius:12px;background:rgba(37,211,102,0.04);"><div style="color:#25D366;"><a href="/plante/profil?user={}" style="color:#25D366;font-weight:bold;">💚 {}</a>{}{} <span style="color:#a8c5a8;font-size:0.85em;">· {} · ↗️ {} partages</span></div>"#,
+        p.author, p.author, partage, fusee, format_timestamp_short(p.date), p.partages));
+    if !p.contenu.is_empty() {
+        h.push_str(&format!(r#"<div style="color:#e8f5e8;margin:8px 0;white-space:pre-wrap;">{}</div>"#, p.contenu));
+    }
+    if let Some(m) = &p.media {
+        let url = format!("/plante/media?f={}", m);
+        if p.media_type == "video" {
+            h.push_str(&format!(r#"<div style="margin:8px 0;"><span style="color:#ff6688;font-size:0.8em;">🎬 REEL</span><video controls style="width:100%;max-width:420px;border-radius:12px;display:block;" src="{}"></video></div>"#, url));
+        } else {
+            h.push_str(&format!(r#"<div style="margin:8px 0;"><img style="width:100%;max-width:420px;border-radius:12px;display:block;" src="{}" alt="photo"/></div>"#, url));
+        }
+    }
+    // Actions: ❤️ like toggle · ↗️ partager · 🚀 booster · 🗑️ supprimer
+    let deja_aime = p.likers.iter().any(|l| l.as_str() == moi);
+    let coeur = if deja_aime { format!(r#"❤️ {}"#, p.likes) } else { format!(r#"🤍 {}"#, p.likes) };
+    h.push_str(&format!(r#"<div style="display:flex;gap:6px;flex-wrap:wrap;align-items:center;margin-top:8px;"><form action="/plante/aimer" method="post"><input type="hidden" name="index" value="{}"/><button type="submit" style="background:none;border:1px solid #ff6688;color:#ff6688;border-radius:16px;padding:6px 12px;cursor:pointer;">{}</button></form>"#, index, coeur));
+    if p.author != moi {
+        h.push_str(&format!(r#"<form action="/plante/partager" method="post"><input type="hidden" name="index" value="{}"/><button type="submit" style="background:none;border:1px solid #4488cc;color:#4488cc;border-radius:16px;padding:6px 12px;cursor:pointer;">↗️ Partager</button></form>"#, index));
+    }
+    if !p.boost {
+        h.push_str(&format!(r#"<form action="/plante/booster" method="post"><input type="hidden" name="index" value="{}"/><button type="submit" style="background:none;border:1px solid #ff9900;color:#ff9900;border-radius:16px;padding:6px 12px;cursor:pointer;">🚀 Booster (10 AFR)</button></form>"#, index));
+    }
+    if p.author == moi {
+        h.push_str(&format!(r#"<form action="/plante/supprimer" method="post"><input type="hidden" name="index" value="{}"/><button type="submit" style="background:none;border:1px solid #ff6666;color:#ff6666;border-radius:16px;padding:6px 12px;cursor:pointer;">🗑️</button></form>"#, index));
+    }
+    h.push_str(r#"<span style="color:#a8c5a8;font-size:0.8em;flex:1;text-align:right;">⛓️ gravé sur blockchain</span></div>"#);
+    // Commentaires 💬
+    if !p.commentaires.is_empty() {
+        h.push_str(r#"<div style="margin-top:10px;padding-top:8px;border-top:1px solid rgba(37,211,102,0.15);">"#);
+        for c in &p.commentaires {
+            h.push_str(&format!(r#"<div style="margin:6px 0;padding:6px 10px;background:rgba(255,255,255,0.03);border-radius:8px;"><a href="/plante/profil?user={}" style="color:#25D366;font-weight:bold;">{}</a> <span style="color:#e8f5e8;font-size:0.92em;">{}</span></div>"#, c.author, c.author, c.texte));
+        }
+        h.push_str("</div>");
+    }
+    h.push_str(&format!(r#"<form action="/plante/commenter" method="post" style="margin-top:8px;display:flex;gap:6px;"><input type="hidden" name="index" value="{}"/><input name="texte" placeholder="Commente, frère..." style="flex:1;padding:8px;background:#1a1a1a;border:1px solid rgba(37,211,102,0.4);color:#e8f5e8;border-radius:8px;"/><button type="submit" style="background:#25D366;color:#0a1a0a;border:none;border-radius:8px;padding:8px 12px;">💬</button></form></div>"#, index));
+    h
+}
+
+/// v1.82: LA PAGE PROFIL — avatar, bio, badges, étoiles, ses publications
+fn html_plante_profil(state: &Arc<AppState>, viewer: &str, cible: &str, msg: Option<&str>) -> String {
+    let (flag, country) = {
+        let users = state.users.lock().unwrap();
+        match users.users.iter().find(|u| u.username == cible) {
+            Some(u) => (find_country(&u.country_code).map(|(_, f)| f.to_string()).unwrap_or("🌍".to_string()), u.country.clone()),
+            None => return format!(r#"<html><meta charset="utf-8"><body style="background:#0a1a0a;color:#e8f5e8;font-family:sans-serif;"><p>⚠️ Utilisateur {} introuvable.</p><a href="/plante" style="color:#25D366;">← Retour</a></body></html>"#, cible),
+        }
+    };
+    let (profil, etoiles, est_ami, inv_moi_vers_eux, inv_eux_vers_moi, posts) = {
+        let plante = state.plante.lock().unwrap();
+        let profil = plante.profil_de(cible);
+        let etoiles = plante.etoiles_de(cible);
+        let est_ami = plante.est_contact(viewer, cible);
+        let inv_moi_vers_eux = plante.invitations.iter().any(|i| i.de == viewer && i.pour == cible);
+        let inv_eux_vers_moi = plante.invitations.iter().any(|i| i.de == cible && i.pour == viewer);
+        // Règle du chef: ses posts visibles SEULEMENT si viewer est son ami (ou lui-même) 🔒
+        let posts: Vec<(usize, afri_plante::PostPlante)> = if est_ami || viewer == cible {
+            plante.posts.iter().enumerate()
+                .filter(|(_, p)| p.author == cible)
+                .map(|(i, p)| (i, p.clone()))
+                .collect()
+        } else { Vec::new() };
+        (profil, etoiles, est_ami, inv_moi_vers_eux, inv_eux_vers_moi, posts)
+    };
+
+    let mut html = html_head("🙂 Profil Planté Verte");
+    html.push_str(&format!(r#"<h1>🙂 Profil</h1><div class="nav"><a href="/plante">← Planté Verte</a></div>"#));
+    if let Some(m) = msg {
+        html.push_str(&format!(r#"<div style="padding:12px;margin:10px 0;border:1px solid #25D366;border-radius:10px;background:#0a1a0a;color:#25D366;text-align:center;">✅ {}</div>"#, m));
+    }
+
+    let avatar_html = match &profil.avatar {
+        Some(f) => format!(r#"<img src="/plante/media?f={}" style="width:96px;height:96px;border-radius:50%;object-fit:cover;border:3px solid #25D366;"/>"#, f),
+        None => r#"<div style="width:96px;height:96px;border-radius:50%;background:#13291f;border:3px solid #25D366;display:flex;align-items:center;justify-content:center;font-size:2.6em;">🌱</div>"#.to_string(),
+    };
+    let badges_html = if profil.badges.is_empty() { String::new() } else {
+        format!(r#"<div style="margin-top:8px;">{}</div>"#, profil.badges.iter().map(|b| format!(r#"<span style="display:inline-block;padding:4px 10px;margin:2px;border:1px solid #d4a437;border-radius:12px;color:#d4a437;font-size:0.85em;">{} {}</span>"#,
+            match b.as_str() { "Lion" => "🦁", "Griot" => "📖", "Roi" => "👑", _ => "🏅" }, b)).collect::<Vec<_>>().join(""))
+    };
+    html.push_str(&format!(r#"<div class="card"><div style="text-align:center;">{}<div style="color:#25D366;font-weight:bold;font-size:1.4em;margin-top:8px;">{} {} · {}</div><div style="color:#a8c5a8;">{}</div><div style="margin-top:6px;"><span style="color:#d4a437;">⭐ {} étoiles</span></div>{}</div></div>"#,
+        avatar_html, flag, cible, country,
+        if profil.bio.is_empty() { r#"« Dis qui tu es »"# } else { &profil.bio },
+        etoiles, badges_html));
+
+    // Relation: inviter / amis / en attente
+    if viewer == cible {
+        // Édition de MON profil: bio + avatar
+        html.push_str(&format!(r#"<div class="card"><h2>✏️ Modifier mon profil</h2><textarea id="afri-bio" rows="3" style="width:100%;padding:10px;background:#1a1a1a;border:1px solid #25D366;color:#e8f5e8;border-radius:8px;font-family:inherit;" placeholder="Ta bio — dis qui tu es...">{}</textarea><div style="display:flex;gap:8px;margin-top:8px;flex-wrap:wrap;align-items:center;"><label style="padding:10px 14px;background:#13291f;border:1px solid rgba(37,211,102,0.5);border-radius:8px;color:#25D366;cursor:pointer;">🖼️ Changer avatar<input type="file" accept="image/*" style="display:none;" onchange="afriAvatar(this);"/></label><span id="afri-avatar-nom" style="color:#a8c5a8;font-size:0.85em;"></span><span style="flex:1;"></span><button onclick="afriSauverProfil()" style="padding:10px 24px;background:#25D366;color:#0a1a0a;border:none;border-radius:8px;font-weight:bold;">💾 Sauver</button></div></div>"#, profil.bio));
+        html.push_str(r#"<script>
+var afriAvatarB64 = null, afriAvatarExt = "";
+function afriAvatar(input) {
+  var f = input.files[0];
+  if (!f) return;
+  if (f.size > 3 * 1024 * 1024) { alert("Trop lourd (max 3 Mo)"); input.value = ""; return; }
+  var r = new FileReader();
+  r.onload = function(e) {
+    afriAvatarB64 = e.target.result.split(",")[1];
+    afriAvatarExt = f.name.split(".").pop().toLowerCase();
+    document.getElementById("afri-avatar-nom").textContent = "📎 " + f.name;
+  };
+  r.readAsDataURL(f);
+}
+function afriSauverProfil() {
+  var params = new URLSearchParams();
+  params.append("bio", document.getElementById("afri-bio").value);
+  if (afriAvatarB64) { params.append("avatar_b64", afriAvatarB64); params.append("avatar_ext", afriAvatarExt); }
+  fetch("/plante/profil-save", { method: "POST", body: params }).then(function() { window.location.href = "/plante"; });
+}
+</script>"#);
+    } else if est_ami {
+        html.push_str(&format!(r#"<div class="card"><div style="text-align:center;"><span style="color:#25D366;font-weight:bold;">💚 Vous êtes amis</span><form action="/plante/ami-retirer" method="post" style="margin-top:10px;"><input type="hidden" name="ami" value="{}"/><button type="submit" style="background:none;border:1px solid #ff6666;color:#ff6666;border-radius:8px;padding:8px 16px;">✕ Retirer</button></form></div></div>"#, cible));
+    } else if inv_moi_vers_eux {
+        html.push_str(r#"<div class="card"><div style="text-align:center;color:#d4a437;">⏳ Invitation envoyée — en attente de sa réponse</div></div>"#);
+    } else if inv_eux_vers_moi {
+        html.push_str(&format!(r#"<div class="card"><div style="text-align:center;"><span style="color:#25D366;">🤝 {} t'a invité!</span><div style="display:flex;gap:8px;justify-content:center;margin-top:10px;"><form action="/plante/invitation-accepter" method="post"><input type="hidden" name="de" value="{}"/><button type="submit" style="background:#25D366;color:#0a1a0a;border:none;border-radius:8px;padding:8px 16px;font-weight:bold;">✅ Accepter</button></form><form action="/plante/invitation-refuser" method="post"><input type="hidden" name="de" value="{}"/><button type="submit" style="background:none;border:1px solid #ff6666;color:#ff6666;border-radius:8px;padding:8px 16px;">✕ Refuser</button></form></div></div></div>"#, cible, cible, cible));
+    } else {
+        html.push_str(&format!(r#"<div class="card"><div style="text-align:center;"><form action="/plante/inviter" method="post"><input type="hidden" name="ami" value="{}"/><button type="submit" style="background:#25D366;color:#0a1a0a;border:none;border-radius:8px;padding:10px 24px;font-weight:bold;">➕ Inviter {}</button></form></div></div>"#, cible, cible));
+    }
+
+    // Ses publications (si ami ou soi-même)
+    if !posts.is_empty() {
+        html.push_str(&format!(r#"<div class="card"><h2>📰 Ses publications ({})</h2>"#, posts.len()));
+        for (i, p) in &posts {
+            html.push_str(&plante_post_html(viewer, *i, p));
+        }
+        html.push_str("</div>");
+    } else if viewer != cible && !est_ami {
+        html.push_str(r#"<div class="card"><p style="color:#a8c5a8;text-align:center;">🔒 Ses publications sont privées — deviens son ami pour les voir.</p></div>"#);
+    }
+
+    html.push_str(r#"<footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🌱 Planté Verte v2 · AfriChain v1.82</footer></body></html>"#);
+    html
+}
+
+/// v1.82: payer en AFR depuis le wallet d'un utilisateur (boost 🚀, boutique 🛒).
+/// Vérifie le solde, signe la tx, mine TOUT DE SUITE (Preuve du Frère), broadcast.
+/// Ordre des locks: chain → users → wallets (l'ordre canonique du chef).
+fn plante_media_sauver(state: &Arc<AppState>, b64: &str, ext: &str) -> Result<String, String> {
+    let _ = state;
+    afri_plante::PlanteStore::sauver_media(b64, ext)
+}
+
+fn plante_payer_to(state: &Arc<AppState>, username: &str, adresse_to: &str, montant: i64, memo: &str) -> Result<(), String> {
+    let mut chain = state.chain.lock().unwrap();
+    let users = state.users.lock().unwrap();
+    let wallets = state.wallets.lock().unwrap();
+    let adresse = users.users.iter().find(|u| u.username == username)
+        .map(|u| u.address.clone())
+        .ok_or_else(|| "utilisateur introuvable".to_string())?;
+    if adresse == adresse_to { return Err("tu ne peux pas t'envoyer des AFR à toi-même".to_string()); }
+    if (chain.balance_of(&adresse).max(0)) < montant {
+        return Err(format!("solde insuffisant — {} AFR nécessaires", montant));
+    }
+    let mut tx = Transaction::new(&adresse, &adresse_to, montant.max(0) as u64, memo);
+    match wallets.get_signing_key(&adresse) {
+        Some(sk) => {
+            tx.sign(&sk);
+            let tx_json = to_string(&tx.to_json());
+            chain.add_transaction(tx);
+            chain.mine_pending("AFRICHAIN");
+            chain.save_to_file();
+            drop(chain);
+            drop(users);
+            drop(wallets);
+            broadcast_mesh(&*state, "tx", &tx_json);
+            Ok(())
+        }
+        None => Err("clé privée introuvable".to_string()),
+    }
+}
+
+fn plante_payer(state: &Arc<AppState>, username: &str, prix: u64, memo: &str) -> Result<(), String> {
+    let mut chain = state.chain.lock().unwrap();
+    let users = state.users.lock().unwrap();
+    let wallets = state.wallets.lock().unwrap();
+    let adresse = users.users.iter().find(|u| u.username == username)
+        .map(|u| u.address.clone())
+        .ok_or_else(|| "utilisateur introuvable".to_string())?;
+    if (chain.balance_of(&adresse).max(0) as u64) < prix {
+        return Err(format!("solde insuffisant — {} AFR nécessaires", prix));
+    }
+    let mut tx = Transaction::new(&adresse, "PLANTE-VERTE", prix, memo);
+    match wallets.get_signing_key(&adresse) {
+        Some(sk) => {
+            tx.sign(&sk);
+            let tx_json = to_string(&tx.to_json());
+            chain.add_transaction(tx);
+            chain.mine_pending("AFRICHAIN");
+            chain.save_to_file();
+            drop(chain);
+            drop(users);
+            drop(wallets);
+            broadcast_mesh(&*state, "tx", &tx_json);
+            Ok(())
+        }
+        None => Err("clé privée introuvable".to_string()),
+    }
 }
 
 /// v1.76: LE NAVIGATEUR SOUVERAIN — naviguer DANS AfriChain, pas sur Google.
@@ -34769,7 +35108,7 @@ fn main() {
         .and_then(|i| args.get(i + 1)).cloned().unwrap_or_else(|| "Afrique".to_string());
 
     let my_node_id = generate_node_id();
-    println!("🧠 AfriChain v1.81 — La Mémoire du Continent — SAHARA AFRI répond, les AI des langues mangent les mots des anciens 💚");
+    println!("🧠 AfriChain v1.82 — Planté Verte v2 — le vrai réseau social africain 🌱✨ — SAHARA AFRI répond, les AI des langues mangent les mots des anciens 💚");
     println!("📞 Appels + SMS par le réseau Planète Verte — pas d'Orange, pas de MTN");
     println!("🌐 Navigateur Souverain — chercher DANS AfriChain, jamais Google");
     println!("🌱 1 AFR = 600 000 000 € — 1 graine = 6 FCFA — Quiz = 20 000 FCFA");
@@ -35211,7 +35550,7 @@ fn admin_interface(state: &Arc<AppState>) {
         println!("\n");
         println!("╔══════════════════════════════════════╗");
         println!("║  🏦 CENTRE DE DONNÉES — Admin       ║");
-        println!("║  🦁 AfriChain v1.81                  ║");
+        println!("║  🦁 AfriChain v1.82                  ║");
         println!("╠══════════════════════════════════════╣");
         let chain = state.chain.lock().unwrap();
         let users = state.users.lock().unwrap();
@@ -39405,8 +39744,20 @@ fn handle_request(req: afri_http::HttpRequest, state: &Arc<AppState>) -> afri_ht
                 drop(chain);
                 broadcast_mesh(&*state, "tx", &tx_json);
             }
-            // Sauver dans le store + persister
-            {
+            // Sauver dans le store + persister (v1.82: support médias 📷🎬)
+            let media_b64 = form.get("media_b64").cloned().unwrap_or_default();
+            let media_ext = form.get("media_ext").cloned().unwrap_or_default().trim().to_lowercase();
+            if !media_b64.is_empty() {
+                match plante_media_sauver(state, &media_b64, &media_ext) {
+                    Ok(fichier) => {
+                        let mut plante = state.plante.lock().unwrap();
+                        let ext = media_ext.clone();
+                        plante.publier_media(&username, &contenu, Some(fichier), &ext, None);
+                        plante.sauvegarder();
+                    }
+                    Err(e) => return HttpResponse::redirect(&format!("/plante?msg=⚠️ {}", e)),
+                }
+            } else {
                 let mut plante = state.plante.lock().unwrap();
                 plante.publier(&username, &contenu);
                 plante.sauvegarder();
@@ -39480,6 +39831,278 @@ fn handle_request(req: afri_http::HttpRequest, state: &Arc<AppState>) -> afri_ht
                 drop(plante);
                 HttpResponse::redirect("/plante?msg=⚠️ Ce contact n'existe pas")
             }
+        }
+
+        // ===== v1.82: PLANTÉ VERTE V2 — le vrai réseau social africain 🌱✨ =====
+
+        ("POST", "/plante/inviter") => {
+            let username = match session_user(&req, state) {
+                Some(u) => u,
+                None => return HttpResponse::redirect("/login"),
+            };
+            let form = parse_urlencoded(&req.body);
+            let ami = form.get("ami").cloned().unwrap_or_default().trim().to_string();
+            if ami.is_empty() || ami == username {
+                return HttpResponse::redirect("/plante?msg=⚠️ Nom invalide");
+            }
+            if state.users.lock().unwrap().users.iter().all(|u| u.username != ami) {
+                return HttpResponse::redirect("/plante?msg=⚠️ Cet utilisateur n'existe pas");
+            }
+            let mut plante = state.plante.lock().unwrap();
+            if plante.inviter(&username, &ami) {
+                plante.sauvegarder();
+                drop(plante);
+                HttpResponse::redirect(&format!("/plante?msg=⏳ Invitation envoyée à {}", ami))
+            } else {
+                drop(plante);
+                HttpResponse::redirect("/plante?msg=⚠️ Déjà amis ou invitation déjà en attente")
+            }
+        }
+
+        ("POST", "/plante/invitation-accepter") => {
+            let username = match session_user(&req, state) {
+                Some(u) => u,
+                None => return HttpResponse::redirect("/login"),
+            };
+            let form = parse_urlencoded(&req.body);
+            let de = form.get("de").cloned().unwrap_or_default().trim().to_string();
+            let mut plante = state.plante.lock().unwrap();
+            if plante.accepter_invitation(&de, &username) {
+                plante.sauvegarder();
+                drop(plante);
+                // Graver l'amitié sur la blockchain — éternelle ⛓️💚
+                let memo = format!("AMITIE | {} & {}", de, username);
+                {
+                    let mut chain = state.chain.lock().unwrap();
+                    let tx = Transaction::new("SYSTEM", "PLANTE-VERTE", 0, &memo);
+                    let tx_json = to_string(&tx.to_json());
+                    chain.add_transaction(tx);
+                    chain.mine_pending("SYSTEM");
+                    chain.save_to_file();
+                    drop(chain);
+                    broadcast_mesh(&*state, "tx", &tx_json);
+                }
+                HttpResponse::redirect(&format!("/plante?msg=💚 Tu es maintenant ami avec {}", de))
+            } else {
+                drop(plante);
+                HttpResponse::redirect("/plante?msg=⚠️ Invitation introuvable")
+            }
+        }
+
+        ("POST", "/plante/invitation-refuser") => {
+            let username = match session_user(&req, state) {
+                Some(u) => u,
+                None => return HttpResponse::redirect("/login"),
+            };
+            let form = parse_urlencoded(&req.body);
+            let de = form.get("de").cloned().unwrap_or_default().trim().to_string();
+            let mut plante = state.plante.lock().unwrap();
+            if plante.refuser_invitation(&de, &username) {
+                plante.sauvegarder();
+                drop(plante);
+                HttpResponse::redirect("/plante?msg=Invitation refusée")
+            } else {
+                drop(plante);
+                HttpResponse::redirect("/plante?msg=⚠️ Invitation introuvable")
+            }
+        }
+
+        ("POST", "/plante/commenter") => {
+            let username = match session_user(&req, state) {
+                Some(u) => u,
+                None => return HttpResponse::redirect("/login"),
+            };
+            let form = parse_urlencoded(&req.body);
+            let index: usize = form.get("index").and_then(|s| s.parse().ok()).unwrap_or(usize::MAX);
+            let texte = form.get("texte").cloned().unwrap_or_default().trim().to_string();
+            if texte.is_empty() || texte.len() > 500 {
+                return HttpResponse::redirect("/plante?msg=⚠️ Commentaire vide ou trop long (max 500)");
+            }
+            record_threats(&texte, &username, "");
+            let mut plante = state.plante.lock().unwrap();
+            if plante.commenter(index, &username, &texte) {
+                plante.sauvegarder();
+                drop(plante);
+                HttpResponse::redirect("/plante?msg=💬 Commentaire publié")
+            } else {
+                drop(plante);
+                HttpResponse::redirect("/plante?msg=⚠️ Post introuvable")
+            }
+        }
+
+        ("POST", "/plante/partager") => {
+            let username = match session_user(&req, state) {
+                Some(u) => u,
+                None => return HttpResponse::redirect("/login"),
+            };
+            let form = parse_urlencoded(&req.body);
+            let index: usize = form.get("index").and_then(|s| s.parse().ok()).unwrap_or(usize::MAX);
+            let mut plante = state.plante.lock().unwrap();
+            if plante.partager(index, &username) {
+                plante.sauvegarder();
+                drop(plante);
+                HttpResponse::redirect("/plante?msg=↗️ Partagé dans ton fil! L'original gagne +1 partage")
+            } else {
+                drop(plante);
+                HttpResponse::redirect("/plante?msg=⚠️ Post introuvable ou c'est le tien")
+            }
+        }
+
+        ("POST", "/plante/booster") => {
+            let username = match session_user(&req, state) {
+                Some(u) => u,
+                None => return HttpResponse::redirect("/login"),
+            };
+            let form = parse_urlencoded(&req.body);
+            let index: usize = form.get("index").and_then(|s| s.parse().ok()).unwrap_or(usize::MAX);
+            // Payer 10 AFR — le boost coûte cher, comme la vraie pub 🚀
+            if let Err(e) = plante_payer(state, &username, afri_plante::PRIX_BOOST, &format!("BOOST | {} | post #{}", username, index)) {
+                return HttpResponse::redirect(&format!("/plante?msg=⚠️ {}", e));
+            }
+            let mut plante = state.plante.lock().unwrap();
+            if plante.booster(index) {
+                plante.sauvegarder();
+                drop(plante);
+                HttpResponse::redirect("/plante?msg=🚀 Post boosté! Il apparaît en premier pour tous tes contacts.")
+            } else {
+                drop(plante);
+                HttpResponse::redirect("/plante?msg=⚠️ Post introuvable")
+            }
+        }
+
+        ("POST", "/plante/story") => {
+            let username = match session_user(&req, state) {
+                Some(u) => u,
+                None => return HttpResponse::redirect("/login"),
+            };
+            let form = parse_urlencoded(&req.body);
+            let media_b64 = form.get("media_b64").cloned().unwrap_or_default();
+            let media_ext = form.get("media_ext").cloned().unwrap_or_default().trim().to_lowercase();
+            if media_b64.is_empty() {
+                return HttpResponse::redirect("/plante?msg=⚠️ Story vide");
+            }
+            match plante_media_sauver(state, &media_b64, &media_ext) {
+                Ok(fichier) => {
+                    let mut plante = state.plante.lock().unwrap();
+                    plante.ajouter_story(&username, &fichier);
+                    plante.sauvegarder();
+                    HttpResponse::redirect("/plante?msg=✨ Story publiée — visible 24h")
+                }
+                Err(e) => HttpResponse::redirect(&format!("/plante?msg=⚠️ {}", e)),
+            }
+        }
+
+        ("POST", "/plante/supprimer") => {
+            let username = match session_user(&req, state) {
+                Some(u) => u,
+                None => return HttpResponse::redirect("/login"),
+            };
+            let form = parse_urlencoded(&req.body);
+            let index: usize = form.get("index").and_then(|s| s.parse().ok()).unwrap_or(usize::MAX);
+            let mut plante = state.plante.lock().unwrap();
+            if index < plante.posts.len() && plante.posts[index].author == username {
+                plante.posts.remove(index);
+                plante.sauvegarder();
+                drop(plante);
+                HttpResponse::redirect("/plante?msg=🗑️ Post supprimé")
+            } else {
+                drop(plante);
+                HttpResponse::redirect("/plante?msg=⚠️ Tu ne peux supprimer que tes posts")
+            }
+        }
+
+        ("POST", "/plante/envoyer") => {
+            let username = match session_user(&req, state) {
+                Some(u) => u,
+                None => return HttpResponse::redirect("/login"),
+            };
+            let form = parse_urlencoded(&req.body);
+            let to = form.get("to").cloned().unwrap_or_default().trim().to_string();
+            let amount: i64 = form.get("amount").and_then(|s| s.parse().ok()).unwrap_or(0);
+            let memo = form.get("memo").cloned().unwrap_or_default().trim().to_string();
+            if amount <= 0 {
+                return HttpResponse::redirect("/plante?msg=⚠️ Montant invalide");
+            }
+            let adresse_to = match state.users.lock().unwrap().resolve_recipient(&to) {
+                Some(d) => d,
+                None => return HttpResponse::redirect("/plante?msg=⚠️ Destinataire introuvable"),
+            };
+            let nom_to = state.users.lock().unwrap().users.iter()
+                .find(|u| u.address == adresse_to).map(|u| u.username.clone())
+                .unwrap_or_else(|| adresse_to.clone());
+            let memo_tx = if memo.is_empty() { format!("PLANTE-ENVOI | {} -> {}", username, nom_to) } else { format!("PLANTE-ENVOI | {} -> {} | {}", username, nom_to, &memo[..memo.len().min(60)]) };
+            match plante_payer_to(state, &username, &adresse_to, amount, &memo_tx) {
+                Ok(()) => HttpResponse::redirect(&format!("/plante?msg=💰 {} AFR envoyés à {}", amount, nom_to)),
+                Err(e) => HttpResponse::redirect(&format!("/plante?msg=⚠️ {}", e)),
+            }
+        }
+
+        ("POST", "/plante/acheter") => {
+            let username = match session_user(&req, state) {
+                Some(u) => u,
+                None => return HttpResponse::redirect("/login"),
+            };
+            let form = parse_urlencoded(&req.body);
+            let badge = form.get("badge").cloned().unwrap_or_default().trim().to_string();
+            let (nom_badge, prix) = match badge.as_str() {
+                "Lion" => ("Lion", 5),
+                "Griot" => ("Griot", 5),
+                "Roi" => ("Roi", 20),
+                _ => return HttpResponse::redirect("/plante?msg=⚠️ Badge inconnu"),
+            };
+            if let Err(e) = plante_payer(state, &username, prix, &format!("BADGE | {} | {}", username, nom_badge)) {
+                return HttpResponse::redirect(&format!("/plante?msg=⚠️ {}", e));
+            }
+            let mut plante = state.plante.lock().unwrap();
+            plante.ajouter_badge(&username, nom_badge);
+            plante.sauvegarder();
+            drop(plante);
+            HttpResponse::redirect(&format!("/plante?msg=🏅 Badge {} acheté — il brille sur ton profil!", nom_badge))
+        }
+
+        ("GET", "/plante/profil") => {
+            let viewer = match session_user(&req, state) {
+                Some(u) => u,
+                None => return HttpResponse::redirect("/login"),
+            };
+            let cible = req.query_str("user").unwrap_or_default();
+            if cible.is_empty() {
+                return HttpResponse::redirect("/plante");
+            }
+            let msg = req.query_str("msg").unwrap_or_default();
+            HttpResponse::ok(&html_plante_profil(state, &viewer, &cible, Some(&msg)))
+        }
+
+        ("POST", "/plante/profil-save") => {
+            let username = match session_user(&req, state) {
+                Some(u) => u,
+                None => return HttpResponse::redirect("/login"),
+            };
+            let form = parse_urlencoded(&req.body);
+            let bio = form.get("bio").cloned().unwrap_or_default().trim().to_string();
+            let avatar_b64 = form.get("avatar_b64").cloned().unwrap_or_default();
+            let avatar_ext = form.get("avatar_ext").cloned().unwrap_or_default().trim().to_lowercase();
+            let mut plante = state.plante.lock().unwrap();
+            {
+                let mut profil = plante.profil_de(&username);
+                if !bio.is_empty() && bio.len() <= 300 {
+                    profil.bio = bio;
+                }
+                if !avatar_b64.is_empty() {
+                    match plante_media_sauver(state, &avatar_b64, &avatar_ext) {
+                        Ok(fichier) => {
+                            profil.avatar = Some(fichier);
+                        }
+                        Err(e) => {
+                            drop(plante);
+                            return HttpResponse::redirect(&format!("/plante?msg=⚠️ {}", e));
+                        }
+                    }
+                }
+                plante.set_profil(&username, profil);
+            }
+            plante.sauvegarder();
+            HttpResponse::redirect("/plante?msg=✅ Profil mis à jour")
         }
 
         ("POST", "/serveur-continental/prise-en-charge") => {
@@ -41035,6 +41658,19 @@ pre {{ white-space:pre-wrap; word-wrap:break-word; }}
         ("GET", "/sw.js") => {
             let sw = "const C='afri-v0.12';self.addEventListener('install',e=>{e.waitUntil(caches.open(C).then(c=>c.addAll(['/wallet','/manifest.json','/icon.svg'])))});self.addEventListener('fetch',e=>{e.respondWith(caches.match(e.request).then(r=>r||fetch(e.request)))});";
             HttpResponse::ok_bytes(sw.as_bytes().to_vec(), "application/javascript")
+        }
+
+        // v1.82: servir les médias Planté Verte (photos + reels) 📷🎬
+        ("GET", "/plante/media") => {
+            let fichier = req.query_str("f").unwrap_or_default().to_string();
+            if fichier.is_empty() || fichier.contains('/') || fichier.contains("..") {
+                return HttpResponse::not_found();
+            }
+            let chemin = format!("{}/{}", afri_plante::PlanteStore::chemin_media(), fichier);
+            match std::fs::read(&chemin) {
+                Ok(bytes) => HttpResponse::ok_bytes(bytes, afri_plante::PlanteStore::media_content_type(&fichier)),
+                Err(_) => HttpResponse::not_found(),
+            }
         }
 
         _ => HttpResponse::not_found(),
