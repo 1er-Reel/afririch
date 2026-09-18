@@ -212,6 +212,14 @@ impl StoreAfri {
             if let Some(JsonValue::Int(i)) = obj.get("prochain_id") { store.prochain_id = *i as u64; }
             if let Some(JsonValue::Array(arr)) = obj.get("apps") {
                 for a in arr {
+                    // Anti-collision: prochain_id doit toujours dépasser le plus grand ID existant
+                    if let JsonValue::Object(o) = a {
+                        if let Some(JsonValue::Str(sid)) = o.get("id") {
+                            if let Some(n) = sid.trim_start_matches("APP-").parse::<u64>().ok() {
+                                if n >= store.prochain_id { store.prochain_id = n + 1; }
+                            }
+                        }
+                    }
                     if let JsonValue::Object(o) = a {
                         let g = |k: &str| o.get(k).and_then(|x| match x { JsonValue::Str(s) => Some(s.clone()), _ => None }).unwrap_or_default();
                         let gi = |k: &str| o.get(k).and_then(|x| match x { JsonValue::Int(i) => Some(*i), _ => None }).unwrap_or(0);
