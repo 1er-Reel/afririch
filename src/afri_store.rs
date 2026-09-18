@@ -5,6 +5,7 @@
 
 use std::collections::HashMap;
 use crate::afri_json::{JsonValue, to_string, from_str};
+use crate::afri_cerveau::normaliser;
 
 /// Une application du store — l'œuvre d'un développeur africain 📱
 #[derive(Debug, Clone)]
@@ -150,6 +151,33 @@ impl StoreAfri {
         self.apps.iter().filter(|a| a.auteur == username).collect()
     }
 
+    /// v1.92: Mettre à jour son app — version, description, emoji, prix (l'auteur uniquement) 🔄
+    /// Retourne false si l'app n'existe pas.
+    pub fn maj(&mut self, id: &str, auteur: &str, description: &str, emoji: &str, prix: i64, version: &str) -> bool {
+        match self.apps.iter_mut().find(|a| a.id == id && a.auteur == auteur) {
+            Some(a) => {
+                if !description.is_empty() { a.description = description.to_string(); }
+                if !emoji.is_empty() { a.emoji = emoji.to_string(); }
+                if prix >= 0 { a.prix = prix; }
+                if !version.is_empty() { a.version = version.to_string(); }
+                true
+            }
+            None => false,
+        }
+    }
+
+    /// v1.92: Rechercher des apps 🔍 — nom + description + auteur, sans accents ni casse
+    pub fn rechercher(&self, q: &str) -> Vec<&AppAfri> {
+        let nq = normaliser(q);
+        if nq.is_empty() { return Vec::new(); }
+        self.apps.iter().filter(|a| {
+            normaliser(&a.nom).contains(&nq)
+                || normaliser(&a.description).contains(&nq)
+                || normaliser(&a.auteur).contains(&nq)
+                || normaliser(&a.categorie).contains(&nq)
+        }).collect()
+    }
+
     /// Où vivent les médias du store 📸
     pub fn chemin_media() -> String {
         let home = std::env::var("HOME").unwrap_or_else(|_| ".".to_string());
@@ -222,7 +250,7 @@ impl StoreAfri {
                     }
                     if let JsonValue::Object(o) = a {
                         let g = |k: &str| o.get(k).and_then(|x| match x { JsonValue::Str(s) => Some(s.clone()), _ => None }).unwrap_or_default();
-                        let gi = |k: &str| o.get(k).and_then(|x| match x { JsonValue::Int(i) => Some(*i), _ => None }).unwrap_or(0);
+                        let gi = |k: &str| o.get(k).and_then(|x| x.as_i64()).unwrap_or(0);
                         store.apps.push(AppAfri {
                             id: g("id"),
                             nom: g("nom"),
@@ -246,7 +274,7 @@ impl StoreAfri {
                 for n in arr {
                     if let JsonValue::Object(o) = n {
                         let g = |k: &str| o.get(k).and_then(|x| match x { JsonValue::Str(s) => Some(s.clone()), _ => None }).unwrap_or_default();
-                        let gi = |k: &str| o.get(k).and_then(|x| match x { JsonValue::Int(i) => Some(*i), _ => None }).unwrap_or(0);
+                        let gi = |k: &str| o.get(k).and_then(|x| x.as_i64()).unwrap_or(0);
                         store.notes.push(NoteApp { app: g("app"), de: g("de"), etoiles: gi("etoiles") });
                     }
                 }
