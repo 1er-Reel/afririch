@@ -1608,6 +1608,8 @@ fn html_home_user(username: &str, flag: &str, phone: &str, message_continent: Op
 <a href="/noires" style="text-decoration:none;"><div style="padding:16px;border:1px solid #d4a437;border-radius:10px;text-align:center;color:#d4a437;">💬<br><b>LES NOIRES</b></div></a>
 <a href="/store" style="text-decoration:none;"><div style="padding:16px;border:1px solid #34A853;border-radius:10px;text-align:center;color:#34A853;">🏪<br><b>AFRI STORE</b></div></a>
 <a href="/etincelle" style="text-decoration:none;"><div style="padding:16px;border:1px solid #ff8c00;border-radius:10px;text-align:center;color:#ff8c00;">🔥<br><b>L'ÉTINCELLE</b></div></a>
+<a href="/amion" style="text-decoration:none;"><div style="padding:16px;border:1px solid #d4a437;border-radius:10px;text-align:center;color:#d4a437;">💚<br><b>Amion Blandine</b></div></a>
+<a href="/langage" style="text-decoration:none;"><div style="padding:16px;border:1px solid #7fcf7f;border-radius:10px;text-align:center;color:#7fcf7f;">▤<br><b>Langage AMION</b></div></a>
 </div></div>
 <div class="card"><h2>📱 Ma puce verte</h2><p style="text-align:center;color:#a8c5a8;">Ton numéro : <b style="color:#d4a437;">{} {}</b></p><p style="color:#a8c5a8;">Chaque appel, chaque SMS passe de puce à puce sur le réseau AfriChain. Aucun serveur occidental. 🌿</p></div>
 <footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🦁 AfriChain — L'Afrique ne demande plus la permission</footer>
