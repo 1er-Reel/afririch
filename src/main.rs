@@ -37335,6 +37335,20 @@ fn main() {
         });
     });
 
+    // v2.04 — LA RACINE SECRÈTE : l'administration vit sur SON propre port (9090).
+    // Le 8080 est le port du PEUPLE — aucune page admin n'y existe.
+    // Toi seul connais le 9090 : dashboard, fiches, mint, gel, tout le pouvoir.
+    let admin_state = web_state.clone();
+    thread::spawn(move || {
+        afri_http::serve("0.0.0.0:9090", move |req| {
+            // La racine voit TOUT, sans exception
+            handle_request_port(req, &admin_state, true)
+        });
+    });
+    println!("👑 RACINE SECRÈTE — l'administration vit sur http://localhost:9090 — TOI SEUL");
+    println!("🌿 Le peuple vit sur http://localhost:8080 — aucune page admin n'y existe");
+
+
     // Mode --web : serveur seul, sans terminal (pratique sur téléphone)
     if std::env::args().any(|a| a == "--web") {
         println!("\n🌐 Mode serveur seul — le site vit sur http://localhost:8080");
@@ -41085,10 +41099,26 @@ pub fn handle_request_machine_avec_cookies(method: &str, chemin: &str, corps: &s
 }
 
 fn handle_request(req: afri_http::HttpRequest, state: &Arc<AppState>) -> afri_http::HttpResponse {
+    handle_request_port(req, state, false)
+}
+
+/// v2.04 — LE PORT DÉCIDE DE CE QUE TU VOIS.
+/// port_admin=false (8080, le peuple) : les routes admin n'existent pas du tout.
+/// port_admin=true (9090, la racine) : le pouvoir complet.
+fn handle_request_port(req: afri_http::HttpRequest, state: &Arc<AppState>, port_admin: bool) -> afri_http::HttpResponse {
     // Shield check
     let allowed = state.shield.lock().unwrap().check_request(&req.peer_addr, &req.path);
     if !allowed {
         return HttpResponse::forbidden("🛡️ Bouclier X9 — Accès refusé. IP bannie.");
+    }
+
+    // v2.04 — RACINE SECRÈTE : sur le port du peuple, l'administration est INEXISTANTE.
+    // Pas de page, pas de redirect, pas d'indice. Le frère ne peut même pas savoir.
+    if !port_admin {
+        const ROUTES_ADMIN: [&str; 19] = ["/admin", "/dashboard", "/admin/user", "/banque", "/puce/admin", "/dns", "/machine-os", "/securite-ai", "/commandement", "/base-militaire", "/academie-militaire", "/interception", "/bouclier", "/satellite", "/swarm", "/machine", "/garage", "/studio", "/etincelle-admin"];
+        if ROUTES_ADMIN.contains(&req.path.as_str()) {
+            return HttpResponse::not_found();
+        }
     }
 
     // v1.64 — Zone Créateur: l'âme d'AfriChain est invisible aux visiteurs
