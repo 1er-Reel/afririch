@@ -27,6 +27,7 @@ mod afri_amion;
 mod afri_net;
 mod afri_licence;
 mod afri_video;
+mod afri_systemes;
 mod afri_langage;
 mod afri_telegram;
 use afri_mesh_direct::{AfriMeshDirect, DirectMessage, DirectNode, LightBlock};
@@ -36441,7 +36442,7 @@ fn html_dashboard(chain: &Blockchain, users: &UserStore, state_store: &crate::af
     let num_wallets = balances.len();
     let num_users = users.count();
 
-    html.push_str(r#"<h1>📈 Dashboard Admin</h1><div class="nav"><a href="/">← Accueil</a> | <a href="/blocks">📊 Blocs</a> | <a href="/balances">💰 Soldes</a> | <a href="/logout">🚪 Déconnexion</a></div>"#);
+    html.push_str(r#"<h1>📈 Dashboard Admin</h1><div class="nav"><a href="/">← Accueil</a> | <a href="/systemes">🦁 Systèmes</a> | <a href="/blocks">📊 Blocs</a> | <a href="/balances">💰 Soldes</a> | <a href="/logout">🚪 Déconnexion</a></div>"#);
 
     // Stats boxes
     html.push_str(&format!(r#"<div style="text-align:center;"><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">🧱 Blocs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">💸 Transactions</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">👛 Wallets</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">👥 Utilisateurs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">🪙 AFR total</div></div></div>"#,
@@ -36944,6 +36945,7 @@ struct AppState {
     net: Mutex<afri_net::NetStore>,  // v1.97: L'INTERNET AFRI — notre internet machine 🌐◈⬡
     videos: Mutex<afri_video::VideoStore>,  // v2.01: AFRI VIDÉO 🎬
     sites: Mutex<afri_video::SiteStore>,    // v2.01: AFRI SITES 🏗️
+    systemes: Mutex<afri_systemes::SystemeStore>,  // v2.05: PLAY STORE DES SYSTÈMES 🦁
 }
 
 fn main() {
@@ -37067,6 +37069,7 @@ fn main() {
         net: Mutex::new(afri_net::NetStore::load()),
         videos: Mutex::new(afri_video::VideoStore::load()),
         sites: Mutex::new(afri_video::SiteStore::load()),
+        systemes: Mutex::new(afri_systemes::SystemeStore::load()),
     });
 
     // ===== v1.76: 4 UTILISATEURS DÉMO — pour s'appeler et s'envoyer des SMS =====
@@ -41115,7 +41118,7 @@ fn handle_request_port(req: afri_http::HttpRequest, state: &Arc<AppState>, port_
     // v2.04 — RACINE SECRÈTE : sur le port du peuple, l'administration est INEXISTANTE.
     // Pas de page, pas de redirect, pas d'indice. Le frère ne peut même pas savoir.
     if !port_admin {
-        const ROUTES_ADMIN: [&str; 19] = ["/admin", "/dashboard", "/admin/user", "/banque", "/puce/admin", "/dns", "/machine-os", "/securite-ai", "/commandement", "/base-militaire", "/academie-militaire", "/interception", "/bouclier", "/satellite", "/swarm", "/machine", "/garage", "/studio", "/etincelle-admin"];
+        const ROUTES_ADMIN: [&str; 20] = ["/admin", "/dashboard", "/admin/user", "/banque", "/puce/admin", "/dns", "/machine-os", "/securite-ai", "/commandement", "/base-militaire", "/academie-militaire", "/interception", "/bouclier", "/satellite", "/swarm", "/machine", "/garage", "/studio", "/etincelle-admin", "/systemes"];
         if ROUTES_ADMIN.contains(&req.path.as_str()) {
             return HttpResponse::not_found();
         }
@@ -41973,6 +41976,214 @@ fn handle_request_port(req: afri_http::HttpRequest, state: &Arc<AppState>, port_
             }
             let u = req.query_str("u").unwrap_or("").to_string();
             HttpResponse::ok(&html_admin_user(&u, state))
+        }
+
+
+        // ===== v2.05: PLAY STORE DES SYSTÈMES — la page du Chef, racine 9090 🦁 =====
+        ("GET", "/systemes") => {
+            let sys = state.systemes.lock().unwrap();
+            let mut html = html_head("🦁 Play Store des Systèmes");
+            html.push_str(r#"<h1>🦁 PLAY STORE DES SYSTÈMES</h1><div class="nav"><a href="/dashboard">← Dashboard</a></div><p style="color:#a8c5a8;">Chaque module de la plateforme est une app système. TOI SEUL actives et coupes. Chaque action est gravée sur la blockchain.</p>"#);
+            for a in &sys.apps {
+                let (etat, couleur, btn) = if a.active { ("✅ ACTIVE", "#7fcf7f", "⏸️ Couper") } else { ("⛔ COUPÉE", "#cf7f7f", "▶️ Activer") };
+                html.push_str(&format!(r#"<div class="tx">{} <b>{}</b> <span style="color:{};">{}</span> — {} <form method="POST" action="/systemes/basculer" style="display:inline;"><input type="hidden" name="id" value="{}"><button style="padding:4px 12px;font-size:0.85em;">{}</button></form></div>"#,
+                    a.emoji, a.nom, couleur, etat, a.description, a.id, btn));
+            }
+            // Agents Wari
+            html.push_str(r#"<div class="card"><h2>🏦 Agents Afri.Wari / AES.Wari</h2><p style="color:#a8c5a8;font-size:0.85em;">Les agents encaissent et distribuent le cash. Tu les nommes, tu les actives — eux seuls.</p>"#);
+            for a in &sys.agents {
+                let (etat, couleur) = if a.actif { ("✅ ACTIF", "#7fcf7f" ) } else { ("⏳ EN ATTENTE", "#d4a437") };
+                html.push_str(&format!(r#"<div class="tx">{} <b>{}</b> ({}) — 📱 {} — 🌍 {} — <span style="color:{};">{}</span> <form method="POST" action="/systemes/agent" style="display:inline;"><input type="hidden" name="username" value="{}"><button style="padding:4px 12px;font-size:0.85em;">🔄 Basculer</button></form></div>"#,
+                    if a.type_wari == "AES" { "💰" } else { "🏦" }, a.nom_complet, a.type_wari, a.telephone, a.pays, couleur, etat, a.username));
+            }
+            html.push_str(&format!(r#"<form method="POST" action="/systemes/agent"><h3>Nouvel agent</h3><input name="username" placeholder="username du frère" required><input name="type_wari" placeholder="AFRI ou AES" required><input name="nom_complet" placeholder="Nom complet" required><input name="telephone" placeholder="Téléphone" required><input name="pays" placeholder="Pays" required><button>🏦 Nommer cet agent</button></form></div>"#));
+            // Passeports
+            html.push_str(r#"<div class="card"><h2>🪪 Passeports 54 Pays — demandes</h2>"#);
+            for p in &sys.passeports {
+                let (etat, couleur) = if p.delivre { (format!("✅ DÉLIVRÉ — {}", p.numero), "#7fcf7f") } else { ("⏳ EN ATTENTE".to_string(), "#d4a437") };
+                html.push_str(&format!(r#"<div class="tx">👤 <b>{}</b> — {} — {} — <span style="color:{};">{}</span> {}</div>"#,
+                    p.nom_complet, p.pays, p.date_naissance, couleur, etat,
+                    if p.delivre { String::new() } else { format!(r#"<form method=\"POST\" action=\"/systemes/passeport\" style=\"display:inline;\"><input type=\"hidden\" name=\"username\" value=\"{}\"><button style=\"padding:4px 12px;font-size:0.85em;\">🪪 Délivrer</button></form>"#, p.username) }));
+            }
+            html.push_str("</div>");
+            // Coffre des Intelligents
+            html.push_str(r#"<div class="card"><h2>🧠 Coffre des Intelligents — validations</h2><p style="color:#a8c5a8;font-size:0.85em;">Les développeurs publient leurs apps. Sans ta validation, rien ne sort. Un code sans l'autorisation de la blockchain n'existe pas.</p>"#);
+            for c in &sys.coffre {
+                let (etat, couleur) = match c.statut.as_str() { "valide" => ("✅ VALIDÉE", "#7fcf7f"), "refuse" => ("❌ REFUSÉE", "#cf7f7f"), _ => ("⏳ EN ATTENTE", "#d4a437") };
+                html.push_str(&format!(r#"<div class="tx">{} <b>{}</b> v.{} — 👤 {} — <span style="color:{};">{}</span> {} {}</div>"#,
+                    c.emoji, c.nom, c.version, c.auteur, couleur, etat,
+                    if c.statut == "attente" { format!(r#"<form method=\"POST\" action=\"/systemes/coffre\" style=\"display:inline;\"><input type=\"hidden\" name=\"id\" value=\"{}\"><input type=\"hidden\" name=\"statut\" value=\"valide\"><button style=\"padding:4px 12px;font-size:0.85em;\">✅ Valider</button></form>"#, c.id) } else { String::new() },
+                    if c.statut == "attente" { format!(r#"<form method=\"POST\" action=\"/systemes/coffre\" style=\"display:inline;\"><input type=\"hidden\" name=\"id\" value=\"{}\"><input type=\"hidden\" name=\"statut\" value=\"refuse\"><button style=\"padding:4px 12px;font-size:0.85em;\">❌ Refuser</button></form>"#, c.id) } else { String::new() }));
+            }
+            html.push_str("</div>");
+            html.push_str("</body></html>");
+            HttpResponse::ok(&html)
+        }
+        ("POST", "/systemes/basculer") => {
+            let form = parse_urlencoded(&req.body);
+            let id = form.get("id").cloned().unwrap_or_default();
+            let mut sys = state.systemes.lock().unwrap();
+            if let Some((actif, nom)) = sys.basculer(&id) {
+                let memo = format!("SYSTEME | {} | {} {}", nom, if actif { "ACTIVEE par le Chef" } else { "COUPEE par le Chef" }, id);
+                drop(sys);
+                let mut chain = state.chain.lock().unwrap();
+                let tx = Transaction::new("SYSTEM", "SYSTEMES", 0, &memo);
+                chain.add_transaction(tx);
+                chain.mine_pending("AFRICHAIN");
+                chain.save_to_file();
+            }
+            HttpResponse::redirect("/systemes")
+        }
+        ("POST", "/systemes/agent") => {
+            let form = parse_urlencoded(&req.body);
+            let username = form.get("username").cloned().unwrap_or_default();
+            if username.is_empty() {
+                let mut sys = state.systemes.lock().unwrap();
+                sys.creer_agent(
+                    form.get("username").map(|s| s.as_str()).unwrap_or(""),
+                    form.get("type_wari").map(|s| if s.eq_ignore_ascii_case("aes") { "AES" } else { "AFRI" }).unwrap_or("AFRI"),
+                    form.get("nom_complet").map(|s| s.as_str()).unwrap_or(""),
+                    form.get("telephone").map(|s| s.as_str()).unwrap_or(""),
+                    form.get("pays").map(|s| s.as_str()).unwrap_or(""),
+                );
+                drop(sys);
+                let memo = format!("AGENT-WARI | {} nomme agent {}", form.get("username").cloned().unwrap_or_default(), form.get("type_wari").cloned().unwrap_or_default());
+                let mut chain = state.chain.lock().unwrap();
+                let tx = Transaction::new("SYSTEM", "SYSTEMES", 0, &memo);
+                chain.add_transaction(tx);
+                chain.mine_pending("AFRICHAIN");
+                chain.save_to_file();
+            } else {
+                let mut sys = state.systemes.lock().unwrap();
+                if let Some((actif, typ, u)) = sys.basculer_agent(&username) {
+                    let memo = format!("AGENT-WARI | agent {} {} {}", u, typ, if actif { "ACTIVE par le Chef" } else { "SUSPENDU par le Chef" });
+                    drop(sys);
+                    let mut chain = state.chain.lock().unwrap();
+                    let tx = Transaction::new("SYSTEM", "SYSTEMES", 0, &memo);
+                    chain.add_transaction(tx);
+                    chain.mine_pending("AFRICHAIN");
+                    chain.save_to_file();
+                }
+            }
+            HttpResponse::redirect("/systemes")
+        }
+        ("POST", "/systemes/passeport") => {
+            let form = parse_urlencoded(&req.body);
+            let username = form.get("username").cloned().unwrap_or_default();
+            let mut sys = state.systemes.lock().unwrap();
+            if let Some((numero, nom)) = sys.delivrer_passeport(&username) {
+                let memo = format!("PASSEPORT-54 | delivre a {} | numero {}", nom, numero);
+                drop(sys);
+                let mut chain = state.chain.lock().unwrap();
+                let tx = Transaction::new("SYSTEM", "PASSEPORT", 0, &memo);
+                chain.add_transaction(tx);
+                chain.mine_pending("AFRICHAIN");
+                chain.save_to_file();
+            }
+            HttpResponse::redirect("/systemes")
+        }
+        ("POST", "/systemes/coffre") => {
+            let form = parse_urlencoded(&req.body);
+            let id: u64 = form.get("id").and_then(|x| x.parse().ok()).unwrap_or(0);
+            let statut = form.get("statut").cloned().unwrap_or_default();
+            let mut sys = state.systemes.lock().unwrap();
+            if let Some((nom, auteur, st)) = sys.statut_coffre(id, &statut) {
+                let memo = format!("COFFRE-INTELLIGENTS | {} de {} — {} par le Chef", nom, auteur, if st == "valide" { "VALIDEE" } else { "REFUSEE" });
+                drop(sys);
+                let mut chain = state.chain.lock().unwrap();
+                let tx = Transaction::new("SYSTEM", "COFFRE", 0, &memo);
+                chain.add_transaction(tx);
+                chain.mine_pending("AFRICHAIN");
+                chain.save_to_file();
+            }
+            HttpResponse::redirect("/systemes")
+        }
+
+        // ===== v2.05: pages du peuple — Passeport + Coffre =====
+        ("GET", "/passeport") => {
+            let session = match session_user(&req, state) {
+                Some(u) => u,
+                None => return HttpResponse::redirect("/login?err=Demande ton passeport africain"),
+            };
+            let sys = state.systemes.lock().unwrap();
+            let mien = sys.passeports.iter().find(|p| p.username == session);
+            let mut html = html_head("🪪 Passeport 54 Pays");
+            html.push_str(r#"<h1>🪪 PASSEPORT 54 PAYS</h1><div class="nav"><a href="/">← Accueil</a></div><p style="text-align:center;color:#a8c5a8;">Un seul passeport pour toute l'Afrique. Gravé sur la blockchain, impossible à falsifier.</p>"#);
+            match mien {
+                Some(p) if p.delivre => {
+                    html.push_str(&format!(r#"<div class="card" style="border-color:#d4a437;text-align:center;"><h2>✅ TON PASSEPORT</h2><p style="font-size:1.4em;color:#d4a437;font-family:monospace;"><b>{}</b></p><p>👤 {} — 🌍 {} — 🎂 {}</p><p style="color:#a8c5a8;font-size:0.85em;">Valable dans les 54 pays d'Afrique. Gravé sur la blockchain AfriChain.</p></div>"#, p.numero, p.nom_complet, p.pays, p.date_naissance));
+                }
+                Some(_) => {
+                    html.push_str(r#"<div class="card"><h2>⏳ Demande enregistrée</h2><p style="color:#a8c5a8;">Le Chef va délivrer ton passeport. Tu le verras ici dès sa signature.</p></div>"#);
+                }
+                None => {
+                    html.push_str(r#"<div class="card"><h2>Demander mon passeport</h2><form method="POST" action="/passeport/demander"><label>Nom complet :</label><input name="nom_complet" required><label>Pays :</label><input name="pays" placeholder="Ex: Cote d'Ivoire" required><label>Date de naissance :</label><input name="date_naissance" placeholder="JJ/MM/AAAA" required><button>🪪 Demander mon passeport africain</button></form></div>"#);
+                }
+            }
+            html.push_str("</body></html>");
+            HttpResponse::ok(&html)
+        }
+        ("POST", "/passeport/demander") => {
+            let session = match session_user(&req, state) {
+                Some(u) => u,
+                None => return HttpResponse::redirect("/login"),
+            };
+            let form = parse_urlencoded(&req.body);
+            let mut sys = state.systemes.lock().unwrap();
+            sys.demander_passeport(&session,
+                form.get("nom_complet").map(|s| s.as_str()).unwrap_or(""),
+                form.get("pays").map(|s| s.as_str()).unwrap_or(""),
+                form.get("date_naissance").map(|s| s.as_str()).unwrap_or(""));
+            drop(sys);
+            let memo = format!("PASSEPORT-54 | {} demande un passeport", session);
+            let mut chain = state.chain.lock().unwrap();
+            let tx = Transaction::new("SYSTEM", "PASSEPORT", 0, &memo);
+            chain.add_transaction(tx);
+            chain.mine_pending("AFRICHAIN");
+            chain.save_to_file();
+            HttpResponse::redirect("/passeport?msg=Demande envoyee au Chef")
+        }
+        ("GET", "/coffre") => {
+            let session = session_user(&req, state);
+            let sys = state.systemes.lock().unwrap();
+            let mut html = html_head("🧠 Coffre des Intelligents");
+            html.push_str(r#"<h1>🧠 COFFRE DES INTELLIGENTS</h1><div class="nav"><a href="/">← Accueil</a></div><p style="text-align:center;color:#a8c5a8;">Le Play Store des développeurs africains. Publie ton app — le Chef la valide, ensuite elle vit sur l'AFRI STORE.</p>"#);
+            if session.is_some() {
+                html.push_str(r#"<div class="card"><h2>📤 Publier mon app</h2><form method="POST" action="/coffre/publier"><label>Nom de l'app :</label><input name="nom" maxlength="60" required><label>Emoji (icône) :</label><input name="emoji" maxlength="4" placeholder="🎮"><label>Description :</label><textarea name="description" maxlength="300" rows="3"></textarea><label>Version :</label><input name="version" placeholder="1.0"><button>📤 Envoyer au Coffre</button></form></div>"#);
+            }
+            html.push_str(r#"<div class="card"><h2>📦 Les apps du Coffre</h2>"#);
+            if sys.coffre.is_empty() {
+                html.push_str(r#"<p style="color:#a8c5a8;">Aucune app encore. Sois le premier développeur du Coffre des Intelligents !</p>"#);
+            }
+            for c in &sys.coffre {
+                let (etat, couleur) = match c.statut.as_str() { "valide" => ("✅ VALIDÉE", "#7fcf7f"), "refuse" => ("❌ REFUSÉE", "#cf7f7f"), _ => ("⏳ EN ATTENTE DE VALIDATION", "#d4a437") };
+                html.push_str(&format!(r#"<div class="tx">{} <b>{}</b> v.{} — 👤 {} — <span style="color:{};">{}</span></div>"#, c.emoji, c.nom, c.version, c.auteur, couleur, etat));
+            }
+            html.push_str("</div></body></html>");
+            HttpResponse::ok(&html)
+        }
+        ("POST", "/coffre/publier") => {
+            let session = match session_user(&req, state) {
+                Some(u) => u,
+                None => return HttpResponse::redirect("/login?err=Connecte-toi pour publier"),
+            };
+            let form = parse_urlencoded(&req.body);
+            let nom = form.get("nom").cloned().unwrap_or_default();
+            if nom.trim().is_empty() { return HttpResponse::redirect("/coffre"); }
+            let mut sys = state.systemes.lock().unwrap();
+            let id = sys.publier_coffre(nom.trim(),
+                form.get("emoji").map(|s| s.as_str()).unwrap_or("📦"),
+                form.get("description").map(|s| s.as_str()).unwrap_or(""),
+                &session,
+                form.get("version").map(|s| s.as_str()).unwrap_or("1.0"));
+            drop(sys);
+            let memo = format!("COFFRE-INTELLIGENTS | {} publie \"{}\" — en attente de validation", session, nom.trim());
+            let mut chain = state.chain.lock().unwrap();
+            let tx = Transaction::new("SYSTEM", "COFFRE", 0, &memo);
+            chain.add_transaction(tx);
+            chain.mine_pending("AFRICHAIN");
+            chain.save_to_file();
+            HttpResponse::redirect(&format!("/coffre?msg=App #{} envoyee au Chef pour validation", id))
         }
 
         // ===== v2.01: AFRI VIDÉO — notre YouTube 🎬 =====
