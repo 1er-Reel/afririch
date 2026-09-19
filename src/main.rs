@@ -1598,6 +1598,7 @@ fn html_home_user(username: &str, flag: &str, phone: &str, message_continent: Op
 <p style="text-align:center;color:#a8c5a8;">Salut <b>{}</b> {} — ton réseau africain. Tout est ici, rien ne sort du continent. 💚</p>
 {}
 <div class="nav"><a href="/account?user={}">👛 Mon compte</a> | <a href="/logout">🚪 Déconnexion</a></div>
+<div class="card" style="border-color:#d4a437;text-align:center;"><h2>👛 MON COMPTE</h2><p style="color:#a8c5a8;">Clique ici pour voir ton solde, tes transactions, ton wallet :</p><a href="/account?user={}"><button style="font-size:1.2em;padding:14px 40px;">👛 OUVRIR MON COMPTE</button></a></div>
 <div class="card"><h2>📞 Les services du réseau vert</h2>
 <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-top:10px;">
 <a href="/appels" style="text-decoration:none;"><div style="padding:16px;border:1px solid #25D366;border-radius:10px;text-align:center;color:#25D366;">📞<br><b>Appels Verts</b></div></a>
@@ -1607,17 +1608,22 @@ fn html_home_user(username: &str, flag: &str, phone: &str, message_continent: Op
 <a href="/annuaire" style="text-decoration:none;"><div style="padding:16px;border:1px solid #7ec87e;border-radius:10px;text-align:center;color:#7ec87e;">📖<br><b>Annuaire</b></div></a>
 <a href="/account?user={}" style="text-decoration:none;"><div style="padding:16px;border:1px solid #7ec87e;border-radius:10px;text-align:center;color:#7ec87e;">🦁<br><b>Lion + Dépôt</b></div></a>
 <a href="/serveur-continental" style="text-decoration:none;"><div style="padding:16px;border:1px solid #f59e0b;border-radius:10px;text-align:center;color:#f59e0b;">🌍<br><b>Serveur Continental</b></div></a>
-<a href="/plante" style="text-decoration:none;"><div style="padding:16px;border:1px solid #25D366;border-radius:10px;text-align:center;color:#25D366;">🌱<br><b>Planté Verte</b></div></a>
-<a href="/noires" style="text-decoration:none;"><div style="padding:16px;border:1px solid #d4a437;border-radius:10px;text-align:center;color:#d4a437;">💬<br><b>LES NOIRES</b></div></a>
-<a href="/store" style="text-decoration:none;"><div style="padding:16px;border:1px solid #34A853;border-radius:10px;text-align:center;color:#34A853;">🏪<br><b>AFRI STORE</b></div></a>
+<a href="/plante" style="text-decoration:none;"><div style="padding:16px;border:1px solid #25D366;border-radius:10px;text-align:center;color:#25D366;">🌱<br><b>Planté Verte (Facebook)</b></div></a>
+<a href="/noires" style="text-decoration:none;"><div style="padding:16px;border:1px solid #d4a437;border-radius:10px;text-align:center;color:#d4a437;">💬<br><b>LES NOIRES (WhatsApp)</b></div></a>
+<a href="/store" style="text-decoration:none;"><div style="padding:16px;border:1px solid #34A853;border-radius:10px;text-align:center;color:#34A853;">🏪<br><b>AFRI STORE (Play Store)</b></div></a>
 <a href="/etincelle" style="text-decoration:none;"><div style="padding:16px;border:1px solid #ff8c00;border-radius:10px;text-align:center;color:#ff8c00;">🔥<br><b>L'ÉTINCELLE</b></div></a>
 <a href="/amion" style="text-decoration:none;"><div style="padding:16px;border:1px solid #d4a437;border-radius:10px;text-align:center;color:#d4a437;">💚<br><b>Amion Blandine</b></div></a>
 <a href="/langage" style="text-decoration:none;"><div style="padding:16px;border:1px solid #7fcf7f;border-radius:10px;text-align:center;color:#7fcf7f;">▤<br><b>Langage AMION</b></div></a>
 <a href="/internet" style="text-decoration:none;"><div style="padding:16px;border:1px solid #7fcf7f;border-radius:10px;text-align:center;color:#7fcf7f;">🌐<br><b>Internet Afri</b></div></a>
+<a href="/sahara" style="text-decoration:none;"><div style="padding:16px;border:1px solid #f59e0b;border-radius:10px;text-align:center;color:#f59e0b;">🔍<br><b>SAHARA (Google)</b></div></a>
+<a href="/afri-telegram" style="text-decoration:none;"><div style="padding:16px;border:1px solid #38bdf8;border-radius:10px;text-align:center;color:#38bdf8;">📢<br><b>Afri Télégram</b></div></a>
+<a href="/video" style="text-decoration:none;"><div style="padding:16px;border:1px solid #cf7f7f;border-radius:10px;text-align:center;color:#cf7f7f;">🎬<br><b>Afri Vidéo (YouTube)</b></div></a>
+<a href="/sites" style="text-decoration:none;"><div style="padding:16px;border:1px solid #7ec97e;border-radius:10px;text-align:center;color:#7ec97e;">🏗️<br><b>Afri Sites</b></div></a>
+<a href="/sceau" style="text-decoration:none;"><div style="padding:16px;border:1px solid #d4a437;border-radius:10px;text-align:center;color:#d4a437;">◈<br><b>Le Sceau</b></div></a>
 </div></div>
 <div class="card"><h2>📱 Ma puce verte</h2><p style="text-align:center;color:#a8c5a8;">Ton numéro : <b style="color:#d4a437;">{} {}</b></p><p style="color:#a8c5a8;">Chaque appel, chaque SMS passe de puce à puce sur le réseau AfriChain. Aucun serveur occidental. 🌿</p></div>
 <footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🦁 AfriChain — L'Afrique ne demande plus la permission</footer>
-</body></html>"##, html_head("🌿 Planète Verte"), username, flag, bloc_message, username, username, flag, phone)
+</body></html>"##, html_head("🌿 Planète Verte"), username, flag, bloc_message, username, username, username, flag, phone)
 }
 
 fn html_home(chain: &Blockchain, users: &UserStore, mesh: &NodeRegistry, shield: &ShieldState, machines: &MachineEconomy) -> String {
