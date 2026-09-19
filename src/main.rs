@@ -26,6 +26,7 @@ mod afri_etincelle;
 mod afri_amion;
 mod afri_net;
 mod afri_licence;
+mod afri_video;
 mod afri_langage;
 mod afri_telegram;
 use afri_mesh_direct::{AfriMeshDirect, DirectMessage, DirectNode, LightBlock};
@@ -36349,7 +36350,7 @@ fn html_afri_rich(user: &UserAccount, chain: &Blockchain, lion: &afri_lion::Lion
     html
 }
 
-fn html_dashboard(chain: &Blockchain, users: &UserStore) -> String {
+fn html_dashboard(chain: &Blockchain, users: &UserStore, state_store: &crate::afri_store::StoreAfri, state_videos: &crate::afri_video::VideoStore, state_sites: &crate::afri_video::SiteStore) -> String {
     let mut html = html_head("📈 Dashboard AfriChain");
     let balances = chain.balances();
     let total_tx = chain.total_transactions();
@@ -36412,6 +36413,29 @@ fn html_dashboard(chain: &Blockchain, users: &UserStore) -> String {
             let pct = (*count as f64 / max_count as f64) * 100.0;
             html.push_str(&format!(r#"<div style="margin:4px 0;"><span style="color:#a8c5a8;font-size:0.85em;">{} {} ({}) — {} utilisateurs</span><div style="background:rgba(0,0,0,0.3);border-radius:4px;height:24px;margin-top:2px;"><div class="country-bar" style="width:{}%;height:24px;border-radius:4px;">{}</div></div></div>"#,
                 flag, name, code, count, pct as u32, count));
+        }
+        html.push_str("</div>");
+    }
+
+    // ===== v2.01: SERVEUR DES APPS — l'admin voit tout ce qui vit sur son serveur =====
+    {
+        html.push_str(r#"<div class="card"><h2>🏪 SERVEUR DES APPS — tout ce qui vit sur ton serveur</h2>"#);
+        // Apps du store
+        html.push_str(&format!(r#"<h3>📱 Apps publiées ({})</h3>"#, state_store.apps.len()));
+        for app in &state_store.apps {
+            let note = if app.note_count > 0 { format!("{:.1}★", app.note_total as f64 / app.note_count as f64) } else { "—".to_string() };
+            html.push_str(&format!(r#"<div class="tx">{} <b>{}</b> ({} {}) — 👤 {} — 📦 {} installs — {} — v.{} — <span style="color:#7fcf7f;">{}</span></div>"#,
+                app.emoji, app.nom, app.id, app.categorie, app.auteur, app.installs, note, app.version, if app.prix == 0 { "GRATUIT".to_string() } else { format!("{} AFR", app.prix) }));
+        }
+        // Vidéos
+        html.push_str(&format!(r#"<h3>🎬 Afri Vidéo ({})</h3>"#, state_videos.videos.len()));
+        for v in &state_videos.videos {
+            html.push_str(&format!(r#"<div class="tx">🎬 <b>{}</b> — 👤 {} — 👁️ {} vues — ❤️ {}</div>"#, v.titre, v.auteur, v.vues, v.jaime));
+        }
+        // Sites
+        html.push_str(&format!(r#"<h3>🏗️ Afri Sites ({})</h3>"#, state_sites.sites.len()));
+        for si in &state_sites.sites {
+            html.push_str(&format!(r#"<div class="tx">🏗️ <a href="/site/{}"><b>{}</b></a> — 👤 {} — 👁️ {} vues</div>"#, si.slug, si.titre, si.auteur, si.vues));
         }
         html.push_str("</div>");
     }
@@ -36835,6 +36859,8 @@ struct AppState {
     pin_garde: Mutex<HashMap<String, (u32, u64)>>,  // v1.94: BOUCLIER PIN — username → (échecs, bloqué_jusque) 🛡️
     amion: Mutex<afri_amion::AmionStore>,  // v1.95: AMION BLANDINE — le terminal en langage machine 💚
     net: Mutex<afri_net::NetStore>,  // v1.97: L'INTERNET AFRI — notre internet machine 🌐◈⬡
+    videos: Mutex<afri_video::VideoStore>,  // v2.01: AFRI VIDÉO 🎬
+    sites: Mutex<afri_video::SiteStore>,    // v2.01: AFRI SITES 🏗️
 }
 
 fn main() {
@@ -36956,6 +36982,8 @@ fn main() {
         pin_garde: Mutex::new(HashMap::new()),
         amion: Mutex::new(afri_amion::AmionStore::nouveau()),
         net: Mutex::new(afri_net::NetStore::load()),
+        videos: Mutex::new(afri_video::VideoStore::load()),
+        sites: Mutex::new(afri_video::SiteStore::load()),
     });
 
     // ===== v1.76: 4 UTILISATEURS DÉMO — pour s'appeler et s'envoyer des SMS =====
@@ -41824,6 +41852,103 @@ fn handle_request(req: afri_http::HttpRequest, state: &Arc<AppState>) -> afri_ht
             HttpResponse::ok(&html_internet(state))
         }
 
+
+        // ===== v2.01: AFRI VIDÉO — notre YouTube 🎬 =====
+        ("GET", "/video") => {
+            let session = session_user(&req, state);
+            let videos = state.videos.lock().unwrap();
+            HttpResponse::ok(&videos.html_page(session.as_deref()))
+        }
+        ("POST", "/video/publier") => {
+            let session = match session_user(&req, state) {
+                Some(u) => u,
+                None => return HttpResponse::redirect("/login?err=Connecte-toi pour publier une video"),
+            };
+            let form = parse_urlencoded(&req.body);
+            let titre = form.get("titre").cloned().unwrap_or_default();
+            let description = form.get("description").cloned().unwrap_or_default();
+            let b64 = form.get("media_b64").cloned().unwrap_or_default();
+            let ext = form.get("media_ext").cloned().unwrap_or_default();
+            if titre.trim().is_empty() { return HttpResponse::redirect("/video"); }
+            let fichier = match crate::afri_plante::PlanteStore::sauver_media(&b64, &ext) {
+                Ok(f) => f,
+                Err(e) => return HttpResponse::redirect(&format!("/video?msg={}", url_encode(&e))),
+            };
+            let mut videos = state.videos.lock().unwrap();
+            let id = videos.publier(titre.trim(), description.trim(), &session, &fichier);
+            // tx gravée : la vidéo appartient à l'histoire
+            let memo = format!("AFRI-VIDEO | {} publie \"{}\"", session, titre.trim());
+            let mut chain = state.chain.lock().unwrap();
+            let tx = Transaction::new("SYSTEM", "AFRI-VIDEO", 0, &memo);
+            chain.add_transaction(tx);
+            chain.mine_pending("AFRICHAIN");
+            chain.save_to_file();
+            drop(chain);
+            HttpResponse::redirect(&format!("/video?msg=Video #{} publiee — gravee sur la blockchain", id))
+        }
+        ("POST", "/video/voir") => {
+            let form = parse_urlencoded(&req.body);
+            let id: u64 = form.get("id").and_then(|x| x.parse().ok()).unwrap_or(0);
+            state.videos.lock().unwrap().voir(id);
+            HttpResponse::redirect("/video")
+        }
+        ("POST", "/video/aimer") => {
+            let form = parse_urlencoded(&req.body);
+            let id: u64 = form.get("id").and_then(|x| x.parse().ok()).unwrap_or(0);
+            state.videos.lock().unwrap().aimer(id);
+            HttpResponse::redirect("/video")
+        }
+
+        // ===== v2.01: AFRI SITES — créer des sites 🏗️ =====
+        ("GET", "/sites") => {
+            let session = session_user(&req, state);
+            let msg = req.query_str("msg").map(|x| x.to_string());
+            let sites = state.sites.lock().unwrap();
+            HttpResponse::ok(&sites.html_page(session.as_deref(), msg.as_deref()))
+        }
+        ("POST", "/site/creer") => {
+            let session = match session_user(&req, state) {
+                Some(u) => u,
+                None => return HttpResponse::redirect("/login?err=Connecte-toi pour creer un site"),
+            };
+            let form = parse_urlencoded(&req.body);
+            let slug = form.get("slug").cloned().unwrap_or_default();
+            let titre = form.get("titre").cloned().unwrap_or_default();
+            let contenu = form.get("contenu").cloned().unwrap_or_default();
+            let mut sites = state.sites.lock().unwrap();
+            match sites.creer(&slug, &titre, &session, &contenu) {
+                Ok(()) => {
+                    let memo = format!("AFRI-SITE | {} cree le site \"{}\"", session, slug.trim().to_lowercase().replace(' ', "-"));
+                    let mut chain = state.chain.lock().unwrap();
+                    let tx = Transaction::new("SYSTEM", "AFRI-SITE", 0, &memo);
+                    chain.add_transaction(tx);
+                    chain.mine_pending("AFRICHAIN");
+                    chain.save_to_file();
+                    drop(chain);
+                    HttpResponse::redirect(&format!("/sites?msg=Site cree ! Visite /site/{}", slug.trim().to_lowercase().replace(' ', "-")))
+                }
+                Err(e) => HttpResponse::redirect(&format!("/sites?msg={}", url_encode(&e))),
+            }
+        }
+        ("GET", "/site") => {
+            HttpResponse::redirect("/sites")
+        }
+
+
+        // ===== v2.01: /site/{slug} — visiter un site africain =====
+        ("GET", p) if p.starts_with("/site/") => {
+            let slug = &p[6..];
+            let mut sites = state.sites.lock().unwrap();
+            match sites.trouver(slug) {
+                Some(s) => {
+                    let page = sites.html_site(s);
+                    sites.voir(slug);
+                    HttpResponse::ok(&page)
+                }
+                None => HttpResponse::ok("<h1>404 — Ce site n'existe pas (encore)</h1><p>Cree-le sur <a href='/sites'>/sites</a> !</p>")
+            }
+        }
+
         // ===== v1.99: LE SCEAU SOUVERAIN — AFRI-OSL ◈ =====
         ("GET", "/sceau") => {
             HttpResponse::ok(&afri_licence::html_sceau(state))
@@ -44677,7 +44802,10 @@ pre {{ white-space:pre-wrap; word-wrap:break-word; }}
             }
             let chain = state.chain.lock().unwrap();
             let users = state.users.lock().unwrap();
-            HttpResponse::ok(&html_dashboard(&chain, &users))
+            let store = state.store.lock().unwrap();
+            let videos = state.videos.lock().unwrap();
+            let sites = state.sites.lock().unwrap();
+            HttpResponse::ok(&html_dashboard(&chain, &users, &store, &videos, &sites))
         }
 
         // ===== API =====
