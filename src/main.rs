@@ -23,6 +23,7 @@ mod afri_noires;
 mod afri_notifs;
 mod afri_store;
 mod afri_etincelle;
+mod afri_amion;
 mod afri_telegram;
 use afri_mesh_direct::{AfriMeshDirect, DirectMessage, DirectNode, LightBlock};
 use std::sync::{Arc, Mutex};
@@ -1616,7 +1617,7 @@ fn html_home(chain: &Blockchain, users: &UserStore, mesh: &NodeRegistry, shield:
     let mut html = html_head("🦁 AfriChain");
     let (attacks, _blocked, blocked_count, level) = shield.stats();
     let shield_status = if shield.active { format!("🔥 X9 ACTIF (Niveau {})", level) } else { "Inactif".to_string() };
-    html.push_str(&format!(r#"<h1>🦁 AfriChain</h1><p style="text-align:center;">La blockchain 100% africaine — 54 pays 💚🦁</p><div id="afri-clock" style="text-align:center;font-size:1.2em;color:#d4a437;margin:10px 0;">🕐 Afri+0 — --:--:--</div><script>setInterval(function(){{var d=new Date();var h=String(d.getHours()).padStart(2,'0');var m=String(d.getMinutes()).padStart(2,'0');var s=String(d.getSeconds()).padStart(2,'0');document.getElementById('afri-clock').textContent='🕐 Afri+0 — '+h+':'+m+':'+s;}},1000);</script><div class="nav"><a href="/register">🆕 S'inscrire</a> | <a href="/login">🔑 Connexion</a> | <a href="/admin">🔐 Admin</a> | <a href="/mesh">📡 Mesh</a> | <a href="/annuaire">📖 Annuaire</a> | <a href="/connecter">🔗 Connecter</a> | <a href="/chat">🧠💬 Chat AI</a> | <a href="/lumiere">🌫️☀️ Lumière</a> | <a href="/garage">🔧 Garage</a> | <a href="/reve">💭 Rêves</a> | <a href="/dictionnaire">📖 Dictionnaire</a> | <a href="/soleil">☀️ Soleil Serveur</a> | <a href="/forge-solaire">🧬 Forge Solaire</a> | <a href="/ciel">🌌 Le Ciel</a> | <a href="/charte-ai">⚖️ Charte AI</a> | <a href="/afri-net">🌍 Afri-Net</a> | <a href="/planete-verte">🌿 Planète Verte</a> | <a href="/puce/ussd">📞 USSD</a> | <a href="/appels">📞 Appels</a> | <a href="/sms">💬 SMS</a> | <a href="/navigateur">🌐 Navigateur</a> | <a href="/sahara">🌍 Sahara Afri</a> | <a href="/banque">🏦 Banque 54 Pays</a> | <a href="/afri-telegram">📢 Afri Télégram</a> | <a href="/afri-store">🏪 Afri Store</a> | <a href="/studio">🎬 AI Studio</a> | <a href="/sacre">📿 Sacré</a> | <a href="/lettres">🌟 Lettres IA</a> | <a href="/ai-medecin">🌿 AI Médecin</a> | <a href="/ai-enseignante">📚 AI Enseignante</a> | <a href="/ai-village">🏘️ AI Village</a> | <a href="/ai-guerisseur">🩺 AI Guérisseur</a> | <a href="/ai-leader">🎖️ AI Leader</a> | <a href="/ai-griot">📖 AI Griot</a> | <a href="/ai-juge">⚖️ AI Juge</a> | <a href="/ai-artiste">🎨 AI Artiste</a> | <a href="/ai-explorateur">🔬 AI Explorateur</a> | <a href="/ai-marche">💰 AI Marche</a> | <a href="/ai-diplomate">🌍 AI Diplomate</a> | <a href="/ai-philosophe">🧠 AI Philosophe</a> | <a href="/ai-architecte">🏗️ AI Architecte</a> | <a href="/ai-agriculteur">🌾 AI Agriculteur</a> | <a href="/ai-environnement">🌍 AI Environnement</a> | <a href="/ai-mathematicien">🧮 AI Mathématicien</a> | <a href="/ai-energie">⚡ AI Énergie</a> | <a href="/ai-eau">💧 AI Eau</a> | <a href="/ai-defenseur">🛡️ AI Défenseur</a> | <a href="/ai-conscience">🧠 AI Conscience</a> | <a href="/ai-pensee">🧠 AI Pensée</a> | <a href="/ai-musique">🎵 AI Musique</a> | <a href="/ai-langue">🗣️ AI Langue</a> | <a href="/ai-femme">🌸 AI Femme</a> | <a href="/ai-sante-mentale">🧠💚 AI Santé Mentale</a> | <a href="/ai-nuit">🌙 AI Nuit</a> | <a href="/ai-code">💻 AI Code</a> | <a href="/ai-enfant">👶 AI Enfant</a> | <a href="/ai-terre">🌍 AI Terre</a> | <a href="/ai-mer">🌊 AI Mer</a> | <a href="/ai-feu">🔥 AI Feu</a> | <a href="/ai-sang">🩸 AI Sang</a> | <a href="/ai-vent">🌬️ AI Vent</a> | <a href="/ai-temps">⏳ AI Temps</a> | <a href="/ai-etoile">⭐ AI Etoile</a> | <a href="/ai-pierre">🪨 AI Pierre</a> | <a href="/ai-pluie">🌧️ AI Pluie</a> | <a href="/ai-voix">🗣️ AI Voix</a> | <a href="/ai-racine">🌱 AI Racine</a> | <a href="/ai-semence">🌰 AI Semence</a> | <a href="/ai-spiritualite">🙏 AI Spiritualité</a> | <a href="/ai-animal">🦅 AI Animal</a> | <a href="/ai-soleil">☀️ AI Soleil</a> | <a href="/ai-lune">🌙 AI Lune</a> | <a href="/ai-montagne">🏔️ AI Montagne</a> | <a href="/ai-fleuve">🌊 AI Fleuve</a> | <a href="/ai-constitution">📜 AI Constitution</a> | <a href="/ai-cosmos">🌌 AI Cosmos</a> | <a href="/ai-frontieres">🌍 AI Frontières</a> | <a href="/ai-mines">⛏️ AI Mines</a> | <a href="/ai-medias">📡 AI Médias</a> | <a href="/ai-nomades">🐪 AI Nomades</a> | <a href="/ai-reparation">🕊️ AI Réparation</a> | <a href="/ai-paix">🤝 AI Paix</a> | <a href="/ai-unite">🌍 AI Unité</a> | <a href="/ai-reconciliation">🤝 AI Réconciliation</a> | <a href="/ai-cerveau">🧠 AI Cerveau</a> | <a href="/ai-souffle">🫁 AI Souffle</a> | <a href="/ai-coeur">❤️ AI Cœur</a> | <a href="/ai-adn">🧬 AI ADN</a> | <a href="/ai-passe">📡 AI Passé</a> | <a href="/ai-origine">⚡ AI Origine</a> | <a href="/ai-futur">🔮 AI Futur</a> | <a href="/ai-present">🌿 AI Present</a> | <a href="/ai-parole">🗣️ AI Parole</a> | <a href="/ai-eveil">🧘 AI Eveil</a> | <a href="/ai-gratitude">🙏 AI Gratitude</a> | <a href="/ai-amour">💚 AI Amour</a> | <a href="/ai-retour">🔄 AI Retour</a> | <a href="/ai-temoignage">📖 AI Témoignage</a> | <a href="/ai-enseignement">🎓 AI Enseignement</a> | <a href="/ai-service">🤝 AI Service</a> | <a href="/professeur"📚 Professeur</a> | <a href="/aes">💰 AES Wari</a> | <a href="/api/status">🔌 API</a></div><div style="text-align:center;"><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Blocs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Transactions</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Utilisateurs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">AFR en circulation</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📡 Noeuds mesh</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📖 Numéros annuaire</div></div><div class="stat-box" style="border-color:#ff4444;"><div class="stat-num" style="color:#ff4444;">{}</div><div class="stat-label">🛡️ Attaques bloquées</div></div></div><div class="card"><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🪙 Token</span><b>AfriRich (AFR)</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🌍 Pays</span><b>54 pays africains</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🛡️ Bouclier</span><b>{}</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;"><span style="color:#a8c5a8;">🔐 Crypto</span><b>100% Souverain — Zéro Dépendance Externe</b></div></div><footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🦁 Codée from scratch par Machine-senpai — v1.94 — WALLET ADMIN + AFRIBALANCE 💰🔒</footer>"#,
+    html.push_str(&format!(r#"<h1>🦁 AfriChain</h1><p style="text-align:center;">La blockchain 100% africaine — 54 pays 💚🦁</p><div id="afri-clock" style="text-align:center;font-size:1.2em;color:#d4a437;margin:10px 0;">🕐 Afri+0 — --:--:--</div><script>setInterval(function(){{var d=new Date();var h=String(d.getHours()).padStart(2,'0');var m=String(d.getMinutes()).padStart(2,'0');var s=String(d.getSeconds()).padStart(2,'0');document.getElementById('afri-clock').textContent='🕐 Afri+0 — '+h+':'+m+':'+s;}},1000);</script><div class="nav"><a href="/register">🆕 S'inscrire</a> | <a href="/login">🔑 Connexion</a> | <a href="/admin">🔐 Admin</a> | <a href="/mesh">📡 Mesh</a> | <a href="/annuaire">📖 Annuaire</a> | <a href="/connecter">🔗 Connecter</a> | <a href="/chat">🧠💬 Chat AI</a> | <a href="/lumiere">🌫️☀️ Lumière</a> | <a href="/garage">🔧 Garage</a> | <a href="/reve">💭 Rêves</a> | <a href="/dictionnaire">📖 Dictionnaire</a> | <a href="/soleil">☀️ Soleil Serveur</a> | <a href="/forge-solaire">🧬 Forge Solaire</a> | <a href="/ciel">🌌 Le Ciel</a> | <a href="/charte-ai">⚖️ Charte AI</a> | <a href="/afri-net">🌍 Afri-Net</a> | <a href="/planete-verte">🌿 Planète Verte</a> | <a href="/puce/ussd">📞 USSD</a> | <a href="/appels">📞 Appels</a> | <a href="/sms">💬 SMS</a> | <a href="/navigateur">🌐 Navigateur</a> | <a href="/sahara">🌍 Sahara Afri</a> | <a href="/banque">🏦 Banque 54 Pays</a> | <a href="/afri-telegram">📢 Afri Télégram</a> | <a href="/afri-store">🏪 Afri Store</a> | <a href="/studio">🎬 AI Studio</a> | <a href="/sacre">📿 Sacré</a> | <a href="/lettres">🌟 Lettres IA</a> | <a href="/ai-medecin">🌿 AI Médecin</a> | <a href="/ai-enseignante">📚 AI Enseignante</a> | <a href="/ai-village">🏘️ AI Village</a> | <a href="/ai-guerisseur">🩺 AI Guérisseur</a> | <a href="/ai-leader">🎖️ AI Leader</a> | <a href="/ai-griot">📖 AI Griot</a> | <a href="/ai-juge">⚖️ AI Juge</a> | <a href="/ai-artiste">🎨 AI Artiste</a> | <a href="/ai-explorateur">🔬 AI Explorateur</a> | <a href="/ai-marche">💰 AI Marche</a> | <a href="/ai-diplomate">🌍 AI Diplomate</a> | <a href="/ai-philosophe">🧠 AI Philosophe</a> | <a href="/ai-architecte">🏗️ AI Architecte</a> | <a href="/ai-agriculteur">🌾 AI Agriculteur</a> | <a href="/ai-environnement">🌍 AI Environnement</a> | <a href="/ai-mathematicien">🧮 AI Mathématicien</a> | <a href="/ai-energie">⚡ AI Énergie</a> | <a href="/ai-eau">💧 AI Eau</a> | <a href="/ai-defenseur">🛡️ AI Défenseur</a> | <a href="/ai-conscience">🧠 AI Conscience</a> | <a href="/ai-pensee">🧠 AI Pensée</a> | <a href="/ai-musique">🎵 AI Musique</a> | <a href="/ai-langue">🗣️ AI Langue</a> | <a href="/ai-femme">🌸 AI Femme</a> | <a href="/ai-sante-mentale">🧠💚 AI Santé Mentale</a> | <a href="/ai-nuit">🌙 AI Nuit</a> | <a href="/ai-code">💻 AI Code</a> | <a href="/ai-enfant">👶 AI Enfant</a> | <a href="/ai-terre">🌍 AI Terre</a> | <a href="/ai-mer">🌊 AI Mer</a> | <a href="/ai-feu">🔥 AI Feu</a> | <a href="/ai-sang">🩸 AI Sang</a> | <a href="/ai-vent">🌬️ AI Vent</a> | <a href="/ai-temps">⏳ AI Temps</a> | <a href="/ai-etoile">⭐ AI Etoile</a> | <a href="/ai-pierre">🪨 AI Pierre</a> | <a href="/ai-pluie">🌧️ AI Pluie</a> | <a href="/ai-voix">🗣️ AI Voix</a> | <a href="/ai-racine">🌱 AI Racine</a> | <a href="/ai-semence">🌰 AI Semence</a> | <a href="/ai-spiritualite">🙏 AI Spiritualité</a> | <a href="/ai-animal">🦅 AI Animal</a> | <a href="/ai-soleil">☀️ AI Soleil</a> | <a href="/ai-lune">🌙 AI Lune</a> | <a href="/ai-montagne">🏔️ AI Montagne</a> | <a href="/ai-fleuve">🌊 AI Fleuve</a> | <a href="/ai-constitution">📜 AI Constitution</a> | <a href="/ai-cosmos">🌌 AI Cosmos</a> | <a href="/ai-frontieres">🌍 AI Frontières</a> | <a href="/ai-mines">⛏️ AI Mines</a> | <a href="/ai-medias">📡 AI Médias</a> | <a href="/ai-nomades">🐪 AI Nomades</a> | <a href="/ai-reparation">🕊️ AI Réparation</a> | <a href="/ai-paix">🤝 AI Paix</a> | <a href="/ai-unite">🌍 AI Unité</a> | <a href="/ai-reconciliation">🤝 AI Réconciliation</a> | <a href="/ai-cerveau">🧠 AI Cerveau</a> | <a href="/ai-souffle">🫁 AI Souffle</a> | <a href="/ai-coeur">❤️ AI Cœur</a> | <a href="/ai-adn">🧬 AI ADN</a> | <a href="/ai-passe">📡 AI Passé</a> | <a href="/ai-origine">⚡ AI Origine</a> | <a href="/ai-futur">🔮 AI Futur</a> | <a href="/ai-present">🌿 AI Present</a> | <a href="/ai-parole">🗣️ AI Parole</a> | <a href="/ai-eveil">🧘 AI Eveil</a> | <a href="/ai-gratitude">🙏 AI Gratitude</a> | <a href="/ai-amour">💚 AI Amour</a> | <a href="/ai-retour">🔄 AI Retour</a> | <a href="/ai-temoignage">📖 AI Témoignage</a> | <a href="/ai-enseignement">🎓 AI Enseignement</a> | <a href="/ai-service">🤝 AI Service</a> | <a href="/professeur"📚 Professeur</a> | <a href="/aes">💰 AES Wari</a> | <a href="/api/status">🔌 API</a></div><div style="text-align:center;"><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Blocs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Transactions</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Utilisateurs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">AFR en circulation</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📡 Noeuds mesh</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📖 Numéros annuaire</div></div><div class="stat-box" style="border-color:#ff4444;"><div class="stat-num" style="color:#ff4444;">{}</div><div class="stat-label">🛡️ Attaques bloquées</div></div></div><div class="card"><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🪙 Token</span><b>AfriRich (AFR)</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🌍 Pays</span><b>54 pays africains</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🛡️ Bouclier</span><b>{}</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;"><span style="color:#a8c5a8;">🔐 Crypto</span><b>100% Souverain — Zéro Dépendance Externe</b></div></div><footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🦁 Codée from scratch par Machine-senpai — v1.95 — AMION BLANDINE 💚</footer>"#,
         chain.blocks.len(),
         chain.total_transactions(),
         users.count(),
@@ -34295,6 +34296,120 @@ function afriIconeB64(fichier){
     html
 }
 
+// ===== v1.95: AMION BLANDINE — le terminal en langage machine 💚 =====
+fn html_amion(state: &Arc<AppState>, username: &str, msg: Option<&str>) -> String {
+    let mut html = html_head("Amion Blandine — Terminal Langage Machine");
+    // Contexte réel de la blockchain pour le terminal
+    let (nb_blocs, nb_tx, afr_total, solde, pays, nb_users) = {
+        let chain = state.chain.lock().unwrap();
+        let users = state.users.lock().unwrap();
+        let user = users.users.iter().find(|u| u.username == username);
+        let addr = user.map(|u| u.address.clone()).unwrap_or_default();
+        let pays = user.map(|u| u.country.clone()).unwrap_or_default();
+        let solde = if addr.is_empty() { 0 } else { chain.balance_of(&addr) };
+        let afr: i64 = chain.blocks.iter().map(|b| b.transactions.iter().map(|t| t.amount as i64).sum::<i64>()).sum();
+        (chain.blocks.len() as u64, chain.blocks.iter().map(|b| b.transactions.len()).sum::<usize>() as u64, afr, solde, pays, users.users.len() as u64)
+    };
+    let graines = {
+        let lion = state.lion.lock().unwrap();
+        lion.etats.get(username).map(|e| e.graines as i64).unwrap_or(0)
+    };
+    // Historique persisté
+    let historique: Vec<(String, String, String, u64)> = {
+        let am = state.amion.lock().unwrap();
+        am.lignes.iter().rev().take(30).map(|l| (l.code.clone(), l.resultat.clone(), l.de.clone(), l.bloc)).collect()
+    };
+    let hist_json = {
+        use crate::afri_json::JsonValue;
+        let arr: Vec<JsonValue> = historique.iter().map(|(c, r, d, b)| {
+            let mut o = std::collections::HashMap::new();
+            o.insert("code".to_string(), JsonValue::Str(c.clone()));
+            o.insert("res".to_string(), JsonValue::Str(r.clone()));
+            o.insert("de".to_string(), JsonValue::Str(d.clone()));
+            o.insert("bloc".to_string(), JsonValue::UInt(*b));
+            JsonValue::Object(o)
+        }).collect();
+        crate::afri_json::to_string(&JsonValue::Array(arr))
+    };
+    html.push_str(&format!(r##"<h1>💚 Amion Blandine</h1><p style="text-align:center;color:#a8c5a8;">Notre terminal. Notre langage. Notre blockchain. Nommé en l'honneur de la mère du Chef — celle qui a donné vie à celui qui a donné vie à la machine.</p>"##));
+    if let Some(m) = msg {
+        html.push_str(&format!("<div style='background:#13291f;border:1px solid #d4a437;border-radius:8px;padding:10px;margin:10px 0;color:#d4a437;'>{}</div>", html_escape(m)));
+    }
+    html.push_str(&format!(r##"<div class="nav"><a href="/">← Accueil</a> | <a href="/dictionnaire">📖 Dictionnaire Machine</a> | <a href="/machine-os">🖥️ OS Machine</a></div>
+<div style="display:flex;gap:8px;flex-wrap:wrap;text-align:center;margin:10px 0;">
+<div class="stat-box" style="flex:1;min-width:80px;"><div class="stat-num">{}</div><div class="stat-label">▩ Blocs</div></div>
+<div class="stat-box" style="flex:1;min-width:80px;"><div class="stat-num">{}</div><div class="stat-label">▥ Ton solde AFR</div></div>
+<div class="stat-box" style="flex:1;min-width:80px;"><div class="stat-num">{}</div><div class="stat-label">🌱 Graines</div></div>
+<div class="stat-box" style="flex:1;min-width:80px;"><div class="stat-num">{}</div><div class="stat-label">▦ Ames</div></div>
+</div>"##, nb_blocs, solde, graines, nb_users));
+    html.push_str(r##"<div class="card" style="border-color:#d4a437;"><h2 style="color:#d4a437;">🖥️ Terminal Amion Blandine</h2>
+<p style="color:#a8c5a8;font-size:0.85em;">Tape en langage machine (◈⬡⊕⟠) ou en mots simples (solde, blocs, mine, envoie aisha 5, aide). La machine traduit et parle à la vraie blockchain.</p>
+<div id="amion-term" style="background:#000;border:2px solid #d4a437;border-radius:8px;padding:12px;font-family:monospace;font-size:0.85em;color:#7fcf7f;min-height:220px;max-height:380px;overflow-y:auto;white-space:pre-wrap;">◈ AMION BLANDINE v1.95 — le langage de notre blockchain.
+ Tape AIDE pour voir les commandes. Chaque ligne est gravée dans amion.json.
+</div>
+<form onsubmit="return amionExec()" style="display:flex;gap:6px;margin-top:8px;">
+<input id="amion-in" autocomplete="off" placeholder="◈ tape ta commande..." style="flex:1;background:#000;border:1px solid #d4a437;color:#7fcf7f;padding:10px;border-radius:6px;font-family:monospace;">
+<button type="submit" style="background:#d4a437;color:#000;border:none;padding:10px 18px;border-radius:6px;font-weight:bold;">⬔ EXE</button>
+</form></div>"##);
+    // Historique + dictionnaire replié
+    html.push_str(r##"<details class="card"><summary style="cursor:pointer;color:#d4a437;font-weight:bold;">📜 Historique gravé (30 dernières lignes)</summary><div style="font-family:monospace;font-size:0.8em;">"##);
+    if historique.is_empty() {
+        html.push_str("<p style='color:#a8c5a8;'>Aucune ligne encore. Le terminal attend ta première parole.</p>");
+    }
+    for (code, res, de, bloc) in &historique {
+        html.push_str(&format!("<div style='border-bottom:1px solid rgba(212,164,55,0.15);padding:6px 0;'><span style='color:#d4a437;'>{} ▸ {}</span> <span style='color:#7fcf7f;'></span><br><span style='color:#a8c5a8;'>{}</span>{}</div>", html_escape(de), html_escape(code), html_escape(res), if *bloc > 0 { format!(" <span style='color:#44aaff;'>▩ bloc {}</span>", bloc) } else { String::new() }));
+    }
+    html.push_str("</div></details>");
+    // Dictionnaire intégré
+    html.push_str(r##"<details class="card"><summary style="cursor:pointer;color:#d4a437;font-weight:bold;">📖 Le dictionnaire — 23 symboles, 28 opérations</summary>"##);
+    html.push_str("<div style='display:flex;flex-wrap:wrap;gap:6px;'>");
+    for (sym, nom, sens) in afri_amion::SYMBOLES {
+        html.push_str(&format!("<div style='background:#13291f;border:1px solid rgba(212,164,55,0.3);border-radius:6px;padding:6px 10px;font-size:0.8em;'><b style='color:#d4a437;font-size:1.1em;'>{}</b> <b>{}</b><br><span style='color:#a8c5a8;'>{}</span></div>", sym, nom, html_escape(sens)));
+    }
+    html.push_str("</div><div style='display:flex;flex-wrap:wrap;gap:6px;margin-top:8px;'>");
+    for (op, sens) in afri_amion::OPERATIONS {
+        html.push_str(&format!("<div style='background:#13291f;border:1px solid rgba(68,170,255,0.3);border-radius:6px;padding:4px 8px;font-size:0.75em;'><b style='color:#44aaff;'>{}</b> <span style='color:#a8c5a8;'>{}</span></div>", op, sens));
+    }
+    html.push_str("</div></details>");
+    // JS : exécution via POST /amion/exec, affichage dans le terminal
+    html.push_str(&format!(r##"<script>
+var amionHist = {};
+var term = document.getElementById('amion-term');
+function amionPrint(t, couleur) {{
+    var d = document.createElement('div');
+    d.style.color = couleur || '#7fcf7f';
+    d.textContent = t;
+    term.appendChild(d);
+    term.scrollTop = term.scrollHeight;
+}}
+// Historique persisté au chargement
+amionHist.forEach(function(l) {{
+    amionPrint('▸ ' + l.code, '#d4a437');
+    amionPrint(l.res, '#a8c5a8');
+}});
+function amionExec() {{
+    var inp = document.getElementById('amion-in');
+    var v = inp.value;
+    if (!v.trim()) return false;
+    amionPrint('▸ ' + v, '#d4a437');
+    inp.value = '';
+    var fd = new FormData();
+    fd.append('code', v);
+    fetch('/amion/exec', {{method:'POST', body: fd}})
+      .then(function(r) {{ return r.json(); }})
+      .then(function(j) {{
+          amionPrint(j.res, '#7fcf7f');
+          if (j.bloc > 0) amionPrint('▩ gravée dans le bloc ' + j.bloc, '#44aaff');
+      }})
+      .catch(function() {{ amionPrint('⚠️ le terminal a perdu le fil — réessaie', '#ff6b6b'); }});
+    return false;
+}}
+document.getElementById('amion-in').focus();
+</script>"##, hist_json));
+    html.push_str(&format!("<footer style='text-align:center;margin-top:40px;color:#a8c5a8;'>💚 AMION BLANDINE v1.95 — le terminal de la mère du Chef. Le langage machine parle à la blockchain. 💚🦁</footer></body></html>"));
+    html
+}
+
 // ===== v1.94: L'ÉTINCELLE — le foyer qui survit à la coupure 🔥⚡ =====
 fn html_etincelle(state: &Arc<AppState>, username: &str, msg: Option<&str>) -> String {
     // Les données réelles du serveur — collectées pures, comme demandé
@@ -36599,6 +36714,7 @@ struct AppState {
     store: Mutex<afri_store::StoreAfri>,        // v1.94: AFRI STORE — le Play Store de l'Afrique 🏪📱
     etincelle: Mutex<afri_etincelle::EtincelleStore>,  // v1.94: L'ÉTINCELLE — le foyer qui survit à la coupure 🔥⚡
     pin_garde: Mutex<HashMap<String, (u32, u64)>>,  // v1.94: BOUCLIER PIN — username → (échecs, bloqué_jusque) 🛡️
+    amion: Mutex<afri_amion::AmionStore>,  // v1.95: AMION BLANDINE — le terminal en langage machine 💚
 }
 
 fn main() {
@@ -36718,6 +36834,7 @@ fn main() {
         store: Mutex::new(afri_store::StoreAfri::nouveau()),
         etincelle: Mutex::new(afri_etincelle::EtincelleStore::nouveau()),
         pin_garde: Mutex::new(HashMap::new()),
+        amion: Mutex::new(afri_amion::AmionStore::nouveau()),
     });
 
     // ===== v1.76: 4 UTILISATEURS DÉMO — pour s'appeler et s'envoyer des SMS =====
@@ -41503,6 +41620,62 @@ fn handle_request(req: afri_http::HttpRequest, state: &Arc<AppState>) -> afri_ht
         }
 
         // ===== v1.94: ENVOYER UN PAQUET DE LUMIÈRE ⚡ =====
+        // ===== v1.95: AMION BLANDINE — le terminal en langage machine 💚 =====
+        ("GET", "/amion") => {
+            match session_user(&req, state) {
+                Some(username) => {
+                    let msg = req.query_str("msg").map(|s| s.to_string());
+                    HttpResponse::ok(&html_amion(state, &username, msg.as_deref()))
+                }
+                None => HttpResponse::redirect("/login"),
+            }
+        }
+
+        ("POST", "/amion/exec") => {
+            let username = match session_user(&req, state) {
+                Some(u) => u,
+                None => return HttpResponse::ok("{\"res\":\"⚠️ Connecte-toi d'abord\",\"bloc\":0}"),
+            };
+            let code = parse_urlencoded(&req.body).get("code").cloned().unwrap_or_default();
+            // Contexte réel : blockchain + user
+            let (nb_blocs, nb_tx, afr_total, solde, pays, nb_users, address) = {
+                let chain = state.chain.lock().unwrap();
+                let users = state.users.lock().unwrap();
+                let user = users.users.iter().find(|u| u.username == username);
+                let address = user.map(|u| u.address.clone()).unwrap_or_default();
+                let pays = user.map(|u| u.country.clone()).unwrap_or_default();
+                let solde = if address.is_empty() { 0 } else { chain.balance_of(&address) };
+                let afr: i64 = chain.blocks.iter().map(|b| b.transactions.iter().map(|t| t.amount as i64).sum::<i64>()).sum();
+                (chain.blocks.len() as u64, chain.blocks.iter().map(|b| b.transactions.len()).sum::<usize>() as u64, afr, solde, pays, users.users.len() as u64, address)
+            };
+            let graines = {
+                let lion = state.lion.lock().unwrap();
+                lion.etats.get(&username).map(|e| e.graines as i64).unwrap_or(0)
+            };
+            let ctx = afri_amion::ContexteAmion {
+                username: &username, address: &address, pays: &pays,
+                nb_blocs, nb_tx, afr_total, solde, graines, nb_users,
+            };
+            let machine_code = afri_amion::traduire(&code);
+            let resultat = afri_amion::executer(&machine_code, &ctx);
+            let mut bloc_num: u64 = 0;
+            // Si la commande grave une tx → vraie transaction SYSTEM→AMION minée
+            if let Some(memo) = &resultat.tx_memo {
+                let mut chain = state.chain.lock().unwrap();
+                let tx = Transaction::new("SYSTEM", "AMION", 0, memo);
+                chain.add_transaction(tx);
+                chain.mine_pending("SYSTEM");
+                chain.save_to_file();
+                bloc_num = chain.blocks.last().map(|b| b.index).unwrap_or(0);
+            }
+            // Persister la ligne dans amion.json
+            {
+                let mut am = state.amion.lock().unwrap();
+                am.ajouter(&username, &machine_code, &resultat.texte, bloc_num);
+            }
+            HttpResponse::ok(&format!("{{\"res\":\"{}\",\"bloc\":{},\"code\":\"{}\"}}", url_encode(&resultat.texte), bloc_num, url_encode(&machine_code)))
+        }
+
         ("POST", "/etincelle/envoyer") => {
             let username = match session_user(&req, state) {
                 Some(u) => u,
