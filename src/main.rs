@@ -36350,6 +36350,83 @@ fn html_afri_rich(user: &UserAccount, chain: &Blockchain, lion: &afri_lion::Lion
     html
 }
 
+// ===== v2.02: FICHE UTILISATEUR ADMIN — l'admin voit TOUT d'un frère =====
+fn html_admin_user(username: &str, state: &Arc<AppState>) -> String {
+    let chain = state.chain.lock().unwrap();
+    let users = state.users.lock().unwrap();
+    let lion = state.lion.lock().unwrap();
+    let videos = state.videos.lock().unwrap();
+    let sites = state.sites.lock().unwrap();
+    let store = state.store.lock().unwrap();
+
+    let user = match users.users.iter().find(|u| u.username == username) {
+        Some(u) => u,
+        None => return "<h1>Utilisateur introuvable</h1>".to_string(),
+    };
+    let bal = chain.balance_of(&user.address);
+    let flag = find_country(&user.country_code).map(|(_, f)| f).unwrap_or("🌍");
+    let etat = lion.etats.get(username).cloned().unwrap_or_else(crate::afri_lion::EtatLion::nouveau);
+    let nb_tx: usize = chain.blocks.iter()
+        .map(|b| b.transactions.iter().filter(|t| t.from == user.address || t.to == user.address).count())
+        .sum();
+
+    let mut html = html_head(&format!("👤 {} — Fiche Admin", user.username));
+    html.push_str(&format!(r#"<h1>{} 👤 {}</h1><div class="nav"><a href="/dashboard">← Dashboard</a> | <a href="/account?user={}">Voir son compte</a></div>"#, flag, user.username, user.username));
+
+    // Fiche identité
+    html.push_str(&format!(r#"<div class="card"><h2>🪪 Identité</h2><div class="tx">👤 <b>{}</b></div><div class="tx">📱 {}</div><div class="tx">🌍 {} ({})</div><div class="tx">🔑 Adresse : <span class="addr">{}</span></div><div class="tx">📅 Inscrit le {} (timestamp {})</div><div class="tx">🔐 PIN Wari : {}</div></div>"#,
+        user.username, flag, user.phone, user.country, user.country_code, user.address, user.created_at, if user.pin_hash.is_empty() { "non défini" } else { "défini 🔒" }));
+
+    // Fortune
+    html.push_str(&format!(r#"<div class="card"><h2>💰 Fortune</h2><div class="bal">{}</div><p style="text-align:center;color:#a8c5a8;">{} AFR — {} en transactions</p><div class="tx">🌱 Graines : {} ({})</div><div class="tx">🦁 Série Lion : {} jour(s) — Quiz : ✅{} / ❌{}</div><div class="tx">🏆 Total gagné (Lion) : {}</div></div>"#,
+        bal, bal, nb_tx, etat.graines, afri_lion::format_graines(etat.graines), etat.serie, etat.quiz_reussis, etat.quiz_rates, afri_lion::format_graines(etat.total_gagne)));
+
+    // Ses transactions (les 15 dernières)
+    html.push_str(r#"<div class="card"><h2>📜 Ses transactions (15 dernières)</h2>"#);
+    let mut txs: Vec<String> = Vec::new();
+    for b in &chain.blocks {
+        for t in &b.transactions {
+            if t.from == user.address || t.to == user.address {
+                let sens = if t.to == user.address { "📥" } else { "📤" };
+                txs.push(format!(r#"<div class="tx">{} {} → {} : <b>{} AFR</b> <i>({})</i></div>"#, sens, &t.from[..t.from.len().min(12)], &t.to[..t.to.len().min(12)], t.amount, t.memo));
+            }
+        }
+    }
+    txs.reverse();
+    for ligne in txs.iter().take(15) { html.push_str(ligne); }
+    html.push_str("</div>");
+
+    // Ses apps publiées
+    let apps = store.apps_de(&user.username);
+    html.push_str(&format!(r#"<div class="card"><h2>📱 Ses apps publiées ({})</h2>"#, apps.len()));
+    for app in &apps {
+        html.push_str(&format!(r#"<div class="tx">{} <b>{}</b> ({}) — 📦 {} installs — v.{}</div>"#, app.emoji, app.nom, app.id, app.installs, app.version));
+    }
+    if apps.is_empty() { html.push_str(r#"<p style="color:#a8c5a8;">Aucune app publiée.</p>"#); }
+    html.push_str("</div>");
+
+    // Ses vidéos
+    let ses_videos: Vec<_> = videos.videos.iter().filter(|v| v.auteur == user.username).collect();
+    html.push_str(&format!(r#"<div class="card"><h2>🎬 Ses vidéos ({})</h2>"#, ses_videos.len()));
+    for v in &ses_videos {
+        html.push_str(&format!(r#"<div class="tx">🎬 <b>{}</b> — 👁️ {} vues — ❤️ {}</div>"#, v.titre, v.vues, v.jaime));
+    }
+    if ses_videos.is_empty() { html.push_str(r#"<p style="color:#a8c5a8;">Aucune vidéo.</p>"#); }
+    html.push_str("</div>");
+
+    // Ses sites
+    let ses_sites: Vec<_> = sites.sites.iter().filter(|si| si.auteur == user.username).collect();
+    html.push_str(&format!(r#"<div class="card"><h2>🏗️ Ses sites ({})</h2>"#, ses_sites.len()));
+    for si in &ses_sites {
+        html.push_str(&format!(r#"<div class="tx">🏗️ <a href="/site/{}"><b>{}</b></a> — 👁️ {} vues</div>"#, si.slug, si.titre, si.vues));
+    }
+    if ses_sites.is_empty() { html.push_str(r#"<p style="color:#a8c5a8;">Aucun site.</p>"#); }
+    html.push_str("</div>");
+
+    html.push_str("</body></html>");
+    html
+}
+
 fn html_dashboard(chain: &Blockchain, users: &UserStore, state_store: &crate::afri_store::StoreAfri, state_videos: &crate::afri_video::VideoStore, state_sites: &crate::afri_video::SiteStore) -> String {
     let mut html = html_head("📈 Dashboard AfriChain");
     let balances = chain.balances();
@@ -36447,7 +36524,7 @@ fn html_dashboard(chain: &Blockchain, users: &UserStore, state_store: &crate::af
             let date = format_timestamp_short(user.created_at);
             let bal = chain.balance_of(&user.address);
             let flag = find_country(&user.country_code).map(|(_, f)| f).unwrap_or("🌍");
-            html.push_str(&format!(r#"<div class="tx">{} 📱 <b>{}</b> — 👤 {} — {} <span style="color:#a8c5a8;font-size:0.8em;">({})</span> — {} AFR <span style="color:#a8c5a8;font-size:0.8em;">(inscrit le {})</span></div>"#, flag, user.phone, user.username, user.country, user.country_code, bal, date));
+            html.push_str(&format!(r#"<div class="tx">{} 📱 <b>{}</b> — <a href="/admin/user?u={}"><b style="color:#d4a437;">👤 {}</b></a> — {} <span style="color:#a8c5a8;font-size:0.8em;">({})</span> — {} AFR <span style="color:#a8c5a8;font-size:0.8em;">(inscrit le {})</span></div>"#, flag, user.phone, user.username, user.username, user.country, user.country_code, bal, date));
         }
         html.push_str("</div>");
     }
@@ -41852,6 +41929,15 @@ fn handle_request(req: afri_http::HttpRequest, state: &Arc<AppState>) -> afri_ht
             HttpResponse::ok(&html_internet(state))
         }
 
+
+        // ===== v2.02: FICHE UTILISATEUR ADMIN =====
+        ("GET", "/admin/user") => {
+            if req.cookie("afri_admin") != Some("1".to_string()) {
+                return HttpResponse::redirect("/admin");
+            }
+            let u = req.query_str("u").unwrap_or("").to_string();
+            HttpResponse::ok(&html_admin_user(&u, state))
+        }
 
         // ===== v2.01: AFRI VIDÉO — notre YouTube 🎬 =====
         ("GET", "/video") => {
