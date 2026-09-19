@@ -25,6 +25,7 @@ mod afri_store;
 mod afri_etincelle;
 mod afri_amion;
 mod afri_net;
+mod afri_licence;
 mod afri_langage;
 mod afri_telegram;
 use afri_mesh_direct::{AfriMeshDirect, DirectMessage, DirectNode, LightBlock};
@@ -41821,6 +41822,17 @@ fn handle_request(req: afri_http::HttpRequest, state: &Arc<AppState>) -> afri_ht
         // ===== v1.97: L'INTERNET AFRI — notre internet machine 🌐◈⬡ =====
         ("GET", "/internet") => {
             HttpResponse::ok(&html_internet(state))
+        }
+
+        // ===== v1.99: LE SCEAU SOUVERAIN — AFRI-OSL ◈ =====
+        ("GET", "/sceau") => {
+            HttpResponse::ok(&afri_licence::html_sceau(state))
+        }
+        ("POST", "/sceau/graver") => {
+            match afri_licence::graver_sceau(state) {
+                Some(bloc) => HttpResponse::redirect(&format!("/sceau?msg=Sceau gravé sur le bloc #{} — la preuve est éternelle", bloc)),
+                None => HttpResponse::redirect("/sceau?msg=Gravure impossible"),
+            }
         }
 
         // ===== v1.94: L'ÉTINCELLE — le foyer qui survit à la coupure 🔥⚡ =====
