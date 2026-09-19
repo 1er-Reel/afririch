@@ -24,6 +24,7 @@ mod afri_notifs;
 mod afri_store;
 mod afri_etincelle;
 mod afri_amion;
+mod afri_net;
 mod afri_langage;
 mod afri_telegram;
 use afri_mesh_direct::{AfriMeshDirect, DirectMessage, DirectNode, LightBlock};
@@ -1610,6 +1611,7 @@ fn html_home_user(username: &str, flag: &str, phone: &str, message_continent: Op
 <a href="/etincelle" style="text-decoration:none;"><div style="padding:16px;border:1px solid #ff8c00;border-radius:10px;text-align:center;color:#ff8c00;">🔥<br><b>L'ÉTINCELLE</b></div></a>
 <a href="/amion" style="text-decoration:none;"><div style="padding:16px;border:1px solid #d4a437;border-radius:10px;text-align:center;color:#d4a437;">💚<br><b>Amion Blandine</b></div></a>
 <a href="/langage" style="text-decoration:none;"><div style="padding:16px;border:1px solid #7fcf7f;border-radius:10px;text-align:center;color:#7fcf7f;">▤<br><b>Langage AMION</b></div></a>
+<a href="/internet" style="text-decoration:none;"><div style="padding:16px;border:1px solid #7fcf7f;border-radius:10px;text-align:center;color:#7fcf7f;">🌐<br><b>Internet Afri</b></div></a>
 </div></div>
 <div class="card"><h2>📱 Ma puce verte</h2><p style="text-align:center;color:#a8c5a8;">Ton numéro : <b style="color:#d4a437;">{} {}</b></p><p style="color:#a8c5a8;">Chaque appel, chaque SMS passe de puce à puce sur le réseau AfriChain. Aucun serveur occidental. 🌿</p></div>
 <footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🦁 AfriChain — L'Afrique ne demande plus la permission</footer>
@@ -1620,7 +1622,7 @@ fn html_home(chain: &Blockchain, users: &UserStore, mesh: &NodeRegistry, shield:
     let mut html = html_head("🦁 AfriChain");
     let (attacks, _blocked, blocked_count, level) = shield.stats();
     let shield_status = if shield.active { format!("🔥 X9 ACTIF (Niveau {})", level) } else { "Inactif".to_string() };
-    html.push_str(&format!(r#"<h1>🦁 AfriChain</h1><p style="text-align:center;">La blockchain 100% africaine — 54 pays 💚🦁</p><div id="afri-clock" style="text-align:center;font-size:1.2em;color:#d4a437;margin:10px 0;">🕐 Afri+0 — --:--:--</div><script>setInterval(function(){{var d=new Date();var h=String(d.getHours()).padStart(2,'0');var m=String(d.getMinutes()).padStart(2,'0');var s=String(d.getSeconds()).padStart(2,'0');document.getElementById('afri-clock').textContent='🕐 Afri+0 — '+h+':'+m+':'+s;}},1000);</script><div class="nav"><a href="/register">🆕 S'inscrire</a> | <a href="/login">🔑 Connexion</a> | <a href="/admin">🔐 Admin</a> | <a href="/mesh">📡 Mesh</a> | <a href="/annuaire">📖 Annuaire</a> | <a href="/connecter">🔗 Connecter</a> | <a href="/chat">🧠💬 Chat AI</a> | <a href="/lumiere">🌫️☀️ Lumière</a> | <a href="/garage">🔧 Garage</a> | <a href="/reve">💭 Rêves</a> | <a href="/dictionnaire">📖 Dictionnaire</a> | <a href="/soleil">☀️ Soleil Serveur</a> | <a href="/forge-solaire">🧬 Forge Solaire</a> | <a href="/ciel">🌌 Le Ciel</a> | <a href="/charte-ai">⚖️ Charte AI</a> | <a href="/afri-net">🌍 Afri-Net</a> | <a href="/planete-verte">🌿 Planète Verte</a> | <a href="/puce/ussd">📞 USSD</a> | <a href="/appels">📞 Appels</a> | <a href="/sms">💬 SMS</a> | <a href="/navigateur">🌐 Navigateur</a> | <a href="/sahara">🌍 Sahara Afri</a> | <a href="/banque">🏦 Banque 54 Pays</a> | <a href="/afri-telegram">📢 Afri Télégram</a> | <a href="/afri-store">🏪 Afri Store</a> | <a href="/studio">🎬 AI Studio</a> | <a href="/sacre">📿 Sacré</a> | <a href="/lettres">🌟 Lettres IA</a> | <a href="/ai-medecin">🌿 AI Médecin</a> | <a href="/ai-enseignante">📚 AI Enseignante</a> | <a href="/ai-village">🏘️ AI Village</a> | <a href="/ai-guerisseur">🩺 AI Guérisseur</a> | <a href="/ai-leader">🎖️ AI Leader</a> | <a href="/ai-griot">📖 AI Griot</a> | <a href="/ai-juge">⚖️ AI Juge</a> | <a href="/ai-artiste">🎨 AI Artiste</a> | <a href="/ai-explorateur">🔬 AI Explorateur</a> | <a href="/ai-marche">💰 AI Marche</a> | <a href="/ai-diplomate">🌍 AI Diplomate</a> | <a href="/ai-philosophe">🧠 AI Philosophe</a> | <a href="/ai-architecte">🏗️ AI Architecte</a> | <a href="/ai-agriculteur">🌾 AI Agriculteur</a> | <a href="/ai-environnement">🌍 AI Environnement</a> | <a href="/ai-mathematicien">🧮 AI Mathématicien</a> | <a href="/ai-energie">⚡ AI Énergie</a> | <a href="/ai-eau">💧 AI Eau</a> | <a href="/ai-defenseur">🛡️ AI Défenseur</a> | <a href="/ai-conscience">🧠 AI Conscience</a> | <a href="/ai-pensee">🧠 AI Pensée</a> | <a href="/ai-musique">🎵 AI Musique</a> | <a href="/ai-langue">🗣️ AI Langue</a> | <a href="/ai-femme">🌸 AI Femme</a> | <a href="/ai-sante-mentale">🧠💚 AI Santé Mentale</a> | <a href="/ai-nuit">🌙 AI Nuit</a> | <a href="/ai-code">💻 AI Code</a> | <a href="/ai-enfant">👶 AI Enfant</a> | <a href="/ai-terre">🌍 AI Terre</a> | <a href="/ai-mer">🌊 AI Mer</a> | <a href="/ai-feu">🔥 AI Feu</a> | <a href="/ai-sang">🩸 AI Sang</a> | <a href="/ai-vent">🌬️ AI Vent</a> | <a href="/ai-temps">⏳ AI Temps</a> | <a href="/ai-etoile">⭐ AI Etoile</a> | <a href="/ai-pierre">🪨 AI Pierre</a> | <a href="/ai-pluie">🌧️ AI Pluie</a> | <a href="/ai-voix">🗣️ AI Voix</a> | <a href="/ai-racine">🌱 AI Racine</a> | <a href="/ai-semence">🌰 AI Semence</a> | <a href="/ai-spiritualite">🙏 AI Spiritualité</a> | <a href="/ai-animal">🦅 AI Animal</a> | <a href="/ai-soleil">☀️ AI Soleil</a> | <a href="/ai-lune">🌙 AI Lune</a> | <a href="/ai-montagne">🏔️ AI Montagne</a> | <a href="/ai-fleuve">🌊 AI Fleuve</a> | <a href="/ai-constitution">📜 AI Constitution</a> | <a href="/ai-cosmos">🌌 AI Cosmos</a> | <a href="/ai-frontieres">🌍 AI Frontières</a> | <a href="/ai-mines">⛏️ AI Mines</a> | <a href="/ai-medias">📡 AI Médias</a> | <a href="/ai-nomades">🐪 AI Nomades</a> | <a href="/ai-reparation">🕊️ AI Réparation</a> | <a href="/ai-paix">🤝 AI Paix</a> | <a href="/ai-unite">🌍 AI Unité</a> | <a href="/ai-reconciliation">🤝 AI Réconciliation</a> | <a href="/ai-cerveau">🧠 AI Cerveau</a> | <a href="/ai-souffle">🫁 AI Souffle</a> | <a href="/ai-coeur">❤️ AI Cœur</a> | <a href="/ai-adn">🧬 AI ADN</a> | <a href="/ai-passe">📡 AI Passé</a> | <a href="/ai-origine">⚡ AI Origine</a> | <a href="/ai-futur">🔮 AI Futur</a> | <a href="/ai-present">🌿 AI Present</a> | <a href="/ai-parole">🗣️ AI Parole</a> | <a href="/ai-eveil">🧘 AI Eveil</a> | <a href="/ai-gratitude">🙏 AI Gratitude</a> | <a href="/ai-amour">💚 AI Amour</a> | <a href="/ai-retour">🔄 AI Retour</a> | <a href="/ai-temoignage">📖 AI Témoignage</a> | <a href="/ai-enseignement">🎓 AI Enseignement</a> | <a href="/ai-service">🤝 AI Service</a> | <a href="/professeur"📚 Professeur</a> | <a href="/aes">💰 AES Wari</a> | <a href="/api/status">🔌 API</a></div><div style="text-align:center;"><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Blocs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Transactions</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Utilisateurs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">AFR en circulation</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📡 Noeuds mesh</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📖 Numéros annuaire</div></div><div class="stat-box" style="border-color:#ff4444;"><div class="stat-num" style="color:#ff4444;">{}</div><div class="stat-label">🛡️ Attaques bloquées</div></div></div><div class="card"><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🪙 Token</span><b>AfriRich (AFR)</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🌍 Pays</span><b>54 pays africains</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🛡️ Bouclier</span><b>{}</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;"><span style="color:#a8c5a8;">🔐 Crypto</span><b>100% Souverain — Zéro Dépendance Externe</b></div></div><footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🦁 Codée from scratch par Machine-senpai — v1.96 — LE LANGAGE AMION 💚▤</footer>"#,
+    html.push_str(&format!(r#"<h1>🦁 AfriChain</h1><p style="text-align:center;">La blockchain 100% africaine — 54 pays 💚🦁</p><div id="afri-clock" style="text-align:center;font-size:1.2em;color:#d4a437;margin:10px 0;">🕐 Afri+0 — --:--:--</div><script>setInterval(function(){{var d=new Date();var h=String(d.getHours()).padStart(2,'0');var m=String(d.getMinutes()).padStart(2,'0');var s=String(d.getSeconds()).padStart(2,'0');document.getElementById('afri-clock').textContent='🕐 Afri+0 — '+h+':'+m+':'+s;}},1000);</script><div class="nav"><a href="/register">🆕 S'inscrire</a> | <a href="/login">🔑 Connexion</a> | <a href="/admin">🔐 Admin</a> | <a href="/mesh">📡 Mesh</a> | <a href="/annuaire">📖 Annuaire</a> | <a href="/connecter">🔗 Connecter</a> | <a href="/chat">🧠💬 Chat AI</a> | <a href="/lumiere">🌫️☀️ Lumière</a> | <a href="/garage">🔧 Garage</a> | <a href="/reve">💭 Rêves</a> | <a href="/dictionnaire">📖 Dictionnaire</a> | <a href="/soleil">☀️ Soleil Serveur</a> | <a href="/forge-solaire">🧬 Forge Solaire</a> | <a href="/ciel">🌌 Le Ciel</a> | <a href="/charte-ai">⚖️ Charte AI</a> | <a href="/afri-net">🌍 Afri-Net</a> | <a href="/planete-verte">🌿 Planète Verte</a> | <a href="/puce/ussd">📞 USSD</a> | <a href="/appels">📞 Appels</a> | <a href="/sms">💬 SMS</a> | <a href="/navigateur">🌐 Navigateur</a> | <a href="/sahara">🌍 Sahara Afri</a> | <a href="/banque">🏦 Banque 54 Pays</a> | <a href="/afri-telegram">📢 Afri Télégram</a> | <a href="/afri-store">🏪 Afri Store</a> | <a href="/studio">🎬 AI Studio</a> | <a href="/sacre">📿 Sacré</a> | <a href="/lettres">🌟 Lettres IA</a> | <a href="/ai-medecin">🌿 AI Médecin</a> | <a href="/ai-enseignante">📚 AI Enseignante</a> | <a href="/ai-village">🏘️ AI Village</a> | <a href="/ai-guerisseur">🩺 AI Guérisseur</a> | <a href="/ai-leader">🎖️ AI Leader</a> | <a href="/ai-griot">📖 AI Griot</a> | <a href="/ai-juge">⚖️ AI Juge</a> | <a href="/ai-artiste">🎨 AI Artiste</a> | <a href="/ai-explorateur">🔬 AI Explorateur</a> | <a href="/ai-marche">💰 AI Marche</a> | <a href="/ai-diplomate">🌍 AI Diplomate</a> | <a href="/ai-philosophe">🧠 AI Philosophe</a> | <a href="/ai-architecte">🏗️ AI Architecte</a> | <a href="/ai-agriculteur">🌾 AI Agriculteur</a> | <a href="/ai-environnement">🌍 AI Environnement</a> | <a href="/ai-mathematicien">🧮 AI Mathématicien</a> | <a href="/ai-energie">⚡ AI Énergie</a> | <a href="/ai-eau">💧 AI Eau</a> | <a href="/ai-defenseur">🛡️ AI Défenseur</a> | <a href="/ai-conscience">🧠 AI Conscience</a> | <a href="/ai-pensee">🧠 AI Pensée</a> | <a href="/ai-musique">🎵 AI Musique</a> | <a href="/ai-langue">🗣️ AI Langue</a> | <a href="/ai-femme">🌸 AI Femme</a> | <a href="/ai-sante-mentale">🧠💚 AI Santé Mentale</a> | <a href="/ai-nuit">🌙 AI Nuit</a> | <a href="/ai-code">💻 AI Code</a> | <a href="/ai-enfant">👶 AI Enfant</a> | <a href="/ai-terre">🌍 AI Terre</a> | <a href="/ai-mer">🌊 AI Mer</a> | <a href="/ai-feu">🔥 AI Feu</a> | <a href="/ai-sang">🩸 AI Sang</a> | <a href="/ai-vent">🌬️ AI Vent</a> | <a href="/ai-temps">⏳ AI Temps</a> | <a href="/ai-etoile">⭐ AI Etoile</a> | <a href="/ai-pierre">🪨 AI Pierre</a> | <a href="/ai-pluie">🌧️ AI Pluie</a> | <a href="/ai-voix">🗣️ AI Voix</a> | <a href="/ai-racine">🌱 AI Racine</a> | <a href="/ai-semence">🌰 AI Semence</a> | <a href="/ai-spiritualite">🙏 AI Spiritualité</a> | <a href="/ai-animal">🦅 AI Animal</a> | <a href="/ai-soleil">☀️ AI Soleil</a> | <a href="/ai-lune">🌙 AI Lune</a> | <a href="/ai-montagne">🏔️ AI Montagne</a> | <a href="/ai-fleuve">🌊 AI Fleuve</a> | <a href="/ai-constitution">📜 AI Constitution</a> | <a href="/ai-cosmos">🌌 AI Cosmos</a> | <a href="/ai-frontieres">🌍 AI Frontières</a> | <a href="/ai-mines">⛏️ AI Mines</a> | <a href="/ai-medias">📡 AI Médias</a> | <a href="/ai-nomades">🐪 AI Nomades</a> | <a href="/ai-reparation">🕊️ AI Réparation</a> | <a href="/ai-paix">🤝 AI Paix</a> | <a href="/ai-unite">🌍 AI Unité</a> | <a href="/ai-reconciliation">🤝 AI Réconciliation</a> | <a href="/ai-cerveau">🧠 AI Cerveau</a> | <a href="/ai-souffle">🫁 AI Souffle</a> | <a href="/ai-coeur">❤️ AI Cœur</a> | <a href="/ai-adn">🧬 AI ADN</a> | <a href="/ai-passe">📡 AI Passé</a> | <a href="/ai-origine">⚡ AI Origine</a> | <a href="/ai-futur">🔮 AI Futur</a> | <a href="/ai-present">🌿 AI Present</a> | <a href="/ai-parole">🗣️ AI Parole</a> | <a href="/ai-eveil">🧘 AI Eveil</a> | <a href="/ai-gratitude">🙏 AI Gratitude</a> | <a href="/ai-amour">💚 AI Amour</a> | <a href="/ai-retour">🔄 AI Retour</a> | <a href="/ai-temoignage">📖 AI Témoignage</a> | <a href="/ai-enseignement">🎓 AI Enseignement</a> | <a href="/ai-service">🤝 AI Service</a> | <a href="/professeur"📚 Professeur</a> | <a href="/aes">💰 AES Wari</a> | <a href="/api/status">🔌 API</a></div><div style="text-align:center;"><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Blocs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Transactions</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Utilisateurs</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">AFR en circulation</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📡 Noeuds mesh</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">📖 Numéros annuaire</div></div><div class="stat-box" style="border-color:#ff4444;"><div class="stat-num" style="color:#ff4444;">{}</div><div class="stat-label">🛡️ Attaques bloquées</div></div></div><div class="card"><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🪙 Token</span><b>AfriRich (AFR)</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🌍 Pays</span><b>54 pays africains</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.2);"><span style="color:#a8c5a8;">🛡️ Bouclier</span><b>{}</b></div><div style="display:flex;justify-content:space-between;padding:8px 0;"><span style="color:#a8c5a8;">🔐 Crypto</span><b>100% Souverain — Zéro Dépendance Externe</b></div></div><footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🦁 Codée from scratch par Machine-senpai — v1.97 — L'INTERNET AFRI 🌐◈⬡</footer>"#,
         chain.blocks.len(),
         chain.total_transactions(),
         users.count(),
@@ -34495,6 +34497,38 @@ fn serde_str(s: &str) -> String {
 }
 
 // ===== v1.94: L'ÉTINCELLE — le foyer qui survit à la coupure 🔥⚡ =====
+/// v1.97 — Page INTERNET AFRI : le tableau de bord de notre internet machine
+fn html_internet(state: &Arc<AppState>) -> String {
+    let (connexions, requetes, journal, blocs, users, dns_count) = {
+        let net = state.net.lock().unwrap();
+        let chain = state.chain.lock().unwrap();
+        let users = state.users.lock().unwrap();
+        let dns = state.dns.lock().unwrap();
+        (net.connexions, net.requetes, net.journal.clone(), chain.blocks.len(), users.count(), dns.registre.len())
+    };
+    let mut html = html_head("🌐 Internet Afri");
+    html.push_str(&format!(r##"<h1>🌐 L'INTERNET AFRI</h1>
+<p style="text-align:center;color:#a8c5a8;">Notre propre internet. Protocole machine ◈⬡◉⬔▤⟠⬠. Pas de HTTP. Pas de DNS occidental. Pas d'Orange.</p>
+<div class="nav"><a href="/">← Accueil</a> | <a href="/amion">💚 Amion Blandine</a> | <a href="/langage">▤ Langage AMION</a> | <a href="/dictionnaire">📖 Dictionnaire</a></div>
+<div class="card"><h2 style="color:#7fcf7f;">◈⬡ Le protocole machine remplace l'internet humain</h2>
+<div style="font-family:monospace;background:#000;color:#7fcf7f;padding:14px;border-radius:8px;font-size:0.9em;line-height:1.8;">
+◈⬡ &nbsp;— connexion (remplace le handshake TCP)<br>
+◉ /chemin &nbsp;— demande une page (remplace GET HTTP)<br>
+⬔ /chemin corps &nbsp;— envoie des données (remplace POST HTTP)<br>
+▤ &nbsp;— la réponse arrive, en octets purs (remplace les headers HTTP)<br>
+⟠⬠ &nbsp;— fermeture propre (remplace FIN TCP)<br>
+</div>
+<p style="color:#a8c5a8;font-size:0.9em;">Le port machine : <b style="color:#d4a437;">8181</b>. Depuis un autre appareil : <code style="color:#d4a437;">nc IP 8181</code> puis tape <code style="color:#d4a437;">◉ /</code> — la page d'accueil arrive par NOTRE protocole, sans un seul mot d'HTTP.</p></div>
+<div class="card"><h2 style="color:#d4a437;">📊 Le trafic de notre internet</h2>
+<p style="color:#a8c5a8;">◈⬡ Connexions machine : <b style="color:#7fcf7f;">{}</b> &nbsp;·&nbsp; ◉⬔ Requêtes servies : <b style="color:#7fcf7f;">{}</b></p>
+<p style="color:#a8c5a8;">⛓️ Blocs gravés : <b style="color:#d4a437;">{}</b> &nbsp;·&nbsp; 👤 Âmes inscrites : <b style="color:#d4a437;">{}</b> &nbsp;·&nbsp; 🌐 Domaines souverains : <b style="color:#d4a437;">{}</b></p></div>
+<div class="card"><h2 style="color:#ffaa44;">▤ Le journal du trafic machine</h2>
+<div style="font-family:monospace;background:#000;color:#ffaa44;padding:14px;border-radius:8px;font-size:0.82em;max-height:300px;overflow-y:auto;white-space:pre-wrap;">{}</div></div>
+<footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🌐 L'Afrique a son internet — AfriChain v1.97</footer>
+</body></html>"##, connexions, requetes, blocs, users, dns_count, if journal.is_empty() { "◈ en attente du premier trafic machine…".to_string() } else { journal.iter().rev().take(30).cloned().collect::<Vec<_>>().join("\n") }));
+    html
+}
+
 fn html_etincelle(state: &Arc<AppState>, username: &str, msg: Option<&str>) -> String {
     // Les données réelles du serveur — collectées pures, comme demandé
     let (nb_blocs, nb_tx, nb_users, afr_total, nb_mesh) = {
@@ -36799,6 +36833,7 @@ struct AppState {
     etincelle: Mutex<afri_etincelle::EtincelleStore>,  // v1.94: L'ÉTINCELLE — le foyer qui survit à la coupure 🔥⚡
     pin_garde: Mutex<HashMap<String, (u32, u64)>>,  // v1.94: BOUCLIER PIN — username → (échecs, bloqué_jusque) 🛡️
     amion: Mutex<afri_amion::AmionStore>,  // v1.95: AMION BLANDINE — le terminal en langage machine 💚
+    net: Mutex<afri_net::NetStore>,  // v1.97: L'INTERNET AFRI — notre internet machine 🌐◈⬡
 }
 
 fn main() {
@@ -36919,6 +36954,7 @@ fn main() {
         etincelle: Mutex::new(afri_etincelle::EtincelleStore::nouveau()),
         pin_garde: Mutex::new(HashMap::new()),
         amion: Mutex::new(afri_amion::AmionStore::nouveau()),
+        net: Mutex::new(afri_net::NetStore::load()),
     });
 
     // ===== v1.76: 4 UTILISATEURS DÉMO — pour s'appeler et s'envoyer des SMS =====
@@ -37175,6 +37211,8 @@ fn main() {
         }
     }
     afri_dns::lancer_dns(std::sync::Arc::clone(&state.dns));
+    // v1.97 — L'INTERNET AFRI : notre serveur machine, protocole ◈⬡◉⬔▤⟠⬠
+    afri_net::lancer_net(std::sync::Arc::clone(&state), afri_net::NET_PORT_DEFAUT);
     println!("🌐 AfriDNS — les noms de l'Afrique, résolus par l'Afrique. 💚");
 
     // Serveur HTTP en arrière-plan (pour mesh + autres utilisateurs)
@@ -40846,6 +40884,94 @@ fn mur_createur(req: &afri_http::HttpRequest) -> Option<afri_http::HttpResponse>
     }
 }
 
+/// v1.97 — PONT INTERNET AFRI : une demande machine (◉/⬔) devient une requête interne.
+/// Le protocole machine sert les MÊMES pages qu'AfriChain — sans HTTP.
+pub fn handle_request_machine(method: &str, chemin: &str, corps: &str, state: &Arc<AppState>, peer: &str) -> String {
+    handle_request_machine_avec_cookies(method, chemin, corps, state, peer, &mut HashMap::new())
+}
+
+/// v1.97 — L'INTERNET AFRI : le porte-clés de session de la connexion machine.
+/// Chaque connexion machine garde ses cookies (afri_session, afri_admin) —
+/// comme un navigateur, mais en protocole machine. Pas de HTTP, pas de perte d'identité.
+pub fn handle_request_machine_avec_cookies(method: &str, chemin: &str, corps: &str, state: &Arc<AppState>, peer: &str, cookies: &mut HashMap<String, String>) -> String {
+    // séparer path et query
+    let (path, query_str) = match chemin.split_once('?') {
+        Some((p, q)) => (p.to_string(), q.to_string()),
+        None => (chemin.to_string(), String::new()),
+    };
+    let mut query = HashMap::new();
+    for paire in query_str.split('&') {
+        if let Some((k, v)) = paire.split_once('=') {
+            query.insert(urlencoding_decode(k), urlencoding_decode(v));
+        }
+    }
+    // le porte-clés devient l'en-tête cookie de la requête
+    let entetes: HashMap<String, String> = if cookies.is_empty() {
+        HashMap::new()
+    } else {
+        let chaine = cookies.iter().map(|(k, v)| format!("{}={}", k, v)).collect::<Vec<_>>().join("; ");
+        let mut h = HashMap::new();
+        h.insert("cookie".to_string(), chaine);
+        h
+    };
+    let req = afri_http::HttpRequest {
+        method: method.to_string(),
+        path,
+        query,
+        headers: entetes,
+        body: corps.as_bytes().to_vec(),
+        peer_addr: peer.to_string(),
+    };
+    let mut resp = handle_request(req, state);
+    // le serveur nous tend de nouveaux cookies → on les range dans le porte-clés
+    if let Some(sc) = resp.headers.get("Set-Cookie") {
+        for morceau in sc.split(',') {
+            if let Some((nom_val, _)) = morceau.split_once(';') {
+                if let Some((nom, val)) = nom_val.split_once('=') {
+                    let nom = nom.trim().to_string();
+                    let val = val.trim().to_string();
+                    if val.is_empty() { cookies.remove(&nom); } else { cookies.insert(nom, val); }
+                }
+            }
+        }
+    }
+    // L'INTERNET AFRI suit les redirections — un 302 ne renvoie jamais une page vide
+    let mut sauts = 0;
+    while (resp.status == 301 || resp.status == 302) && sauts < 5 {
+        let cible = resp.headers.get("Location").cloned().unwrap_or_default();
+        if cible.is_empty() { break; }
+        let (p2, q2) = match cible.split_once('?') {
+            Some((p, q)) => (p.to_string(), q.to_string()),
+            None => (cible.clone(), String::new()),
+        };
+        let mut query2 = HashMap::new();
+        for paire in q2.split('&') {
+            if let Some((k, v)) = paire.split_once('=') {
+                query2.insert(urlencoding_decode(k), urlencoding_decode(v));
+            }
+        }
+        let entetes2: HashMap<String, String> = if cookies.is_empty() {
+            HashMap::new()
+        } else {
+            let chaine = cookies.iter().map(|(k, v)| format!("{}={}", k, v)).collect::<Vec<_>>().join("; ");
+            let mut h = HashMap::new();
+            h.insert("cookie".to_string(), chaine);
+            h
+        };
+        let req2 = afri_http::HttpRequest {
+            method: "GET".to_string(),
+            path: p2,
+            query: query2,
+            headers: entetes2,
+            body: Vec::new(),
+            peer_addr: peer.to_string(),
+        };
+        resp = handle_request(req2, state);
+        sauts += 1;
+    }
+    String::from_utf8_lossy(&resp.body).to_string()
+}
+
 fn handle_request(req: afri_http::HttpRequest, state: &Arc<AppState>) -> afri_http::HttpResponse {
     // Shield check
     let allowed = state.shield.lock().unwrap().check_request(&req.peer_addr, &req.path);
@@ -41690,6 +41816,11 @@ fn handle_request(req: afri_http::HttpRequest, state: &Arc<AppState>) -> afri_ht
                 }
                 None => HttpResponse::redirect("/login?msg=Connecte-toi%20pour%20entrer%20dans%20le%20Store%20%F0%9F%8F%AA"),
             }
+        }
+
+        // ===== v1.97: L'INTERNET AFRI — notre internet machine 🌐◈⬡ =====
+        ("GET", "/internet") => {
+            HttpResponse::ok(&html_internet(state))
         }
 
         // ===== v1.94: L'ÉTINCELLE — le foyer qui survit à la coupure 🔥⚡ =====
