@@ -293,3 +293,97 @@ impl TelephoneAfri {
         std::fs::write(&self.chemin, afri_json::to_string(&JsonValue::Object(o)))
     }
 }
+
+// ============================================================
+// v2.11 — LE PLAY STORE DES PROGRAMMES 🏪⌨️
+// Les programmes AMION des frères deviennent des apps partagées.
+// Le premier store d'apps écrites dans le langage d'une blockchain.
+// ============================================================
+
+/// Un programme partagé — une app du peuple, écrite par le peuple
+#[derive(Clone)]
+pub struct ProgrammePartage {
+    pub id: u64,
+    pub nom: String,
+    pub auteur: String,
+    pub code: String,
+    pub installs: u64,
+}
+
+/// Le store des programmes — persiste dans programmes.json
+pub struct ProgramStore {
+    pub programmes: Vec<ProgrammePartage>,
+    pub prochain_id: u64,
+    chemin: String,
+}
+
+impl ProgramStore {
+    pub fn nouveau() -> ProgramStore {
+        let chemin = crate::data_path("programmes.json");
+        match std::fs::read_to_string(&chemin) {
+            Ok(data) => {
+                if let Ok(v) = afri_json::from_str(&data) {
+                    let mut programmes = Vec::new();
+                    if let Some(arr) = v.as_object().and_then(|o| o.get("programmes")).and_then(|x| x.as_array()) {
+                        for item in arr {
+                            let gi = |k: &str| item.as_object().and_then(|o| o.get(k)).and_then(|x| x.as_i64()).unwrap_or(0);
+                            let gs = |k: &str| item.as_object().and_then(|o| o.get(k)).and_then(|x| x.as_str()).unwrap_or("").to_string();
+                            programmes.push(ProgrammePartage { id: gi("id").max(0) as u64, nom: gs("nom"), auteur: gs("auteur"), code: gs("code"), installs: gi("installs").max(0) as u64 });
+                        }
+                    }
+                    let prochain_id = v.as_object().and_then(|o| o.get("prochain_id")).and_then(|x| x.as_i64()).unwrap_or(1).max(1) as u64;
+                    // anti-collision : next_id dépasse toujours le plus grand ID existant
+                    let max_id = programmes.iter().map(|p| p.id).max().unwrap_or(0);
+                    return ProgramStore { programmes, prochain_id: prochain_id.max(max_id + 1), chemin };
+                }
+            }
+            Err(_) => {}
+        }
+        ProgramStore { programmes: Vec::new(), prochain_id: 1, chemin }
+    }
+
+    /// Publier une app — le frère donne un nom à son programme
+    pub fn publier(&mut self, nom: &str, auteur: &str, code: &str) -> u64 {
+        let id = self.prochain_id;
+        self.programmes.push(ProgrammePartage { id, nom: nom.to_string(), auteur: auteur.to_string(), code: code.to_string(), installs: 0 });
+        self.prochain_id += 1;
+        let _ = self.sauver();
+        id
+    }
+
+    /// Lancer une app — compte les installations
+    pub fn lancer(&mut self, id: u64) -> Option<ProgrammePartage> {
+        if let Some(p) = self.programmes.iter_mut().find(|p| p.id == id) {
+            p.installs += 1;
+            let clone = p.clone();
+            let _ = self.sauver();
+            return Some(clone);
+        }
+        None
+    }
+
+    /// Supprimer une app (son auteur seul)
+    pub fn supprimer(&mut self, id: u64, auteur: &str) -> bool {
+        let avant = self.programmes.len();
+        self.programmes.retain(|p| !(p.id == id && p.auteur == auteur));
+        let ok = self.programmes.len() < avant;
+        if ok { let _ = self.sauver(); }
+        ok
+    }
+
+    fn sauver(&self) -> std::io::Result<()> {
+        let mut o = HashMap::new();
+        o.insert("prochain_id".to_string(), JsonValue::UInt(self.prochain_id));
+        let arr: Vec<JsonValue> = self.programmes.iter().map(|p| {
+            let mut po = HashMap::new();
+            po.insert("id".to_string(), JsonValue::UInt(p.id));
+            po.insert("nom".to_string(), JsonValue::Str(p.nom.clone()));
+            po.insert("auteur".to_string(), JsonValue::Str(p.auteur.clone()));
+            po.insert("code".to_string(), JsonValue::Str(p.code.clone()));
+            po.insert("installs".to_string(), JsonValue::UInt(p.installs));
+            JsonValue::Object(po)
+        }).collect();
+        o.insert("programmes".to_string(), JsonValue::Array(arr));
+        std::fs::write(&self.chemin, afri_json::to_string(&JsonValue::Object(o)))
+    }
+}

@@ -1616,6 +1616,7 @@ fn html_home_user(username: &str, flag: &str, phone: &str, message_continent: Op
 <a href="/etincelle" style="text-decoration:none;"><div style="padding:16px;border:1px solid #ff8c00;border-radius:10px;text-align:center;color:#ff8c00;">🔥<br><b>L'ÉTINCELLE</b></div></a>
 <a href="/amion" style="text-decoration:none;"><div style="padding:16px;border:1px solid #d4a437;border-radius:10px;text-align:center;color:#d4a437;">💚<br><b>Amion Blandine</b></div></a>
 <a href="/telephone" style="text-decoration:none;"><div style="padding:16px;border:1px solid #ff6b6b;border-radius:10px;text-align:center;color:#ff6b6b;">📱<br><b>Téléphone OS Machine</b></div></a>
+<a href="/store-prog" style="text-decoration:none;"><div style="padding:16px;border:1px solid #e8b547;border-radius:10px;text-align:center;color:#e8b547;">🏪<br><b>Store des Programmes</b></div></a>
 <a href="/langage" style="text-decoration:none;"><div style="padding:16px;border:1px solid #7fcf7f;border-radius:10px;text-align:center;color:#7fcf7f;">▤<br><b>Langage AMION</b></div></a>
 <a href="/internet" style="text-decoration:none;"><div style="padding:16px;border:1px solid #7fcf7f;border-radius:10px;text-align:center;color:#7fcf7f;">🌐<br><b>Internet Afri</b></div></a>
 <a href="/afri-net" style="text-decoration:none;"><div style="padding:16px;border:1px solid #25D366;border-radius:10px;text-align:center;color:#25D366;">🌍<br><b>Afri-Net</b></div></a>
@@ -34382,7 +34383,7 @@ fn html_programmeur(state: &Arc<AppState>, username: &str, code_pre: &str, sorti
     let exemple = if code_pre.is_empty() { afri_langage::programme_exemple().to_string() } else { code_pre.to_string() };
     html.push_str(&format!(r##"<h1>⌨️ LE PROGRAMMEUR</h1>
 <p style="text-align:center;color:#a8c5a8;">Écris ton programme en <b style="color:#d4a437;">langage AMION</b> — le CPU AFRI l'exécute ligne par ligne ({} cycles, {} instructions).<br>Pas Python. Pas Java. Notre langage à nous.</p>
-<div class="nav"><a href="/telephone">📱 Téléphone OS</a> | <a href="/langage">▤ Langage AMION</a> | <a href="/amion">💚 Terminal</a></div>"##, cycles, instructions));
+<div class="nav"><a href="/telephone">📱 Téléphone OS</a> | <a href="/langage">▤ Langage AMION</a> | <a href="/store-prog">🏪 Store des Programmes</a> | <a href="/amion">💚 Terminal</a></div>"##, cycles, instructions));
 
     // Le code du programme
     html.push_str(&format!(r#"<div class="card"><h2>▤ Ton programme</h2>
@@ -34408,6 +34409,67 @@ Fonctions : <b>SOLDE() BLOCS() TX() AFR() AMES() GRAINES()</b><br>
 Opérations : + - * / et parenthèses
 </div></div>"#);
     html.push_str("<footer style=\"text-align:center;margin-top:40px;color:#a8c5a8;\">🦁 AfriChain v2.10 — LE PROGRAMMEUR ⌨️</footer></body></html>");
+    html
+}
+
+// ===== v2.11: LE PLAY STORE DES PROGRAMMES — les apps du peuple 🏪⌨️ =====
+fn html_store_programmes(state: &Arc<AppState>, username: &str, msg: Option<&str>) -> String {
+    let mut html = html_head("Store des Programmes AMION");
+    let programmes = {
+        let st = state.programs.lock().unwrap();
+        st.programmes.clone()
+    };
+    let mut triees = programmes.clone();
+    triees.sort_by(|a, b| b.installs.cmp(&a.installs));
+
+    html.push_str(r##"<h1>🏪 LE STORE DES PROGRAMMES</h1>
+<p style="text-align:center;color:#a8c5a8;">Les apps écrites par les frères en <b style="color:#d4a437;">langage AMION</b>.<br>Le premier store au monde d'apps écrites dans le langage d'une blockchain.</p>
+<div class="nav"><a href="/programmeur">⌨️ Écrire un programme</a> | <a href="/telephone">📱 Téléphone OS</a></div>"##);
+
+    if let Some(m) = msg {
+        html.push_str(&format!(r#"<div class="msg">{}</div>"#, html_escape(m)));
+    }
+
+    // Top charts
+    if !triees.is_empty() {
+        html.push_str(r#"<div class="card" style="border-color:#d4a437;"><h2>🏆 Top installations du continent</h2>"#);
+        for (i, p) in triees.iter().take(3).enumerate() {
+            let medal = ["🥇", "🥈", "🥉"][i];
+            html.push_str(&format!(r#"<div style="display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid rgba(212,164,55,0.15);"><span>{} <b style="color:#d4a437;">{}</b> <span style="color:#a8c5a8;font-size:0.85em;">par {}</span></span><span style="color:#7fcf7f;">{} ⬇</span></div>"#,
+                medal, html_escape(&p.nom), html_escape(&p.auteur), p.installs));
+        }
+        html.push_str("</div>");
+    }
+
+    // Publier une app
+    html.push_str(r#"<div class="card"><h2>📤 Publier mon programme</h2>
+<form method="POST" action="/store-prog/publier">
+<label>Nom de l'app :</label><input name="nom" maxlength="50" placeholder="ex: Compteur de richesses" required>
+<label>Code AMION :</label><textarea name="code" rows="8" style="width:100%;background:#000;border:1px solid #d4a437;border-radius:8px;color:#7fcf7f;padding:12px;font-family:monospace;font-size:0.9em;" placeholder='DIRE "◈ bonjour le continent"'></textarea>
+<div style="text-align:center;margin-top:10px;"><button style="padding:12px 30px;">📤 PUBLIER sur le continent</button></div>
+</form></div>"#);
+
+    // Le catalogue
+    if programmes.is_empty() {
+        html.push_str(r#"<div class="card"><p style="text-align:center;color:#a8c5a8;">Aucune app encore — sois le premier à publier ! Ton programme deviendra l'app des 54 pays. ⌨️</p></div>"#);
+    } else {
+        html.push_str(&format!(r#"<div class="card"><h2>📲 Toutes les apps ({})</h2>"#, programmes.len()));
+        for p in &programmes {
+            let est_auteur = p.auteur == username;
+            html.push_str(&format!(r#"<div style="border:1px solid rgba(212,164,55,0.3);border-radius:10px;padding:12px;margin:10px 0;">
+<div style="display:flex;justify-content:space-between;align-items:center;"><b style="color:#d4a437;">⌨️ {}</b><span style="color:#a8c5a8;font-size:0.85em;">par <b>{}</b> · {} ⬇</span></div>
+<details style="margin-top:6px;"><summary style="color:#a8c5a8;cursor:pointer;font-size:0.85em;">voir le code source</summary><pre style="background:#000;color:#7fcf7f;padding:10px;border-radius:8px;font-size:0.8em;overflow-x:auto;">{}</pre></details>
+<div style="display:flex;gap:8px;margin-top:8px;">
+<form method="POST" action="/store-prog/lancer"><input type="hidden" name="id" value="{}"><button style="background:#25d366;color:#1a3d2e;border:none;padding:8px 20px;border-radius:8px;font-weight:bold;cursor:pointer;">▶️ LANCER</button></form>
+{}{}
+</div></div>"#,
+                html_escape(&p.nom), html_escape(&p.auteur), p.installs, html_escape(&p.code), p.id,
+                if est_auteur { format!(r#"<form method="POST" action="/store-prog/supprimer"><input type="hidden" name="id" value="{}"><button style="background:rgba(207,127,127,0.2);border:1px solid #cf7f7f;color:#cf7f7f;padding:8px 16px;border-radius:8px;cursor:pointer;">🗑️ Supprimer</button></form>"#, p.id) } else { String::new() },
+                String::new()));
+        }
+        html.push_str("</div>");
+    }
+    html.push_str("<footer style=\"text-align:center;margin-top:40px;color:#a8c5a8;\">🦁 AfriChain v2.11 — STORE DES PROGRAMMES — les apps du peuple 🏪</footer></body></html>");
     html
 }
 
@@ -37049,6 +37111,7 @@ struct AppState {
     systemes: Mutex<afri_systemes::SystemeStore>,  // v2.05: PLAY STORE DES SYSTÈMES 🦁
     cpu: Mutex<afri_cpu::CpuAfri>,              // v2.09: LE CPU AFRI — 8 registres, cycles FETCH→DECODE→EXECUTE→WRITEBACK 🖥️
     telephone: Mutex<afri_cpu::TelephoneAfri>,  // v2.09: LE TÉLÉPHONE OS MACHINE 📱
+    programs: Mutex<afri_cpu::ProgramStore>,   // v2.11: LE PLAY STORE DES PROGRAMMES 🏪⌨️
 }
 
 fn main() {
@@ -37175,6 +37238,7 @@ fn main() {
         systemes: Mutex::new(afri_systemes::SystemeStore::load()),
         cpu: Mutex::new(afri_cpu::CpuAfri::nouveau()),
         telephone: Mutex::new(afri_cpu::TelephoneAfri::nouveau("koffi")),
+        programs: Mutex::new(afri_cpu::ProgramStore::nouveau()),
     });
 
     // ===== v1.76: 4 UTILISATEURS DÉMO — pour s'appeler et s'envoyer des SMS =====
@@ -42452,12 +42516,91 @@ fn handle_request_port(req: afri_http::HttpRequest, state: &Arc<AppState>, port_
         }
 
         // ===== v1.94: ENVOYER UN PAQUET DE LUMIÈRE ⚡ =====
+        // ===== v2.11: LE STORE DES PROGRAMMES — publier, lancer, supprimer 🏪 =====
+        ("GET", "/store-prog") => {
+            match session_user(&req, state) {
+                Some(username) => {
+                    let msg = req.query_str("msg").map(|s| s.to_string());
+                    HttpResponse::ok(&html_store_programmes(state, &username, msg.as_deref()))
+                }
+                None => HttpResponse::redirect("/login"),
+            }
+        }
+
+        ("POST", "/store-prog/publier") => {
+            let username = match session_user(&req, state) {
+                Some(u) => u,
+                None => return HttpResponse::redirect("/login"),
+            };
+            let form = parse_urlencoded(&req.body);
+            let nom = form.get("nom").cloned().unwrap_or_default();
+            let code = form.get("code").cloned().unwrap_or_default();
+            if nom.is_empty() || code.trim().is_empty() {
+                return HttpResponse::redirect("/store-prog?msg=Nom%20et%20code%20obligatoires");
+            }
+            if nom.len() > 50 {
+                return HttpResponse::redirect("/store-prog?msg=Nom%20trop%20long%20(50%20max)");
+            }
+            // Publier + graver sur la blockchain
+            let id = {
+                let mut st = state.programs.lock().unwrap();
+                st.publier(&nom, &username, &code)
+            };
+            {
+                let mut chain = state.chain.lock().unwrap();
+                let tx = Transaction::new("SYSTEM", "AMION", 0, &format!("STORE-PROG | {} publie l'app « {} » (#{}) — les apps du peuple", username, nom, id));
+                chain.add_transaction(tx);
+                chain.mine_pending("SYSTEM");
+                chain.save_to_file();
+            }
+            HttpResponse::redirect(&format!("/store-prog?msg={}", url_encode(&format!("✅ App « {} » publiée sur le continent — gravée sur la blockchain", nom))))
+        }
+
+        ("POST", "/store-prog/lancer") => {
+            let username = match session_user(&req, state) {
+                Some(u) => u,
+                None => return HttpResponse::redirect("/login"),
+            };
+            let id: u64 = parse_urlencoded(&req.body).get("id").and_then(|s| s.parse().ok()).unwrap_or(0);
+            let programme = {
+                let mut st = state.programs.lock().unwrap();
+                st.lancer(id)
+            };
+            match programme {
+                Some(p) => HttpResponse::redirect(&format!("/programmeur?id={}&msg={}", p.id, url_encode(&format!("▶️ App « {} » de {} — le code est chargé, appuie EXÉCUTER", p.nom, p.auteur)))),
+                None => HttpResponse::redirect("/store-prog?msg=App%20introuvable"),
+            }
+        }
+
+        ("POST", "/store-prog/supprimer") => {
+            let username = match session_user(&req, state) {
+                Some(u) => u,
+                None => return HttpResponse::redirect("/login"),
+            };
+            let id: u64 = parse_urlencoded(&req.body).get("id").and_then(|s| s.parse().ok()).unwrap_or(0);
+            let ok = {
+                let mut st = state.programs.lock().unwrap();
+                st.supprimer(id, &username)
+            };
+            if ok {
+                HttpResponse::redirect("/store-prog?msg=App%20supprim%C3%A9e")
+            } else {
+                HttpResponse::redirect("/store-prog?msg=Seul%20l%27auteur%20peut%20supprimer")
+            }
+        }
+
         // ===== v2.10: LE PROGRAMMEUR — exécuter ses programmes AMION sur le CPU ⌨️ =====
         ("GET", "/programmeur") => {
             match session_user(&req, state) {
                 Some(username) => {
                     let msg = req.query_str("msg").map(|s| s.to_string()).unwrap_or_default();
-                    HttpResponse::ok(&html_programmeur(state, &username, "", &msg))
+                    // v2.11 — ?id=N charge le code d'une app du store dans l'éditeur
+                    let id: Option<u64> = req.query_str("id").and_then(|s| s.parse().ok());
+                    let code_pre = id.and_then(|i| {
+                        let st = state.programs.lock().unwrap();
+                        st.programmes.iter().find(|p| p.id == i).map(|p| p.code.clone())
+                    }).unwrap_or_default();
+                    HttpResponse::ok(&html_programmeur(state, &username, &code_pre, &msg))
                 }
                 None => HttpResponse::redirect("/login"),
             }
