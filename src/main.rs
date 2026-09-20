@@ -1610,23 +1610,41 @@ fetch('/api/ai/cerveau').then(function(r){return r.json();}).then(function(d){
 /// v1.64 — Home publique: ce que voit un visiteur (l'ami qui scanne le QR).
 /// Simple et propre, comme une banque: bienvenue, s'inscrire, se connecter.
 /// Pas de stats internes, pas de carrousel, pas d'IA, pas de créateur.
-fn html_home_public() -> String {
+fn html_home_public(chain: &Blockchain, users: &UserStore) -> String {
+    // v2.17 — LA VITRINE DU CONTINENT : le visiteur voit l'Afrique VIVANTE
+    let nb_blocs = chain.blocks.len();
+    let nb_users = users.count();
+    let total_afr = chain.total_supply();
+    // Les 5 derniers pays qui ont rejoint
+    let derniers_pays: Vec<String> = users.users.iter().rev().take(5)
+        .map(|u| format!(r#"<span style="display:inline-block;margin:3px;padding:6px 12px;border:1px solid rgba(212,164,55,0.4);border-radius:16px;color:#d4a437;">{} {}</span>"#,
+            find_country(&u.country_code).map(|(_, f)| f.to_string()).unwrap_or("🌍".to_string()),
+            u.country))
+        .collect();
+    // Le dernier bloc miné — la preuve que la chaîne respire
+    let dernier_bloc = chain.blocks.last()
+        .map(|b| format!(r#" bloc #{} miné par le soleil ☀️"#, b.index))
+        .unwrap_or_default();
     format!(r##"{}<h1>🦁 AfriChain</h1>
 <p style="text-align:center;">La blockchain 100% africaine — 54 pays 💚🦁</p>
-<div style="text-align:center;"><div class="stat-box"><div class="stat-num">🪙</div><div class="stat-label">AfriRich (AFR)</div></div><div class="stat-box"><div class="stat-num">🌍</div><div class="stat-label">54 pays africains</div></div><div class="stat-box"><div class="stat-num">🔐</div><div class="stat-label">100% Souverain</div></div></div>
+<div style="text-align:center;"><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">🧱 Blocs gravés</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">👥 Âmes unies</div></div><div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">🪙 AFR en circulation</div></div><div class="stat-box"><div class="stat-num">54</div><div class="stat-label">🌍 Pays africains</div></div></div>
+<div class="card" style="border-color:#25D366;background:rgba(37,211,102,0.05);"><h2 style="color:#25D366;">🌍 Le continent est VIVANT</h2>
+<p style="color:#a8c5a8;">La chaîne respire en ce moment même — {}.</p>
+<p style="color:#e8f5e8;">Derniers pays qui ont rejoint :</p>
+<div>{}</div></div>
 <div class="card"><h2>👋 Bienvenue sur AfriChain</h2>
 <p>La première blockchain construite par l'Afrique, pour l'Afrique.
 Crée ton compte, reçois ton portefeuille en AfriRich (AFR) et rejoins le réseau
 panafricain — du Sahel à l'océan Indien. 💚</p>
 <p style="text-align:center;margin-top:15px;">
-<a href="/register"><button style="font-size:1.1em;padding:12px 24px;">🆕 Créer mon compte</button></a>
-<a href="/login"><button style="font-size:1.1em;padding:12px 24px;">🔑 Me connecter</button></a>
+<a href="/register"><button style="font-size:1.2em;padding:14px 32px;">🆕 Créer mon compte</button></a>
+<a href="/login"><button style="font-size:1.2em;padding:14px 32px;">🔑 Me connecter</button></a>
 </p></div>
 <div class="card"><h2>💰 AES Wari — La banque numérique</h2>
 <p>Envoie des AFR par numéro de téléphone, comme Orange Money — mais 100% africain.
 Aucune donnée ne quitte le continent. 📡</p></div>
 <footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🦁 AfriChain — L'Afrique ne demande plus la permission</footer>
-</body></html>"##, html_head("🦁 AfriChain"))
+</body></html>"##, html_head("🦁 AfriChain"), nb_blocs, nb_users, total_afr, dernier_bloc.trim(), derniers_pays.join(""))
 }
 
 /// v1.76.1: HOME UTILISATEUR — le client connecté voit les services Planète Verte,
@@ -41546,10 +41564,10 @@ fn handle_request_port(req: afri_http::HttpRequest, state: &Arc<AppState>, port_
                     HttpResponse::ok(&html_home_user(&username, &flag, &phone, msg.as_deref()))
                 } else {
                     drop(users);
-                    HttpResponse::ok(&html_home_public())
+                    HttpResponse::ok(&{ let chain = state.chain.lock().unwrap(); let users = state.users.lock().unwrap(); html_home_public(&chain, &users) })
                 }
             } else {
-                HttpResponse::ok(&html_home_public())
+                HttpResponse::ok(&{ let chain = state.chain.lock().unwrap(); let users = state.users.lock().unwrap(); html_home_public(&chain, &users) })
             }
         }
 
