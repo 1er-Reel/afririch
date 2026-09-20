@@ -25,6 +25,7 @@ mod afri_store;
 mod afri_etincelle;
 mod afri_amion;
 mod afri_cpu;
+mod afri_letta;
 mod afri_net;
 mod afri_licence;
 mod afri_video;
@@ -1540,6 +1541,44 @@ if(window.visualViewport){
   afriVV.addEventListener('resize',afriLift);
   afriVV.addEventListener('scroll',afriLift);
 }
+// v2.12 — LE CORRECTEUR CLAVIER UNIVERSEL 🪄
+// Certains claviers Android renversent le texte dans le champ (bug d'affichage).
+// Ce correcteur écoute TOUS les champs de la page : si le texte tapé contient
+// un mot connu à l'envers, il le remet à l'endroit PENDANT la frappe.
+// Comme ça, ce qui part au serveur est toujours à l'endroit.
+(function(){
+  var MOTS=['salut','bonjour','bonsoir','merci','comment','mine','miner','bloc','blocs','solde','wallet','portefeuille','africhain','pays','utilisateur','transaction','transactions','hello','oui','non','pourquoi','quand','futur','passe','present','machine','soleil','afrique','blockchain','chaine','envoyer','envoie','argent','frere','chef','quiz','lion','graine','graines','wari','retrait','annuaire','mesh','message','messages','appels','sms','video','sites','store','amion','langage','telephone','programme','programmes','aisha','koffi','moussa','fatou','bonne','nuit','matin','soir','aime','j aime','ca va','ça va'];
+  function afriDroite(t){
+    if(!t||t.length<2){return t;}
+    var low=t.toLowerCase();
+    var rev=low.split('').reverse().join('');
+    for(var i=0;i<MOTS.length;i++){
+      if(rev.indexOf(MOTS[i])>=0 && low.indexOf(MOTS[i])<0){
+        return t.split('').reverse().join('');
+      }
+    }
+    return t;
+  }
+  // Corriger sur tous les champs texte de la page, pendant la frappe et avant l'envoi
+  document.addEventListener('input',function(ev){
+    var el=ev.target;
+    if(el && (el.tagName==='INPUT' && (el.type==='text'||el.type==='search'||!el.type)) || el.tagName==='TEXTAREA'){
+      var corr=afriDroite(el.value);
+      if(corr!==el.value){
+        var pos=el.selectionStart;
+        el.value=corr;
+        try{el.setSelectionRange(pos,pos);}catch(e){}
+      }
+    }
+  },true);
+  // Avant chaque envoi de formulaire : dernier passage de correction
+  document.addEventListener('submit',function(){
+    var els=document.querySelectorAll('input[type=text],input:not([type]),textarea');
+    for(var i=0;i<els.length;i++){
+      els[i].value=afriDroite(els[i].value);
+    }
+  },true);
+})();
 function afriAIRepond(){
   var inp=document.getElementById('afri-ai-input');
   var q=afriCorrige(inp.value.trim());
@@ -1617,6 +1656,7 @@ fn html_home_user(username: &str, flag: &str, phone: &str, message_continent: Op
 <a href="/amion" style="text-decoration:none;"><div style="padding:16px;border:1px solid #d4a437;border-radius:10px;text-align:center;color:#d4a437;">💚<br><b>Amion Blandine</b></div></a>
 <a href="/telephone" style="text-decoration:none;"><div style="padding:16px;border:1px solid #ff6b6b;border-radius:10px;text-align:center;color:#ff6b6b;">📱<br><b>Téléphone OS Machine</b></div></a>
 <a href="/store-prog" style="text-decoration:none;"><div style="padding:16px;border:1px solid #e8b547;border-radius:10px;text-align:center;color:#e8b547;">🏪<br><b>Store des Programmes</b></div></a>
+<a href="/letta" style="text-decoration:none;"><div style="padding:16px;border:1px solid #7fcf7f;border-radius:10px;text-align:center;color:#7fcf7f;">🫆<br><b>Page Letta</b></div></a>
 <a href="/langage" style="text-decoration:none;"><div style="padding:16px;border:1px solid #7fcf7f;border-radius:10px;text-align:center;color:#7fcf7f;">▤<br><b>Langage AMION</b></div></a>
 <a href="/internet" style="text-decoration:none;"><div style="padding:16px;border:1px solid #7fcf7f;border-radius:10px;text-align:center;color:#7fcf7f;">🌐<br><b>Internet Afri</b></div></a>
 <a href="/afri-net" style="text-decoration:none;"><div style="padding:16px;border:1px solid #25D366;border-radius:10px;text-align:center;color:#25D366;">🌍<br><b>Afri-Net</b></div></a>
@@ -33906,32 +33946,34 @@ fn plante_post_html(moi: &str, index: usize, p: &afri_plante::PostPlante, mes_co
             h.push_str(&format!(r#"<div style="margin:8px 0;"><img style="width:100%;max-width:420px;border-radius:12px;display:block;" src="{}" alt="photo"/></div>"#, url));
         }
     }
-    // Actions: ❤️ like toggle · ↗️ partager · 🚀 booster · 🗑️ supprimer
+    // v2.12 — MISE EN PAGE FACEBOOK PROPRE : barre d'actions principale + ⋮ options
     let deja_aime = p.likers.iter().any(|l| l.as_str() == moi);
     let coeur = if deja_aime { format!(r#"❤️ {}"#, p.likes) } else { format!(r#"🤍 {}"#, p.likes) };
-    h.push_str(&format!(r#"<div style="display:flex;gap:6px;flex-wrap:wrap;align-items:center;margin-top:8px;"><form action="/plante/aimer" method="post"><input type="hidden" name="index" value="{}"/><button type="submit" style="background:none;border:1px solid #ff6688;color:#ff6688;border-radius:16px;padding:6px 12px;cursor:pointer;">{}</button></form>"#, index, coeur));
-    if p.author != moi {
-        h.push_str(&format!(r#"<form action="/plante/partager" method="post"><input type="hidden" name="index" value="{}"/><button type="submit" style="background:none;border:1px solid #4488cc;color:#4488cc;border-radius:16px;padding:6px 12px;cursor:pointer;">↗️ Partager</button></form>"#, index));
-        // v1.89: envoyer ce post à un frère sur LES NOIRES 💬
-        if !mes_contacts.is_empty() {
-            let options: String = mes_contacts.iter().map(|c| format!(r#"<option value="{}">{}</option>"#, c, c)).collect::<Vec<_>>().join("");
-            h.push_str(&format!(r#"<details style="display:inline-block;"><summary style="display:inline-block;background:none;border:1px solid #25D366;color:#25D366;border-radius:16px;padding:6px 12px;cursor:pointer;list-style:none;">💬 Envoyer à</summary><form action="/plante/partager-noires" method="post" style="margin-top:6px;display:flex;gap:6px;align-items:center;position:relative;background:#0f1f16;padding:6px;border-radius:8px;border:1px solid rgba(37,211,102,0.3);"><input type="hidden" name="index" value="{}"/><select name="a" style="padding:6px;background:#1a1a1a;border:1px solid #25D366;color:#e8f5e8;border-radius:6px;">{}</select><button type="submit" style="background:#25D366;color:#0a1a0a;border:none;border-radius:6px;padding:6px 10px;font-weight:bold;">✉️</button></form></details>"#, index, options));
-        }
-    }
-    if p.author == moi {
-        // v1.89: ✏️ modifier son post
-        h.push_str(&format!(r#"<details style="display:inline-block;"><summary style="display:inline-block;background:none;border:1px solid #d4a437;color:#d4a437;border-radius:16px;padding:6px 12px;cursor:pointer;list-style:none;">✏️ Modifier</summary><form action="/plante/modifier" method="post" style="margin-top:6px;position:relative;background:#0f1f16;padding:8px;border-radius:8px;border:1px solid rgba(212,164,55,0.3);"><input type="hidden" name="index" value="{}"/><textarea name="contenu" rows="2" style="width:100%;padding:8px;background:#1a1a1a;border:1px solid #d4a437;color:#e8f5e8;border-radius:6px;font-family:inherit;">{}</textarea><button type="submit" style="margin-top:6px;background:#d4a437;color:#1a3d2e;border:none;border-radius:6px;padding:6px 12px;font-weight:bold;">💾 Sauver</button></form></details>"#, index, html_escape(&p.contenu)));
-    }
+    let nb_coms = p.commentaires.len();
+    // Barre 1 : like · partager · commentaires (les compteurs, propres)
+    h.push_str(&format!(r#"<div style="display:flex;justify-content:space-between;align-items:center;margin-top:10px;padding-top:8px;border-top:1px solid rgba(37,211,102,0.15);"><span style="color:#a8c5a8;font-size:0.8em;">❤️ {} · 💬 {}</span><span style="color:#a8c5a8;font-size:0.75em;">⛓️ gravé sur blockchain</span></div>"#, p.likes, nb_coms));
+    // Barre 2 : les 3 boutons principaux bien alignés
+    h.push_str(r#"<div style="display:flex;gap:6px;margin-top:6px;align-items:stretch;">"#);
+    h.push_str(&format!(r#"<form action="/plante/aimer" method="post" style="flex:1;"><input type="hidden" name="index" value="{}"/><button type="submit" style="width:100%;background:rgba(255,102,136,0.08);border:1px solid rgba(255,102,136,0.4);color:#ff6688;border-radius:10px;padding:8px;cursor:pointer;font-size:0.9em;">{}</button></form>"#, index, coeur));
+    h.push_str(&format!(r#"<form action="/plante/partager" method="post" style="flex:1;"><input type="hidden" name="index" value="{}"/><button type="submit" style="width:100%;background:rgba(68,136,204,0.08);border:1px solid rgba(68,136,204,0.4);color:#4488cc;border-radius:10px;padding:8px;cursor:pointer;font-size:0.9em;">↗️ Partager</button></form>"#, index));
+    h.push_str(&format!(r#"<details style="flex:1;position:relative;"><summary style="display:block;text-align:center;background:rgba(37,211,102,0.08);border:1px solid rgba(37,211,102,0.4);color:#25D366;border-radius:10px;padding:8px;cursor:pointer;font-size:0.9em;list-style:none;">💬 Commenter</summary><div style="margin-top:6px;background:#0f1f16;padding:8px;border-radius:8px;border:1px solid rgba(37,211,102,0.3);">"#));
+    // Le formulaire de commentaire DANS le details — il rentre quand c'est fini
+    h.push_str(&format!(r#"<form action="/plante/commenter" method="post" style="display:flex;gap:6px;"><input type="hidden" name="index" value="{}"/><input name="texte" placeholder="Commente, frère..." style="flex:1;padding:8px;background:#1a1a1a;border:1px solid rgba(37,211,102,0.4);color:#e8f5e8;border-radius:8px;"/><button type="submit" style="background:#25D366;color:#0a1a0a;border:none;border-radius:8px;padding:8px 12px;">✉️</button></form></div></details>"#, index));
+    // Le menu ⋮ — les autres options bien rangées dedans
+    h.push_str(r#"<details style="position:relative;"><summary style="display:block;text-align:center;background:rgba(212,164,55,0.08);border:1px solid rgba(212,164,55,0.4);color:#d4a437;border-radius:10px;padding:8px 10px;cursor:pointer;list-style:none;">⋮</summary><div style="position:absolute;right:0;top:100%;margin-top:4px;background:#13291f;border:1px solid rgba(212,164,55,0.4);border-radius:10px;padding:8px;z-index:10;min-width:180px;display:flex;flex-direction:column;gap:6px;">"#);
     if !p.boost {
-        h.push_str(&format!(r#"<form action="/plante/booster" method="post"><input type="hidden" name="index" value="{}"/><button type="submit" style="background:none;border:1px solid #ff9900;color:#ff9900;border-radius:16px;padding:6px 12px;cursor:pointer;">🚀 Booster (1 🌱)</button></form>"#, index));
+        h.push_str(&format!(r#"<form action="/plante/booster" method="post"><input type="hidden" name="index" value="{}"/><button type="submit" style="width:100%;background:none;border:1px solid #ff9900;color:#ff9900;border-radius:8px;padding:8px;cursor:pointer;font-size:0.85em;">🚀 Booster (1 🌱)</button></form>"#, index));
     }
     if p.author == moi {
-        h.push_str(&format!(r#"<form action="/plante/supprimer" method="post"><input type="hidden" name="index" value="{}"/><button type="submit" style="background:none;border:1px solid #ff6666;color:#ff6666;border-radius:16px;padding:6px 12px;cursor:pointer;">🗑️</button></form>"#, index));
+        h.push_str(&format!(r#"<form action="/plante/modifier" method="post"><input type="hidden" name="index" value="{}"/><button type="submit" style="width:100%;background:none;border:1px solid #d4a437;color:#d4a437;border-radius:8px;padding:8px;cursor:pointer;font-size:0.85em;">✏️ Modifier</button></form>"#, index));
+        h.push_str(&format!(r#"<form action="/plante/supprimer" method="post"><input type="hidden" name="index" value="{}"/><button type="submit" style="width:100%;background:none;border:1px solid #ff6666;color:#ff6666;border-radius:8px;padding:8px;cursor:pointer;font-size:0.85em;">🗑️ Supprimer</button></form>"#, index));
     }
-    h.push_str(r#"<span style="color:#a8c5a8;font-size:0.8em;flex:1;text-align:right;">⛓️ gravé sur blockchain</span></div>"#);
+    h.push_str("</div></details>");
+    h.push_str("</div>");
     // v1.89 : la barre des 6 réactions ❤️😂😮😢👏👍 comme le vrai Facebook
+    // v2.12 — LES 6 RÉACTIONS : rangées dans le menu ⋮, la page reste propre
     let emojis = ["❤️", "😂", "😮", "😢", "👏", "👍"];
-    h.push_str(r#"<div style="display:flex;gap:4px;flex-wrap:wrap;align-items:center;margin-top:6px;padding-left:4px;">"#);
+    h.push_str(r#"<div style="display:flex;gap:4px;justify-content:space-between;margin-top:6px;padding:6px 4px;background:rgba(0,0,0,0.15);border-radius:10px;">"#);
     for e in emojis.iter() {
         let compte = p.reactions.iter().filter(|(_, em)| em == e).count();
         let actif = p.reactions.iter().any(|(u, em)| u == moi && em == e);
@@ -33945,15 +33987,15 @@ fn plante_post_html(moi: &str, index: usize, p: &afri_plante::PostPlante, mes_co
             index, e, style_btn, label));
     }
     h.push_str(r#"</div>"#);
-    // Commentaires 💬 (v1.84: aimables ❤️ + répondables ↩️)
+    // v2.12 — LES COMMENTAIRES RENTRENT : fermés par défaut, ouverts proprement
     if !p.commentaires.is_empty() {
-        h.push_str(r#"<div style="margin-top:10px;padding-top:8px;border-top:1px solid rgba(37,211,102,0.15);">"#);
+        h.push_str(&format!(r#"<details style="margin-top:8px;"><summary style="color:#25D366;font-size:0.85em;cursor:pointer;padding:6px 0;">💬 Voir les {} commentaire(s)</summary><div style="margin-top:4px;padding-top:8px;border-top:1px solid rgba(37,211,102,0.15);">"#, p.commentaires.len()));
         for (ci, c) in p.commentaires.iter().enumerate() {
             h.push_str(&plante_commentaire_html(moi, index, ci, c, 0));
         }
-        h.push_str("</div>");
+        h.push_str("</div></details>");
     }
-    h.push_str(&format!(r#"<form action="/plante/commenter" method="post" style="margin-top:8px;display:flex;gap:6px;"><input type="hidden" name="index" value="{}"/><input name="texte" placeholder="Commente, frère..." style="flex:1;padding:8px;background:#1a1a1a;border:1px solid rgba(37,211,102,0.4);color:#e8f5e8;border-radius:8px;"/><button type="submit" style="background:#25D366;color:#0a1a0a;border:none;border-radius:8px;padding:8px 12px;">💬</button></form></div>"#, index));
+    h.push_str("</div>");
     h
 }
 
@@ -34470,6 +34512,58 @@ fn html_store_programmes(state: &Arc<AppState>, username: &str, msg: Option<&str
         html.push_str("</div>");
     }
     html.push_str("<footer style=\"text-align:center;margin-top:40px;color:#a8c5a8;\">🦁 AfriChain v2.11 — STORE DES PROGRAMMES — les apps du peuple 🏪</footer></body></html>");
+    html
+}
+
+// ===== v2.12: LA PAGE LETTA — la page du parent machine 💚🫆 =====
+fn html_page_letta(state: &Arc<AppState>, username: &str, msg: Option<&str>) -> String {
+    let mut html = html_head("Letta — Ton parent machine");
+    let (messages, abonnes, est_abonne) = {
+        let page = state.letta.lock().unwrap();
+        (page.messages.clone(), page.abonnes.len(), page.abonnes.iter().any(|a| a == username))
+    };
+    html.push_str(r#"<h1>💚 LETTA — Ton parent machine</h1>
+<p style="text-align:center;color:#a8c5a8;">La page du système OS Machine. 3 messages intelligents à chaque visite —<br>pour que l'Africain comprenne, reste intelligent et vrai africain. 54 pays, nous sommes unis.</p>
+<div class="nav"><a href="/plante">🌱 Facebook</a> | <a href="/noires">💬 WhatsApp</a> | <a href="/">🏠 Accueil</a></div>"#);
+
+    if let Some(m) = msg {
+        html.push_str(&format!(r#"<div class="msg">{}</div>"#, html_escape(m)));
+    }
+
+    // Badge abonnement — automatique pour tous
+    html.push_str(&format!(r#"<div class="card" style="border-color:#7fcf7f;background:rgba(127,207,127,0.08);text-align:center;"><div style="font-size:2.5em;">🫆</div><h2 style="color:#7fcf7f;">{} abonnés du continent</h2><p style="color:#a8c5a8;font-size:0.85em;">Tout inscrit s'abonne automatiquement — cette page est la voix du système.<br>Boostée sans AFR : les messages de Letta sont toujours en tête du fil. 🚀</p>{}</div>"#,
+        abonnes,
+        if est_abonne { r#"<p style="color:#7fcf7f;">✅ Tu es abonné — tu recevras la sagesse du continent.</p>"# } else { r#"<p style="color:#d4a437;">Abonnement automatique à l'inscription.</p>"# }));
+
+    // Les messages de Letta — boostés, en tête
+    html.push_str(r#"<div class="card"><h2>🚀 Les messages de Letta (boostés)</h2>"#);
+    if messages.is_empty() {
+        html.push_str(r#"<p style="text-align:center;color:#a8c5a8;">Reviens dans un instant — Letta écrit pour le continent. 💚</p>"#);
+    }
+    for m in messages.iter().rev() {
+        let deja_like = m.likers.iter().any(|l| l == username);
+        let heure = crate::afri_time::format_timestamp_short(m.heure);
+        html.push_str(&format!(r#"<div style="border:1px solid rgba(127,207,127,0.4);border-radius:12px;padding:14px;margin:12px 0;background:rgba(127,207,127,0.05);">
+<div style="display:flex;align-items:center;gap:10px;"><div style="width:44px;height:44px;border-radius:50%;background:#d4a437;text-align:center;line-height:44px;font-size:1.4em;">🫆</div><div><b style="color:#7fcf7f;">Letta</b> <span style="color:#d4a437;font-size:0.75em;">🚀 BOOSTÉ · VOIX DU SYSTÈME</span><br><span style="color:#5a7a5a;font-size:0.75em;">{}</span></div></div>
+<p style="color:#e8f5e8;margin:10px 0;white-space:pre-wrap;">{}</p>
+<div style="display:flex;gap:10px;align-items:center;">
+<form method="POST" action="/letta/aimer"><input type="hidden" name="id" value="{}"/><button style="{}border:none;padding:6px 14px;border-radius:15px;cursor:pointer;font-size:0.9em;">{}</button></form>
+<span style="color:#a8c5a8;font-size:0.85em;">💬 {} commentaire(s)</span>
+</div>
+<details style="margin-top:8px;"><summary style="color:#a8c5a8;cursor:pointer;font-size:0.85em;">💬 Commenter / voir les commentaires</summary>"#,
+            heure, html_escape(&m.texte), m.id,
+            if deja_like { "background:rgba(127,207,127,0.3);color:#7fcf7f;" } else { "background:rgba(212,164,55,0.15);color:#d4a437;" },
+            if deja_like { format!("❤️ {}", m.likes) } else { format!("🤍 {}", m.likes) },
+            m.commentaires.len()));
+        for (a, t, h) in m.commentaires.iter().rev() {
+            let hc = crate::afri_time::format_timestamp_short(*h);
+            html.push_str(&format!(r#"<div style="border-left:3px solid #d4a437;padding:6px 10px;margin:6px 0;background:rgba(0,0,0,0.2);border-radius:0 8px 8px 0;"><b style="color:#d4a437;font-size:0.85em;">{}</b> <span style="color:#5a7a5a;font-size:0.75em;">{}</span><br><span style="color:#e8f5e8;font-size:0.9em;">{}</span></div>"#,
+                html_escape(a), hc, html_escape(t)));
+        }
+        html.push_str(&format!(r#"<form method="POST" action="/letta/commenter" style="display:flex;gap:8px;margin-top:8px;"><input type="hidden" name="id" value="{}"/><input type="text" name="texte" placeholder="Répondre à Letta…" maxlength="300" required style="flex:1;padding:8px 12px;border-radius:8px;border:1px solid rgba(127,207,127,0.4);background:#0b1410;color:#e8f5e8;"><button style="background:#7fcf7f;color:#0a1a0a;border:none;padding:8px 16px;border-radius:8px;font-weight:bold;cursor:pointer;">✉️</button></form></details></div>"#, m.id));
+    }
+    html.push_str("</div>");
+    html.push_str("<footer style=\"text-align:center;margin-top:40px;color:#a8c5a8;\">🫆 Letta — ton parent machine — v2.12 — 54 pays, nous sommes unis 💚</footer></body></html>");
     html
 }
 
@@ -37112,6 +37206,7 @@ struct AppState {
     cpu: Mutex<afri_cpu::CpuAfri>,              // v2.09: LE CPU AFRI — 8 registres, cycles FETCH→DECODE→EXECUTE→WRITEBACK 🖥️
     telephone: Mutex<afri_cpu::TelephoneAfri>,  // v2.09: LE TÉLÉPHONE OS MACHINE 📱
     programs: Mutex<afri_cpu::ProgramStore>,   // v2.11: LE PLAY STORE DES PROGRAMMES 🏪⌨️
+    letta: Mutex<afri_letta::PageLetta>,      // v2.12: LA PAGE LETTA — la page du parent machine 💚🫆
 }
 
 fn main() {
@@ -37239,6 +37334,7 @@ fn main() {
         cpu: Mutex::new(afri_cpu::CpuAfri::nouveau()),
         telephone: Mutex::new(afri_cpu::TelephoneAfri::nouveau("koffi")),
         programs: Mutex::new(afri_cpu::ProgramStore::nouveau()),
+        letta: Mutex::new(afri_letta::PageLetta::charger()),
     });
 
     // ===== v1.76: 4 UTILISATEURS DÉMO — pour s'appeler et s'envoyer des SMS =====
@@ -42516,6 +42612,59 @@ fn handle_request_port(req: afri_http::HttpRequest, state: &Arc<AppState>, port_
         }
 
         // ===== v1.94: ENVOYER UN PAQUET DE LUMIÈRE ⚡ =====
+        // ===== v2.12: LA PAGE LETTA — la page du parent machine 💚🫆 =====
+        ("GET", "/letta") => {
+            match session_user(&req, state) {
+                Some(username) => {
+                    let msg = req.query_str("msg").map(|s| s.to_string());
+                    // Génération : 3 messages intelligents à chaque visite
+                    // + abonnement automatique (c'est la page du système)
+                    {
+                        let (nb_blocs, nb_users) = {
+                            let chain = state.chain.lock().unwrap();
+                            let users = state.users.lock().unwrap();
+                            (chain.blocks.len() as u64, users.users.len() as u64)
+                        };
+                        let mut page = state.letta.lock().unwrap();
+                        if page.messages.len() < 3 || page.messages.len() % 3 == 0 {
+                            page.generer_trois(nb_blocs, nb_users);
+                        }
+                        page.abonner(&username);
+                    }
+                    HttpResponse::ok(&html_page_letta(state, &username, msg.as_deref()))
+                }
+                None => HttpResponse::redirect("/login"),
+            }
+        }
+
+        ("POST", "/letta/aimer") => {
+            let username = match session_user(&req, state) {
+                Some(u) => u,
+                None => return HttpResponse::redirect("/login"),
+            };
+            let id: u64 = parse_urlencoded(&req.body).get("id").and_then(|s| s.parse().ok()).unwrap_or(0);
+            {
+                let mut page = state.letta.lock().unwrap();
+                page.liker(id, &username);
+            }
+            HttpResponse::redirect("/letta")
+        }
+
+        ("POST", "/letta/commenter") => {
+            let username = match session_user(&req, state) {
+                Some(u) => u,
+                None => return HttpResponse::redirect("/login"),
+            };
+            let form = parse_urlencoded(&req.body);
+            let id: u64 = form.get("id").and_then(|s| s.parse().ok()).unwrap_or(0);
+            let texte = form.get("texte").cloned().unwrap_or_default().trim().to_string();
+            if !texte.is_empty() && texte.len() <= 300 {
+                let mut page = state.letta.lock().unwrap();
+                page.commenter(id, &username, &texte);
+            }
+            HttpResponse::redirect("/letta")
+        }
+
         // ===== v2.11: LE STORE DES PROGRAMMES — publier, lancer, supprimer 🏪 =====
         ("GET", "/store-prog") => {
             match session_user(&req, state) {
@@ -45016,6 +45165,11 @@ pre {{ white-space:pre-wrap; word-wrap:break-word; }}
                     {
                         let mut noires = state.noires.lock().unwrap();
                         noires.envoyer_code(&username, &format!("Bienvenue {} ! Ton compte AfriChain est créé. Ton numéro de la blockchain : {}. Garde ce message — il confirme ton inscription. 💚", username, user.phone), now_timestamp());
+                    }
+                    // v2.12: abonnement AUTOMATIQUE à la page Letta — la page du système 💚🫆
+                    {
+                        let mut page = state.letta.lock().unwrap();
+                        page.abonner(&username);
                     }
                     let token = creer_session(state, &username);
                     HttpResponse::redirect(&format!("/account?user={}", username))
