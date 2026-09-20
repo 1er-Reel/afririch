@@ -36762,6 +36762,7 @@ fn html_dashboard(chain: &Blockchain, users: &UserStore, state_store: &crate::af
         let (icone, couleur) = match e.genre.as_str() {
             "inscription" => ("🆕", "#7fcf7f"),
             "connexion" => ("🔑", "#d4a437"),
+            "transaction" => ("💸", "#ffaa00"),
             _ => ("👁️", "#a8c5a8"),
         };
         let heure = crate::afri_time::format_timestamp_short(e.heure);
@@ -45452,6 +45453,11 @@ pre {{ white-space:pre-wrap; word-wrap:break-word; }}
                 drop(wallets);
                 drop(users);
                 broadcast_mesh(&*state, "tx", &tx_json);
+                // v2.16: LE VEILLEUR PRÉVIENT LE CHEF 👁️ — l'argent qui circule
+                {
+                    let mut v = state.veilleur.lock().unwrap();
+                    v.voir("transaction", &username, &format!("💸 {} a envoyé {} AFR (bloc #{})", username, form.amount, bloc));
+                }
                 // v1.83: code d'envoi dans LES NOIRES — comme Orange Money 💸
                 {
                     let mut noires = state.noires.lock().unwrap();
