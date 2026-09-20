@@ -1657,6 +1657,7 @@ fn html_home_user(username: &str, flag: &str, phone: &str, message_continent: Op
 <a href="/telephone" style="text-decoration:none;"><div style="padding:16px;border:1px solid #ff6b6b;border-radius:10px;text-align:center;color:#ff6b6b;">📱<br><b>Téléphone OS Machine</b></div></a>
 <a href="/store-prog" style="text-decoration:none;"><div style="padding:16px;border:1px solid #e8b547;border-radius:10px;text-align:center;color:#e8b547;">🏪<br><b>Store des Programmes</b></div></a>
 <a href="/letta" style="text-decoration:none;"><div style="padding:16px;border:1px solid #7fcf7f;border-radius:10px;text-align:center;color:#7fcf7f;">🫆<br><b>Page Letta</b></div></a>
+<a href="/universel" style="text-decoration:none;"><div style="padding:16px;border:1px solid #38bdf8;border-radius:10px;text-align:center;color:#38bdf8;">📡<br><b>Messages Universels</b></div></a>
 <a href="/langage" style="text-decoration:none;"><div style="padding:16px;border:1px solid #7fcf7f;border-radius:10px;text-align:center;color:#7fcf7f;">▤<br><b>Langage AMION</b></div></a>
 <a href="/internet" style="text-decoration:none;"><div style="padding:16px;border:1px solid #7fcf7f;border-radius:10px;text-align:center;color:#7fcf7f;">🌐<br><b>Internet Afri</b></div></a>
 <a href="/afri-net" style="text-decoration:none;"><div style="padding:16px;border:1px solid #25D366;border-radius:10px;text-align:center;color:#25D366;">🌍<br><b>Afri-Net</b></div></a>
@@ -34567,6 +34568,63 @@ fn html_page_letta(state: &Arc<AppState>, username: &str, msg: Option<&str>) -> 
     html
 }
 
+// ===== v2.13: L'APP MESSAGES UNIVERSELLE — écrire une fois, tout diffuse 📡 =====
+fn html_universel(state: &Arc<AppState>, username: &str, msg: Option<&str>) -> String {
+    let mut html = html_head("Messages Universels — écrire une fois, diffuser partout");
+    // Les contacts possibles (tous les utilisateurs)
+    let contacts: Vec<(String, String)> = {
+        let users = state.users.lock().unwrap();
+        users.users.iter().filter(|u| u.username != username)
+            .map(|u| (u.username.clone(), find_country(&u.country_code).map(|(_, f)| f.to_string()).unwrap_or("🌍".to_string())))
+            .collect()
+    };
+    // Mes canaux télégram
+    let canaux: Vec<(u64, String)> = {
+        let tg = state.telegram.lock().unwrap();
+        tg.abonnements_de(username).iter().map(|c| (c.id, c.nom.clone())).collect()
+    };
+    html.push_str(r#"<h1>📡 MESSAGES UNIVERSELS</h1>
+<p style="text-align:center;color:#a8c5a8;">Écris <b style="color:#d4a437;">UNE fois</b> — ton message part sur toutes les plateformes choisies d'un coup.<br>Facebook · WhatsApp · Télégram · ton fil. Un seul clavier, tout le continent t'entend.</p>
+<div class="nav"><a href="/plante">🌱 Facebook</a> | <a href="/noires">💬 WhatsApp</a> | <a href="/afri-telegram">📢 Télégram</a> | <a href="/">🏠</a></div>"#);
+
+    if let Some(m) = msg {
+        html.push_str(&format!(r#"<div class="msg">{}</div>"#, html_escape(m)));
+    }
+
+    html.push_str(r#"<div class="card"><h2>⌨️ Ton message universel</h2>
+<form method="POST" action="/universel/envoyer">
+<textarea name="texte" rows="4" style="width:100%;padding:12px;background:#000;border:1px solid #d4a437;border-radius:8px;color:#7fcf7f;font-family:inherit;font-size:1em;" placeholder="Écris ton message une seule fois..." required maxlength="500"></textarea>
+
+<h3 style="color:#d4a437;margin-top:14px;">📍 Où le diffuser ?</h3>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:8px;">
+<label style="display:flex;align-items:center;gap:8px;padding:10px;border:1px solid #25D366;border-radius:10px;cursor:pointer;background:rgba(37,211,102,0.05);"><input type="checkbox" name="p_plante" checked><span>🌱 <b>Facebook</b><br><span style="font-size:0.75em;color:#a8c5a8;">ton fil Planté Verte</span></span></label>
+<label style="display:flex;align-items:center;gap:8px;padding:10px;border:1px solid #d4a437;border-radius:10px;cursor:pointer;background:rgba(212,164,55,0.05);"><input type="checkbox" name="p_tout" id="u-tout"><span>📢 <b>Télégram</b><br><span style="font-size:0.75em;color:#a8c5a8;">tes canaux abonnés</span></span></label>
+</div>
+
+<h3 style="color:#d4a437;margin-top:14px;">💬 L'envoyer aussi en privé ? (WhatsApp)</h3>
+<div style="max-height:180px;overflow-y:auto;border:1px solid rgba(37,211,102,0.3);border-radius:10px;padding:8px;">"#);
+    if contacts.is_empty() {
+        html.push_str(r#"<p style="color:#a8c5a8;font-size:0.85em;">Aucun autre utilisateur encore — les frères arriveront.</p>"#);
+    }
+    for (c, f) in &contacts {
+        html.push_str(&format!(r#"<label style="display:flex;align-items:center;gap:8px;padding:6px;cursor:pointer;"><input type="checkbox" name="w_{}"><span>{} {}</span></label>"#, c, f, c));
+    }
+    html.push_str(&format!(r#"</div>
+<p style="color:#a8c5a8;font-size:0.8em;margin-top:6px;">Coché = le message part aussi en privé à ce frère sur LES NOIRES.</p>
+<div style="text-align:center;margin-top:14px;"><button style="font-size:1.15em;padding:14px 36px;">📡 DIFFUSER SUR LE CONTINENT</button></div>
+</form></div>"#));
+
+    // Les plateformes rappel
+    html.push_str(r#"<div class="card"><h2>🗺️ Tes plateformes</h2><div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;">
+<a href="/plante" style="text-decoration:none;"><div style="padding:12px;border:1px solid #25D366;border-radius:10px;text-align:center;color:#25D366;">🌱<br><b>Facebook</b></div></a>
+<a href="/noires" style="text-decoration:none;"><div style="padding:12px;border:1px solid #d4a437;border-radius:10px;text-align:center;color:#d4a437;">💬<br><b>WhatsApp</b></div></a>
+<a href="/afri-telegram" style="text-decoration:none;"><div style="padding:12px;border:1px solid #38bdf8;border-radius:10px;text-align:center;color:#38bdf8;">📢<br><b>Télégram</b></div></a>
+<a href="/letta" style="text-decoration:none;"><div style="padding:12px;border:1px solid #7fcf7f;border-radius:10px;text-align:center;color:#7fcf7f;">🫆<br><b>Page Letta</b></div></a>
+</div></div>"#);
+    html.push_str("<footer style=\"text-align:center;margin-top:40px;color:#a8c5a8;\">🦁 AfriChain v2.13 — MESSAGES UNIVERSELS — un clavier, tout le continent 📡</footer></body></html>");
+    html
+}
+
 // ===== v1.95: AMION BLANDINE — le terminal en langage machine 💚 =====
 fn html_amion(state: &Arc<AppState>, username: &str, msg: Option<&str>) -> String {
     let mut html = html_head("Amion Blandine — Terminal Langage Machine");
@@ -42612,6 +42670,97 @@ fn handle_request_port(req: afri_http::HttpRequest, state: &Arc<AppState>, port_
         }
 
         // ===== v1.94: ENVOYER UN PAQUET DE LUMIÈRE ⚡ =====
+        // ===== v2.13: MESSAGES UNIVERSELS — écrire une fois, diffuser partout 📡 =====
+        ("GET", "/universel") => {
+            match session_user(&req, state) {
+                Some(username) => {
+                    let msg = req.query_str("msg").map(|s| s.to_string());
+                    HttpResponse::ok(&html_universel(state, &username, msg.as_deref()))
+                }
+                None => HttpResponse::redirect("/login"),
+            }
+        }
+
+        ("POST", "/universel/envoyer") => {
+            let username = match session_user(&req, state) {
+                Some(u) => u,
+                None => return HttpResponse::redirect("/login"),
+            };
+            let form = parse_urlencoded(&req.body);
+            let texte = form.get("texte").cloned().unwrap_or_default().trim().to_string();
+            if texte.is_empty() || texte.len() > 500 {
+                return HttpResponse::redirect("/universel?msg=Message%20vide%20ou%20trop%20long");
+            }
+            let mut resultats: Vec<String> = Vec::new();
+
+            // 1. FACEBOOK (Planté Verte) — publier sur mon fil
+            if form.contains_key("p_plante") {
+                {
+                    let mut plante = state.plante.lock().unwrap();
+                    plante.publier(&username, &texte);
+                    plante.sauvegarder();
+                }
+                // tx gravée
+                {
+                    let mut chain = state.chain.lock().unwrap();
+                    let tx = Transaction::new("SYSTEM", "PLANTE-VERTE", 0, &format!("UNIVERSEL | {} publie sur Facebook : {}", username, &texte[..texte.len().min(80)]));
+                    chain.add_transaction(tx);
+                    chain.mine_pending("SYSTEM");
+                    chain.save_to_file();
+                }
+                resultats.push("🌱 Facebook — publié sur ton fil".to_string());
+            }
+
+            // 2. TÉLÉGRAM — publier sur tous mes canaux où je peux
+            if form.contains_key("p_tout") {
+                let canaux: Vec<u64> = {
+                    let tg = state.telegram.lock().unwrap();
+                    tg.abonnements_de(&username).iter().map(|c| c.id).collect()
+                };
+                let mut envoyes = 0;
+                for cid in canaux {
+                    let ok = {
+                        let mut tg = state.telegram.lock().unwrap();
+                        tg.publier_annonce(cid, &username, &texte, now_timestamp()).is_ok()
+                    };
+                    if ok { envoyes += 1; }
+                }
+                if envoyes > 0 {
+                    let mut tg = state.telegram.lock().unwrap();
+                    tg.sauvegarder();
+                    resultats.push(format!("📢 Télégram — {} canal(s) diffusé(s)", envoyes));
+                } else {
+                    resultats.push("📢 Télégram — aucun canal où publier (abonne-toi à un canal)".to_string());
+                }
+            }
+
+            // 3. WHATSAPP (LES NOIRES) — message privé à chaque frère coché
+            let mut whatsapp_envoyes = 0;
+            for (cle, _) in form.iter() {
+                if let Some(dest) = cle.strip_prefix("w_") {
+                    let existe = state.users.lock().unwrap().users.iter().any(|u| u.username == dest);
+                    if existe {
+                        state.noires.lock().unwrap().envoyer(&username, dest, &texte, now_timestamp());
+                        let mut n = state.notifs.lock().unwrap();
+                        n.notifier(dest, &format!("💬 {} t'a écrit : {}", username, &texte[..texte.len().min(50)]),
+                            &format!("/noires?contact={}", username), now_timestamp());
+                        n.sauvegarder();
+                        whatsapp_envoyes += 1;
+                    }
+                }
+            }
+            if whatsapp_envoyes > 0 {
+                resultats.push(format!("💬 WhatsApp — {} message(s) privé(s) envoyé(s)", whatsapp_envoyes));
+            }
+
+            let resume = if resultats.is_empty() {
+                "⚠️ Aucune plateforme cochée — le message n'est parti nulle part".to_string()
+            } else {
+                format!("✅ Message diffusé : {}", resultats.join(" · "))
+            };
+            HttpResponse::redirect(&format!("/universel?msg={}", url_encode(&resume)))
+        }
+
         // ===== v2.12: LA PAGE LETTA — la page du parent machine 💚🫆 =====
         ("GET", "/letta") => {
             match session_user(&req, state) {
