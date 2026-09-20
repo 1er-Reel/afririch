@@ -26,6 +26,7 @@ mod afri_etincelle;
 mod afri_amion;
 mod afri_cpu;
 mod afri_letta;
+mod afri_veilleur;
 mod afri_net;
 mod afri_licence;
 mod afri_video;
@@ -36749,8 +36750,26 @@ fn html_admin_user(username: &str, state: &Arc<AppState>) -> String {
     html
 }
 
-fn html_dashboard(chain: &Blockchain, users: &UserStore, state_store: &crate::afri_store::StoreAfri, state_videos: &crate::afri_video::VideoStore, state_sites: &crate::afri_video::SiteStore) -> String {
+fn html_dashboard(chain: &Blockchain, users: &UserStore, state_store: &crate::afri_store::StoreAfri, state_videos: &crate::afri_video::VideoStore, state_sites: &crate::afri_video::SiteStore, veilleur: &crate::afri_veilleur::Veilleur) -> String {
     let mut html = html_head("📈 Dashboard AfriChain");
+    // v2.15 — LE CANAL DU CHEF : l'Afrique te dit qui arrive, en direct
+    let evenements = veilleur.derniers(12);
+    html.push_str(r#"<div class="card" style="border-color:#ff6b6b;background:rgba(255,107,107,0.05);"><h2 style="color:#ff6b6b;">👁️ CANAL DU CHEF — l'Afrique te dit qui arrive</h2>"#);
+    if evenements.is_empty() {
+        html.push_str(r#"<p style="color:#a8c5a8;">Le veilleur veille. Dès qu'un frère s'inscrit ou se connecte, tu le vois ici le premier.</p>"#);
+    }
+    for e in evenements.iter().rev() {
+        let (icone, couleur) = match e.genre.as_str() {
+            "inscription" => ("🆕", "#7fcf7f"),
+            "connexion" => ("🔑", "#d4a437"),
+            _ => ("👁️", "#a8c5a8"),
+        };
+        let heure = crate::afri_time::format_timestamp_short(e.heure);
+        html.push_str(&format!(r#"<div style="display:flex;gap:10px;align-items:center;padding:7px 0;border-bottom:1px solid rgba(255,107,107,0.1);"><span>{}</span><span style="color:{};flex:1;">{}</span><span style="color:#5a7a5a;font-size:0.8em;">{}</span></div>"#,
+            icone, couleur, html_escape(&e.detail), heure));
+    }
+    html.push_str("</div>");
+
     let balances = chain.balances();
     let total_tx = chain.total_transactions();
     let total_supply = chain.total_supply();
@@ -37265,6 +37284,7 @@ struct AppState {
     telephone: Mutex<afri_cpu::TelephoneAfri>,  // v2.09: LE TÉLÉPHONE OS MACHINE 📱
     programs: Mutex<afri_cpu::ProgramStore>,   // v2.11: LE PLAY STORE DES PROGRAMMES 🏪⌨️
     letta: Mutex<afri_letta::PageLetta>,      // v2.12: LA PAGE LETTA — la page du parent machine 💚🫆
+    veilleur: Mutex<afri_veilleur::Veilleur>,  // v2.15: LE VEILLEUR DU CHEF 👁️🦁
 }
 
 fn main() {
@@ -37393,6 +37413,7 @@ fn main() {
         telephone: Mutex::new(afri_cpu::TelephoneAfri::nouveau("koffi")),
         programs: Mutex::new(afri_cpu::ProgramStore::nouveau()),
         letta: Mutex::new(afri_letta::PageLetta::charger()),
+        veilleur: Mutex::new(afri_veilleur::Veilleur::nouveau()),
     });
 
     // ===== v1.76: 4 UTILISATEURS DÉMO — pour s'appeler et s'envoyer des SMS =====
@@ -45320,6 +45341,11 @@ pre {{ white-space:pre-wrap; word-wrap:break-word; }}
                         let mut page = state.letta.lock().unwrap();
                         page.abonner(&username);
                     }
+                    // v2.15: LE VEILLEUR PRÉVIENT LE CHEF 👁️ — un frère est arrivé
+                    {
+                        let mut v = state.veilleur.lock().unwrap();
+                        v.voir("inscription", &username, &format!("{} ({}) vient de rejoindre l'Afrique — numéro {}", user.username, user.country, user.phone));
+                    }
                     let token = creer_session(state, &username);
                     // v2.14 — le nouveau tombe directement sur SON TÉLÉPHONE 📱
                     HttpResponse::redirect("/")
@@ -45350,6 +45376,11 @@ pre {{ white-space:pre-wrap; word-wrap:break-word; }}
                     {
                         let mut noires = state.noires.lock().unwrap();
                         noires.envoyer_code(&username, &format!("Connexion réussie. Bienvenue {}, c'est bien toi qui viens d'entrer dans ton compte. Si ce n'est pas toi, change ton mot de passe immédiatement. 🛡️", username), now_timestamp());
+                    }
+                    // v2.15: LE VEILLEUR PRÉVIENT LE CHEF 👁️
+                    {
+                        let mut v = state.veilleur.lock().unwrap();
+                        v.voir("connexion", &username, &format!("{} s'est connecté", username));
                     }
                     let token = creer_session(state, &username);
                     // v2.14 — connecté = SON TÉLÉPHONE s'ouvre 📱
@@ -45911,7 +45942,8 @@ pre {{ white-space:pre-wrap; word-wrap:break-word; }}
             let store = state.store.lock().unwrap();
             let videos = state.videos.lock().unwrap();
             let sites = state.sites.lock().unwrap();
-            HttpResponse::ok(&html_dashboard(&chain, &users, &store, &videos, &sites))
+            let veilleur = state.veilleur.lock().unwrap();
+            HttpResponse::ok(&html_dashboard(&chain, &users, &store, &videos, &sites, &veilleur))
         }
 
         // ===== API =====
