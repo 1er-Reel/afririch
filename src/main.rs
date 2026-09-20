@@ -24,6 +24,7 @@ mod afri_notifs;
 mod afri_store;
 mod afri_etincelle;
 mod afri_amion;
+mod afri_cpu;
 mod afri_net;
 mod afri_licence;
 mod afri_video;
@@ -1614,6 +1615,7 @@ fn html_home_user(username: &str, flag: &str, phone: &str, message_continent: Op
 <a href="/store" style="text-decoration:none;"><div style="padding:16px;border:1px solid #34A853;border-radius:10px;text-align:center;color:#34A853;">🏪<br><b>AFRI STORE (Play Store)</b></div></a>
 <a href="/etincelle" style="text-decoration:none;"><div style="padding:16px;border:1px solid #ff8c00;border-radius:10px;text-align:center;color:#ff8c00;">🔥<br><b>L'ÉTINCELLE</b></div></a>
 <a href="/amion" style="text-decoration:none;"><div style="padding:16px;border:1px solid #d4a437;border-radius:10px;text-align:center;color:#d4a437;">💚<br><b>Amion Blandine</b></div></a>
+<a href="/telephone" style="text-decoration:none;"><div style="padding:16px;border:1px solid #ff6b6b;border-radius:10px;text-align:center;color:#ff6b6b;">📱<br><b>Téléphone OS Machine</b></div></a>
 <a href="/langage" style="text-decoration:none;"><div style="padding:16px;border:1px solid #7fcf7f;border-radius:10px;text-align:center;color:#7fcf7f;">▤<br><b>Langage AMION</b></div></a>
 <a href="/internet" style="text-decoration:none;"><div style="padding:16px;border:1px solid #7fcf7f;border-radius:10px;text-align:center;color:#7fcf7f;">🌐<br><b>Internet Afri</b></div></a>
 <a href="/afri-net" style="text-decoration:none;"><div style="padding:16px;border:1px solid #25D366;border-radius:10px;text-align:center;color:#25D366;">🌍<br><b>Afri-Net</b></div></a>
@@ -34311,6 +34313,65 @@ function afriIconeB64(fichier){
     html
 }
 
+// ===== v2.09: LE TÉLÉPHONE OS MACHINE — le téléphone dont l'OS est le CPU AFRI 📱 =====
+fn html_telephone(state: &Arc<AppState>, username: &str) -> String {
+    let mut html = html_head("Téléphone OS Machine — CPU AFRI");
+    let (cycles, instructions, rejets, registres, trace, naissance) = {
+        let cpu = state.cpu.lock().unwrap();
+        (cpu.compteur_cycles, cpu.compteur_instructions, cpu.rejets, cpu.registres_texte(), cpu.trace.clone(), cpu.naissance)
+    };
+    let (batterie, apps_lancees, ecran) = {
+        let tel = state.telephone.lock().unwrap();
+        (tel.batterie, tel.apps_lancees, tel.ecran.clone())
+    };
+    let age = (crate::afri_time::now_timestamp().max(0) as u64).saturating_sub(naissance) / 60; // minutes de vie du CPU
+    let apps = afri_cpu::TelephoneAfri::apps();
+
+    html.push_str(&format!(r##"<h1>📱 TÉLÉPHONE OS MACHINE</h1>
+<p style="text-align:center;color:#a8c5a8;">Le téléphone de <b style="color:#d4a437;">{}</b> — son OS est le <b>CPU AFRI</b>, son langage est <b>AMION</b>, sa batterie est le <b>soleil ☀️</b>.<br>Il vit dans AfriChain — même si le téléphone physique meurt, ce téléphone continue de vivre.</p>
+<div class="nav"><a href="/amion">💚 Terminal AMION</a> | <a href="/account?user={}">👛 Mon compte</a></div>
+
+<div class="card" style="border-color:#ff4444;"><h2>🖥️ LE CPU AFRI — le processeur de notre internet</h2>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:10px;">
+<div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Cycles</div></div>
+<div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Instructions</div></div>
+<div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Rejets</div></div>
+<div class="stat-box"><div class="stat-num">{}</div><div class="stat-label">Minutes de vie</div></div>
+</div>
+<p style="color:#d4a437;font-family:monospace;font-size:0.9em;margin-top:10px;">REGISTRES : {}</p>
+<p style="color:#a8c5a8;font-size:0.85em;">Cycle d'instruction : <b style="color:#7fcf7f;">FETCH → DECODE → EXECUTE → WRITEBACK</b> — 4 cycles par commande. Le CPU veille en arrière-plan (battement toutes les 30s) et valide chaque commande AMION : rien ne tourne sans passer par lui.</p></div>
+
+<div class="card"><h2>🔋 Batterie solaire</h2>
+<div style="background:rgba(0,0,0,0.3);border-radius:8px;padding:4px;"><div style="background:linear-gradient(90deg,#ffaa00,#7fcf7f);border-radius:6px;height:26px;width:{}%;text-align:center;line-height:26px;color:#1a3d2e;font-weight:bold;">☀️ {}%</div></div>
+<p style="color:#a8c5a8;font-size:0.85em;">En Afrique, un téléphone ne tombe jamais à plat — le soleil le recharge. Apps ouvertes : <b>{}</b>.</p></div>
+
+<div class="card"><h2>📲 Les apps — des programmes AMION</h2>
+<p style="color:#a8c5a8;font-size:0.85em;">Chaque app est un programme machine. Appuie → le CPU décode → l'app s'ouvre.</p>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(100px,1fr));gap:12px;">"##,
+        username, username, cycles, instructions, rejets, age, registres, batterie, batterie, apps_lancees));
+
+    for app in &apps {
+        html.push_str(&format!(r#"<form method="POST" action="/telephone/app"><input type="hidden" name="app" value="{}"><button type="submit" style="background:rgba(0,0,0,0.3);border:1px solid {};border-radius:12px;padding:14px 6px;cursor:pointer;width:100%;"><div style="font-size:1.8em;">{}</div><div style="color:{};font-size:0.85em;">{}</div><div style="color:#a8c5a8;font-size:0.7em;">{}</div></button></form>"#,
+            url_encode(&app.nom), app.couleur, app.symbole, app.couleur, app.nom, app.commande));
+    }
+    html.push_str("</div></div>");
+
+    // La trace du CPU — les 50 derniers cycles
+    html.push_str(r#"<div class="card"><h2>📋 Trace du CPU — les derniers cycles</h2><div style="font-family:monospace;font-size:0.8em;max-height:300px;overflow-y:auto;">"#);
+    for t in trace.iter().rev() {
+        let couleur = if t.valide { "#7fcf7f" } else { "#cf7f7f" };
+        let icone = if t.valide { "✓" } else { "✗" };
+        html.push_str(&format!(r#"<div style="color:{};padding:3px 0;border-bottom:1px solid rgba(212,164,55,0.1);">cycle {} — {} {} {} <span style="color:#a8c5a8;">(de {})</span></div>"#,
+            couleur, t.cycle, icone, t.symbole, t.operation, t.de));
+    }
+    html.push_str("</div></div>");
+
+    // L'écran du téléphone
+    html.push_str(&format!(r#"<div class="card"><h2>📱 Écran</h2><div style="background:#000;border:2px solid #d4a437;border-radius:12px;padding:16px;font-family:monospace;color:#7fcf7f;min-height:60px;">{}</div></div>"#, html_escape(&ecran)));
+    html.push_str("<footer style=\"text-align:center;margin-top:40px;color:#a8c5a8;\">🦁 AfriChain v2.09 — TÉLÉPHONE OS MACHINE — l'Afrique dans ta main 📱</footer></body></html>");
+    html
+}
+
 // ===== v1.95: AMION BLANDINE — le terminal en langage machine 💚 =====
 fn html_amion(state: &Arc<AppState>, username: &str, msg: Option<&str>) -> String {
     let mut html = html_head("Amion Blandine — Terminal Langage Machine");
@@ -36947,6 +37008,8 @@ struct AppState {
     videos: Mutex<afri_video::VideoStore>,  // v2.01: AFRI VIDÉO 🎬
     sites: Mutex<afri_video::SiteStore>,    // v2.01: AFRI SITES 🏗️
     systemes: Mutex<afri_systemes::SystemeStore>,  // v2.05: PLAY STORE DES SYSTÈMES 🦁
+    cpu: Mutex<afri_cpu::CpuAfri>,              // v2.09: LE CPU AFRI — 8 registres, cycles FETCH→DECODE→EXECUTE→WRITEBACK 🖥️
+    telephone: Mutex<afri_cpu::TelephoneAfri>,  // v2.09: LE TÉLÉPHONE OS MACHINE 📱
 }
 
 fn main() {
@@ -37071,6 +37134,8 @@ fn main() {
         videos: Mutex::new(afri_video::VideoStore::load()),
         sites: Mutex::new(afri_video::SiteStore::load()),
         systemes: Mutex::new(afri_systemes::SystemeStore::load()),
+        cpu: Mutex::new(afri_cpu::CpuAfri::nouveau()),
+        telephone: Mutex::new(afri_cpu::TelephoneAfri::nouveau("koffi")),
     });
 
     // ===== v1.76: 4 UTILISATEURS DÉMO — pour s'appeler et s'envoyer des SMS =====
@@ -37351,6 +37416,26 @@ fn main() {
     });
     println!("👑 RACINE SECRÈTE — l'administration vit sur http://localhost:9090 — TOI SEUL");
     println!("🌿 Le peuple vit sur http://localhost:8080 — aucune page admin n'y existe");
+
+    // v2.09 — LE CPU AFRI VEILLE EN ARRIÈRE-PLAN 🖥️
+    // Toutes les 30 secondes : le CPU bat (4 cycles de veille) et lit le monde réel.
+    // Même quand personne ne parle, le processeur de notre internet tourne.
+    {
+        let cpu_state = web_state.clone();
+        thread::spawn(move || loop {
+            thread::sleep(Duration::from_secs(30));
+            let mut cpu = cpu_state.cpu.lock().unwrap();
+            cpu.battement();
+            // Le CPU lit la blockchain — ses registres reflètent le monde
+            let chain = cpu_state.chain.lock().unwrap();
+            let users = cpu_state.users.lock().unwrap();
+            let mesh = cpu_state.mesh.lock().unwrap();
+            let shield = cpu_state.shield.lock().unwrap();
+            let (attaques, _, _, _) = shield.stats();
+            cpu.lire_monde(chain.blocks.len() as i64, users.count() as i64, mesh.count() as i64, attaques as i64);
+        });
+        println!("🖥️ CPU AFRI en veille active — 8 registres, cycle FETCH→DECODE→EXECUTE→WRITEBACK, battement toutes les 30s");
+    }
 
 
     // Mode --web : serveur seul, sans terminal (pratique sur téléphone)
@@ -41152,6 +41237,7 @@ fn handle_request_port(req: afri_http::HttpRequest, state: &Arc<AppState>, port_
                     let barre = r#"<div class="card" style="border-color:#ff4444;background:rgba(255,68,68,0.08);"><h2 style="color:#ff6b6b;">👑 RACINE SECRÈTE — Le trône du Chef</h2><div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;">
 <a href="/dashboard" style="text-decoration:none;"><div style="padding:12px;border:1px solid #ff6b6b;border-radius:8px;text-align:center;color:#ff6b6b;">📊<br><b>Dashboard</b></div></a>
 <a href="/systemes" style="text-decoration:none;"><div style="padding:12px;border:1px solid #ff6b6b;border-radius:8px;text-align:center;color:#ff6b6b;">🖥️<br><b>Systèmes</b></div></a>
+<a href="/telephone" style="text-decoration:none;"><div style="padding:12px;border:1px solid #ff6b6b;border-radius:8px;text-align:center;color:#ff6b6b;">📱<br><b>Téléphone OS</b></div></a>
 <a href="/banque" style="text-decoration:none;"><div style="padding:12px;border:1px solid #ff6b6b;border-radius:8px;text-align:center;color:#ff6b6b;">🏦<br><b>Banque 54 Pays</b></div></a>
 <a href="/admin" style="text-decoration:none;"><div style="padding:12px;border:1px solid #ff6b6b;border-radius:8px;text-align:center;color:#ff6b6b;">⚙️<br><b>Admin Web</b></div></a>
 <a href="/dns" style="text-decoration:none;"><div style="padding:12px;border:1px solid #ff6b6b;border-radius:8px;text-align:center;color:#ff6b6b;">🌐<br><b>AfriDNS</b></div></a>
@@ -42327,6 +42413,73 @@ fn handle_request_port(req: afri_http::HttpRequest, state: &Arc<AppState>, port_
         }
 
         // ===== v1.94: ENVOYER UN PAQUET DE LUMIÈRE ⚡ =====
+        // ===== v2.09: LE TÉLÉPHONE OS MACHINE — le téléphone dont l'OS est le CPU 📱 =====
+        ("GET", "/telephone") => {
+            match session_user(&req, state) {
+                Some(username) => HttpResponse::ok(&html_telephone(state, &username)),
+                None => HttpResponse::redirect("/login"),
+            }
+        }
+
+        ("POST", "/telephone/app") => {
+            let username = match session_user(&req, state) {
+                Some(u) => u,
+                None => return HttpResponse::redirect("/login"),
+            };
+            let nom_app = parse_urlencoded(&req.body).get("app").cloned().unwrap_or_default();
+            let apps = afri_cpu::TelephoneAfri::apps();
+            match apps.iter().find(|a| a.nom == nom_app) {
+                Some(app) => {
+                    // Le CPU décode le programme de l'app — rien ne tourne sans lui
+                    let verdict = {
+                        let mut cpu = state.cpu.lock().unwrap();
+                        cpu.decoder(&app.commande, &username)
+                    };
+                    // Le téléphone ouvre l'app
+                    let message = {
+                        let mut tel = state.telephone.lock().unwrap();
+                        tel.ouvrir_app(app)
+                    };
+                    if verdict.valide {
+                        // L'app s'exécute vraiment via l'interpréteur AMION
+                        let (nb_blocs, nb_tx, afr_total, solde, pays, nb_users, address) = {
+                            let chain = state.chain.lock().unwrap();
+                            let users = state.users.lock().unwrap();
+                            let user = users.users.iter().find(|u| u.username == username);
+                            let address = user.map(|u| u.address.clone()).unwrap_or_default();
+                            let pays = user.map(|u| u.country.clone()).unwrap_or_default();
+                            let solde = if address.is_empty() { 0 } else { chain.balance_of(&address) };
+                            let afr: i64 = chain.blocks.iter().map(|b| b.transactions.iter().map(|t| t.amount as i64).sum::<i64>()).sum();
+                            (chain.blocks.len() as u64, chain.blocks.iter().map(|b| b.transactions.len()).sum::<usize>() as u64, afr, solde, pays, users.users.len() as u64, address)
+                        };
+                        let graines = {
+                            let lion = state.lion.lock().unwrap();
+                            lion.etats.get(&username).map(|e| e.graines as i64).unwrap_or(0)
+                        };
+                        let ctx = afri_amion::ContexteAmion { username: &username, address: &address, pays: &pays, nb_blocs, nb_tx, afr_total, solde, graines, nb_users };
+                        let resultat = afri_amion::executer(&app.commande, &ctx);
+                        let mut bloc_num: u64 = 0;
+                        if let Some(memo) = &resultat.tx_memo {
+                            let mut chain = state.chain.lock().unwrap();
+                            let tx = Transaction::new("SYSTEM", "AMION", 0, memo);
+                            chain.add_transaction(tx);
+                            chain.mine_pending("SYSTEM");
+                            chain.save_to_file();
+                            bloc_num = chain.blocks.last().map(|b| b.index).unwrap_or(0);
+                        }
+                        {
+                            let mut am = state.amion.lock().unwrap();
+                            am.ajouter(&username, &app.commande, &resultat.texte, bloc_num);
+                        }
+                        HttpResponse::redirect(&format!("/telephone?msg={}", url_encode(&format!("{} — {}", message, resultat.texte))))
+                    } else {
+                        HttpResponse::redirect(&format!("/telephone?msg={}", url_encode(&verdict.message)))
+                    }
+                }
+                None => HttpResponse::redirect("/telephone?msg=App%20inconnue"),
+            }
+        }
+
         // ===== v1.95: AMION BLANDINE — le terminal en langage machine 💚 =====
         ("GET", "/amion") => {
             match session_user(&req, state) {
@@ -42364,7 +42517,16 @@ fn handle_request_port(req: afri_http::HttpRequest, state: &Arc<AppState>, port_
                 nb_blocs, nb_tx, afr_total, solde, graines, nb_users,
             };
             let machine_code = afri_amion::traduire(&code);
-            let resultat = afri_amion::executer(&machine_code, &ctx);
+            // v2.09 — LE CPU VALIDE D'ABORD : FETCH → DECODE → EXECUTE → WRITEBACK
+            let verdict_cpu = {
+                let mut cpu = state.cpu.lock().unwrap();
+                cpu.decoder(&machine_code, &username)
+            };
+            let resultat = if verdict_cpu.valide {
+                afri_amion::executer(&machine_code, &ctx)
+            } else {
+                afri_amion::ResultatAmion { texte: verdict_cpu.message.clone(), tx_memo: None }
+            };
             let mut bloc_num: u64 = 0;
             // Si la commande grave une tx → vraie transaction SYSTEM→AMION minée
             if let Some(memo) = &resultat.tx_memo {
