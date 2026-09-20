@@ -41138,15 +41138,36 @@ fn handle_request_port(req: afri_http::HttpRequest, state: &Arc<AppState>, port_
     match (method, path) {
         // ===== HOME =====
         ("GET", "/") => {
-            // v1.64 — L'admin voit sa home complète (IA, carrousel, stats).
-            // Le visiteur ne voit que la vitrine publique — l'âme reste au créateur.
-            if req.cookie("afri_admin") == Some("1".to_string()) {
+            // v2.08 — LE PORT EST LE MOT DE PASSE : sur 9090 (la racine),
+            // le Chef voit TOUT sans cookie. Le port lui-même est la clé.
+            if port_admin || req.cookie("afri_admin") == Some("1".to_string()) {
                 let chain = state.chain.lock().unwrap();
                 let users = state.users.lock().unwrap();
                 let mesh = state.mesh.lock().unwrap();
                 let shield = state.shield.lock().unwrap();
                 let machines = state.machines.lock().unwrap();
-                HttpResponse::ok(&html_home(&chain, &users, &mesh, &shield, &machines))
+                let mut page = html_home(&chain, &users, &mesh, &shield, &machines);
+                // v2.08 — LA BARRE DU CHEF : tous les outils du pouvoir, visibles d'un clic
+                if port_admin {
+                    let barre = r#"<div class="card" style="border-color:#ff4444;background:rgba(255,68,68,0.08);"><h2 style="color:#ff6b6b;">👑 RACINE SECRÈTE — Le trône du Chef</h2><div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;">
+<a href="/dashboard" style="text-decoration:none;"><div style="padding:12px;border:1px solid #ff6b6b;border-radius:8px;text-align:center;color:#ff6b6b;">📊<br><b>Dashboard</b></div></a>
+<a href="/systemes" style="text-decoration:none;"><div style="padding:12px;border:1px solid #ff6b6b;border-radius:8px;text-align:center;color:#ff6b6b;">🖥️<br><b>Systèmes</b></div></a>
+<a href="/banque" style="text-decoration:none;"><div style="padding:12px;border:1px solid #ff6b6b;border-radius:8px;text-align:center;color:#ff6b6b;">🏦<br><b>Banque 54 Pays</b></div></a>
+<a href="/admin" style="text-decoration:none;"><div style="padding:12px;border:1px solid #ff6b6b;border-radius:8px;text-align:center;color:#ff6b6b;">⚙️<br><b>Admin Web</b></div></a>
+<a href="/dns" style="text-decoration:none;"><div style="padding:12px;border:1px solid #ff6b6b;border-radius:8px;text-align:center;color:#ff6b6b;">🌐<br><b>AfriDNS</b></div></a>
+<a href="/machine-os" style="text-decoration:none;"><div style="padding:12px;border:1px solid #ff6b6b;border-radius:8px;text-align:center;color:#ff6b6b;">💻<br><b>OS Machine</b></div></a>
+<a href="/commandement" style="text-decoration:none;"><div style="padding:12px;border:1px solid #ff6b6b;border-radius:8px;text-align:center;color:#ff6b6b;">🎖️<br><b>Commandement</b></div></a>
+<a href="/securite-ai" style="text-decoration:none;"><div style="padding:12px;border:1px solid #ff6b6b;border-radius:8px;text-align:center;color:#ff6b6b;">🛡️<br><b>Sécurité AI</b></div></a>
+<a href="/bouclier" style="text-decoration:none;"><div style="padding:12px;border:1px solid #ff6b6b;border-radius:8px;text-align:center;color:#ff6b6b;">🛡️<br><b>Bouclier X9</b></div></a>
+<a href="/base-militaire" style="text-decoration:none;"><div style="padding:12px;border:1px solid #ff6b6b;border-radius:8px;text-align:center;color:#ff6b6b;">🏰<br><b>Base Militaire</b></div></a>
+<a href="/etincelle-admin" style="text-decoration:none;"><div style="padding:12px;border:1px solid #ff6b6b;border-radius:8px;text-align:center;color:#ff6b6b;">🔥<br><b>Étincelle Admin</b></div></a>
+<a href="/api/status" style="text-decoration:none;"><div style="padding:12px;border:1px solid #ff6b6b;border-radius:8px;text-align:center;color:#ff6b6b;">🔌<br><b>API Status</b></div></a>
+</div><p style="color:#a8c5a8;font-size:0.85em;margin-top:10px;">🔒 Ce trône n'existe que sur le port 9090. Le peuple sur 8080 ne voit RIEN de tout ça.</p></div>"#;
+                    if let Some(pos) = page.find("</h1>") {
+                        page.insert_str(pos + 5, barre);
+                    }
+                }
+                HttpResponse::ok(&page)
             } else if let Some(username) = session_user(&req, state) {
                 // v1.76.1 — L'utilisateur connecté voit les services Planète Verte
                 // v1.76 — + le Message Continental du chef, gravé sur la chaîne
