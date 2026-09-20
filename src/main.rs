@@ -34372,6 +34372,45 @@ fn html_telephone(state: &Arc<AppState>, username: &str) -> String {
     html
 }
 
+// ===== v2.10: LE PROGRAMMEUR — écrire et exécuter ses programmes AMION ⌨️ =====
+fn html_programmeur(state: &Arc<AppState>, username: &str, code_pre: &str, sortie_pre: &str) -> String {
+    let mut html = html_head("Programmeur — Langage AMION");
+    let (cycles, instructions) = {
+        let cpu = state.cpu.lock().unwrap();
+        (cpu.compteur_cycles, cpu.compteur_instructions)
+    };
+    let exemple = if code_pre.is_empty() { afri_langage::programme_exemple().to_string() } else { code_pre.to_string() };
+    html.push_str(&format!(r##"<h1>⌨️ LE PROGRAMMEUR</h1>
+<p style="text-align:center;color:#a8c5a8;">Écris ton programme en <b style="color:#d4a437;">langage AMION</b> — le CPU AFRI l'exécute ligne par ligne ({} cycles, {} instructions).<br>Pas Python. Pas Java. Notre langage à nous.</p>
+<div class="nav"><a href="/telephone">📱 Téléphone OS</a> | <a href="/langage">▤ Langage AMION</a> | <a href="/amion">💚 Terminal</a></div>"##, cycles, instructions));
+
+    // Le code du programme
+    html.push_str(&format!(r#"<div class="card"><h2>▤ Ton programme</h2>
+<form method="POST" action="/programmeur/exec">
+<textarea name="code" rows="12" style="width:100%;background:#000;border:1px solid #d4a437;border-radius:8px;color:#7fcf7f;padding:12px;font-family:monospace;font-size:0.9em;">{}</textarea>
+<div style="text-align:center;margin-top:10px;"><button style="font-size:1.1em;padding:12px 30px;">▶️ EXÉCUTER sur le CPU AFRI</button></div>
+</form></div>"#, html_escape(&exemple)));
+
+    // La sortie
+    if !sortie_pre.is_empty() {
+        html.push_str(&format!(r#"<div class="card"><h2>▶️ Sortie du CPU</h2><div style="background:#000;border:1px solid #7fcf7f;border-radius:8px;padding:12px;font-family:monospace;color:#7fcf7f;white-space:pre-wrap;">{}</div></div>"#, html_escape(sortie_pre)));
+    }
+
+    // L'aide mémoire du langage
+    html.push_str(r#"<div class="card"><h2>📖 Aide-mémoire AMION</h2><div style="font-family:monospace;font-size:0.85em;color:#a8c5a8;line-height:1.7;">
+<b style="color:#d4a437;">SOIT</b> x = 5 — créer une variable<br>
+<b style="color:#d4a437;">DIRE</b> "texte {SOLDE()}" — afficher (variables entre accolades)<br>
+<b style="color:#d4a437;">SI</b> x > 3 <b style="color:#d4a437;">ALORS</b> ... <b style="color:#d4a437;">SINON</b> ... <b style="color:#d4a437;">FIN</b> — condition<br>
+<b style="color:#d4a437;">REPETE</b> 3 <b style="color:#d4a437;">FOIS</b> ... <b style="color:#d4a437;">FIN</b> — boucle<br>
+<b style="color:#d4a437;">ENVOIE("aisha", 5)</b> — vraie transaction AFR signée et gravée<br>
+<b style="color:#d4a437;">MINE</b> — forger un vrai bloc<br>
+Fonctions : <b>SOLDE() BLOCS() TX() AFR() AMES() GRAINES()</b><br>
+Opérations : + - * / et parenthèses
+</div></div>"#);
+    html.push_str("<footer style=\"text-align:center;margin-top:40px;color:#a8c5a8;\">🦁 AfriChain v2.10 — LE PROGRAMMEUR ⌨️</footer></body></html>");
+    html
+}
+
 // ===== v1.95: AMION BLANDINE — le terminal en langage machine 💚 =====
 fn html_amion(state: &Arc<AppState>, username: &str, msg: Option<&str>) -> String {
     let mut html = html_head("Amion Blandine — Terminal Langage Machine");
@@ -42413,6 +42452,102 @@ fn handle_request_port(req: afri_http::HttpRequest, state: &Arc<AppState>, port_
         }
 
         // ===== v1.94: ENVOYER UN PAQUET DE LUMIÈRE ⚡ =====
+        // ===== v2.10: LE PROGRAMMEUR — exécuter ses programmes AMION sur le CPU ⌨️ =====
+        ("GET", "/programmeur") => {
+            match session_user(&req, state) {
+                Some(username) => {
+                    let msg = req.query_str("msg").map(|s| s.to_string()).unwrap_or_default();
+                    HttpResponse::ok(&html_programmeur(state, &username, "", &msg))
+                }
+                None => HttpResponse::redirect("/login"),
+            }
+        }
+
+        ("POST", "/programmeur/exec") => {
+            let username = match session_user(&req, state) {
+                Some(u) => u,
+                None => return HttpResponse::redirect("/login"),
+            };
+            let code = parse_urlencoded(&req.body).get("code").cloned().unwrap_or_default();
+            // Le CPU décode le programme — chaque ligne = 4 cycles
+            let verdict = {
+                let mut cpu = state.cpu.lock().unwrap();
+                cpu.decoder("▤ EXE", &username)
+            };
+            // Contexte réel de la blockchain
+            let (solde, nb_blocs, nb_tx, afr_total, nb_users, graines) = {
+                let chain = state.chain.lock().unwrap();
+                let users = state.users.lock().unwrap();
+                let user = users.users.iter().find(|u| u.username == username);
+                let address = user.map(|u| u.address.clone()).unwrap_or_default();
+                let solde = if address.is_empty() { 0 } else { chain.balance_of(&address) };
+                let afr: i64 = chain.blocks.iter().map(|b| b.transactions.iter().map(|t| t.amount as i64).sum::<i64>()).sum();
+                (solde, chain.blocks.len() as i64, chain.blocks.iter().map(|b| b.transactions.len()).sum::<usize>() as i64, afr, users.users.len() as i64, 0)
+            };
+            let graines = {
+                let lion = state.lion.lock().unwrap();
+                lion.etats.get(&username).map(|e| e.graines as i64).unwrap_or(0)
+            };
+            let ctx = afri_langage::ContexteLangage { username: &username, solde, nb_blocs, nb_tx, afr_total, nb_users, graines };
+            let resultat = afri_langage::executer_programme(&code, &ctx);
+
+            // Les effets réels : transactions ENVOIE gravées + MINE
+            let mut effets = Vec::new();
+            for (dest, montant) in &resultat.tx_envoyees {
+                // vraie tx signée SYSTEM→dest via le flux standard
+                let ok = {
+                    let chain = state.chain.lock().unwrap();
+                    let users = state.users.lock().unwrap();
+                    let user = users.users.iter().find(|u| u.username == username);
+                    let address = user.map(|u| u.address.clone()).unwrap_or_default();
+                    let dest_addr = users.users.iter().find(|u| u.username == *dest).map(|u| u.address.clone());
+                    if address.is_empty() || dest_addr.is_none() { false }
+                    else {
+                        let solde_now = chain.balance_of(&address);
+                        solde_now >= *montant
+                    }
+                };
+                if ok {
+                    let dest_addr = {
+                        let users = state.users.lock().unwrap();
+                        users.users.iter().find(|u| u.username == *dest).map(|u| u.address.clone())
+                    };
+                    match dest_addr {
+                        Some(adresse_dest) => {
+                            match plante_payer_to(state, &username, &adresse_dest, *montant, &format!("AMION-PROGRAMME | {}", username)) {
+                                Ok(_) => effets.push(format!("✅ {} AFR envoyés à {} — signés et gravés", montant, dest)),
+                                Err(e) => effets.push(format!("❌ Envoi à {} : {}", dest, e)),
+                            }
+                        }
+                        None => effets.push(format!("❌ Destinataire {} introuvable", dest)),
+                    }
+                } else {
+                    effets.push(format!("❌ Envoi à {} refusé — solde insuffisant ou destinataire inconnu", dest));
+                }
+            }
+            if resultat.mine {
+                let mut chain = state.chain.lock().unwrap();
+                chain.mine_pending("AMION-PROGRAMME");
+                chain.save_to_file();
+                let bloc = chain.blocks.last().map(|b| b.index).unwrap_or(0);
+                effets.push(format!("⛏️ Bloc {} forgé par ton programme", bloc));
+            }
+
+            // Construire la sortie complète
+            let mut sortie = String::new();
+            for ligne in &resultat.sortie { sortie.push_str(ligne); sortie.push('\n'); }
+            if let Some(err) = &resultat.erreur { sortie.push_str(&format!("❌ {}\n", err)); }
+            for e in &effets { sortie.push_str(e); sortie.push('\n'); }
+            if verdict.valide && sortie.is_empty() { sortie.push_str("(programme exécuté — aucune sortie)"); }
+
+            // Persister dans amion.json
+            {
+                let mut am = state.amion.lock().unwrap();
+                am.ajouter(&username, "▤ EXE PROGRAMME", &sortie.lines().take(3).collect::<Vec<&str>>().join(" "), 0);
+            }
+            HttpResponse::ok(&html_programmeur(state, &username, &code, &sortie))
+        }
+
         // ===== v2.09: LE TÉLÉPHONE OS MACHINE — le téléphone dont l'OS est le CPU 📱 =====
         ("GET", "/telephone") => {
             match session_user(&req, state) {
@@ -42428,6 +42563,10 @@ fn handle_request_port(req: afri_http::HttpRequest, state: &Arc<AppState>, port_
             };
             let nom_app = parse_urlencoded(&req.body).get("app").cloned().unwrap_or_default();
             let apps = afri_cpu::TelephoneAfri::apps();
+            // v2.10 — l'app Programmeur ouvre l'éditeur de programmes AMION
+            if nom_app == "Programmeur" {
+                HttpResponse::redirect("/programmeur")
+            } else {
             match apps.iter().find(|a| a.nom == nom_app) {
                 Some(app) => {
                     // Le CPU décode le programme de l'app — rien ne tourne sans lui
@@ -42477,6 +42616,8 @@ fn handle_request_port(req: afri_http::HttpRequest, state: &Arc<AppState>, port_
                     }
                 }
                 None => HttpResponse::redirect("/telephone?msg=App%20inconnue"),
+                _ => HttpResponse::redirect("/telephone?msg=App%20inconnue"),
+            }
             }
         }
 

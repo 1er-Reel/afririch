@@ -270,6 +270,7 @@ impl TelephoneAfri {
             AppTelephone { nom: "Conscience".into(), symbole: "◉".into(), commande: "◉ EVL".into(), couleur: "#c792ea".into() },
             AppTelephone { nom: "Internet".into(), symbole: "🌐".into(), commande: "⊕ NET".into(), couleur: "#38bdf8".into() },
             AppTelephone { nom: "Mémoire".into(), symbole: "▣".into(), commande: "▣ SCN".into(), couleur: "#a8c5a8".into() },
+            AppTelephone { nom: "Programmeur".into(), symbole: "⌨️".into(), commande: "▤ EXE".into(), couleur: "#e8b547".into() },
             AppTelephone { nom: "Amion".into(), symbole: "💚".into(), commande: "AMION".into(), couleur: "#25d366".into() },
         ]
     }
