@@ -45321,7 +45321,8 @@ pre {{ white-space:pre-wrap; word-wrap:break-word; }}
                         page.abonner(&username);
                     }
                     let token = creer_session(state, &username);
-                    HttpResponse::redirect(&format!("/account?user={}", username))
+                    // v2.14 — le nouveau tombe directement sur SON TÉLÉPHONE 📱
+                    HttpResponse::redirect("/")
                         .set_cookie("afri_session", &token, 86400)
                 }
                 Err(e) => HttpResponse::redirect(&format!("/register?err={}", e)),
@@ -45351,7 +45352,8 @@ pre {{ white-space:pre-wrap; word-wrap:break-word; }}
                         noires.envoyer_code(&username, &format!("Connexion réussie. Bienvenue {}, c'est bien toi qui viens d'entrer dans ton compte. Si ce n'est pas toi, change ton mot de passe immédiatement. 🛡️", username), now_timestamp());
                     }
                     let token = creer_session(state, &username);
-                    HttpResponse::redirect(&format!("/account?user={}", username))
+                    // v2.14 — connecté = SON TÉLÉPHONE s'ouvre 📱
+                    HttpResponse::redirect("/")
                         .set_cookie("afri_session", &token, 86400)
                 }
                 None => {
