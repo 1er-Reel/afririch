@@ -67,7 +67,6 @@ fn main() {
     println!("{}", "─".repeat(50));
 
     let noeuds: Arc<Mutex<Vec<Noeud>>> = Arc::new(Mutex::new(Vec::new()));
-    let messages_recus: Arc<Mutex<Vec<String>>> = Arc::new(Mutex::new(Vec::new()));
     // v2.0 — les messages déjà vus (anti-doublon) et le compteur d'IDs
     let vus: Arc<Mutex<HashSet<String>>> = Arc::new(Mutex::new(HashSet::new()));
     let compteur_id: Arc<Mutex<u64>> = Arc::new(Mutex::new(0));
