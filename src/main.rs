@@ -1430,9 +1430,25 @@ fn tcp_relay(state: Arc<AppState>, port: u16) {
                         "tx" => {
                             if let Some(tx) = from_str(&msg.payload).ok().and_then(|v| Transaction::from_json(&v)) {
                                 let mut chain = state.chain.lock().unwrap();
-                                chain.add_transaction(tx);
-                                chain.save_to_file();
-                                println!("💸 Transaction reçue via mesh et sauvegardée");
+                                // v2.19 — LA PREUVE DU FRÈRE VIA MESH : la tx reçue d'un
+                                // autre serveur est minée TOUT DE SUITE. Le destinataire
+                                // voit son argent immédiatement, même si l'expéditeur vit
+                                // sur un autre serveur de l'Afrique.
+                                let memo = tx.memo.clone();
+                                let deja = chain.blocks.iter().any(|b| b.transactions.iter().any(|t| t.signature == tx.signature && t.timestamp == tx.timestamp));
+                                if !deja {
+                                    chain.add_transaction(tx);
+                                    chain.mine_pending("MESH");
+                                    chain.save_to_file();
+                                    let bloc = chain.blocks.last().map(|b| b.index).unwrap_or(0);
+                                    drop(chain);
+                                    // Le veilleur prévient le Chef 👁️
+                                    {
+                                        let mut v = state.veilleur.lock().unwrap();
+                                        v.voir("transaction", "MESH", &format!("💸 tx reçue via mesh et minée au bloc #{} ({})", bloc, &memo[..memo.len().min(50)]));
+                                    }
+                                    println!("💸 Transaction reçue via mesh, minée au bloc {} — Preuve du Frère", bloc);
+                                }
                             }
                         }
                         "ping" => {
