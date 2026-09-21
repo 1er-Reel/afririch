@@ -37810,6 +37810,41 @@ fn main() {
         println!("🖥️ CPU AFRI en veille active — 8 registres, cycle FETCH→DECODE→EXECUTE→WRITEBACK, battement toutes les 30s");
     }
 
+    // v2.22 — LA PAGE LETTA PARLE TOUTE SEULE 🫆
+    // Toutes les 6 heures : 3 messages intelligents publiés et gravés sur la blockchain,
+    // même si personne ne visite. La voix du système parle d'elle-même.
+    {
+        let letta_state = web_state.clone();
+        thread::spawn(move || {
+            // Premier message 2 minutes après le démarrage
+            thread::sleep(Duration::from_secs(120));
+            loop {
+                {
+                    let (nb_blocs, nb_users) = {
+                        let chain = letta_state.chain.lock().unwrap();
+                        let users = letta_state.users.lock().unwrap();
+                        (chain.blocks.len() as u64, users.users.len() as u64)
+                    };
+                    let mut page = letta_state.letta.lock().unwrap();
+                    let nouveaux = page.generer_trois(nb_blocs, nb_users);
+                    // Graver chaque message sur la blockchain — la voix du système est immortelle
+                    let mut chain = letta_state.chain.lock().unwrap();
+                    for m in &nouveaux {
+                        let extrait: String = m.texte.chars().take(80).collect();
+                        let tx = Transaction::new("SYSTEM", "LETTA", 0, &format!("LETTA | {}", extrait));
+                        chain.add_transaction(tx);
+                    }
+                    chain.mine_pending("LETTA");
+                    chain.save_to_file();
+                    println!("🫆 Letta a publié 3 messages pour le continent — gravés sur la blockchain");
+                }
+                // Toutes les 6 heures
+                thread::sleep(Duration::from_secs(6 * 3600));
+            }
+        });
+        println!("🫆 Page Letta autonome — 3 messages toutes les 6 heures, gravés sur la chaîne");
+    }
+
 
     // Mode --web : serveur seul, sans terminal (pratique sur téléphone)
     if std::env::args().any(|a| a == "--web") {

@@ -1,9 +1,9 @@
-🌿 ADRESSE PUBLIQUE AFRICHAIN 🌍
+ADRESSE PUBLIQUE AFRICHAIN
 ================================
 
-  https://easter-driver-moments-paste.trycloudflare.com
+  https://layer-educational-honest-stamps.trycloudflare.com
 
-(Mise à jour automatique par le gardien du tunnel.
-Si l'adresse ne marche plus :
+(Mise a jour automatique par le gardien du tunnel.
+Si l adresse ne marche plus :
   cd ~/afririch && git pull && cat adresse.txt
-La nouvelle adresse sera déjà là. 💚)
+La nouvelle adresse sera deja la.)
