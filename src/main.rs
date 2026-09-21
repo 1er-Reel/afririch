@@ -31,6 +31,7 @@ mod afri_net;
 mod afri_licence;
 mod afri_video;
 mod afri_tube; // v2.18: AFRITUBE 📺✈️ — YouTube en mode avion
+mod afri_portail; // v2.22: LE PORTAIL DU CONTINENT 🚪🌍
 mod afri_systemes;
 mod afri_langage;
 mod afri_telegram;
@@ -37368,6 +37369,7 @@ struct AppState {
     videos: Mutex<afri_video::VideoStore>,  // v2.01: AFRI VIDÉO 🎬
     sites: Mutex<afri_video::SiteStore>,    // v2.01: AFRI SITES 🏗️
     tube: Mutex<afri_tube::TubeStore>,     // v2.18: AFRITUBE 📺✈️
+    portail: Mutex<afri_portail::PortailStore>, // v2.22: LE PORTAIL 🚪🌍
     systemes: Mutex<afri_systemes::SystemeStore>,  // v2.05: PLAY STORE DES SYSTÈMES 🦁
     cpu: Mutex<afri_cpu::CpuAfri>,              // v2.09: LE CPU AFRI — 8 registres, cycles FETCH→DECODE→EXECUTE→WRITEBACK 🖥️
     telephone: Mutex<afri_cpu::TelephoneAfri>,  // v2.09: LE TÉLÉPHONE OS MACHINE 📱
@@ -37498,6 +37500,7 @@ fn main() {
         videos: Mutex::new(afri_video::VideoStore::load()),
         sites: Mutex::new(afri_video::SiteStore::load()),
         tube: Mutex::new(afri_tube::TubeStore::load()), // v2.18: AFRITUBE
+        portail: Mutex::new(afri_portail::PortailStore::load()), // v2.22: LE PORTAIL
         systemes: Mutex::new(afri_systemes::SystemeStore::load()),
         cpu: Mutex::new(afri_cpu::CpuAfri::nouveau()),
         telephone: Mutex::new(afri_cpu::TelephoneAfri::nouveau("koffi")),
@@ -37764,6 +37767,7 @@ fn main() {
     afri_net::lancer_net(std::sync::Arc::clone(&state), afri_net::NET_PORT_DEFAUT);
     println!("🌐 AfriDNS — les noms de l'Afrique, résolus par l'Afrique. 💚");
     println!("📺 AFRITUBE v2.18 — YouTube en mode avion : la chaîne stocke l'empreinte, le village garde les vidéos. ✈️");
+    println!("🚪 PORTAIL DU CONTINENT v2.22 — les câbles occidentaux dorment sur notre terre. L'Afrique décide ce qui passe. 🦁");
 
     // Serveur HTTP en arrière-plan (pour mesh + autres utilisateurs)
     let serve_state = web_state.clone();
@@ -42768,6 +42772,76 @@ fn handle_request_port(req: afri_http::HttpRequest, state: &Arc<AppState>, port_
             let id: u64 = form.get("id").and_then(|x| x.parse().ok()).unwrap_or(0);
             state.tube.lock().unwrap().voir(id);
             HttpResponse::redirect("/afritube")
+        }
+
+        // ===== v2.22: LE PORTAIL DU CONTINENT 🚪🌍 =====
+        ("GET", "/portail") => {
+            let msg = req.query_str("msg").map(|x| x.to_string());
+            let portail = state.portail.lock().unwrap();
+            let dns = state.dns.lock().unwrap();
+            HttpResponse::ok(&portail.html_page(&dns, msg.as_deref()))
+        }
+        ("POST", "/portail/negocier") => {
+            // L'Afrique négocie avec l'Occident — admin seul décide
+            if req.cookie("afri_admin") != Some("1".to_string()) {
+                return HttpResponse::redirect("/admin?err=Seul+le+Chef+negocie+avec+l+Occident");
+            }
+            let form = parse_urlencoded(&req.body);
+            let domaine = form.get("domaine").cloned().unwrap_or_default();
+            let ip = form.get("ip").cloned().unwrap_or_default();
+            let tarif: u64 = form.get("tarif").and_then(|x| x.parse().ok()).unwrap_or(0);
+            if domaine.trim().is_empty() || domaine.contains("..") {
+                return HttpResponse::redirect("/portail?msg=Domaine+invalide");
+            }
+            let mut portail = state.portail.lock().unwrap();
+            // Le bloc où la négociation est gravée
+            let mut chain = state.chain.lock().unwrap();
+            let bloc = chain.blocks.len() as u64;
+            portail.negocier(domaine.trim(), ip.trim(), tarif, bloc);
+            let memo = format!("PORTAIL | Le Chef negocie avec {} — {} AFR/mois pour traverser le continent", domaine.trim(), tarif);
+            let tx = Transaction::new("SYSTEM", "PORTAIL", 0, &memo);
+            chain.add_transaction(tx);
+            chain.mine_pending("AFRICHAIN");
+            chain.save_to_file();
+            drop(chain);
+            drop(portail);
+            HttpResponse::redirect("/portail?msg=Negociation+gravee+sur+la+blockchain")
+        }
+        ("POST", "/portail/ouvrir") => {
+            if req.cookie("afri_admin") != Some("1".to_string()) {
+                return HttpResponse::redirect("/admin?err=Seul+le+Chef+ouvre+les+portes");
+            }
+            let form = parse_urlencoded(&req.body);
+            let domaine = form.get("domaine").cloned().unwrap_or_default();
+            let mut portail = state.portail.lock().unwrap();
+            portail.activer(&domaine);
+            let mut chain = state.chain.lock().unwrap();
+            let memo = format!("PORTAIL | Le Chef OUVRE la porte a {} — l'Afrique accepte le paiement", domaine);
+            let tx = Transaction::new("SYSTEM", "PORTAIL", 0, &memo);
+            chain.add_transaction(tx);
+            chain.mine_pending("AFRICHAIN");
+            chain.save_to_file();
+            drop(chain);
+            drop(portail);
+            HttpResponse::redirect("/portail?msg=Porte+ouverte+—+gravee")
+        }
+        ("POST", "/portail/fermer") => {
+            if req.cookie("afri_admin") != Some("1".to_string()) {
+                return HttpResponse::redirect("/admin?err=Seul+le+Chef+ferme+les+portes");
+            }
+            let form = parse_urlencoded(&req.body);
+            let domaine = form.get("domaine").cloned().unwrap_or_default();
+            let mut portail = state.portail.lock().unwrap();
+            portail.desactiver(&domaine);
+            let mut chain = state.chain.lock().unwrap();
+            let memo = format!("PORTAIL | Le Chef FERME la porte a {} — le cable dort sur notre terre sans payer", domaine);
+            let tx = Transaction::new("SYSTEM", "PORTAIL", 0, &memo);
+            chain.add_transaction(tx);
+            chain.mine_pending("AFRICHAIN");
+            chain.save_to_file();
+            drop(chain);
+            drop(portail);
+            HttpResponse::redirect("/portail?msg=Porte+fermee+—+gravee")
         }
         // API publique du tube : les voisins interrogent la chaîne des empreintes
         ("GET", "/api/afritube") => {
