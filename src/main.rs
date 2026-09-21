@@ -1444,6 +1444,42 @@ fn tcp_relay(state: Arc<AppState>, port: u16) {
                                 mesh.add_directory_entry(entry);
                             }
                         }
+                        // v2.18 — LE MESH VIVANT : un message LES NOIRES arrive d'un autre serveur africain
+                        "noires" => {
+                            // Format : de|a|texte
+                            let parties: Vec<&str> = msg.payload.splitn(3, '|').collect();
+                            if parties.len() == 3 {
+                                let (de, a, texte) = (parties[0].to_string(), parties[1].to_string(), parties[2].to_string());
+                                // Collecter les pairs pour le relais AVANT de lâcher le verrou
+                                let pairs_relay: Vec<String> = mesh.nodes.values().map(|n| n.address.clone()).collect();
+                                let mon_id = mesh.my_id.clone();
+                                drop(mesh);
+                                state.noires.lock().unwrap().envoyer(&de, &a, &texte, now_timestamp());
+                                // La cloche sonne pour le destinataire 🔔
+                                {
+                                    let mut n = state.notifs.lock().unwrap();
+                                    n.notifier(&a, &format!("💬 {} t'a écrit (via mesh) : {}", de, &texte[..texte.len().min(50)]),
+                                        &format!("/noires?contact={}", de), now_timestamp());
+                                    n.sauvegarder();
+                                }
+                                println!("💬 Message LES NOIRES reçu via mesh : {} → {}", de, a);
+                                // Relayer aux autres serveurs (le message continue son voyage)
+                                if msg.ttl > 0 {
+                                    let mut relay = msg.clone();
+                                    relay.ttl -= 1;
+                                    relay.node_id = mon_id;
+                                    let bytes = relay.to_bytes();
+                                    for addr in pairs_relay {
+                                        if let Ok(parsed) = addr.parse::<SocketAddr>() {
+                                            if let Ok(mut s) = TcpStream::connect_timeout(&parsed, Duration::from_secs(2)) {
+                                                let _ = s.write_all(&bytes);
+                                            }
+                                        }
+                                    }
+                                }
+                                return;
+                            }
+                        }
                         _ => {}
                     }
 
@@ -44670,6 +44706,9 @@ fn handle_request_port(req: afri_http::HttpRequest, state: &Arc<AppState>, port_
                     &format!("/noires?contact={}", session), now_timestamp());
                 n.sauvegarder();
             }
+            // v2.18 — LE MESH VIVANT : le message part aussi vers les AUTRES serveurs
+            // d'Afrique. Si le destinataire vit sur un autre serveur, il le reçoit là-bas.
+            broadcast_mesh(&*state, "noires", &format!("{}|{}|{}", session, a, texte));
             HttpResponse::redirect(&format!("/noires?contact={}", a))
         }
 
