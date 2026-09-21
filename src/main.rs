@@ -1587,6 +1587,19 @@ function afriCorrige(q){
   }
   return q;
 }
+// v2.21 — LA CLOCHE VIT 🔔 : toutes les 15s, on vérifie les notifications en silence.
+// S'il y en a des nouvelles, la page se recharge toute seule → le frère voit la cloche rouge
+// sans rien toucher. Seulement si l'écran est visible (données protégées).
+(function(){
+  var dernierNb = null;
+  setInterval(function(){
+    if(document.visibilityState!=='visible'){return;}
+    fetch('/api/notifs/nombre').then(function(r){return r.json();}).then(function(d){
+      if(dernierNb!==null && d.nb>dernierNb){location.reload();}
+      dernierNb=d.nb;
+    }).catch(function(){});
+  },15000);
+})();
 // v1.78 — Le clavier ne cache plus le champ: la fenêtre remonte au-dessus du clavier
 if(window.visualViewport){
   var afriVV=window.visualViewport;
@@ -42854,6 +42867,20 @@ fn handle_request_port(req: afri_http::HttpRequest, state: &Arc<AppState>, port_
         }
 
         // ===== v1.94: ENVOYER UN PAQUET DE LUMIÈRE ⚡ =====
+        // ===== v2.21: API NOTIFS — la cloche vivante interroge en silence 🔔 =====
+        ("GET", "/api/notifs/nombre") => {
+            match session_user(&req, state) {
+                Some(username) => {
+                    let nb = {
+                        let n = state.notifs.lock().unwrap();
+                        n.notifs_de(&username).iter().filter(|x| !x.lu).count()
+                    };
+                    HttpResponse::ok(&format!("{{\"nb\":{}}}", nb))
+                }
+                None => HttpResponse::ok("{\"nb\":0}"),
+            }
+        }
+
         // ===== v2.13: MESSAGES UNIVERSELS — écrire une fois, diffuser partout 📡 =====
         ("GET", "/universel") => {
             match session_user(&req, state) {
