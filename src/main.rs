@@ -36826,7 +36826,7 @@ fn html_dashboard(chain: &Blockchain, users: &UserStore, state_store: &crate::af
     let mut html = html_head("📈 Dashboard AfriChain");
     // v2.15 — LE CANAL DU CHEF : l'Afrique te dit qui arrive, en direct
     let evenements = veilleur.derniers(12);
-    html.push_str(r#"<div class="card" style="border-color:#ff6b6b;background:rgba(255,107,107,0.05);"><h2 style="color:#ff6b6b;">👁️ CANAL DU CHEF — l'Afrique te dit qui arrive</h2>"#);
+    html.push_str(r#"<div class="card" style="border-color:#ff6b6b;background:rgba(255,107,107,0.05);"><h2 style="color:#ff6b6b;">👁️ CANAL DU CHEF — l'Afrique te dit qui arrive <span style="font-size:0.6em;color:#a8c5a8;">(se rafraîchit tout seul)</span></h2>"#);
     if evenements.is_empty() {
         html.push_str(r#"<p style="color:#a8c5a8;">Le veilleur veille. Dès qu'un frère s'inscrit ou se connecte, tu le vois ici le premier.</p>"#);
     }
@@ -36842,6 +36842,8 @@ fn html_dashboard(chain: &Blockchain, users: &UserStore, state_store: &crate::af
             icone, couleur, html_escape(&e.detail), heure));
     }
     html.push_str("</div>");
+    // v2.20 — le canal se rafraîchit tout seul toutes les 10s : le Chef regarde, l'Afrique parle
+    html.push_str(r#"<script>setInterval(function(){if(document.visibilityState==='visible'){location.reload();}},10000);</script>"#);
 
     let balances = chain.balances();
     let total_tx = chain.total_transactions();
