@@ -30,6 +30,7 @@ mod afri_veilleur;
 mod afri_net;
 mod afri_licence;
 mod afri_video;
+mod afri_tube; // v2.18: AFRITUBE 📺✈️ — YouTube en mode avion
 mod afri_systemes;
 mod afri_langage;
 mod afri_telegram;
@@ -1719,6 +1720,7 @@ fn html_home_user(username: &str, flag: &str, phone: &str, message_continent: Op
 <a href="/sahara" style="text-decoration:none;"><div style="padding:16px;border:1px solid #f59e0b;border-radius:10px;text-align:center;color:#f59e0b;">🔍<br><b>SAHARA (Google)</b></div></a>
 <a href="/afri-telegram" style="text-decoration:none;"><div style="padding:16px;border:1px solid #38bdf8;border-radius:10px;text-align:center;color:#38bdf8;">📢<br><b>Afri Télégram</b></div></a>
 <a href="/video" style="text-decoration:none;"><div style="padding:16px;border:1px solid #cf7f7f;border-radius:10px;text-align:center;color:#cf7f7f;">🎬<br><b>Afri Vidéo (YouTube)</b></div></a>
+<a href="/afritube" style="text-decoration:none;"><div style="padding:16px;border:1px solid #38bdf8;border-radius:10px;text-align:center;color:#38bdf8;">📺<br><b>AfriTube (Mode Avion)</b></div></a>
 <a href="/sites" style="text-decoration:none;"><div style="padding:16px;border:1px solid #7ec97e;border-radius:10px;text-align:center;color:#7ec97e;">🏗️<br><b>Afri Sites</b></div></a>
 <a href="/sceau" style="text-decoration:none;"><div style="padding:16px;border:1px solid #d4a437;border-radius:10px;text-align:center;color:#d4a437;">◈<br><b>Le Sceau</b></div></a>
 </div></div>
@@ -37334,6 +37336,7 @@ struct AppState {
     net: Mutex<afri_net::NetStore>,  // v1.97: L'INTERNET AFRI — notre internet machine 🌐◈⬡
     videos: Mutex<afri_video::VideoStore>,  // v2.01: AFRI VIDÉO 🎬
     sites: Mutex<afri_video::SiteStore>,    // v2.01: AFRI SITES 🏗️
+    tube: Mutex<afri_tube::TubeStore>,     // v2.18: AFRITUBE 📺✈️
     systemes: Mutex<afri_systemes::SystemeStore>,  // v2.05: PLAY STORE DES SYSTÈMES 🦁
     cpu: Mutex<afri_cpu::CpuAfri>,              // v2.09: LE CPU AFRI — 8 registres, cycles FETCH→DECODE→EXECUTE→WRITEBACK 🖥️
     telephone: Mutex<afri_cpu::TelephoneAfri>,  // v2.09: LE TÉLÉPHONE OS MACHINE 📱
@@ -37463,6 +37466,7 @@ fn main() {
         net: Mutex::new(afri_net::NetStore::load()),
         videos: Mutex::new(afri_video::VideoStore::load()),
         sites: Mutex::new(afri_video::SiteStore::load()),
+        tube: Mutex::new(afri_tube::TubeStore::load()), // v2.18: AFRITUBE
         systemes: Mutex::new(afri_systemes::SystemeStore::load()),
         cpu: Mutex::new(afri_cpu::CpuAfri::nouveau()),
         telephone: Mutex::new(afri_cpu::TelephoneAfri::nouveau("koffi")),
@@ -37728,6 +37732,7 @@ fn main() {
     // v1.97 — L'INTERNET AFRI : notre serveur machine, protocole ◈⬡◉⬔▤⟠⬠
     afri_net::lancer_net(std::sync::Arc::clone(&state), afri_net::NET_PORT_DEFAUT);
     println!("🌐 AfriDNS — les noms de l'Afrique, résolus par l'Afrique. 💚");
+    println!("📺 AFRITUBE v2.18 — YouTube en mode avion : la chaîne stocke l'empreinte, le village garde les vidéos. ✈️");
 
     // Serveur HTTP en arrière-plan (pour mesh + autres utilisateurs)
     let serve_state = web_state.clone();
@@ -42671,6 +42676,91 @@ fn handle_request_port(req: afri_http::HttpRequest, state: &Arc<AppState>, port_
             let id: u64 = form.get("id").and_then(|x| x.parse().ok()).unwrap_or(0);
             state.videos.lock().unwrap().aimer(id);
             HttpResponse::redirect("/video")
+        }
+
+        // ===== v2.18: AFRITUBE — YouTube en mode avion 📺✈️ =====
+        ("GET", "/afritube") => {
+            let session = session_user(&req, state);
+            let msg = req.query_str("msg").map(|x| x.to_string());
+            let tube = state.tube.lock().unwrap();
+            HttpResponse::ok(&tube.html_page(session.as_deref(), &ip_locale(), msg.as_deref()))
+        }
+        ("POST", "/afritube/deposer") => {
+            let session = match session_user(&req, state) {
+                Some(u) => u,
+                None => return HttpResponse::redirect("/login?err=Connecte-toi pour deposer une empreinte"),
+            };
+            let form = parse_urlencoded(&req.body);
+            let titre = form.get("titre").cloned().unwrap_or_default();
+            let description = form.get("description").cloned().unwrap_or_default();
+            let fichier = form.get("fichier").cloned().unwrap_or_default();
+            let mut empreinte = form.get("empreinte").cloned().unwrap_or_default();
+            let hote_ip = form.get("hote_ip").cloned().unwrap_or_default();
+            let hote_nom = form.get("hote_nom").cloned().unwrap_or_default();
+            if titre.trim().is_empty() || fichier.trim().is_empty() || hote_ip.trim().is_empty() {
+                return HttpResponse::redirect("/afritube?msg=Titre%2C+fichier+et+IP+du+voisin+obligatoires");
+            }
+            if fichier.contains('/') || fichier.contains("..") {
+                return HttpResponse::redirect("/afritube?msg=Nom+de+fichier+invalide");
+            }
+            // Empreinte : calculée depuis le vrai fichier si vide
+            let mut taille: u64 = 0;
+            if empreinte.trim().is_empty() {
+                let chemin = format!("{}/{}", afri_plante::PlanteStore::chemin_media(), fichier.trim());
+                match std::fs::read(&chemin) {
+                    Ok(bytes) => {
+                        taille = bytes.len() as u64;
+                        let h = crate::afri_hash::afrihash_256(&bytes);
+                        empreinte = crate::afri_hex::encode(&h[..4]);
+                    }
+                    Err(_) => {
+                        // Le fichier n'est pas ici — il dort chez le voisin.
+                        // On grave une empreinte déclarée par le déposant.
+                        empreinte = "00000000".to_string();
+                    }
+                }
+            }
+            let mut tube = state.tube.lock().unwrap();
+            let (id, memo) = tube.deposer(titre.trim(), description.trim(), fichier.trim(),
+                &empreinte, taille, hote_ip.trim(), 8080, hote_nom.trim(), &session);
+            // Graver sur la blockchain : BLOC = "la vidéo X dort chez Y"
+            let mut chain = state.chain.lock().unwrap();
+            let tx = Transaction::new("SYSTEM", "AFRITUBE", 0, &memo);
+            chain.add_transaction(tx);
+            chain.mine_pending("AFRICHAIN");
+            chain.save_to_file();
+            drop(chain);
+            HttpResponse::redirect(&format!("/afritube?msg={}", url_encode(&format!("Empreinte #{} gravee — la chaine sait ou dort la video", id))))
+        }
+        ("POST", "/afritube/voir") => {
+            let form = parse_urlencoded(&req.body);
+            let id: u64 = form.get("id").and_then(|x| x.parse().ok()).unwrap_or(0);
+            state.tube.lock().unwrap().voir(id);
+            HttpResponse::redirect("/afritube")
+        }
+        // API publique du tube : les voisins interrogent la chaîne des empreintes
+        ("GET", "/api/afritube") => {
+            let tube = state.tube.lock().unwrap();
+            let mut m = HashMap::new();
+            m.insert("next_id".to_string(), JsonValue::Int(tube.next_id as i64));
+            let vids: Vec<JsonValue> = tube.videos.iter().map(|v| {
+                let mut vm = HashMap::new();
+                vm.insert("id".to_string(), JsonValue::Int(v.id as i64));
+                vm.insert("titre".to_string(), JsonValue::Str(v.titre.clone()));
+                vm.insert("description".to_string(), JsonValue::Str(v.description.clone()));
+                vm.insert("fichier".to_string(), JsonValue::Str(v.fichier.clone()));
+                vm.insert("empreinte".to_string(), JsonValue::Str(v.empreinte.clone()));
+                vm.insert("taille".to_string(), JsonValue::Int(v.taille as i64));
+                vm.insert("hote_ip".to_string(), JsonValue::Str(v.hote_ip.clone()));
+                vm.insert("hote_port".to_string(), JsonValue::Int(v.hote_port as i64));
+                vm.insert("hote_nom".to_string(), JsonValue::Str(v.hote_nom.clone()));
+                vm.insert("auteur".to_string(), JsonValue::Str(v.auteur.clone()));
+                vm.insert("heure".to_string(), JsonValue::Int(v.heure as i64));
+                vm.insert("vues".to_string(), JsonValue::Int(v.vues as i64));
+                JsonValue::Object(vm)
+            }).collect();
+            m.insert("videos".to_string(), JsonValue::Array(vids));
+            HttpResponse::ok(&to_string(&JsonValue::Object(m)))
         }
 
         // ===== v2.01: AFRI SITES — créer des sites 🏗️ =====
