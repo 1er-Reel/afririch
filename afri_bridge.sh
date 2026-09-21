@@ -10,11 +10,16 @@
 #   pkg install android-tools
 #   chmod +x afri_bridge.sh
 #
-# ÉTAPE 1 — L'ATTACHE (une fois par téléphone, en USB) :
-#   Branche le Redmi en USB → active "Débogage USB" dans Options
-#   développeur → puis :
-#   ./afri_bridge.sh attache
-#   Débranche le câble. Le Redmi obéit maintenant par WiFi. ✅
+# ÉTAPE 0 — L'APPAIRAGE SANS FIL (JAMAIS de câble USB !) :
+#   Sur le Redmi : Paramètres → Options développeur → Débogage sans fil →
+#   "Appairer un appareil avec un code d'appairage"
+#   Il affiche : IP:PORT + un code de 6 chiffres. Puis sur Termux :
+#   ./afri_bridge.sh paire 192.168.1.7:37125 482913
+#   ./afri_bridge.sh ajoute 192.168.1.7
+#   ✅ Le bœuf obéit par WiFi. AUCUN câble n'a jamais touché le téléphone.
+#
+# ÉTAPE 1 (ancienne méthode, si le sans-fil n'est pas dispo) — L'ATTACHE USB :
+#   Branche le Redmi en USB → active "Débogage USB" → ./afri_bridge.sh attache
 #
 # COMMANDES DU BERGER :
 #   ./afri_bridge.sh boeufs              — la liste du troupeau
@@ -42,6 +47,15 @@ verifier_adb() {
 }
 
 case "$1" in
+  paire)
+    # L'APPAIRAGE SANS FIL — la porte officielle Android 11+, ZÉRO USB.
+    # $2 = IP:PORT d'appairage affiché sur le téléphone, $3 = code 6 chiffres
+    verifier_adb
+    echo -e "${VERT}📡 APPAIRAGE SANS FIL — aucun câble ne touchera ce bœuf...${FIN}"
+    adb pair "$2" "$3"
+    echo -e "${VERT}✅ Appairé ! Maintenant : ${OR}./afri_bridge.sh ajoute $(echo $2 | cut -d: -f1)${FIN}"
+    echo -e "${VERT}   (l'IP de connexion est celle affichée dans « Débogage sans fil », port 5555)${FIN}"
+    ;;
   attache)
     verifier_adb
     echo -e "${VERT}🔗 L'ATTACHE — branche le Redmi en USB maintenant...${FIN}"
@@ -89,7 +103,8 @@ case "$1" in
     echo -e "${VERT}🐂 Tout le troupeau regarde AfriChain.${FIN}";;
   *)
     echo -e "${VERT}🦁 AFRIBRIDGE — le berger et les bœufs${FIN}"
-    echo "  attache                    — activer le mode WiFi (1x par bœuf, en USB)"
+    echo "  paire IP:PORT CODE          — APPAIRAGE SANS FIL (Android 11+, ZÉRO câble !)"
+    echo "  attache                     — ancienne méthode USB (si sans-fil indisponible)"
     echo "  ajoute IP                  — un bœuf rejoint le troupeau"
     echo "  boeufs                     — voir tout le troupeau"
     echo "  eveille IP | dort IP       — allumer / éteindre un écran"
