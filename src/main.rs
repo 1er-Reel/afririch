@@ -37369,7 +37369,7 @@ struct AppState {
     videos: Mutex<afri_video::VideoStore>,  // v2.01: AFRI VIDÉO 🎬
     sites: Mutex<afri_video::SiteStore>,    // v2.01: AFRI SITES 🏗️
     tube: Mutex<afri_tube::TubeStore>,     // v2.18: AFRITUBE 📺✈️
-    portail: Mutex<afri_portail::PortailStore>, // v2.22: LE PORTAIL 🚪🌍
+    portail: std::sync::Arc<Mutex<afri_portail::PortailStore>>, // v2.22: LE PORTAIL 🚪🌍
     systemes: Mutex<afri_systemes::SystemeStore>,  // v2.05: PLAY STORE DES SYSTÈMES 🦁
     cpu: Mutex<afri_cpu::CpuAfri>,              // v2.09: LE CPU AFRI — 8 registres, cycles FETCH→DECODE→EXECUTE→WRITEBACK 🖥️
     telephone: Mutex<afri_cpu::TelephoneAfri>,  // v2.09: LE TÉLÉPHONE OS MACHINE 📱
@@ -37500,7 +37500,7 @@ fn main() {
         videos: Mutex::new(afri_video::VideoStore::load()),
         sites: Mutex::new(afri_video::SiteStore::load()),
         tube: Mutex::new(afri_tube::TubeStore::load()), // v2.18: AFRITUBE
-        portail: Mutex::new(afri_portail::PortailStore::load()), // v2.22: LE PORTAIL
+        portail: std::sync::Arc::new(Mutex::new(afri_portail::PortailStore::load())), // v2.22: LE PORTAIL
         systemes: Mutex::new(afri_systemes::SystemeStore::load()),
         cpu: Mutex::new(afri_cpu::CpuAfri::nouveau()),
         telephone: Mutex::new(afri_cpu::TelephoneAfri::nouveau("koffi")),
@@ -37762,7 +37762,7 @@ fn main() {
             println!("🌐 AfriDNS: 4 domaines souverains gravés (afri.wari, blockchain.africa, chat.verte, annuaire.africa)");
         }
     }
-    afri_dns::lancer_dns(std::sync::Arc::clone(&state.dns));
+    afri_dns::lancer_dns(std::sync::Arc::clone(&state.dns), std::sync::Arc::clone(&state.portail));
     // v1.97 — L'INTERNET AFRI : notre serveur machine, protocole ◈⬡◉⬔▤⟠⬠
     afri_net::lancer_net(std::sync::Arc::clone(&state), afri_net::NET_PORT_DEFAUT);
     println!("🌐 AfriDNS — les noms de l'Afrique, résolus par l'Afrique. 💚");

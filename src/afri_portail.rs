@@ -96,6 +96,20 @@ impl PortailStore {
         self.services.iter().find(|s| s.domaine == d && s.actif)
     }
 
+    /// v2.23 — LE MATCHING SANS DÉBOUCHÉ 🚨
+    /// "www.google.fr", "mail.google.com", "google.co.uk" → tous attrapés
+    /// par la porte "google". Aucun développeur occidental ne contourne
+    /// le portail par un sous-domaine ou une extension nationale.
+    pub fn est_autorise_par_racine(&self, domaine: &str) -> Option<&ServiceOccidental> {
+        let racine = crate::afri_dns::racine_du_domaine(domaine);
+        self.services.iter().find(|s| {
+            s.actif && (
+                s.domaine == domaine.trim_end_matches('.').to_lowercase()
+                || crate::afri_dns::racine_du_domaine(&s.domaine) == racine
+            )
+        })
+    }
+
     /// La page du portail — ce que voit le village.
     pub fn html_page(&self, dns: &DnsStore, msg: Option<&str>) -> String {
         let mut html = String::new();

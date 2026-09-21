@@ -2,10 +2,38 @@
 /// Notre propre DNS, construit from scratch — Rust std uniquement.
 /// Plus jamais le DNS de l'Occident : afri.wari, planete.verte, blockchain.africa
 /// sont résolus par NOUS, gravés sur NOTRE blockchain.
+/// v2.23 — LE DNS POLICIER 🚨 : chaque domaine inconnu passe devant le
+/// PORTAIL DU CONTINENT. Porte fermée → le téléphone tombe sur la page
+/// du portail. Aucun débouché : sous-domaines attrapés par la racine,
+/// DoH occidental (dns.google, cloudflare-dns.com) bouché pour toujours.
 use std::collections::HashMap;
 use std::net::UdpSocket;
 use crate::afri_json::{JsonValue, from_str, to_string};
 use crate::afri_time::now_timestamp;
+
+/// Les résolveurs DNS occidentaux — bouchés pour toujours.
+/// S'ils veulent traverser, qu'ils négocient avec le Chef. Égal à égal.
+pub const RESOLVEURS_OCCIDENTAUX: [&str; 6] = [
+    "dns.google",           // Google DoH
+    "dns.google.com",       // Google DoH (variante)
+    "cloudflare-dns.com",   // Cloudflare DoH
+    "one.one.one.one",      // Cloudflare 1.1.1.1
+    "dns.quad9.net",        // Quad9
+    "dns.opendns.com",      // Cisco OpenDNS
+];
+
+/// La racine d'un domaine : "www.google.fr" → "google.fr" → "google"
+/// (on enlève les extensions occidentales .com .fr .co.uk .net etc.)
+pub fn racine_du_domaine(domaine: &str) -> String {
+    let d = domaine.trim_end_matches('.').to_lowercase();
+    let labels: Vec<&str> = d.split('.').collect();
+    if labels.len() >= 2 {
+        // www.google.com → google ; mail.google.fr → google
+        labels[labels.len() - 2].to_string()
+    } else {
+        d
+    }
+}
 
 pub struct EnregistrementDns {
     pub domaine: String,   // ex: "afri.wari"
@@ -143,7 +171,11 @@ fn construire_reponse(paquet: &[u8], ip: Option<&str>) -> Vec<u8> {
 
 /// Lancer le serveur DNS souverain. Port 53 si possible, sinon 5353.
 /// Chaque requête est résolue par NOTRE registre — jamais un DNS occidental.
-pub fn lancer_dns(store: std::sync::Arc<std::sync::Mutex<DnsStore>>) {
+/// v2.23 : le portail décide — domaine fermé → la page du portail (IP locale).
+pub fn lancer_dns(
+    store: std::sync::Arc<std::sync::Mutex<DnsStore>>,
+    portail: std::sync::Arc<std::sync::Mutex<crate::afri_portail::PortailStore>>,
+) {
     std::thread::spawn(move || {
         let port = match UdpSocket::bind("0.0.0.0:53") {
             Ok(_) => 53u16,
@@ -154,6 +186,7 @@ pub fn lancer_dns(store: std::sync::Arc<std::sync::Mutex<DnsStore>>) {
             Err(e) => { println!("❌ AfriDNS: impossible d'écouter ({}): {}", port, e); return; }
         };
         println!("🌐 AfriDNS souverain en écoute sur le port {} — .afri .wari .verte .africa", port);
+        println!("🚨 AfriDNS POLICIER : chaque domaine inconnu passe devant LE PORTAIL. Aucun débouché.");
         if port == 5353 {
             println!("   (Android sans root → port 5353. Sur PC/routeur: mets le DNS sur ce port ou redirige le 53)");
         }
@@ -165,15 +198,38 @@ pub fn lancer_dns(store: std::sync::Arc<std::sync::Mutex<DnsStore>>) {
                         Some(d) => d,
                         None => continue,
                     };
+                    // 1. Le registre africain d'abord — LIBRE
                     let ip = {
                         let s = store.lock().unwrap();
                         s.resoudre(&domaine)
                     };
+                    let (ip, verdict) = if let Some(ip) = ip {
+                        (Some(ip), "LIBRE")
+                    } else {
+                        // 2. LE PORTAIL DÉCIDE pour tout le reste
+                        let p = portail.lock().unwrap();
+                        // Les résolveurs DoH occidentaux — bouchés pour toujours
+                        if RESOLVEURS_OCCIDENTAUX.contains(&domaine.to_lowercase().as_str()) {
+                            (None, "DOH BOUCHÉ")
+                        } else if let Some(service) = p.est_autorise_par_racine(&domaine) {
+                            // Porte ouverte — le service a payé l'Afrique
+                            if service.ip_autorisee.is_empty() {
+                                (None, "AUTORISÉ SANS IP")
+                            } else {
+                                (Some(service.ip_autorisee.clone()), "A PAYÉ L'AFRIQUE")
+                            }
+                        } else {
+                            // Porte fermée ou jamais négociée → LE PORTAIL
+                            (None, "PORTAIL")
+                        }
+                    };
                     let rep = construire_reponse(&buf[..n], ip.as_deref());
                     let _ = sock.send_to(&rep, src);
-                    match ip {
-                        Some(ip) => println!("🌐 AfriDNS: {} → {} (résolu par l'Afrique)", domaine, ip),
-                        None => println!("🌐 AfriDNS: {} → inconnu dans le registre africain", domaine),
+                    match verdict {
+                        "LIBRE" => println!("🌐 AfriDNS: {} → {} (résolu par l'Afrique — LIBRE)", domaine, ip.unwrap_or_default()),
+                        "A PAYÉ L'AFRIQUE" => println!("🤝 AfriDNS: {} → {} (le service a payé l'Afrique)", domaine, ip.unwrap_or_default()),
+                        "DOH BOUCHÉ" => println!("🚨 AfriDNS: {} → BOUCHÉ (résolveur occidental — qu'il négocie avec le Chef)", domaine),
+                        _ => println!("🔒 AfriDNS: {} → LE PORTAIL (porte fermée — l'Afrique décide)", domaine),
                     }
                 }
                 Err(_) => continue,
