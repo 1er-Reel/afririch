@@ -1,0 +1,8 @@
+[package]
+name = "afri-apps"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+afri-core = { path = "../afri-core" }
+afri-api = { path = "../afri-api" }

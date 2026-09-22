@@ -1,0 +1,10 @@
+[package]
+name = "afri-node"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+afri-core = { path = "../afri-core" }
+afri-store = { path = "../afri-store" }
+afri-net = { path = "../afri-net" }
+afri-api = { path = "../afri-api" }

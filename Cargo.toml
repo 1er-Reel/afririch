@@ -1,10 +1,10 @@
-[package]
-name = "africhain"
-version = "1.97.0"
-edition = "2021"
-
-[dependencies]
-
-[[bin]]
-name = "afrihash-test"
-path = "afrihash_test.rs"
+[workspace]
+members = [
+  "crates/afri-core",
+  "crates/afri-store",
+  "crates/afri-net",
+  "crates/afri-api",
+  "crates/afri-node",
+  "crates/afri-apps",
+]
+resolver = "2"
