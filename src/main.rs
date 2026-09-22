@@ -34846,12 +34846,13 @@ function amionExec() {{
     if (!v.trim()) return false;
     amionPrint('▸ ' + v, '#d4a437');
     inp.value = '';
-    var fd = new FormData();
-    fd.append('code', v);
-    fetch('/amion/exec', {{method:'POST', body: fd}})
+    // v2.26 — FIX : envoi en urlencoded (le FormData multipart n'était pas lu
+    // par le serveur → il recevait VIDE → répondait AIDE à chaque commande)
+    fetch('/amion/exec', {{method:'POST', headers:{{'Content-Type':'application/x-www-form-urlencoded'}}, body:'code=' + encodeURIComponent(v)}})
       .then(function(r) {{ return r.json(); }})
       .then(function(j) {{
-          amionPrint(j.res, '#7fcf7f');
+          // v2.26 — FIX : la réponse arrive url-encodée — on la décode
+          amionPrint(decodeURIComponent(j.res), '#7fcf7f');
           if (j.bloc > 0) amionPrint('▩ gravée dans le bloc ' + j.bloc, '#44aaff');
       }})
       .catch(function() {{ amionPrint('⚠️ le terminal a perdu le fil — réessaie', '#ff6b6b'); }});
