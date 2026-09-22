@@ -41629,7 +41629,7 @@ fn handle_request_port(req: afri_http::HttpRequest, state: &Arc<AppState>, port_
     // v2.04 — RACINE SECRÈTE : sur le port du peuple, l'administration est INEXISTANTE.
     // Pas de page, pas de redirect, pas d'indice. Le frère ne peut même pas savoir.
     if !port_admin {
-        const ROUTES_ADMIN: [&str; 20] = ["/admin", "/dashboard", "/admin/user", "/banque", "/puce/admin", "/dns", "/machine-os", "/securite-ai", "/commandement", "/base-militaire", "/academie-militaire", "/interception", "/bouclier", "/satellite", "/swarm", "/machine", "/garage", "/studio", "/etincelle-admin", "/systemes"];
+        const ROUTES_ADMIN: [&str; 21] = ["/admin", "/dashboard", "/admin/user", "/banque", "/puce/admin", "/dns", "/machine-os", "/securite-ai", "/commandement", "/base-militaire", "/academie-militaire", "/interception", "/bouclier", "/satellite", "/swarm", "/machine", "/garage", "/studio", "/etincelle-admin", "/systemes", "/portail"];
         if ROUTES_ADMIN.contains(&req.path.as_str()) {
             return HttpResponse::not_found();
         }
@@ -41663,6 +41663,7 @@ fn handle_request_port(req: afri_http::HttpRequest, state: &Arc<AppState>, port_
 <a href="/dashboard" style="text-decoration:none;"><div style="padding:12px;border:1px solid #ff6b6b;border-radius:8px;text-align:center;color:#ff6b6b;">📊<br><b>Dashboard</b></div></a>
 <a href="/systemes" style="text-decoration:none;"><div style="padding:12px;border:1px solid #ff6b6b;border-radius:8px;text-align:center;color:#ff6b6b;">🖥️<br><b>Systèmes</b></div></a>
 <a href="/telephone" style="text-decoration:none;"><div style="padding:12px;border:1px solid #ff6b6b;border-radius:8px;text-align:center;color:#ff6b6b;">📱<br><b>Téléphone OS</b></div></a>
+<a href="/portail" style="text-decoration:none;"><div style="padding:12px;border:1px solid #ff6b6b;border-radius:8px;text-align:center;color:#ff6b6b;">🚪<br><b>Portail</b></div></a>
 <a href="/banque" style="text-decoration:none;"><div style="padding:12px;border:1px solid #ff6b6b;border-radius:8px;text-align:center;color:#ff6b6b;">🏦<br><b>Banque 54 Pays</b></div></a>
 <a href="/admin" style="text-decoration:none;"><div style="padding:12px;border:1px solid #ff6b6b;border-radius:8px;text-align:center;color:#ff6b6b;">⚙️<br><b>Admin Web</b></div></a>
 <a href="/dns" style="text-decoration:none;"><div style="padding:12px;border:1px solid #ff6b6b;border-radius:8px;text-align:center;color:#ff6b6b;">🌐<br><b>AfriDNS</b></div></a>
