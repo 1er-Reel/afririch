@@ -37845,6 +37845,23 @@ fn main() {
         println!("🫆 Page Letta autonome — 3 messages toutes les 6 heures, gravés sur la chaîne");
     }
 
+    // v2.23 — LE MARCHÉ N'EST JAMAIS VIDE 🏪
+    // Au premier démarrage, le système sème 5 apps officielles. Le frère qui
+    // arrive trouve un marché vivant, pas une page déserte.
+    {
+        let mut store = state.store.lock().unwrap();
+        if store.apps.is_empty() {
+            let t = crate::afri_time::now_timestamp();
+            store.publier("AfriBalance", "Ton solde AFR, FCFA et graines en direct — la carte bancaire de ton téléphone africain.", "koffi", "💰", 0, "Banque", "", "", t);
+            store.publier("SAHARA Search", "Le moteur de recherche de la mémoire du continent — 54 pays d'histoire vraie.", "koffi", "🔍", 0, "Outils", "", "", t);
+            store.publier("Le Lion du Sahel", "8 tâches quotidiennes pour gagner des graines et faire grandir ton lion.", "koffi", "🦁", 0, "Jeux", "", "", t);
+            store.publier("Messages Universels", "Écris une fois — ton message part sur Facebook, WhatsApp et Télégram d'un coup.", "koffi", "📡", 0, "Communication", "", "", t);
+            store.publier("Amion Blandine", "Le terminal en langage machine ◈⬡⊕⟠ — parle à la blockchain dans NOTRE langage.", "koffi", "💚", 0, "Développement", "", "", t);
+            drop(store);
+            println!("🏪 Store semé : 5 apps officielles du système — le marché est vivant");
+        }
+    }
+
 
     // Mode --web : serveur seul, sans terminal (pratique sur téléphone)
     if std::env::args().any(|a| a == "--web") {
