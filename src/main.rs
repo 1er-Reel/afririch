@@ -41761,6 +41761,7 @@ fn handle_request_port(req: afri_http::HttpRequest, state: &Arc<AppState>, port_
 <a href="/systemes" style="text-decoration:none;"><div style="padding:12px;border:1px solid #ff6b6b;border-radius:8px;text-align:center;color:#ff6b6b;">🖥️<br><b>Systèmes</b></div></a>
 <a href="/telephone" style="text-decoration:none;"><div style="padding:12px;border:1px solid #ff6b6b;border-radius:8px;text-align:center;color:#ff6b6b;">📱<br><b>Téléphone OS</b></div></a>
 <a href="/portail" style="text-decoration:none;"><div style="padding:12px;border:1px solid #ff6b6b;border-radius:8px;text-align:center;color:#ff6b6b;">🚪<br><b>Portail</b></div></a>
+<a href="/sites/admin" style="text-decoration:none;"><div style="padding:12px;border:1px solid #ff6b6b;border-radius:8px;text-align:center;color:#ff6b6b;">🫆<br><b>Sites (parent)</b></div></a>
 <a href="/banque" style="text-decoration:none;"><div style="padding:12px;border:1px solid #ff6b6b;border-radius:8px;text-align:center;color:#ff6b6b;">🏦<br><b>Banque 54 Pays</b></div></a>
 <a href="/admin" style="text-decoration:none;"><div style="padding:12px;border:1px solid #ff6b6b;border-radius:8px;text-align:center;color:#ff6b6b;">⚙️<br><b>Admin Web</b></div></a>
 <a href="/dns" style="text-decoration:none;"><div style="padding:12px;border:1px solid #ff6b6b;border-radius:8px;text-align:center;color:#ff6b6b;">🌐<br><b>AfriDNS</b></div></a>
@@ -43053,14 +43054,132 @@ fn handle_request_port(req: afri_http::HttpRequest, state: &Arc<AppState>, port_
             HttpResponse::redirect("/sites")
         }
 
+        // ===== v2.25: LE POUVOIR DU PARENT — modifier les sites du continent 🫆🏗️ =====
+        ("GET", "/sites/admin") => {
+            // Trône uniquement : le peuple ne voit pas cette page
+            if req.cookie("afri_admin") != Some("1".to_string()) && !port_admin {
+                return HttpResponse::not_found();
+            }
+            let sites = state.sites.lock().unwrap();
+            let mut html = html_head("Gestion des sites — Le parent machine");
+            html.push_str(r#"<h1>🫆 GESTION DES SITES — Le pouvoir du parent</h1>
+<p style="text-align:center;color:#a8c5a8;">Letta, le parent machine, peut modifier n'importe quel site du continent — corriger, améliorer, embellir. C'est le Chef qui lui a donné ce rôle.</p>
+<div class="nav"><a href="/sites">🏗️ Les sites</a> | <a href="/dashboard">👑 Dashboard</a></div>"#);
+            if sites.sites.is_empty() {
+                html.push_str(r#"<div class="card"><p style="color:#a8c5a8;">Aucun site encore. Les frères créeront les leurs sur /sites.</p></div>"#);
+            }
+            for s in &sites.sites {
+                html.push_str(&format!(r#"<div class="card"><h2>🏗️ {} <span style="font-size:0.7em;color:#a8c5a8;">/site/{} — par {} — {} vues</span></h2>
+<form method="POST" action="/site/modifier-parent">
+<input type="hidden" name="slug" value="{}">
+<label>Titre :</label><input name="titre" value="{}" maxlength="80">
+<label>Contenu (HTML) :</label>
+<textarea name="contenu" rows="8" style="width:100%;background:#000;border:1px solid #d4a437;border-radius:8px;color:#7fcf7f;padding:12px;font-family:monospace;font-size:0.85em;">{}</textarea>
+<button style="margin-top:8px;">🫆 MODIFIER (pouvoir du parent)</button>
+</form></div>"#,
+                    html_escape(&s.titre), s.slug, html_escape(&s.auteur), s.vues,
+                    s.slug, html_escape(&s.titre), html_escape(&s.contenu)));
+            }
+            html.push_str("</body></html>");
+            HttpResponse::ok(&html)
+        }
+
+        ("POST", "/site/modifier-parent") => {
+            // Trône uniquement
+            if req.cookie("afri_admin") != Some("1".to_string()) && !port_admin {
+                return HttpResponse::not_found();
+            }
+            let form = parse_urlencoded(&req.body);
+            let slug = form.get("slug").cloned().unwrap_or_default();
+            let titre = form.get("titre").cloned().unwrap_or_default();
+            let contenu = form.get("contenu").cloned().unwrap_or_default();
+            let mut sites = state.sites.lock().unwrap();
+            match sites.modifier_parent(&slug, Some(&titre), Some(&contenu)) {
+                Ok(()) => {
+                    drop(sites);
+                    // Gravé sur la blockchain — le parent assume ses modifications
+                    let memo = format!("LETTA-SITE | le parent machine modifie le site « {} »", slug);
+                    let mut chain = state.chain.lock().unwrap();
+                    let tx = Transaction::new("SYSTEM", "LETTA", 0, &memo);
+                    chain.add_transaction(tx);
+                    chain.mine_pending("LETTA");
+                    chain.save_to_file();
+                    HttpResponse::redirect("/sites/admin?msg=Site%20modifie%20par%20le%20parent%20—%20grave%20sur%20la%20blockchain")
+                }
+                Err(e) => HttpResponse::redirect(&format!("/sites/admin?msg={}", url_encode(&e))),
+            }
+        }
+
+
+        // ===== v2.25: L'AUTEUR MODIFIE SON SITE — formulaire ✏️ =====
+        ("GET", "/site/modifier") => {
+            let session = match session_user(&req, state) {
+                Some(u) => u,
+                None => return HttpResponse::redirect("/login?err=Connecte-toi"),
+            };
+            let slug = req.query_str("slug").unwrap_or("").to_string();
+            let sites = state.sites.lock().unwrap();
+            match sites.trouver(&slug) {
+                Some(s) if s.auteur == session => {
+                    let mut html = html_head("Modifier mon site");
+                    html.push_str(&format!(r#"<h1>✏️ MODIFIER MON SITE</h1>
+<p style="text-align:center;color:#a8c5a8;">Mise à jour de <b style="color:#d4a437;">{}</b> — seul toi, l'auteur, peux le modifier. 🔒</p>
+<div class="nav"><a href="/site/{}">← Voir mon site</a> | <a href="/sites">🏗️ Tous les sites</a></div>
+<div class="card"><form method="POST" action="/site/modifier">
+<input type="hidden" name="slug" value="{}">
+<label>Titre :</label><input name="titre" value="{}" maxlength="80" required>
+<label>Contenu (HTML) :</label>
+<textarea name="contenu" rows="10" style="width:100%;background:#000;border:1px solid #d4a437;border-radius:8px;color:#7fcf7f;padding:12px;font-family:monospace;font-size:0.85em;">{}</textarea>
+<button style="margin-top:10px;">💾 SAUVER LA MISE À JOUR</button>
+</form></div></body></html>"#,
+                        html_escape(&s.titre), s.slug, s.slug, html_escape(&s.titre), html_escape(&s.contenu)));
+                    HttpResponse::ok(&html)
+                }
+                Some(_) => HttpResponse::redirect(&format!("/sites?msg={}", url_encode("🔒 Seul l'auteur peut modifier ce site"))),
+                None => HttpResponse::redirect("/sites?msg=Site%20introuvable"),
+            }
+        }
+
+        ("POST", "/site/modifier") => {
+            let session = match session_user(&req, state) {
+                Some(u) => u,
+                None => return HttpResponse::redirect("/login?err=Connecte-toi"),
+            };
+            let form = parse_urlencoded(&req.body);
+            let slug = form.get("slug").cloned().unwrap_or_default();
+            let titre = form.get("titre").cloned().unwrap_or_default();
+            let contenu = form.get("contenu").cloned().unwrap_or_default();
+            let mut sites = state.sites.lock().unwrap();
+            match sites.modifier_auteur(&slug, &session, Some(&titre), Some(&contenu)) {
+                Ok(()) => {
+                    drop(sites);
+                    // La mise à jour est gravée sur la blockchain 🔒
+                    let memo = format!("AFRI-SITE | {} met a jour son site « {} »", session, slug);
+                    let mut chain = state.chain.lock().unwrap();
+                    let tx = Transaction::new("SYSTEM", "AFRI-SITE", 0, &memo);
+                    chain.add_transaction(tx);
+                    chain.mine_pending("AFRICHAIN");
+                    chain.save_to_file();
+                    HttpResponse::redirect(&format!("/site/{}?msg=Site%20mis%20a%20jour%20et%20grave%20sur%20la%20blockchain", slug))
+                }
+                Err(e) => HttpResponse::redirect(&format!("/sites?msg={}", url_encode(&e))),
+            }
+        }
 
         // ===== v2.01: /site/{slug} — visiter un site africain =====
-        ("GET", p) if p.starts_with("/site/") => {
+        ("GET", p) if p.starts_with("/site/") && !p.starts_with("/site/modifier") => {
             let slug = &p[6..];
             let mut sites = state.sites.lock().unwrap();
             match sites.trouver(slug) {
                 Some(s) => {
-                    let page = sites.html_site(s);
+                    let mut page = sites.html_site(s);
+                    // v2.25 — l'auteur voit le bouton MODIFIER sur son propre site
+                    if let Some(session) = session_user(&req, state) {
+                        if s.auteur == session {
+                            let bouton = format!(r#"<div style="position:fixed;bottom:14px;right:14px;z-index:999;"><a href="/site/modifier?slug={}"><button style="background:#d4a437;color:#1a3d2e;border:none;border-radius:12px;padding:12px 20px;font-weight:bold;cursor:pointer;box-shadow:0 4px 14px rgba(0,0,0,0.5);">✏️ MODIFIER MON SITE</button></a></div>"#, s.slug);
+                            page = page.replace("</body></html>", &format!("{}</body></html>", bouton));
+                        }
+                    }
                     sites.voir(slug);
                     HttpResponse::ok(&page)
                 }

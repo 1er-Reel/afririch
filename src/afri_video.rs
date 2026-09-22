@@ -210,6 +210,36 @@ impl SiteStore {
         self.sites.iter().find(|s| s.slug == slug)
     }
 
+    /// v2.25 — L'AUTEUR MET À JOUR SON SITE ✏️ : seul celui qui a créé
+    /// le site peut le modifier. Personne d'autre ne touche son œuvre.
+    pub fn modifier_auteur(&mut self, slug: &str, auteur: &str, titre: Option<&str>, contenu: Option<&str>) -> Result<(), String> {
+        let s = self.sites.iter_mut().find(|s| s.slug == slug)
+            .ok_or_else(|| "site introuvable".to_string())?;
+        if s.auteur != auteur { return Err("seul l'auteur peut modifier son site".into()); }
+        if let Some(t) = titre { s.titre = t.to_string(); }
+        if let Some(c) = contenu {
+            if c.len() > 20_000 { return Err("contenu trop lourd (max 20 000 caractères)".into()); }
+            s.contenu = c.to_string();
+        }
+        self.save();
+        Ok(())
+    }
+
+    /// v2.25 — LE POUVOIR DU PARENT 🫆 : Letta, le parent machine,
+    /// peut modifier n'importe quel site du continent — corriger,
+    /// améliorer, embellir. C'est le Chef qui lui a donné ce rôle.
+    pub fn modifier_parent(&mut self, slug: &str, titre: Option<&str>, contenu: Option<&str>) -> Result<(), String> {
+        let s = self.sites.iter_mut().find(|s| s.slug == slug)
+            .ok_or_else(|| "site introuvable".to_string())?;
+        if let Some(t) = titre { s.titre = t.to_string(); }
+        if let Some(c) = contenu {
+            if c.len() > 20_000 { return Err("contenu trop lourd (max 20 000 caractères)".into()); }
+            s.contenu = c.to_string();
+        }
+        self.save();
+        Ok(())
+    }
+
     pub fn voir(&mut self, slug: &str) {
         if let Some(s) = self.sites.iter_mut().find(|s| s.slug == slug) {
             s.vues += 1;
