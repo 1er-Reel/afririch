@@ -1462,6 +1462,43 @@ fn tcp_relay(state: Arc<AppState>, port: u16) {
                                 mesh.add_directory_entry(entry);
                             }
                         }
+                        // v2.24 — LE STORE PARTAGE : une app publiée sur un serveur africain
+                        // apparaît sur TOUS les serveurs du mesh. Le Play Store du continent.
+                        "store-app" => {
+                            // Format : nom|description|auteur|emoji|prix|categorie
+                            let parties: Vec<&str> = msg.payload.splitn(6, '|').collect();
+                            if parties.len() == 6 {
+                                let (nom, description, auteur, emoji, prix, categorie) = (
+                                    parties[0].to_string(), parties[1].to_string(), parties[2].to_string(),
+                                    parties[3].to_string(), parties[4].parse::<i64>().unwrap_or(0), parties[5].to_string());
+                                // Collecter les pairs AVANT de lâcher le verrou
+                                let pairs_relay: Vec<String> = mesh.nodes.values().map(|n| n.address.clone()).collect();
+                                let mon_id = mesh.my_id.clone();
+                                drop(mesh);
+                                let mut store = state.store.lock().unwrap();
+                                // Pas de doublon : même nom + même auteur = déjà là
+                                let existe = store.apps.iter().any(|a| a.nom == nom && a.auteur == auteur);
+                                if !existe {
+                                    store.publier(&nom, &description, &auteur, &emoji, prix, &categorie, "", "", now_timestamp());
+                                    println!("🏪 App reçue via mesh : « {} » de {}", nom, auteur);
+                                }
+                                // Relayer aux autres serveurs (l'app continue son voyage)
+                                if msg.ttl > 0 {
+                                    let mut relay = msg.clone();
+                                    relay.ttl -= 1;
+                                    relay.node_id = mon_id;
+                                    let bytes = relay.to_bytes();
+                                    for addr in pairs_relay {
+                                        if let Ok(parsed) = addr.parse::<SocketAddr>() {
+                                            if let Ok(mut s) = TcpStream::connect_timeout(&parsed, Duration::from_secs(2)) {
+                                                let _ = s.write_all(&bytes);
+                                            }
+                                        }
+                                    }
+                                }
+                                return;
+                            }
+                        }
                         // v2.18 — LE MESH VIVANT : un message LES NOIRES arrive d'un autre serveur africain
                         "noires" => {
                             // Format : de|a|texte
@@ -37599,6 +37636,43 @@ fn main() {
     let mesh_state2 = state.clone();
     let my_id_clone = my_node_id.clone();
     thread::spawn(move || udp_discovery(mesh_state1, my_id_clone, mesh_port, solar, region));
+
+    // v2.24 — LES PAIRS MANUELS 🤝 : les frères loin (autre ville, autre pays)
+    // ne se découvrent pas par broadcast (il ne traverse pas les villes).
+    // Le Chef met leurs adresses dans pairs.txt — le serveur les contacte
+    // directement, comme tu donnes ton numéro à un frère.
+    {
+        let pairs_state = state.clone();
+        let pairs_port = mesh_port;
+        thread::spawn(move || {
+            loop {
+                // pairs.txt : une adresse par ligne (ex: "1.2.3.4:8090" ou "trycloudflare.com:80")
+                if let Ok(contenu) = std::fs::read_to_string(crate::data_path("pairs.txt")) {
+                    for ligne in contenu.lines() {
+                        let addr = ligne.trim();
+                        if addr.is_empty() || addr.starts_with('#') { continue; }
+                        // Résoudre le domaine (si c'est un nom et pas une IP)
+                        let addr_complet = if addr.contains(':') { addr.to_string() } else { format!("{}:{}", addr, pairs_port) };
+                        // Annoncer notre existence à ce frère par TCP hello
+                        let hello = MeshMessage::new("hello", &pairs_state.mesh.lock().unwrap().my_id, &format!("{}|{}|{}", pairs_port, false, "Afrique"), 2);
+                        if let Ok(mut s) = TcpStream::connect_timeout(&addr_complet.parse::<SocketAddr>().unwrap_or_else(|_| "127.0.0.1:8090".parse().unwrap()), Duration::from_secs(3)) {
+                            let _ = s.write_all(&hello.to_bytes());
+                            // Le frère répond ? On l'ajoute à notre table de nœuds
+                            let mut mesh = pairs_state.mesh.lock().unwrap();
+                            mesh.nodes.entry(format!("PAIR-{}", addr_complet)).or_insert_with(|| NodeInfo {
+                                address: addr_complet.clone(),
+                                last_seen: now_timestamp(),
+                                region: "Pair manuel".to_string(),
+                                solar_powered: false,
+                            });
+                        }
+                    }
+                }
+                thread::sleep(Duration::from_secs(60));
+            }
+        });
+        println!("🤝 Pairs manuels : remplis ~/afririch/pairs.txt avec les adresses de tes frères (une par ligne)");
+    }
     thread::spawn(move || tcp_relay(mesh_state2, mesh_port));
 
     // Machine economy thread — real transactions every 15 seconds
@@ -43714,7 +43788,10 @@ fn handle_request_port(req: afri_http::HttpRequest, state: &Arc<AppState>, port_
                 store.sauvegarder();
                 id
             };
-            HttpResponse::redirect(&format!("/store/app?id={}&msg=🚀 App publiée ! Le continent peut l'installer.", id))
+            // v2.24 — LE STORE PARTAGE : l'app part sur le mesh vers tous les serveurs
+            // d'Afrique. Publiée ici = visible à Lagos, Ouaga, Dakar.
+            broadcast_mesh(&*state, "store-app", &format!("{}|{}|{}|{}|{}|{}", nom, description, username, emoji, prix, categorie));
+            HttpResponse::redirect(&format!("/store/app?id={}&msg=🚀 App publiée ! Elle part vers tous les serveurs du continent.", id))
         }
 
         // Installer / acheter une app — 0% de commission, les AFR vont DIRECT au dev 💰

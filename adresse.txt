@@ -1,10 +1,9 @@
-ADRESSE PUBLIQUE AFRICHAIN (sandbox)
+ADRESSE PUBLIQUE AFRICHAIN
 ================================
 
-  https://basement-ending-messages-health.trycloudflare.com
+  https://martial-telescope-classifieds-closed.trycloudflare.com
 
-(Le sandbox dort la nuit — l'adresse peut mourir.
-Le telephone du Chef a son propre tunnel dans son Termux :
-  cloudflared tunnel --url http://localhost:8080
+(Mise a jour automatique par le gardien du tunnel.
 Si l adresse ne marche plus :
-  cd ~/afririch && git pull && cat adresse.txt)
+  cd ~/afririch && git pull && cat adresse.txt
+La nouvelle adresse sera deja la.)
