@@ -1,9 +1,10 @@
-ADRESSE PUBLIQUE AFRICHAIN
+ADRESSE PUBLIQUE AFRICHAIN (sandbox)
 ================================
 
-  https://allen-valued-specialists-cheque.trycloudflare.com
+  https://basement-ending-messages-health.trycloudflare.com
 
-(Mise a jour automatique par le gardien du tunnel.
+(Le sandbox dort la nuit — l'adresse peut mourir.
+Le telephone du Chef a son propre tunnel dans son Termux :
+  cloudflared tunnel --url http://localhost:8080
 Si l adresse ne marche plus :
-  cd ~/afririch && git pull && cat adresse.txt
-La nouvelle adresse sera deja la.)
+  cd ~/afririch && git pull && cat adresse.txt)
