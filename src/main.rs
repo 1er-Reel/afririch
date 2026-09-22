@@ -26955,7 +26955,7 @@ drawService();
 }
 // ===== PAGE CONNECTER UN AMI (v1.64) =====
 // Trouve l'IP locale du téléphone pour que l'ami scanne le QR
-fn ip_locale() -> String {
+pub(crate) fn ip_locale() -> String {
     // Astuce: connecter une socket UDP vers l'extérieur n'envoie rien,
     // mais le système choisit l'interface réseau → on lit l'IP locale
     if let Ok(sock) = std::net::UdpSocket::bind("0.0.0.0:0") {
@@ -41694,6 +41694,29 @@ fn handle_request(req: afri_http::HttpRequest, state: &Arc<AppState>) -> afri_ht
 /// port_admin=false (8080, le peuple) : les routes admin n'existent pas du tout.
 /// port_admin=true (9090, la racine) : le pouvoir complet.
 fn handle_request_port(req: afri_http::HttpRequest, state: &Arc<AppState>, port_admin: bool) -> afri_http::HttpResponse {
+    // v2.24 — LE PORTAIL CAPTIF 🔒 : si le navigateur demande un domaine occidental
+    // non-payé (le policier DNS l'a envoyé ici), il tombe sur la page du portail.
+    // On reconnaît la requête au header Host: qui n'est ni notre IP ni un domaine africain.
+    if let Some(host) = req.header("host") {
+        let h = host.split(':').next().unwrap_or("").to_lowercase();
+        // Notre propre IP ou localhost → service normal du village
+        let hote_est_local = h == "localhost" || h.parse::<std::net::IpAddr>().is_ok();
+        if !hote_est_local && h.contains('.') {
+            // Le policier a-t-il laissé passer ce domaine ?
+            let portail = state.portail.lock().unwrap();
+            let dns = state.dns.lock().unwrap();
+            let est_africain = dns.resoudre(&h).is_some();
+            let est_paye = portail.est_autorise_par_racine(&h).is_some();
+            let est_bouche = crate::afri_dns::RESOLVEURS_OCCIDENTAUX.contains(&h.as_str());
+            if !est_africain && !est_paye && !est_bouche {
+                drop(dns);
+                drop(portail);
+                let p = state.portail.lock().unwrap();
+                return HttpResponse::ok(&p.html_captif(&h));
+            }
+        }
+    }
+
     // Shield check
     let allowed = state.shield.lock().unwrap().check_request(&req.peer_addr, &req.path);
     if !allowed {

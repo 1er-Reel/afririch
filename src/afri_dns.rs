@@ -219,8 +219,11 @@ pub fn lancer_dns(
                                 (Some(service.ip_autorisee.clone()), "A PAYÉ L'AFRIQUE")
                             }
                         } else {
-                            // Porte fermée ou jamais négociée → LE PORTAIL
-                            (None, "PORTAIL")
+                            // Porte fermée ou jamais négociée → LE PORTAIL CAPTIF 🔒
+                            // On répond avec NOTRE propre IP : le navigateur arrive
+                            // sur notre serveur, qui lit le Host: et sert la page
+                            // "🔒 Ce service n'a pas payé l'Afrique".
+                            (Some(crate::ip_locale()), "PORTAIL")
                         }
                     };
                     let rep = construire_reponse(&buf[..n], ip.as_deref());

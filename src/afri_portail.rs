@@ -157,6 +157,31 @@ impl PortailStore {
 
         html
     }
+
+    /// v2.24 — LA PAGE CAPTIVE 🔒
+    /// Le téléphone du village demande un service non-payé → il tombe ICI.
+    /// Comme le portail captif d'un hôtel — mais africain.
+    pub fn html_captif(&self, domaine: &str) -> String {
+        format!(r#"<!DOCTYPE html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>🔒 Le Portail du Continent</title><style>body{{font-family:sans-serif;background:#0d1f17;color:#f5e9d4;padding:24px;margin:0 auto;max-width:600px;text-align:center;}}h1{{color:#d4a437;}}h2{{color:#25D366;}}.ferme{{color:#cf7f7f;font-size:1.4em;font-weight:bold;}}a{{color:#d4a437;}}button{{background:#d4a437;color:#0d1f17;border:none;padding:14px 28px;border-radius:8px;font-size:1.1em;font-weight:bold;cursor:pointer;}}</style></head><body>
+<h1>🚪 LE PORTAIL DU CONTINENT</h1>
+<p class="ferme">🔒 {}</p>
+<p style="font-size:1.1em;">Ce service occidental <b>n'a pas payé l'Afrique</b>.</p>
+<p style="color:#a8c5a8;">Son câble dort sur <b>notre terre et notre mer</b> sans récompenser les villageois. Comment envoyer nos enfants à l'école ? Comment construire des écoles pour nos enfants ?</p>
+<p style="color:#a8c5a8;">L'Afrique ne demande plus la permission. <b>L'Afrique décide ce qui passe.</b> Ils viendront négocier <b>égal à égal</b>. 🦁</p>
+<h2>💚 Les services LIBRES du village</h2>
+<p style="color:#a8c5a8;">Pendant que l'Occident négocie, l'Afrique vit :</p>
+<p style="line-height:2.2;">
+<a href="/">🏠 AfriChain</a> ·
+<a href="/sahara">🔍 SAHARA AFRI</a> ·
+<a href="/video">🎬 Afri Vidéo</a> ·
+<a href="/afritube">📺 AfriTube</a> ·
+<a href="/noires">💬 LES NOIRES</a> ·
+<a href="/plante">🌱 Planté Verte</a>
+</p>
+<p><a href="/portail"><button>🚪 Voir le portail du continent</button></a></p>
+<footer style="margin-top:30px;border-top:1px solid #d4a437;padding-top:12px;font-size:0.85em;color:#a8c5a8;">◈ AfriChain — Œuvre originale de Koffi Christ Olivier — Licence AFRI-OSL v1.0<br/>Le petit 0.000 Go commande les gros 28 Go.</footer>
+</body></html>"#, domaine)
+    }
 }
 
 /// Lancer le portail captif sur le port 8080 (redirige vers AfriChain).
