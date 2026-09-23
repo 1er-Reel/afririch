@@ -34,11 +34,20 @@ pub struct NoteApp {
     pub etoiles: i64,           // 1 à 5
 }
 
+/// Une installation : qui a installé quelle app (v2.28 — MES APPS)
+#[derive(Debug, Clone)]
+pub struct InstallAfri {
+    pub app: String,        // id de l'app
+    pub de: String,         // username
+    pub heure: i64,
+}
+
 /// Le Play Store africain — persisté dans store.json
 #[derive(Debug, Clone)]
 pub struct StoreAfri {
     pub apps: Vec<AppAfri>,
     pub notes: Vec<NoteApp>,
+    pub installs_de: Vec<InstallAfri>,  // v2.28 : qui a installé quoi
     pub prochain_id: u64,
     pub chemin: String,
 }
@@ -63,7 +72,7 @@ impl StoreAfri {
                 let v = from_str(&data).unwrap_or(JsonValue::Object(HashMap::new()));
                 StoreAfri::from_json(&v)
             }
-            Err(_) => StoreAfri { apps: Vec::new(), notes: Vec::new(), prochain_id: 1, chemin },
+            Err(_) => StoreAfri { apps: Vec::new(), notes: Vec::new(), installs_de: Vec::new(), prochain_id: 1, chemin },
         }
     }
 
@@ -101,6 +110,22 @@ impl StoreAfri {
     }
 
     /// Une installation de plus 📲
+    /// v2.28 — les apps installées par un utilisateur (pour sa page MES APPS)
+    pub fn apps_installees(&self, username: &str) -> Vec<&AppAfri> {
+        self.installs_de.iter()
+            .filter(|i| i.de == username)
+            .filter_map(|i| self.apps.iter().find(|a| a.id == i.app))
+            .collect()
+    }
+
+    /// v2.28 — installer ET enregistrer qui installe
+    pub fn installer_de(&mut self, id: &str, username: &str) -> bool {
+        let deja = self.installs_de.iter().any(|i| i.app == id && i.de == username);
+        if deja { return true; } // déjà installée — pas de doublon
+        self.installs_de.push(InstallAfri { app: id.to_string(), de: username.to_string(), heure: crate::now_timestamp() });
+        self.installer(id)
+    }
+
     pub fn installer(&mut self, id: &str) -> bool {
         match self.apps.iter_mut().find(|a| a.id == id) {
             Some(a) => { a.installs += 1; true }
@@ -235,7 +260,7 @@ impl StoreAfri {
     }
 
     pub fn from_json(v: &JsonValue) -> Self {
-        let mut store = StoreAfri { apps: Vec::new(), notes: Vec::new(), prochain_id: 1, chemin: crate::data_path("store.json") };
+        let mut store = StoreAfri { apps: Vec::new(), notes: Vec::new(), installs_de: Vec::new(), prochain_id: 1, chemin: crate::data_path("store.json") };
         if let JsonValue::Object(obj) = v {
             if let Some(JsonValue::Int(i)) = obj.get("prochain_id") { store.prochain_id = *i as u64; }
             if let Some(JsonValue::Array(arr)) = obj.get("apps") {
@@ -276,6 +301,16 @@ impl StoreAfri {
                         let g = |k: &str| o.get(k).and_then(|x| match x { JsonValue::Str(s) => Some(s.clone()), _ => None }).unwrap_or_default();
                         let gi = |k: &str| o.get(k).and_then(|x| x.as_i64()).unwrap_or(0);
                         store.notes.push(NoteApp { app: g("app"), de: g("de"), etoiles: gi("etoiles") });
+                    }
+                }
+            }
+            // v2.28 — les installations : qui a installé quoi
+            if let Some(JsonValue::Array(arr)) = obj.get("installs_de") {
+                for n in arr {
+                    if let JsonValue::Object(o) = n {
+                        let g = |k: &str| o.get(k).and_then(|x| match x { JsonValue::Str(s) => Some(s.clone()), _ => None }).unwrap_or_default();
+                        let gi = |k: &str| o.get(k).and_then(|x| x.as_i64()).unwrap_or(0);
+                        store.installs_de.push(InstallAfri { app: g("app"), de: g("de"), heure: gi("heure") });
                     }
                 }
             }

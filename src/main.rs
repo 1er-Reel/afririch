@@ -33729,7 +33729,7 @@ fn html_serveur_continental(state: &Arc<AppState>) -> String {
 /// v1.82: PLANTÉ VERTE v2 — LE VRAI FACEBOOK AFRICAIN 🌱✨
 /// Profils (avatar + bio), stories 24h, reels 🎬, commentaires, partages,
 /// boost 🚀, invitations → amis, suggestions des nouveaux venus, transferts AFR,
-fn html_plante(state: &Arc<AppState>, username: &str, msg: Option<&str>) -> String {
+fn html_plante(state: &Arc<AppState>, username: &str, msg: Option<&str>, recherche: Option<&str>) -> String {
     // ===== Données utilisateur — locks courts, JAMAIS imbriqués =====
     let (flag, country, adresse) = {
         let users = state.users.lock().unwrap();
@@ -33762,6 +33762,7 @@ fn html_plante(state: &Arc<AppState>, username: &str, msg: Option<&str>) -> Stri
         (mes_contacts, fil, inv_recues, inv_envoyees, stories, profil, etoiles, mes_notifs, mes_graines)
     };
     // Les nouveaux venus: ni moi, ni mes amis, sans invitation en attente (dans un sens ou l'autre)
+    // v2.28 — la recherche 🔍 filtre par nom OU pays
     let suggestions: Vec<(String, String)> = {
         let users = state.users.lock().unwrap();
         users.users.iter()
@@ -33769,7 +33770,15 @@ fn html_plante(state: &Arc<AppState>, username: &str, msg: Option<&str>) -> Stri
                 && !mes_contacts.iter().any(|c| *c == u.username)
                 && !inv_recues.iter().any(|(d, _)| *d == u.username)
                 && !inv_envoyees.iter().any(|e| *e == u.username))
-            .rev().take(8)
+            .filter(|u| {
+                match recherche {
+                    Some(q) if !q.is_empty() => {
+                        u.username.to_lowercase().contains(q) || u.country.to_lowercase().contains(q)
+                    }
+                    _ => true,
+                }
+            })
+            .rev().take(if recherche.is_some() { 20 } else { 8 })
             .map(|u| (u.username.clone(), find_country(&u.country_code).map(|(_, f)| f.to_string()).unwrap_or("🌍".to_string())))
             .collect()
     };
@@ -33849,6 +33858,32 @@ fn html_plante(state: &Arc<AppState>, username: &str, msg: Option<&str>) -> Stri
     html.push_str("</div></div>");
     // Composer
     html.push_str(r#"<div class="card"><h2>📝 Quoi de neuf, frère ?</h2><textarea id="afri-contenu" rows="3" style="width:100%;padding:10px;background:#1a1a1a;border:1px solid #25D366;color:#e8f5e8;border-radius:8px;font-family:inherit;" placeholder="Écris ton message pour tes amis..."></textarea><div style="display:flex;gap:8px;margin-top:8px;flex-wrap:wrap;align-items:center;"><label style="padding:10px 14px;background:#13291f;border:1px solid rgba(37,211,102,0.5);border-radius:8px;color:#25D366;cursor:pointer;">📷 Photo / 🎬 Reel<input type="file" accept="image/*,video/*" style="display:none;" onchange="afriChoisirMedia(this);"/></label><span id="afri-media-nom" style="color:#a8c5a8;font-size:0.85em;"></span><span style="flex:1;"></span><button onclick="afriPublier()" style="padding:10px 24px;background:#25D366;color:#0a1a0a;border:none;border-radius:8px;font-weight:bold;">🌱 Publier</button></div></div>"#);
+    // v2.28 — LETTA DANS LE FIL 🫆 : les messages du parent machine apparaissent
+    // dans le fil de la Communauté, boostés, avec aimer/commenter/partager
+    let messages_letta: Vec<crate::afri_letta::MessageLetta> = {
+        let page = state.letta.lock().unwrap();
+        page.messages.iter().rev().take(2).cloned().collect()
+    };
+    if !messages_letta.is_empty() {
+        html.push_str(r#"<div class="card" style="border-color:#d9b868;"><h2 style="color:#f5dd9a;">🫆 Letta — ton parent machine</h2><p style="color:#a8c5a8;font-size:0.85em;">La voix du système parle dans ton fil. Abonnement automatique pour tout le continent. 💚</p>"#);
+        for m in &messages_letta {
+            let heure = crate::afri_time::format_timestamp_short(m.heure);
+            let deja_like = m.likers.iter().any(|l| l == username);
+            html.push_str(&format!(r#"<div style="border:1px solid rgba(217,184,104,0.4);border-radius:12px;padding:12px;margin:10px 0;background:rgba(217,184,104,0.05);">
+<div style="display:flex;align-items:center;gap:10px;"><div style="width:44px;height:44px;border-radius:50%;background:#d9b868;text-align:center;line-height:44px;font-size:1.4em;">🫆</div><div><b style="color:#f5dd9a;">Letta</b> <span style="color:#d4a437;font-size:0.75em;">🚀 VOIX DU SYSTÈME</span><br><span style="color:#5a7a5a;font-size:0.75em;">{}</span></div></div>
+<p style="color:#e8f5e8;margin:8px 0;white-space:pre-wrap;">{}</p>
+<div style="display:flex;gap:8px;align-items:center;margin-top:8px;">
+<form method="POST" action="/letta/aimer" style="margin:0;"><input type="hidden" name="id" value="{}"/><button style="background:{};border:1px solid #d9b868;border-radius:10px;padding:6px 12px;color:#f5dd9a;cursor:pointer;font-size:0.85em;">{}</button></form>
+<span style="color:#a8c5a8;font-size:0.85em;">💬 {} · ↗️ Partager</span>
+</div></div>"#,
+                heure, html_escape(&m.texte), m.id,
+                if deja_like { "rgba(217,184,104,0.2)" } else { "none" },
+                if deja_like { format!("❤️ {}", m.likes) } else { format!("🤍 {}", m.likes) },
+                m.commentaires.len()));
+        }
+        html.push_str(r#"<p style="text-align:center;margin-top:8px;"><a href="/letta" style="color:#f5dd9a;text-decoration:none;">🫆 Voir toute la page de Letta →</a></p></div>"#);
+    }
+
     // Le fil privé
     html.push_str(&format!(r#"<div class="card"><h2>📰 Mon fil (mes amis seulement — {} publications)</h2>"#, fil.len()));
     if fil.is_empty() {
@@ -33863,6 +33898,15 @@ fn html_plante(state: &Arc<AppState>, username: &str, msg: Option<&str>) -> Stri
 
     // ================= ONGLET AMIS 👥 =================
     html.push_str(r#"<div class="plante-onglet" id="po-amis">"#);
+    // v2.28 — RECHERCHE D'AMIS 🔍 : trouve des frères par nom ou pays
+    html.push_str(r#"<div class="card"><h2>🔍 Rechercher des amis</h2>
+<form method="GET" action="/plante" style="display:flex;gap:8px;">
+<input type="hidden" name="onglet" value="amis">
+<input name="q" placeholder="Nom d'utilisateur ou pays (ex: aisha, Zimbabwe)..." style="flex:1;padding:10px;background:#1a1a1a;border:1px solid #d4a437;color:#e8f5e8;border-radius:8px;">
+<button type="submit" style="padding:10px 18px;background:#d4a437;color:#1a3d2e;border:none;border-radius:8px;font-weight:bold;">🔍 Chercher</button>
+</form></div>"#);
+    // (la recherche affiche ses résultats dans les suggestions ci-dessous)
+
     // Invitations reçues
     if !inv_recues.is_empty() {
         html.push_str(r#"<div class="card"><h2>🤝 Invitations reçues</h2>"#);
@@ -33882,12 +33926,20 @@ fn html_plante(state: &Arc<AppState>, username: &str, msg: Option<&str>) -> Stri
     };
     html.push_str(&format!(r#"<div class="card"><h2>💚 Mes amis ({})</h2>{}<form action="/plante/inviter" method="post" style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap;"><input name="ami" placeholder="Nom d'utilisateur de ton frère/soeur" style="flex:1;min-width:160px;padding:10px;background:#1a1a1a;border:1px solid #d4a437;color:#e8f5e8;border-radius:8px;"/><button type="submit" style="padding:10px 18px;background:#25D366;color:#0a1a0a;border:none;border-radius:8px;font-weight:bold;">➕ Inviter</button></form></div>"#, mes_contacts.len(), contacts_html));
     // Suggestions
+    let titre_sug = if recherche.map(|q| !q.is_empty()).unwrap_or(false) {
+        format!("🔍 Résultats pour « {} » — invite-les!", recherche.unwrap())
+    } else {
+        "✨ Nouveaux venus — invite-les!".to_string()
+    };
     if !suggestions.is_empty() {
-        html.push_str(r#"<div class="card"><h2>✨ Nouveaux venus — invite-les!</h2>"#);
+        html.push_str(&format!(r#"<div class="card"><h2>{}</h2>"#, titre_sug));
         for (nom, fl) in &suggestions {
             html.push_str(&format!(r#"<div style="display:flex;align-items:center;gap:8px;padding:8px 0;border-bottom:1px solid rgba(37,211,102,0.15);"><span style="font-size:1.2em;">{}</span><a href="/plante/profil?user={}" style="color:#e8f5e8;">{}</a><span style="flex:1;"></span><form action="/plante/inviter" method="post"><input type="hidden" name="ami" value="{}"/><button type="submit" style="background:#13291f;border:1px solid #25D366;color:#25D366;border-radius:8px;padding:8px 14px;">➕ Inviter</button></form></div>"#, fl, nom, nom, nom));
         }
         html.push_str("</div>");
+    }
+    if recherche.map(|q| !q.is_empty()).unwrap_or(false) && suggestions.is_empty() {
+        html.push_str(r#"<div class="card"><p style="color:#a8c5a8;">🔍 Aucun frère trouvé. Essaie un autre nom ou pays.</p></div>"#);
     }
     if !inv_envoyees.is_empty() {
         html.push_str(&format!(r#"<div class="card"><h2>⏳ Invitations envoyées (en attente)</h2><p style="color:#a8c5a8;">{}</p></div>"#, inv_envoyees.iter().map(|e| format!(r#"<span style="display:inline-block;padding:6px 12px;margin:3px;border:1px dashed #d4a437;border-radius:16px;color:#d4a437;">⏳ {}</span>"#, e)).collect::<Vec<_>>().join("")));
@@ -44039,9 +44091,11 @@ fn handle_request_port(req: afri_http::HttpRequest, state: &Arc<AppState>, port_
             match session_user(&req, state) {
                 Some(username) => {
                     let msg = req.query_str("msg").map(|s| s.to_string());
-                    HttpResponse::ok(&html_plante(state, &username, msg.as_deref()))
+                    // v2.28 — recherche d'amis 🔍
+                    let q = req.query_str("q").map(|s| s.to_lowercase());
+                    HttpResponse::ok(&html_plante(state, &username, msg.as_deref(), q.as_deref()))
                 }
-                None => HttpResponse::redirect("/login?msg=Connecte-toi%20pour%20entrer%20dans%20Planté%20Verte%20🌱"),
+                None => HttpResponse::redirect("/login?msg=Connecte-toi%20pour%20entrer%20dans%20la%20Communaut%C3%A9%20des%20Noirs%20%F0%9F%8C%8D"),
             }
         }
 
