@@ -1,7 +1,10 @@
+use serde::{Deserialize, Serialize};
+use std::fmt;
+
 use chrono::Utc;
 use sha2::{Digest, Sha256};
 
-#[derive(Clone, Debug, PartialEq, Eq)]
+#[derive(Clone, Debug, PartialEq, Eq, Serialize, Deserialize)]
 pub struct Transaction {
     pub from: String,
     pub to: String,
@@ -9,7 +12,7 @@ pub struct Transaction {
     pub nonce: u64,
 }
 
-#[derive(Clone, Debug, PartialEq, Eq)]
+#[derive(Clone, Debug, PartialEq, Eq, Serialize, Deserialize)]
 pub struct Block {
     pub index: u64,
     pub timestamp: i64,
@@ -19,11 +22,17 @@ pub struct Block {
     pub nonce: u64,
 }
 
-#[derive(Clone, Debug)]
+#[derive(Clone, Debug, Serialize, Deserialize)]
 pub struct Blockchain {
     pub chain: Vec<Block>,
     pub pending_transactions: Vec<Transaction>,
     pub difficulty: usize,
+}
+
+impl fmt::Display for Transaction {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        write!(f, "{} -> {} ({})", self.from, self.to, self.amount)
+    }
 }
 
 impl Block {
