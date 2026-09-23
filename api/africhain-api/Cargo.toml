@@ -4,7 +4,7 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
-afchain_core = { path = "../africhain-core", package = "africhain-core" }
+africhain_core = { path = "../../core/africhain-core" }
 actix-web = "4"
 serde = { version = "1", features = ["derive"] }
 serde_json = "1"
