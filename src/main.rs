@@ -1772,7 +1772,7 @@ fn html_home_user(username: &str, flag: &str, phone: &str, message_continent: Op
 <a href="/annuaire" style="text-decoration:none;"><div style="padding:16px;border:1px solid #7ec87e;border-radius:10px;text-align:center;color:#7ec87e;">📖<br><b>Annuaire</b></div></a>
 <a href="/account?user={}" style="text-decoration:none;"><div style="padding:16px;border:1px solid #7ec87e;border-radius:10px;text-align:center;color:#7ec87e;">🦁<br><b>Lion + Dépôt</b></div></a>
 <a href="/serveur-continental" style="text-decoration:none;"><div style="padding:16px;border:1px solid #f59e0b;border-radius:10px;text-align:center;color:#f59e0b;">🌍<br><b>Serveur Continental</b></div></a>
-<a href="/plante" style="text-decoration:none;"><div style="padding:16px;border:1px solid #25D366;border-radius:10px;text-align:center;color:#25D366;">🌱<br><b>Planté Verte (Facebook)</b></div></a>
+<a href="/plante" style="text-decoration:none;"><div style="padding:16px;border:1px solid #25D366;border-radius:10px;text-align:center;color:#25D366;">🌍<br><b>Communauté des Noirs (Facebook)</b></div></a>
 <a href="/noires" style="text-decoration:none;"><div style="padding:16px;border:1px solid #d4a437;border-radius:10px;text-align:center;color:#d4a437;">💬<br><b>LES NOIRES (WhatsApp)</b></div></a>
 <a href="/store" style="text-decoration:none;"><div style="padding:16px;border:1px solid #34A853;border-radius:10px;text-align:center;color:#34A853;">🏪<br><b>AFRI STORE (Play Store)</b></div></a>
 <a href="/etincelle" style="text-decoration:none;"><div style="padding:16px;border:1px solid #ff8c00;border-radius:10px;text-align:center;color:#ff8c00;">🔥<br><b>L'ÉTINCELLE</b></div></a>
@@ -33076,7 +33076,7 @@ fn html_afri_telegram(state: &Arc<AppState>, username: &str, msg: Option<&str>) 
 
     let nb_non_lus = state.notifs.lock().unwrap().non_lus(username);
     let mut html = html_head("📢 Afri Télégram — Canaux Africains");
-    html.push_str(&format!(r#"<h1>📢 AFRI TÉLÉGRAM</h1><p style="text-align:center;color:#229ED9;">Les canaux africains, par l'Afrique, pour l'Afrique. Crée ton canal, le continent s'abonne, tes annonces sont gravées sur la blockchain. Pas de serveurs à Dubaï, pas de fondateur russe — <b>L'Afrique t'entend.</b></p><p style="text-align:center;color:#a8c5a8;font-size:0.9em;">{} {} — {}</p><div class="nav"><a href="/">← Accueil</a> | <a href="/afri-net">🌍 Afri-Net</a> | <a href="/noires">💬 LES NOIRES</a> | <a href="/plante">🌱 Planté Verte</a> | <a href="/notifications">🔔{}{}</a></div>"#,
+    html.push_str(&format!(r#"<h1>📢 AFRI TÉLÉGRAM</h1><p style="text-align:center;color:#229ED9;">Les canaux africains, par l'Afrique, pour l'Afrique. Crée ton canal, le continent s'abonne, tes annonces sont gravées sur la blockchain. Pas de serveurs à Dubaï, pas de fondateur russe — <b>L'Afrique t'entend.</b></p><p style="text-align:center;color:#a8c5a8;font-size:0.9em;">{} {} — {}</p><div class="nav"><a href="/">← Accueil</a> | <a href="/afri-net">🌍 Afri-Net</a> | <a href="/noires">💬 LES NOIRES</a> | <a href="/plante">🌍 Communauté des Noirs</a> | <a href="/notifications">🔔{}{}</a></div>"#,
         flag, html_escape(&country), html_escape(username),
         if nb_non_lus > 0 { format!("<span style='background:#d4a437;color:#0a1a0a;border-radius:10px;padding:1px 7px;font-size:0.75em;font-weight:bold;'>{}</span>", nb_non_lus) } else { String::new() },
         ""));
@@ -33776,7 +33776,7 @@ fn html_plante(state: &Arc<AppState>, username: &str, msg: Option<&str>) -> Stri
     let nb_non_lus = mes_notifs.iter().filter(|n| !n.lu).count();
     let nb_inv = inv_recues.len();
 
-    let mut html = html_head("🌱 Planté Verte");
+    let mut html = html_head("🌍 La Communauté des Noirs");
     // ===== v1.89 : EN-TÊTE GRADIENT COLORÉ — attire l'œil comme Facebook 💚✨ =====
     html.push_str(r#"<style>
 .plante-hero{background:linear-gradient(135deg,#0d5c2e,#25D366 55%,#d4a437);border-radius:16px;padding:18px 20px;display:flex;align-items:center;gap:14px;box-shadow:0 6px 24px rgba(37,211,102,0.35);margin-bottom:12px;flex-wrap:wrap;}
@@ -33789,8 +33789,15 @@ fn html_plante(state: &Arc<AppState>, username: &str, msg: Option<&str>) -> Stri
 .plante-tab .pt-badge{background:#e74c3c;color:#fff;border-radius:10px;padding:0 6px;font-size:0.8em;margin-left:4px;}
 .plante-onglet{display:none;}
 .plante-onglet.actif{display:block;}
+.bogolan{height:26px;background:repeating-linear-gradient(90deg,#d4a017 0 12px,#1a1a1a 12px 14px,#fff 14px 24px,#000 24px 26px),repeating-linear-gradient(45deg,#000 0 6px,#d4a017 6px 12px);border-bottom:3px solid #000;border-radius:8px 8px 0 0;}
+.bogolan-bas{height:26px;background:repeating-linear-gradient(90deg,#d4a017 0 12px,#1a1a1a 12px 14px,#fff 14px 24px,#000 24px 26px),repeating-linear-gradient(45deg,#000 0 6px,#d4a017 6px 12px);border-top:3px solid #000;border-radius:0 0 8px 8px;margin-top:20px;}
+.com-neg-hero{background:linear-gradient(135deg,#0c3b22,#134a2a 55%,#c9a44a);border-radius:14px;padding:16px 18px;display:flex;align-items:center;gap:12px;box-shadow:0 6px 24px rgba(201,164,74,0.35);margin-bottom:12px;}
+.com-neg-hero h1{color:#fff;margin:0;font-size:1.5em;text-shadow:0 2px 4px rgba(0,0,0,0.5);font-family:serif;letter-spacing:.5px;}
+.com-neg-hero .sous{color:#f5d27a;font-size:0.8em;}
 </style>"#);
-    html.push_str(&format!(r#"<div class="plante-hero"><div style="font-size:2.2em;">🌱</div><div style="flex:1;min-width:180px;"><h1>Planté Verte</h1><div class="sous">Le réseau social de l'Afrique — tes données restent sur le continent 💚</div></div><div style="text-align:right;"><a href="/" style="color:#fff;text-decoration:none;">🏠 Accueil</a> &nbsp; <a href="/logout" style="color:#fff;text-decoration:none;">🚪</a></div></div>"#));
+    // v2.27 — LA COMMUNAUTÉ DES NOIRS : bande bogolan + nouveau nom 🎨
+    html.push_str(r#"<div class="bogolan"></div>"#);
+    html.push_str(r#"<div class="com-neg-hero"><div style="font-size:2.2em;">🌍</div><div style="flex:1;min-width:180px;"><h1>LA COMMUNAUTÉ DES NOIRS</h1><div class="sous">Le réseau social de l'Afrique — nos données restent sur le continent 💚</div></div><div style="text-align:right;"><a href="/" style="color:#fff;text-decoration:none;">🏠</a> &nbsp; <a href="/logout" style="color:#fff;text-decoration:none;">🚪</a></div></div>"#);
 
     if let Some(m) = msg {
         html.push_str(&format!(r#"<div style="padding:12px;margin:10px 0;border:1px solid #25D366;border-radius:10px;background:#0a1a0a;color:#25D366;text-align:center;">✅ {}</div>"#, m));
@@ -34046,7 +34053,8 @@ function afriMarchePublier() {
 }
 </script>"#);
 
-    html.push_str(r#"<footer style="text-align:center;margin-top:40px;color:#a8c5a8;">🌱 Planté Verte v3 — onglets, marché cliquable, notifications — tes données restent en Afrique, visibles de tes amis seulement · AfriChain v1.89</footer></body></html>"#);
+    html.push_str(r#"<div class="bogolan-bas"></div>"#);
+    html.push_str(r#"<footer style="text-align:center;margin-top:10px;color:#a8c5a8;">🌍 LA COMMUNAUTÉ DES NOIRS — nos données restent en Afrique, visibles de nos amis seulement · AfriChain v2.27</footer></body></html>"#);
     html
 }
 
@@ -34169,7 +34177,7 @@ fn html_plante_story(state: &Arc<AppState>, viewer: &str, media: &str) -> String
             } else {
                 format!(r#"<img style="width:100%;max-width:480px;border-radius:14px;display:block;" src="{}" alt="story"/>"#, url)
             };
-            html.push_str(&format!(r#"<h1>⏳ Story de <a href="/plante/profil?user={}" style="color:#25D366;">{}</a></h1><div class="nav"><a href="/plante">← Planté Verte</a></div>"#, s.author, s.author));
+            html.push_str(&format!(r#"<h1>⏳ Story de <a href="/plante/profil?user={}" style="color:#25D366;">{}</a></h1><div class="nav"><a href="/plante">← Communauté des Noirs</a></div>"#, s.author, s.author));
             html.push_str(&format!(r#"<div class="card" style="text-align:center;">{}<div style="color:#a8c5a8;font-size:0.85em;margin-top:6px;">⏳ visible encore quelques heures · ⛓️ gravée sur blockchain</div></div>"#, media_html));
             // Commentaires de la story 💬
             html.push_str(r#"<div class="card"><h2>💬 Commentaires</h2>"#);
@@ -34224,7 +34232,7 @@ fn html_plante_profil(state: &Arc<AppState>, viewer: &str, cible: &str, msg: Opt
     };
 
     let mut html = html_head("🙂 Profil Planté Verte");
-    html.push_str(&format!(r#"<h1>🙂 Profil</h1><div class="nav"><a href="/plante">← Planté Verte</a></div>"#));
+    html.push_str(&format!(r#"<h1>🙂 Profil</h1><div class="nav"><a href="/plante">← Communauté des Noirs</a></div>"#));
     if let Some(m) = msg {
         html.push_str(&format!(r#"<div style="padding:12px;margin:10px 0;border:1px solid #25D366;border-radius:10px;background:#0a1a0a;color:#25D366;text-align:center;">✅ {}</div>"#, m));
     }
@@ -35443,7 +35451,7 @@ fn html_plante_parametres(state: &Arc<AppState>, username: &str, msg: &str) -> S
     };
 
     let mut html = html_head("⚙️ Paramètres — Planté Verte");
-    html.push_str(&format!(r#"<h1>⚙️ Paramètres</h1><div class="nav"><a href="/plante">← Planté Verte</a> | <a href="/plante/profil?user={}">🙂 Mon profil</a></div>"#, username));
+    html.push_str(&format!(r#"<h1>⚙️ Paramètres</h1><div class="nav"><a href="/plante">← Communauté des Noirs</a> | <a href="/plante/profil?user={}">🙂 Mon profil</a></div>"#, username));
     if !msg.is_empty() {
         html.push_str(&format!(r#"<div style="padding:12px;margin:10px 0;border:1px solid #25D366;border-radius:10px;background:#0a1a0a;color:#25D366;text-align:center;">✅ {}</div>"#, msg));
     }
@@ -44481,7 +44489,7 @@ fn handle_request_port(req: afri_http::HttpRequest, state: &Arc<AppState>, port_
                 plante.contacts_de(&username)
             };
             let mut html = String::from(r#"<html><meta charset="utf-8"><head><meta name="viewport" content="width=device-width,initial-scale=1"><title>🔍 Rechercher — Planté Verte</title></head><body style="background:#0a1a0a;color:#e8f5e8;font-family:sans-serif;"><div style="max-width:680px;margin:0 auto;padding:12px;">"#);
-            html.push_str(&format!(r#"<h1>🔍 Rechercher des frères et sœurs</h1><div class="nav"><a href="/plante">← Planté Verte</a></div>"#));
+            html.push_str(&format!(r#"<h1>🔍 Rechercher des frères et sœurs</h1><div class="nav"><a href="/plante">← Communauté des Noirs</a></div>"#));
             if let Some(m) = &msg {
                 html.push_str(&format!(r#"<p style="color:#d4a437;text-align:center;">{}</p>"#, html_escape(m)));
             }
