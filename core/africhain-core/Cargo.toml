@@ -3,6 +3,10 @@ name = "africhain-core"
 version = "0.1.0"
 edition = "2021"
 
+[lib]
+name = "africhain_core"
+path = "src/lib.rs"
+
 [dependencies]
 sha2 = "0.10"
 hex = "0.4"

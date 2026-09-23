@@ -1,10 +1,9 @@
-[package]
-name = "africhain"
-version = "1.97.0"
+[workspace]
+members = [
+    "core/africhain-core",
+    "api/africhain-api",
+]
+
+[workspace.package]
+version = "0.1.0"
 edition = "2021"
-
-[dependencies]
-
-[[bin]]
-name = "afrihash-test"
-path = "afrihash_test.rs"
