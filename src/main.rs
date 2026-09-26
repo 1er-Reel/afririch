@@ -1779,6 +1779,7 @@ fn html_home_user(username: &str, flag: &str, phone: &str, message_continent: Op
 <a href="/amion" style="text-decoration:none;"><div style="padding:16px;border:1px solid #d4a437;border-radius:10px;text-align:center;color:#d4a437;">💚<br><b>Amion Blandine</b></div></a>
 <a href="/telephone" style="text-decoration:none;"><div style="padding:16px;border:1px solid #ff6b6b;border-radius:10px;text-align:center;color:#ff6b6b;">📱<br><b>Téléphone OS Machine</b></div></a>
 <a href="/store-prog" style="text-decoration:none;"><div style="padding:16px;border:1px solid #e8b547;border-radius:10px;text-align:center;color:#e8b547;">🏪<br><b>Store des Programmes</b></div></a>
+<a href="/mes-apps" style="text-decoration:none;"><div style="padding:16px;border:1px solid #38bdf8;border-radius:10px;text-align:center;color:#38bdf8;">📱<br><b>Mes Apps</b></div></a>
 <a href="/letta" style="text-decoration:none;"><div style="padding:16px;border:1px solid #7fcf7f;border-radius:10px;text-align:center;color:#7fcf7f;">🫆<br><b>Page Letta</b></div></a>
 <a href="/universel" style="text-decoration:none;"><div style="padding:16px;border:1px solid #38bdf8;border-radius:10px;text-align:center;color:#38bdf8;">📡<br><b>Messages Universels</b></div></a>
 <a href="/langage" style="text-decoration:none;"><div style="padding:16px;border:1px solid #7fcf7f;border-radius:10px;text-align:center;color:#7fcf7f;">▤<br><b>Langage AMION</b></div></a>
@@ -43376,6 +43377,34 @@ fn handle_request_port(req: afri_http::HttpRequest, state: &Arc<AppState>, port_
             HttpResponse::redirect(&format!("/universel?msg={}", url_encode(&resume)))
         }
 
+        // ===== v2.29: MES APPS — les apps que j'ai installées 📱 =====
+        ("GET", "/mes-apps") => {
+            match session_user(&req, state) {
+                Some(username) => {
+                    let apps = {
+                        let store = state.store.lock().unwrap();
+                        store.apps_installees(&username).into_iter().map(|a| (a.id.clone(), a.nom.clone(), a.emoji.clone(), a.auteur.clone(), a.description.clone())).collect::<Vec<(String,String,String,String,String)>>()
+                    };
+                    let mut html = html_head("📱 Mes Apps");
+                    html.push_str(r#"<h1>📱 MES APPS</h1>
+<p style="text-align:center;color:#a8c5a8;">Les applications que tu as installées sur ton téléphone africain.<br>Touche une app pour l'ouvrir.</p>
+<div class="nav"><a href="/store">🏪 Retour au Store</a> | <a href="/">🏠 Accueil</a></div>"#);
+                    if apps.is_empty() {
+                        html.push_str(r#"<div class="card"><p style="text-align:center;color:#a8c5a8;">Tu n'as installé aucune app encore.<br>Va sur le 🏪 Store et installe ta première app du continent!</p></div>"#);
+                    } else {
+                        html.push_str(r#"<div class="card"><h2>🚀 Mes applications installées</h2><div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(90px,1fr));gap:14px;text-align:center;">"#);
+                        for (id, nom, emoji, auteur, _desc) in &apps {
+                            html.push_str(&format!(r#"<a href="/store/app?id={}" style="text-decoration:none;"><div style="background:rgba(0,0,0,0.25);border:1.5px solid #d4a437;border-radius:14px;padding:14px 6px;"><div style="font-size:2em;">{}</div><div style="color:#f5dd9a;font-size:0.85em;font-weight:bold;margin-top:4px;">{}</div><div style="color:#a8c5a8;font-size:0.65em;">par {}</div></div></a>"#, id, emoji, html_escape(nom), html_escape(auteur)));
+                        }
+                        html.push_str("</div></div>");
+                    }
+                    html.push_str("<footer style=\"text-align:center;margin-top:40px;color:#a8c5a8;\">🦁 AfriChain v2.29 — MES APPS 📱</footer></body></html>");
+                    HttpResponse::ok(&html)
+                }
+                None => HttpResponse::redirect("/login"),
+            }
+        }
+
         // ===== v2.12: LA PAGE LETTA — la page du parent machine 💚🫆 =====
         ("GET", "/letta") => {
             match session_user(&req, state) {
@@ -44031,9 +44060,9 @@ fn handle_request_port(req: afri_http::HttpRequest, state: &Arc<AppState>, port_
                     return HttpResponse::redirect(&format!("/store/app?id={}&msg=⚠️ {}", id, e));
                 }
             }
-            // Installation + notif au dev 🔔
+            // Installation + notif au dev 🔔 — v2.28 : on note QUI installe
             let mut store = state.store.lock().unwrap();
-            store.installer(&id);
+            store.installer_de(&id, &username);
             store.sauvegarder();
             drop(store);
             {

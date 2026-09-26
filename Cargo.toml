@@ -1,9 +1,12 @@
+[package]
+name = "africhain"
+version = "2.28.0"
+edition = "2021"
+
+[dependencies]
+
 [workspace]
 members = [
     "core/africhain-core",
     "api/africhain-api",
 ]
-
-[workspace.package]
-version = "0.1.0"
-edition = "2021"

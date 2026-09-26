@@ -33,7 +33,7 @@ git stash pop 2>/dev/null
 
 # 4. Compiler (une seule tâche pour la RAM du téléphone)
 echo -e "${GREEN}3/4 Compilation (patiente, ne ferme pas Termux)...${NC}"
-CARGO_BUILD_JOBS=1 cargo build --release --bin africhain 2>&1 | tail -2
+CARGO_BUILD_JOBS=1 cargo build --release -p africhain --bin africhain 2>&1 | tail -2
 
 # 5. Relancer
 echo -e "${GREEN}4/4 Relance du serveur...${NC}"
